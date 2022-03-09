@@ -55,12 +55,12 @@ Please note: this takes up to about 15 minutes & "tiny-unencrypted-13" is the on
 `cf target -o dluhc-ukraine-resettlement-sponsorship -s <deployment_target_environment>`
 
 5. Deploy:\
-`cf push dluhc-ukraine-resettlement-sponsorship --strategy rolling`
+`cf push ukraine-sponsor-resettlement-<target environment> --strategy rolling`
 
 The deployment will use the manifest file based on convention (e.g. staging_manifest.yml)
 
 6. Post-deployment - check logs:\
-`cf logs dluhc-ukraine-resettlement-sponsorship-staging --recent`
+`cf logs dluhc-ukraine-resettlement-sponsorship-<target environment> --recent`
 
 #### Troubleshooting deployments
 
