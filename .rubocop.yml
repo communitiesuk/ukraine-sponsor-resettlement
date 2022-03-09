@@ -1,0 +1,22 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+
+inherit_gem:
+  rubocop-govuk:
+    - config/default.yml
+    - config/rails.yml
+    - config/rspec.yml
+
+AllCops:
+  Exclude:
+    - 'bin/*'
+    - 'db/schema.rb'
+    - 'node_modules/**/*'
+    - 'config/application.rb'
+    - 'config/puma.rb'
+    - 'vendor/**/*'
+
+Style/Documentation:
+  Enabled: false
