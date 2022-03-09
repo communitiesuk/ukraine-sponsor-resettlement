@@ -149,6 +149,7 @@ GEM
     parallel (1.21.0)
     parser (3.1.1.0)
       ast (~> 2.4.1)
+    pg (0.18.4)
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -281,6 +282,7 @@ DEPENDENCIES
   govuk-components
   govuk_design_system_formbuilder
   listen (~> 3.3)
+  pg (= 0.18.4)
   pry-byebug
   puma (~> 5.0)
   rails (~> 7.0.2)
