@@ -5,8 +5,8 @@ ruby "3.1.1"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 7.0.2"
-# Use sqlite3 as the database for Active Record
-gem "sqlite3"
+# Use postgresql as the database for Active Record
+gem "pg", "~> 1.1"
 # Use Puma as the app server
 gem "puma", "~> 5.0"
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
@@ -15,11 +15,8 @@ gem "webpacker", "~> 5.0"
 gem "govuk-components"
 # GOV UK component form builder DSL
 gem "govuk_design_system_formbuilder"
-
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.4", require: false
-
-gem "pg", "0.18.4"
 
 group :development, :test do
   # Check gems for known vulnerabilities
