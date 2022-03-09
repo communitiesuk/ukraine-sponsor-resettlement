@@ -11,7 +11,7 @@ defaults: &defaults
   health-check-http-endpoint: /health
 
 applications:
-  - name: ukraine-sponsor-resettlement-staging
+  - name: ukraine-sponsor-resettlement-sandbox
     buildpacks:
       - https://github.com/cloudfoundry/ruby-buildpack.git
     processes:
