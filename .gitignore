@@ -12,6 +12,8 @@ rerun.txt
 pickle-email-*.html
 .bash_profile
 .DS_Store
+**/.idea/
+.idea/*
 
 # Ignore all logfiles and tempfiles.
 /log/*
