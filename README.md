@@ -36,6 +36,14 @@ Local instance of Postgres running in Docker; by default data will be lost when 
 
 This application is running on GovUK PaaS (https://www.cloud.service.gov.uk/). To deploy, you need to:
 
+#### Backing services
+
+1. To create the Postgres database:\
+`cf create-service postgres tiny-unencrypted-13 ukraine-sponsor-resettlement-<target environment>-postgres`
+ 
+Please note: this takes up to about 15 minutes & "tiny-unencrypted-13" is the only size available on the free tier
+ 
+#### Deployments
 1. Contact your organisation manager to get an account in 'dluhc-ukraine-resettlement-sponsorship' organisation
 
 2. Install Cloud Foundry CLI (https://docs.cloudfoundry.org/cf-cli/install-go-cli.html)
@@ -43,7 +51,7 @@ This application is running on GovUK PaaS (https://www.cloud.service.gov.uk/). T
 3. Login:\
 `cf login -a api.london.cloud.service.gov.uk -u <your_username>`
 
-4. Set your deployment target environment (sandbox/test/staging/):\
+4. Set your deployment target environment (test/staging/):\
 `cf target -o dluhc-ukraine-resettlement-sponsorship -s <deployment_target_environment>`
 
 5. Deploy:\
