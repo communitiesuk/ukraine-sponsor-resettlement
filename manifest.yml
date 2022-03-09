@@ -1,0 +1,39 @@
+---
+defaults: &defaults
+  buildpacks:
+    - https://github.com/cloudfoundry/ruby-buildpack.git
+  processes:
+    - type: web
+      command: bundle exec rake cf:on_first_instance db:migrate && bin/rails server
+      instances: 2
+      memory: 512M
+  health-check-type: http
+  health-check-http-endpoint: /health
+
+applications:
+  - name: ukraine-sponsor-resettlement-test
+    <<: *defaults
+    env:
+      RAILS_ENV: test
+    services:
+      - ukraine-sponsor-resettlement-test-postgres
+
+  - name: ukraine-sponsor-resettlement-staging
+    <<: *defaults
+    env:
+      RAILS_ENV: staging
+    services:
+      - ukraine-sponsor-resettlement-staging-postgres
+
+  - name: ukraine-sponsor-resettlement-production
+    <<: *defaults
+    processes:
+      - type: web
+        command: bundle exec rake cf:on_first_instance db:migrate && bin/rails server
+        instances: 4
+        memory: 1G
+    env:
+      RAILS_ENV: production
+    host: submit-social-housing-lettings-sales-data
+    services:
+      - ukraine-sponsor-resettlement-production-postgres
