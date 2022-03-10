@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="govuk-template ">
   <head>
-    <title>MHCLG Data-Collector</title>
+    <title>Local Sponsorship Scheme for Ukraine</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= tag :meta, name: 'viewport', content: 'width=device-width, initial-scale=1' %>
@@ -47,7 +47,7 @@
         </div>
 
         <div class="govuk-header__content">
-          <%= link_to "Share Lettings and Sales for Social Housing in England Data with MHCLG", "/", class: "govuk-header__link govuk-header__link--service-name" %>
+          <%= link_to "Local Sponsorship Scheme for Ukraine", "/", class: "govuk-header__link govuk-header__link--service-name" %>
         </div>
       </div>
     </header>
@@ -60,7 +60,10 @@
       <div role="navigation">
         <%= content_for(:before_content) %>
       </div>
-
+      <%= govuk_phase_banner(tag: { text: "Beta" }) do %>This is a new service, your
+        <%= govuk_link_to("feedback", "#") %>
+        will help us improve it.
+      <% end %>
       <main class="govuk-main-wrapper " id="main-content" role="main">
         <%= yield %>
       </main>
@@ -76,7 +79,7 @@
               <h2 class="govuk-heading-m">Support and guidance</h2>
 
               <p class="govuk-body-s">
-                If you have a question, or you've had a problem using this service, please contact us at <%= mail_to "test@mhclg.gov.uk", "test@mhclg.gov.uk", class: "govuk-footer__link" %>
+                If you have a question, or you've had a problem using this service, please contact us at <%= mail_to "example@example.gov.uk", "example@example.gov.uk", class: "govuk-footer__link" %>
               </p>
 
             </div>

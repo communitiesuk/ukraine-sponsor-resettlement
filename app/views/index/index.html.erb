@@ -1,28 +1,25 @@
-<%= render GovukComponent::AccordionComponent.new(id: 'abc123') do |component|
-  component.section(
-    heading_text: 'Home electronics',
-    summary_text: 'Entertainment, communication and recreation',
-    expanded: true) do
-      tag.p(class: 'govuk-body') do
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-      end
-    end
+<%= govuk_breadcrumbs(breadcrumbs: [govuk_breadcrumb_link_to("Home", "https://wwww.gov.uk"),
+                                    govuk_breadcrumb_link_to("Society and Culture", "https://www.gov.uk/society-and-culture"),
+                                    govuk_breadcrumb_link_to("Community and Society", "https://www.gov.uk/society-and-culture/community-and-society")]) %>
 
-  component.section(heading_text: 'Appliances', summary_text: 'Laundry, cookers and vacuum cleaners') do
-    tag.p(class: 'govuk-body') do
-      "Ut et elementum tortor. Donec a tellus sed sem euismod congue"
-    end
-  end
+<h1 class="gem-c-title__text govuk-heading-l">
+  Local Sponsorship Scheme for Ukraine
+</h1>
 
-  component.section(heading_text: 'Toys') do
-    safe_join([
-      tag.p(class: 'govuk-body') do
-        "In et nunc vitae tortor sollicitudin ultrices. Vivamus a purus justo."
-      end,
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <p class="gem-c-lead-paragraph">The scheme will match people, charities, businesses and community groups to Ukrainians who do not have established families in the country, so they are able to come the UK.</p>
+  </div>
+</div>
 
-      tag.p(class: 'govuk-body') do
-        "Duis a turpis non nunc pulvinar venenatis quis congue mauris"
-      end
-    ])
-  end
-end %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <p class="gem-c-lead-paragraph">Express your interest in sponsoring a Ukrainian refugee by registering spare accommodation with us that can be used to accommodate a refugee.</p>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= govuk_button_link_to 'Register Your Interest', '#' %>
+  </div>
+</div>
