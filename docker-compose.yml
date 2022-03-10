@@ -10,6 +10,7 @@ services:
       POSTGRES_USER: ukraine
     ports:
       - 5432:5432
+
   app:
     build:
       dockerfile: Dockerfile-dev
@@ -25,3 +26,8 @@ services:
       DB_PASSWORD: password
     ports:
       - 8080:8080
+  
+  rubocop:
+    extends:
+      service: app
+    command: bundle exec rubocop
