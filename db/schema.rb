@@ -16,7 +16,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_10_140825) do
 
   create_table "registrations", force: :cascade do |t|
     t.uuid "reference"
-    t.boolean "is_transferred"
+    t.datetime "is_transferred"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
