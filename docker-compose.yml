@@ -25,5 +25,3 @@ services:
       DB_PASSWORD: password
     ports:
       - 8080:8080
-    depends_on:
-      - pg
