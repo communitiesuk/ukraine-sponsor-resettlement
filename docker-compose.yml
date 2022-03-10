@@ -1,0 +1,29 @@
+version: '3.3'
+
+services:
+  pg:
+    image: postgres:13.5-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ukraine
+      POSTGRES_USER: ukraine
+    ports:
+      - 5432:5432
+  app:
+    build:
+      dockerfile: Dockerfile-dev
+    depends_on:
+      - pg
+    volumes:
+      - .:/app
+    environment:
+      RAILS_ENV: development
+      DB_HOST: pg
+      DB_DATABASE: ukraine
+      DB_USERNAME: ukraine
+      DB_PASSWORD: password
+    ports:
+      - 8080:8080
+    depends_on:
+      - pg
