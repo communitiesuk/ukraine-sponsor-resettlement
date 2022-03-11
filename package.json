@@ -9,5 +9,9 @@
   },
   "devDependencies": {
     "webpack-dev-server": "^4.7.4"
+  },
+  "resolutions": {
+    "glob-parent": "^6.0.2",
+    "nth-check": "^2.0.1"
   }
 }
