@@ -12,7 +12,6 @@
   },
   "resolutions": {
     "glob-parent": "^6.0.2",
-    "nth-check": "^2.0.1",
-    "ansi-regex": "^6.0.1"
+    "nth-check": "^2.0.1"
   }
 }
