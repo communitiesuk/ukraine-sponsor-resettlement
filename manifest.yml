@@ -24,6 +24,7 @@ applications:
       RAILS_ENV: staging
     services:
       - ukraine-sponsor-resettlement-staging-postgres
+      - ukraine-sponsor-resettlement-staging-redis
 
   - name: ukraine-sponsor-resettlement-production
     <<: *defaults

@@ -18,6 +18,9 @@ gem "govuk_design_system_formbuilder"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.4", require: false
 
+gem "rack-attack"
+gem "redis"
+
 group :development, :test do
   # Check gems for known vulnerabilities
   gem "bundler-audit"
