@@ -1,6 +1,64 @@
-<p><%= @application.sponsor_type %></p>
-<p><%= @application.family_or_single_type %></p>
-<p><%= @application.living_space_type %></p>
-<%= form_for @application, url: "/individual", method: :post do |f| %>
-  <%= f.govuk_submit t('Submit') %>
-<% end %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+
+    <h1 class="govuk-heading-l">Check your answers before sending your application</h1>
+
+    <h2 class="govuk-heading-m">Application details</h2>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Sponsor type
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.sponsor_type %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/individual/steps/1">
+            Change<span class="govuk-visually-hidden"> sponsor type</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Family or individual
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.family_or_single_type %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/individual/steps/2">
+            Change<span class="govuk-visually-hidden"> family or individual selection</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Living space type
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.living_space_type %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/individual/steps/3">
+            Change<span class="govuk-visually-hidden"> living space type</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+
+    <h2 class="govuk-heading-m">Now send your application</h2>
+
+    <p class="govuk-body">By submitting this application you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>
+
+    <%= form_for @application, url: "/individual", method: :post do |f| %>
+      <%= f.govuk_submit t('Accept and send') %>
+    <% end %>
+  </div>
+</div>
