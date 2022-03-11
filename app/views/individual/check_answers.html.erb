@@ -8,10 +8,10 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          Sponsor type
+          <%= t('sponsor_type.short', scope: "individual.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= @application.sponsor_type %>
+          <%= t(@application.sponsor_type, scope: "individual.sponsor_type") %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/individual/steps/1">
@@ -24,10 +24,10 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          Family or individual
+          <%= t('family_single.short', scope: "individual.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= @application.family_or_single_type %>
+          <%= t(@application.family_or_single_type, scope: "individual.sponsor_type") %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/individual/steps/2">
@@ -40,10 +40,10 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          Living space type
+          <%= t('living_space.short', scope: "individual.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= @application.living_space_type %>
+          <%= t(@application.living_space_type, scope: "individual.sponsor_type") %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/individual/steps/3">

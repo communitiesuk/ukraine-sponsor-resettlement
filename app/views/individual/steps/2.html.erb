@@ -2,10 +2,10 @@
   <div class="govuk-grid-column-two-thirds">
     <%= form_for @application, url: "/individual/steps/2", method: :post do |f| %>
       <%= f.govuk_collection_radio_buttons :family_or_single_type,
-          @application.family_or_single_types.map{ |o| OpenStruct.new(id: o, name: o) },
+          @application.family_or_single_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "individual.family_or_single_type")) },
           :id,
           :name,
-          legend: { text: 'Are you willing to sponsor a family or a single person?' }
+          legend: { text: t('family_single.full', scope: "individual.questions") }
       %>
       <%= f.govuk_submit t('continue') %>
     <% end %>

@@ -30,4 +30,27 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  individual:
+    questions:
+      sponsor_type:
+        short: Sponsor type
+        full: Who would you like to sponsor?
+      family_single:
+        short: Family or individual
+        full: Are you willing to sponsor a family or a single person?
+      living_space:
+        short: Living space type
+        full: What type of living space can you offer?
+    sponsor_type:
+      family_member: Family Member
+      friend_or_colleague: Friend or Colleague
+      unknown_person: Unknown Person
+    family_or_single_type:
+      family: Family
+      single: Single person
+      no_prefence: No preference
+    living_space_type:
+      rooms_in_home: Rooms in your home
+      self_contained_property: A self-contained property (includes at least 1 bedroom, bathroom and kitchen)
+  error:
+    choose_option: Please choose one of the options
