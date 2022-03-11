@@ -126,9 +126,13 @@ jobs:
           CF_ORG: ${{ secrets.CF_ORG }}
           APP_NAME: ukraine-sponsor-resettlement-staging
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
+          BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
         run: |
           cf api $CF_API_ENDPOINT
           cf auth
           cf target -o $CF_ORG -s $CF_SPACE
           cf set-env $APP_NAME RAILS_MASTER_KEY $RAILS_MASTER_KEY
+          cf set-env $APP_NAME BASIC_AUTH_USER $BASIC_AUTH_USER
+          cf set-env $APP_NAME BASIC_AUTH_PASS $BASIC_AUTH_PASS
           cf push $APP_NAME --strategy rolling
