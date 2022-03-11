@@ -1,0 +1,6 @@
+<p><%= @application.sponsor_type %></p>
+<p><%= @application.family_or_single_type %></p>
+<p><%= @application.living_space_type %></p>
+<%= form_for @application, url: "/individual", method: :post do |f| %>
+  <%= f.govuk_submit t('Submit') %>
+<% end %>
