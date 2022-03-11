@@ -25,13 +25,9 @@ services:
       DB_USERNAME: ukraine
       DB_PASSWORD: password
     ports:
-<<<<<<< HEAD
       - 8080:8080
-=======
-      - 8080:8080
-  
+
   rubocop:
     extends:
       service: app
     command: bundle exec rubocop
->>>>>>> b388508fad2cf547fdc3a6f44069cc31d01534be
