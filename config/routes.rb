@@ -3,4 +3,6 @@ Rails.application.routes.draw do
   get "/", to: "index#index"
 
   get "/health", to: ->(_) { [204, {}, [nil]] }
+
+  get "/form", to: "form#display"
 end
