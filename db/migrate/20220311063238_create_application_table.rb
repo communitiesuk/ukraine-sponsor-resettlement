@@ -4,10 +4,10 @@ class CreateApplicationTable < ActiveRecord::Migration[7.0]
 
     create_table :applications, id: :uuid do |t|
       t.string :reference
-      t.string :fullname, :limit => 128, :null => true
-      t.string :email, :limit => 128, :null => true
-      t.json :answers, :null => true
-      t.datetime :transferred_at, :null => true
+      t.string :fullname, limit: 128, null: true
+      t.string :email, limit: 128, null: true
+      t.json :answers, null: true
+      t.datetime :transferred_at, null: true
       t.timestamps
     end
   end
