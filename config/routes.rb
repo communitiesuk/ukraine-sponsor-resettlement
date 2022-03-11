@@ -10,4 +10,10 @@ Rails.application.routes.draw do
   get "/individual/check_answers", to: "individual#check_answers"
   post "/individual", to: "individual#submit"
   get "/individual/confirm", to: "individual#confirm"
+
+  scope via: :all do
+    match "/404", to: "errors#not_found"
+    match "/429", to: "errors#too_many_requests"
+    match "/500", to: "errors#internal_server_error"
+  end
 end
