@@ -1,3 +1,5 @@
+require "securerandom"
+
 class Application < ApplicationRecord
   attr_accessor :sponsor_types, :family_or_single_types, :living_space_types, :sponsor_type, :family_or_single_type, :living_space_type
 
@@ -9,6 +11,7 @@ class Application < ApplicationRecord
 
   after_initialize :after_initialize
   before_save :serialize
+  before_save :generate_reference
 
   def after_initialize
     @sponsor_types = ["Family Member", "Friend or Colleague", "Unknown Person"]
@@ -38,7 +41,13 @@ class Application < ApplicationRecord
     { sponsor_type:, family_or_single_type:, living_space_type: }
   end
 
+private
+
   def serialize
     self.answers = answers
+  end
+
+  def generate_reference
+    self.reference = SecureRandom.base64(99).gsub!(/[+=\/]/, "*")[0, 10].downcase
   end
 end
