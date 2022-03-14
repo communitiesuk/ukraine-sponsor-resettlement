@@ -165,7 +165,7 @@ jobs:
           CF_API_ENDPOINT: ${{ secrets.CF_API_ENDPOINT }}
           CF_SPACE: ${{ secrets.CF_SPACE }}
           CF_ORG: ${{ secrets.CF_ORG }}
-          APP_NAME: ukraine-sponsor-resettlement-staging
+          APP_NAME: ukraine-sponsor-resettlement-production
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
           BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
