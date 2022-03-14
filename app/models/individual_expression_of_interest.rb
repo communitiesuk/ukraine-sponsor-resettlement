@@ -70,7 +70,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
       fullname:,
       email:,
       mobile_number:,
-      reference:, }.compact
+      reference: }.compact
   end
 
 private
