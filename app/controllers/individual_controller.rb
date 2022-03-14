@@ -51,6 +51,6 @@ private
     params.require(:application).permit(:sponsor_type, :family_or_single_type, :living_space_type,
                                         :mobility_impairments_type, :single_room_count, :double_room_count, :postcode,
                                         :accommodation_length_type, :dbs_certificate_type, :answer_more_questions_type,
-                                        :fullname, :email, :mobile_number, :reference)
+                                        :fullname, :email, :mobile_number)
   end
 end
