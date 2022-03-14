@@ -54,10 +54,10 @@ en:
         short: Property postcode
         full: Enter the postcode of the main property you’re offering.
       accommodation_length:
-        short: accomodation length
+        short: Accomodation length
         full: How long can you offer accommodation?
       dbs_certificate:
-        short: Disclouse and Barring Service certificate
+        short: Disclosure and Barring Service certificate
         full: Do you have a current Disclosure and Barring Service (DBS) certificate?
       answer_more_questions:
         short: Willing to answer more questions
