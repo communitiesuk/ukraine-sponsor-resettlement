@@ -13,11 +13,21 @@ class Application < ApplicationRecord
   before_save :serialize
   before_save :generate_reference
 
+  after_find do
+    assign_attributes(answers)
+  end
+
   def after_initialize
     @sponsor_types = %i[family_member friend_or_colleague unknown_person]
     @family_or_single_types = %i[family single no_preference]
     @living_space_types = %i[rooms_in_home self_contained_property]
   end
+
+  def as_json
+    { sponsor_type:, family_or_single_type:, living_space_type: }.compact
+  end
+
+private
 
   def validate_sponsor_type
     unless @sponsor_types.include?(@sponsor_type.to_sym)
@@ -37,17 +47,11 @@ class Application < ApplicationRecord
     end
   end
 
-  def answers
-    { sponsor_type:, family_or_single_type:, living_space_type: }
-  end
-
-private
-
   def serialize
-    self.answers = answers
+    self.answers = as_json
   end
 
   def generate_reference
-    self.reference = SecureRandom.base64(99).gsub!(/[+=\/]/, "")[0, 10].downcase
+    self.reference ||= SecureRandom.base64(99).gsub!(/[+=\/]/, "")[0, 10].downcase
   end
 end

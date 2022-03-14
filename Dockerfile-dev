@@ -9,12 +9,15 @@ RUN apk add --update --no-cache tzdata && cp /usr/share/zoneinfo/Europe/London /
 
 RUN apk add --no-cache build-base yarn postgresql-dev git bash gcompat
 
-# Install bundler to run bundle exec
-# This should be the same version as the Gemfile.lock
-RUN gem install bundler:2.3.7 --no-document
+ADD Gemfile /app/Gemfile
+ADD Gemfile.lock /app/Gemfile.lock
+
+RUN gem install bundler:2.3.7 --no-document && \
+  bundle install && \
+  yarn install
 
 ENV PORT=8080
 
-EXPOSE ${PORT}
+CMD RAILS_ENV=${RAILS_ENV} rm -f /app/tmp/pids/server.pid && bundle exec rake db:migrate && bundle exec rails s -e ${RAILS_ENV} -p ${PORT} --binding=0.0.0.0
 
-CMD RAILS_ENV=${RAILS_ENV} rm -f /app/tmp/pids/server.pid && bundle install && yarn install && bundle exec rake db:migrate && bundle exec rails s -e ${RAILS_ENV} -p ${PORT} --binding=0.0.0.0
+EXPOSE ${PORT}

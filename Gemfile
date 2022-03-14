@@ -20,6 +20,7 @@ gem "bootsnap", ">= 1.4.4", require: false
 
 gem "rack-attack"
 gem "redis"
+gem "sidekiq"
 
 group :development, :test do
   # Check gems for known vulnerabilities
@@ -28,7 +29,7 @@ group :development, :test do
   gem "byebug", platforms: %i[mri mingw x64_mingw]
   gem "dotenv-rails"
   gem "pry-byebug"
-  gem "rspec"
+  gem "rspec-rails"
   gem "rubocop-govuk", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
