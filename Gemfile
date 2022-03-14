@@ -34,6 +34,8 @@ group :development, :test do
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "scss_lint-govuk"
+  # GovUK Notify notifications and client
+  gem 'mail-notify'
 end
 
 group :development do

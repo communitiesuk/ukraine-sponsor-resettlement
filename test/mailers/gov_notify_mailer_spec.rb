@@ -1,5 +1,11 @@
-RSpec.describe "Gov Notify Mailer" do
+require "./app/mailers/gov_notify_mailer"
+
+describe "Gov Notify Mailer" do
   context "when sponsor has completed their application form" do
-    let(:notify_client) { instance_double(Notifications::Client) }
+    it "sends application complete email" do
+      expect(GovNotifyMailer).to receive(:send_email)
+
+      GovNotifyMailer.send_email()
+    end
   end
 end

@@ -114,6 +114,7 @@ GEM
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
     io-wait (0.2.1)
+    jwt (2.3.0)
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -122,6 +123,13 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
+    mail-notify (1.0.4)
+      actionmailer (>= 5.2.4.3)
+      actionpack (>= 5.2.4.3)
+      actionview (>= 5.2.4.3)
+      activesupport (>= 5.2.4.3)
+      notifications-ruby-client (~> 5.1)
+      rack (>= 2.1.4)
     marcel (1.0.2)
     matrix (0.4.2)
     method_source (1.0.0)
@@ -152,6 +160,8 @@ GEM
       racc (~> 1.4)
     nokogiri (1.13.3-x86_64-linux)
       racc (~> 1.4)
+    notifications-ruby-client (5.3.0)
+      jwt (>= 1.5, < 3)
     parallel (1.21.0)
     parser (3.1.1.0)
       ast (~> 2.4.1)
@@ -313,6 +323,7 @@ DEPENDENCIES
   govuk-components
   govuk_design_system_formbuilder
   listen (~> 3.3)
+  mail-notify
   pg (~> 1.1)
   pry-byebug
   puma (~> 5.0)
