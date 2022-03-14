@@ -6,7 +6,7 @@ class IndividualController < ApplicationController
   end
 
   def handle_step
-    max_steps = 3
+    max_steps = 9
     # Pull session data out of session and
     # instantiate new Application AactiveRecord object
     @application = Application.new(session[:application])
@@ -37,11 +37,15 @@ class IndividualController < ApplicationController
     redirect_to "/individual/confirm"
   end
 
-  def confirm; end
+  def confirm;
+    @application = Application.new(session[:application])
+  end
 
 private
 
   def application_params
-    params.require(:application).permit(:sponsor_type, :family_or_single_type, :living_space_type)
+    params.require(:application).permit(:sponsor_type, :family_or_single_type, :living_space_type,
+                                        :mobility_impairments_type, :single_room_count, :double_room_count, :postcode,
+                                        :accommodation_length_type, :dbs_certificate_type)
   end
 end

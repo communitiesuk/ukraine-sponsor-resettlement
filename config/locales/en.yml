@@ -41,6 +41,33 @@ en:
       living_space:
         short: Living space type
         full: What type of living space can you offer?
+      mobility_impairments:
+        short: Mobility impaired accessible property
+        full: Is the entire property accessible to people with mobility impairments?
+      number_of_single_rooms:
+        short: Single rooms available
+        full: How many single rooms do you have available?
+      number_of_double_rooms:
+        short: Double rooms available
+        full: How many double rooms do you have available?
+      postcode:
+        short: Property postcode
+        full: Enter the postcode of the main property you’re offering.
+      accommodation_length:
+        short: accomodation length
+        full: How long can you offer accommodation?
+      dbs_certificate:
+        short: Disclouse and Barring Service certificate
+        full: Do you have a current Disclosure and Barring Service (DBS) certificate?
+      name:
+        short: Name
+        full: Enter your full name
+      email:
+        short: Email
+        full: Enter your email address
+      mobile_number:
+        short: Mobile number
+        full: Enter your mobile number
     sponsor_type:
       family_member: Family Member
       friend_or_colleague: Friend or Colleague
@@ -52,5 +79,21 @@ en:
     living_space_type:
       rooms_in_home: Rooms in your home
       self_contained_property: A self-contained property (includes at least 1 bedroom, bathroom and kitchen)
+    mobility_impairments_type:
+      yes: Yes
+      no: No
+      dont_know: I don't know
+    accommodation_length_type:
+      less_than_3_months: Less than 3 months
+      3_to_6_months: 3 to 6 months
+      6_to_12_months: 6 to 12 months
+      more_than_12_months: More than 12 months
+    dbs_certificate_type:
+      yes: Yes
+      no_but_willing: No, but I am willing to have a DBS check
+      no: No
+
   error:
     choose_option: Please choose one of the options
+    invalid_number: Please enter a non-negative whole number
+    invalid_postcode: Please enter a valid UK postcode

@@ -1,0 +1,13 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_for @application, url: "/individual/steps/9", method: :post do |f| %>
+      <%= f.govuk_collection_radio_buttons :dbs_certificate_type,
+        @application.dbs_certificate_types.map{|type| OpenStruct.new(id: type, name: t(type, scope: "individual.dbs_certificate_type")) },
+        :id,
+        :name,
+        legend: { text: t('dbs_certificate.full', scope: "individual.questions") }
+      %>
+      <%= f.govuk_submit t('continue') %>
+    <% end %>
+  </div>
+</div>

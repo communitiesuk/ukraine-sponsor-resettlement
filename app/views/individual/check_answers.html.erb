@@ -53,6 +53,102 @@
       </div>
     </dl>
 
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('mobility_impairments.short', scope: "individual.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(@application.mobility_impairments_type, scope: "individual.mobility_impairments_type") %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/individual/steps/4">
+            Change<span class="govuk-visually-hidden"> mobility impairment choice</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('number_of_single_rooms.short', scope: "individual.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(@application.single_room_count) %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/individual/steps/5">
+            Change<span class="govuk-visually-hidden"> single rooms available</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('number_of_double_rooms.short', scope: "individual.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(@application.double_room_count) %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/individual/steps/6">
+            Change<span class="govuk-visually-hidden"> double rooms available</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('postcode.short', scope: "individual.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(@application.postcode) %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/individual/steps/7">
+            Change<span class="govuk-visually-hidden"> postcode</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('accommodation_length.short', scope: "individual.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(@application.accommodation_length_type, scope: "individual.accommodation_length_type") %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/individual/steps/8">
+            Change<span class="govuk-visually-hidden"> accommodation length</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('dbs_certificate.short', scope: "individual.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(@application.dbs_certificate_type, scope: "individual.dbs_certificate_type") %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/individual/steps/9">
+            Change<span class="govuk-visually-hidden"> dbs check response</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+
     <h2 class="govuk-heading-m">Now send your application</h2>
 
     <p class="govuk-body">By submitting this application you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>

@@ -1,0 +1,13 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_for @application, url: "/individual/steps/8", method: :post do |f| %>
+      <%= f.govuk_collection_radio_buttons :accommodation_length_type,
+        @application.accommodation_length_types.map{|type| OpenStruct.new(id: type, name: t(type, scope: "individual.accommodation_length_type")) },
+        :id,
+        :name,
+        legend: { text: t('accommodation_length.full', scope: "individual.questions") }
+      %>
+      <%= f.govuk_submit t('continue') %>
+    <% end %>
+  </div>
+</div>
