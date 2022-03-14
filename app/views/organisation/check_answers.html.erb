@@ -8,13 +8,13 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('sponsor_type.short', scope: "individual.questions") %>
+          <%= t('sponsor_type.short', scope: "organisation.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(@application.sponsor_type, scope: "individual.sponsor_type") %>
+          <%= t(@application.sponsor_type, scope: "organisation.sponsor_type") %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/individual/steps/1">
+          <a class="govuk-link" href="/organisation/steps/1">
             Change<span class="govuk-visually-hidden"> sponsor type</span>
           </a>
         </dd>
@@ -24,14 +24,14 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('family_single.short', scope: "individual.questions") %>
+          <%= t('living_space.short', scope: "organisation.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(@application.family_or_single_type, scope: "individual.sponsor_type") %>
+          <%= t(@application.living_space, scope: "organisation.living_space_types") %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/individual/steps/2">
-            Change<span class="govuk-visually-hidden"> family or individual selection</span>
+          <a class="govuk-link" href="/organisation/steps/2">
+            Change<span class="govuk-visually-hidden"> living space type selection</span>
           </a>
         </dd>
       </div>
@@ -40,14 +40,14 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('living_space.short', scope: "individual.questions") %>
+          <%= t('step_free.short', scope: "organisation.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(@application.living_space_type, scope: "individual.sponsor_type") %>
+          <%= t(@application.step_free, scope: "organisation.step_free") %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/individual/steps/3">
-            Change<span class="govuk-visually-hidden"> living space type</span>
+          <a class="govuk-link" href="/organisation/steps/3">
+            Change<span class="govuk-visually-hidden"> step free type</span>
           </a>
         </dd>
       </div>
@@ -56,14 +56,14 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('mobility_impairments.short', scope: "individual.questions") %>
+          <%= t('single_room_count.short', scope: "organisation.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(@application.mobility_impairments_type, scope: "individual.mobility_impairments_type") %>
+          <%= t(@application.single_room_count, scope: "organisation.single_room_count") %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/individual/steps/4">
-            Change<span class="govuk-visually-hidden"> mobility impairment choice</span>
+          <a class="govuk-link" href="/organisation/steps/4">
+            Change<span class="govuk-visually-hidden"> single room count choice</span>
           </a>
         </dd>
       </div>
@@ -72,29 +72,13 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('single_room_count.short', scope: "individual.questions") %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= t(@application.single_room_count) %>
-        </dd>
-        <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/individual/steps/5">
-            Change<span class="govuk-visually-hidden"> single rooms available</span>
-          </a>
-        </dd>
-      </div>
-    </dl>
-
-    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= t('double_room_count.short', scope: "individual.questions") %>
+          <%= t('double_room_count.short', scope: "organisation.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
           <%= t(@application.double_room_count) %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/individual/steps/6">
+          <a class="govuk-link" href="/organisation/steps/5">
             Change<span class="govuk-visually-hidden"> double rooms available</span>
           </a>
         </dd>
@@ -104,13 +88,29 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('postcode.short', scope: "individual.questions") %>
+          <%= t('double_room_count.short', scope: "organisation.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(@application.double_room_count) %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/organisation/steps/6">
+            Change<span class="govuk-visually-hidden"> double rooms available</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('postcode.short', scope: "organisation.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
           <%= @application.postcode %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/individual/steps/7">
+          <a class="govuk-link" href="/organisation/steps/7">
             Change<span class="govuk-visually-hidden"> postcode</span>
           </a>
         </dd>
@@ -120,14 +120,14 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('accommodation_length.short', scope: "individual.questions") %>
+          <%= t('organisation_name.short', scope: "organisation.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(@application.accommodation_length_type, scope: "individual.accommodation_length_type") %>
+          <%= t(@application.organisation_name, scope: "organisation.organisation_name") %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/individual/steps/8">
-            Change<span class="govuk-visually-hidden"> accommodation length</span>
+          <a class="govuk-link" href="/organisation/steps/8">
+            Change<span class="govuk-visually-hidden"> organisation name</span>
           </a>
         </dd>
       </div>
@@ -136,14 +136,14 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('dbs_certificate.short', scope: "individual.questions") %>
+          <%= t('organisation_type.short', scope: "organisation.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(@application.dbs_certificate_type, scope: "individual.dbs_certificate_type") %>
+          <%= t(@application.organisation_type, scope: "organisation.organisation_type") %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/individual/steps/9">
-            Change<span class="govuk-visually-hidden"> dbs check response</span>
+          <a class="govuk-link" href="/organisation/steps/9">
+            Change<span class="govuk-visually-hidden"> organisation type</span>
           </a>
         </dd>
       </div>
@@ -152,13 +152,13 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('answer_more_questions.short', scope: "individual.questions") %>
+          <%= t('answer_more_questions.short', scope: "organisation.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(@application.answer_more_questions_type, scope: "individual.answer_more_questions_type") %>
+          <%= t(@application.answer_more_questions, scope: "organisation.answer_more_questions") %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/individual/steps/10">
+          <a class="govuk-link" href="/organisation/steps/10">
             Change<span class="govuk-visually-hidden"> willing to answer more questions</span>
           </a>
         </dd>
@@ -168,13 +168,13 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('fullname.short', scope: "individual.questions") %>
+          <%= t('fullname.short', scope: "organisation.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
           <%= @application.fullname %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/individual/steps/11">
+          <a class="govuk-link" href="/organisation/steps/11">
             Change<span class="govuk-visually-hidden"> full name</span>
           </a>
         </dd>
@@ -184,13 +184,13 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('email.short', scope: "individual.questions") %>
+          <%= t('email.short', scope: "organisation.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
           <%= @application.email %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/individual/steps/12">
+          <a class="govuk-link" href="/organisation/steps/12">
             Change<span class="govuk-visually-hidden"> email</span>
           </a>
         </dd>
@@ -200,14 +200,30 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('mobile_number.short', scope: "individual.questions") %>
+          <%= t('phone_number.short', scope: "organisation.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= @application.mobile_number %>
+          <%= @application.phone_number %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/individual/steps/13">
-            Change<span class="govuk-visually-hidden"> mobile number</span>
+          <a class="govuk-link" href="/organisation/steps/13">
+            Change<span class="govuk-visually-hidden"> phone number</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('privacy.short', scope: "organisation.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.privacy %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/organisation/steps/14">
+            Change<span class="govuk-visually-hidden"> phone number</span>
           </a>
         </dd>
       </div>
@@ -217,7 +233,7 @@
 
     <p class="govuk-body">By submitting this application you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>
 
-    <%= form_for @application, url: "/individual", method: :post do |f| %>
+    <%= form_for @application, url: "/organisation", method: :post do |f| %>
       <%= f.govuk_submit t('Accept and send') %>
     <% end %>
   </div>

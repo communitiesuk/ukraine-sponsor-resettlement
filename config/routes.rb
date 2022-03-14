@@ -11,6 +11,13 @@ Rails.application.routes.draw do
   post "/individual", to: "individual#submit"
   get "/individual/confirm", to: "individual#confirm"
 
+  get "/organisation", to: redirect("/organisation/steps/1")
+  get "/organisation/steps/:stage", to: "organisation#display"
+  post "/organisation/steps/:stage", to: "organisation#handle_step"
+  get "/organisation/check_answers", to: "organisation#check_answers"
+  post "/organisation", to: "organisation#submit"
+  get "/organisation/confirm", to: "organisation#confirm"
+
   scope via: :all do
     match "/404", to: "errors#not_found"
     match "/429", to: "errors#too_many_requests"

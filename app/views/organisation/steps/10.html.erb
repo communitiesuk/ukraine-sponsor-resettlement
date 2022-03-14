@@ -1,0 +1,13 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_for @application, url: "/organisation/steps/10", method: :post do |f| %>
+      <%= f.govuk_collection_radio_buttons :answer_more_questions,
+        @application.answer_more_questions_types.map{|type| OpenStruct.new(id: type, name: t(type, scope: "organisation.answer_more_questions_types")) },
+        :id,
+        :name,
+        legend: { text: t('answer_more_questions.full', scope: "organisation.questions") }
+      %>
+      <%= f.govuk_submit t('continue') %>
+    <% end %>
+  </div>
+</div>
