@@ -15,3 +15,7 @@ stop:
 .PHONY: test
 test:
 	docker-compose up test
+
+.PHONY: cf
+cf:
+	docker run -it --mount src=`pwd`,target=/home/piper/app,type=bind ppiper/cf-cli:latest /bin/bash

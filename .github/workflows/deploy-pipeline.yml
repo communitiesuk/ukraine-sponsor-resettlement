@@ -177,6 +177,7 @@ jobs:
           cf target -o $CF_ORG -s $CF_SPACE
           cf set-env $APP_NAME RAILS_MASTER_KEY $RAILS_MASTER_KEY
           cf set-env $APP_NAME BASIC_AUTH_USER $BASIC_AUTH_USER
+          cf set-env $APP_NAME BASIC_AUTH_PASS $BASIC_AUTH_PASS
           cf set-env $APP_NAME REMOTE_API_URL $REMOTE_API_URL
           cf set-env $APP_NAME REMOTE_API_TOKEN $REMOTE_API_TOKEN
           cf push $APP_NAME --strategy rolling

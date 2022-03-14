@@ -35,7 +35,7 @@ applications:
     processes:
       - type: web
         command: bundle exec rake cf:on_first_instance db:migrate && bin/rails server
-        instances: 16
+        instances: 4
         memory: 1G
       - type: sidekiq
         command: bundle exec sidekiq
