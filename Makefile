@@ -15,7 +15,10 @@ stop:
 .PHONY: test
 test:
 	docker-compose up --build test
+<<<<<<< HEAD
 
 .PHONY: cf
 cf:
 	docker run -it --mount src=`pwd`,target=/home/piper/app,type=bind ppiper/cf-cli:latest /bin/bash
+=======
+>>>>>>> 971beff... Add build command
