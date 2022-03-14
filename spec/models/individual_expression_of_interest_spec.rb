@@ -1,10 +1,10 @@
 require "rails_helper"
 
-RSpec.describe Application, type: :model do
+RSpec.describe IndividualExpressionOfInterest, type: :model do
   describe "deserialising json into attributes" do
     it "sets attributes based on the json column on load" do
       answers = { sponsor_type: "family_member", family_or_single_type: "family", living_space_type: "rooms_in_home" }
-      id = ActiveRecord::Base.connection.insert("INSERT INTO applications (answers, created_at, updated_at) VALUES ('#{JSON.generate(answers)}', NOW(), NOW())")
+      id = ActiveRecord::Base.connection.insert("INSERT INTO individual_expressions_of_interest (answers, created_at, updated_at) VALUES ('#{JSON.generate(answers)}', NOW(), NOW())")
       record = described_class.find(id)
       expect(record.sponsor_type).to eq(answers[:sponsor_type])
       expect(record.family_or_single_type).to eq(answers[:family_or_single_type])

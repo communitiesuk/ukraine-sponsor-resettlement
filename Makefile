@@ -14,7 +14,7 @@ stop:
 
 .PHONY: test
 test:
-	docker-compose up test
+	docker-compose up --build test
 
 .PHONY: cf
 cf:
