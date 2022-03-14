@@ -17,6 +17,8 @@ gem "govuk-components"
 gem "govuk_design_system_formbuilder"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.4", require: false
+# GovUK Notify notifications and client
+gem "govuk_notify_rails"
 
 gem "rack-attack"
 gem "redis"
@@ -34,8 +36,6 @@ group :development, :test do
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "scss_lint-govuk"
-  # GovUK Notify notifications and client
-  gem 'mail-notify'
 end
 
 group :development do

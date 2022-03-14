@@ -111,6 +111,9 @@ GEM
       activemodel (>= 6.1)
       activesupport (>= 6.1)
       deep_merge (~> 1.2.1)
+    govuk_notify_rails (2.2.0)
+      notifications-ruby-client (~> 5.1)
+      rails (>= 4.1.0)
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
     io-wait (0.2.1)
@@ -123,13 +126,6 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
-    mail-notify (1.0.4)
-      actionmailer (>= 5.2.4.3)
-      actionpack (>= 5.2.4.3)
-      actionview (>= 5.2.4.3)
-      activesupport (>= 5.2.4.3)
-      notifications-ruby-client (~> 5.1)
-      rack (>= 2.1.4)
     marcel (1.0.2)
     matrix (0.4.2)
     method_source (1.0.0)
@@ -322,8 +318,8 @@ DEPENDENCIES
   dotenv-rails
   govuk-components
   govuk_design_system_formbuilder
+  govuk_notify_rails
   listen (~> 3.3)
-  mail-notify
   pg (~> 1.1)
   pry-byebug
   puma (~> 5.0)
