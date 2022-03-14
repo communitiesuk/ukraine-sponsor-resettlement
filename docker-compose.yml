@@ -17,6 +17,8 @@ services:
       context: .
     depends_on:
       - pg
+      - redis
+      - sidekiq
     volumes:
       - .:/app
     environment:
@@ -31,5 +33,51 @@ services:
     ports:
       - 8080:8080
 
+  test:
+    build:
+      dockerfile: Dockerfile-dev
+      context: .
+    depends_on:
+      - pg
+      - redis
+    volumes:
+      - .:/app
+    environment:
+      RAILS_ENV: test
+      DB_HOST: pg
+      DB_USERNAME: ukraine
+      DB_DATABASE: ukraine_test
+      DB_PASSWORD: password
+      VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-test-redis", "credentials":{"uri":"redis://redis"}}]}'
+      REMOTE_API_URL: http://mock-api:8081/data
+    command: bin/test.sh
+
+  sidekiq:
+    build:
+      dockerfile: Dockerfile-dev
+      context: .
+    depends_on:
+      - pg
+      - redis
+      - mock-api
+    volumes:
+      - .:/app
+    environment:
+      RAILS_ENV: development
+      DB_HOST: pg
+      DB_DATABASE: ukraine
+      DB_USERNAME: ukraine
+      DB_PASSWORD: password
+      VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-development-redis", "credentials":{"uri":"redis://redis"}}]}'
+      REMOTE_API_URL: http://mock-api:8081/data
+    command: bundle exec sidekiq
+
   redis:
     image: redis
+
+  mock-api:
+    build:
+      dockerfile: Dockerfile
+      context: test/http-mock-server
+    ports:
+      - 8081:8081

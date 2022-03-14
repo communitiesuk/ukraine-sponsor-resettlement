@@ -60,12 +60,15 @@ jobs:
       - name: Create DB
         run: |
           bundle exec rake db:prepare
+      - name: Migrate DB
+        run: |
+          bundle exec rake db:migrate
       - name: Compile Assets
         run: |
           bundle exec rake assets:precompile
       - name: Run tests
         run: |
-          bundle exec rspec
+          bundle exec rake
   lint:
     name: Lint
     runs-on: ubuntu-latest
