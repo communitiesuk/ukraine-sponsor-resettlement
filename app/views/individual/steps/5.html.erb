@@ -1,8 +1,8 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_for @application, url: "/individual/steps/5", method: :post do |f| %>
-      <%= f.govuk_text_field :single_room_count,
-        label: { text: t('number_of_single_rooms.full', scope: "individual.questions") },
+      <%= f.govuk_text_field :double_room_count,
+        label: { text: t('number_of_double_rooms.full', scope: "individual.questions") },
         type: "number",
         min: 0
       %>
@@ -10,4 +10,3 @@
     <% end %>
   </div>
 </div>
-

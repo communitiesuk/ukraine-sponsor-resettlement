@@ -1,12 +1,12 @@
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <%= form_for @application, url: "/individual/steps/12", method: :post do |f| %>
-      <%= f.govuk_text_field :email,
-        label: { text: t('email.full', scope: "individual.questions") },
-        type: "email"
-      %>
-      <%= f.govuk_submit t('continue') %>
-    <% end %>
-  </div>
-</div>
+<%= form_for @application, url: "/individual/steps/12", method: :post do |f| %>
+  <%= f.govuk_check_boxes_fieldset :agree_privacy_statement, multiple: false, legend: { text: t('privacy_statement.full', scope: "individual.questions"), size: 'l' } do %>
+    <p class="govuk-body">
+      <%= t('privacy_statement.comment', scope: "individual.questions") %>
+    </p>
+    <p>
+      <%= govuk_link_to 'Privacy statement', "https://consult.communities.gov.uk/digital-delivery/register-to-support-homes-for-ukraine/#question-2022-03-13-6003801478-factbanksubquestion" %>
+    </p>
+    <%= f.govuk_check_box :agree_privacy_statement, 1, 0, multiple: false, link_errors: true, label: { text: t('privacy_statement.full', scope: "individual.questions") } %><% end %>
 
+  <%= f.govuk_submit t('continue') %>
+<% end %>
