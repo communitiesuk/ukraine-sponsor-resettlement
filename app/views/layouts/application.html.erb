@@ -60,8 +60,9 @@
       <div role="navigation">
         <%= content_for(:before_content) %>
       </div>
-      <%= govuk_phase_banner(tag: { text: "Beta" }) do %>This is a new service
-      <% end %>
+      <div class="govuk-phase-banner">
+        <img src="https://homesforukraine.campaign.gov.uk/wp-content/uploads/sites/130/2022/03/HFU-Banner.png" class="attachment-full size-full" alt="Homes for Ukraine" loading="lazy" srcset="https://homesforukraine.campaign.gov.uk/wp-content/uploads/sites/130/2022/03/HFU-Banner.png 1400w, https://homesforukraine.campaign.gov.uk/wp-content/uploads/sites/130/2022/03/HFU-Banner-768x274.png 768w" sizes="(max-width: 1400px) 100vw, 1400px">
+      </div>
       <main class="govuk-main-wrapper " id="main-content" role="main">
         <%= yield %>
       </main>
