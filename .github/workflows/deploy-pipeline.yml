@@ -139,6 +139,7 @@ jobs:
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
           BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
+<<<<<<< HEAD
           REMOTE_API_URL: ${{ secrets.REMOTE_API_URL }}
           REMOTE_API_TOKEN: ${{ secrets.REMOTE_API_TOKEN }}
         run: |
@@ -182,10 +183,14 @@ jobs:
           BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
           REMOTE_API_URL: ${{ secrets.REMOTE_API_URL }}
           REMOTE_API_TOKEN: ${{ secrets.REMOTE_API_TOKEN }}
+=======
+          GOVUK_NOTIFY_API_KEY: ${{ secrets.GOVUK_NOTIFY_API_KEY }}
+>>>>>>> cf95b20... Merge conflict
         run: |
           cf api $CF_API_ENDPOINT
           cf auth
           cf target -o $CF_ORG -s $CF_SPACE
+          cf set-env $APP_NAME GOVUK_NOTIFY_API_KEY $GOVUK_NOTIFY_API_KEY
           cf set-env $APP_NAME RAILS_MASTER_KEY $RAILS_MASTER_KEY
           cf set-env $APP_NAME BASIC_AUTH_USER $BASIC_AUTH_USER
           cf set-env $APP_NAME BASIC_AUTH_PASS $BASIC_AUTH_PASS
