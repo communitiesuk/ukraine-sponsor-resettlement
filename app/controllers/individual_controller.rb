@@ -35,7 +35,7 @@ class IndividualController < ApplicationController
     @application = IndividualExpressionOfInterest.new(session[:individual_expression_of_interest])
     @application.save!
 
-    session[:application][:reference] = @application.reference
+    session[:individual_expression_of_interest] = @application.as_json
 
     SendUpdateJob.perform_later(@application.id)
     redirect_to "/individual/confirm"
