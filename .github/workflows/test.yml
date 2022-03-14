@@ -1,4 +1,4 @@
-name: "Staging CI/CD Pipeline"
+name: "CI Test Pipeline"
 
 on:
   push:

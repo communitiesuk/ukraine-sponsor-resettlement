@@ -1,6 +1,8 @@
 require "securerandom"
 
-class Application < ApplicationRecord
+class IndividualExpressionOfInterest < ApplicationRecord
+  self.table_name = "individual_expressions_of_interest"
+
   POSTCODE_REGEX = /([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})/
   MIN_PHONE_DIGITS = 9
   MAX_PHONE_DIGITS = 14

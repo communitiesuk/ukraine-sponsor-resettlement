@@ -9,7 +9,7 @@ RSpec.describe "Individual expression of interest", type: :system do
     it "saves all of the answers in the database" do
       visit root_path
       expect(page).to have_content("Local Sponsorship Scheme for Ukraine")
-      click_link("Register Your Interest")
+      click_link("Register your interest as an individual")
 
       expect(page).to have_content("Who would you like to sponsor?")
       choose("Friend or Colleague")
@@ -74,7 +74,7 @@ RSpec.describe "Individual expression of interest", type: :system do
 
       expect(page).to have_content("Form successfully submitted")
 
-      application = Application.order("created_at DESC").last
+      application = IndividualExpressionOfInterest.order("created_at DESC").last
       expect(application.as_json).to include({
         sponsor_type: "friend_or_colleague",
         family_or_single_type: "single",
