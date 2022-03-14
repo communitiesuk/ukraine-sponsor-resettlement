@@ -38,7 +38,7 @@ class IndividualController < ApplicationController
     redirect_to "/individual/confirm"
   end
 
-  def confirm;
+  def confirm
     @application = Application.new(session[:application])
   end
 

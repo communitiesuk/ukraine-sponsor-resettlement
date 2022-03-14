@@ -1,7 +1,6 @@
 require "securerandom"
 
 class Application < ApplicationRecord
-
   POSTCODE_REGEX = /([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})/
   MIN_PHONE_DIGITS = 9
   MAX_PHONE_DIGITS = 14
@@ -98,28 +97,36 @@ class Application < ApplicationRecord
   end
 
   def validate_full_name
-    unless(@full_name == nil) || ((@full_name.split.length >= 2) && (@full_name.length >= 3))
+    unless @full_name.nil? || ((@full_name.split.length >= 2) && (@full_name.length >= 3))
       errors.add(:full_name, I18n.t(:invalid_full_name, scope: :error))
     end
   end
 
   def validate_mobile_number
-    unless @mobile_number == nil
-      unless (@mobile_number =~ /[0-9 -+]+$/) &&
-        ((@mobile_number.scan(/\d/).join.length >= MIN_PHONE_DIGITS) && (@mobile_number.scan(/\d/).join.length <= MAX_PHONE_DIGITS))
-        errors.add(:mobile_number, I18n.t(:invalid_mobile_number, scope: :error))
-      end
+    if !@mobile_number.nil? && !((@mobile_number =~ /[0-9 -+]+$/) &&
+          ((@mobile_number.scan(/\d/).join.length >= MIN_PHONE_DIGITS) && (@mobile_number.scan(/\d/).join.length <= MAX_PHONE_DIGITS)))
+      errors.add(:mobile_number, I18n.t(:invalid_mobile_number, scope: :error))
     end
   end
 
   def as_json
-    { sponsor_type:, family_or_single_type:, living_space_type:, mobility_impairments_type:, single_room_count:,
-      double_room_count:, postcode:, accommodation_length_type:, dbs_certificate_type:, answer_more_questions_type:,
-      full_name:, email_address:, mobile_number:
-    }.compact
+    { sponsor_type:,
+      family_or_single_type:,
+      living_space_type:,
+      mobility_impairments_type:,
+      single_room_count:,
+      double_room_count:,
+      postcode:,
+      accommodation_length_type:,
+      dbs_certificate_type:,
+      answer_more_questions_type:,
+      full_name:,
+      email_address:,
+      mobile_number: }.compact
   end
 
 private
+
   def serialize
     self.answers = as_json
   end
