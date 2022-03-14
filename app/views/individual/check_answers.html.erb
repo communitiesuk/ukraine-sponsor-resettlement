@@ -107,7 +107,7 @@
           <%= t('postcode.short', scope: "individual.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(@application.postcode) %>
+          <%= @application.postcode %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/individual/steps/7">
@@ -144,6 +144,70 @@
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/individual/steps/9">
             Change<span class="govuk-visually-hidden"> dbs check response</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('answer_more_questions.short', scope: "individual.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(@application.answer_more_questions_type, scope: "individual.answer_more_questions_type") %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/individual/steps/10">
+            Change<span class="govuk-visually-hidden"> willing to answer more questions</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('full_name.short', scope: "individual.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.full_name %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/individual/steps/11">
+            Change<span class="govuk-visually-hidden"> willing to answer more questions</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('email_address.short', scope: "individual.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.email_address %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/individual/steps/12">
+            Change<span class="govuk-visually-hidden"> willing to answer more questions</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('mobile_number.short', scope: "individual.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.mobile_number %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/individual/steps/13">
+            Change<span class="govuk-visually-hidden"> willing to answer more questions</span>
           </a>
         </dd>
       </div>

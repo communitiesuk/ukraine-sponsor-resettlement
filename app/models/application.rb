@@ -1,8 +1,13 @@
 require "securerandom"
 
 class Application < ApplicationRecord
-  attr_accessor :sponsor_types, :family_or_single_types, :living_space_types, :mobility_impairments_types, :accommodation_length_types, :dbs_certificate_types,
-                :sponsor_type, :family_or_single_type, :living_space_type, :mobility_impairments_type, :accommodation_length_type, :dbs_certificate_type, :single_room_count, :double_room_count, :postcode
+
+  POSTCODE_REGEX = /([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})/
+  MIN_PHONE_DIGITS = 9
+  MAX_PHONE_DIGITS = 14
+
+  attr_accessor :sponsor_types, :family_or_single_types, :living_space_types, :mobility_impairments_types, :accommodation_length_types, :dbs_certificate_types, :answer_more_questions_types,
+                :sponsor_type, :family_or_single_type, :living_space_type, :mobility_impairments_type, :accommodation_length_type, :dbs_certificate_type, :answer_more_questions_type, :single_room_count, :double_room_count, :postcode, :full_name, :email_address, :mobile_number
 
   validate :validate_sponsor_type, if: :sponsor_type
 
@@ -12,17 +17,25 @@ class Application < ApplicationRecord
 
   validate :validate_mobility_impairments_type, if: :mobility_impairments_type
 
-  validate :mobility_impairments_type, if: :mobility_impairments_type
+  validate :validate_mobility_impairments_type, if: :mobility_impairments_type
 
-  validate :single_room_count, if: :single_room_count
+  validates :single_room_count, allow_nil: true, numericality: { only_integer: true }
 
-  validate :double_room_count, if: :double_room_count
+  validates :double_room_count, allow_nil: true, numericality: { only_integer: true }
 
-  validate :postcode, if: :postcode
+  validates :postcode, allow_nil: true, format: { message: I18n.t(:invalid_postcode, scope: :error), with: POSTCODE_REGEX }
 
-  validate :accommodation_length_type, if: :accommodation_length_type
+  validate :validate_accommodation_length_type, if: :accommodation_length_type
 
-  validate :dbs_certificate_type, if: :dbs_certificate_type
+  validate :validate_dbs_certificate_type, if: :dbs_certificate_type
+
+  validate :validate_answer_more_questions_type, if: :answer_more_questions_type
+
+  validate :validate_full_name, if: :full_name
+
+  validates :email_address, format: { with: URI::MailTo::EMAIL_REGEXP, message: I18n.t(:invalid_email, scope: :error) }, allow_nil: true
+
+  validate :validate_mobile_number, if: :mobile_number
 
   after_initialize :after_initialize
   before_save :serialize
@@ -33,8 +46,9 @@ class Application < ApplicationRecord
     @family_or_single_types = %i[family single no_preference]
     @living_space_types = %i[rooms_in_home self_contained_property]
     @mobility_impairments_types = %i[yes no]
-    @accommodation_length_types = %i[less_than_3_months 3_to_6_months 6_to_12_months more_than_12_months]
+    @accommodation_length_types = %i[less_than_3_months less_than_6_months less_than_12_months more_than_12_months]
     @dbs_certificate_types = %i[yes no_but_willing no]
+    @answer_more_questions_types = %i[yes no]
   end
 
   def validate_sponsor_type
@@ -61,33 +75,44 @@ class Application < ApplicationRecord
     end
   end
 
-  # def single_room_count
-  #   unless (@single_room_count == nil) || (@single_room_count =~ /^\d+$/)
-  #     errors.add(:single_room_count, I18n.t(:invalid_number, scope: :error))
-  #   end
-  # end
-  #
-  # def double_room_count
-  #   unless (@double_room_count == nil) || (@double_room_count =~ /^\d+$/)
-  #     errors.add(:double_room_count, I18n.t(:invalid_number, scope: :error))
-  #   end
-  # end
+  def validate_accommodation_length_type
+    unless @accommodation_length_types.include?(@accommodation_length_type.to_sym)
+      errors.add(:accommodation_length_type, I18n.t(:choose_option, scope: :error))
+    end
+  end
 
-  # def postcode
-  #   unless(@postcode == nil) || (@postcode =~ /^\d+$/)
-  #     errors.add(:postcode, I18n.t(:invalid_postcode, scope: :error))
-  #   end
-  # end
+  def validate_dbs_certificate_type
+    unless @dbs_certificate_types.include?(@dbs_certificate_type.to_sym)
+      errors.add(:dbs_certificate_type, I18n.t(:choose_option, scope: :error))
+    end
+  end
 
-  # def accommodation_length_type
-  #   unless @accommodation_length_types.include?(@accommodation_length_type.to_sym)
-  #     errors.add(:accommodation_length_type, I18n.t(:choose_option, scope: :error))
-  #   end
-  # end
+  def validate_answer_more_questions_type
+    unless @answer_more_questions_types.include?(@answer_more_questions_type.to_sym)
+      errors.add(:answer_more_questions_type, I18n.t(:choose_option, scope: :error))
+    end
+  end
+
+  def validate_full_name
+    unless(@full_name == nil) || ((@full_name.split.length >= 2) && (@full_name.length >= 3))
+      errors.add(:full_name, I18n.t(:invalid_full_name, scope: :error))
+    end
+  end
+
+  def validate_mobile_number
+    unless @mobile_number == nil
+      unless (@mobile_number =~ /[0-9 -+]+$/) &&
+        ((@mobile_number.scan(/\d/).join.length >= MIN_PHONE_DIGITS) && (@mobile_number.scan(/\d/).join.length <= MAX_PHONE_DIGITS))
+        errors.add(:mobile_number, I18n.t(:invalid_mobile_number, scope: :error))
+      end
+    end
+  end
 
   def answers
     { sponsor_type:, family_or_single_type:, living_space_type:, mobility_impairments_type:, single_room_count:,
-      double_room_count:, postcode:, accommodation_length_type:, dbs_certificate_type:}
+      double_room_count:, postcode:, accommodation_length_type:, dbs_certificate_type:, answer_more_questions_type:,
+      full_name:, email_address:, mobile_number:
+    }
   end
 
 private

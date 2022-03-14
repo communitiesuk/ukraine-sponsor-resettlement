@@ -59,10 +59,13 @@ en:
       dbs_certificate:
         short: Disclouse and Barring Service certificate
         full: Do you have a current Disclosure and Barring Service (DBS) certificate?
-      name:
+      answer_more_questions:
+        short: Willing to answer more questions
+        full: Are you willing to answer more questions to confirm your suitability as a sponsor?
+      full_name:
         short: Name
         full: Enter your full name
-      email:
+      email_address:
         short: Email
         full: Enter your email address
       mobile_number:
@@ -85,15 +88,21 @@ en:
       dont_know: I don't know
     accommodation_length_type:
       less_than_3_months: Less than 3 months
-      3_to_6_months: 3 to 6 months
-      6_to_12_months: 6 to 12 months
+      less_than_6_months: 3 to 6 months
+      less_than_12_months: 6 to 12 months
       more_than_12_months: More than 12 months
     dbs_certificate_type:
       yes: Yes
       no_but_willing: No, but I am willing to have a DBS check
+      no: No
+    answer_more_questions_type:
+      yes: Yes
       no: No
 
   error:
     choose_option: Please choose one of the options
     invalid_number: Please enter a non-negative whole number
     invalid_postcode: Please enter a valid UK postcode
+    invalid_email: Plese enter a valid email address
+    invalid_mobile_number: Please enter a valid mobile number
+    invalid_full_name: Please enter a valid name
