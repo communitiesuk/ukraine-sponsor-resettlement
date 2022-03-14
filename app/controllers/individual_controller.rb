@@ -34,6 +34,9 @@ class IndividualController < ApplicationController
   def submit
     @application = IndividualExpressionOfInterest.new(session[:individual_expression_of_interest])
     @application.save!
+
+    session[:application][:reference] = @application.reference
+
     SendUpdateJob.perform_later(@application.id)
     redirect_to "/individual/confirm"
   end
@@ -48,6 +51,6 @@ private
     params.require(:individual_expression_of_interest).permit(:sponsor_type, :family_or_single_type, :living_space_type,
                                                               :mobility_impairments_type, :single_room_count, :double_room_count, :postcode,
                                                               :accommodation_length_type, :dbs_certificate_type, :answer_more_questions_type,
-                                                              :fullname, :email, :mobile_number)
+                                                              :fullname, :email, :mobile_number, :reference)
   end
 end
