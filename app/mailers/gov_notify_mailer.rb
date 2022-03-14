@@ -3,7 +3,8 @@ class GovNotifyMailer < GovukNotifyRails::Mailer
     set_template(ENV["INDIVIDUAL_CONFIRMATION_TEMPLATE_ID"])
 
     set_personalisation(
-        fullname: application.fullname
+        fullname: application.fullname,
+        reference: application.reference
     )
 
     mail(to: application.email)
@@ -13,7 +14,8 @@ class GovNotifyMailer < GovukNotifyRails::Mailer
     set_template(ENV["ORGANISATION_CONFIRMATION_TEMPLATE_ID"])
 
     set_personalisation(
-        fullname: application.fullname
+        fullname: application.fullname,
+        reference: application.reference
     )
 
     mail(to: application.email)
