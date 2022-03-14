@@ -1,9 +1,14 @@
 class GovNotifyMailer < GovukNotifyRails::Mailer
-  def send_email(email, template_id, personalisation = {})
-    set_template(template_id)
+  def send_individual_confirmation_email(application)
+    set_template(ENV["INDIVIDUAL_CONFIRMATION_TEMPLATE_ID"])
 
-    set_personalisation(personalisation)
+    #TODO: use name
+    set_personalisation(
+        fullname: "Bob Jones",
+        reference: application.reference
+    )
 
-    mail(to: email)
+    #TODO: use email address
+    mail(to: "grant.mckenna@madetech.com")
   end
 end
