@@ -8,7 +8,7 @@ RSpec.describe "Individual expression of interest", type: :system do
   describe "submitting the form" do
     it "saves all of the answers in the database" do
       visit root_path
-      expect(page).to have_content("Local Sponsorship Scheme for Ukraine")
+      expect(page).to have_content("Homes for Ukraine")
       click_link("Register your interest as an individual")
 
       expect(page).to have_content("Who would you like to sponsor?")
@@ -72,7 +72,7 @@ RSpec.describe "Individual expression of interest", type: :system do
       expect(page).to have_content("Mobile number 0123456789")
       click_button("Accept And Send")
 
-      expect(page).to have_content("Form successfully submitted")
+      expect(page).to have_content("Application complete")
 
       application = IndividualExpressionOfInterest.order("created_at DESC").last
       expect(application.as_json).to include({

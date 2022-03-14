@@ -69,7 +69,9 @@ class IndividualExpressionOfInterest < ApplicationRecord
       answer_more_questions_type:,
       fullname:,
       email:,
-      mobile_number: }.compact
+      mobile_number:,
+      reference:
+    }.compact
   end
 
 private
