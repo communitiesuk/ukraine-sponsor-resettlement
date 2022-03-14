@@ -7,6 +7,10 @@ defaults: &defaults
       command: bundle exec rake cf:on_first_instance db:migrate && bin/rails server
       instances: 2
       memory: 512M
+    - type: sidekiq
+      command: bundle exec sidekiq
+      instances: 2
+      memory: 512M
   health-check-type: http
   health-check-http-endpoint: /health
 
@@ -31,10 +35,14 @@ applications:
     processes:
       - type: web
         command: bundle exec rake cf:on_first_instance db:migrate && bin/rails server
-        instances: 4
+        instances: 16
         memory: 1G
+      - type: sidekiq
+        command: bundle exec sidekiq
+        instances: 4
+        memory: 512M
     env:
       RAILS_ENV: production
-    host: submit-social-housing-lettings-sales-data
     services:
       - ukraine-sponsor-resettlement-production-postgres
+      - ukraine-sponsor-resettlement-production-redis

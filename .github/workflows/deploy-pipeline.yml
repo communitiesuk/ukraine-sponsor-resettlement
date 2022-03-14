@@ -2,9 +2,6 @@ name: "Staging CI/CD Pipeline"
 
 on:
   push:
-    branches:
-      - master
-  pull_request:
   workflow_dispatch:
 
 concurrency: "staging"
@@ -60,12 +57,15 @@ jobs:
       - name: Create DB
         run: |
           bundle exec rake db:prepare
+      - name: Migrate DB
+        run: |
+          bundle exec rake db:migrate
       - name: Compile Assets
         run: |
           bundle exec rake assets:precompile
       - name: Run tests
         run: |
-          bundle exec rspec
+          bundle exec rake
   lint:
     name: Lint
     runs-on: ubuntu-latest
@@ -99,8 +99,8 @@ jobs:
         run: |
           bundle exec bundler-audit
 
-  deploy:
-    name: Deploy
+  deploy-staging:
+    name: Deploy Staging
 
     runs-on: ubuntu-latest
     environment: "staging"
@@ -128,11 +128,55 @@ jobs:
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
           BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
+          REMOTE_API_URL: ${{ secrets.REMOTE_API_URL }}
+          REMOTE_API_TOKEN: ${{ secrets.REMOTE_API_TOKEN }}
         run: |
           cf api $CF_API_ENDPOINT
           cf auth
           cf target -o $CF_ORG -s $CF_SPACE
           cf set-env $APP_NAME RAILS_MASTER_KEY $RAILS_MASTER_KEY
           cf set-env $APP_NAME BASIC_AUTH_USER $BASIC_AUTH_USER
-          cf set-env $APP_NAME BASIC_AUTH_PASS $BASIC_AUTH_PASS
+          cf set-env $APP_NAME REMOTE_API_URL $REMOTE_API_URL
+          cf set-env $APP_NAME REMOTE_API_TOKEN $REMOTE_API_TOKEN
+          cf push $APP_NAME --strategy rolling
+
+  deploy-production:
+    name: Deploy Production
+
+    runs-on: ubuntu-latest
+    environment: "production"
+    if: github.ref == 'refs/heads/master'
+    needs: [deploy-staging]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Cloud Foundry CLI
+        run: |
+          wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
+          echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
+          sudo apt-get update
+          sudo apt-get install cf8-cli
+      - name: Deploy
+        env:
+          CF_USERNAME: ${{ secrets.CF_USERNAME }}
+          CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
+          CF_API_ENDPOINT: ${{ secrets.CF_API_ENDPOINT }}
+          CF_SPACE: ${{ secrets.CF_SPACE }}
+          CF_ORG: ${{ secrets.CF_ORG }}
+          APP_NAME: ukraine-sponsor-resettlement-production
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
+          BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
+          REMOTE_API_URL: ${{ secrets.REMOTE_API_URL }}
+          REMOTE_API_TOKEN: ${{ secrets.REMOTE_API_TOKEN }}
+        run: |
+          cf api $CF_API_ENDPOINT
+          cf auth
+          cf target -o $CF_ORG -s $CF_SPACE
+          cf set-env $APP_NAME RAILS_MASTER_KEY $RAILS_MASTER_KEY
+          cf set-env $APP_NAME BASIC_AUTH_USER $BASIC_AUTH_USER
+          cf set-env $APP_NAME REMOTE_API_URL $REMOTE_API_URL
+          cf set-env $APP_NAME REMOTE_API_TOKEN $REMOTE_API_TOKEN
           cf push $APP_NAME --strategy rolling

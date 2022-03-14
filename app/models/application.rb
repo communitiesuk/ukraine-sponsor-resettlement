@@ -41,6 +41,10 @@ class Application < ApplicationRecord
   before_save :serialize
   before_save :generate_reference
 
+  after_find do
+    assign_attributes(answers)
+  end
+
   def after_initialize
     @sponsor_types = %i[family_member friend_or_colleague unknown_person]
     @family_or_single_types = %i[family single no_preference]
@@ -108,20 +112,19 @@ class Application < ApplicationRecord
     end
   end
 
-  def answers
+  def as_json
     { sponsor_type:, family_or_single_type:, living_space_type:, mobility_impairments_type:, single_room_count:,
       double_room_count:, postcode:, accommodation_length_type:, dbs_certificate_type:, answer_more_questions_type:,
       full_name:, email_address:, mobile_number:
-    }
+    }.compact
   end
 
 private
-
   def serialize
-    self.answers = answers
+    self.answers = as_json
   end
 
   def generate_reference
-    self.reference = SecureRandom.base64(99).gsub!(/[+=\/]/, "")[0, 10].downcase
+    self.reference ||= SecureRandom.base64(99).gsub!(/[+=\/]/, "")[0, 10].downcase
   end
 end

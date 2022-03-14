@@ -15,7 +15,7 @@ class IndividualController < ApplicationController
 
     if @application.valid?
       # Update the session
-      session[:application] = @application.answers
+      session[:application] = @application.as_json
       next_stage = params["stage"].to_i + 1
       if next_stage > max_steps
         redirect_to "/individual/check_answers"
@@ -34,6 +34,7 @@ class IndividualController < ApplicationController
   def submit
     @application = Application.new(session[:application])
     @application.save!
+    SendUpdateJob.perform_later(@application.id)
     redirect_to "/individual/confirm"
   end
 
