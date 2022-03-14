@@ -1,4 +1,4 @@
-name: "Staging CI/CD Pipeline"
+name: "Deploy Pipeline"
 
 on:
   push:
