@@ -78,6 +78,6 @@ services:
   mock-api:
     build:
       dockerfile: Dockerfile
-      context: test/http-mock-server
+      context: http-mock-server
     ports:
       - 8081:8081
