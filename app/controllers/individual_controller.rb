@@ -8,7 +8,7 @@ class IndividualController < ApplicationController
   def handle_step
     max_steps = 13
     # Pull session data out of session and
-    # instantiate new Application AactiveRecord object
+    # instantiate new Application ActiveRecord object
     @application = IndividualExpressionOfInterest.new(session[:individual_expression_of_interest])
     # Update Application object with new attributes
     @application.assign_attributes(application_params)

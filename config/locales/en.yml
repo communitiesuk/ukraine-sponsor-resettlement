@@ -44,10 +44,10 @@ en:
       mobility_impairments:
         short: Mobility impaired accessible property
         full: Is the entire property accessible to people with mobility impairments?
-      number_of_single_rooms:
+      single_room_count:
         short: Single rooms available
         full: How many single rooms do you have available?
-      number_of_double_rooms:
+      double_room_count:
         short: Double rooms available
         full: How many double rooms do you have available?
       postcode:
@@ -98,6 +98,72 @@ en:
     answer_more_questions_type:
       yes: Yes
       no: No
+  organisation:
+    sponsor_type:
+      single_adult: Single Adult
+      more_than_one_adult: More than one adult
+      adults_with_children: Adult(s) with children
+      no_preference: No preference
+    living_space_types:
+      rooms_in_property: Room(s) in your home with access to shared facilities
+      rooms_in_multiple_properties: Rooms in multiple properties with access to shared facilities
+      self_contained_property: A self-contained property (includes at least 1 bedroom, bathroom and kitchen)
+      multiple_properties: Multiple properties (includes at least 1 bedroom, bathroom and kitchen per property)
+    step_free_types:
+      all: Yes, all
+      some: Yes, some
+      none: "No"
+      unknown: I don’t know
+    answer_more_questions_types:
+      yes: "Yes"
+      no: "No"
+    contact_types:
+      yes: "Yes"
+      no: "No"
+    questions:
+      sponsor_type:
+        short: Sponsor Type
+        full: Who can you accommodate?
+      living_space:
+        short: Living space
+        full: What type of living space can you offer?
+      step_free:
+        short: Step free access
+        full: Does the property, or any of the properties, have step-free access?
+      property_count:
+        short: Properties
+        full: How many properties do you have available?
+      single_room_count:
+        short: Single rooms
+        full: How many single bedrooms do you have available?
+      double_room_count:
+        short: Double rooms
+        full: How many double bedrooms (or larger than double) do you have available?
+      postcode:
+        short: Postcode
+        full: Enter the first half of the postcode of the property you’re offering.
+        subtitle: (If you are offering multiple properties, please enter all the postcodes separated by a comma)
+      organisation_name:
+        short: Organisation Name
+        full: Enter your organisation name
+      organisation_type:
+        short: Organisation Type
+        full: Enter your organisation type
+      answer_more_questions:
+        short: Answer more questions?
+        full: Can we contact you for more details in the future?
+      fullname:
+        short: Name
+        full: Enter your full name
+      email:
+        short: Email
+        full: Enter your email address
+      phone_number:
+        short: Phone number
+        full: Enter your contact telephone number
+      privacy:
+        short: Agreed to privacy
+        full: Please tick this box to state that you have read the privacy statement, and agree for the information you have provided in this form to be used as stated.
 
   error:
     choose_option: Please choose one of the options
@@ -105,4 +171,5 @@ en:
     invalid_postcode: Please enter a valid UK postcode
     invalid_email: Plese enter a valid email address
     invalid_mobile_number: Please enter a valid mobile number
+    invalid_phone_number: Please enter a valid phone number
     invalid_fullname: Please enter a valid name

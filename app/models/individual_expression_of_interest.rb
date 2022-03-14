@@ -118,7 +118,7 @@ private
   end
 
   def validate_fullname
-    unless @fullname.nil? || ((@fullname.split.length >= 2) && (@fullname.length >= 3))
+    unless fullname.nil? || ((fullname.split.length >= 2) && (fullname.length >= 3))
       errors.add(:fullname, I18n.t(:invalid_fullname, scope: :error))
     end
   end
