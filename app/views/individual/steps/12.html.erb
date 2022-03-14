@@ -1,8 +1,8 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_for @application, url: "/individual/steps/12", method: :post do |f| %>
-      <%= f.govuk_text_field :email_address,
-        label: { text: t('email_address.full', scope: "individual.questions") },
+      <%= f.govuk_text_field :email,
+        label: { text: t('email.full', scope: "individual.questions") },
         type: "email"
       %>
       <%= f.govuk_submit t('continue') %>

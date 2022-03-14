@@ -168,14 +168,14 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('full_name.short', scope: "individual.questions") %>
+          <%= t('fullname.short', scope: "individual.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= @application.full_name %>
+          <%= @application.fullname %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/individual/steps/11">
-            Change<span class="govuk-visually-hidden"> willing to answer more questions</span>
+            Change<span class="govuk-visually-hidden"> full name</span>
           </a>
         </dd>
       </div>
@@ -184,14 +184,14 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('email_address.short', scope: "individual.questions") %>
+          <%= t('email.short', scope: "individual.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= @application.email_address %>
+          <%= @application.email %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/individual/steps/12">
-            Change<span class="govuk-visually-hidden"> willing to answer more questions</span>
+            Change<span class="govuk-visually-hidden"> email</span>
           </a>
         </dd>
       </div>
@@ -207,7 +207,7 @@
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/individual/steps/13">
-            Change<span class="govuk-visually-hidden"> willing to answer more questions</span>
+            Change<span class="govuk-visually-hidden"> mobile number</span>
           </a>
         </dd>
       </div>

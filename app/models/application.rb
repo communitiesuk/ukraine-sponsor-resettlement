@@ -6,7 +6,7 @@ class Application < ApplicationRecord
   MAX_PHONE_DIGITS = 14
 
   attr_accessor :sponsor_types, :family_or_single_types, :living_space_types, :mobility_impairments_types, :accommodation_length_types, :dbs_certificate_types, :answer_more_questions_types,
-                :sponsor_type, :family_or_single_type, :living_space_type, :mobility_impairments_type, :accommodation_length_type, :dbs_certificate_type, :answer_more_questions_type, :single_room_count, :double_room_count, :postcode, :full_name, :email_address, :mobile_number
+                :sponsor_type, :family_or_single_type, :living_space_type, :mobility_impairments_type, :accommodation_length_type, :dbs_certificate_type, :answer_more_questions_type, :single_room_count, :double_room_count, :postcode, :mobile_number
 
   validate :validate_sponsor_type, if: :sponsor_type
 
@@ -30,9 +30,9 @@ class Application < ApplicationRecord
 
   validate :validate_answer_more_questions_type, if: :answer_more_questions_type
 
-  validate :validate_full_name, if: :full_name
+  validate :validate_fullname, if: :fullname
 
-  validates :email_address, format: { with: URI::MailTo::EMAIL_REGEXP, message: I18n.t(:invalid_email, scope: :error) }, allow_nil: true
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, message: I18n.t(:invalid_email, scope: :error) }, allow_nil: true
 
   validate :validate_mobile_number, if: :mobile_number
 
@@ -53,6 +53,24 @@ class Application < ApplicationRecord
     @dbs_certificate_types = %i[yes no_but_willing no]
     @answer_more_questions_types = %i[yes no]
   end
+
+  def as_json
+    { sponsor_type:,
+      family_or_single_type:,
+      living_space_type:,
+      mobility_impairments_type:,
+      single_room_count:,
+      double_room_count:,
+      postcode:,
+      accommodation_length_type:,
+      dbs_certificate_type:,
+      answer_more_questions_type:,
+      fullname:,
+      email:,
+      mobile_number: }.compact
+  end
+
+private
 
   def validate_sponsor_type
     unless @sponsor_types.include?(@sponsor_type.to_sym)
@@ -96,36 +114,18 @@ class Application < ApplicationRecord
     end
   end
 
-  def validate_full_name
-    unless @full_name.nil? || ((@full_name.split.length >= 2) && (@full_name.length >= 3))
-      errors.add(:full_name, I18n.t(:invalid_full_name, scope: :error))
+  def validate_fullname
+    unless @fullname.nil? || ((@fullname.split.length >= 2) && (@fullname.length >= 3))
+      errors.add(:fullname, I18n.t(:invalid_fullname, scope: :error))
     end
   end
 
   def validate_mobile_number
     if !@mobile_number.nil? && !((@mobile_number =~ /[0-9 -+]+$/) &&
-          ((@mobile_number.scan(/\d/).join.length >= MIN_PHONE_DIGITS) && (@mobile_number.scan(/\d/).join.length <= MAX_PHONE_DIGITS)))
+      ((@mobile_number.scan(/\d/).join.length >= MIN_PHONE_DIGITS) && (@mobile_number.scan(/\d/).join.length <= MAX_PHONE_DIGITS)))
       errors.add(:mobile_number, I18n.t(:invalid_mobile_number, scope: :error))
     end
   end
-
-  def as_json
-    { sponsor_type:,
-      family_or_single_type:,
-      living_space_type:,
-      mobility_impairments_type:,
-      single_room_count:,
-      double_room_count:,
-      postcode:,
-      accommodation_length_type:,
-      dbs_certificate_type:,
-      answer_more_questions_type:,
-      full_name:,
-      email_address:,
-      mobile_number: }.compact
-  end
-
-private
 
   def serialize
     self.answers = as_json

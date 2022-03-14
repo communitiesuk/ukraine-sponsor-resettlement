@@ -62,10 +62,10 @@ en:
       answer_more_questions:
         short: Willing to answer more questions
         full: Are you willing to answer more questions to confirm your suitability as a sponsor?
-      full_name:
+      fullname:
         short: Name
         full: Enter your full name
-      email_address:
+      email:
         short: Email
         full: Enter your email address
       mobile_number:
@@ -105,4 +105,4 @@ en:
     invalid_postcode: Please enter a valid UK postcode
     invalid_email: Plese enter a valid email address
     invalid_mobile_number: Please enter a valid mobile number
-    invalid_full_name: Please enter a valid name
+    invalid_fullname: Please enter a valid name
