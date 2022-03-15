@@ -16,7 +16,7 @@ RSpec.describe "Organisation expression of interest", type: :system do
       click_button("Continue")
 
       expect(page).to have_content("What type of living space can you offer?")
-      choose("Room(s) in your home with access to shared facilities")
+      choose("Room(s) in a property with access to shared facilities")
       click_button("Continue")
 
       expect(page).to have_content("Does the property, or any of the properties, have step-free access?")
@@ -32,7 +32,7 @@ RSpec.describe "Organisation expression of interest", type: :system do
       fill_in("How many double bedrooms (or larger than double) do you have available?", with: 1)
       click_button("Continue")
 
-      fill_in("Enter the postcode of the main property you’re offering (If you are offering multiple properties, please enter the first part of all the postcodes separated by a comma)", with: "SG13, SG12")
+      fill_in("Enter the first half of the postcode of the property you’re offering. (If you are offering multiple properties, please enter all the postcodes separated by a comma)", with: "SG13, SG12")
       click_button("Continue")
 
       fill_in("Enter your organisation name", with: "My Organisation Name")
@@ -42,7 +42,7 @@ RSpec.describe "Organisation expression of interest", type: :system do
       click_button("Continue")
 
       expect(page).to have_content("Can we contact you for more details in the future?")
-      choose("Yes")
+      page.check("organisation-expression-of-interest-agree-future-contact-true-field")
       click_button("Continue")
 
       fill_in("Enter your full name", with: "John Smith")
@@ -58,18 +58,18 @@ RSpec.describe "Organisation expression of interest", type: :system do
       click_button("Continue")
 
       expect(page).to have_content("Who can you accommodate? Single Adult")
-      expect(page).to have_content("Living space Room(s) in your home with access to shared facilities")
+      expect(page).to have_content("Living space Room(s) in a property with access to shared facilities ")
       expect(page).to have_content("Step free access Some")
       expect(page).to have_content("Properties 3")
       expect(page).to have_content("Single rooms 2")
       expect(page).to have_content("Double rooms 1")
-      expect(page).to have_content("Postcode SG13, SG12")
+      expect(page).to have_content("Postcode(s) SG13, SG12")
       expect(page).to have_content("Organisation Name My Organisation Name")
       expect(page).to have_content("Organisation Type My Organisation Type")
       expect(page).to have_content("Name John Smith")
       expect(page).to have_content("Email john.smith@example.com")
       expect(page).to have_content("Phone number 0123456789")
-      expect(page).to have_content("Future contact Yes")
+      expect(page).to have_content("Future contact Agreed")
       expect(page).to have_content("Privacy statement Agreed")
 
       click_button("Accept And Send")
@@ -92,7 +92,7 @@ RSpec.describe "Organisation expression of interest", type: :system do
         postcode: "SG13, SG12",
         organisation_name: "My Organisation Name",
         organisation_type: "My Organisation Type",
-        agree_future_contact: "yes",
+        agree_future_contact: "true",
         email: "john.smith@example.com",
         fullname: "John Smith",
         phone_number: "0123456789",

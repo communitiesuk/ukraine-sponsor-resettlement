@@ -14,13 +14,13 @@ class OrganisationExpressionOfInterest < ApplicationRecord
   validate :validate_family_type, if: :family_type
   validate :validate_living_space, if: :living_space
   validate :validate_step_free, if: :step_free
-  validates :property_count, allow_nil: true, numericality: { only_integer: true }
-  validates :single_room_count, allow_nil: true, numericality: { only_integer: true }
-  validates :double_room_count, allow_nil: true, numericality: { only_integer: true }
+  validates :property_count, allow_nil: true, numericality: { only_integer: true, greater_than_or_equal_to: 0  }
+  validates :single_room_count, allow_nil: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :double_room_count, allow_nil: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :postcode, allow_nil: true, length: { minimum: 2 }
   validates :organisation_name, allow_nil: true, length: { minimum: 2 }
   validates :organisation_type, allow_nil: true, length: { minimum: 2 }
-  validate :validate_answer_more_questions, if: :agree_future_contact
+  validates :agree_future_contact, acceptance: { accept: "true", message: I18n.t(:must_be_accepted, scope: :error) }, allow_nil: true
   validate :validate_fullname, if: :fullname
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, message: I18n.t(:invalid_email, scope: :error) }, allow_nil: true
   validate :validate_phone_number, if: :phone_number
