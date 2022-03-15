@@ -6,6 +6,7 @@ defaults: &defaults
   instances: 2
   memory: 512M
   health-check-type: process
+  no-route: true
 
 applications:
   - name: ukraine-sponsor-resettlement-staging-sidekiq
