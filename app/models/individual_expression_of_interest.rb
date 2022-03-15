@@ -132,6 +132,6 @@ private
   end
 
   def generate_reference
-    self.reference ||= format("ANON-%s", SecureRandom.uuid[9, 11].upcase)
+    self.reference ||= sprintf('ANON-%<ref>s', ref: SecureRandom.uuid[9, 11].upcase)
   end
 end
