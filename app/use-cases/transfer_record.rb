@@ -4,7 +4,7 @@ class TransferRecord
   def initialize; end
 
   def self.execute(record_id)
-    Application.transaction do
+    IndividualExpressionOfInterest.transaction do
       application = IndividualExpressionOfInterest.find(record_id)
       application.transferred_at = Time.zone.now
       application.save!
