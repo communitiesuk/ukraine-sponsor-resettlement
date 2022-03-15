@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Organisation expression of interest", type: :system do
   before do
-    driven_by(:rack_test)
+    driven_by(:rack_test_user_agent)
   end
 
   describe "submitting the form" do
@@ -78,10 +78,6 @@ RSpec.describe "Organisation expression of interest", type: :system do
 
       application = OrganisationExpressionOfInterest.order("created_at DESC").last
       expect(application.as_json).to include({
-        id: application.id,
-        reference: application.reference,
-        created_at: application.created_at,
-        version: application.version,
         type: "organisation",
         family_type: "single_adult",
         living_space: "rooms_in_property",
@@ -98,6 +94,10 @@ RSpec.describe "Organisation expression of interest", type: :system do
         phone_number: "0123456789",
         agree_privacy_statement: "true",
       })
+
+      expect(application.ip_address).to eq("127.0.0.1")
+      expect(application.user_agent).to eq("DummyBrowser")
+      expect(application.started_at).to match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d*Z/)
     end
   end
 end
