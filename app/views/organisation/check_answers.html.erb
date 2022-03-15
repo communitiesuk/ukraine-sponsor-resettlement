@@ -235,7 +235,7 @@
 
     <p class="govuk-body">By submitting this application you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>
 
-    <%= form_for @application, url: "/organisation", method: :post do |f| %>
+    <%= form_for @application, url: "/organisation/check_answers", method: :post do |f| %>
       <%= f.govuk_submit t('Accept and send') %>
     <% end %>
   </div>
