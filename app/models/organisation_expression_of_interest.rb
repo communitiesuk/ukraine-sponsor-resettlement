@@ -109,6 +109,6 @@ private
   end
 
   def generate_reference
-    self.reference ||= SecureRandom.base64(99).gsub!(/[+=\/]/, "")[0, 10].downcase
+    self.reference ||= "ANON-" + SecureRandom.uuid[9, 11].upcase
   end
 end
