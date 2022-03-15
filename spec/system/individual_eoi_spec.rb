@@ -70,6 +70,10 @@ RSpec.describe "Individual expression of interest", type: :system do
 
       application = IndividualExpressionOfInterest.order("created_at DESC").last
       expect(application.as_json).to include({
+        id: application.id,
+        reference: application.reference,
+        created_at: application.created_at,
+        version: application.version,
         accommodation_length: "from_6_to_9_months",
         agree_future_contact: "true",
         agree_privacy_statement: "true",
