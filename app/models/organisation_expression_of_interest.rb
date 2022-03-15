@@ -24,6 +24,7 @@ class OrganisationExpressionOfInterest < ApplicationRecord
   validate :validate_fullname, if: :fullname
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, message: I18n.t(:invalid_email, scope: :error) }, allow_nil: true
   validate :validate_phone_number, if: :phone_number
+  validates :agree_privacy_statement, acceptance: { accept: "true", message: I18n.t(:must_be_accepted, scope: :error) }, allow_nil: true
 
   after_initialize :after_initialize
   before_save :serialize
