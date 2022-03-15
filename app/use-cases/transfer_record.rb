@@ -11,7 +11,7 @@ class TransferRecord
 
       uri = URI(ENV["REMOTE_API_URL"])
       token = ENV["REMOTE_API_TOKEN"]
-      res = Net::HTTP.post(uri, application.as_json, "Content-Type" => "application/json", "Authorization" => "Bearer #{token}")
+      res = Net::HTTP.post(uri, JSON.generate(application.as_json), "Content-Type" => "application/json", "Authorization" => "Bearer #{token}")
       unless res.code.to_i >= 200 && res.code.to_i < 300
         raise ActiveRecord::Rollback
       end
@@ -26,7 +26,7 @@ class TransferRecord
 
       uri = URI(ENV["REMOTE_API_URL"])
       token = ENV["REMOTE_API_TOKEN"]
-      res = Net::HTTP.post(uri, application.as_json, "Content-Type" => "application/json", "Authorization" => "Bearer #{token}")
+      res = Net::HTTP.post(uri, JSON.generate(application.as_json), "Content-Type" => "application/json", "Authorization" => "Bearer #{token}")
       unless res.code.to_i >= 200 && res.code.to_i < 300
         raise ActiveRecord::Rollback
       end
