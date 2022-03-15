@@ -96,7 +96,7 @@ RSpec.describe "Organisation expression of interest", type: :system do
         email: "john.smith@example.com",
         fullname: "John Smith",
         phone_number: "0123456789",
-        agree_privacy_statement: "true"
+        agree_privacy_statement: "true",
       })
     end
   end
