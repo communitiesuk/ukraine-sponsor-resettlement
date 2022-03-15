@@ -8,7 +8,7 @@ class IndividualController < ApplicationController
   def handle_step
     max_steps = 12
     # Pull session data out of session and
-    # instantiate new Application AactiveRecord object
+    # instantiate new Application ActiveRecord object
     @application = IndividualExpressionOfInterest.new(session[:individual_expression_of_interest])
     # Update Application object with new attributes
     @application.assign_attributes(application_params)
@@ -38,6 +38,7 @@ class IndividualController < ApplicationController
     session[:individual_expression_of_interest] = @application.as_json
 
     SendUpdateJob.perform_later(@application.id)
+    GovNotifyMailer.send_individual_confirmation_email(@application).deliver_later
     redirect_to "/individual/confirm"
   end
 
