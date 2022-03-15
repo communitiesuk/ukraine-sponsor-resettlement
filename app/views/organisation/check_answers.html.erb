@@ -152,10 +152,10 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('answer_more_questions.short', scope: "organisation.questions") %>
+          <%= t('agree_future_contact.short', scope: "organisation.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(@application.answer_more_questions, scope: "organisation.answer_more_questions") %>
+          <%= t(@application.agree_future_contact, scope: "organisation.agree_future_contact") %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/organisation/steps/10">
@@ -216,10 +216,10 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('privacy.short', scope: "organisation.questions") %>
+          <%= t('agree_privacy_statement.short', scope: "organisation.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= @application.privacy %>
+          <%= @application.agree_privacy_statement %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/organisation/steps/14">

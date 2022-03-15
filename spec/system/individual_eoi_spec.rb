@@ -70,15 +70,15 @@ RSpec.describe "Individual expression of interest", type: :system do
 
       application = IndividualExpressionOfInterest.order("created_at DESC").last
       expect(application.as_json).to include({
-        accommodation_length_type: "from_6_to_9_months",
+        accommodation_length: "from_6_to_9_months",
         agree_future_contact: "true",
         agree_privacy_statement: "true",
         double_room_count: "2",
         email: "john.smith@example.com",
-        family_or_single_type: "single_adult",
+        family_type: "single_adult",
         fullname: "John Smith",
-        living_space_type: "rooms_in_home_shared_facilities",
-        mobility_impairments_type: "yes_all",
+        living_space: "rooms_in_home_shared_facilities",
+        step_free: "yes_all",
         phone_number: "0123456789",
         postcode: "SG13 7DF",
         single_room_count: "3",
