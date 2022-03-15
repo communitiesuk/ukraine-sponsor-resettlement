@@ -203,7 +203,7 @@
           <%= t('agree_future_contact.short', scope: "organisation.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(@application.agree_future_contact, scope: "organisation.agree_future_contact") %>
+          <%= @application.agree_future_contact == "true" ? "Agreed" : "Not agreed" %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/organisation/steps/13">
