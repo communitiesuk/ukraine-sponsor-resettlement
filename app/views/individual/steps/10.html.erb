@@ -1,8 +1,8 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_for @application, url: "/individual/steps/10", method: :post do |f| %>
-      <%= f.govuk_text_field :mobile_number,
-        label: { text: t('mobile_number.full', scope: "individual.questions") },
+      <%= f.govuk_text_field :phone_number,
+        label: { text: t('phone_number.full', scope: "individual.questions") },
         type: "tel"
       %>
       <%= f.govuk_submit t('continue') %>

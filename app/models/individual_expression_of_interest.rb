@@ -8,7 +8,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
   MAX_PHONE_DIGITS = 14
 
   attr_accessor :family_or_single_types, :living_space_types, :mobility_impairments_types, :accommodation_length_types,
-                :family_or_single_type, :living_space_type, :mobility_impairments_type, :accommodation_length_type, :single_room_count, :double_room_count, :postcode, :mobile_number, :agree_future_contact, :agree_privacy_statement,
+                :family_or_single_type, :living_space_type, :mobility_impairments_type, :accommodation_length_type, :single_room_count, :double_room_count, :postcode, :phone_number, :agree_future_contact, :agree_privacy_statement,
                 :fullname, :email
 
   validate :validate_family_or_single_type, if: :family_or_single_type
@@ -31,7 +31,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
 
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, message: I18n.t(:invalid_email, scope: :error) }, allow_nil: true
 
-  validate :validate_mobile_number, if: :mobile_number
+  validate :validate_phone_number, if: :phone_number
 
   validates :agree_future_contact, acceptance: {accept: 'true', message: I18n.t(:must_be_accepted, scope: :error) }, allow_nil: true
 
@@ -67,7 +67,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
 
       fullname:,
       email:,
-      mobile_number:,
+      phone_number:,
       reference:,
     }.compact
   end
@@ -113,10 +113,10 @@ private
     end
   end
 
-  def validate_mobile_number
-    if !@mobile_number.nil? && !((@mobile_number =~ /[0-9 -+]+$/) &&
-      ((@mobile_number.scan(/\d/).join.length >= MIN_PHONE_DIGITS) && (@mobile_number.scan(/\d/).join.length <= MAX_PHONE_DIGITS)))
-      errors.add(:mobile_number, I18n.t(:invalid_mobile_number, scope: :error))
+  def validate_phone_number
+    if !@phone_number.nil? && !((@phone_number =~ /[0-9 -+]+$/) &&
+      ((@phone_number.scan(/\d/).join.length >= MIN_PHONE_DIGITS) && (@phone_number.scan(/\d/).join.length <= MAX_PHONE_DIGITS)))
+      errors.add(:phone_number, I18n.t(:invalid_phone_number, scope: :error))
     end
   end
 

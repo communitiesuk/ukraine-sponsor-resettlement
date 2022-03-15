@@ -63,7 +63,7 @@ en:
       email:
         short: Email
         full: Enter your email address
-      mobile_number:
+      phone_number:
         short: Telephone number
         full: Enter your contact telephone number
       privacy_statement:
@@ -95,6 +95,6 @@ en:
     invalid_number: Please enter a non-negative whole number
     invalid_postcode: Please enter a valid UK postcode(s)
     invalid_email: Plese enter a valid email address
-    invalid_mobile_number: Please enter a valid mobile number
+    invalid_phone_number: Please enter a valid phone number
     invalid_fullname: Please enter a valid name
     must_be_accepted: Must be accepted
