@@ -8,14 +8,14 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('sponsor_type.short', scope: "organisation.questions") %>
+          <%= t('family_type.short', scope: "organisation.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(@application.sponsor_type, scope: "organisation.sponsor_type") %>
+          <%= t(@application.family_type, scope: "organisation.family_type") %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/organisation/steps/1">
-            Change<span class="govuk-visually-hidden"> sponsor type</span>
+            Change<span class="govuk-visually-hidden"> family type</span>
           </a>
         </dd>
       </div>
@@ -56,10 +56,10 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('single_room_count.short', scope: "organisation.questions") %>
+          <%= t('property_count.short', scope: "organisation.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(@application.single_room_count, scope: "organisation.single_room_count") %>
+          <%= t(@application.property_count, scope: "organisation.property_count") %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/organisation/steps/4">
@@ -72,10 +72,10 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('double_room_count.short', scope: "organisation.questions") %>
+          <%= t('single_room_count.short', scope: "organisation.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(@application.double_room_count) %>
+          <%= t(@application.single_room_count) %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/organisation/steps/5">
@@ -152,22 +152,6 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('agree_future_contact.short', scope: "organisation.questions") %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= t(@application.agree_future_contact, scope: "organisation.agree_future_contact") %>
-        </dd>
-        <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/organisation/steps/10">
-            Change<span class="govuk-visually-hidden"> willing to answer more questions</span>
-          </a>
-        </dd>
-      </div>
-    </dl>
-
-    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
           <%= t('fullname.short', scope: "organisation.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
@@ -216,10 +200,26 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
+          <%= t('agree_future_contact.short', scope: "organisation.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= t(@application.agree_future_contact, scope: "organisation.agree_future_contact") %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/organisation/steps/10">
+            Change<span class="govuk-visually-hidden"> willing to answer more questions</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
           <%= t('agree_privacy_statement.short', scope: "organisation.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= @application.agree_privacy_statement %>
+          <%= @application.agree_privacy_statement == "true" ? "Agreed" : "Not agreed" %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/organisation/steps/14">

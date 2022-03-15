@@ -1,7 +1,11 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_for @application, url: "/organisation/steps/14", method: :post do |f| %>
+<<<<<<< HEAD
       <%= f.govuk_check_box :agree_privacy_statement, 1, 0, multiple: false, link_errors: true, 
+=======
+      <%= f.govuk_check_box :agree_privacy_statement, "true", "false", multiple: false, link_errors: true, 
+>>>>>>> 14510d1 (Ensure the data model is consistent)
         label: { text: t('agree_privacy_statement.full', scope: "organisation.questions") }
       %>
 

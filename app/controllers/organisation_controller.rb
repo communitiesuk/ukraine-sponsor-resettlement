@@ -45,6 +45,6 @@ class OrganisationController < ApplicationController
 private
 
   def application_params
-    params.require(:organisation_expression_of_interest).permit(:sponsor_type, :living_space, :step_free, :property_count, :single_room_count, :double_room_count, :postcode, :organisation_name, :organisation_type, :agree_future_contact, :fullname, :email, :phone_number, :agree_privacy_statement)
+    params.require(:organisation_expression_of_interest).permit(:family_type, :living_space, :step_free, :property_count, :single_room_count, :double_room_count, :postcode, :organisation_name, :organisation_type, :agree_future_contact, :fullname, :email, :phone_number, :agree_privacy_statement)
   end
 end

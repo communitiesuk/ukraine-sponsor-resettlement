@@ -109,8 +109,8 @@ en:
       none: "No"
       unknown: I don’t know
     questions:
-      sponsor_type:
-        short: Sponsor Type
+      family_type:
+        short: Who can you accommodate?
         full: Who can you accommodate?
       living_space:
         short: Living space
@@ -138,7 +138,7 @@ en:
         short: Organisation Type
         full: Enter your organisation type
       agree_future_contact:
-        short: Answer more questions?
+        short: Future contact
         full: Can we contact you for more details in the future?
       fullname:
         short: Name
@@ -150,8 +150,8 @@ en:
         short: Phone number
         full: Enter your contact telephone number
       agree_privacy_statement:
-        short: Agreed to agree_privacy_statement
-        full: Please tick this box to state that you have read the agree_privacy_statement statement, and agree for the information you have provided in this form to be used as stated.
+        short: Privacy statement
+        full: Please tick this box to state that you have read the privacy statement, and agree for the information you have provided in this form to be used as stated.
 
   error:
     choose_option: Please choose one of the options
