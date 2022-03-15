@@ -35,6 +35,7 @@ class OrganisationController < ApplicationController
     @application = OrganisationExpressionOfInterest.new(session[:organisation_expression_of_interest])
     @application.save!
     SendUpdateJob.perform_later(@application.id)
+    GovNotifyMailer.send_organisation_confirmation_email(@application).deliver_later
     redirect_to "/organisation/confirm"
   end
 
