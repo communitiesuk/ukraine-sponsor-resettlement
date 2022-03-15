@@ -1,12 +1,9 @@
 <%= form_for @application, url: "/individual/steps/12", method: :post do |f| %>
   <%= f.govuk_check_boxes_fieldset :agree_privacy_statement, multiple: false, legend: { text: t('agree_privacy_statement.full', scope: "individual.questions"), size: 'l' } do %>
-    <p class="govuk-body">
-      <%= t('agree_privacy_statement.comment', scope: "individual.questions") %>
-    </p>
     <p>
       <%= govuk_link_to t('individual.questions.agree_privacy_statement.short'), "https://www.gov.uk/government/publications/homes-for-ukraine-scheme-expressions-of-interest-eois-privacy-notices/homes-for-ukraine-scheme-expressions-of-interest-individuals" %>
     </p>
-    <%= f.govuk_check_box :agree_privacy_statement, "true", "false", multiple: false, link_errors: true, label: { text: t('agree_privacy_statement.full', scope: "individual.questions") } %><% end %>
+    <%= f.govuk_check_box :agree_privacy_statement, "true", "false", multiple: false, link_errors: true, label: { text: t('agree_privacy_statement.comment', scope: "individual.questions") } %><% end %>
 
   <%= f.govuk_submit t('continue') %>
 <% end %>

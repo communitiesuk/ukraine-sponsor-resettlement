@@ -16,7 +16,7 @@ RSpec.describe "Individual expression of interest", type: :system do
       click_button("Continue")
 
       expect(page).to have_content("What type of living space can you offer?")
-      choose("Rooms in your home with access to shared facilities")
+      page.check("individual-expression-of-interest-living-space-rooms-in-home-shared-facilities-field")
       click_button("Continue")
 
       expect(page).to have_content("Does the property, or any of the properties, have step-free access?")
@@ -51,8 +51,8 @@ RSpec.describe "Individual expression of interest", type: :system do
       page.check("individual-expression-of-interest-agree-privacy-statement-true-field")
       click_button("Continue")
 
-      expect(page).to have_content("Who can you accommodate? Single Adult")
-      expect(page).to have_content("Living space Rooms In Home Shared Facilities")
+      expect(page).to have_content("Who can you accommodate? Single adult")
+      expect(page).to have_content("Living space Rooms in your home with access to shared facilities")
       expect(page).to have_content("Mobility impaired accessible property Yes, all")
       expect(page).to have_content("Single rooms available 3")
       expect(page).to have_content("Double rooms available 2")
@@ -77,7 +77,7 @@ RSpec.describe "Individual expression of interest", type: :system do
         email: "john.smith@example.com",
         family_type: "single_adult",
         fullname: "John Smith",
-        living_space: "rooms_in_home_shared_facilities",
+        living_space: %w[rooms_in_home_shared_facilities],
         step_free: "yes_all",
         phone_number: "0123456789",
         postcode: "SG",

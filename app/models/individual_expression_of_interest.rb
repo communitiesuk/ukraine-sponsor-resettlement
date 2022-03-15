@@ -87,7 +87,10 @@ private
   end
 
   def validate_living_space_type
-    validate_enum(@living_space_types, @living_space, :living_space)
+    self.living_space = living_space.reject(&:empty?)
+    if @living_space.length.zero?
+      errors.add(:living_space, I18n.t(:choose_one_or_more_options, scope: :error))
+    end
   end
 
   def validate_mobility_impairments_type

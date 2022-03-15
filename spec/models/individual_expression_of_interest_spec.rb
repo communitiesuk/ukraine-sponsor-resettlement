@@ -21,9 +21,9 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
 
     it "validates that the living space type matches the allowed values if set" do
       app = described_class.new
-      app.living_space = "invalid"
+      app.living_space = []
       expect(app.valid?).to be(false)
-      expect(app.errors[:living_space]).to include("Please choose one of the options")
+      expect(app.errors[:living_space]).to include("Please choose one or more of the options")
     end
   end
 
