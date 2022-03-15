@@ -3,21 +3,24 @@ require "securerandom"
 class IndividualExpressionOfInterest < ApplicationRecord
   self.table_name = "individual_expressions_of_interest"
 
+  SCHEMA_VERSION = 1
+
   POSTCODE_REGEX = /([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})/
   MIN_PHONE_DIGITS = 9
   MAX_PHONE_DIGITS = 14
 
-  attr_accessor :family_or_single_types, :living_space_types, :mobility_impairments_types, :accommodation_length_types,
-                :family_or_single_type, :living_space_type, :mobility_impairments_type, :accommodation_length_type, :single_room_count, :double_room_count, :postcode, :phone_number, :agree_future_contact, :agree_privacy_statement,
-                :fullname, :email
+  attr_accessor :family_types, :living_space_types, :step_free_types, :accommodation_length_types,
+                :family_type, :living_space, :step_free, :accommodation_length, :single_room_count,
+                :double_room_count, :postcode, :phone_number, :agree_future_contact, :agree_privacy_statement,
+                :fullname, :email, :type, :version
 
-  validate :validate_family_or_single_type, if: :family_or_single_type
+  validate :validate_family_type, if: :family_type
 
-  validate :validate_living_space_type, if: :living_space_type
+  validate :validate_living_space_type, if: :living_space
 
-  validate :validate_mobility_impairments_type, if: :mobility_impairments_type
+  validate :validate_mobility_impairments_type, if: :step_free
 
-  validate :validate_mobility_impairments_type, if: :mobility_impairments_type
+  validate :validate_mobility_impairments_type, if: :step_free
 
   validates :single_room_count, allow_nil: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
@@ -25,7 +28,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
 
   validate :validate_postcodes, if: :postcode
 
-  validate :validate_accommodation_length_type, if: :accommodation_length_type
+  validate :validate_accommodation_length_type, if: :accommodation_length
 
   validate :validate_fullname, if: :fullname
 
@@ -46,48 +49,51 @@ class IndividualExpressionOfInterest < ApplicationRecord
   end
 
   def after_initialize
-    @family_or_single_types = %i[single_adult more_than_one_adult adults_with_children no_preference]
+    @family_types = %i[single_adult more_than_one_adult adults_with_children no_preference]
     @living_space_types = %i[rooms_in_home_shared_facilities self_contained_property multiple_properties]
-    @mobility_impairments_types = %i[yes_all yes_some no dont_know]
+    @step_free_types = %i[yes_all yes_some no dont_know]
     @accommodation_length_types = %i[from_6_to_9_months from_10_to_12_months more_than_12_months]
   end
 
   def as_json
     {
-      family_or_single_type:,
-      living_space_type:,
-      mobility_impairments_type:,
+      id:,
+      reference:,
+      created_at:,
+      type:,
+      version:,
+      family_type:,
+      living_space:,
+      step_free:,
       single_room_count:,
       double_room_count:,
       postcode:,
-      accommodation_length_type:,
+      accommodation_length:,
       agree_future_contact:,
-      agree_privacy_statement:,
-
       fullname:,
       email:,
       phone_number:,
-      reference:,
+      agree_privacy_statement:,
     }.compact
   end
 
 private
 
-  def validate_family_or_single_type
-    unless @family_or_single_types.include?(@family_or_single_type.to_sym)
-      errors.add(:family_or_single_type, I18n.t(:choose_option, scope: :error))
-    end
+  def validate_family_type
+    validate_enum(@family_types, @family_type, :family_type)
   end
 
   def validate_living_space_type
-    unless @living_space_types.include?(@living_space_type.to_sym)
-      errors.add(:living_space_type, I18n.t(:choose_option, scope: :error))
-    end
+    validate_enum(@living_space_types, @living_space, :living_space)
   end
 
   def validate_mobility_impairments_type
-    unless @mobility_impairments_types.include?(@mobility_impairments_type.to_sym)
-      errors.add(:mobility_impairments_type, I18n.t(:choose_option, scope: :error))
+    validate_enum(@step_free_types, @step_free, :step_free)
+  end
+
+  def validate_enum(enum, value, attribute)
+    unless enum.include?(value.to_sym)
+      errors.add(attribute, I18n.t(:choose_option, scope: :error))
     end
   end
 
@@ -101,8 +107,8 @@ private
   end
 
   def validate_accommodation_length_type
-    unless @accommodation_length_types.include?(@accommodation_length_type.to_sym)
-      errors.add(:accommodation_length_type, I18n.t(:choose_option, scope: :error))
+    unless @accommodation_length_types.include?(@accommodation_length.to_sym)
+      errors.add(:accommodation_length, I18n.t(:choose_option, scope: :error))
     end
   end
 
@@ -120,6 +126,8 @@ private
   end
 
   def serialize
+    self.type = "individual"
+    self.version = SCHEMA_VERSION
     self.answers = as_json
   end
 

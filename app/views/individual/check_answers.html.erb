@@ -8,10 +8,10 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('family_single.short', scope: "individual.questions") %>
+          <%= t('family_type.short', scope: "individual.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(@application.family_or_single_type, scope: "individual.sponsor_type") %>
+          <%= t(@application.family_type, scope: "individual.sponsor_type") %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/individual/steps/1">
@@ -27,7 +27,7 @@
           <%= t('living_space.short', scope: "individual.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(@application.living_space_type, scope: "individual.sponsor_type") %>
+          <%= t(@application.living_space, scope: "individual.sponsor_type") %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/individual/steps/2">
@@ -43,7 +43,7 @@
           <%= t('mobility_impairments.short', scope: "individual.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(@application.mobility_impairments_type, scope: "individual.mobility_impairments_type") %>
+          <%= t(@application.step_free, scope: "individual.step_free") %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/individual/steps/3">
@@ -107,7 +107,7 @@
           <%= t('accommodation_length.short', scope: "individual.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(@application.accommodation_length_type, scope: "individual.accommodation_length_type") %>
+          <%= t(@application.accommodation_length, scope: "individual.accommodation_length") %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/individual/steps/7">
@@ -168,7 +168,7 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('future_contact.short', scope: "individual.questions") %>
+          <%= t('agree_future_contact.short', scope: "individual.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
           <%= @application.agree_future_contact == "true" ? "Agreed" : "Not agreed" %>
@@ -184,14 +184,14 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('privacy_statement.short', scope: "individual.questions") %>
+          <%= t('agree_privacy_statement.short', scope: "individual.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
           <%= @application.agree_privacy_statement == "true" ? "Agreed" : "Not agreed" %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/individual/steps/12">
-            Change<span class="govuk-visually-hidden"> privacy agreement</span>
+            Change<span class="govuk-visually-hidden"> agree_privacy_statement agreement</span>
           </a>
         </dd>
       </div>
