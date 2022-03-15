@@ -9,7 +9,6 @@
           <%= govuk_link_to t('organisation.questions.agree_privacy_statement.short'), "https://consult.communities.gov.uk/digital-delivery/register-to-support-homes-for-ukraine/#question-2022-03-13-6003801478-factbanksubquestion" %>
         </p>
         <%= f.govuk_check_box :agree_privacy_statement, "true", "false", multiple: false, link_errors: true, label: { text: t('agree_privacy_statement.full', scope: "organisation.questions") } %><% end %>
-
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>
