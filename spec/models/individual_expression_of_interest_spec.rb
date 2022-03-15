@@ -12,7 +12,6 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
   end
 
   describe "validations" do
-
     it "validates that the family or single type matches the allowed values if set" do
       app = described_class.new
       app.family_or_single_type = "invalid"

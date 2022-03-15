@@ -63,7 +63,7 @@ RSpec.describe "Individual expression of interest", type: :system do
       expect(page).to have_content("Telephone number 0123456789")
       expect(page).to have_content("Future contact Agreed")
       expect(page).to have_content("Privacy statement Agreed")
-      
+
       click_button("Accept And Send")
 
       expect(page).to have_content("Application complete")
@@ -72,7 +72,7 @@ RSpec.describe "Individual expression of interest", type: :system do
       expect(application.as_json).to include({
         accommodation_length_type: "from_6_to_9_months",
         agree_future_contact: "true",
-        agree_privacy_statement: "true",  
+        agree_privacy_statement: "true",
         double_room_count: "2",
         email: "john.smith@example.com",
         family_or_single_type: "single_adult",
