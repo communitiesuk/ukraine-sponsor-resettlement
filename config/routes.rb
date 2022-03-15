@@ -8,14 +8,14 @@ Rails.application.routes.draw do
   get "/individual/steps/:stage", to: "individual#display"
   post "/individual/steps/:stage", to: "individual#handle_step"
   get "/individual/check_answers", to: "individual#check_answers"
-  post "/individual", to: "individual#submit"
+  post "/individual/check_answers", to: "individual#submit"
   get "/individual/confirm", to: "individual#confirm"
 
   get "/organisation", to: redirect("/organisation/steps/1")
   get "/organisation/steps/:stage", to: "organisation#display"
   post "/organisation/steps/:stage", to: "organisation#handle_step"
   get "/organisation/check_answers", to: "organisation#check_answers"
-  post "/organisation", to: "organisation#submit"
+  post "/organisation/check_answers", to: "organisation#submit"
   get "/organisation/confirm", to: "organisation#confirm"
 
   scope via: :all do
