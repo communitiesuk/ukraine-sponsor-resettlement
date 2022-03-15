@@ -14,6 +14,8 @@ class IndividualController < ApplicationController
     # Update Application object with new attributes
     @application.assign_attributes(application_params)
 
+    p @application
+
     if @application.valid?
       # Update the session
       session[:individual_expression_of_interest] = @application.as_json
@@ -53,10 +55,10 @@ class IndividualController < ApplicationController
 private
 
   def application_params
-    params.require(:individual_expression_of_interest).permit(:family_type, :living_space,
-                                                              :step_free, :single_room_count, :double_room_count, :postcode,
-                                                              :accommodation_length, :answer_more_questions_type,
-                                                              :fullname, :email, :phone_number, :reference,
-                                                              :agree_privacy_statement, :agree_future_contact)
+    params.require(:individual_expression_of_interest).permit(:family_type, :step_free, :single_room_count,
+                                                              :double_room_count, :postcode, :accommodation_length,
+                                                              :answer_more_questions_type, :fullname, :email,
+                                                              :phone_number, :reference, :agree_privacy_statement,
+                                                              :agree_future_contact, :living_space => [])
   end
 end

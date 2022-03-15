@@ -11,7 +11,7 @@
           <%= t('family_type.short', scope: "individual.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(@application.family_type, scope: "individual.sponsor_type") %>
+          <%= t(@application.family_type, scope: "individual.family_type") %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/individual/steps/1">
@@ -27,7 +27,7 @@
           <%= t('living_space.short', scope: "individual.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= t(@application.living_space, scope: "individual.sponsor_type") %>
+          <%= t(@application.living_space.join(", "), scope: "individual.living_space") %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/individual/steps/2">

@@ -72,8 +72,8 @@ en:
         full: Enter your contact telephone number (optional)
       agree_privacy_statement:
         short: Privacy statement
-        full: Please tick this box to state that you have read the privacy statement, and agree for the information you have provided in this form to be used as stated
-        comment: Yes, I have read the privacy statement, and agree for the information you have provided in this form to be used as stated
+        full: Please tick this box to confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme
+        comment: Yes, I have read the privacy statement and agree that the information I have provided in this form can be used for the Homes for Ukraine scheme
         link:
     family_type:
       single_adult: Single adult
@@ -163,3 +163,4 @@ en:
     invalid_phone_number: Please enter a valid phone number
     invalid_fullname: Please enter a valid name
     must_be_accepted: Must be accepted
+    choose_one_or_more_options: Please choose one or more of the options
