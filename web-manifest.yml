@@ -2,15 +2,9 @@
 defaults: &defaults
   buildpacks:
     - https://github.com/cloudfoundry/ruby-buildpack.git
-  processes:
-    - type: web
-      command: bundle exec rake cf:on_first_instance db:migrate && bin/rails server
-      instances: 2
-      memory: 512M
-    - type: sidekiq
-      command: bundle exec sidekiq
-      instances: 2
-      memory: 512M
+  command: bundle exec rake cf:on_first_instance db:migrate && bin/rails server
+  instances: 2
+  memory: 512M
   health-check-type: http
   health-check-http-endpoint: /health
 
@@ -32,17 +26,10 @@ applications:
 
   - name: ukraine-sponsor-resettlement-production
     <<: *defaults
-    processes:
-      - type: web
-        command: bundle exec rake cf:on_first_instance db:migrate && bin/rails server
-        instances: 4
-        memory: 1G
-      - type: sidekiq
-        command: bundle exec sidekiq
-        instances: 4
-        memory: 512M
     env:
       RAILS_ENV: production
+    instances: 4
+    memory: 1G
     services:
       - ukraine-sponsor-resettlement-production-postgres
       - ukraine-sponsor-resettlement-production-redis
