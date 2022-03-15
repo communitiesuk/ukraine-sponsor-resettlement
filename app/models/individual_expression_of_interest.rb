@@ -19,9 +19,9 @@ class IndividualExpressionOfInterest < ApplicationRecord
 
   validate :validate_mobility_impairments_type, if: :mobility_impairments_type
 
-  validates :single_room_count, allow_nil: true, numericality: { only_integer: true, :greater_than_or_equal_to => 0 }
+  validates :single_room_count, allow_nil: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
-  validates :double_room_count, allow_nil: true, numericality: { only_integer: true, :greater_than_or_equal_to => 0 }
+  validates :double_room_count, allow_nil: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   validate :validate_postcodes, if: :postcode
 
@@ -33,10 +33,9 @@ class IndividualExpressionOfInterest < ApplicationRecord
 
   validate :validate_phone_number, if: :phone_number
 
-  validates :agree_future_contact, acceptance: {accept: 'true', message: I18n.t(:must_be_accepted, scope: :error) }, allow_nil: true
+  validates :agree_future_contact, acceptance: { accept: "true", message: I18n.t(:must_be_accepted, scope: :error) }, allow_nil: true
 
-  validates :agree_privacy_statement, acceptance: {accept: 'true', message: I18n.t(:must_be_accepted, scope: :error) }, allow_nil: true
-
+  validates :agree_privacy_statement, acceptance: { accept: "true", message: I18n.t(:must_be_accepted, scope: :error) }, allow_nil: true
 
   after_initialize :after_initialize
   before_save :serialize
@@ -93,10 +92,10 @@ private
   end
 
   def validate_postcodes
-    postcodes = @postcode.split(",").map{|postcode| postcode.strip}
+    postcodes = @postcode.split(",").map(&:strip)
     valid_postcodes = postcodes.grep(POSTCODE_REGEX)
 
-    unless @postcode.nil? || ((@postcode.strip.length != 0) && (postcodes.length == valid_postcodes.length))
+    unless @postcode.nil? || (!@postcode.strip.empty? && (postcodes.length == valid_postcodes.length))
       errors.add(:postcode, I18n.t(:invalid_postcode, scope: :error))
     end
   end
