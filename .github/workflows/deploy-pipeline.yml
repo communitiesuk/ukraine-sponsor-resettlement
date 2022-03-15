@@ -6,8 +6,6 @@ on:
       - master
   workflow_dispatch:
 
-concurrency: "staging"
-
 defaults:
   run:
     shell: bash
@@ -113,7 +111,7 @@ jobs:
 
   deploy-staging:
     name: Deploy Staging
-
+    concurrency: "staging"
     runs-on: ubuntu-latest
     environment: "staging"
     if: github.ref == 'refs/heads/master'
@@ -156,7 +154,7 @@ jobs:
 
   deploy-production:
     name: Deploy Production
-
+    concurrency: "production"
     runs-on: ubuntu-latest
     environment: "production"
     if: github.ref == 'refs/heads/master'
