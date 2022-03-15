@@ -41,7 +41,7 @@ en:
       living_space:
         short: Living space
         full: What type of living space can you offer?
-      mobility_impairments:
+      step_free:
         short: Mobility impaired accessible property
         full: Does the property, or any of the properties, have step-free access?
       single_room_count:
@@ -163,4 +163,5 @@ en:
     invalid_phone_number: Please enter a valid phone number
     invalid_fullname: Please enter a valid name
     must_be_accepted: Must be accepted
+    invalid_number: Must be a number
     choose_one_or_more_options: Please choose one or more of the options

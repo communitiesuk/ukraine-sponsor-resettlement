@@ -10,35 +10,23 @@ class IndividualExpressionOfInterest < ApplicationRecord
   MAX_PHONE_DIGITS = 14
 
   attr_accessor :family_types, :living_space_types, :step_free_types, :accommodation_length_types,
-                :family_type, :living_space, :step_free, :accommodation_length, :single_room_count,
+                :family_type, :step_free, :accommodation_length, :single_room_count,
                 :double_room_count, :postcode, :phone_number, :agree_future_contact, :agree_privacy_statement,
-                :fullname, :email, :type, :version, :ip_address, :user_agent, :started_at
+                :fullname, :email, :type, :version, :ip_address, :user_agent, :started_at, :final_submission
+  attr_reader   :living_space
 
-  validate :validate_family_type, if: :family_type
-
-  validate :validate_living_space_type, if: :living_space
-
-  validate :validate_mobility_impairments_type, if: :step_free
-
-  validate :validate_mobility_impairments_type, if: :step_free
-
-  validates :single_room_count, allow_nil: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-
-  validates :double_room_count, allow_nil: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-
-  validates :postcode, allow_nil: true, length: { minimum: 2 }
-
-  validate :validate_accommodation_length_type, if: :accommodation_length
-
-  validate :validate_fullname, if: :fullname
-
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, message: I18n.t(:invalid_email, scope: :error) }, allow_nil: true
-
-  validate :validate_phone_number, if: :phone_number
-
-  validates :agree_future_contact, acceptance: { accept: "true", message: I18n.t(:must_be_accepted, scope: :error) }, allow_nil: true
-
-  validates :agree_privacy_statement, acceptance: { accept: "true", message: I18n.t(:must_be_accepted, scope: :error) }, allow_nil: true
+  validate :validate_family_type, if: -> { run_validation? :family_type }
+  validate :validate_living_space, if: -> { run_validation? :living_space }
+  validate :validate_step_free, if: -> { run_validation? :step_free }
+  validates :single_room_count, numericality: { only_integer: true, greater_than_or_equal_to: 0, message: I18n.t(:invalid_number, scope: :error) }, if: -> { run_validation? :single_room_count }
+  validates :double_room_count, numericality: { only_integer: true, greater_than_or_equal_to: 0, message: I18n.t(:invalid_number, scope: :error) }, if: -> { run_validation? :double_room_count }
+  validates :postcode, length: { minimum: 2, message: I18n.t(:invalid_postcode, scope: :error) }, if: -> { run_validation? :postcode }
+  validate :validate_accommodation_length, if: -> { run_validation? :accommodation_length }
+  validate :validate_fullname, if: -> { run_validation? :fullname }
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, message: I18n.t(:invalid_email, scope: :error) }, if: -> { run_validation? :email }
+  validate :validate_phone_number, if: -> { run_validation? :phone_number }
+  validates :agree_future_contact, acceptance: { accept: "true", message: I18n.t(:must_be_accepted, scope: :error) }, if: -> { run_validation? :agree_future_contact }
+  validates :agree_privacy_statement, acceptance: { accept: "true", message: I18n.t(:must_be_accepted, scope: :error) }, if: -> { run_validation? :agree_privacy_statement }
 
   after_initialize :after_initialize
   before_save :serialize
@@ -53,6 +41,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
     @living_space_types = %i[rooms_in_home_shared_facilities self_contained_property multiple_properties]
     @step_free_types = %i[yes_all yes_some no dont_know]
     @accommodation_length_types = %i[from_6_to_9_months from_10_to_12_months more_than_12_months]
+    @final_submission = false
   end
 
   def as_json
@@ -80,44 +69,51 @@ class IndividualExpressionOfInterest < ApplicationRecord
     }.compact
   end
 
+  def living_space=(value)
+    @living_space = value.is_a?(Array) ? value.reject(&:empty?) : value
+  end
+
 private
+
+  def run_validation?(attribute)
+    @final_submission || send(attribute)
+  end
 
   def validate_family_type
     validate_enum(@family_types, @family_type, :family_type)
   end
 
-  def validate_living_space_type
-    self.living_space = living_space.reject(&:empty?)
-    if @living_space.length.zero?
+  def validate_living_space
+    if living_space.nil? || @living_space.length.zero?
       errors.add(:living_space, I18n.t(:choose_one_or_more_options, scope: :error))
     end
   end
 
-  def validate_mobility_impairments_type
+  def validate_step_free
     validate_enum(@step_free_types, @step_free, :step_free)
   end
 
+  def validate_accommodation_length
+    validate_enum(@accommodation_length_types, @accommodation_length, :accommodation_length)
+  end
+
   def validate_enum(enum, value, attribute)
-    unless enum.include?(value.to_sym)
+    unless value && enum.include?(value.to_sym)
       errors.add(attribute, I18n.t(:choose_option, scope: :error))
     end
   end
 
-  def validate_accommodation_length_type
-    unless @accommodation_length_types.include?(@accommodation_length.to_sym)
-      errors.add(:accommodation_length, I18n.t(:choose_option, scope: :error))
-    end
-  end
-
   def validate_fullname
-    unless @fullname.nil? || ((@fullname.split.length >= 2) && (@fullname.strip.length >= 3))
+    unless @fullname && @fullname.split.length >= 2 && @fullname.strip.length >= 3
       errors.add(:fullname, I18n.t(:invalid_fullname, scope: :error))
     end
   end
 
   def validate_phone_number
-    if !@phone_number.nil? && @phone_number != "" && !((@phone_number =~ /[0-9 -+]+$/) &&
-      ((@phone_number.scan(/\d/).join.length >= MIN_PHONE_DIGITS) && (@phone_number.scan(/\d/).join.length <= MAX_PHONE_DIGITS)))
+    if @phone_number.blank? ||
+        !((@phone_number =~ /[0-9 -+]+$/) &&
+        ((@phone_number.scan(/\d/).join.length >= MIN_PHONE_DIGITS) &&
+        (@phone_number.scan(/\d/).join.length <= MAX_PHONE_DIGITS)))
       errors.add(:phone_number, I18n.t(:invalid_phone_number, scope: :error))
     end
   end

@@ -14,8 +14,6 @@ class IndividualController < ApplicationController
     # Update Application object with new attributes
     @application.assign_attributes(application_params)
 
-    Rails.logger.debug @application
-
     if @application.valid?
       # Update the session
       session[:individual_expression_of_interest] = @application.as_json
@@ -38,14 +36,18 @@ class IndividualController < ApplicationController
     @application = IndividualExpressionOfInterest.new(session[:individual_expression_of_interest])
     @application.ip_address = request.ip
     @application.user_agent = request.user_agent
-    @application.save!
+    @application.final_submission = true
+    if @application.valid?
+      @application.save!
+      session[:app_reference] = @application.reference
+      session[:individual_expression_of_interest] = {}
 
-    session[:app_reference] = @application.reference
-    session[:individual_expression_of_interest] = {}
-
-    SendIndividualUpdateJob.perform_later(@application.id)
-    GovNotifyMailer.send_individual_confirmation_email(@application).deliver_later
-    redirect_to "/individual/confirm"
+      SendIndividualUpdateJob.perform_later(@application.id)
+      GovNotifyMailer.send_individual_confirmation_email(@application).deliver_later
+      redirect_to "/individual/confirm"
+    else
+      render "check_answers"
+    end
   end
 
   def confirm
