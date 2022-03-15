@@ -152,6 +152,7 @@ jobs:
           cf push -f web-manifest.yml $APP_NAME --no-start
           cf set-env $APP_NAME RAILS_MASTER_KEY $RAILS_MASTER_KEY
           cf set-env $APP_NAME BASIC_AUTH_USER $BASIC_AUTH_USER
+          cf set-env $APP_NAME BASIC_AUTH_PASS $BASIC_AUTH_PASS
           cf set-env $APP_NAME REMOTE_API_URL $REMOTE_API_URL
           cf set-env $APP_NAME REMOTE_API_TOKEN $REMOTE_API_TOKEN
           cf set-env $APP_NAME GOVUK_NOTIFY_API_KEY $GOVUK_NOTIFY_API_KEY
@@ -184,6 +185,7 @@ jobs:
           cf push -f worker-manifest.yml $APP_NAME --no-start
           cf set-env $APP_NAME RAILS_MASTER_KEY $RAILS_MASTER_KEY
           cf set-env $APP_NAME BASIC_AUTH_USER $BASIC_AUTH_USER
+          cf set-env $APP_NAME BASIC_AUTH_PASS $BASIC_AUTH_PASS
           cf set-env $APP_NAME REMOTE_API_URL $REMOTE_API_URL
           cf set-env $APP_NAME REMOTE_API_TOKEN $REMOTE_API_TOKEN
           cf set-env $APP_NAME GOVUK_NOTIFY_API_KEY $GOVUK_NOTIFY_API_KEY
