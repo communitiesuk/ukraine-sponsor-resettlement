@@ -36,7 +36,7 @@ en:
         short: Who can you accommodate?
         full: Who can you accommodate?
       living_space:
-        short: Living space type
+        short: Living space
         full: What type of living space can you offer?
       mobility_impairments:
         short: Mobility impaired accessible property
@@ -93,7 +93,8 @@ en:
   error:
     choose_option: Please choose one of the options
     invalid_number: Please enter a non-negative whole number
-    invalid_postcode: Please enter a valid UK postcode
+    invalid_postcode: Please enter a valid UK postcode(s)
     invalid_email: Plese enter a valid email address
     invalid_mobile_number: Please enter a valid mobile number
     invalid_fullname: Please enter a valid name
+    must_be_accepted: Must be accepted

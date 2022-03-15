@@ -171,7 +171,7 @@
           <%= t('future_contact.short', scope: "individual.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= @application.agree_future_contact == "1" ? "Agreed" : "Not agreed" %>
+          <%= @application.agree_future_contact == "true" ? "Agreed" : "Not agreed" %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/individual/steps/11">
@@ -187,7 +187,7 @@
           <%= t('privacy_statement.short', scope: "individual.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= @application.agree_privacy_statement == "1" ? "Agreed" : "Not agreed" %>
+          <%= @application.agree_privacy_statement == "true" ? "Agreed" : "Not agreed" %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/individual/steps/12">

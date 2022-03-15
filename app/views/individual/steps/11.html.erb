@@ -3,6 +3,6 @@
                 <p class="govuk-body">
                 <%= t('future_contact.comment', scope: "individual.questions") %>
                 </p>
-        <%= f.govuk_check_box :agree_future_contact, 1, 0, multiple: false, link_errors: true, label: { text: t('future_contact.full', scope: "individual.questions") } %><% end %>
+        <%= f.govuk_check_box :agree_future_contact, "true", "false", multiple: false, link_errors: true, label: { text: t('future_contact.full', scope: "individual.questions") } %><% end %>
         <%= f.govuk_submit t('continue') %>
 <% end %>

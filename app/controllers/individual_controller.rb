@@ -29,7 +29,6 @@ class IndividualController < ApplicationController
 
   def check_answers
     @application = IndividualExpressionOfInterest.new(session[:individual_expression_of_interest])
-    p session[:individual_expression_of_interest]
   end
 
   def submit
@@ -52,7 +51,7 @@ private
     params.require(:individual_expression_of_interest).permit(:family_or_single_type, :living_space_type,
                                                               :mobility_impairments_type, :single_room_count, :double_room_count, :postcode,
                                                               :accommodation_length_type, :dbs_certificate_type, :answer_more_questions_type,
-                                                              :fullname, :email, :mobile_number, :reference, :agree_future_contact,
-                                                              :agree_privacy_statement)
+                                                              :fullname, :email, :mobile_number, :reference,
+                                                              :agree_privacy_statement, :agree_future_contact)
   end
 end

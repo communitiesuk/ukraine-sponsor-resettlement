@@ -8,7 +8,8 @@ class IndividualExpressionOfInterest < ApplicationRecord
   MAX_PHONE_DIGITS = 14
 
   attr_accessor :family_or_single_types, :living_space_types, :mobility_impairments_types, :accommodation_length_types,
-                :family_or_single_type, :living_space_type, :mobility_impairments_type, :accommodation_length_type, :single_room_count, :double_room_count, :postcode, :mobile_number, :agree_future_contact, :agree_privacy_statement
+                :family_or_single_type, :living_space_type, :mobility_impairments_type, :accommodation_length_type, :single_room_count, :double_room_count, :postcode, :mobile_number, :agree_future_contact, :agree_privacy_statement,
+                :fullname, :email
 
   validate :validate_family_or_single_type, if: :family_or_single_type
 
@@ -18,11 +19,11 @@ class IndividualExpressionOfInterest < ApplicationRecord
 
   validate :validate_mobility_impairments_type, if: :mobility_impairments_type
 
-  validates :single_room_count, allow_nil: true, numericality: { only_integer: true }
+  validates :single_room_count, allow_nil: true, numericality: { only_integer: true, :greater_than_or_equal_to => 0 }
 
-  validates :double_room_count, allow_nil: true, numericality: { only_integer: true }
+  validates :double_room_count, allow_nil: true, numericality: { only_integer: true, :greater_than_or_equal_to => 0 }
 
-  validates :postcode, allow_nil: true, format: { message: I18n.t(:invalid_postcode, scope: :error), with: POSTCODE_REGEX }
+  validate :validate_postcodes, if: :postcode
 
   validate :validate_accommodation_length_type, if: :accommodation_length_type
 
@@ -31,6 +32,11 @@ class IndividualExpressionOfInterest < ApplicationRecord
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, message: I18n.t(:invalid_email, scope: :error) }, allow_nil: true
 
   validate :validate_mobile_number, if: :mobile_number
+
+  validates :agree_future_contact, acceptance: {accept: 'true', message: I18n.t(:must_be_accepted, scope: :error) }, allow_nil: true
+
+  validates :agree_privacy_statement, acceptance: {accept: 'true', message: I18n.t(:must_be_accepted, scope: :error) }, allow_nil: true
+
 
   after_initialize :after_initialize
   before_save :serialize
@@ -86,6 +92,15 @@ private
     end
   end
 
+  def validate_postcodes
+    postcodes = @postcode.split(",").map{|postcode| postcode.strip}
+    valid_postcodes = postcodes.grep(POSTCODE_REGEX)
+
+    unless @postcode.nil? || ((@postcode.strip.length != 0) && (postcodes.length == valid_postcodes.length))
+      errors.add(:postcode, I18n.t(:invalid_postcode, scope: :error))
+    end
+  end
+
   def validate_accommodation_length_type
     unless @accommodation_length_types.include?(@accommodation_length_type.to_sym)
       errors.add(:accommodation_length_type, I18n.t(:choose_option, scope: :error))
@@ -93,7 +108,7 @@ private
   end
 
   def validate_fullname
-    unless @fullname.nil? || ((@fullname.split.length >= 2) && (@fullname.length >= 3))
+    unless @fullname.nil? || ((@fullname.split.length >= 2) && (@fullname.strip.length >= 3))
       errors.add(:fullname, I18n.t(:invalid_fullname, scope: :error))
     end
   end
