@@ -10,6 +10,7 @@ class IndividualController < ApplicationController
     # Pull session data out of session and
     # instantiate new Application ActiveRecord object
     @application = IndividualExpressionOfInterest.new(session[:individual_expression_of_interest])
+    @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
     # Update Application object with new attributes
     @application.assign_attributes(application_params)
 
@@ -33,6 +34,8 @@ class IndividualController < ApplicationController
 
   def submit
     @application = IndividualExpressionOfInterest.new(session[:individual_expression_of_interest])
+    @application.ip_address = request.ip
+    @application.user_agent = request.user_agent
     @application.save!
 
     session[:app_reference] = @application.reference

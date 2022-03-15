@@ -3,7 +3,7 @@ require "securerandom"
 class IndividualExpressionOfInterest < ApplicationRecord
   self.table_name = "individual_expressions_of_interest"
 
-  SCHEMA_VERSION = 1
+  SCHEMA_VERSION = 2
 
   POSTCODE_REGEX = /([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})/
   MIN_PHONE_DIGITS = 9
@@ -12,7 +12,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
   attr_accessor :family_types, :living_space_types, :step_free_types, :accommodation_length_types,
                 :family_type, :living_space, :step_free, :accommodation_length, :single_room_count,
                 :double_room_count, :postcode, :phone_number, :agree_future_contact, :agree_privacy_statement,
-                :fullname, :email, :type, :version
+                :fullname, :email, :type, :version, :ip_address, :user_agent, :started_at
 
   validate :validate_family_type, if: :family_type
 
@@ -74,6 +74,9 @@ class IndividualExpressionOfInterest < ApplicationRecord
       email:,
       phone_number:,
       agree_privacy_statement:,
+      ip_address:,
+      user_agent:,
+      started_at:,
     }.compact
   end
 

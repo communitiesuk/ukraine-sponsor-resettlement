@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Individual expression of interest", type: :system do
   before do
-    driven_by(:rack_test)
+    driven_by(:rack_test_user_agent)
   end
 
   describe "submitting the form" do
@@ -70,10 +70,6 @@ RSpec.describe "Individual expression of interest", type: :system do
 
       application = IndividualExpressionOfInterest.order("created_at DESC").last
       expect(application.as_json).to include({
-        id: application.id,
-        reference: application.reference,
-        created_at: application.created_at,
-        version: application.version,
         accommodation_length: "from_6_to_9_months",
         agree_future_contact: "true",
         agree_privacy_statement: "true",
@@ -87,6 +83,10 @@ RSpec.describe "Individual expression of interest", type: :system do
         postcode: "SG13 7DF",
         single_room_count: "3",
       })
+
+      expect(application.ip_address).to eq("127.0.0.1")
+      expect(application.user_agent).to eq("DummyBrowser")
+      expect(application.started_at).to match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d*Z/)
     end
   end
 end

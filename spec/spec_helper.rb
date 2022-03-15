@@ -92,3 +92,7 @@ RSpec.configure do |config|
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
 end
+
+Capybara.register_driver :rack_test_user_agent do |app|
+  Capybara::RackTest::Driver.new(app, headers: { "HTTP_USER_AGENT" => "DummyBrowser" })
+end
