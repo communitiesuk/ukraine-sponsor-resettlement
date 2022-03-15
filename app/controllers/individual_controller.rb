@@ -14,7 +14,7 @@ class IndividualController < ApplicationController
     # Update Application object with new attributes
     @application.assign_attributes(application_params)
 
-    p @application
+    Rails.logger.debug @application
 
     if @application.valid?
       # Update the session
@@ -59,6 +59,6 @@ private
                                                               :double_room_count, :postcode, :accommodation_length,
                                                               :answer_more_questions_type, :fullname, :email,
                                                               :phone_number, :reference, :agree_privacy_statement,
-                                                              :agree_future_contact, :living_space => [])
+                                                              :agree_future_contact, living_space: [])
   end
 end
