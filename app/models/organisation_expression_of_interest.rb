@@ -6,25 +6,28 @@ class OrganisationExpressionOfInterest < ApplicationRecord
   MIN_PHONE_DIGITS = 9
   MAX_PHONE_DIGITS = 14
 
-  attr_accessor :family_types, :living_space_types, :step_free_types, :agree_future_contact_types,
+  attr_accessor :family_types, :living_space_types, :step_free_types, :agree_future_contact_types, :organisation_types,
                 :family_type, :living_space, :step_free, :property_count, :single_room_count,
                 :double_room_count, :postcode, :organisation_name, :organisation_type, :agree_future_contact,
-                :phone_number, :agree_privacy_statement, :type, :version, :ip_address, :user_agent, :started_at
+                :phone_number, :agree_privacy_statement, :type, :version, :ip_address, :user_agent, :started_at,
+                :organisation_type_business_information, :organisation_type_other_information
 
   validate :validate_family_type, if: :family_type
   validate :validate_living_space, if: :living_space
   validate :validate_step_free, if: :step_free
+  validate :validate_organisation_type, if: :organisation_type
   validates :property_count, allow_nil: true, numericality: { only_integer: true, greater_than_or_equal_to: 0  }
   validates :single_room_count, allow_nil: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :double_room_count, allow_nil: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :postcode, allow_nil: true, length: { minimum: 2 }
   validates :organisation_name, allow_nil: true, length: { minimum: 2 }
-  validates :organisation_type, allow_nil: true, length: { minimum: 2 }
   validates :agree_future_contact, acceptance: { accept: "true", message: I18n.t(:must_be_accepted, scope: :error) }, allow_nil: true
   validate :validate_fullname, if: :fullname
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, message: I18n.t(:invalid_email, scope: :error) }, allow_nil: true
   validate :validate_phone_number, if: :phone_number
   validates :agree_privacy_statement, acceptance: { accept: "true", message: I18n.t(:must_be_accepted, scope: :error) }, allow_nil: true
+  validates :organisation_type_business_information, allow_nil: true, length: { maximum: 500 }
+  validates :organisation_type_other_information, allow_nil: true, length: { maximum: 500 }
 
   after_initialize :after_initialize
   before_save :serialize
@@ -39,6 +42,7 @@ class OrganisationExpressionOfInterest < ApplicationRecord
     @living_space_types = %i[rooms_in_property rooms_in_multiple_properties self_contained_property multiple_properties]
     @step_free_types = %i[all some none unknown]
     @agree_future_contact_types = %i[yes no]
+    @organisation_types = %i[charity faith business other]
   end
 
   def as_json
@@ -65,6 +69,8 @@ class OrganisationExpressionOfInterest < ApplicationRecord
       ip_address:,
       user_agent:,
       started_at:,
+      organisation_type_business_information:,
+      organisation_type_other_information:,
     }.compact
   end
 
@@ -103,6 +109,13 @@ private
       ((@phone_number.scan(/\d/).join.length >= MIN_PHONE_DIGITS) && (@phone_number.scan(/\d/).join.length <= MAX_PHONE_DIGITS)))
       errors.add(:phone_number, I18n.t(:invalid_phone_number, scope: :error))
     end
+  end
+
+  def validate_organisation_type
+    validate_enum(@organisation_types, @organisation_type, :organisation_type)
+
+    self.organisation_type_business_information = nil unless @organisation_type == "business"
+    self.organisation_type_other_information = nil unless @organisation_type == "other"
   end
 
   def serialize

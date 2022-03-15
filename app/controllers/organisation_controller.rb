@@ -30,6 +30,7 @@ class OrganisationController < ApplicationController
 
   def check_answers
     @application = OrganisationExpressionOfInterest.new(session[:organisation_expression_of_interest])
+    p session[:organisation_expression_of_interest]
   end
 
   def submit
@@ -53,6 +54,6 @@ class OrganisationController < ApplicationController
 private
 
   def application_params
-    params.require(:organisation_expression_of_interest).permit(:family_type, :living_space, :step_free, :property_count, :single_room_count, :double_room_count, :postcode, :organisation_name, :organisation_type, :agree_future_contact, :fullname, :email, :phone_number, :agree_privacy_statement)
+    params.require(:organisation_expression_of_interest).permit(:family_type, :living_space, :step_free, :property_count, :single_room_count, :double_room_count, :postcode, :organisation_name, :organisation_type, :agree_future_contact, :fullname, :email, :phone_number, :agree_privacy_statement, :organisation_type_business_information, :organisation_type_other_information)
   end
 end

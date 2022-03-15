@@ -140,6 +140,8 @@
         </dt>
         <dd class="govuk-summary-list__value">
           <%= t(@application.organisation_type, scope: "organisation.organisation_type") %>
+          <%= @application.organisation_type_business_information && @application.organisation_type_business_information.length > 0 ? " - #{@application.organisation_type_business_information}" : "" %>
+          <%= @application.organisation_type_other_information && @application.organisation_type_other_information.length > 0 ? " - #{@application.organisation_type_other_information}" : "" %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/organisation/steps/9">

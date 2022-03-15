@@ -95,24 +95,29 @@ en:
       more_than_12_months: More than 12 months
   organisation:
     family_types:
-      single_adult: Single Adult
+      single_adult: Single adult
       more_than_one_adult: More than one adult
       adults_with_children: Adult(s) with children
       no_preference: No preference
     living_space_types:
-      rooms_in_property: Room(s) in a property with access to shared facilities
+      rooms_in_property: Room(s) in a property with access to shared facilities (bathroom and kitchen)
       rooms_in_multiple_properties: Rooms in multiple properties with access to shared facilities
-      self_contained_property: A self-contained property (includes at least 1 bedroom, bathroom and kitchen)
+      self_contained_property: A self-contained property (includes at least 1 bedroom, bathroom and kitchen facilities)
       multiple_properties: Multiple self-contained properties (includes at least 1 bedroom, bathroom and kitchen per property)
     step_free_types:
       all: Yes, all
       some: Yes, some
       none: "No"
       unknown: I don’t know
+    organisation_types:
+      charity: Charity
+      faith: Faith
+      business: Business
+      other: Other
     questions:
       family_type:
         short: Who can you accommodate?
-        full: Who can you accommodate?
+        full: Who would you like to offer accommodation to?
       living_space:
         short: Living space
         full: What type of living space can you offer?
@@ -127,7 +132,7 @@ en:
         full: How many single bedrooms do you have available?
       double_room_count:
         short: Double rooms
-        full: How many double bedrooms (or larger than double) do you have available?
+        full: How many double bedrooms (or larger) do you have available?
       postcode:
         short: Postcode(s)
         full: Enter the first half of the postcode of the property you’re offering.
@@ -138,10 +143,12 @@ en:
       organisation_type:
         short: Organisation Type
         full: Enter your organisation type
+        business_label: Tell us what your business does
+        other_label: Tell us what your organisation does
       agree_future_contact:
         short: Future contact
-        full: Can we contact you for more details in the future?
-        comment: Please tick this box in order for us to contact you regarding your application to be a sponsor. If you do not tick this box, we will not be able to update you as the scheme progresses.
+        full: Can we contact you about your registration?
+        comment: Please tick this box in order for us to contact you about your registration of interest to be a sponsor. If you do not tick this box, we will not be able to invite you to become a sponsor.
       fullname:
         short: Name
         full: Enter your full name
@@ -153,7 +160,8 @@ en:
         full: Enter your contact telephone number
       agree_privacy_statement:
         short: Privacy statement
-        full: Please tick this box to state that you have read the privacy statement, and agree for the information you have provided in this form to be used as stated.
+        full: Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme
+        comment: Yes, I have read the privacy statement and agree that the information I have provided in this form can be used for the Homes for Ukraine scheme.
 
   error:
     choose_option: Please choose one of the options
