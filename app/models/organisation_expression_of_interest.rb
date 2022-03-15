@@ -1,7 +1,7 @@
 class OrganisationExpressionOfInterest < ApplicationRecord
   self.table_name = "organisation_expressions_of_interest"
 
-  SCHEMA_VERSION = 1
+  SCHEMA_VERSION = 2
 
   MIN_PHONE_DIGITS = 9
   MAX_PHONE_DIGITS = 14
@@ -9,7 +9,7 @@ class OrganisationExpressionOfInterest < ApplicationRecord
   attr_accessor :family_types, :living_space_types, :step_free_types, :agree_future_contact_types,
                 :family_type, :living_space, :step_free, :property_count, :single_room_count,
                 :double_room_count, :postcode, :organisation_name, :organisation_type, :agree_future_contact,
-                :phone_number, :agree_privacy_statement, :type, :version
+                :phone_number, :agree_privacy_statement, :type, :version, :ip_address, :user_agent, :started_at
 
   validate :validate_family_type, if: :family_type
   validate :validate_living_space, if: :living_space
@@ -62,6 +62,9 @@ class OrganisationExpressionOfInterest < ApplicationRecord
       email:,
       phone_number:,
       agree_privacy_statement:,
+      ip_address:,
+      user_agent:,
+      started_at:,
     }.compact
   end
 
