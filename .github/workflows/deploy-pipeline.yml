@@ -50,6 +50,7 @@ jobs:
       DB_DATABASE: ukraine
       DB_USERNAME: ukraine
       DB_PASSWORD: password
+      GOVUK_NOTIFY_API_KEY: ${{ secrets.GOVUK_NOTIFY_API_KEY }}
 
     steps:
       - name: Checkout
@@ -141,6 +142,7 @@ jobs:
           BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
           REMOTE_API_URL: ${{ secrets.REMOTE_API_URL }}
           REMOTE_API_TOKEN: ${{ secrets.REMOTE_API_TOKEN }}
+          GOVUK_NOTIFY_API_KEY: ${{ secrets.GOVUK_NOTIFY_API_KEY }}
         run: |
           cf api $CF_API_ENDPOINT
           cf auth
@@ -149,6 +151,7 @@ jobs:
           cf set-env $APP_NAME BASIC_AUTH_USER $BASIC_AUTH_USER
           cf set-env $APP_NAME REMOTE_API_URL $REMOTE_API_URL
           cf set-env $APP_NAME REMOTE_API_TOKEN $REMOTE_API_TOKEN
+          cf set-env $APP_NAME GOVUK_NOTIFY_API_KEY $GOVUK_NOTIFY_API_KEY
           cf push $APP_NAME --strategy rolling
 
   deploy-production:
@@ -182,6 +185,7 @@ jobs:
           BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
           REMOTE_API_URL: ${{ secrets.REMOTE_API_URL }}
           REMOTE_API_TOKEN: ${{ secrets.REMOTE_API_TOKEN }}
+          GOVUK_NOTIFY_API_KEY: ${{ secrets.GOVUK_NOTIFY_API_KEY }}
         run: |
           cf api $CF_API_ENDPOINT
           cf auth
@@ -191,4 +195,5 @@ jobs:
           cf set-env $APP_NAME BASIC_AUTH_PASS $BASIC_AUTH_PASS
           cf set-env $APP_NAME REMOTE_API_URL $REMOTE_API_URL
           cf set-env $APP_NAME REMOTE_API_TOKEN $REMOTE_API_TOKEN
+          cf set-env $APP_NAME GOVUK_NOTIFY_API_KEY $GOVUK_NOTIFY_API_KEY
           cf push $APP_NAME --strategy rolling

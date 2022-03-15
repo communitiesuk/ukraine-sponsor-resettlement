@@ -70,6 +70,9 @@ services:
       DB_PASSWORD: password
       VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-development-redis", "credentials":{"uri":"redis://redis"}}]}'
       REMOTE_API_URL: http://mock-api:8081/data
+      INDIVIDUAL_CONFIRMATION_TEMPLATE_ID: "6c80930d-e25a-4dc6-8383-bb83a2c18d19"
+      ORGANISATION_CONFIRMATION_TEMPLATE_ID: "3ae2501f-e2be-4ad6-886b-fcf5aa71d448"
+      GOVUK_NOTIFY_API_KEY: ${GOVUK_NOTIFY_API_KEY}
     command: bundle exec sidekiq
 
   redis:
