@@ -113,7 +113,7 @@ private
   end
 
   def validate_phone_number
-    if !@phone_number.nil? && !((@phone_number =~ /[0-9 -+]+$/) &&
+    if !@phone_number.nil? && @phone_number != "" && !((@phone_number =~ /[0-9 -+]+$/) &&
       ((@phone_number.scan(/\d/).join.length >= MIN_PHONE_DIGITS) && (@phone_number.scan(/\d/).join.length <= MAX_PHONE_DIGITS)))
       errors.add(:phone_number, I18n.t(:invalid_phone_number, scope: :error))
     end

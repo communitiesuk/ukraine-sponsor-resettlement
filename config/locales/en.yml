@@ -68,8 +68,8 @@ en:
         short: Email
         full: Enter your email address
       phone_number:
-        short: Telephone number
-        full: Enter your contact telephone number
+        short: Telephone number (optional)
+        full: Enter your contact telephone number (optional)
       agree_privacy_statement:
         short: Privacy statement
         full: Please tick this box to state that you have read the privacy statement, and agree for the information you have provided in this form to be used as stated

@@ -42,7 +42,7 @@ RSpec.describe "Individual expression of interest", type: :system do
       fill_in("Enter your email address", with: "john.smith@example.com")
       click_button("Continue")
 
-      fill_in("Enter your contact telephone number", with: "0123456789")
+      fill_in("Enter your contact telephone number (optional)", with: "0123456789")
       click_button("Continue")
 
       page.check("individual-expression-of-interest-agree-future-contact-true-field")
@@ -60,7 +60,7 @@ RSpec.describe "Individual expression of interest", type: :system do
       expect(page).to have_content("Accomodation length From 6 to 9 months")
       expect(page).to have_content("Name John Smith")
       expect(page).to have_content("Email john.smith@example.com")
-      expect(page).to have_content("Telephone number 0123456789")
+      expect(page).to have_content("Telephone number (optional) 0123456789")
       expect(page).to have_content("Future contact Agreed")
       expect(page).to have_content("Privacy statement Agreed")
 
