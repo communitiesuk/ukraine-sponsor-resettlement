@@ -35,7 +35,8 @@ class IndividualController < ApplicationController
     @application = IndividualExpressionOfInterest.new(session[:individual_expression_of_interest])
     @application.save!
 
-    session[:individual_expression_of_interest] = @application.as_json
+    session[:app_reference] = @application.reference
+    session[:individual_expression_of_interest] = {}
 
     SendIndividualUpdateJob.perform_later(@application.id)
     GovNotifyMailer.send_individual_confirmation_email(@application).deliver_later
@@ -43,7 +44,7 @@ class IndividualController < ApplicationController
   end
 
   def confirm
-    @application = IndividualExpressionOfInterest.new(session[:individual_expression_of_interest])
+    @app_reference = session[:app_reference]
   end
 
 private
