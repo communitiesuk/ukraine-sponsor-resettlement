@@ -1,8 +1,8 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_for @application, url: "/individual/steps/7", method: :post do |f| %>
-      <%= f.govuk_collection_radio_buttons :accommodation_length_type,
-        @application.accommodation_length_types.map{|type| OpenStruct.new(id: type, name: t(type, scope: "individual.accommodation_length_type")) },
+      <%= f.govuk_collection_radio_buttons :accommodation_length,
+        @application.accommodation_length_types.map{|type| OpenStruct.new(id: type, name: t(type, scope: "individual.accommodation_length")) },
         :id,
         :name,
         legend: { text: t('accommodation_length.full', scope: "individual.questions") }

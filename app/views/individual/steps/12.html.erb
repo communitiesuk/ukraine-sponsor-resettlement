@@ -1,12 +1,12 @@
 <%= form_for @application, url: "/individual/steps/12", method: :post do |f| %>
-  <%= f.govuk_check_boxes_fieldset :agree_privacy_statement, multiple: false, legend: { text: t('privacy_statement.full', scope: "individual.questions"), size: 'l' } do %>
+  <%= f.govuk_check_boxes_fieldset :agree_privacy_statement, multiple: false, legend: { text: t('agree_privacy_statement.full', scope: "individual.questions"), size: 'l' } do %>
     <p class="govuk-body">
-      <%= t('privacy_statement.comment', scope: "individual.questions") %>
+      <%= t('agree_privacy_statement.comment', scope: "individual.questions") %>
     </p>
     <p>
-      <%= govuk_link_to 'Privacy statement', "https://consult.communities.gov.uk/digital-delivery/register-to-support-homes-for-ukraine/#question-2022-03-13-6003801478-factbanksubquestion" %>
+      <%= govuk_link_to t('individual.questions.agree_privacy_statement.short'), "https://consult.communities.gov.uk/digital-delivery/register-to-support-homes-for-ukraine/#question-2022-03-13-6003801478-factbanksubquestion" %>
     </p>
-    <%= f.govuk_check_box :agree_privacy_statement, "true", "false", multiple: false, link_errors: true, label: { text: t('privacy_statement.full', scope: "individual.questions") } %><% end %>
+    <%= f.govuk_check_box :agree_privacy_statement, "true", "false", multiple: false, link_errors: true, label: { text: t('agree_privacy_statement.full', scope: "individual.questions") } %><% end %>
 
   <%= f.govuk_submit t('continue') %>
 <% end %>

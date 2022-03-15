@@ -30,9 +30,12 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  yes_no_types:
+    yes: "Yes"
+    no: "No"
   individual:
     questions:
-      family_single:
+      family_type:
         short: Who can you accommodate?
         full: Who can you accommodate?
       living_space:
@@ -53,7 +56,7 @@ en:
       accommodation_length:
         short: Accomodation length
         full: How long can you offer accommodation?
-      future_contact:
+      agree_future_contact:
         short: Future contact
         full: Can we contact you for more details in the future?
         comment: Please tick this box in order for us to contact you regarding your application to be a sponsor. If you do not tick this box, we will not be able to update you as the scheme progresses.
@@ -66,31 +69,31 @@ en:
       phone_number:
         short: Telephone number
         full: Enter your contact telephone number
-      privacy_statement:
+      agree_privacy_statement:
         short: Privacy statement
-        full:  Please tick this box to state that you have read the privacy statement, and agree for the information you have provided in this form to be used as stated
+        full: Please tick this box to state that you have read the privacy statement, and agree for the information you have provided in this form to be used as stated
         comment: Yes, I have read the privacy statement, and agree for the information you have provided in this form to be used as stated
         link:
-    family_or_single_type:
+    family_type:
       single_adult: Single adult
       more_than_one_adult: More than one adult
       adults_with_children: Adults with children
       no_prefence: No preference
-    living_space_type:
+    living_space:
       rooms_in_home_shared_facilities: Rooms in your home with access to shared facilities
       self_contained_property: A self-contained property (includes at least 1 bedroom, bathroom and kitchen)
       multiple_properties: Multiple properties (includes at least 1 bedroom, bathroom and kitchen facilities per property)
-    mobility_impairments_type:
+    step_free:
       yes_all: Yes, all
       yes_some: Yes, some
       no: No
       dont_know: I don't know
-    accommodation_length_type:
+    accommodation_length:
       from_6_to_9_months: From 6 to 9 months
       from_10_to_12_months: From 10 to 12 months
       more_than_12_months: More than 12 months
   organisation:
-    sponsor_type:
+    family_types:
       single_adult: Single Adult
       more_than_one_adult: More than one adult
       adults_with_children: Adult(s) with children
@@ -105,15 +108,9 @@ en:
       some: Yes, some
       none: "No"
       unknown: I don’t know
-    answer_more_questions_types:
-      yes: "Yes"
-      no: "No"
-    contact_types:
-      yes: "Yes"
-      no: "No"
     questions:
-      sponsor_type:
-        short: Sponsor Type
+      family_type:
+        short: Who can you accommodate?
         full: Who can you accommodate?
       living_space:
         short: Living space
@@ -140,8 +137,8 @@ en:
       organisation_type:
         short: Organisation Type
         full: Enter your organisation type
-      answer_more_questions:
-        short: Answer more questions?
+      agree_future_contact:
+        short: Future contact
         full: Can we contact you for more details in the future?
       fullname:
         short: Name
@@ -152,8 +149,8 @@ en:
       phone_number:
         short: Phone number
         full: Enter your contact telephone number
-      privacy:
-        short: Agreed to privacy
+      agree_privacy_statement:
+        short: Privacy statement
         full: Please tick this box to state that you have read the privacy statement, and agree for the information you have provided in this form to be used as stated.
 
   error:

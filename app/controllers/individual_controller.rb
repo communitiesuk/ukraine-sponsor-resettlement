@@ -49,9 +49,9 @@ class IndividualController < ApplicationController
 private
 
   def application_params
-    params.require(:individual_expression_of_interest).permit(:family_or_single_type, :living_space_type,
-                                                              :mobility_impairments_type, :single_room_count, :double_room_count, :postcode,
-                                                              :accommodation_length_type, :answer_more_questions_type,
+    params.require(:individual_expression_of_interest).permit(:family_type, :living_space,
+                                                              :step_free, :single_room_count, :double_room_count, :postcode,
+                                                              :accommodation_length, :answer_more_questions_type,
                                                               :fullname, :email, :phone_number, :reference,
                                                               :agree_privacy_statement, :agree_future_contact)
   end
