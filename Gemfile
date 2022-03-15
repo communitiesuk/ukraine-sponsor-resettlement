@@ -24,6 +24,10 @@ gem "rack-attack"
 gem "redis"
 gem "sidekiq"
 
+# Sentry - Application Monitoring
+gem "sentry-rails"
+gem "sentry-ruby"
+
 group :development, :test do
   # Check gems for known vulnerabilities
   gem "bundler-audit"
