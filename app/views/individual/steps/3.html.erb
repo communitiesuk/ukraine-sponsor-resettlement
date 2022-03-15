@@ -5,7 +5,7 @@
         @application.step_free_types.map{|type| OpenStruct.new(id: type, name: t(type, scope: "individual.step_free")) },
         :id,
         :name,
-        legend: { text: t('mobility_impairments.full', scope: "individual.questions") }
+        legend: { text: t('step_free.full', scope: "individual.questions") }
       %>
       <%= f.govuk_submit t('continue') %>
     <% end %>

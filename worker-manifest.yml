@@ -1,0 +1,27 @@
+---
+defaults: &defaults
+  buildpacks:
+    - https://github.com/cloudfoundry/ruby-buildpack.git
+  command: bundle exec sidekiq
+  instances: 2
+  memory: 512M
+  health-check-type: process
+  no-route: true
+
+applications:
+  - name: ukraine-sponsor-resettlement-staging-sidekiq
+    <<: *defaults
+    env:
+      RAILS_ENV: staging
+    services:
+      - ukraine-sponsor-resettlement-staging-postgres
+      - ukraine-sponsor-resettlement-staging-redis
+
+  - name: ukraine-sponsor-resettlement-production-sidekiq
+    <<: *defaults
+    env:
+      RAILS_ENV: production
+    instances: 4
+    services:
+      - ukraine-sponsor-resettlement-production-postgres
+      - ukraine-sponsor-resettlement-production-redis
