@@ -141,6 +141,8 @@ jobs:
           REMOTE_API_URL: ${{ secrets.REMOTE_API_URL }}
           REMOTE_API_TOKEN: ${{ secrets.REMOTE_API_TOKEN }}
           GOVUK_NOTIFY_API_KEY: ${{ secrets.GOVUK_NOTIFY_API_KEY }}
+          INDIVIDUAL_CONFIRMATION_TEMPLATE_ID: ${{ secrets.INDIVIDUAL_CONFIRMATION_TEMPLATE_ID }}
+          ORGANISATION_CONFIRMATION_TEMPLATE_ID: ${{ secrets.ORGANISATION_CONFIRMATION_TEMPLATE_ID }}
         run: |
           cf api $CF_API_ENDPOINT
           cf auth
