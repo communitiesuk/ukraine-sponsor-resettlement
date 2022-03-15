@@ -2,7 +2,7 @@
   <div class="govuk-grid-column-two-thirds">
     <%= form_for @application, url: "/individual/steps/6", method: :post do |f| %>
       <%= f.govuk_text_field :postcode,
-        label: { text: t('postcode.full', scope: "individual.questions") },
+       label: { text: "#{t('postcode.full', scope: "individual.questions")} #{t('postcode.subtitle', scope: "individual.questions")}"},
         autocomplete: 'postal-code'
       %>
       <%= f.govuk_submit t('continue') %>

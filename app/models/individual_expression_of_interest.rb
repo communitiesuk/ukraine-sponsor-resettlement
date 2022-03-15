@@ -26,7 +26,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
 
   validates :double_room_count, allow_nil: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
-  validate :validate_postcodes, if: :postcode
+  validates :postcode, allow_nil: true, length: { minimum: 2 }
 
   validate :validate_accommodation_length_type, if: :accommodation_length
 
@@ -94,15 +94,6 @@ private
   def validate_enum(enum, value, attribute)
     unless enum.include?(value.to_sym)
       errors.add(attribute, I18n.t(:choose_option, scope: :error))
-    end
-  end
-
-  def validate_postcodes
-    postcodes = @postcode.split(",").map(&:strip)
-    valid_postcodes = postcodes.grep(POSTCODE_REGEX)
-
-    unless @postcode.nil? || (!@postcode.strip.empty? && (postcodes.length == valid_postcodes.length))
-      errors.add(:postcode, I18n.t(:invalid_postcode, scope: :error))
     end
   end
 
