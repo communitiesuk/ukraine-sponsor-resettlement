@@ -128,7 +128,7 @@ en:
         short: Double rooms
         full: How many double bedrooms (or larger than double) do you have available?
       postcode:
-        short: Postcode
+        short: Postcode(s)
         full: Enter the first half of the postcode of the property you’re offering.
         subtitle: (If you are offering multiple properties, please enter all the postcodes separated by a comma)
       organisation_name:

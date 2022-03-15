@@ -152,13 +152,29 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
+          <%= t('agree_future_contact.short', scope: "organisation.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.agree_future_contact == "true" ? "Agreed" : "Not agreed" %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/organisation/steps/10">
+            Change<span class="govuk-visually-hidden"> willing to answer more questions</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
           <%= t('fullname.short', scope: "organisation.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
           <%= @application.fullname %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/organisation/steps/10">
+          <a class="govuk-link" href="/organisation/steps/11">
             Change<span class="govuk-visually-hidden"> full name</span>
           </a>
         </dd>
@@ -174,7 +190,7 @@
           <%= @application.email %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/organisation/steps/11">
+          <a class="govuk-link" href="/organisation/steps/12">
             Change<span class="govuk-visually-hidden"> email</span>
           </a>
         </dd>
@@ -190,24 +206,8 @@
           <%= @application.phone_number %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/organisation/steps/12">
-            Change<span class="govuk-visually-hidden"> phone number</span>
-          </a>
-        </dd>
-      </div>
-    </dl>
-
-    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= t('agree_future_contact.short', scope: "organisation.questions") %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= @application.agree_future_contact == "true" ? "Agreed" : "Not agreed" %>
-        </dd>
-        <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/organisation/steps/13">
-            Change<span class="govuk-visually-hidden"> willing to answer more questions</span>
+            Change<span class="govuk-visually-hidden"> phone number</span>
           </a>
         </dd>
       </div>
