@@ -43,7 +43,7 @@ en:
         full: What type of living space can you offer?
       mobility_impairments:
         short: Mobility impaired accessible property
-        full: Is the entire property accessible to people with mobility impairments?
+        full: Does the property, or any of the properties, have step-free access?
       single_room_count:
         short: Single rooms available
         full: How many single rooms do you have available?

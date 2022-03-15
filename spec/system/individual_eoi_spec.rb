@@ -19,7 +19,7 @@ RSpec.describe "Individual expression of interest", type: :system do
       choose("Rooms in your home with access to shared facilities")
       click_button("Continue")
 
-      expect(page).to have_content("Is the entire property accessible to people with mobility impairments?")
+      expect(page).to have_content("Does the property, or any of the properties, have step-free access?")
       choose("Yes, all")
       click_button("Continue")
 
