@@ -32,14 +32,11 @@
 en:
   individual:
     questions:
-      sponsor_type:
-        short: Sponsor type
-        full: Who would you like to sponsor?
       family_single:
-        short: Family or individual
-        full: Are you willing to sponsor a family or a single person?
+        short: Who can you accommodate?
+        full: Who can you accommodate?
       living_space:
-        short: Living space type
+        short: Living space
         full: What type of living space can you offer?
       mobility_impairments:
         short: Mobility impaired accessible property
@@ -51,53 +48,47 @@ en:
         short: Double rooms available
         full: How many double rooms do you have available?
       postcode:
-        short: Property postcode
-        full: Enter the postcode of the main property you’re offering.
+        short: Property postcode(s)
+        full: Enter the postcode of the main property you’re offering (If you are offering multiple properties, please enter the first part of all the postcodes separated by a comma)
       accommodation_length:
         short: Accomodation length
         full: How long can you offer accommodation?
-      dbs_certificate:
-        short: Disclosure and Barring Service certificate
-        full: Do you have a current Disclosure and Barring Service (DBS) certificate?
-      answer_more_questions:
-        short: Willing to answer more questions
-        full: Are you willing to answer more questions to confirm your suitability as a sponsor?
+      future_contact:
+        short: Future contact
+        full: Can we contact you for more details in the future?
+        comment: Please tick this box in order for us to contact you regarding your application to be a sponsor. If you do not tick this box, we will not be able to update you as the scheme progresses.
       fullname:
         short: Name
         full: Enter your full name
       email:
         short: Email
         full: Enter your email address
-      mobile_number:
-        short: Mobile number
-        full: Enter your mobile number
-    sponsor_type:
-      family_member: Family Member
-      friend_or_colleague: Friend or Colleague
-      unknown_person: Unknown Person
+      phone_number:
+        short: Telephone number
+        full: Enter your contact telephone number
+      privacy_statement:
+        short: Privacy statement
+        full:  Please tick this box to state that you have read the privacy statement, and agree for the information you have provided in this form to be used as stated
+        comment: Yes, I have read the privacy statement, and agree for the information you have provided in this form to be used as stated
+        link:
     family_or_single_type:
-      family: Family
-      single: Single person
+      single_adult: Single adult
+      more_than_one_adult: More than one adult
+      adults_with_children: Adults with children
       no_prefence: No preference
     living_space_type:
-      rooms_in_home: Rooms in your home
+      rooms_in_home_shared_facilities: Rooms in your home with access to shared facilities
       self_contained_property: A self-contained property (includes at least 1 bedroom, bathroom and kitchen)
+      multiple_properties: Multiple properties (includes at least 1 bedroom, bathroom and kitchen facilities per property)
     mobility_impairments_type:
-      yes: Yes
+      yes_all: Yes, all
+      yes_some: Yes, some
       no: No
       dont_know: I don't know
     accommodation_length_type:
-      less_than_3_months: Less than 3 months
-      less_than_6_months: 3 to 6 months
-      less_than_12_months: 6 to 12 months
+      from_6_to_9_months: From 6 to 9 months
+      from_10_to_12_months: From 10 to 12 months
       more_than_12_months: More than 12 months
-    dbs_certificate_type:
-      yes: Yes
-      no_but_willing: No, but I am willing to have a DBS check
-      no: No
-    answer_more_questions_type:
-      yes: Yes
-      no: No
   organisation:
     sponsor_type:
       single_adult: Single Adult
@@ -168,8 +159,8 @@ en:
   error:
     choose_option: Please choose one of the options
     invalid_number: Please enter a non-negative whole number
-    invalid_postcode: Please enter a valid UK postcode
+    invalid_postcode: Please enter a valid UK postcode(s)
     invalid_email: Plese enter a valid email address
-    invalid_mobile_number: Please enter a valid mobile number
     invalid_phone_number: Please enter a valid phone number
     invalid_fullname: Please enter a valid name
+    must_be_accepted: Must be accepted

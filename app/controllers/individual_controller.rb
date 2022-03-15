@@ -6,7 +6,7 @@ class IndividualController < ApplicationController
   end
 
   def handle_step
-    max_steps = 13
+    max_steps = 12
     # Pull session data out of session and
     # instantiate new Application ActiveRecord object
     @application = IndividualExpressionOfInterest.new(session[:individual_expression_of_interest])
@@ -49,9 +49,10 @@ class IndividualController < ApplicationController
 private
 
   def application_params
-    params.require(:individual_expression_of_interest).permit(:sponsor_type, :family_or_single_type, :living_space_type,
+    params.require(:individual_expression_of_interest).permit(:family_or_single_type, :living_space_type,
                                                               :mobility_impairments_type, :single_room_count, :double_room_count, :postcode,
-                                                              :accommodation_length_type, :dbs_certificate_type, :answer_more_questions_type,
-                                                              :fullname, :email, :mobile_number, :reference)
+                                                              :accommodation_length_type, :answer_more_questions_type,
+                                                              :fullname, :email, :phone_number, :reference,
+                                                              :agree_privacy_statement, :agree_future_contact)
   end
 end
