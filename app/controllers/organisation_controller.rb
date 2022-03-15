@@ -30,7 +30,7 @@ class OrganisationController < ApplicationController
 
   def check_answers
     @application = OrganisationExpressionOfInterest.new(session[:organisation_expression_of_interest])
-    p session[:organisation_expression_of_interest]
+    Rails.logger.debug session[:organisation_expression_of_interest]
   end
 
   def submit
