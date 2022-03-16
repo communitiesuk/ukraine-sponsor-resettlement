@@ -57,7 +57,7 @@ RSpec.describe "Individual expression of interest", type: :system do
       expect(page).to have_content("Single rooms available 3")
       expect(page).to have_content("Double rooms available 2")
       expect(page).to have_content("Property postcode(s) SG")
-      expect(page).to have_content("Accomodation length From 6 to 9 months")
+      expect(page).to have_content("Accommodation length From 6 to 9 months")
       expect(page).to have_content("Name John Smith")
       expect(page).to have_content("Email john.smith@example.com")
       expect(page).to have_content("Telephone number (optional) 0123456789")
