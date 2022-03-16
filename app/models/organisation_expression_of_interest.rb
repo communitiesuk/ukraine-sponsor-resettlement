@@ -71,12 +71,6 @@ class OrganisationExpressionOfInterest < ApplicationRecord
 
 private
 
-  def validate_living_space
-    if living_space.nil? || @living_space.length.zero?
-      errors.add(:living_space, I18n.t(:choose_one_or_more_options, scope: :error))
-    end
-  end
-
   def validate_organisation_type
     validate_enum(@organisation_types, @organisation_type, :organisation_type)
 
