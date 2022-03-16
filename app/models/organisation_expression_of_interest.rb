@@ -13,7 +13,6 @@ class OrganisationExpressionOfInterest < ApplicationRecord
 
   attr_reader   :living_space
 
-  validate :validate_living_space, if: -> { run_validation? :living_space }
   validate :validate_organisation_type, if: -> { run_validation? :organisation_type }
   validates :property_count, numericality: { only_integer: true, greater_than_or_equal_to: 0, message: I18n.t(:invalid_number, scope: :error) }, if: -> { run_validation? :property_count }
   validates :organisation_name, length: { minimum: 2, maximum: 100, message: I18n.t(:invalid_organisation_name, scope: :error) }, if: -> { run_validation? :organisation_name }
