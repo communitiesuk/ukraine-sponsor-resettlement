@@ -9,8 +9,7 @@ class OrganisationExpressionOfInterest < ApplicationRecord
                 :family_type, :step_free, :property_count, :single_room_count,
                 :double_room_count, :postcode, :organisation_name, :organisation_type, :agree_future_contact, :fullname,
                 :phone_number, :agree_privacy_statement, :type, :version, :ip_address, :user_agent, :started_at,
-                :organisation_type_business_information, :organisation_type_other_information, :final_submission,
-                :living_space
+                :organisation_type_business_information, :organisation_type_other_information, :final_submission
 
   attr_reader   :living_space
 
