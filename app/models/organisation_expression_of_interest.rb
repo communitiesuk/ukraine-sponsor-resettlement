@@ -6,10 +6,11 @@ class OrganisationExpressionOfInterest < ApplicationRecord
   SCHEMA_VERSION = 2
 
   attr_accessor :family_types, :living_space_types, :step_free_types, :agree_future_contact_types, :organisation_types,
-                :family_type, :living_space, :step_free, :property_count, :single_room_count,
+                :family_type, :step_free, :property_count, :single_room_count,
                 :double_room_count, :postcode, :organisation_name, :organisation_type, :agree_future_contact, :fullname,
                 :phone_number, :agree_privacy_statement, :type, :version, :ip_address, :user_agent, :started_at,
                 :organisation_type_business_information, :organisation_type_other_information, :final_submission
+  attr_reader   :living_space
 
   validate :validate_living_space, if: -> { run_validation? :validate_living_space }
   validate :validate_organisation_type, if: -> { run_validation? :organisation_type }
@@ -70,7 +71,6 @@ class OrganisationExpressionOfInterest < ApplicationRecord
 private
 
   def validate_living_space
-    p @living_space
     if living_space.nil? || @living_space.length.zero?
       errors.add(:living_space, I18n.t(:choose_one_or_more_options, scope: :error))
     end
