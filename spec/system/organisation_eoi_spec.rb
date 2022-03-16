@@ -69,7 +69,7 @@ RSpec.describe "Organisation expression of interest", type: :system do
       expect(page).to have_content("Organisation Type Charity")
       expect(page).to have_content("Name John Smith")
       expect(page).to have_content("Email john.smith@example.com")
-      expect(page).to have_content("Phone number 0123456789")
+      expect(page).to have_content("Phone number (optional) 0123456789")
       expect(page).to have_content("Future contact Agreed")
       expect(page).to have_content("Privacy statement Agreed")
 

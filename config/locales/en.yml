@@ -156,8 +156,8 @@ en:
         short: Email
         full: Enter your email address
       phone_number:
-        short: Phone number
-        full: Enter your contact telephone number
+        short: Phone number (optional)
+        full: Enter your contact telephone number (optional)
       agree_privacy_statement:
         short: Privacy statement
         full: Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme
