@@ -5,8 +5,8 @@ defaults: &defaults
   command: bundle exec rake cf:on_first_instance db:migrate && bin/rails server
   instances: 2
   memory: 512M
-  # Needs to be fixed back to http
-  health-check-type: port
+  health-check-type: http
+  health-check-http-endpoint: /health
 
 applications:
   - name: ukraine-sponsor-resettlement-test
