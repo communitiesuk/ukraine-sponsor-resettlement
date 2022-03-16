@@ -1,11 +1,11 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_for @application, url: "/organisation/steps/2", method: :post do |f| %>
-      <%= f.govuk_collection_radio_buttons :living_space,
-          @application.living_space_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "organisation.living_space_types")) },
-          :id,
-          :name,
-          legend: { text: t('living_space.full', scope: "organisation.questions") }
+      <%= f.govuk_collection_check_boxes :living_space,
+        @application.living_space_types.map{|type| OpenStruct.new(id: type, name: t(type, scope: "organisation.living_space")) },
+        :id,
+        :name,
+        legend: { text: t('living_space.full', scope: "organisation.questions") }
       %>
       <%= f.govuk_submit t('continue') %>
     <% end %>

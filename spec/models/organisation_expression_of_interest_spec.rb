@@ -30,7 +30,7 @@ RSpec.describe OrganisationExpressionOfInterest, type: :model do
       app = described_class.new
       app.living_space = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:living_space]).to include("Please choose one of the options")
+      expect(app.errors[:living_space]).to include("Please choose one or more of the options")
       app.living_space = "rooms_in_property"
       expect(app.valid?).to be(true)
     end
