@@ -11,7 +11,7 @@ RSpec.describe "Individual expression of interest", type: :system do
       expect(page).to have_content("Homes for Ukraine")
       click_link("Register your interest as an individual")
 
-      expect(page).to have_content("Who can you accommodate?")
+      expect(page).to have_content("Who would you like to offer accommodation to?")
       choose("Single adult")
       click_button("Continue")
 
@@ -26,13 +26,13 @@ RSpec.describe "Individual expression of interest", type: :system do
       fill_in("How many single rooms do you have available?", with: 3)
       click_button("Continue")
 
-      fill_in("How many double rooms do you have available?", with: 2)
+      fill_in("How many double bedrooms (or larger) do you have available?", with: 2)
       click_button("Continue")
 
       fill_in("Enter the first part of the postcode of the property you’re offering (If you are offering multiple properties, please enter all the postcodes separated by a comma)", with: "SG")
       click_button("Continue")
 
-      expect(page).to have_content("How long can you offer accommodation?")
+      expect(page).to have_content("How long can you offer accommodation for?")
       choose("From 6 to 9 months")
       click_button("Continue")
 
@@ -52,7 +52,7 @@ RSpec.describe "Individual expression of interest", type: :system do
       click_button("Continue")
 
       expect(page).to have_content("Who can you accommodate? Single adult")
-      expect(page).to have_content("Living space Rooms in your home with access to shared facilities")
+      expect(page).to have_content("Living space Room(s) in your home with access to shared facilities (bathroom and kitchen)")
       expect(page).to have_content("Mobility impaired accessible property Yes, all")
       expect(page).to have_content("Single rooms available 3")
       expect(page).to have_content("Double rooms available 2")
