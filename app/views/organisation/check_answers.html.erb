@@ -34,12 +34,12 @@
           <% if @application.errors.include?(:living_space) %>
             <span class="govuk-error-message"><%= @application.errors[:living_space].join %></span>
           <% else %>
-            <%= t(@application.living_space, scope: "organisation.living_space_types") %>
+            <%= @application.living_space && @application.living_space.reject(&:empty?).map{ |opt| t(opt, scope: "organisation.living_space_types") }.join(", ") %>
           <% end %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/organisation/steps/2">
-            Change<span class="govuk-visually-hidden"> living space type selection</span>
+            Change<span class="govuk-visually-hidden"> living space type</span>
           </a>
         </dd>
       </div>

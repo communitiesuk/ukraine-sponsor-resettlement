@@ -16,7 +16,7 @@ RSpec.describe "Organisation expression of interest", type: :system do
       click_button("Continue")
 
       expect(page).to have_content("What type of living space can you offer?")
-      choose("Room(s) in a property with access to shared facilities (bathroom and kitchen)")
+      page.check("organisation-expression-of-interest-living-space-rooms-in-property-field")
       click_button("Continue")
 
       expect(page).to have_content("Does the property, or any of the properties, have step-free access?")
@@ -81,7 +81,7 @@ RSpec.describe "Organisation expression of interest", type: :system do
       expect(application.as_json).to include({
         type: "organisation",
         family_type: "single_adult",
-        living_space: "rooms_in_property",
+        living_space: %w[rooms_in_property],
         step_free: "some",
         property_count: "3",
         single_room_count: "2",
