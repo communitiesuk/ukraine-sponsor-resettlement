@@ -7,16 +7,18 @@
             Application complete
           </h1>
           <div class="govuk-panel__body">
-            Your reference number<br><strong><%= @app_reference %></strong>
+            Your response ID is <br><strong><%= @app_reference %></strong>
           </div>
         </div>
 
-        <p class="govuk-body">We have sent you a confirmation email.</p>
-
-        <h2 class="govuk-heading-m">What happens next</h2>
+        <h2 class="govuk-heading-m">Thank you for registering for the Homes for Ukraine Scheme</h2>
 
         <p class="govuk-body">
-          We will be in contact to confirm your expression of interest, or to ask for more information.
+          A receipt for your response has been emailed to you from the address dluhc@mail1.citizenspace.com with the subject "Response received - Response ID: <%= @app_reference %>". If it doesn't appear in your inbox within a couple of minutes, please check your "spam" or "junk" folder.
+        </p>
+
+        <p class="govuk-body">
+          We will keep you updated as the scheme opens for applications. Please also keep checking on the <%= govuk_link_to 'Homes for Ukraine Scheme', 'https://homesforukraine.campaign.gov.uk/' %> page which will be regularly updated.
         </p>
       </div>
     </div>
