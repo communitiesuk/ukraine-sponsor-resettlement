@@ -37,14 +37,19 @@ class OrganisationController < ApplicationController
     @application = OrganisationExpressionOfInterest.new(session[:organisation_expression_of_interest])
     @application.ip_address = request.ip
     @application.user_agent = request.user_agent
-    @application.save!
+    @application.final_submission = true
+    if @application.valid?
+      @application.save!
 
-    session[:app_reference] = @application.reference
-    session[:organisation_expression_of_interest] = {}
+      session[:app_reference] = @application.reference
+      session[:organisation_expression_of_interest] = {}
 
-    SendOrganisationUpdateJob.perform_later(@application.id)
-    GovNotifyMailer.send_organisation_confirmation_email(@application).deliver_later
-    redirect_to "/organisation/confirm"
+      SendOrganisationUpdateJob.perform_later(@application.id)
+      GovNotifyMailer.send_organisation_confirmation_email(@application).deliver_later
+      redirect_to "/organisation/confirm"
+    else
+      render "check_answers"
+    end
   end
 
   def confirm

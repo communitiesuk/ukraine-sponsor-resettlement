@@ -85,10 +85,10 @@ en:
       self_contained_property: A self-contained property (includes at least 1 bedroom, bathroom and kitchen facilities)
       multiple_properties: Multiple properties (includes at least 1 bedroom, bathroom and kitchen facilities per property)
     step_free:
-      yes_all: Yes, all
-      yes_some: Yes, some
-      no: No
-      dont_know: I don't know
+      all: Yes, all
+      some: Yes, some
+      none: "No"
+      unknown: I don’t know
     accommodation_length:
       from_6_to_9_months: From 6 to 9 months
       from_10_to_12_months: From 10 to 12 months
@@ -168,7 +168,9 @@ en:
     invalid_number: Please enter a non-negative whole number
     invalid_postcode: Please enter a valid UK postcode(s)
     invalid_email: Please enter a valid email address
+    invalid_organisation_name: Please enter a valid organisation name
     invalid_phone_number: Please enter a valid phone number
     invalid_fullname: Please enter a valid name
     must_be_accepted: Must be accepted
     choose_one_or_more_options: Please choose one or more of the options
+    max_500_chars: Please use 500 characters or less
