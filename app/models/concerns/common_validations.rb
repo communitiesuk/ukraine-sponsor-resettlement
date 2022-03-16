@@ -10,6 +10,7 @@ module CommonValidations
     validates :email, length: { maximum: 128, message: I18n.t(:invalid_email, scope: :error) }, format: { with: URI::MailTo::EMAIL_REGEXP, message: I18n.t(:invalid_email, scope: :error) }, if: -> { run_validation? :email }
     validate :validate_phone_number, if: -> { run_validation? :phone_number }
     validate :validate_step_free, if: -> { run_validation? :step_free }
+    validate :validate_living_space, if: -> { run_validation? :living_space }
     validates :single_room_count, numericality: { only_integer: true, greater_than_or_equal_to: 0, message: I18n.t(:invalid_number, scope: :error) }, if: -> { run_validation? :single_room_count }
     validates :double_room_count, numericality: { only_integer: true, greater_than_or_equal_to: 0, message: I18n.t(:invalid_number, scope: :error) }, if: -> { run_validation? :double_room_count }
     validates :postcode, length: { minimum: 2, maximum: 100, message: I18n.t(:invalid_postcode, scope: :error) }, if: -> { run_validation? :postcode }
@@ -46,6 +47,12 @@ private
         (@phone_number.scan(/\d/).join.length <= MAX_PHONE_DIGITS))) ||
         @phone_number.length > MAX_PHONE_DIGITS * 2
       errors.add(:phone_number, I18n.t(:invalid_phone_number, scope: :error))
+    end
+  end
+
+  def validate_living_space
+    if living_space.nil? || @living_space.length.zero?
+      errors.add(:living_space, I18n.t(:choose_one_or_more_options, scope: :error))
     end
   end
 
