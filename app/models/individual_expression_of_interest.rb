@@ -13,7 +13,6 @@ class IndividualExpressionOfInterest < ApplicationRecord
                 :fullname, :email, :type, :version, :ip_address, :user_agent, :started_at, :final_submission
   attr_reader   :living_space
 
-  validate :validate_living_space, if: -> { run_validation? :living_space }
   validate :validate_accommodation_length, if: -> { run_validation? :accommodation_length }
 
   after_initialize :after_initialize
@@ -62,12 +61,6 @@ class IndividualExpressionOfInterest < ApplicationRecord
   end
 
 private
-
-  def validate_living_space
-    if living_space.nil? || @living_space.length.zero?
-      errors.add(:living_space, I18n.t(:choose_one_or_more_options, scope: :error))
-    end
-  end
 
   def validate_accommodation_length
     validate_enum(@accommodation_length_types, @accommodation_length, :accommodation_length)
