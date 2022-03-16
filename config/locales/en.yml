@@ -55,7 +55,7 @@ en:
         full: Enter the first part of the postcode of the property you’re offering
         subtitle: (If you are offering multiple properties, please enter all the postcodes separated by a comma)
       accommodation_length:
-        short: Accomodation length
+        short: Accommodation length
         full: How long can you offer accommodation for?
       agree_future_contact:
         short: Future contact
