@@ -171,5 +171,4 @@ en:
     invalid_phone_number: Please enter a valid phone number
     invalid_fullname: Please enter a valid name
     must_be_accepted: Must be accepted
-    invalid_number: Must be a number
     choose_one_or_more_options: Please choose one or more of the options
