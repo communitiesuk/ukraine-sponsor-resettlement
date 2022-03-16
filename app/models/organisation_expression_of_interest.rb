@@ -1,33 +1,22 @@
 class OrganisationExpressionOfInterest < ApplicationRecord
+  include CommonValidations
+
   self.table_name = "organisation_expressions_of_interest"
 
   SCHEMA_VERSION = 2
 
-  MIN_PHONE_DIGITS = 9
-  MAX_PHONE_DIGITS = 14
-
   attr_accessor :family_types, :living_space_types, :step_free_types, :agree_future_contact_types, :organisation_types,
                 :family_type, :living_space, :step_free, :property_count, :single_room_count,
-                :double_room_count, :postcode, :organisation_name, :organisation_type, :agree_future_contact,
+                :double_room_count, :postcode, :organisation_name, :organisation_type, :agree_future_contact, :fullname,
                 :phone_number, :agree_privacy_statement, :type, :version, :ip_address, :user_agent, :started_at,
-                :organisation_type_business_information, :organisation_type_other_information
+                :organisation_type_business_information, :organisation_type_other_information, :final_submission
 
-  validate :validate_family_type, if: :family_type
-  validate :validate_living_space, if: :living_space
-  validate :validate_step_free, if: :step_free
-  validate :validate_organisation_type, if: :organisation_type
-  validates :property_count, allow_nil: true, numericality: { only_integer: true, greater_than_or_equal_to: 0  }
-  validates :single_room_count, allow_nil: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :double_room_count, allow_nil: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :postcode, allow_nil: true, length: { minimum: 2 }
-  validates :organisation_name, allow_nil: true, length: { minimum: 2 }
-  validates :agree_future_contact, acceptance: { accept: "true", message: I18n.t(:must_be_accepted, scope: :error) }, allow_nil: true
-  validate :validate_fullname, if: :fullname
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, message: I18n.t(:invalid_email, scope: :error) }, allow_nil: true
-  validate :validate_phone_number, if: :phone_number
-  validates :agree_privacy_statement, acceptance: { accept: "true", message: I18n.t(:must_be_accepted, scope: :error) }, allow_nil: true
-  validates :organisation_type_business_information, allow_nil: true, length: { maximum: 500 }
-  validates :organisation_type_other_information, allow_nil: true, length: { maximum: 500 }
+  validate :validate_living_space, if: -> { run_validation? :living_space }
+  validate :validate_organisation_type, if: -> { run_validation? :organisation_type }
+  validates :property_count, numericality: { only_integer: true, greater_than_or_equal_to: 0, message: I18n.t(:invalid_number, scope: :error) }, if: -> { run_validation? :property_count }
+  validates :organisation_name, length: { minimum: 2, maximum: 100, message: I18n.t(:invalid_organisation_name, scope: :error) }, if: -> { run_validation? :organisation_name }
+  validates :organisation_type_business_information, allow_nil: true, length: { maximum: 500, message: I18n.t(:max_500_chars, scope: :error) }
+  validates :organisation_type_other_information, allow_nil: true, length: { maximum: 500, message: I18n.t(:max_500_chars, scope: :error) }
 
   after_initialize :after_initialize
   before_save :serialize
@@ -76,39 +65,8 @@ class OrganisationExpressionOfInterest < ApplicationRecord
 
 private
 
-  def validate_family_type
-    validate_enum(@family_types, @family_type, :family_type)
-  end
-
   def validate_living_space
     validate_enum(@living_space_types, @living_space, :living_space)
-  end
-
-  def validate_step_free
-    validate_enum(@step_free_types, @step_free, :step_free)
-  end
-
-  def validate_answer_more_questions
-    validate_enum(@agree_future_contact_types, @agree_future_contact, :agree_future_contact)
-  end
-
-  def validate_enum(enum, value, attribute)
-    unless enum.include?(value.to_sym)
-      errors.add(attribute, I18n.t(:choose_option, scope: :error))
-    end
-  end
-
-  def validate_fullname
-    unless fullname.nil? || ((fullname.split.length >= 2) && (fullname.length >= 3))
-      errors.add(:fullname, I18n.t(:invalid_fullname, scope: :error))
-    end
-  end
-
-  def validate_phone_number
-    if !@phone_number.nil? && !((@phone_number =~ /[0-9 -+]+$/) &&
-      ((@phone_number.scan(/\d/).join.length >= MIN_PHONE_DIGITS) && (@phone_number.scan(/\d/).join.length <= MAX_PHONE_DIGITS)))
-      errors.add(:phone_number, I18n.t(:invalid_phone_number, scope: :error))
-    end
   end
 
   def validate_organisation_type

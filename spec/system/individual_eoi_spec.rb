@@ -78,7 +78,7 @@ RSpec.describe "Individual expression of interest", type: :system do
         family_type: "single_adult",
         fullname: "John Smith",
         living_space: %w[rooms_in_home_shared_facilities],
-        step_free: "yes_all",
+        step_free: "all",
         phone_number: "0123456789",
         postcode: "SG",
         single_room_count: "3",

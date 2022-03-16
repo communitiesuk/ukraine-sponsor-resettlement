@@ -40,7 +40,7 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
       app.step_free = ""
       expect(app.valid?).to be(false)
       expect(app.errors[:step_free]).to include("Please choose one of the options")
-      app.step_free = "yes_all"
+      app.step_free = "all"
       expect(app.valid?).to be(true)
     end
 
