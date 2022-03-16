@@ -158,7 +158,7 @@ jobs:
           cf set-env $APP_NAME INDIVIDUAL_CONFIRMATION_TEMPLATE_ID $INDIVIDUAL_CONFIRMATION_TEMPLATE_ID
           cf set-env $APP_NAME ORGANISATION_CONFIRMATION_TEMPLATE_ID $ORGANISATION_CONFIRMATION_TEMPLATE_ID
           cf set-env $APP_NAME SENTRY_DSN $SENTRY_DSN
-          cf push -f web-manifest.yml $APP_NAME --strategy rolling
+          cf push -f web-manifest.yml $APP_NAME --strategy rolling --no-wait
 
       - name: Deploy Sidekiq
         env:
@@ -190,7 +190,7 @@ jobs:
           cf set-env $APP_NAME INDIVIDUAL_CONFIRMATION_TEMPLATE_ID $INDIVIDUAL_CONFIRMATION_TEMPLATE_ID
           cf set-env $APP_NAME ORGANISATION_CONFIRMATION_TEMPLATE_ID $ORGANISATION_CONFIRMATION_TEMPLATE_ID
           cf set-env $APP_NAME SENTRY_DSN $SENTRY_DSN
-          cf push -f worker-manifest.yml $APP_NAME --strategy rolling
+          cf push -f worker-manifest.yml $APP_NAME --strategy rolling --no-wait
 
   deploy-production:
     name: Deploy Production
@@ -241,7 +241,7 @@ jobs:
           cf set-env $APP_NAME INDIVIDUAL_CONFIRMATION_TEMPLATE_ID $INDIVIDUAL_CONFIRMATION_TEMPLATE_ID
           cf set-env $APP_NAME ORGANISATION_CONFIRMATION_TEMPLATE_ID $ORGANISATION_CONFIRMATION_TEMPLATE_ID
           cf set-env $APP_NAME SENTRY_DSN $SENTRY_DSN
-          cf push -f web-manifest.yml $APP_NAME --strategy rolling
+          cf push -f web-manifest.yml $APP_NAME --strategy rolling --no-wait
 
       - name: Deploy Sidekiq
         env:
@@ -273,4 +273,4 @@ jobs:
           cf set-env $APP_NAME INDIVIDUAL_CONFIRMATION_TEMPLATE_ID $INDIVIDUAL_CONFIRMATION_TEMPLATE_ID
           cf set-env $APP_NAME ORGANISATION_CONFIRMATION_TEMPLATE_ID $ORGANISATION_CONFIRMATION_TEMPLATE_ID
           cf set-env $APP_NAME SENTRY_DSN $SENTRY_DSN
-          cf push -f worker-manifest.yml $APP_NAME --strategy rolling
+          cf push -f worker-manifest.yml $APP_NAME --strategy rolling --no-wait
