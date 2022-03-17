@@ -1,5 +1,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
+    <%= render partial: "shared/back_link", locals: { frm: "individual", step: "1" } %>
+
     <%= form_for @application, url: "/individual/steps/2", method: :post do |f| %>
       <%= f.govuk_collection_check_boxes :living_space,
           @application.living_space_types.map{|type| OpenStruct.new(id: type, name: t(type, scope: "individual.living_space")) },
