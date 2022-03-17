@@ -1,9 +1,4 @@
 Sentry.init do |config|
-
-  config.traces_sample_rate = 0.5
-end
-
-Sentry.init do |config|
   config.breadcrumbs_logger = %i[active_support_logger http_logger]
   config.enabled_environments = %w[production staging]
 
@@ -13,13 +8,8 @@ Sentry.init do |config|
       next sampling_context[:parent_sampled]
     end
 
-    # transaction_context is the transaction object in hash form
-    # keep in mind that sampling happens right after the transaction is initialized
-    # for example, at the beginning of the request
     transaction_context = sampling_context[:transaction_context]
 
-    # transaction_context helps you sample transactions with more sophistication
-    # for example, you can provide different sample rates based on the operation or name
     op = transaction_context[:op]
     transaction_name = transaction_context[:name]
 
@@ -33,9 +23,9 @@ Sentry.init do |config|
         0.1
       end
     when /sidekiq/
-      0.01 # you may want to set a lower rate for background jobs if the number is large
+      0.01
     else
-      0.0 # ignore all other transactions
+      0.0
     end
   end
 end
