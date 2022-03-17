@@ -1,5 +1,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
+    <%= render partial: "shared/back_link" %>
+
     <%= form_for @application, url: "/organisation/steps/9", method: :post do |f| %>
       <%= f.govuk_radio_buttons_fieldset(:organisation_type, legend: { size: 'm', text: t('organisation_type.full', scope: "organisation.questions") }) do %>
         <%= f.hidden_field :organisation_type, value: "" %>
