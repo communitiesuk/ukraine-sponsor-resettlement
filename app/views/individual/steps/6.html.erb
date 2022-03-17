@@ -1,5 +1,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
+    <%= render partial: "shared/back_link" %>
+
     <%= form_for @application, url: "/individual/steps/6", method: :post do |f| %>
       <%= f.govuk_text_field :postcode,
        label: { text: "#{t('postcode.full', scope: "individual.questions")} #{t('postcode.subtitle', scope: "individual.questions")}"},
