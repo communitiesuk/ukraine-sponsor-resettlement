@@ -1,5 +1,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
+    <%= render partial: "shared/back_link" %>
+
     <%= form_for @application, url: "/organisation/steps/6", method: :post do |f| %>
       <%= f.govuk_text_field :double_room_count,
         label: { text: t('double_room_count.full', scope: "organisation.questions") },
