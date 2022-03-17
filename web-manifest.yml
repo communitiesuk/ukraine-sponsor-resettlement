@@ -29,7 +29,7 @@ applications:
     env:
       RAILS_ENV: production
     instances: 32
-    memory: 1G
+    memory: 512M
     services:
       - ukraine-sponsor-resettlement-production-postgres
       - ukraine-sponsor-resettlement-production-redis
