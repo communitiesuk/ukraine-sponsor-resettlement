@@ -1,1 +1,11 @@
-<a href="/<%= frm %>/steps/<%= step %>" class="govuk-back-link">Back</a>
+<%
+  @elements = URI(request.original_url).path.split("/")
+
+  @step = Integer(@elements[3]) - 1
+%>
+
+<% if @step > 0 %>
+  <a href="/<%= @elements[1] %>/steps/<%= @step %>" class="govuk-back-link">Back</a>
+<% else %>
+  <div class="govuk-back-link">&nbsp;</div>
+<% end %>
