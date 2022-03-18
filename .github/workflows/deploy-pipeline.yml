@@ -220,8 +220,6 @@ jobs:
           CF_ORG: ${{ secrets.CF_ORG }}
           APP_NAME: ukraine-sponsor-resettlement-production
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-          BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
-          BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
           REMOTE_API_URL: ${{ secrets.REMOTE_API_URL }}
           REMOTE_API_TOKEN: ${{ secrets.REMOTE_API_TOKEN }}
           GOVUK_NOTIFY_API_KEY: ${{ secrets.GOVUK_NOTIFY_API_KEY }}
@@ -233,8 +231,6 @@ jobs:
           cf auth
           cf target -o $CF_ORG -s $CF_SPACE
           cf set-env $APP_NAME RAILS_MASTER_KEY $RAILS_MASTER_KEY
-          cf set-env $APP_NAME BASIC_AUTH_USER $BASIC_AUTH_USER
-          cf set-env $APP_NAME BASIC_AUTH_PASS $BASIC_AUTH_PASS
           cf set-env $APP_NAME REMOTE_API_URL $REMOTE_API_URL
           cf set-env $APP_NAME REMOTE_API_TOKEN $REMOTE_API_TOKEN
           cf set-env $APP_NAME GOVUK_NOTIFY_API_KEY $GOVUK_NOTIFY_API_KEY
@@ -252,8 +248,6 @@ jobs:
           CF_ORG: ${{ secrets.CF_ORG }}
           APP_NAME: ukraine-sponsor-resettlement-production-sidekiq
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-          BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
-          BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
           REMOTE_API_URL: ${{ secrets.REMOTE_API_URL }}
           REMOTE_API_TOKEN: ${{ secrets.REMOTE_API_TOKEN }}
           GOVUK_NOTIFY_API_KEY: ${{ secrets.GOVUK_NOTIFY_API_KEY }}
@@ -265,8 +259,6 @@ jobs:
           cf auth
           cf target -o $CF_ORG -s $CF_SPACE
           cf set-env $APP_NAME RAILS_MASTER_KEY $RAILS_MASTER_KEY
-          cf set-env $APP_NAME BASIC_AUTH_USER $BASIC_AUTH_USER
-          cf set-env $APP_NAME BASIC_AUTH_PASS $BASIC_AUTH_PASS
           cf set-env $APP_NAME REMOTE_API_URL $REMOTE_API_URL
           cf set-env $APP_NAME REMOTE_API_TOKEN $REMOTE_API_TOKEN
           cf set-env $APP_NAME GOVUK_NOTIFY_API_KEY $GOVUK_NOTIFY_API_KEY
