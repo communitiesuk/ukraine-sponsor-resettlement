@@ -1,0 +1,22 @@
+{
+  "instance_min_count": 8,
+  "instance_max_count": 32,
+  "scaling_rules": [
+    {
+      "metric_type": "memoryutil",
+      "breach_duration_secs": 120,
+      "threshold": 60,
+      "operator": "<",
+      "cool_down_secs": 60,
+      "adjustment": "-1"
+    },
+    {
+      "metric_type": "memoryutil",
+      "breach_duration_secs": 120,
+      "threshold": 60,
+      "operator": ">=",
+      "cool_down_secs": 60,
+      "adjustment": "+1"
+    }
+  ]
+}
