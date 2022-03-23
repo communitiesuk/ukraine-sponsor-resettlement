@@ -33,15 +33,15 @@ Please note: this takes up to about 15 minutes & "tiny-unencrypted-13" is the on
 
 #### Deployments
 
-1. Contact your organisation manager to get an account in 'dluhc-ukraine-resettlement-sponsorship' organisation
+1. Contact 1password manager to get access to the Ukraine Resettlement vault for deployment credentials
 
 2. Install Cloud Foundry CLI (https://docs.cloudfoundry.org/cf-cli/install-go-cli.html)
 
 3. Login:\
-   `cf login -a api.london.cloud.service.gov.uk -u <your_username>`
+   `cf login -a api.london.cloud.service.gov.uk -u dluhc-ulss-deploy@madetech.com`
 
 4. Set your deployment target environment (test/staging/):\
-   `cf target -o dluhc-ukraine-resettlement-sponsorship -s <deployment_target_environment>`
+   `cf target -o ukraine-sponsor-resettlement -s <deployment_target_environment>`
 
 5. Deploy:\
    `cf push ukraine-sponsor-resettlement-<target environment> --strategy rolling`
@@ -49,7 +49,7 @@ Please note: this takes up to about 15 minutes & "tiny-unencrypted-13" is the on
 The deployment will use the manifest file based on convention (e.g. staging_manifest.yml)
 
 6. Post-deployment - check logs:\
-   `cf logs dluhc-ukraine-resettlement-sponsorship-<target environment> --recent`
+   `cf logs ukraine-sponsor-resettlement-<target environment> --recent`
 
 #### Troubleshooting deployments
 
@@ -58,26 +58,4 @@ deployment in a broken state. As a result all subsequent Github deployment
 actions will also fail with the message\
 `Cannot update this process while a deployment is in flight`.
 
-`cf cancel-deployment dluhc-ukraine-resettlement-sponsorship`
-
-You'd then need to check the logs and fix the issue that caused the initial deployment to fail
-
-Things you may want to cover:
-
-- Ruby version
-
-- System dependencies
-
-- Configuration
-
-- Database creation
-
-- Database initialization
-
-- How to run the test suite
-
-- Services (job queues, cache servers, search engines, etc.)
-
-- Deployment instructions
-
-- ...
+`cf cancel-deployment ukraine-sponsor-resettlement-<target environment>`
