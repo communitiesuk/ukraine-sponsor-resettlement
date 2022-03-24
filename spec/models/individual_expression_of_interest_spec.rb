@@ -88,6 +88,20 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
       expect(app.valid?).to be(true)
     end
 
+    it "validates that the postcode attribute list only contains A-Z, 0-9 or commas" do
+      app = described_class.new
+      app.postcode = "A%"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:postcode]).to include("Please enter a valid UK postcode(s)")
+      app.postcode = "A1-A3"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:postcode]).to include("Please enter a valid UK postcode(s)")
+      app.postcode = "A1"
+      expect(app.valid?).to be(true)
+      app.postcode = "A1,A2"
+      expect(app.valid?).to be(true)
+    end
+
     it "validates that the phone_number attribute is correct" do
       app = described_class.new
       app.phone_number = "12345678"
