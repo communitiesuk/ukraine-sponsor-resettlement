@@ -37,6 +37,10 @@ private
   def validate_fullname
     unless @fullname && @fullname.split.length >= 2 && @fullname.strip.length >= 3 && fullname.length <= 128
       errors.add(:fullname, I18n.t(:invalid_fullname, scope: :error))
+    else
+      if @fullname.match(/[!"£$%{}<>|@\/()=?^]/)
+        errors.add(:fullname, I18n.t(:invalid_fullname, scope: :error))
+      end
     end
   end
 
