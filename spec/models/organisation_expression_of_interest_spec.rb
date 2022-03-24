@@ -176,6 +176,17 @@ RSpec.describe OrganisationExpressionOfInterest, type: :model do
       expect(app.errors[:fullname]).to include("Please enter a valid name")
     end
 
+    it "validates that the organisation name attribute does not allowed special characters except ' and &" do
+      app = described_class.new
+      app.organisation_name = "Bob!@£$%^*(){}<>|\\/ Jones Ltd"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:organisation_name]).to include("Please enter a valid organisation name")
+      app.organisation_name = "Bryan O'Driscoll Ltd"
+      expect(app.valid?).to be(true)
+      app.organisation_name = "Bryan & Sandra Smith Plc"
+      expect(app.valid?).to be(true)
+    end
+
     it "validates that the email attribute is correct" do
       app = described_class.new
       app.email = ""

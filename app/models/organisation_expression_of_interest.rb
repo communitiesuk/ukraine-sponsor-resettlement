@@ -14,8 +14,8 @@ class OrganisationExpressionOfInterest < ApplicationRecord
   attr_reader   :living_space
 
   validate :validate_organisation_type, if: -> { run_validation? :organisation_type }
+  validate :validate_organisation_name, if: -> { run_validation? :organisation_name }
   validates :property_count, numericality: { only_integer: true, greater_than_or_equal_to: 0, message: I18n.t(:invalid_number, scope: :error) }, if: -> { run_validation? :property_count }
-  validates :organisation_name, length: { minimum: 2, maximum: 100, message: I18n.t(:invalid_organisation_name, scope: :error) }, if: -> { run_validation? :organisation_name }
   validates :organisation_type_business_information, allow_nil: true, length: { maximum: 500, message: I18n.t(:max_500_chars, scope: :error) }
   validates :organisation_type_other_information, allow_nil: true, length: { maximum: 500, message: I18n.t(:max_500_chars, scope: :error) }
 
@@ -75,6 +75,12 @@ private
 
     self.organisation_type_business_information = nil unless @organisation_type == "business"
     self.organisation_type_other_information = nil unless @organisation_type == "other"
+  end
+
+  def validate_organisation_name
+    if ((@organisation_name.length < 2 || @organisation_name.length > 100) || (@organisation_name.match(/[!"£$%{}<>|@\/()=?^]/)))
+      errors.add(:organisation_name, I18n.t(:invalid_organisation_name, scope: :error))
+    end
   end
 
   def serialize
