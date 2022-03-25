@@ -159,6 +159,9 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
       app.fullname = "Bob!@£$%^&*(){}<>|\\/& Jones"
       expect(app.valid?).to be(false)
       expect(app.errors[:fullname]).to include("Please enter a valid name")
+      app.fullname = "Bob; Jones"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:fullname]).to include("Please enter a valid name")
       app.fullname = "Bryan O'Driscoll"
       expect(app.valid?).to be(true)
       app.fullname = "Bryan & Sandra Smith"
