@@ -93,7 +93,7 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
       app.postcode = "A%"
       expect(app.valid?).to be(false)
       expect(app.errors[:postcode]).to include("Please enter a valid UK postcode(s)")
-      app.postcode = "A1-A3"
+      app.postcode = "^"
       expect(app.valid?).to be(false)
       expect(app.errors[:postcode]).to include("Please enter a valid UK postcode(s)")
       app.postcode = "A1"
