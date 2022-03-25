@@ -1,8 +1,9 @@
 module CommonValidations
   extend ActiveSupport::Concern
 
-  MIN_PHONE_DIGITS = 9
-  MAX_PHONE_DIGITS = 14
+  MIN_PHONE_DIGITS    = 9
+  MAX_PHONE_DIGITS    = 14
+  SPECIAL_CHARACTERS  = /[!"£$%{}<>|&@\/()=?^;]/
 
   included do
     validate :validate_family_type, if: -> { run_validation? :family_type }
@@ -38,14 +39,14 @@ private
     unless @fullname && @fullname.split.length >= 2 && @fullname.strip.length >= 3 && fullname.length <= 128
       errors.add(:fullname, I18n.t(:invalid_fullname, scope: :error))
     else
-      if @fullname.match(/[!"£$%{}<>|&@\/()=?^;]/)
+      if @fullname.match(SPECIAL_CHARACTERS)
         errors.add(:fullname, I18n.t(:invalid_fullname, scope: :error))
       end
     end
   end
 
   def validate_postcode
-    if ((@postcode.length < 2 || @postcode.length > 100) || (@postcode.match(/[!"£$%{}&<>|@\/()=?^-]/)))
+    if ((@postcode.length < 2 || @postcode.length > 100) || (@postcode.match(SPECIAL_CHARACTERS)))
       errors.add(:postcode, I18n.t(:invalid_postcode, scope: :error))
     end
   end
