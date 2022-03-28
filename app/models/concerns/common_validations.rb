@@ -36,13 +36,13 @@ private
   end
 
   def validate_fullname
-    if @fullname.blank? || @fullname.strip.length < 3 || @fullname.strip.length > 128 || @fullname.split.length < 2 || @fullname.match(SPECIAL_CHARACTERS)
+    if @fullname.nil? || @fullname.strip.length < 3 || @fullname.strip.length > 128 || @fullname.split.length < 2 || @fullname.match(SPECIAL_CHARACTERS)
       errors.add(:fullname, I18n.t(:invalid_fullname, scope: :error))
     end
   end
 
   def validate_postcode
-    if @postcode.blank? || @postcode.length < 2 || @postcode.length > 100 || @postcode.match(SPECIAL_CHARACTERS)
+    if @postcode.nil? || @postcode.length < 2 || @postcode.length > 100 || @postcode.match(SPECIAL_CHARACTERS)
       errors.add(:postcode, I18n.t(:invalid_postcode, scope: :error))
     end
   end
