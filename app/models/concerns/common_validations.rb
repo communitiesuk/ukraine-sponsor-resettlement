@@ -36,7 +36,7 @@ private
   end
 
   def validate_fullname
-    if @fullname.strip.length < 3 || @fullname.strip.length > 128 || @fullname.split.length < 2 || @fullname.match(SPECIAL_CHARACTERS)
+    if @fullname.blank? || @fullname.strip.length < 3 || @fullname.strip.length > 128 || @fullname.split.length < 2 || @fullname.match(SPECIAL_CHARACTERS)
       errors.add(:fullname, I18n.t(:invalid_fullname, scope: :error))
     end
   end
