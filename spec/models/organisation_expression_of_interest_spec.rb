@@ -82,6 +82,9 @@ RSpec.describe OrganisationExpressionOfInterest, type: :model do
       app.postcode = ""
       expect(app.valid?).to be(false)
       expect(app.errors[:postcode]).to include("Please enter a valid UK postcode(s)")
+      app.postcode = "^"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:postcode]).to include("Please enter a valid UK postcode(s)")
       app.postcode = "A"
       expect(app.valid?).to be(false)
       app.postcode = "X" * 101
@@ -161,6 +164,29 @@ RSpec.describe OrganisationExpressionOfInterest, type: :model do
       app.fullname = "first #{'X' * 128}"
       expect(app.valid?).to be(false)
       app.fullname = "two words"
+      expect(app.valid?).to be(true)
+    end
+
+    it "validates that the fullname attribute does not allowed special characters except '" do
+      app = described_class.new
+      app.fullname = "Bob!@£$%^&*(){}<>|\\/& Jones Ltd"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:fullname]).to include("Please enter a valid name")
+      app.fullname = "Bryan O'Driscoll Ltd"
+      expect(app.valid?).to be(true)
+      app.fullname = "Bryan & Sandra Smith Plc"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:fullname]).to include("Please enter a valid name")
+    end
+
+    it "validates that the organisation name attribute does not allowed special characters except ' and &" do
+      app = described_class.new
+      app.organisation_name = "Bob!@£$%^*(){}<>|\\/ Jones Ltd"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:organisation_name]).to include("Please enter a valid organisation name")
+      app.organisation_name = "Bryan O'Driscoll Ltd"
+      expect(app.valid?).to be(true)
+      app.organisation_name = "Bryan & Sandra Smith Plc"
       expect(app.valid?).to be(true)
     end
 
