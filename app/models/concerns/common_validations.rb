@@ -42,7 +42,7 @@ private
   end
 
   def validate_postcode
-    if @postcode.length < 2 || @postcode.length > 100 || @postcode.match(SPECIAL_CHARACTERS)
+    if @postcode.blank? || @postcode.length < 2 || @postcode.length > 100 || @postcode.match(SPECIAL_CHARACTERS)
       errors.add(:postcode, I18n.t(:invalid_postcode, scope: :error))
     end
   end
