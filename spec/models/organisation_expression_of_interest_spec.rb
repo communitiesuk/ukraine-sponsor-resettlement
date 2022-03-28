@@ -82,6 +82,9 @@ RSpec.describe OrganisationExpressionOfInterest, type: :model do
       app.postcode = ""
       expect(app.valid?).to be(false)
       expect(app.errors[:postcode]).to include("Please enter a valid UK postcode(s)")
+      app.postcode = "^"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:postcode]).to include("Please enter a valid UK postcode(s)")
       app.postcode = "A"
       expect(app.valid?).to be(false)
       app.postcode = "X" * 101
