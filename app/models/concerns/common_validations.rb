@@ -36,23 +36,22 @@ private
   end
 
   def validate_fullname
-    if @fullname.strip.length < 3 || @fullname.strip.length > 128 || @fullname.split.length < 2 || @fullname.match(SPECIAL_CHARACTERS)
+    if @fullname.nil? || @fullname.strip.length < 3 || @fullname.strip.length > 128 || @fullname.split.length < 2 || @fullname.match(SPECIAL_CHARACTERS)
       errors.add(:fullname, I18n.t(:invalid_fullname, scope: :error))
     end
   end
 
   def validate_postcode
-    if @postcode.length < 2 || @postcode.length > 100 || @postcode.match(SPECIAL_CHARACTERS)
+    if @postcode.nil? || @postcode.length < 2 || @postcode.length > 100 || @postcode.match(SPECIAL_CHARACTERS)
       errors.add(:postcode, I18n.t(:invalid_postcode, scope: :error))
     end
   end
 
   def validate_phone_number
     if @phone_number.present? &&
-        !((@phone_number =~ /[0-9 -+]+$/) &&
-        ((@phone_number.scan(/\d/).join.length >= MIN_PHONE_DIGITS) &&
-        (@phone_number.scan(/\d/).join.length <= MAX_PHONE_DIGITS))) ||
-        @phone_number.length > MAX_PHONE_DIGITS * 2
+        (@phone_number.scan(/\d/).join.length < MIN_PHONE_DIGITS ||
+            @phone_number.scan(/\d/).join.length > MAX_PHONE_DIGITS ||
+            !@phone_number.match(/[0-9 -+]+$/))
       errors.add(:phone_number, I18n.t(:invalid_phone_number, scope: :error))
     end
   end
