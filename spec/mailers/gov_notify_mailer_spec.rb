@@ -26,7 +26,9 @@ RSpec.describe GovNotifyMailer do
       application.reference = "my-reference"
       application.email = "invalid-email-address@test"
 
-      expect{GovNotifyMailer.send_individual_confirmation_email(application).deliver_now}.to raise_error
+      expect{GovNotifyMailer.send_individual_confirmation_email(application).deliver_now}.to raise_error { |error|
+        error.should be_a(Notifications::Client::BadRequestError)
+      }
     end
   end
 end
