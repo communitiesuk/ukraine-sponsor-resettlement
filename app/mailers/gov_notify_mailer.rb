@@ -12,7 +12,7 @@ class GovNotifyMailer < GovukNotifyRails::Mailer
 
     set_personalisation(fullname: application.fullname, reference: application.reference)
 
-    mail(to: application.email)
+    mail(to: application.email) if valid_email?(application.email)
   end
 
   def valid_email?(emailAddress)
