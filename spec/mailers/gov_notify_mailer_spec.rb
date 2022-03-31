@@ -1,11 +1,6 @@
 require "rails_helper"
 
 RSpec.describe GovNotifyMailer do
-  before do
-    ENV["INDIVIDUAL_CONFIRMATION_TEMPLATE_ID"] = "6c80930d-e25a-4dc6-8383-bb83a2c18d19"
-    ENV["ORGANISATION_CONFIRMATION_TEMPLATE_ID"] = "3ae2501f-e2be-4ad6-886b-fcf5aa71d448"
-  end
-
   describe "Send individual email" do
     it "when submitting individual expression of interest form" do
       application = IndividualExpressionOfInterest.new
