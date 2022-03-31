@@ -20,7 +20,6 @@ jobs:
           POSTGRES_PASSWORD: password
           POSTGRES_USER: ukraine
           POSTGRES_DB: ukraine
-          GOVUK_NOTIFY_API_KEY: ${GOVUK_NOTIFY_API_KEY}
         ports:
           - 5432:5432
         # needed because the postgres container does not provide a healthcheck
@@ -47,6 +46,7 @@ jobs:
       DB_DATABASE: ukraine
       DB_USERNAME: ukraine
       DB_PASSWORD: password
+      GOVUK_NOTIFY_API_KEY: ${GOVUK_NOTIFY_API_KEY}
 
     steps:
       - name: Checkout
