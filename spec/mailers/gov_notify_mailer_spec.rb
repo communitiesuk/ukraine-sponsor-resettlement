@@ -24,11 +24,11 @@ RSpec.describe GovNotifyMailer do
 
       application.fullname = "Bob Smith-Jones"
       application.reference = "my-reference"
-      application.email = "invalid-email-address@test"
+      application.email = "wheezr069@gmail"
 
-      expect{GovNotifyMailer.send_individual_confirmation_email(application).deliver_now}.to raise_error { |error|
-        error.should be_a(Notifications::Client::BadRequestError)
-      }
+      response = GovNotifyMailer.send_individual_confirmation_email(application).deliver_now
+
+      expect(response).to be_nil
     end
   end
 end
