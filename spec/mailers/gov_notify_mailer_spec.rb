@@ -9,7 +9,7 @@ RSpec.describe GovNotifyMailer do
       application.reference = "my-reference"
       application.email = "my-email@test.com"
 
-      response = GovNotifyMailer.send_individual_confirmation_email(application).deliver_now
+      response = described_class.new.send_individual_confirmation_email(application).deliver_now
 
       expect(response.govuk_notify_response.template.fetch("id")).to eq("6c80930d-e25a-4dc6-8383-bb83a2c18d19")
       expect(response.govuk_notify_response.id).not_to be_empty
@@ -22,7 +22,7 @@ RSpec.describe GovNotifyMailer do
       application.reference = "my-reference"
       application.email = "wheezr069@gmail"
 
-      response = GovNotifyMailer.send_individual_confirmation_email(application).deliver_now
+      response = described_class.new.send_individual_confirmation_email(application).deliver_now
 
       expect(response).to be_nil
     end
@@ -36,7 +36,7 @@ RSpec.describe GovNotifyMailer do
       application.reference = "my-reference"
       application.email = "my-email@test.com"
 
-      response = GovNotifyMailer.send_organisation_confirmation_email(application).deliver_now
+      response = described_class.new.send_organisation_confirmation_email(application).deliver_now
 
       expect(response.govuk_notify_response.template.fetch("id")).to eq("3ae2501f-e2be-4ad6-886b-fcf5aa71d448")
       expect(response.govuk_notify_response.id).not_to be_empty
@@ -49,7 +49,7 @@ RSpec.describe GovNotifyMailer do
       application.reference = "my-reference"
       application.email = "wheezr069@gmail"
 
-      response = GovNotifyMailer.send_organisation_confirmation_email(application).deliver_now
+      response = described_class.new.send_organisation_confirmation_email(application).deliver_now
 
       expect(response).to be_nil
     end

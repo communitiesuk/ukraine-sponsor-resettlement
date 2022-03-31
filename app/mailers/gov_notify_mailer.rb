@@ -15,7 +15,7 @@ class GovNotifyMailer < GovukNotifyRails::Mailer
     mail(to: application.email) if valid_email?(application.email)
   end
 
-  def valid_email?(emailAddress)
-    emailAddress.match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i)
+  def valid_email?(email)
+    email.match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i)
   end
 end
