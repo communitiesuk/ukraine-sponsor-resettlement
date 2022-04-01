@@ -40,10 +40,11 @@ group :development, :test do
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "scss_lint-govuk"
+  gem "rails-controller-testing"
 end
 
 group :development do
-  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
+  # Access an interactive console on exception pages or by calling "console' anywhere in the code.
   gem "listen", "~> 3.3"
   gem "web-console", ">= 4.1.0"
 end
