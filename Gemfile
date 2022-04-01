@@ -40,7 +40,6 @@ group :development, :test do
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "scss_lint-govuk"
-  gem "rails-controller-testing"
 end
 
 group :development do
