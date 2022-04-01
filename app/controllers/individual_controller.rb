@@ -1,12 +1,19 @@
 class IndividualController < ApplicationController
+  MAX_STEPS = 12
+
   def display
     @application = IndividualExpressionOfInterest.new(session[:individual_expression_of_interest])
 
-    render "individual/steps/#{params['stage']}"
+    step = params["stage"].to_i
+
+    if step > 0 && step <= MAX_STEPS
+      render "individual/steps/#{step}"
+    else
+      redirect_to "/individual"
+    end
   end
 
   def handle_step
-    max_steps = 12
     # Pull session data out of session and
     # instantiate new Application ActiveRecord object
     @application = IndividualExpressionOfInterest.new(session[:individual_expression_of_interest])
@@ -18,7 +25,7 @@ class IndividualController < ApplicationController
       # Update the session
       session[:individual_expression_of_interest] = @application.as_json
       next_stage = params["stage"].to_i + 1
-      if next_stage > max_steps
+      if next_stage > MAX_STEPS
         redirect_to "/individual/check_answers"
       else
         redirect_to "/individual/steps/#{next_stage}"
