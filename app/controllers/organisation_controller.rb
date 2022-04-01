@@ -6,7 +6,7 @@ class OrganisationController < ApplicationController
 
     step = params["stage"].to_i
 
-    if step > 0 && step <= MAX_STEPS
+    if step.positive? && step <= MAX_STEPS
       render "organisation/steps/#{step}"
     else
       redirect_to "/organisation"
