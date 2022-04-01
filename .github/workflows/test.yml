@@ -72,7 +72,7 @@ jobs:
           bundle exec rake assets:precompile
       - name: Run tests
         run: |
-          GOVUK_NOTIFY_API_KEY=ukrainianrefugeesponsorshipschemetest-e8fd0b83-9213-4a38-8632-7a461ad7f71e-1a682262-b4cd-4019-9f2c-4d2ed92453a1 bundle exec rake
+          bundle exec rake
   lint:
     name: Lint
     runs-on: ubuntu-latest

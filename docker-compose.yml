@@ -50,7 +50,7 @@ services:
       DB_PASSWORD: password
       VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-test-redis", "credentials":{"uri":"redis://redis"}}]}'
       REMOTE_API_URL: http://mock-api:8081/data
-      GOVUK_NOTIFY_API_KEY: ukrainianrefugeesponsorshipschemetest-e8fd0b83-9213-4a38-8632-7a461ad7f71e-1a682262-b4cd-4019-9f2c-4d2ed92453a1
+      GOVUK_NOTIFY_API_KEY: ${GOVUK_NOTIFY_API_KEY}
     command: bin/test.sh
 
   sidekiq:
