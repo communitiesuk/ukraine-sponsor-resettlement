@@ -333,7 +333,6 @@ DEPENDENCIES
   puma (~> 5.6)
   rack-attack
   rails (~> 7.0.2)
-  rails-controller-testing
   redis
   rspec-rails
   rubocop-govuk
