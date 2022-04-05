@@ -23,4 +23,6 @@ Rails.application.routes.draw do
     match "/429", to: "errors#too_many_requests"
     match "/500", to: "errors#internal_server_error"
   end
+
+  get "*path", to: "errors#not_found"
 end

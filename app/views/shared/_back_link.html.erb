@@ -1,7 +1,7 @@
 <%
   @elements = URI(request.original_url).path.split("/")
 
-  @step = Integer(@elements[3]) - 1
+  @step = @elements[3].to_i - 1
 %>
 
 <% if @step > 0 %>

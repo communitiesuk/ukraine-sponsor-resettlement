@@ -1,12 +1,19 @@
 class OrganisationController < ApplicationController
+  MAX_STEPS = 14
+
   def display
     @application = OrganisationExpressionOfInterest.new(session[:organisation_expression_of_interest])
 
-    render "organisation/steps/#{params['stage']}"
+    step = params["stage"].to_i
+
+    if step.positive? && step <= MAX_STEPS
+      render "organisation/steps/#{step}"
+    else
+      redirect_to "/organisation"
+    end
   end
 
   def handle_step
-    max_steps = 14
     # Pull session data out of session and
     # instantiate new Application ActiveRecord object
     @application = OrganisationExpressionOfInterest.new(session[:organisation_expression_of_interest])
@@ -18,7 +25,7 @@ class OrganisationController < ApplicationController
       # Update the session
       session[:organisation_expression_of_interest] = @application.as_json
       next_stage = params["stage"].to_i + 1
-      if next_stage > max_steps
+      if next_stage > MAX_STEPS
         redirect_to "/organisation/check_answers"
       else
         redirect_to "/organisation/steps/#{next_stage}"
