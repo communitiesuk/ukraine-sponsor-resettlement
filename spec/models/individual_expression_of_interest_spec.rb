@@ -179,6 +179,9 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
       app.email = "#{'x' * 120}@domain.com"
       expect(app.valid?).to be(false)
       expect(app.errors[:email]).to include("Please enter a valid email address")
+      app.email = "firstnamelastname0@gmail"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:email]).to include("Please enter a valid email address")
       app.email = "first@last.com"
       expect(app.valid?).to be(true)
     end
