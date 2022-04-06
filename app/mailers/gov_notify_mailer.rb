@@ -4,7 +4,7 @@ class GovNotifyMailer < GovukNotifyRails::Mailer
 
     set_personalisation(fullname: application.fullname, reference: application.reference)
 
-    mail(to: application.email) if valid_email?(application.email)
+    mail(to: application.email)
   end
 
   def send_organisation_confirmation_email(application)
@@ -12,10 +12,6 @@ class GovNotifyMailer < GovukNotifyRails::Mailer
 
     set_personalisation(fullname: application.fullname, reference: application.reference)
 
-    mail(to: application.email) if valid_email?(application.email)
-  end
-
-  def valid_email?(email)
-    email.match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i)
+    mail(to: application.email)
   end
 end

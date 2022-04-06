@@ -78,7 +78,7 @@ private
   end
 
   def validate_organisation_name
-    if @organisation_name.length < 2 || @organisation_name.length > 100 || @organisation_name.match(/[!"£$%{}<>|@\/()=?^]/)
+    if @organisation_name.nil? || @organisation_name.strip.length < 2 || @organisation_name.strip.length > 100 || @organisation_name.match(/[!"£$%{}<>|@\/()=?^]/)
       errors.add(:organisation_name, I18n.t(:invalid_organisation_name, scope: :error))
     end
   end

@@ -9,7 +9,7 @@ module CommonValidations
     validate :validate_family_type, if: -> { run_validation? :family_type }
     validate :validate_fullname, if: -> { run_validation? :fullname }
     validate :validate_postcode, if: -> { run_validation? :postcode }
-    validates :email, length: { maximum: 128, message: I18n.t(:invalid_email, scope: :error) }, format: { with: URI::MailTo::EMAIL_REGEXP, message: I18n.t(:invalid_email, scope: :error) }, if: -> { run_validation? :email }
+    validates :email, length: { maximum: 128, message: I18n.t(:invalid_email, scope: :error) }, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: I18n.t(:invalid_email, scope: :error) }, if: -> { run_validation? :email }
     validate :validate_phone_number, if: -> { run_validation? :phone_number }
     validate :validate_step_free, if: -> { run_validation? :step_free }
     validate :validate_living_space, if: -> { run_validation? :living_space }
