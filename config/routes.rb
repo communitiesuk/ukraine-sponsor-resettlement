@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   post "/organisation/check_answers", to: "organisation#submit"
   get "/organisation/confirm", to: "organisation#confirm"
 
+  get "/match", to: "errors#reference_not_found"
+
   scope via: :all do
     match "/404", to: "errors#not_found"
     match "/429", to: "errors#too_many_requests"

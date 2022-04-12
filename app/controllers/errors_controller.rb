@@ -1,6 +1,10 @@
 class ErrorsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
+  def reference_not_found
+    render status: :not_found
+  end
+
   def not_found
     render status: :not_found
   end
