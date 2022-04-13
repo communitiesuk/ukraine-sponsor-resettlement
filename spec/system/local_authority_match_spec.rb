@@ -18,4 +18,12 @@ RSpec.describe "Local Authority matching form", type: :system do
       expect(page).to have_content("Reference not found")
     end
   end
+
+  describe "visiting the match form with a valid reference in url" do
+    it "displays the landing page" do
+      visit "/match/ANON-XXXX-XXXX-X"
+
+      expect(page).to have_content("Match service")
+    end
+  end
 end
