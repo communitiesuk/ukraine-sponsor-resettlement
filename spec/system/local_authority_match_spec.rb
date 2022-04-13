@@ -23,7 +23,7 @@ RSpec.describe "Local Authority matching form", type: :system do
     it "displays the landing page" do
       visit "/match/ANON-XXXX-XXXX-X"
 
-      expect(page).to have_content("Match service")
+      expect(page).to have_content("I've recorded my interest, what happens now?")
     end
   end
 end
