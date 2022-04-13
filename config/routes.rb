@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get "/organisation/confirm", to: "organisation#confirm"
 
   get "/match", to: "errors#reference_not_found"
+  get "/match/:reference", to: "match#display"
 
   scope via: :all do
     match "/404", to: "errors#not_found"

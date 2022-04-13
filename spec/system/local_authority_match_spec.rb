@@ -5,9 +5,15 @@ RSpec.describe "Local Authority matching form", type: :system do
     driven_by(:rack_test_user_agent)
   end
 
-  describe "visiting the match form without reference in url" do
-    it "redirects user to error page" do
+  describe "visiting the match form without a valid reference in url" do
+    it "redirects user to error page when missing" do
       visit "/match"
+
+      expect(page).to have_content("Reference not found")
+    end
+
+    it "redirects user to error page when incorrect format" do
+      visit "/match/incorrect-format-reference"
 
       expect(page).to have_content("Reference not found")
     end
