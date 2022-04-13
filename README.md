@@ -20,6 +20,14 @@ Alternatively, to run the rails app in the foreground so that you can see its ou
 
 The Rails server should start on <http://localhost:8080>
 
+## Database migrations
+
+Database migrations are required to make changes to the database
+
+`rails generate migration <name of migration>`
+
+This will create a file in the db/migrate folder and this file can be amended to reflect the change required.
+
 ## Infrastructure
 
 This application is running on GovUK PaaS (https://www.cloud.service.gov.uk/). To deploy, you need to:
