@@ -1,11 +1,11 @@
 class AdditionalInfo < ApplicationRecord
-  include CommonValidations
+  include ContactDetailsValidations
 
-  self.table_name = "additional_info-info"
+  self.table_name = "additional_info"
 
   SCHEMA_VERSION = 2
 
-  attr_accessor :email, :fullname
+  attr_accessor :reference, :started_at, :email, :fullname, :type, :version, :ip_address, :user_agent, :final_submission
 
   after_initialize :after_initialize
   before_save :serialize
@@ -27,6 +27,8 @@ class AdditionalInfo < ApplicationRecord
         version:,
         email:,
         fullname:,
+        ip_address:,
+        user_agent:,
         started_at:,
     }.compact
   end

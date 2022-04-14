@@ -1,5 +1,7 @@
 class AdditionalController < ApplicationController
-  def display
+  MAX_STEPS = 2
+
+  def home
     reference = params["reference"]
 
     if reference.present? && reference.upcase.match(/ANON-\w{4}-\w{4}-\w{1}/)
@@ -7,5 +9,81 @@ class AdditionalController < ApplicationController
     else
       redirect_to "/additional-info"
     end
+  end
+
+  def start
+    @application = AdditionalInfo.new(session[:additional_info])
+    @application.started_at = Time.zone.now.utc
+    @application.reference = params["reference"]
+
+    redirect_to "/additional-info/steps/1"
+  end
+
+  def display
+    @application = AdditionalInfo.new(session[:additional_info])
+
+    step = params["stage"].to_i
+
+    if step.positive? && step <= MAX_STEPS
+      render "/additional-info/steps/#{step}"
+    else
+      redirect_to "/additional-info"
+    end
+  end
+
+  def handle_step
+    # Pull session data out of session and
+    # instantiate new Application ActiveRecord object
+    @application = AdditionalInfo.new(session[:additional_info])
+
+    # Update Application object with new attributes
+    @application.assign_attributes(application_params)
+
+    if @application.valid?
+      # Update the session
+      session[:additional_info] = @application.as_json
+
+      next_stage = params["stage"].to_i + 1
+
+      if next_stage > MAX_STEPS
+        redirect_to "/additional-info/check-answers"
+      else
+        redirect_to "/additional-info/steps/#{next_stage}"
+      end
+    else
+      render "additional-info/steps/#{params['stage']}"
+    end
+  end
+
+  def check_answers
+    @application = AdditionalInfo.new(session[:additional_info])
+    Rails.logger.debug session[:additional_info]
+
+    render "additional-info/check_answers"
+  end
+
+  def submit
+    @application = AdditionalInfo.new(session[:additional_info])
+    @application.ip_address = request.ip
+    @application.user_agent = request.user_agent
+    @application.final_submission = true
+
+    if @application.valid?
+      @application.save!
+      session[:app_reference] = @application.reference
+      session[:additional_info] = {}
+
+      # SendIndividualUpdateJob.perform_later(@application.id)
+      # GovNotifyMailer.send_individual_confirmation_email(@application).deliver_later
+      redirect_to "/additional-info/confirm"
+    else
+      render "check_answers"
+    end
+  end
+
+  private
+
+  def application_params
+    params.require(:additional_info).permit(:fullname, :email)
   end
 end
