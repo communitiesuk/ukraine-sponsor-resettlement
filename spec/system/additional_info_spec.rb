@@ -25,5 +25,11 @@ RSpec.describe "Local Authority matching form", type: :system do
 
       expect(page).to have_content("I've recorded my interest, what happens now?")
     end
+
+    it "displays the landing page with mixed case" do
+      visit "/additional-info/anon-XX99-X2X1-0"
+
+      expect(page).to have_content("I've recorded my interest, what happens now?")
+    end
   end
 end
