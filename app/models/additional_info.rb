@@ -1,4 +1,4 @@
-class IndividualExpressionOfInterest < ApplicationRecord
+class AdditionalInfo < ApplicationRecord
   include CommonValidations
 
   self.table_name = "matches"
