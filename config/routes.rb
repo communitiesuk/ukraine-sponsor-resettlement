@@ -19,7 +19,8 @@ Rails.application.routes.draw do
   get "/organisation/confirm", to: "organisation#confirm"
 
   get "/additional-info/", to: "errors#reference_not_found"
-  get "/additional-info/:reference", to: "additional#home"
+  get "/additional-info/ref", to: "errors#reference_not_found"
+  get "/additional-info/ref/:reference", to: "additional#home"
   get "/additional-info/start/:reference", to: "additional#start"
   get "/additional-info/steps/:stage", to: "additional#display"
   post "/additional-info/steps/:stage", to: "additional#handle_step"

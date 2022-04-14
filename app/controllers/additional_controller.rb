@@ -81,6 +81,12 @@ class AdditionalController < ApplicationController
     end
   end
 
+  def confirm
+    @app_reference = session[:app_reference]
+
+    render "additional-info/confirm"
+  end
+
   private
 
   def application_params

@@ -14,8 +14,14 @@ RSpec.describe "Local Authority matching form", type: :system do
       expect(page).to have_content("Reference not found")
     end
 
+    it "redirects user to error page when missing from URL" do
+      visit "/additional-info/ref/"
+
+      expect(page).to have_content("Reference not found")
+    end
+
     it "redirects user to error page when incorrect format" do
-      visit "/additional-info/incorrect-format-reference"
+      visit "/additional-info/ref/incorrect-format-reference"
 
       expect(page).to have_content("Reference not found")
     end
@@ -23,13 +29,13 @@ RSpec.describe "Local Authority matching form", type: :system do
 
   describe "visiting the additional_info form with a valid reference in url" do
     it "displays the landing page" do
-      visit "/additional-info/ANON-XXXX-XXXX-X"
+      visit "/additional-info/ref/ANON-XXXX-XXXX-X"
 
       expect(page).to have_content(EXPECTED_TEXT)
     end
 
     it "displays the landing page with mixed case" do
-      visit "/additional-info/anon-XX99-X2X1-0"
+      visit "/additional-info/ref/anon-XX99-X2X1-0"
 
       expect(page).to have_content(EXPECTED_TEXT)
     end
@@ -37,7 +43,7 @@ RSpec.describe "Local Authority matching form", type: :system do
 
   describe "completing the additional information form" do
     it "saves all of the answers in the database" do
-      visit "/additional-info/ANON-XXXX-XXXX-X"
+      visit "/additional-info/ref/ANON-0C84-4DD5-9"
 
       expect(page).to have_content(EXPECTED_TEXT)
       click_link("Provide additional information")
@@ -54,7 +60,7 @@ RSpec.describe "Local Authority matching form", type: :system do
       click_button("Accept And Send")
 
       expect(page).to have_content("Application complete")
-      expect(page).to have_content("ANON-XXXX-XXXX-X")
+      expect(page).to have_content("ANON-0C84-4DD5-9")
       expect(page).to have_content("Thank you for providing additional information for the Homes for Ukraine Scheme")
 
       application = IndividualExpressionOfInterest.order("created_at DESC").last
