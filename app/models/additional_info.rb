@@ -1,7 +1,7 @@
 class AdditionalInfo < ApplicationRecord
   include CommonValidations
 
-  self.table_name = "matches"
+  self.table_name = "additional_info-info"
 
   SCHEMA_VERSION = 2
 
@@ -34,7 +34,7 @@ class AdditionalInfo < ApplicationRecord
   private
 
   def serialize
-    self.type = "match"
+    self.type = "additional_info"
     self.version = SCHEMA_VERSION
     self.answers = as_json
   end
