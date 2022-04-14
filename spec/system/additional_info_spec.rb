@@ -60,11 +60,12 @@ RSpec.describe "Local Authority matching form", type: :system do
       click_button("Accept And Send")
 
       expect(page).to have_content("Application complete")
-      expect(page).to have_content("ANON-0C84-4DD5-9")
+      #expect(page).to have_content("ANON-0C84-4DD5-9")
       expect(page).to have_content("Thank you for providing additional information for the Homes for Ukraine Scheme")
 
-      application = IndividualExpressionOfInterest.order("created_at DESC").last
+      application = AdditionalInfo.order("created_at DESC").last
       expect(application.as_json).to include({
+                                                 reference: "ANON-0C84-4DD5-9",
                                                  email: "john.smith@example.com",
                                                  fullname: "John Smith",
                                               })

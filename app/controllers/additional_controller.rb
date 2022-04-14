@@ -77,7 +77,7 @@ class AdditionalController < ApplicationController
       # GovNotifyMailer.send_individual_confirmation_email(@application).deliver_later
       redirect_to "/additional-info/confirm"
     else
-      render "check_answers"
+      render "/additional-info/check_answers"
     end
   end
 
