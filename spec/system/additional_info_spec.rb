@@ -37,12 +37,6 @@ RSpec.describe "Local Authority matching form", type: :system do
 
       expect(page).to have_content("I've recorded my interest, what happens now?")
     end
-
-    it "displays the landing page with reference" do
-      visit "/additional-info/ref/ANON-XX99-X2X1-0"
-
-      expect(page).to have_content("ANON-XX99-X2X1-0")
-    end
   end
 
   describe "completing the additional information form" do

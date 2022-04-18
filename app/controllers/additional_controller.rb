@@ -18,9 +18,6 @@ class AdditionalController < ApplicationController
     @application = AdditionalInfo.new(session[:additional_info])
     @application.started_at = Time.zone.now.utc
 
-    # Update Application object with new attributes
-    @application.assign_attributes(application_params)
-
     redirect_to "/additional-info/steps/1"
   end
 

@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   get "/additional-info/", to: "errors#reference_not_found"
   get "/additional-info/ref", to: "errors#reference_not_found"
   get "/additional-info/ref/:reference", to: "additional#home"
-  get "/additional-info/start/:reference", to: "additional#start"
+  get "/additional-info/start", to: "additional#start"
   get "/additional-info/steps/:stage", to: "additional#display"
   post "/additional-info/steps/:stage", to: "additional#handle_step"
   get "/additional-info/check-answers", to: "additional#check_answers"
