@@ -5,6 +5,9 @@ class AdditionalController < ApplicationController
     reference = params["reference"]
 
     if reference.present? && reference.upcase.match(/ANON-\w{4}-\w{4}-\w{1}/)
+      @application = AdditionalInfo.new(session[:additional_info])
+      @application.reference = reference
+
       render "additional-info/start"
     else
       redirect_to "/additional-info"
@@ -14,7 +17,9 @@ class AdditionalController < ApplicationController
   def start
     @application = AdditionalInfo.new(session[:additional_info])
     @application.started_at = Time.zone.now.utc
-    @application.reference = params["reference"]
+
+    # Update Application object with new attributes
+    @application.assign_attributes(application_params)
 
     redirect_to "/additional-info/steps/1"
   end
