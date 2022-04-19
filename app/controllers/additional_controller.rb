@@ -77,8 +77,7 @@ class AdditionalController < ApplicationController
       session[:app_reference] = @application.reference
       session[:additional_info] = {}
 
-      # TODO: SEND DATA AND EMAIL
-      # SendIndividualUpdateJob.perform_later(@application.id)
+      SendAdditionalInfoUpdateJob.perform_later(@application.id)
       GovNotifyMailer.send_additional_info_confirmation_email(@application).deliver_later
       redirect_to "/additional-info/confirm"
     else
