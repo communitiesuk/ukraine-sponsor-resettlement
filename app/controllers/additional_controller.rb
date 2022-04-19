@@ -2,12 +2,11 @@ class AdditionalController < ApplicationController
   MAX_STEPS = 2
 
   def home
+    @application = AdditionalInfo.new(session[:additional_info])
+
     reference = params["reference"]
 
     if reference.present? && reference.upcase.match(/ANON-\w{4}-\w{4}-\w{1}/)
-      @application = AdditionalInfo.new(session[:additional_info])
-      @application.reference = reference
-
       render "additional-info/start"
     else
       redirect_to "/additional-info"
@@ -17,6 +16,10 @@ class AdditionalController < ApplicationController
   def start
     @application = AdditionalInfo.new(session[:additional_info])
     @application.started_at = Time.zone.now.utc
+    @application.reference = params["reference"].upcase
+
+    # Update the session
+    session[:additional_info] = @application.as_json
 
     redirect_to "/additional-info/steps/1"
   end
@@ -59,7 +62,6 @@ class AdditionalController < ApplicationController
 
   def check_answers
     @application = AdditionalInfo.new(session[:additional_info])
-    Rails.logger.debug session[:additional_info]
 
     render "additional-info/check_answers"
   end
@@ -75,6 +77,7 @@ class AdditionalController < ApplicationController
       session[:app_reference] = @application.reference
       session[:additional_info] = {}
 
+      # TODO: SEND DATA AND EMAIL
       # SendIndividualUpdateJob.perform_later(@application.id)
       # GovNotifyMailer.send_individual_confirmation_email(@application).deliver_later
       redirect_to "/additional-info/confirm"
@@ -92,6 +95,6 @@ class AdditionalController < ApplicationController
   private
 
   def application_params
-    params.require(:additional_info).permit(:fullname, :email)
+    params.require(:additional_info).permit(:reference, :fullname, :email)
   end
 end
