@@ -4,7 +4,7 @@
 
     <%= form_for @application, url: "/additional-info/steps/2", method: :post do |f| %>
       <%= f.govuk_text_field :email,
-                             label: { text: t('email.full', scope: "individual.questions") },
+                             label: { text: t('email.full', scope: "additional_info.questions") },
                              type: "email"
       %>
       <%= f.govuk_submit t('continue') %>

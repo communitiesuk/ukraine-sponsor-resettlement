@@ -45,6 +45,26 @@
       </div>
     </dl>
 
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('phone_number.short', scope: "additional_info.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <% if @application.errors.include?(:email) %>
+            <span class="govuk-error-message"><%= @application.errors[:phone_number].join %></span>
+          <% else %>
+            <%= @application.phone_number %>
+          <% end %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/additional-info/steps/3">
+            Change<span class="govuk-visually-hidden"> phone number</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+
     <h2 class="govuk-heading-m">Now send your application</h2>
 
     <p class="govuk-body">By submitting this application you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>

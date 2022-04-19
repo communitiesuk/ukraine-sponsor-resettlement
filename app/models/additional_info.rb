@@ -5,7 +5,7 @@ class AdditionalInfo < ApplicationRecord
 
   SCHEMA_VERSION = 2
 
-  attr_accessor :reference, :started_at, :email, :fullname, :type, :version, :ip_address, :user_agent, :final_submission
+  attr_accessor :reference, :started_at, :fullname, :email, :phone_number, :type, :version, :ip_address, :user_agent, :final_submission
 
   after_initialize :after_initialize
   before_save :serialize
@@ -25,8 +25,9 @@ class AdditionalInfo < ApplicationRecord
         created_at:,
         type:,
         version:,
-        email:,
         fullname:,
+        email:,
+        phone_number:,
         ip_address:,
         user_agent:,
         started_at:,

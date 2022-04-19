@@ -162,7 +162,66 @@ en:
         short: Privacy statement
         full: Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme
         comment: Yes, I have read the privacy statement and agree that the information I have provided in this form can be used for the Homes for Ukraine scheme.
-
+  additional_info:
+    questions:
+      family_type:
+        short: Who can you accommodate?
+        full: Who would you like to offer accommodation to?
+      living_space:
+        short: Living space
+        full: What type of living space can you offer?
+      step_free:
+        short: Mobility impaired accessible property
+        full: Does the property, or any of the properties, have step-free access?
+      single_room_count:
+        short: Single rooms available
+        full: How many single rooms do you have available?
+      double_room_count:
+        short: Double rooms available
+        full: How many double bedrooms (or larger) do you have available?
+      postcode:
+        short: Property postcode(s)
+        full: Enter the first part of the postcode of the property you’re offering
+        subtitle: (If you are offering multiple properties, please enter all the postcodes separated by a comma)
+      accommodation_length:
+        short: Accommodation length
+        full: How long can you offer accommodation for?
+      agree_future_contact:
+        short: Future contact
+        full: Can we contact you about your registration?
+        comment: Please tick this box in order for us to contact you about your registration of interest to be a sponsor. If you do not tick this box, we will not be able to invite you to become a sponsor.
+      fullname:
+        short: Name
+        full: Enter your full name
+      email:
+        short: Email
+        full: Enter your email address
+      phone_number:
+        short: Telephone number
+        full: Enter your contact telephone number
+      agree_privacy_statement:
+        short: Privacy statement
+        full: Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme
+        comment: Yes, I have read the privacy statement and agree that the information I have provided in this form can be used for the Homes for Ukraine scheme
+        link:
+    family_type:
+      single_adult: Single adult
+      more_than_one_adult: More than one adult
+      adults_with_children: Adult(s) with children
+      no_prefence: No preference
+    living_space:
+      rooms_in_home_shared_facilities: Room(s) in your home with access to shared facilities (bathroom and kitchen)
+      self_contained_property: A self-contained property (includes at least 1 bedroom, bathroom and kitchen facilities)
+      multiple_properties: Multiple properties (includes at least 1 bedroom, bathroom and kitchen facilities per property)
+    step_free:
+      all: Yes, all
+      some: Yes, some
+      none: "No"
+      unknown: I don’t know
+    accommodation_length:
+      from_6_to_9_months: From 6 to 9 months
+      from_10_to_12_months: From 10 to 12 months
+      more_than_12_months: More than 12 months
   error:
     choose_option: Please choose one of the options
     invalid_number: Please enter a non-negative whole number

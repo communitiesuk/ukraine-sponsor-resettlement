@@ -52,8 +52,12 @@ RSpec.describe "Local Authority matching form", type: :system do
       fill_in("Enter your email address", with: "john.smith@example.com")
       click_button("Continue")
 
+      fill_in("Enter your contact telephone number", with: "1234567890")
+      click_button("Continue")
+
       expect(page).to have_content("Name John Smith")
       expect(page).to have_content("Email john.smith@example.com")
+      expect(page).to have_content("Telephone number 1234567890")
 
       click_button("Accept And Send")
 

@@ -1,5 +1,5 @@
 class AdditionalController < ApplicationController
-  MAX_STEPS = 2
+  MAX_STEPS = 3
 
   def home
     @application = AdditionalInfo.new(session[:additional_info])
@@ -94,6 +94,6 @@ class AdditionalController < ApplicationController
   private
 
   def application_params
-    params.require(:additional_info).permit(:reference, :fullname, :email)
+    params.require(:additional_info).permit(:reference, :fullname, :email, :phone_number)
   end
 end
