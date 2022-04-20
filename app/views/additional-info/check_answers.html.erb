@@ -8,18 +8,24 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('fullname.short', scope: "individual.questions") %>
+          Residential address
         </dt>
         <dd class="govuk-summary-list__value">
-          <% if @application.errors.include?(:fullname) %>
-            <span class="govuk-error-message"><%= @application.errors[:fullname].join %></span>
-          <% else %>
-            <%= @application.fullname %>
+          <%= @application.residential_line_1 %>
+          <br />
+
+          <% if @application.residential_line_2.present? %>
+            <%= @application.residential_line_2 %>
+            <br />
           <% end %>
+
+          <%= @application.residential_town %>
+          <br />
+          <%= @application.residential_postcode %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/additional-info/steps/1">
-            Change<span class="govuk-visually-hidden"> full name</span>
+            Change<span class="govuk-visually-hidden"> address</span>
           </a>
         </dd>
       </div>
@@ -60,6 +66,26 @@
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/additional-info/steps/3">
             Change<span class="govuk-visually-hidden"> phone number</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('proof_of_id.short', scope: "additional_info.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <% if @application.errors.include?(:proof_of_id) %>
+            <span class="govuk-error-message"><%= @application.errors[:proof_of_id].join %></span>
+          <% else %>
+            <%= t(@application.proof_of_id, scope: "additional_info.proof_of_id") %>
+          <% end %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/additional-info/steps/4">
+            Change<span class="govuk-visually-hidden"> proof of id</span>
           </a>
         </dd>
       </div>

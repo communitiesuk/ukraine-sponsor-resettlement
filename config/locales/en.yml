@@ -204,6 +204,21 @@ en:
         full: Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme
         comment: Yes, I have read the privacy statement and agree that the information I have provided in this form can be used for the Homes for Ukraine scheme
         link:
+      proof_of_id:
+        short: Proof of ID
+        full: Proof of ID
+      address_line_1:
+        short: Line 1
+        full: Address line 1
+      address_line_2:
+        short: Line 2
+        full: Address line 2 (optional)
+      address_town:
+        short: Town or city
+        full: Town or city
+      address_postcode:
+        short: Postcode
+        full: Postcode
     family_type:
       single_adult: Single adult
       more_than_one_adult: More than one adult
@@ -222,6 +237,10 @@ en:
       from_6_to_9_months: From 6 to 9 months
       from_10_to_12_months: From 10 to 12 months
       more_than_12_months: More than 12 months
+    proof_of_id:
+      passport: Passport
+      drivers_licence: Driver's Licence
+      other: Other
   error:
     choose_option: Please choose one of the options
     invalid_number: Please enter a non-negative whole number
@@ -233,3 +252,7 @@ en:
     must_be_accepted: Must be accepted
     choose_one_or_more_options: Please choose one or more of the options
     max_500_chars: Please use 500 characters or less
+    address_line_1: Please enter a valid address line 1
+    address_line_2: Please enter a valid address line 2
+    address_town: Please enter a valid town or city
+    address_postcode: Please enter a valid UK postcode

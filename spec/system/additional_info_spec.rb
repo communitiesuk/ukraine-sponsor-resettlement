@@ -46,7 +46,9 @@ RSpec.describe "Local Authority matching form", type: :system do
       expect(page).to have_content("I've recorded my interest, what happens now?")
       click_link("Provide additional information")
 
-      fill_in("Enter your full name", with: "John Smith")
+      fill_in("Address line 1", with: "House number and Street name")
+      fill_in("Town", with: "Some Town or City")
+      fill_in("Postcode", with: "XX1 1XX")
       click_button("Continue")
 
       fill_in("Enter your email address", with: "john.smith@example.com")
@@ -55,9 +57,14 @@ RSpec.describe "Local Authority matching form", type: :system do
       fill_in("Enter your contact telephone number", with: "1234567890")
       click_button("Continue")
 
-      expect(page).to have_content("Name John Smith")
+      expect(page).to have_content("Proof of ID")
+      choose("Passport")
+      click_button("Continue")
+
+      expect(page).to have_content("Residential address House number and Street name")
       expect(page).to have_content("Email john.smith@example.com")
       expect(page).to have_content("Telephone number 1234567890")
+      expect(page).to have_content("Proof of ID Passport")
 
       click_button("Accept And Send")
 
@@ -68,8 +75,12 @@ RSpec.describe "Local Authority matching form", type: :system do
       application = AdditionalInfo.order("created_at DESC").last
       expect(application.as_json).to include({
                                                  reference: "ANON-0C84-4DD5-9",
+                                                 residential_line_1: "House number and Street name",
+                                                 residential_town: "Some Town or City",
+                                                 residential_postcode: "XX1 1XX",
                                                  email: "john.smith@example.com",
-                                                 fullname: "John Smith",
+                                                 phone_number: "1234567890",
+                                                 proof_of_id: "passport"
                                               })
 
       expect(application.ip_address).to eq("127.0.0.1")
