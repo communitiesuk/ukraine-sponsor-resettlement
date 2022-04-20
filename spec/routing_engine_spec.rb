@@ -17,11 +17,11 @@ RSpec.describe RoutingEngine, type: :model do
       application.residential_host = "Yes"
       expect(RoutingEngine.get_next_step(application, 5)).to be(6)
       application.residential_host = "Yes"
-      expect(RoutingEngine.get_next_step(application, 6)).to be(7)
+      expect(RoutingEngine.get_next_step(application, 6)).to be(99)
       application.residential_host = "Yes"
-      expect(RoutingEngine.get_next_step(application, 7)).to be(999)
+      expect(RoutingEngine.get_next_step(application, 99)).to be(999)
       application.residential_host = "No"
-      expect(RoutingEngine.get_next_step(application, 5)).to be(8)
+      expect(RoutingEngine.get_next_step(application, 5)).to be(7)
     end
   end
 end

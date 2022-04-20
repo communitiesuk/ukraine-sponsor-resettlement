@@ -1,6 +1,5 @@
 class AdditionalController < ApplicationController
-
-  MAX_STEPS = 7
+  MAX_STEPS = 99
 
   def home
     @application = AdditionalInfo.new(session[:additional_info])
@@ -52,7 +51,7 @@ class AdditionalController < ApplicationController
       # Replace with routing engine to get next stage
       next_stage = RoutingEngine.get_next_step(@application, params["stage"].to_i)
 
-      if next_stage > MAX_STEPS
+      if next_stage == 999
         redirect_to "/additional-info/check-answers"
       else
         redirect_to "/additional-info/steps/#{next_stage}"
@@ -108,7 +107,11 @@ class AdditionalController < ApplicationController
           :phone_number,
           :residential_host,
           :residential_pet,
-          :user_research
+          :user_research,
+          :property_one_line_1,
+          :property_one_line_2,
+          :property_one_town,
+          :property_one_postcode
         )
   end
 end

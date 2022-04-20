@@ -5,7 +5,26 @@ class AdditionalInfo < ApplicationRecord
 
   SCHEMA_VERSION = 2
 
-  attr_accessor :reference, :started_at, :residential_line_1, :residential_line_2, :residential_town, :residential_postcode, :fullname, :email, :phone_number, :residential_host_types, :residential_host, :residential_pet_types, :residential_pet, :user_research_types, :user_research, :type, :version, :ip_address, :user_agent, :final_submission
+  attr_accessor :reference,
+                :started_at,
+                :residential_line_1,
+                :residential_line_2,
+                :residential_town,
+                :residential_postcode,
+                :fullname,
+                :email,
+                :phone_number,
+                :residential_host_types,
+                :residential_host,
+                :residential_pet_types,
+                :residential_pet,
+                :user_research_types,
+                :user_research,
+                :property_one_line_1,
+                :property_one_line_2,
+                :property_one_town,
+                :property_one_postcode,
+                :type, :version, :ip_address, :user_agent, :final_submission
 
   validate :validate_residential_host, if: -> { run_validation? :residential_host }
   validate :validate_residential_pet, if: -> { run_validation? :residential_pet }
@@ -41,6 +60,9 @@ class AdditionalInfo < ApplicationRecord
         phone_number:,
         residential_host:,
         residential_pet:,
+        property_one_line_1:,
+        property_one_town:,
+        property_one_postcode:,
         user_research:,
         ip_address:,
         user_agent:,
