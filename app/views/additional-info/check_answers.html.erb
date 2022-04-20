@@ -34,7 +34,27 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('email.short', scope: "individual.questions") %>
+          <%= t('fullname.short', scope: "additional_info.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <% if @application.errors.include?(:fullname) %>
+            <span class="govuk-error-message"><%= @application.errors[:fullname].join %></span>
+          <% else %>
+            <%= @application.fullname %>
+          <% end %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/additional-info/steps/2">
+            Change<span class="govuk-visually-hidden"> name</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('email.short', scope: "additional_info.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
           <% if @application.errors.include?(:email) %>
@@ -44,7 +64,7 @@
           <% end %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/additional-info/steps/2">
+          <a class="govuk-link" href="/additional-info/steps/3">
             Change<span class="govuk-visually-hidden"> email</span>
           </a>
         </dd>
@@ -64,7 +84,7 @@
           <% end %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/additional-info/steps/3">
+          <a class="govuk-link" href="/additional-info/steps/4">
             Change<span class="govuk-visually-hidden"> phone number</span>
           </a>
         </dd>
@@ -84,7 +104,7 @@
           <% end %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/additional-info/steps/4">
+          <a class="govuk-link" href="/additional-info/steps/5">
             Change<span class="govuk-visually-hidden"> proof of id</span>
           </a>
         </dd>

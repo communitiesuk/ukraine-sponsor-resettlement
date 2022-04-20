@@ -51,6 +51,9 @@ RSpec.describe "Local Authority matching form", type: :system do
       fill_in("Postcode", with: "XX1 1XX")
       click_button("Continue")
 
+      fill_in("Enter your full name", with: "John Smith")
+      click_button("Continue")
+
       fill_in("Enter your email address", with: "john.smith@example.com")
       click_button("Continue")
 
@@ -63,6 +66,7 @@ RSpec.describe "Local Authority matching form", type: :system do
 
       expect(page).to have_content("Residential address House number and Street name")
       expect(page).to have_content("Email john.smith@example.com")
+      expect(page).to have_content("Name John Smith")
       expect(page).to have_content("Telephone number 1234567890")
       expect(page).to have_content("Proof of ID Passport")
 
@@ -78,6 +82,7 @@ RSpec.describe "Local Authority matching form", type: :system do
                                                  residential_line_1: "House number and Street name",
                                                  residential_town: "Some Town or City",
                                                  residential_postcode: "XX1 1XX",
+                                                 fullname: "John Smith",
                                                  email: "john.smith@example.com",
                                                  phone_number: "1234567890",
                                                  proof_of_id: "passport"

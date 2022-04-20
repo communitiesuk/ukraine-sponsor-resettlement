@@ -3,12 +3,11 @@
     <%= render partial: "shared/back_link" %>
 
     <%= form_for @application, url: "/additional-info/steps/3", method: :post do |f| %>
-      <%= f.govuk_text_field :phone_number,
-        label: { text: t('phone_number.full', scope: "additional_info.questions") },
-        type: "tel"
+      <%= f.govuk_text_field :email,
+                             label: { text: t('email.full', scope: "additional_info.questions") },
+                             type: "email"
       %>
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>
 </div>
-
