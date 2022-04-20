@@ -5,10 +5,11 @@ class AdditionalInfo < ApplicationRecord
 
   SCHEMA_VERSION = 2
 
-  attr_accessor :reference, :started_at, :residential_line_1, :residential_line_2, :residential_town, :residential_postcode, :fullname, :email, :phone_number, :residential_host_types, :residential_host, :residential_pet_types, :residential_pet, :type, :version, :ip_address, :user_agent, :final_submission
+  attr_accessor :reference, :started_at, :residential_line_1, :residential_line_2, :residential_town, :residential_postcode, :fullname, :email, :phone_number, :residential_host_types, :residential_host, :residential_pet_types, :residential_pet, :user_research_types, :user_research, :type, :version, :ip_address, :user_agent, :final_submission
 
   validate :validate_residential_host, if: -> { run_validation? :residential_host }
   validate :validate_residential_pet, if: -> { run_validation? :residential_pet }
+  validate :validate_user_research, if: -> { run_validation? :user_research }
 
   after_initialize :after_initialize
   before_save :serialize
@@ -21,6 +22,7 @@ class AdditionalInfo < ApplicationRecord
     @final_submission = false
     @residential_host_types = %i[yes no]
     @residential_pet_types = %i[yes no]
+    @user_research_types = %i[yes no]
   end
 
   def as_json
@@ -39,6 +41,7 @@ class AdditionalInfo < ApplicationRecord
         phone_number:,
         residential_host:,
         residential_pet:,
+        user_research:,
         ip_address:,
         user_agent:,
         started_at:,
@@ -53,6 +56,10 @@ class AdditionalInfo < ApplicationRecord
 
   def validate_residential_pet
     validate_enum(@residential_pet_types, @residential_pet, :residential_pet)
+  end
+
+  def validate_user_research
+    validate_enum(@user_research_types, @user_research, :user_research)
   end
 
   def validate_enum(enum, value, attribute)

@@ -101,6 +101,24 @@
       </div>
     </dl>
 
+    <h2 class="govuk-heading-m">User research</h2>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('user_research.short', scope: "additional_info.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.user_research %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/additional-info/steps/7">
+            Change<span class="govuk-visually-hidden"> user research</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+
     <h2 class="govuk-heading-m">Now send your application</h2>
 
     <p class="govuk-body">By submitting this application you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>

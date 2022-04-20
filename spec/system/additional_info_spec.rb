@@ -68,12 +68,17 @@ RSpec.describe "Local Authority matching form", type: :system do
       choose("No")
       click_button("Continue")
 
+      expect(page).to have_content("Are you willing to take part in user research?")
+      choose("No")
+      click_button("Continue")
+
       expect(page).to have_content("Residential address House number and Street name")
       expect(page).to have_content("Email john.smith@example.com")
       expect(page).to have_content("Name John Smith")
       expect(page).to have_content("Telephone number 1234567890")
       expect(page).to have_content("Residential host yes")
       expect(page).to have_content("Residential pet no")
+      expect(page).to have_content("User research no")
 
       click_button("Accept And Send")
 
@@ -91,7 +96,8 @@ RSpec.describe "Local Authority matching form", type: :system do
                                                  email: "john.smith@example.com",
                                                  phone_number: "1234567890",
                                                  residential_host: "yes",
-                                                 residential_pet: "no"
+                                                 residential_pet: "no",
+                                                 user_research: "no"
                                               })
 
       expect(application.ip_address).to eq("127.0.0.1")
