@@ -35,11 +35,7 @@
           <%= t('fullname.short', scope: "additional_info.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <% if @application.errors.include?(:fullname) %>
-            <span class="govuk-error-message"><%= @application.errors[:fullname].join %></span>
-          <% else %>
-            <%= @application.fullname %>
-          <% end %>
+          <%= @application.fullname %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/additional-info/steps/2">
@@ -53,11 +49,7 @@
           <%= t('email.short', scope: "additional_info.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <% if @application.errors.include?(:email) %>
-            <span class="govuk-error-message"><%= @application.errors[:email].join %></span>
-          <% else %>
-            <%= @application.email %>
-          <% end %>
+          <%= @application.email %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/additional-info/steps/3">
@@ -71,11 +63,7 @@
           <%= t('phone_number.short', scope: "additional_info.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <% if @application.errors.include?(:email) %>
-            <span class="govuk-error-message"><%= @application.errors[:phone_number].join %></span>
-          <% else %>
-            <%= @application.phone_number %>
-          <% end %>
+          <%= @application.phone_number %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/additional-info/steps/4">
@@ -89,15 +77,25 @@
           <%= t('residential_host.short', scope: "additional_info.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <% if @application.errors.include?(:residential_host) %>
-            <span class="govuk-error-message"><%= @application.errors[:residential_host].join %></span>
-          <% else %>
-            <%= @application.residential_host %>
-          <% end %>
+          <%= @application.residential_host %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/additional-info/steps/5">
             Change<span class="govuk-visually-hidden"> residential host</span>
+          </a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('residential_pet.short', scope: "additional_info.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+            <%= @application.residential_pet %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/additional-info/steps/6">
+            Change<span class="govuk-visually-hidden"> residential pet</span>
           </a>
         </dd>
       </div>

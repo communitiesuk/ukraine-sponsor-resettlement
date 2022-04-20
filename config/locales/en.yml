@@ -207,6 +207,9 @@ en:
       residential_host:
         short: Residential host
         full: Are you using your residence for hosting?
+      residential_pet:
+        short: Residential pet
+        full: Are you willing to take pets?
       address_line_1:
         short: Line 1
         full: Address line 1
@@ -240,6 +243,9 @@ en:
     residential_host:
       yes: Yes
       no: No, not this property
+    residential_pet:
+      yes: Yes
+      no: No
   error:
     choose_option: Please choose one of the options
     invalid_number: Please enter a non-negative whole number
