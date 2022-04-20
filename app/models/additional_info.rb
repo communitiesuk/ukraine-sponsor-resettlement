@@ -5,9 +5,9 @@ class AdditionalInfo < ApplicationRecord
 
   SCHEMA_VERSION = 2
 
-  attr_accessor :reference, :started_at, :residential_line_1, :residential_line_2, :residential_town, :residential_postcode, :fullname, :email, :phone_number, :proof_of_ids, :proof_of_id, :type, :version, :ip_address, :user_agent, :final_submission
+  attr_accessor :reference, :started_at, :residential_line_1, :residential_line_2, :residential_town, :residential_postcode, :fullname, :email, :phone_number, :residential_host_types, :residential_host, :type, :version, :ip_address, :user_agent, :final_submission
 
-  validate :validate_proof_of_id, if: -> { run_validation? :proof_of_id }
+  validate :validate_residential_host, if: -> { run_validation? :residential_host }
 
   after_initialize :after_initialize
   before_save :serialize
@@ -18,7 +18,7 @@ class AdditionalInfo < ApplicationRecord
 
   def after_initialize
     @final_submission = false
-    @proof_of_ids = %i[passport drivers_licence other]
+    @residential_host_types = %i[yes no]
   end
 
   def as_json
@@ -35,7 +35,7 @@ class AdditionalInfo < ApplicationRecord
         fullname:,
         email:,
         phone_number:,
-        proof_of_id:,
+        residential_host:,
         ip_address:,
         user_agent:,
         started_at:,
@@ -44,8 +44,8 @@ class AdditionalInfo < ApplicationRecord
 
   private
 
-  def validate_proof_of_id
-    validate_enum(@proof_of_ids, @proof_of_id, :proof_of_id)
+  def validate_residential_host
+    validate_enum(@residential_host_types, @residential_host, :residential_host)
   end
 
   def validate_enum(enum, value, attribute)

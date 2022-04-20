@@ -94,6 +94,6 @@ class AdditionalController < ApplicationController
   private
 
   def application_params
-    params.require(:additional_info).permit(:reference, :residential_line_1, :residential_line_2, :residential_town, :residential_postcode, :fullname, :email, :phone_number, :proof_of_id)
+    params.require(:additional_info).permit(:reference, :residential_line_1, :residential_line_2, :residential_town, :residential_postcode, :fullname, :email, :phone_number, :residential_host)
   end
 end

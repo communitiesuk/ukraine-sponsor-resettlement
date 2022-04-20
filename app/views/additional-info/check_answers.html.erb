@@ -3,7 +3,7 @@
 
     <h1 class="govuk-heading-l">Check your answers before sending your application</h1>
 
-    <h2 class="govuk-heading-m">Application details</h2>
+    <h2 class="govuk-heading-m">Personal details</h2>
 
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
@@ -29,9 +29,7 @@
           </a>
         </dd>
       </div>
-    </dl>
 
-    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           <%= t('fullname.short', scope: "additional_info.questions") %>
@@ -49,9 +47,7 @@
           </a>
         </dd>
       </div>
-    </dl>
 
-    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           <%= t('email.short', scope: "additional_info.questions") %>
@@ -69,9 +65,7 @@
           </a>
         </dd>
       </div>
-    </dl>
 
-    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           <%= t('phone_number.short', scope: "additional_info.questions") %>
@@ -89,23 +83,21 @@
           </a>
         </dd>
       </div>
-    </dl>
 
-    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('proof_of_id.short', scope: "additional_info.questions") %>
+          <%= t('residential_host.short', scope: "additional_info.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <% if @application.errors.include?(:proof_of_id) %>
-            <span class="govuk-error-message"><%= @application.errors[:proof_of_id].join %></span>
+          <% if @application.errors.include?(:residential_host) %>
+            <span class="govuk-error-message"><%= @application.errors[:residential_host].join %></span>
           <% else %>
-            <%= t(@application.proof_of_id, scope: "additional_info.proof_of_id") %>
+            <%= @application.residential_host %>
           <% end %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/additional-info/steps/5">
-            Change<span class="govuk-visually-hidden"> proof of id</span>
+            Change<span class="govuk-visually-hidden"> residential host</span>
           </a>
         </dd>
       </div>

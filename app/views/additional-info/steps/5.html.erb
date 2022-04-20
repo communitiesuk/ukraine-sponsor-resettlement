@@ -3,11 +3,11 @@
     <%= render partial: "shared/back_link" %>
 
     <%= form_for @application, url: "/additional-info/steps/5", method: :post do |f| %>
-      <%= f.govuk_collection_radio_buttons :proof_of_id,
-          @application.proof_of_ids.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "additional_info.proof_of_id")) },
+      <%= f.govuk_collection_radio_buttons :residential_host,
+          @application.residential_host_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "additional_info.residential_host")) },
           :id,
           :name,
-          legend: { text: t('proof_of_id.full', scope: "additional_info.questions") }
+          legend: { text: t('residential_host.full', scope: "additional_info.questions") }
       %>
       <%= f.govuk_submit t('continue') %>
     <% end %>
