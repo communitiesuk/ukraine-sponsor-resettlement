@@ -164,53 +164,30 @@ en:
         comment: Yes, I have read the privacy statement and agree that the information I have provided in this form can be used for the Homes for Ukraine scheme.
   additional_info:
     questions:
-      family_type:
-        short: Who can you accommodate?
-        full: Who would you like to offer accommodation to?
-      living_space:
-        short: Living space
-        full: What type of living space can you offer?
-      step_free:
-        short: Mobility impaired accessible property
-        full: Does the property, or any of the properties, have step-free access?
-      single_room_count:
-        short: Single rooms available
-        full: How many single rooms do you have available?
-      double_room_count:
-        short: Double rooms available
-        full: How many double bedrooms (or larger) do you have available?
-      postcode:
-        short: Property postcode(s)
-        full: Enter the first part of the postcode of the property you’re offering
-        subtitle: (If you are offering multiple properties, please enter all the postcodes separated by a comma)
-      accommodation_length:
-        short: Accommodation length
-        full: How long can you offer accommodation for?
-      agree_future_contact:
-        short: Future contact
-        full: Can we contact you about your registration?
-        comment: Please tick this box in order for us to contact you about your registration of interest to be a sponsor. If you do not tick this box, we will not be able to invite you to become a sponsor.
       fullname:
         short: Name
-        full: Enter your full name
+        full: Confirm your full name
+        hint: We need you to enter this information again to match it to your original registration correctly
       email:
         short: Email
-        full: Enter your email address
+        full: Confirm your email address
+        hint: We need you to enter this information again to match it to your original registration correctly
       phone_number:
         short: Telephone number
-        full: Enter your contact telephone number
+        full: Confirm your contact telephone number
+        hint: We need you to enter this information again to match it to your original registration correctly
       agree_privacy_statement:
         short: Privacy statement
         full: Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme
         comment: Yes, I have read the privacy statement and agree that the information I have provided in this form can be used for the Homes for Ukraine scheme
         link:
       residential_host:
-        short: Residential host
-        full: Are you using your residence for hosting?
+        short: Intend to host
+        full: Is this the property you intend to host with?
       residential_pet:
         short: Allow pets
         full: Would you consider allowing guests to bring their pets?
-        hint: You will be given more information and asked to make a final decision about this later.
+        hint: You will be given more information and asked to make a final decision about this later
       address_line_1:
         short: Line 1
         full: Address line 1

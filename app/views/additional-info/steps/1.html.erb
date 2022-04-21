@@ -3,28 +3,11 @@
 
     <p>&nbsp;</p>
 
-    <h2 class="govuk-heading-m">Enter your full residential address</h2>
-
-    <p class="hint">This is the address where you live</p>
-
     <%= form_for @application, url: "/additional-info/steps/1", method: :post do |f| %>
-      <%= f.govuk_text_field :residential_line_1,
-                             label: { text: t('address_line_1.full', scope: "additional_info.questions") },
+      <%= f.govuk_text_field :fullname,
+                             label: { text: t('fullname.full', scope: "additional_info.questions") },
+                             hint: { text: t('fullname.hint', scope: "additional_info.questions")},
                              type: "text"
-      %>
-      <%= f.govuk_text_field :residential_line_2,
-                             label: { text: t('address_line_2.full', scope: "additional_info.questions") },
-                             type: "text"
-      %>
-      <%= f.govuk_text_field :residential_town,
-                             label: { text: t('address_town.full', scope: "additional_info.questions") },
-                             type: "text",
-                             width: 20
-      %>
-      <%= f.govuk_text_field :residential_postcode,
-                             label: { text: t('address_postcode.full', scope: "additional_info.questions") },
-                             type: "text",
-                             width: 10
       %>
       <%= f.govuk_submit t('continue') %>
     <% end %>

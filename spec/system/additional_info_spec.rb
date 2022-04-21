@@ -46,21 +46,21 @@ RSpec.describe "Local Authority matching form", type: :system do
       expect(page).to have_content("I've recorded my interest, what happens now?")
       click_link("Provide additional information")
 
+      fill_in("Confirm your full name", with: "John Smith")
+      click_button("Continue")
+
+      fill_in("Confirm your email address", with: "john.smith@example.com")
+      click_button("Continue")
+
+      fill_in("Confirm your contact telephone number", with: "1234567890")
+      click_button("Continue")
+
       fill_in("Address line 1", with: "House number and Street name")
       fill_in("Town", with: "Some Town or City")
       fill_in("Postcode", with: "XX1 1XX")
       click_button("Continue")
 
-      fill_in("Enter your full name", with: "John Smith")
-      click_button("Continue")
-
-      fill_in("Enter your email address", with: "john.smith@example.com")
-      click_button("Continue")
-
-      fill_in("Enter your contact telephone number", with: "1234567890")
-      click_button("Continue")
-
-      expect(page).to have_content("Are you using your residence for hosting?")
+      expect(page).to have_content("Is this the property you intend to host with?")
       choose("No")
       click_button("Continue")
 
@@ -78,7 +78,7 @@ RSpec.describe "Local Authority matching form", type: :system do
       expect(page).to have_content("Email john.smith@example.com")
       expect(page).to have_content("Name John Smith")
       expect(page).to have_content("Telephone number 1234567890")
-      expect(page).to have_content("Residential host no")
+      expect(page).to have_content("Intend to host no")
       expect(page).to have_content("Property one address Property 1 House number and Street name")
       expect(page).to have_content("User research yes")
 
@@ -116,21 +116,21 @@ RSpec.describe "Local Authority matching form", type: :system do
       expect(page).to have_content("I've recorded my interest, what happens now?")
       click_link("Provide additional information")
 
+      fill_in("Confirm your full name", with: "John Smith")
+      click_button("Continue")
+
+      fill_in("Confirm your email address", with: "john.smith@example.com")
+      click_button("Continue")
+
+      fill_in("Confirm your contact telephone number", with: "1234567890")
+      click_button("Continue")
+
       fill_in("Address line 1", with: "House number and Street name")
       fill_in("Town", with: "Some Town or City")
       fill_in("Postcode", with: "XX1 1XX")
       click_button("Continue")
 
-      fill_in("Enter your full name", with: "John Smith")
-      click_button("Continue")
-
-      fill_in("Enter your email address", with: "john.smith@example.com")
-      click_button("Continue")
-
-      fill_in("Enter your contact telephone number", with: "1234567890")
-      click_button("Continue")
-
-      expect(page).to have_content("Are you using your residence for hosting?")
+      expect(page).to have_content("Is this the property you intend to host with?")
       choose("Yes")
       click_button("Continue")
 
@@ -146,7 +146,7 @@ RSpec.describe "Local Authority matching form", type: :system do
       expect(page).to have_content("Email john.smith@example.com")
       expect(page).to have_content("Name John Smith")
       expect(page).to have_content("Telephone number 1234567890")
-      expect(page).to have_content("Residential host yes")
+      expect(page).to have_content("Intend to host yes")
       expect(page).to have_content("Allow pets no")
       expect(page).to have_content("User research no")
 
