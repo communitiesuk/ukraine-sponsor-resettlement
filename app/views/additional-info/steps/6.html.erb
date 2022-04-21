@@ -1,6 +1,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= render partial: "shared/back_link" %>
+
+    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
     <%= form_for @application, url: "/additional-info/steps/6", method: :post do |f| %>
       <%= f.govuk_collection_radio_buttons :residential_pet,
