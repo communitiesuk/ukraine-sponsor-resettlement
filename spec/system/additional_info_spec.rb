@@ -90,7 +90,7 @@ RSpec.describe "Local Authority matching form", type: :system do
 
       application = AdditionalInfo.order("created_at DESC").last
       expect(application.as_json).to include({
-                                                 reference: "ANON-0C84-4DD5-9",
+                                                 reference: "ANON-0C84-4DD5-1",
                                                  residential_line_1: "House number and Street name",
                                                  residential_town: "Some Town or City",
                                                  residential_postcode: "XX1 1XX",
@@ -98,6 +98,7 @@ RSpec.describe "Local Authority matching form", type: :system do
                                                  email: "john.smith@example.com",
                                                  phone_number: "1234567890",
                                                  residential_host: "no",
+                                                 residential_pet: "no",
                                                  property_one_line_1: "Property 1 House number and Street name",
                                                  property_one_town: "Property 1 Some Town or City",
                                                  property_one_postcode: "AA1 1AA",

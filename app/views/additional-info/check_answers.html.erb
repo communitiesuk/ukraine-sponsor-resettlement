@@ -103,7 +103,7 @@
       <% end %>
     </dl>
 
-    <% if @application.property_one_line_1.present? %>
+    <% if @application.property_one_line_1.present? && @application.residential_host.upcase == "NO" %>
       <h2 class="govuk-heading-m">Property one details</h2>
 
       <dl class="govuk-summary-list govuk-!-margin-bottom-9">

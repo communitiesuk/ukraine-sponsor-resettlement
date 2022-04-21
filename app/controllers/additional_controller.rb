@@ -73,17 +73,20 @@ class AdditionalController < ApplicationController
     @application.user_agent = request.user_agent
     @application.final_submission = true
 
-    if @application.valid?
-      @application.save!
-      session[:app_reference] = @application.reference
-      session[:additional_info] = {}
-
-      SendAdditionalInfoUpdateJob.perform_later(@application.id)
-      GovNotifyMailer.send_additional_info_confirmation_email(@application).deliver_later
-      redirect_to "/additional-info/confirm"
-    else
-      render "/additional-info/check_answers"
+    # Set default answers for skipped questions
+    if @application.residential_pet.blank?
+      @application.residential_pet = "no"
     end
+
+    @application.save!
+
+    session[:app_reference] = @application.reference
+    session[:additional_info] = {}
+
+    SendAdditionalInfoUpdateJob.perform_later(@application.id)
+    GovNotifyMailer.send_additional_info_confirmation_email(@application).deliver_later
+
+    redirect_to "/additional-info/confirm"
   end
 
   def confirm
