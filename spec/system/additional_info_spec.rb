@@ -70,7 +70,7 @@ RSpec.describe "Local Authority matching form", type: :system do
       fill_in("Postcode", with: "AA1 1AA")
       click_button("Continue")
 
-      expect(page).to have_content("Are you willing to take part in user research?")
+      expect(page).to have_content("Would you like to take part in research to help us improve the Homes for Ukraine service?")
       choose("Yes")
       click_button("Continue")
 
@@ -134,11 +134,11 @@ RSpec.describe "Local Authority matching form", type: :system do
       choose("Yes")
       click_button("Continue")
 
-      expect(page).to have_content("Are you willing to take pets?")
+      expect(page).to have_content("Would you consider allowing guests to bring their pets?")
       choose("No")
       click_button("Continue")
 
-      expect(page).to have_content("Are you willing to take part in user research?")
+      expect(page).to have_content("Would you like to take part in research to help us improve the Homes for Ukraine service?")
       choose("No")
       click_button("Continue")
 
@@ -147,7 +147,7 @@ RSpec.describe "Local Authority matching form", type: :system do
       expect(page).to have_content("Name John Smith")
       expect(page).to have_content("Telephone number 1234567890")
       expect(page).to have_content("Residential host yes")
-      expect(page).to have_content("Residential pet no")
+      expect(page).to have_content("Allow pets no")
       expect(page).to have_content("User research no")
 
       click_button("Accept And Send")

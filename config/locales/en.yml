@@ -208,8 +208,9 @@ en:
         short: Residential host
         full: Are you using your residence for hosting?
       residential_pet:
-        short: Residential pet
-        full: Are you willing to take pets?
+        short: Allow pets
+        full: Would you consider allowing guests to bring their pets?
+        hint: You will be given more information and asked to make a final decision about this later.
       address_line_1:
         short: Line 1
         full: Address line 1
@@ -224,7 +225,8 @@ en:
         full: Postcode
       user_research:
         short: User research
-        full: Are you willing to take part in user research?
+        full: Would you like to take part in research to help us improve the Homes for Ukraine service?
+        hint: This could involve completing a survey or taking part in a video call with a user research team. If you choose ‘Yes’, you’re agreeing to be contacted using the email address or telephone number you provided in this form.
     family_type:
       single_adult: Single adult
       more_than_one_adult: More than one adult
