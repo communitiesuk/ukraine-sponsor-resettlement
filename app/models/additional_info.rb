@@ -28,6 +28,7 @@ class AdditionalInfo < ApplicationRecord
                 :property_one_pet,
                 :more_properties_types,
                 :more_properties,
+                :more_properties_statement,
                 :type, :version, :ip_address, :user_agent, :final_submission
 
   validate :validate_residential_host, if: -> { run_validation? :residential_host }
@@ -73,6 +74,7 @@ class AdditionalInfo < ApplicationRecord
         property_one_postcode:,
         property_one_pet:,
         more_properties:,
+        more_properties_statement:,
         user_research:,
         ip_address:,
         user_agent:,

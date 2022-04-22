@@ -5,10 +5,11 @@
 
     <%= form_for @application, url: "/additional-info/steps/10", method: :post do |f| %>
 
-      <div class="govuk-label">
-        <%= t('more_properties_statement.full', scope: "additional_info.questions") %>
-      </div>
-      
+      <%= f.govuk_text_field :more_properties_statement,
+                             label: { text: t('more_properties_statement.full', scope: "additional_info.questions") },
+                             value: "shown",
+                             type: "hidden" %>
+
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>
