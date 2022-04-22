@@ -18,6 +18,16 @@ Rails.application.routes.draw do
   post "/organisation/check_answers", to: "organisation#submit"
   get "/organisation/confirm", to: "organisation#confirm"
 
+  get "/additional-info/", to: "errors#reference_not_found"
+  get "/additional-info/ref", to: "errors#reference_not_found"
+  get "/additional-info/ref/:reference", to: "additional#home"
+  get "/additional-info/start/:reference", to: "additional#start"
+  get "/additional-info/steps/:stage", to: "additional#display"
+  post "/additional-info/steps/:stage", to: "additional#handle_step"
+  get "/additional-info/check-answers", to: "additional#check_answers"
+  post "/additional-info/submit", to: "additional#submit"
+  get "/additional-info/confirm", to: "additional#confirm"
+
   scope via: :all do
     match "/404", to: "errors#not_found"
     match "/429", to: "errors#too_many_requests"
