@@ -5,10 +5,10 @@ RSpec.describe RoutingEngine, type: :model do
     it "when current to next step is incremental" do
       application = AdditionalInfo.new
 
-      expect(described_class.get_next_step(application,1)).to be(2)
-      expect(described_class.get_next_step(application,2)).to be(3)
-      expect(described_class.get_next_step(application,3)).to be(4)
-      expect(described_class.get_next_step(application,4)).to be(5)
+      expect(described_class.get_next_step(application, 1)).to be(2)
+      expect(described_class.get_next_step(application, 2)).to be(3)
+      expect(described_class.get_next_step(application, 3)).to be(4)
+      expect(described_class.get_next_step(application, 4)).to be(5)
     end
 
     it "when next step is dependent on host question" do

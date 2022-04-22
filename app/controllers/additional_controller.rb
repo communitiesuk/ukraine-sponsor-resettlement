@@ -98,28 +98,28 @@ class AdditionalController < ApplicationController
     render "additional-info/confirm"
   end
 
-    private
+private
 
-    def application_params
-      params.require(:additional_info)
-          .permit(
-            :reference,
-            :residential_line_1,
-            :residential_line_2,
-            :residential_town,
-            :residential_postcode,
-            :fullname,
-            :email,
-            :phone_number,
-            :residential_host,
-            :residential_pet,
-            :user_research,
-            :property_one_line_1,
-            :property_one_line_2,
-            :property_one_town,
-            :property_one_postcode,
-            :property_one_pet,
-            :more_properties,
-          )
-    end
+  def application_params
+    params.require(:additional_info)
+        .permit(
+          :reference,
+          :residential_line_1,
+          :residential_line_2,
+          :residential_town,
+          :residential_postcode,
+          :fullname,
+          :email,
+          :phone_number,
+          :residential_host,
+          :residential_pet,
+          :user_research,
+          :property_one_line_1,
+          :property_one_line_2,
+          :property_one_town,
+          :property_one_postcode,
+          :property_one_pet,
+          :more_properties,
+        )
+  end
 end
