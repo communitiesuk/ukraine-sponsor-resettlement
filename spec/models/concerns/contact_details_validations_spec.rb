@@ -56,6 +56,12 @@ RSpec.describe ContactDetailsValidations, type: :model do
       app.residential_postcode = "X" * 129
       expect(app.valid?).to be(false)
       expect(app.errors[:residential_postcode]).to include("Please enter a valid UK postcode")
+      app.residential_postcode = "XX1 XX"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:residential_postcode]).to include("Please enter a valid UK postcode")
+      app.residential_postcode = "XX 1XX"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:residential_postcode]).to include("Please enter a valid UK postcode")
       app.residential_postcode = "XX1 1XX"
       expect(app.valid?).to be(true)
     end

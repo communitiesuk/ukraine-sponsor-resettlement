@@ -4,6 +4,7 @@ module ContactDetailsValidations
   MIN_ENTRY_DIGITS    = 3
   MAX_ENTRY_DIGITS    = 128
   SPECIAL_CHARACTERS  = /[!"£$%{}<>|&@\/()=?^;]/
+  POSTCODE_REGEX      = /([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})/
 
   included do
     validate :validate_residential_line_1, if: -> { run_validation? :residential_line_1 }
@@ -36,7 +37,7 @@ private
   end
 
   def validate_residential_postcode
-    if @residential_postcode.nil? || @residential_postcode.strip.length < MIN_ENTRY_DIGITS || @residential_postcode.strip.length > MAX_ENTRY_DIGITS
+    if @residential_postcode.nil? || @residential_postcode.strip.length < MIN_ENTRY_DIGITS || @residential_postcode.strip.length > MAX_ENTRY_DIGITS || !@residential_postcode.match(POSTCODE_REGEX)
       errors.add(:residential_postcode, I18n.t(:address_postcode, scope: :error))
     end
   end
