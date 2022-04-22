@@ -81,7 +81,7 @@ class AdditionalInfo < ApplicationRecord
       user_agent:,
       started_at:,
     }.compact
-    end
+  end
 
 private
 
