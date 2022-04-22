@@ -74,24 +74,12 @@ class AdditionalController < ApplicationController
     @application.final_submission = true
 
     # Set default answers for skipped questions
-    if @application.residential_pet.blank?
-      @application.residential_pet = "no"
-    end
-    if @application.property_one_pet.blank?
-      @application.property_one_pet = "no"
-    end
-    if @application.more_properties.blank?
-      @application.more_properties = "no"
-    end
-    if @application.property_one_line_1.blank?
-      @application.property_one_line_1 = "same as main residence"
-    end
-    if @application.property_one_town.blank?
-      @application.property_one_town = "same as main residence"
-    end
-    if @application.property_one_postcode.blank?
-      @application.property_one_postcode = @application.residential_postcode
-    end
+    @application.residential_pet = "no" if @application.residential_pet.blank?
+    @application.property_one_pet = "no" if @application.property_one_pet.blank?
+    @application.more_properties = "no" if @application.more_properties.blank?
+    @application.property_one_line_1 = "same as main residence" if @application.property_one_line_1.blank?
+    @application.property_one_town = "same as main residence" if @application.property_one_town.blank?
+    @application.property_one_postcode = @application.residential_postcode if @application.property_one_postcode.blank?
 
     @application.save!
 
