@@ -81,9 +81,9 @@ class AdditionalInfo < ApplicationRecord
       user_agent:,
       started_at:,
     }.compact
-  end
+    end
 
-  private
+private
 
   def validate_residential_host
     validate_enum(@residential_host_types, @residential_host, :residential_host)

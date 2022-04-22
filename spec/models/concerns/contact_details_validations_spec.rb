@@ -133,4 +133,3 @@ RSpec.describe ContactDetailsValidations, type: :model do
     end
   end
 end
-
