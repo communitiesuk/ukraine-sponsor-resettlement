@@ -44,7 +44,7 @@ RSpec.describe "Local Authority matching form", type: :system do
       visit "/additional-info/ref/ANON-0C84-4DD5-1"
 
       expect(page).to have_content("I've recorded my interest, what happens now?")
-      click_link("Provide additional information")
+      click_link("Start")
 
       fill_in("Confirm your full name", with: "John Smith")
       click_button("Continue")
@@ -64,10 +64,18 @@ RSpec.describe "Local Authority matching form", type: :system do
       choose("No")
       click_button("Continue")
 
-      expect(page).to have_content("Enter your full hosting address for property one")
+      expect(page).to have_content("Enter the address of the property you intend to host with")
       fill_in("Address line 1", with: "Property 1 House number and Street name")
       fill_in("Town", with: "Property 1 Some Town or City")
       fill_in("Postcode", with: "AA1 1AA")
+      click_button("Continue")
+
+      expect(page).to have_content("Would you consider allowing guests to bring their pets?")
+      choose("No")
+      click_button("Continue")
+
+      expect(page).to have_content("Are you offering any more properties?")
+      choose("No")
       click_button("Continue")
 
       expect(page).to have_content("Would you like to take part in research to help us improve the Homes for Ukraine service?")
@@ -80,6 +88,8 @@ RSpec.describe "Local Authority matching form", type: :system do
       expect(page).to have_content("Telephone number 1234567890")
       expect(page).to have_content("Intend to host no")
       expect(page).to have_content("Property one address Property 1 House number and Street name")
+      expect(page).to have_content("Allow pets no")
+      expect(page).to have_content("More properties no")
       expect(page).to have_content("User research yes")
 
       click_button("Accept And Send")
@@ -102,6 +112,8 @@ RSpec.describe "Local Authority matching form", type: :system do
                                                  property_one_line_1: "Property 1 House number and Street name",
                                                  property_one_town: "Property 1 Some Town or City",
                                                  property_one_postcode: "AA1 1AA",
+                                                 property_one_pet: "no",
+                                                 more_properties: "no",
                                                  user_research: "yes"
                                              })
 
@@ -114,7 +126,7 @@ RSpec.describe "Local Authority matching form", type: :system do
       visit "/additional-info/ref/anon-0C84-4DD5-9"
 
       expect(page).to have_content("I've recorded my interest, what happens now?")
-      click_link("Provide additional information")
+      click_link("Start")
 
       fill_in("Confirm your full name", with: "John Smith")
       click_button("Continue")

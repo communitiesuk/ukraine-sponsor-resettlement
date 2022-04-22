@@ -1,5 +1,5 @@
 class AdditionalController < ApplicationController
-  MAX_STEPS = 99
+  MAX_STEPS = 11
 
   def home
     @application = AdditionalInfo.new(session[:additional_info])
@@ -51,7 +51,7 @@ class AdditionalController < ApplicationController
       # Replace with routing engine to get next stage
       next_stage = RoutingEngine.get_next_step(@application, params["stage"].to_i)
 
-      if next_stage == 999
+      if next_stage > MAX_STEPS
         redirect_to "/additional-info/check-answers"
       else
         redirect_to "/additional-info/steps/#{next_stage}"
@@ -76,6 +76,12 @@ class AdditionalController < ApplicationController
     # Set default answers for skipped questions
     if @application.residential_pet.blank?
       @application.residential_pet = "no"
+    end
+    if @application.property_one_pet.blank?
+      @application.property_one_pet = "no"
+    end
+    if @application.more_properties.blank?
+      @application.more_properties = "no"
     end
 
     @application.save!
@@ -114,7 +120,9 @@ class AdditionalController < ApplicationController
           :property_one_line_1,
           :property_one_line_2,
           :property_one_town,
-          :property_one_postcode
+          :property_one_postcode,
+          :property_one_pet,
+          :more_properties
         )
   end
 end

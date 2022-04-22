@@ -3,9 +3,7 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-    <h2 class="govuk-heading-m">Enter your full hosting address for property one</h2>
-
-    <p class="hint">This is the address for property one you are offering for hosts</p>
+    <h2 class="govuk-heading-m">Enter the address of the property you intend to host with</h2>
 
     <%= form_for @application, url: "/additional-info/steps/7", method: :post do |f| %>
       <%= f.govuk_text_field :property_one_line_1,

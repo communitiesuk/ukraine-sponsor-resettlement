@@ -3,7 +3,7 @@ class AdditionalInfo < ApplicationRecord
 
   self.table_name = "additional_info"
 
-  SCHEMA_VERSION = 2
+  SCHEMA_VERSION = 1
 
   attr_accessor :reference,
                 :started_at,
@@ -24,11 +24,17 @@ class AdditionalInfo < ApplicationRecord
                 :property_one_line_2,
                 :property_one_town,
                 :property_one_postcode,
+                :property_one_pet_types,
+                :property_one_pet,
+                :more_properties_types,
+                :more_properties,
                 :type, :version, :ip_address, :user_agent, :final_submission
 
   validate :validate_residential_host, if: -> { run_validation? :residential_host }
   validate :validate_residential_pet, if: -> { run_validation? :residential_pet }
   validate :validate_user_research, if: -> { run_validation? :user_research }
+  validate :validate_property_one_pet, if: -> { run_validation? :property_one_pet }
+  validate :validate_more_properties, if: -> { run_validation? :more_properties }
 
   after_initialize :after_initialize
   before_save :serialize
@@ -42,6 +48,8 @@ class AdditionalInfo < ApplicationRecord
     @residential_host_types = %i[yes no]
     @residential_pet_types = %i[yes no]
     @user_research_types = %i[yes no]
+    @property_one_pet_types = %i[yes no]
+    @more_properties_types = %i[yes no]
   end
 
   def as_json
@@ -63,6 +71,8 @@ class AdditionalInfo < ApplicationRecord
         property_one_line_1:,
         property_one_town:,
         property_one_postcode:,
+        property_one_pet:,
+        more_properties:,
         user_research:,
         ip_address:,
         user_agent:,
@@ -78,6 +88,14 @@ class AdditionalInfo < ApplicationRecord
 
   def validate_residential_pet
     validate_enum(@residential_pet_types, @residential_pet, :residential_pet)
+  end
+
+  def validate_property_one_pet
+    validate_enum(@property_one_pet_types, @property_one_pet, :property_one_pet)
+  end
+
+  def validate_more_properties
+    validate_enum(@more_properties_types, @more_properties, :more_properties)
   end
 
   def validate_user_research

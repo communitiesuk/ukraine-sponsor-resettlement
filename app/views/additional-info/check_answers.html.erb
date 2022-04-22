@@ -130,6 +130,34 @@
             </a>
           </dd>
         </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= t('residential_pet.short', scope: "additional_info.questions") %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= @application.property_one_pet %>
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/additional-info/steps/8">
+              Change<span class="govuk-visually-hidden"> host pets</span>
+            </a>
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= t('more_properties.short', scope: "additional_info.questions") %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= @application.more_properties %>
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/additional-info/steps/9">
+              Change<span class="govuk-visually-hidden"> more properties</span>
+            </a>
+          </dd>
+        </div>
       </dl>
     <% end %>
 

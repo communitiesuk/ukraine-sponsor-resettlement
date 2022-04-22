@@ -200,6 +200,12 @@ en:
       address_postcode:
         short: Postcode
         full: Postcode
+      more_properties:
+        short: More properties
+        full: Are you offering any more properties?
+        hint: If you have more properties, you will be able to share this information when you are contacted by your local authority
+      more_properties_statement:
+        full: You will be able to share information about any more properties you have to offer when your local authority contacts you
       user_research:
         short: User research
         full: Would you like to take part in research to help us improve the Homes for Ukraine service?

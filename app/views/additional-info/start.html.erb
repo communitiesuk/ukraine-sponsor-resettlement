@@ -9,7 +9,19 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= govuk_button_link_to "Provide additional information", "/additional-info/start/#{params["reference"]}" %>
+    <h1 class="gem-c-title__text govuk-heading-l">
+      Update your registration of interest
+    </h1>
+    <p class="gem-c-lead-paragraph">Thank you again for registering your interest in becoming a sponsor for the Homes for Ukraine Scheme.</p>
+    <p class="gem-c-lead-paragraph">We’ve been working hard to process all the registrations and need a little more information from you, to make it easier to match your offer with people coming to the UK.</p>
+
+    <h1 class="gem-c-title__text govuk-heading-l">
+      Before you start
+    </h1>
+    <p class="gem-c-lead-paragraph">Make sure you have read the guidance and have a discussion with everyone in your household about how sharing your home with people fleeing Ukraine may affect them.</p>
+    <p class="gem-c-lead-paragraph">Read more about the <%= govuk_link_to "Homes for Ukraine scheme", "#" %></p>
+
+    <%= govuk_button_link_to "Start", "/additional-info/start/#{params["reference"]}" %>
   </div>
 </div>
 
