@@ -70,6 +70,7 @@ class AdditionalInfo < ApplicationRecord
         residential_host:,
         residential_pet:,
         property_one_line_1:,
+        property_one_line_2:,
         property_one_town:,
         property_one_postcode:,
         property_one_pet:,

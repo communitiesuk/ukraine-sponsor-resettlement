@@ -83,6 +83,15 @@ class AdditionalController < ApplicationController
     if @application.more_properties.blank?
       @application.more_properties = "no"
     end
+    if @application.property_one_line_1.blank?
+      @application.property_one_line_1 = "same as main residence"
+    end
+    if @application.property_one_town.blank?
+      @application.property_one_town = "same as main residence"
+    end
+    if @application.property_one_postcode.blank?
+      @application.property_one_postcode = @application.residential_postcode
+    end
 
     @application.save!
 
