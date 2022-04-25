@@ -60,8 +60,8 @@ RSpec.describe "Local Authority matching form", type: :system do
       fill_in("Postcode", with: "XX1 1XX")
       click_button("Continue")
 
-      expect(page).to have_content("Is this the property you intend to host with?")
-      choose("No")
+      expect(page).to have_content("Is the property you’re offering at a different address to your home?")
+      choose("Yes")
       click_button("Continue")
 
       expect(page).to have_content("Enter the address of the property you intend to host with")
@@ -86,7 +86,7 @@ RSpec.describe "Local Authority matching form", type: :system do
       expect(page).to have_content("Email john.smith@example.com")
       expect(page).to have_content("Name John Smith")
       expect(page).to have_content("Telephone number 1234567890")
-      expect(page).to have_content("Intend to host no")
+      expect(page).to have_content("Different address yes")
       expect(page).to have_content("Property one address Property 1 House number and Street name")
       expect(page).to have_content("Allow pets no")
       expect(page).to have_content("More properties no")
@@ -107,7 +107,7 @@ RSpec.describe "Local Authority matching form", type: :system do
         fullname: "John Smith",
         email: "john.smith@example.com",
         phone_number: "1234567890",
-        residential_host: "no",
+        different_address: "yes",
         residential_pet: "no",
         property_one_line_1: "Property 1 House number and Street name",
         property_one_town: "Property 1 Some Town or City",
@@ -142,8 +142,8 @@ RSpec.describe "Local Authority matching form", type: :system do
       fill_in("Postcode", with: "XX1 1XX")
       click_button("Continue")
 
-      expect(page).to have_content("Is this the property you intend to host with?")
-      choose("No")
+      expect(page).to have_content("Is the property you’re offering at a different address to your home?")
+      choose("Yes")
       click_button("Continue")
 
       expect(page).to have_content("Enter the address of the property you intend to host with")
@@ -171,7 +171,7 @@ RSpec.describe "Local Authority matching form", type: :system do
       expect(page).to have_content("Email john.smith@example.com")
       expect(page).to have_content("Name John Smith")
       expect(page).to have_content("Telephone number 1234567890")
-      expect(page).to have_content("Intend to host no")
+      expect(page).to have_content("Different address yes")
       expect(page).to have_content("Property one address Property 1 House number and Street name")
       expect(page).to have_content("Allow pets no")
       expect(page).to have_content("More properties yes")
@@ -192,7 +192,7 @@ RSpec.describe "Local Authority matching form", type: :system do
         fullname: "John Smith",
         email: "john.smith@example.com",
         phone_number: "1234567890",
-        residential_host: "no",
+        different_address: "yes",
         residential_pet: "no",
         property_one_line_1: "Property 1 House number and Street name",
         property_one_town: "Property 1 Some Town or City",
@@ -227,8 +227,8 @@ RSpec.describe "Local Authority matching form", type: :system do
       fill_in("Postcode", with: "XX1 1XX")
       click_button("Continue")
 
-      expect(page).to have_content("Is this the property you intend to host with?")
-      choose("Yes")
+      expect(page).to have_content("Is the property you’re offering at a different address to your home?")
+      choose("No")
       click_button("Continue")
 
       expect(page).to have_content("Would you consider allowing guests to bring their pets?")
@@ -243,7 +243,7 @@ RSpec.describe "Local Authority matching form", type: :system do
       expect(page).to have_content("Email john.smith@example.com")
       expect(page).to have_content("Name John Smith")
       expect(page).to have_content("Telephone number 1234567890")
-      expect(page).to have_content("Intend to host yes")
+      expect(page).to have_content("Different address no")
       expect(page).to have_content("Allow pets no")
       expect(page).to have_content("User research no")
 
@@ -262,7 +262,7 @@ RSpec.describe "Local Authority matching form", type: :system do
         fullname: "John Smith",
         email: "john.smith@example.com",
         phone_number: "1234567890",
-        residential_host: "yes",
+        different_address: "no",
         residential_pet: "no",
         user_research: "no",
       })
