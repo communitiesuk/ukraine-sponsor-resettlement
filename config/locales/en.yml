@@ -181,9 +181,9 @@ en:
         full: Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme
         comment: Yes, I have read the privacy statement and agree that the information I have provided in this form can be used for the Homes for Ukraine scheme
         link:
-      residential_host:
-        short: Intend to host
-        full: Is this the property you intend to host with?
+      different_address:
+        short: Different address
+        full: Is the property you’re offering at a different address to your home?
       residential_pet:
         short: Allow pets
         full: Would you consider allowing guests to bring their pets?
@@ -228,7 +228,7 @@ en:
       from_6_to_9_months: From 6 to 9 months
       from_10_to_12_months: From 10 to 12 months
       more_than_12_months: More than 12 months
-    residential_host:
+    different_address:
       yes: Yes
       no: No
     residential_pet:

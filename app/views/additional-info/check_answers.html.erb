@@ -74,14 +74,14 @@
 
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('residential_host.short', scope: "additional_info.questions") %>
+          <%= t('different_address.short', scope: "additional_info.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= @application.residential_host %>
+          <%= @application.different_address %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/additional-info/steps/5">
-            Change<span class="govuk-visually-hidden"> residential host</span>
+            Change<span class="govuk-visually-hidden"> different address</span>
           </a>
         </dd>
       </div>
@@ -103,7 +103,7 @@
       <% end %>
     </dl>
 
-    <% if @application.property_one_line_1.present? && @application.residential_host.upcase == "NO" %>
+    <% if @application.property_one_line_1.present? && @application.different_address.upcase == "YES" %>
       <h2 class="govuk-heading-m">Host property details</h2>
 
       <dl class="govuk-summary-list govuk-!-margin-bottom-9">

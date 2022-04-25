@@ -111,7 +111,7 @@ private
           :fullname,
           :email,
           :phone_number,
-          :residential_host,
+          :different_address,
           :residential_pet,
           :user_research,
           :property_one_line_1,

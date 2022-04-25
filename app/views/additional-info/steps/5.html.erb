@@ -4,11 +4,11 @@
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
     <%= form_for @application, url: "/additional-info/steps/5", method: :post do |f| %>
-      <%= f.govuk_collection_radio_buttons :residential_host,
-          @application.residential_host_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "additional_info.residential_host")) },
+      <%= f.govuk_collection_radio_buttons :different_address,
+          @application.different_address_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "additional_info.different_address")) },
           :id,
           :name,
-          legend: { text: t('residential_host.full', scope: "additional_info.questions") }
+          legend: { text: t('different_address.full', scope: "additional_info.questions") }
       %>
       <%= f.govuk_submit t('continue') %>
     <% end %>

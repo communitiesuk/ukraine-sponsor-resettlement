@@ -14,8 +14,8 @@ class AdditionalInfo < ApplicationRecord
                 :fullname,
                 :email,
                 :phone_number,
-                :residential_host_types,
-                :residential_host,
+                :different_address_types,
+                :different_address,
                 :residential_pet_types,
                 :residential_pet,
                 :user_research_types,
@@ -31,7 +31,7 @@ class AdditionalInfo < ApplicationRecord
                 :more_properties_statement,
                 :type, :version, :ip_address, :user_agent, :final_submission
 
-  validate :validate_residential_host, if: -> { run_validation? :residential_host }
+  validate :validate_different_address, if: -> { run_validation? :different_address }
   validate :validate_residential_pet, if: -> { run_validation? :residential_pet }
   validate :validate_user_research, if: -> { run_validation? :user_research }
   validate :validate_property_one_pet, if: -> { run_validation? :property_one_pet }
@@ -46,7 +46,7 @@ class AdditionalInfo < ApplicationRecord
 
   def after_initialize
     @final_submission = false
-    @residential_host_types = %i[yes no]
+    @different_address_types = %i[yes no]
     @residential_pet_types = %i[yes no]
     @user_research_types = %i[yes no]
     @property_one_pet_types = %i[yes no]
@@ -67,7 +67,7 @@ class AdditionalInfo < ApplicationRecord
       fullname:,
       email:,
       phone_number:,
-      residential_host:,
+      different_address:,
       residential_pet:,
       property_one_line_1:,
       property_one_line_2:,
@@ -85,8 +85,8 @@ class AdditionalInfo < ApplicationRecord
 
 private
 
-  def validate_residential_host
-    validate_enum(@residential_host_types, @residential_host, :residential_host)
+  def validate_different_address
+    validate_enum(@different_address_types, @different_address, :different_address)
   end
 
   def validate_residential_pet

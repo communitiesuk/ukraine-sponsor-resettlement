@@ -14,11 +14,11 @@ RSpec.describe RoutingEngine, type: :model do
     it "when next step is dependent on host question" do
       application = AdditionalInfo.new
 
-      application.residential_host = "Yes"
+      application.different_address = "No"
       expect(described_class.get_next_step(application, 5)).to be(6)
-      application.residential_host = "Yes"
+      application.different_address = "No"
       expect(described_class.get_next_step(application, 6)).to be(11)
-      application.residential_host = "No"
+      application.different_address = "Yes"
       expect(described_class.get_next_step(application, 5)).to be(7)
     end
 
