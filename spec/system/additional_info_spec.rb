@@ -64,7 +64,7 @@ RSpec.describe "Local Authority matching form", type: :system do
       choose("Yes")
       click_button("Continue")
 
-      expect(page).to have_content("Enter the address of the property you intend to host with")
+      expect(page).to have_content("Enter the address of the property you’re offering")
       fill_in("Address line 1", with: "Property 1 House number and Street name")
       fill_in("Town", with: "Property 1 Some Town or City")
       fill_in("Postcode", with: "AA1 1AA")
@@ -94,9 +94,9 @@ RSpec.describe "Local Authority matching form", type: :system do
 
       click_button("Accept And Send")
 
-      expect(page).to have_content("Application complete")
+      expect(page).to have_content("Registration update complete")
       expect(page).to have_content("ANON-0C84-4DD5-1")
-      expect(page).to have_content("Thank you for providing additional information for the Homes for Ukraine Scheme")
+      expect(page).to have_content("Thank you for providing more information for the Homes for Ukraine Scheme")
 
       application = AdditionalInfo.order("created_at DESC").last
       expect(application.as_json).to include({
@@ -146,7 +146,7 @@ RSpec.describe "Local Authority matching form", type: :system do
       choose("Yes")
       click_button("Continue")
 
-      expect(page).to have_content("Enter the address of the property you intend to host with")
+      expect(page).to have_content("Enter the address of the property you’re offering")
       fill_in("Address line 1", with: "Property 1 House number and Street name")
       fill_in("Town", with: "Property 1 Some Town or City")
       fill_in("Postcode", with: "AA1 1AA")
@@ -179,9 +179,9 @@ RSpec.describe "Local Authority matching form", type: :system do
 
       click_button("Accept And Send")
 
-      expect(page).to have_content("Application complete")
+      expect(page).to have_content("Registration update complete")
       expect(page).to have_content("ANON-0C84-4DD5-1")
-      expect(page).to have_content("Thank you for providing additional information for the Homes for Ukraine Scheme")
+      expect(page).to have_content("Thank you for providing more information for the Homes for Ukraine Scheme")
 
       application = AdditionalInfo.order("created_at DESC").last
       expect(application.as_json).to include({
@@ -249,9 +249,9 @@ RSpec.describe "Local Authority matching form", type: :system do
 
       click_button("Accept And Send")
 
-      expect(page).to have_content("Application complete")
+      expect(page).to have_content("Registration update complete")
       expect(page).to have_content("ANON-0C84-4DD5-9")
-      expect(page).to have_content("Thank you for providing additional information for the Homes for Ukraine Scheme")
+      expect(page).to have_content("Thank you for providing more information for the Homes for Ukraine Scheme")
 
       application = AdditionalInfo.order("created_at DESC").last
       expect(application.as_json).to include({
