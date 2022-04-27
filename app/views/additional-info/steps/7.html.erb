@@ -3,26 +3,13 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-    <h2 class="govuk-heading-m">Enter the address of the property you’re offering</h2>
-
     <%= form_for @application, url: "/additional-info/steps/7", method: :post do |f| %>
-      <%= f.govuk_text_field :property_one_line_1,
-                             label: { text: t('address_line_1.full', scope: "additional_info.questions") },
-                             type: "text"
-      %>
-      <%= f.govuk_text_field :property_one_line_2,
-                             label: { text: t('address_line_2.full', scope: "additional_info.questions") },
-                             type: "text"
-      %>
-      <%= f.govuk_text_field :property_one_town,
-                             label: { text: t('address_town.full', scope: "additional_info.questions") },
-                             type: "text",
-                             width: 20
-      %>
-      <%= f.govuk_text_field :property_one_postcode,
-                             label: { text: t('address_postcode.full', scope: "additional_info.questions") },
-                             type: "text",
-                             width: 10
+      <%= f.govuk_collection_radio_buttons :more_properties,
+          @application.more_properties_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "additional_info.more_properties")) },
+          :id,
+          :name,
+          legend: { text: t('more_properties.full', scope: "additional_info.questions") },
+          hint: { text: t('more_properties.hint', scope: "additional_info.questions")}
       %>
       <%= f.govuk_submit t('continue') %>
     <% end %>

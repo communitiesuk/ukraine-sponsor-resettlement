@@ -1,5 +1,5 @@
 class AdditionalController < ApplicationController
-  MAX_STEPS = 11
+  MAX_STEPS = 10
 
   def home
     @application = AdditionalInfo.new(session[:additional_info])
@@ -74,8 +74,6 @@ class AdditionalController < ApplicationController
     @application.final_submission = true
 
     # Set default answers for skipped questions
-    @application.residential_pet = "no" if @application.residential_pet.blank?
-    @application.property_one_pet = "no" if @application.property_one_pet.blank?
     @application.more_properties = "no" if @application.more_properties.blank?
     @application.property_one_line_1 = "same as main residence" if @application.property_one_line_1.blank?
     @application.property_one_town = "same as main residence" if @application.property_one_town.blank?
@@ -112,13 +110,12 @@ private
           :email,
           :phone_number,
           :different_address,
-          :residential_pet,
           :user_research,
           :property_one_line_1,
           :property_one_line_2,
           :property_one_town,
           :property_one_postcode,
-          :property_one_pet,
+          :allow_pet,
           :more_properties,
         )
   end

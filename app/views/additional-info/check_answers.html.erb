@@ -85,22 +85,6 @@
           </a>
         </dd>
       </div>
-
-      <% if @application.residential_pet.present? %>
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            <%= t('residential_pet.short', scope: "additional_info.questions") %>
-          </dt>
-          <dd class="govuk-summary-list__value">
-              <%= @application.residential_pet %>
-          </dd>
-          <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href="/additional-info/steps/6">
-              Change<span class="govuk-visually-hidden"> residential pet</span>
-            </a>
-          </dd>
-        </div>
-      <% end %>
     </dl>
 
     <% if @application.property_one_line_1.present? && @application.different_address.upcase == "YES" %>
@@ -125,22 +109,8 @@
             <%= @application.property_one_postcode %>
           </dd>
           <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href="/additional-info/steps/1">
+            <a class="govuk-link" href="/additional-info/steps/6">
               Change<span class="govuk-visually-hidden"> address</span>
-            </a>
-          </dd>
-        </div>
-
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            <%= t('residential_pet.short', scope: "additional_info.questions") %>
-          </dt>
-          <dd class="govuk-summary-list__value">
-            <%= @application.property_one_pet %>
-          </dd>
-          <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href="/additional-info/steps/8">
-              Change<span class="govuk-visually-hidden"> host pets</span>
             </a>
           </dd>
         </div>
@@ -153,7 +123,7 @@
             <%= @application.more_properties %>
           </dd>
           <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href="/additional-info/steps/9">
+            <a class="govuk-link" href="/additional-info/steps/7">
               Change<span class="govuk-visually-hidden"> more properties</span>
             </a>
           </dd>
@@ -161,9 +131,23 @@
       </dl>
     <% end %>
 
-    <h2 class="govuk-heading-m">User research</h2>
+    <h2 class="govuk-heading-m">Additional questions</h2>
 
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('allow_pet.short', scope: "additional_info.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.allow_pet %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/additional-info/steps/9">
+            Change<span class="govuk-visually-hidden"> residential pet</span>
+          </a>
+        </dd>
+      </div>
+
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           <%= t('user_research.short', scope: "additional_info.questions") %>
@@ -172,7 +156,7 @@
           <%= @application.user_research %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/additional-info/steps/7">
+          <a class="govuk-link" href="/additional-info/steps/10">
             Change<span class="govuk-visually-hidden"> user research</span>
           </a>
         </dd>
