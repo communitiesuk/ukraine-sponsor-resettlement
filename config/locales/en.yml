@@ -167,15 +167,15 @@ en:
       fullname:
         short: Name
         full: Confirm your full name
-        hint: We need you to enter this information again to match it to your original registration correctly
+        hint: We need you to enter this information again to match it to your original registration correctly.
       email:
         short: Email
         full: Confirm your email address
-        hint: We need you to enter this information again to match it to your original registration correctly
+        hint: We need you to enter this information again to match it to your original registration correctly.
       phone_number:
         short: Telephone number
         full: Confirm your contact telephone number
-        hint: We need you to enter this information again to match it to your original registration correctly
+        hint: We need you to enter this information again to match it to your original registration correctly.
       agree_privacy_statement:
         short: Privacy statement
         full: Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme
@@ -187,7 +187,7 @@ en:
       allow_pet:
         short: Allow pets
         full: Would you consider allowing guests to bring their pets?
-        hint: You will be given more information and asked to make a final decision about this later
+        hint: You will be given more information and asked to make a final decision about this later.
       address_line_1:
         short: Line 1
         full: Address line 1
@@ -203,7 +203,7 @@ en:
       more_properties:
         short: More properties
         full: Are you offering any more properties?
-        hint: If you have more properties, you will be able to share this information when you are contacted by your local authority
+        hint: If you have more properties, you will be able to share this information when you are contacted by your local authority.
       more_properties_statement:
         full: You will be able to share information about any more properties you have to offer when your local authority contacts you
       user_research:
