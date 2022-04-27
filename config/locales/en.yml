@@ -184,7 +184,7 @@ en:
       different_address:
         short: Different address
         full: Is the property you’re offering at a different address to your home?
-      residential_pet:
+      allow_pet:
         short: Allow pets
         full: Would you consider allowing guests to bring their pets?
         hint: You will be given more information and asked to make a final decision about this later
@@ -229,9 +229,6 @@ en:
       from_10_to_12_months: From 10 to 12 months
       more_than_12_months: More than 12 months
     different_address:
-      yes: Yes
-      no: No
-    residential_pet:
       yes: Yes
       no: No
     user_research:

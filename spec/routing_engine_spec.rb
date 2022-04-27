@@ -15,20 +15,16 @@ RSpec.describe RoutingEngine, type: :model do
       application = AdditionalInfo.new
 
       application.different_address = "No"
-      expect(described_class.get_next_step(application, 5)).to be(6)
-      application.different_address = "No"
-      expect(described_class.get_next_step(application, 6)).to be(11)
-      application.different_address = "Yes"
-      expect(described_class.get_next_step(application, 5)).to be(7)
+      expect(described_class.get_next_step(application, 5)).to be(9)
     end
 
     it "when next step is dependent on more properties question" do
       application = AdditionalInfo.new
 
       application.more_properties = "Yes"
-      expect(described_class.get_next_step(application, 9)).to be(10)
+      expect(described_class.get_next_step(application, 7)).to be(8)
       application.more_properties = "No"
-      expect(described_class.get_next_step(application, 9)).to be(11)
+      expect(described_class.get_next_step(application, 7)).to be(9)
     end
   end
 end

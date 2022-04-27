@@ -16,25 +16,22 @@ class AdditionalInfo < ApplicationRecord
                 :phone_number,
                 :different_address_types,
                 :different_address,
-                :residential_pet_types,
-                :residential_pet,
                 :user_research_types,
                 :user_research,
                 :property_one_line_1,
                 :property_one_line_2,
                 :property_one_town,
                 :property_one_postcode,
-                :property_one_pet_types,
-                :property_one_pet,
+                :allow_pet_types,
+                :allow_pet,
                 :more_properties_types,
                 :more_properties,
                 :more_properties_statement,
                 :type, :version, :ip_address, :user_agent, :final_submission
 
   validate :validate_different_address, if: -> { run_validation? :different_address }
-  validate :validate_residential_pet, if: -> { run_validation? :residential_pet }
   validate :validate_user_research, if: -> { run_validation? :user_research }
-  validate :validate_property_one_pet, if: -> { run_validation? :property_one_pet }
+  validate :validate_allow_pet_pet, if: -> { run_validation? :allow_pet }
   validate :validate_more_properties, if: -> { run_validation? :more_properties }
 
   after_initialize :after_initialize
@@ -47,9 +44,8 @@ class AdditionalInfo < ApplicationRecord
   def after_initialize
     @final_submission = false
     @different_address_types = %i[yes no]
-    @residential_pet_types = %i[yes no]
     @user_research_types = %i[yes no]
-    @property_one_pet_types = %i[yes no]
+    @allow_pet_types = %i[yes no]
     @more_properties_types = %i[yes no]
   end
 
@@ -68,12 +64,11 @@ class AdditionalInfo < ApplicationRecord
       email:,
       phone_number:,
       different_address:,
-      residential_pet:,
       property_one_line_1:,
       property_one_line_2:,
       property_one_town:,
       property_one_postcode:,
-      property_one_pet:,
+      allow_pet:,
       more_properties:,
       more_properties_statement:,
       user_research:,
@@ -89,12 +84,8 @@ private
     validate_enum(@different_address_types, @different_address, :different_address)
   end
 
-  def validate_residential_pet
-    validate_enum(@residential_pet_types, @residential_pet, :residential_pet)
-  end
-
-  def validate_property_one_pet
-    validate_enum(@property_one_pet_types, @property_one_pet, :property_one_pet)
+  def validate_allow_pet_pet
+    validate_enum(@allow_pet_types, @allow_pet, :allow_pet)
   end
 
   def validate_more_properties

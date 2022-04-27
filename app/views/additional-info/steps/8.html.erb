@@ -4,13 +4,12 @@
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
     <%= form_for @application, url: "/additional-info/steps/8", method: :post do |f| %>
-      <%= f.govuk_collection_radio_buttons :property_one_pet,
-          @application.property_one_pet_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "additional_info.property_one_pet")) },
-          :id,
-          :name,
-          legend: { text: t('residential_pet.full', scope: "additional_info.questions")},
-          hint: { text: t('residential_pet.hint', scope: "additional_info.questions")}
-      %>
+
+      <%= f.govuk_text_field :more_properties_statement,
+                             label: { text: t('more_properties_statement.full', scope: "additional_info.questions") },
+                             value: "shown",
+                             type: "hidden" %>
+
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>
