@@ -29,13 +29,13 @@ RSpec.describe "Local Authority matching form", type: :system do
     it "displays the landing page" do
       visit "/additional-info/ref/ANON-XXXX-XXXX-X"
 
-      expect(page).to have_content("I've recorded my interest, what happens now?")
+      expect(page).to have_content("Update your registration of interest")
     end
 
     it "displays the landing page with mixed case" do
       visit "/additional-info/ref/anon-XX99-X2X1-0"
 
-      expect(page).to have_content("I've recorded my interest, what happens now?")
+      expect(page).to have_content("Update your registration of interest")
     end
   end
 
@@ -43,7 +43,7 @@ RSpec.describe "Local Authority matching form", type: :system do
     it "saves all of the answers in the database with routing" do
       visit "/additional-info/ref/ANON-0C84-4DD5-1"
 
-      expect(page).to have_content("I've recorded my interest, what happens now?")
+      expect(page).to have_content("Update your registration of interest")
       click_link("Start")
 
       fill_in("Confirm your full name", with: "John Smith")
@@ -125,7 +125,7 @@ RSpec.describe "Local Authority matching form", type: :system do
     it "saves all of the answers in the database with routing" do
       visit "/additional-info/ref/ANON-0C84-4DD5-1"
 
-      expect(page).to have_content("I've recorded my interest, what happens now?")
+      expect(page).to have_content("Update your registration of interest")
       click_link("Start")
 
       fill_in("Confirm your full name", with: "John Smith")
@@ -210,7 +210,7 @@ RSpec.describe "Local Authority matching form", type: :system do
     it "saves all of the answers in the database" do
       visit "/additional-info/ref/anon-0C84-4DD5-9"
 
-      expect(page).to have_content("I've recorded my interest, what happens now?")
+      expect(page).to have_content("Update your registration of interest")
       click_link("Start")
 
       fill_in("Confirm your full name", with: "John Smith")
