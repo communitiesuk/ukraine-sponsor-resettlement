@@ -1,7 +1,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    <p>&nbsp;</p>
+    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
     <%= form_for @application, url: "/additional-info/steps/1", method: :post do |f| %>
       <%= f.govuk_text_field :fullname,

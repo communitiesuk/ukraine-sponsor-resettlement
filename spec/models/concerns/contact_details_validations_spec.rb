@@ -111,24 +111,21 @@ RSpec.describe ContactDetailsValidations, type: :model do
       expect(app.valid?).to be(true)
     end
 
-    it "address postcode is valid" do
+    it "contact phone is valid" do
       app = AdditionalInfo.new
-      app.property_one_postcode = ""
+      app.phone_number = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:property_one_postcode]).to include("Please enter a valid UK postcode")
-      app.property_one_postcode = " "
+      expect(app.errors[:phone_number]).to include("Please enter a valid phone number")
+      app.phone_number = " "
       expect(app.valid?).to be(false)
-      expect(app.errors[:property_one_postcode]).to include("Please enter a valid UK postcode")
-      app.property_one_postcode = "X" * 129
+      expect(app.errors[:phone_number]).to include("Please enter a valid phone number")
+      app.phone_number = "X" * 14
       expect(app.valid?).to be(false)
-      expect(app.errors[:property_one_postcode]).to include("Please enter a valid UK postcode")
-      app.property_one_postcode = "XX1 XX"
+      expect(app.errors[:phone_number]).to include("Please enter a valid phone number")
+      app.phone_number = "01234 567 89"
       expect(app.valid?).to be(false)
-      expect(app.errors[:property_one_postcode]).to include("Please enter a valid UK postcode")
-      app.property_one_postcode = "XX 1XX"
-      expect(app.valid?).to be(false)
-      expect(app.errors[:property_one_postcode]).to include("Please enter a valid UK postcode")
-      app.property_one_postcode = "XX1 1XX"
+      expect(app.errors[:phone_number]).to include("Please enter a valid phone number")
+      app.phone_number = "01234 567 890"
       expect(app.valid?).to be(true)
     end
   end

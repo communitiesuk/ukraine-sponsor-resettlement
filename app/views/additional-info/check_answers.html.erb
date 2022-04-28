@@ -6,29 +6,6 @@
     <h2 class="govuk-heading-m">Personal details</h2>
 
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Residential address
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= @application.residential_line_1 %>
-          <br />
-
-          <% if @application.residential_line_2.present? %>
-            <%= @application.residential_line_2 %>
-            <br />
-          <% end %>
-
-          <%= @application.residential_town %>
-          <br />
-          <%= @application.residential_postcode %>
-        </dd>
-        <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/additional-info/steps/1">
-            Change<span class="govuk-visually-hidden"> address</span>
-          </a>
-        </dd>
-      </div>
 
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
@@ -38,7 +15,7 @@
           <%= @application.fullname %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/additional-info/steps/2">
+          <a class="govuk-link" href="/additional-info/steps/1">
             Change<span class="govuk-visually-hidden"> name</span>
           </a>
         </dd>
@@ -52,7 +29,7 @@
           <%= @application.email %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/additional-info/steps/3">
+          <a class="govuk-link" href="/additional-info/steps/2">
             Change<span class="govuk-visually-hidden"> email</span>
           </a>
         </dd>
@@ -66,11 +43,36 @@
           <%= @application.phone_number %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/additional-info/steps/4">
+          <a class="govuk-link" href="/additional-info/steps/3">
             Change<span class="govuk-visually-hidden"> phone number</span>
           </a>
         </dd>
       </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Residential address
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= @application.residential_line_1 %>
+            <br />
+
+            <% if @application.residential_line_2.present? %>
+              <%= @application.residential_line_2 %>
+              <br />
+            <% end %>
+
+            <%= @application.residential_town %>
+            <br />
+            <%= @application.residential_postcode %>
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/additional-info/steps/4">
+              Change<span class="govuk-visually-hidden"> address</span>
+            </a>
+          </dd>
+        </div>
+
 
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
