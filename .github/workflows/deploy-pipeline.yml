@@ -92,22 +92,22 @@ jobs:
       - name: Rubocop
         run: |
           bundle exec rubocop
-#  audit:
-#    name: Audit dependencies
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v2
-#
-#      - name: Set up Ruby
-#        uses: ruby/setup-ruby@v1
-#        with:
-#          # runs 'bundle install' and caches installed gems automatically
-#          bundler-cache: true
-#
-#      - name: Audit
-#        run: |
-#          bundle exec bundler-audit
+  audit:
+    name: Audit dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          # runs 'bundle install' and caches installed gems automatically
+          bundler-cache: true
+
+      - name: Audit
+        run: |
+          bundle exec bundler-audit
 
   deploy-staging:
     name: Deploy Staging
