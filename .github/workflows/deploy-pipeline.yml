@@ -115,7 +115,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: "staging"
     if: github.ref == 'refs/heads/master'
-    needs: [lint, test]
+    needs: [lint, test, audit]
 
     steps:
       - name: Checkout code
