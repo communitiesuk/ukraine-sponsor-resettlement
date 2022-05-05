@@ -79,15 +79,19 @@ class AdditionalController < ApplicationController
     @application.property_one_town = "same as main residence" if @application.property_one_town.blank?
     @application.property_one_postcode = @application.residential_postcode if @application.property_one_postcode.blank?
 
-    @application.save!
+    if @application.valid?
+      @application.save!
 
-    session[:app_reference] = @application.reference
-    session[:additional_info] = {}
+      session[:app_reference] = @application.reference
+      session[:additional_info] = {}
 
-    SendAdditionalInfoUpdateJob.perform_later(@application.id)
-    GovNotifyMailer.send_additional_info_confirmation_email(@application).deliver_later
+      SendAdditionalInfoUpdateJob.perform_later(@application.id)
+      GovNotifyMailer.send_additional_info_confirmation_email(@application).deliver_later
 
-    redirect_to "/additional-info/confirm"
+      redirect_to "/additional-info/confirm"
+    else
+      render "check_answers"
+    end
   end
 
   def confirm
