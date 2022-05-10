@@ -1,5 +1,5 @@
 class OrganisationExpressionOfInterest < ApplicationRecord
-  include CommonValidations
+  include OrganisationValidations
 
   self.table_name = "organisation_expressions_of_interest"
 

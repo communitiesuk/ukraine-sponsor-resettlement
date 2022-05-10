@@ -1,16 +1,37 @@
 require "securerandom"
 
 class IndividualExpressionOfInterest < ApplicationRecord
-  include CommonValidations
+  include IndividualValidations
 
   self.table_name = "individual_expressions_of_interest"
 
-  SCHEMA_VERSION = 2
+  SCHEMA_VERSION = 3
 
-  attr_accessor :family_types, :living_space_types, :step_free_types, :accommodation_length_types,
-                :family_type, :step_free, :accommodation_length, :single_room_count,
-                :double_room_count, :postcode, :phone_number, :agree_future_contact, :agree_privacy_statement,
-                :fullname, :email, :type, :version, :ip_address, :user_agent, :started_at, :final_submission
+  attr_accessor :family_types,
+                :living_space_types,
+                :step_free_types,
+                :accommodation_length_types,
+                :family_type,
+                :step_free,
+                :accommodation_length,
+                :single_room_count,
+                :double_room_count,
+                :postcode,
+                :phone_number,
+                :agree_future_contact,
+                :agree_privacy_statement,
+                :fullname,
+                :email,
+                :residential_line_1,
+                :residential_line_2,
+                :residential_town,
+                :residential_postcode,
+                :type,
+                :version,
+                :ip_address,
+                :user_agent,
+                :started_at,
+                :final_submission
   attr_reader   :living_space
 
   validate :validate_accommodation_length, if: -> { run_validation? :accommodation_length }
@@ -38,6 +59,13 @@ class IndividualExpressionOfInterest < ApplicationRecord
       created_at:,
       type:,
       version:,
+      fullname:,
+      email:,
+      phone_number:,
+      residential_line_1:,
+      residential_line_2:,
+      residential_town:,
+      residential_postcode:,
       family_type:,
       living_space:,
       step_free:,
@@ -46,9 +74,6 @@ class IndividualExpressionOfInterest < ApplicationRecord
       postcode:,
       accommodation_length:,
       agree_future_contact:,
-      fullname:,
-      email:,
-      phone_number:,
       agree_privacy_statement:,
       ip_address:,
       user_agent:,

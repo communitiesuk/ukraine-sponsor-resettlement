@@ -67,7 +67,8 @@ private
     params.require(:individual_expression_of_interest).permit(:family_type, :step_free, :single_room_count,
                                                               :double_room_count, :postcode, :accommodation_length,
                                                               :answer_more_questions_type, :fullname, :email,
-                                                              :phone_number, :reference, :agree_privacy_statement,
+                                                              :phone_number, :residential_line_1, :residential_line_2,
+                                                              :residential_town, :residential_postcode, :reference, :agree_privacy_statement,
                                                               :agree_future_contact, living_space: [])
   end
 end

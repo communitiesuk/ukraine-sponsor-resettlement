@@ -109,13 +109,21 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
       expect(app.errors[:phone_number]).to include("Please enter a valid phone number")
       app.phone_number = "(12345678)"
       expect(app.valid?).to be(false)
+      expect(app.errors[:phone_number]).to include("Please enter a valid phone number")
       app.phone_number = "123456789012345"
       expect(app.valid?).to be(false)
+      expect(app.errors[:phone_number]).to include("Please enter a valid phone number")
       app.phone_number = "123456789XXXXXXXXXXXXXXXXXXXXXXX"
       expect(app.valid?).to be(false)
+      expect(app.errors[:phone_number]).to include("Please enter a valid phone number")
+      app.phone_number = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:phone_number]).to include("Please enter a valid phone number")
       app.phone_number = "(01234) 567890"
       expect(app.valid?).to be(true)
-      app.phone_number = ""
+      app.phone_number = "01234567890"
+      expect(app.valid?).to be(true)
+      app.phone_number = "01234 567 890"
       expect(app.valid?).to be(true)
     end
 
