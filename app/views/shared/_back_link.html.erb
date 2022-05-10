@@ -1,11 +1,2 @@
-<%
-  @elements = URI(request.original_url).path.split("/")
 
-  @step = @elements[3].to_i - 1
-%>
-
-<% if @step > 0 %>
-  <a href="/<%= @elements[1] %>/steps/<%= @step %>" class="govuk-back-link">Back</a>
-<% else %>
-  <p>&nbsp;</p>
-<% end %>
+<a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
