@@ -3,12 +3,13 @@
     <%= render partial: "shared/back_link" %>
 
     <%= form_for @application, url: "/individual/steps/3", method: :post do |f| %>
-      <%= f.govuk_text_field :phone_number,
-        label: { text: t('phone_number.full', scope: "individual.questions") },
-        type: "tel"
+      <%= f.govuk_collection_radio_buttons :step_free,
+        @application.step_free_types.map{|type| OpenStruct.new(id: type, name: t(type, scope: "individual.step_free")) },
+        :id,
+        :name,
+        legend: { text: t('step_free.full', scope: "individual.questions") }
       %>
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>
 </div>
-
