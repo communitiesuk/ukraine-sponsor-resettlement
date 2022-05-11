@@ -32,6 +32,8 @@ class IndividualExpressionOfInterest < ApplicationRecord
                 :property_one_line_2,
                 :property_one_town,
                 :property_one_postcode,
+                :more_properties_types,
+                :more_properties,
                 :type,
                 :version,
                 :ip_address,
@@ -42,6 +44,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
 
   validate :validate_different_address, if: -> { run_validation? :different_address }
   validate :validate_accommodation_length, if: -> { run_validation? :accommodation_length }
+  validate :validate_more_properties, if: -> { run_validation? :more_properties }
 
   after_initialize :after_initialize
   before_save :serialize
@@ -58,6 +61,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
     @accommodation_length_types = %i[from_6_to_9_months from_10_to_12_months more_than_12_months]
     @final_submission = false
     @different_address_types = %i[yes no]
+    @more_properties_types = %i[yes no]
   end
 
   def as_json
@@ -79,6 +83,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
       property_one_line_2:,
       property_one_town:,
       property_one_postcode:,
+      more_properties:,
       family_type:,
       living_space:,
       step_free:,
@@ -102,6 +107,10 @@ private
 
   def validate_different_address
     validate_enum(@different_address_types, @different_address, :different_address)
+  end
+
+  def validate_more_properties
+    validate_enum(@more_properties_types, @more_properties, :more_properties)
   end
 
   def validate_accommodation_length

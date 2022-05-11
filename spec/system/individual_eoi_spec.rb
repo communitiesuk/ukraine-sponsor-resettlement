@@ -35,6 +35,10 @@ RSpec.describe "Individual expression of interest", type: :system do
       fill_in("Postcode", with: "AA1 1AA")
       click_button("Continue")
 
+      expect(page).to have_content("Are you offering any more properties?")
+      choose("Yes")
+      click_button("Continue")
+
       # expect(page).to have_content("Who would you like to offer accommodation to?")
       # choose("Single adult")
       # click_button("Continue")
@@ -72,6 +76,7 @@ RSpec.describe "Individual expression of interest", type: :system do
       expect(page).to have_content("Residential address House number and Street name")
       expect(page).to have_content("Different address yes")
       expect(page).to have_content("Property one address Property 1 House number and Street name")
+      expect(page).to have_content("More properties yes")
 
       # expect(page).to have_content("Who can you accommodate? Single adult")
       # expect(page).to have_content("Living space Room(s) in your home with access to shared facilities (bathroom and kitchen)")
@@ -99,6 +104,7 @@ RSpec.describe "Individual expression of interest", type: :system do
         property_one_line_1: "Property 1 House number and Street name",
         property_one_town: "Property 1 Some Town or City",
         property_one_postcode: "AA1 1AA",
+        more_properties: "yes",
       })
 
       expect(application.ip_address).to eq("127.0.0.1")

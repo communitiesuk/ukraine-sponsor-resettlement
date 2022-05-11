@@ -85,6 +85,10 @@ en:
       different_address:
         short: Different address
         full: Is the property you’re offering at a different address to your home?
+      more_properties:
+        short: More properties
+        full: Are you offering any more properties?
+        hint: If you have more properties, you will be able to share this information when you are contacted by your local authority.
       agree_privacy_statement:
         short: Privacy statement
         full: Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme
