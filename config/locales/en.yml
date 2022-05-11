@@ -89,6 +89,8 @@ en:
         short: More properties
         full: Are you offering any more properties?
         hint: If you have more properties, you will be able to share this information when you are contacted by your local authority.
+      more_properties_statement:
+        full: You will be able to share information about any more properties you have to offer when your local authority contacts you
       agree_privacy_statement:
         short: Privacy statement
         full: Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme

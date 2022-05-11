@@ -39,6 +39,9 @@ RSpec.describe "Individual expression of interest", type: :system do
       choose("Yes")
       click_button("Continue")
 
+      expect(page).to have_content("You will be able to share information about any more properties you have to offer when your local authority contacts you")
+      click_button("Continue")
+
       # expect(page).to have_content("Who would you like to offer accommodation to?")
       # choose("Single adult")
       # click_button("Continue")
