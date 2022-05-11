@@ -49,7 +49,7 @@ class AdditionalController < ApplicationController
       session[:additional_info] = @application.as_json
 
       # Replace with routing engine to get next stage
-      next_stage = RoutingEngine.get_next_step(@application, params["stage"].to_i)
+      next_stage = RoutingEngine.get_next_additional_info_step(@application, params["stage"].to_i)
 
       if next_stage > MAX_STEPS
         redirect_to "/additional-info/check-answers"
