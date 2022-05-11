@@ -26,7 +26,13 @@ RSpec.describe "Individual expression of interest", type: :system do
       click_button("Continue")
 
       expect(page).to have_content("Is the property you’re offering at a different address to your home?")
-      choose("No")
+      choose("Yes")
+      click_button("Continue")
+
+      expect(page).to have_content("Enter the address of the property you’re offering")
+      fill_in("Address line 1", with: "Property 1 House number and Street name")
+      fill_in("Town", with: "Property 1 Some Town or City")
+      fill_in("Postcode", with: "AA1 1AA")
       click_button("Continue")
 
       # expect(page).to have_content("Who would you like to offer accommodation to?")
@@ -64,7 +70,8 @@ RSpec.describe "Individual expression of interest", type: :system do
       expect(page).to have_content("Email john.smith@example.com")
       expect(page).to have_content("Telephone number 01234567890")
       expect(page).to have_content("Residential address House number and Street name")
-      expect(page).to have_content("Different address no")
+      expect(page).to have_content("Different address yes")
+      expect(page).to have_content("Property one address Property 1 House number and Street name")
 
       # expect(page).to have_content("Who can you accommodate? Single adult")
       # expect(page).to have_content("Living space Room(s) in your home with access to shared facilities (bathroom and kitchen)")
@@ -82,22 +89,16 @@ RSpec.describe "Individual expression of interest", type: :system do
 
       application = IndividualExpressionOfInterest.order("created_at DESC").last
       expect(application.as_json).to include({
-        accommodation_length: "from_6_to_9_months",
-        agree_future_contact: "true",
-        agree_privacy_statement: "true",
-        double_room_count: "2",
-        email: "john.smith@example.com",
-        family_type: "single_adult",
         fullname: "John Smith",
-        living_space: %w[rooms_in_home_shared_facilities],
-        step_free: "all",
+        email: "john.smith@example.com",
         phone_number: "01234567890",
         residential_line_1: "House number and Street name",
         residential_town: "Some Town or City",
         residential_postcode: "XX1 1XX",
-        different_address: "no",
-        postcode: "SG",
-        single_room_count: "3",
+        different_address: "yes",
+        property_one_line_1: "Property 1 House number and Street name",
+        property_one_town: "Property 1 Some Town or City",
+        property_one_postcode: "AA1 1AA",
       })
 
       expect(application.ip_address).to eq("127.0.0.1")
