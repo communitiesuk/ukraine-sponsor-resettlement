@@ -24,7 +24,10 @@ class IndividualController < ApplicationController
     if @application.valid?
       # Update the session
       session[:individual_expression_of_interest] = @application.as_json
-      next_stage = params["stage"].to_i + 1
+
+      # Replace with routing engine to get next stage
+      next_stage = RoutingEngine.get_next_individual_step(@application, params["stage"].to_i)
+
       if next_stage > MAX_STEPS
         redirect_to "/individual/check_answers"
       else
