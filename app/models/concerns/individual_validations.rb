@@ -3,7 +3,10 @@ module IndividualValidations
 
   MIN_PHONE_DIGITS    = 9
   MAX_PHONE_DIGITS    = 14
+  MIN_ENTRY_DIGITS    = 3
+  MAX_ENTRY_DIGITS    = 128
   SPECIAL_CHARACTERS  = /[!"£$%{}<>|&@\/()=?^;]/
+  POSTCODE_REGEX      = /([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})/
 
   included do
     validate :validate_family_type, if: -> { run_validation? :family_type }

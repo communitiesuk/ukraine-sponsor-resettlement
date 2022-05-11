@@ -6,7 +6,7 @@
 
     <p class="hint">This is the address where you live</p>
 
-    <%= form_for @application, url: "/additional-info/steps/4", method: :post do |f| %>
+    <%= form_for @application, url: "/individual/steps/4", method: :post do |f| %>
       <%= f.govuk_text_field :residential_line_1,
                              label: { text: t('address_line_1.full', scope: "individual.questions") },
                              type: "text"
