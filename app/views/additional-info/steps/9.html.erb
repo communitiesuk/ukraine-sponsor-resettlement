@@ -3,14 +3,18 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
+    <h2 class="govuk-heading-m">How many people will be living at the address you’re offering (not including guests)?</h2>
+
     <%= form_for @application, url: "/additional-info/steps/9", method: :post do |f| %>
-      <%= f.govuk_collection_radio_buttons :allow_pet,
-          @application.allow_pet_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "additional_info.allow_pet")) },
-          :id,
-          :name,
-          legend: { text: t('allow_pet.full', scope: "additional_info.questions")},
-          hint: { text: t('allow_pet.hint', scope: "additional_info.questions")}
+      <%= f.govuk_text_field :number_adults,
+                             label: { text: t('number_adults.full', scope: "additional_info.questions") },
+                             type: "number"
       %>
+      <%= f.govuk_text_field :number_children,
+                             label: { text: t('number_children.full', scope: "additional_info.questions") },
+                             type: "number"
+      %>
+
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>

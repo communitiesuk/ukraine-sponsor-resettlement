@@ -206,6 +206,12 @@ en:
         hint: If you have more properties, you will be able to share this information when you are contacted by your local authority.
       more_properties_statement:
         full: You will be able to share information about any more properties you have to offer when your local authority contacts you
+      number_adults:
+        short: Adults
+        full: Adults
+      number_children:
+        short: Children
+        full: Children
       user_research:
         short: User research
         full: Would you like to take part in research to help us improve the Homes for Ukraine service?
@@ -249,3 +255,5 @@ en:
     address_line_2: Please enter a valid address line 2
     address_town: Please enter a valid town or city
     address_postcode: Please enter a valid UK postcode
+    number_adults: Please enter a valid number of adults
+    number_children: Please enter a valid number of children

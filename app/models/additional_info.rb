@@ -22,6 +22,8 @@ class AdditionalInfo < ApplicationRecord
                 :property_one_line_2,
                 :property_one_town,
                 :property_one_postcode,
+                :number_adults,
+                :number_children,
                 :allow_pet_types,
                 :allow_pet,
                 :more_properties_types,
@@ -31,6 +33,8 @@ class AdditionalInfo < ApplicationRecord
 
   validate :validate_different_address, if: -> { run_validation? :different_address }
   validate :validate_user_research, if: -> { run_validation? :user_research }
+  validate :validate_number_adults, if: -> { run_validation? :number_adults }
+  validate :validate_number_children, if: -> { run_validation? :number_children }
   validate :validate_allow_pet_pet, if: -> { run_validation? :allow_pet }
   validate :validate_more_properties, if: -> { run_validation? :more_properties }
 
@@ -68,6 +72,8 @@ class AdditionalInfo < ApplicationRecord
       property_one_line_2:,
       property_one_town:,
       property_one_postcode:,
+      number_adults:,
+      number_children:,
       allow_pet:,
       more_properties:,
       more_properties_statement:,
@@ -82,6 +88,20 @@ private
 
   def validate_different_address
     validate_enum(@different_address_types, @different_address, :different_address)
+  end
+
+  def validate_number_adults
+    @minimum_number = different_address.casecmp("YES").zero? ? 0 : 1
+
+    if @number_adults.nil? || @number_adults.to_i < @minimum_number
+      errors.add(:number_adults, I18n.t(:number_adults_residential, scope: :error))
+    end
+  end
+
+  def validate_number_children
+    if @number_children.nil? || @number_children.to_i < 0
+      errors.add(:number_children, I18n.t(:number_children, scope: :error))
+    end
   end
 
   def validate_allow_pet_pet

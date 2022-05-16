@@ -74,6 +74,11 @@ RSpec.describe "Local Authority matching form", type: :system do
       choose("No")
       click_button("Continue")
 
+      expect(page).to have_content("How many people will be living at the address you’re offering (not including guests)?")
+      fill_in("Adults", with: "1")
+      fill_in("Children", with: "0")
+      click_button("Continue")
+
       expect(page).to have_content("Would you consider allowing guests to bring their pets?")
       choose("No")
       click_button("Continue")
@@ -89,6 +94,8 @@ RSpec.describe "Local Authority matching form", type: :system do
       expect(page).to have_content("Different address yes")
       expect(page).to have_content("Property one address Property 1 House number and Street name")
       expect(page).to have_content("More properties no")
+      expect(page).to have_content("Adults 1")
+      expect(page).to have_content("Children 0")
       expect(page).to have_content("Allow pets no")
       expect(page).to have_content("User research yes")
 
@@ -112,6 +119,8 @@ RSpec.describe "Local Authority matching form", type: :system do
         property_one_town: "Property 1 Some Town or City",
         property_one_postcode: "AA1 1AA",
         more_properties: "no",
+        number_adults: "1",
+        number_children: "0",
         allow_pet: "no",
         user_research: "yes",
       })
@@ -158,6 +167,11 @@ RSpec.describe "Local Authority matching form", type: :system do
       expect(page).to have_content("You will be able to share information about any more properties you have to offer when your local authority contacts you")
       click_button("Continue")
 
+      expect(page).to have_content("How many people will be living at the address you’re offering (not including guests)?")
+      fill_in("Adults", with: "1")
+      fill_in("Children", with: "0")
+      click_button("Continue")
+
       expect(page).to have_content("Would you consider allowing guests to bring their pets?")
       choose("Yes")
       click_button("Continue")
@@ -173,6 +187,8 @@ RSpec.describe "Local Authority matching form", type: :system do
       expect(page).to have_content("Different address yes")
       expect(page).to have_content("Property one address Property 1 House number and Street name")
       expect(page).to have_content("More properties yes")
+      expect(page).to have_content("Adults 1")
+      expect(page).to have_content("Children 0")
       expect(page).to have_content("Allow pets yes")
       expect(page).to have_content("User research yes")
 
@@ -196,6 +212,8 @@ RSpec.describe "Local Authority matching form", type: :system do
         property_one_town: "Property 1 Some Town or City",
         property_one_postcode: "AA1 1AA",
         more_properties: "yes",
+        number_adults: "1",
+        number_children: "0",
         allow_pet: "yes",
         user_research: "yes",
       })
@@ -229,6 +247,11 @@ RSpec.describe "Local Authority matching form", type: :system do
       choose("No")
       click_button("Continue")
 
+      expect(page).to have_content("How many people will be living at the address you’re offering (not including guests)?")
+      fill_in("Adults", with: "1")
+      fill_in("Children", with: "0")
+      click_button("Continue")
+
       expect(page).to have_content("Would you consider allowing guests to bring their pets?")
       choose("No")
       click_button("Continue")
@@ -242,6 +265,8 @@ RSpec.describe "Local Authority matching form", type: :system do
       expect(page).to have_content("Name John Smith")
       expect(page).to have_content("Telephone number 12345 678 901")
       expect(page).to have_content("Different address no")
+      expect(page).to have_content("Adults 1")
+      expect(page).to have_content("Children 0")
       expect(page).to have_content("Allow pets no")
       expect(page).to have_content("User research no")
 
@@ -261,6 +286,8 @@ RSpec.describe "Local Authority matching form", type: :system do
         email: "john.smith@example.com",
         phone_number: "12345 678 901",
         different_address: "no",
+        number_adults: "1",
+        number_children: "0",
         allow_pet: "no",
         user_research: "no",
       })
