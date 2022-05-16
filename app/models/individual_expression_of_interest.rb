@@ -121,8 +121,7 @@ private
   end
 
   def validate_number_adults
-    binding.pry
-    @minimum_number = different_address.casecmp("YES") ? 0 : 1
+    @minimum_number = different_address.casecmp("YES").zero? ? 0 : 1
 
     if @number_adults.nil? || @number_adults < @minimum_number
       errors.add(:number_adults, I18n.t(:number_adults_residential, scope: :error))
