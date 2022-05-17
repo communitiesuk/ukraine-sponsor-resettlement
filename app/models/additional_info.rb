@@ -92,9 +92,10 @@ private
 
   def validate_number_adults
     @minimum_number = different_address.casecmp("YES").zero? ? 0 : 1
+    @error_message = different_address.casecmp("YES").zero? ? I18n.t(:number_adults_non_residential, scope: :error) : I18n.t(:number_adults_residential, scope: :error)
 
     if @number_adults.nil? || @number_adults.to_i < @minimum_number
-      errors.add(:number_adults, I18n.t(:number_adults_residential, scope: :error))
+      errors.add(:number_adults, @error_message)
     end
   end
 
