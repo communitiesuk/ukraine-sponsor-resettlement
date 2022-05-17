@@ -119,7 +119,7 @@ private
   end
 
   def is_integer?(value)
-    true if Integer(value) rescue false
+    true if Integer(value, exception: false)
   end
 
   def serialize
