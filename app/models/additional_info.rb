@@ -100,7 +100,7 @@ private
   end
 
   def validate_number_children
-    if @number_children.nil? || @number_children.to_i < 0
+    if @number_children.nil? || @number_children.to_i.negative?
       errors.add(:number_children, I18n.t(:number_children, scope: :error))
     end
   end
