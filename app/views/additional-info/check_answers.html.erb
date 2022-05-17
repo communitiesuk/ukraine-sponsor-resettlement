@@ -138,13 +138,39 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
+          <%= t('number_adults.short', scope: "additional_info.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.number_adults %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/additional-info/steps/9">
+            Change<span class="govuk-visually-hidden"> adults</span>
+          </a>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('number_children.short', scope: "additional_info.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.number_children %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/additional-info/steps/9">
+            Change<span class="govuk-visually-hidden"> children</span>
+          </a>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
           <%= t('allow_pet.short', scope: "additional_info.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
           <%= @application.allow_pet %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/additional-info/steps/9">
+          <a class="govuk-link" href="/additional-info/steps/10">
             Change<span class="govuk-visually-hidden"> residential pet</span>
           </a>
         </dd>
@@ -158,7 +184,7 @@
           <%= @application.user_research %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/additional-info/steps/10">
+          <a class="govuk-link" href="/additional-info/steps/11">
             Change<span class="govuk-visually-hidden"> user research</span>
           </a>
         </dd>

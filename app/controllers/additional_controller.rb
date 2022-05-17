@@ -1,5 +1,5 @@
 class AdditionalController < ApplicationController
-  MAX_STEPS = 10
+  MAX_STEPS = 11
 
   def home
     @application = AdditionalInfo.new(session[:additional_info])
@@ -119,6 +119,8 @@ private
           :property_one_line_2,
           :property_one_town,
           :property_one_postcode,
+          :number_adults,
+          :number_children,
           :allow_pet,
           :more_properties,
         )
