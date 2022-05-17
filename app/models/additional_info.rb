@@ -3,7 +3,7 @@ class AdditionalInfo < ApplicationRecord
 
   self.table_name = "additional_info"
 
-  SCHEMA_VERSION = 1
+  SCHEMA_VERSION = 2
 
   attr_accessor :reference,
                 :started_at,
