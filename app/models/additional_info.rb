@@ -32,11 +32,11 @@ class AdditionalInfo < ApplicationRecord
                 :type, :version, :ip_address, :user_agent, :final_submission
 
   validate :validate_different_address, if: -> { run_validation? :different_address }
-  validate :validate_user_research, if: -> { run_validation? :user_research }
+  validate :validate_more_properties, if: -> { run_validation? :more_properties }
   validate :validate_number_adults, if: -> { run_validation? :number_adults }
   validates :number_children, numericality: { only_integer: true, greater_than_or_equal_to: 0, message: I18n.t(:number_children, scope: :error) }, if: -> { run_validation? :number_children }
   validate :validate_allow_pet_pet, if: -> { run_validation? :allow_pet }
-  validate :validate_more_properties, if: -> { run_validation? :more_properties }
+  validate :validate_user_research, if: -> { run_validation? :user_research }
 
   after_initialize :after_initialize
   before_save :serialize
