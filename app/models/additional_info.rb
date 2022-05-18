@@ -96,6 +96,8 @@ private
 
     if !is_integer?(@number_adults) || @number_adults.to_i < @minimum_number
       errors.add(:number_adults, @error_message)
+    elsif !is_integer?(@number_adults) || (@number_adults.to_i.zero? && number_children.to_i.positive?)
+      errors.add(:number_adults, I18n.t(:child_without_adult, scope: :error))
     end
   end
 

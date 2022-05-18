@@ -257,5 +257,6 @@ en:
     address_postcode: Please enter a valid UK postcode
     number_adults: Please enter a valid number of adults
     number_children: Please enter a valid number of children
+    child_without_adult: There must be at least 1 adult living at an address with children
     number_adults_residential: There must be at least 1 adult living at your residential address
     number_adults_non_residential: Please enter a valid number of adults
