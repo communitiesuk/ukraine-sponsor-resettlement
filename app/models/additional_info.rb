@@ -34,7 +34,8 @@ class AdditionalInfo < ApplicationRecord
   validate :validate_different_address, if: -> { run_validation? :different_address }
   validate :validate_user_research, if: -> { run_validation? :user_research }
   validate :validate_number_adults, if: -> { run_validation? :number_adults }
-  validate :validate_number_children, if: -> { run_validation? :number_children }
+  # validate :validate_number_children, if: -> { run_validation? :number_children }
+  validates :number_children, numericality: { only_integer: true, greater_than_or_equal_to: 0, message: I18n.t(:number_children, scope: :error) }, if: -> { run_validation? :number_children }
   validate :validate_allow_pet_pet, if: -> { run_validation? :allow_pet }
   validate :validate_more_properties, if: -> { run_validation? :more_properties }
 
@@ -94,14 +95,8 @@ private
     @minimum_number = different_address.casecmp("YES").zero? ? 0 : 1
     @error_message = different_address.casecmp("YES").zero? ? I18n.t(:number_adults_non_residential, scope: :error) : I18n.t(:number_adults_residential, scope: :error)
 
-    if @number_adults.nil? || @number_adults.to_i < @minimum_number
+    if !is_integer?(@number_adults) || @number_adults.to_i < @minimum_number
       errors.add(:number_adults, @error_message)
-    end
-  end
-
-  def validate_number_children
-    if @number_children.nil? || @number_children.to_i.negative?
-      errors.add(:number_children, I18n.t(:number_children, scope: :error))
     end
   end
 
@@ -121,6 +116,10 @@ private
     unless value && enum.include?(value.to_sym)
       errors.add(attribute, I18n.t(:choose_option, scope: :error))
     end
+  end
+
+  def is_integer?(value)
+    true if Integer(value, exception: false)
   end
 
   def serialize
