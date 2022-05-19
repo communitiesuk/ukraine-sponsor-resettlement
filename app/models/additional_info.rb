@@ -91,49 +91,21 @@ private
   end
 
   def validate_number_adults
-    @isResidentialProperty = different_address.casecmp("NO").zero?
+    @is_residential_property = different_address.casecmp("NO").zero?
 
-    if @isResidentialProperty && is_integer?(@number_adults) && @number_adults.to_i.zero?
+    if @is_residential_property && is_integer?(@number_adults) && @number_adults.to_i.zero?
       errors.add(:number_adults, I18n.t(:number_adults_residential, scope: :error))
-    elsif @isResidentialProperty && is_integer?(@number_adults) && @number_adults.to_i > 9
+    elsif @is_residential_property && is_integer?(@number_adults) && @number_adults.to_i > 9
       errors.add(:number_adults, I18n.t(:number_adults_one, scope: :error))
-    elsif @isResidentialProperty && !is_integer?(@number_adults)
+    elsif @is_residential_property && !is_integer?(@number_adults)
       errors.add(:number_adults, I18n.t(:number_adults_one, scope: :error))
-    elsif !@isResidentialProperty && !is_integer?(@number_adults)
+    elsif !@is_residential_property && !is_integer?(@number_adults)
       errors.add(:number_adults, I18n.t(:number_adults_zero, scope: :error))
-    elsif !@isResidentialProperty && is_integer?(@number_adults) && @number_adults.to_i > 9
+    elsif !@is_residential_property && is_integer?(@number_adults) && @number_adults.to_i > 9
       errors.add(:number_adults, I18n.t(:number_adults_zero, scope: :error))
-    elsif !@isResidentialProperty && is_integer?(@number_adults) && @number_adults.to_i.zero? && is_integer?(number_children) && number_children.to_i.positive?
+    elsif !@is_residential_property && is_integer?(@number_adults) && @number_adults.to_i.zero? && is_integer?(number_children) && number_children.to_i.positive?
       errors.add(:number_adults, I18n.t(:child_without_adult, scope: :error))
     end
-
-
-
-
-    # if !is_integer?(@number_adults) && different_address.casecmp("NO").zero?
-    #   errors.add(:number_adults, I18n.t(:number_adults_one, scope: :error))
-    # elsif !is_integer?(@number_adults) && different_address.casecmp("YES").zero?
-    #   errors.add(:number_adults, I18n.t(:number_adults_zero, scope: :error))
-    # elsif different_address.casecmp("NO").zero? && @number_adults.to_i < 1
-    #   errors.add(:number_adults, I18n.t(:number_adults_residential, scope: :error))
-    # elsif different_address.casecmp("YES").zero? && @number_adults.to_i.negative?
-    #   errors.add(:number_adults, I18n.t(:number_adults_zero, scope: :error))
-    # elsif different_address.casecmp("NO").zero? && @number_adults.to_i > 9
-    #   errors.add(:number_adults, I18n.t(:number_adults_one, scope: :error))
-    # elsif different_address.casecmp("YES").zero? && @number_adults.to_i > 9
-    #   errors.add(:number_adults, I18n.t(:number_adults_zero, scope: :error))
-    # end
-
-    # @minimum_number = different_address.casecmp("YES").zero? ? 0 : 1
-    # @error_message = different_address.casecmp("YES").zero? ? I18n.t(:number_adults_non_residential, scope: :error) : I18n.t(:number_adults_residential, scope: :error)
-    #
-    # if !is_integer?(@number_adults)
-    #   errors.add(:number_adults, I18n.t(:number_adults, scope: :error))
-    # elsif is_integer?(@number_adults) || @number_adults.to_i < @minimum_number
-    #   errors.add(:number_adults, @error_message)
-    # elsif is_integer?(@number_adults) || (@number_adults.to_i.zero? && number_children.to_i.positive?)
-    #   errors.add(:number_adults, I18n.t(:child_without_adult, scope: :error))
-    # end
   end
 
   def validate_allow_pet_pet
