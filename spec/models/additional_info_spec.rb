@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe AdditionalInfo, type: :model do
   describe "validations for residential property" do
-    it "validates the number of adults is empty" do
+    it "validates the number of adults is zero when minimum is one" do
       app = described_class.new
       app.different_address = "no"
       app.number_adults = 0
