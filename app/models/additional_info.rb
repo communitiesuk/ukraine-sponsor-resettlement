@@ -99,6 +99,12 @@ private
       errors.add(:number_adults, I18n.t(:number_adults_one, scope: :error))
     elsif @isResidentialProperty && !is_integer?(@number_adults)
       errors.add(:number_adults, I18n.t(:number_adults_one, scope: :error))
+    elsif !@isResidentialProperty && !is_integer?(@number_adults)
+      errors.add(:number_adults, I18n.t(:number_adults_zero, scope: :error))
+    elsif !@isResidentialProperty && is_integer?(@number_adults) && @number_adults.to_i > 9
+      errors.add(:number_adults, I18n.t(:number_adults_zero, scope: :error))
+    elsif !@isResidentialProperty && is_integer?(@number_adults) && @number_adults.to_i.zero? && is_integer?(number_children) && number_children.to_i.positive?
+      errors.add(:number_adults, I18n.t(:child_without_adult, scope: :error))
     end
 
 
