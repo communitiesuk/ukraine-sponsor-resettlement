@@ -29,6 +29,14 @@ RSpec.describe AdditionalInfo, type: :model do
       expect(app.errors[:number_adults]).to include("You must enter a number from 1-9")
     end
 
+    it "validates the number of adults is greater than 1" do
+      app = described_class.new
+      app.different_address = "no"
+      app.number_adults = 2
+      expect(app.valid?).to be(true)
+      expect(app.errors[:number_adults].length).to be(0)
+    end
+
     it "validates the number of children is not empty" do
       app = described_class.new
       app.different_address = "no"
