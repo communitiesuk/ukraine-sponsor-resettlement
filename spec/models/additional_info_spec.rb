@@ -20,10 +20,10 @@ RSpec.describe AdditionalInfo, type: :model do
       app.different_address = "yes"
       app.number_adults = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:number_adults]).to include("Please enter a valid number of adults")
+      expect(app.errors[:number_adults]).to include("You must enter a number from 0 to 9")
       app.number_adults = -1
       expect(app.valid?).to be(false)
-      expect(app.errors[:number_adults]).to include("Please enter a valid number of adults")
+      expect(app.errors[:number_adults]).to include("You must enter a number from 0 to 9")
       app.number_adults = 0
       expect(app.valid?).to be(true)
     end
@@ -48,10 +48,13 @@ RSpec.describe AdditionalInfo, type: :model do
       app = described_class.new
       app.number_children = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:number_children]).to include("Please enter a valid number of children")
+      expect(app.errors[:number_children]).to include("You must enter a number from 0 to 9")
       app.number_children = -1
       expect(app.valid?).to be(false)
-      expect(app.errors[:number_children]).to include("Please enter a valid number of children")
+      expect(app.errors[:number_children]).to include("You must enter a number from 0 to 9")
+      app.number_children = 10
+      expect(app.valid?).to be(false)
+      expect(app.errors[:number_children]).to include("You must enter a number from 0 to 9")
       app.number_children = 0
       expect(app.valid?).to be(true)
     end
