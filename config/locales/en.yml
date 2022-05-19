@@ -260,4 +260,3 @@ en:
     number_children: You must enter a number from 0-9
     child_without_adult: There must be at least 1 adult living at an address with children
     number_adults_residential: There must be at least 1 adult living at your residential address
-    number_adults_non_residential: Please enter a valid number of adults

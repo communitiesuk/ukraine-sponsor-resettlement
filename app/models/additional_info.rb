@@ -91,15 +91,32 @@ private
   end
 
   def validate_number_adults
-    if !is_integer?(@number_adults) && different_address.casecmp("NO").zero?
+    @isResidentialProperty = different_address.casecmp("NO").zero?
+
+    if @isResidentialProperty && is_integer?(@number_adults) && @number_adults.to_i.zero?
+      errors.add(:number_adults, I18n.t(:number_adults_residential, scope: :error))
+    elsif @isResidentialProperty && is_integer?(@number_adults) && @number_adults.to_i > 9
       errors.add(:number_adults, I18n.t(:number_adults_one, scope: :error))
-    elsif !is_integer?(@number_adults) && different_address.casecmp("YES").zero?
-      errors.add(:number_adults, I18n.t(:number_adults_zero, scope: :error))
-    elsif different_address.casecmp("NO").zero? && @number_adults.to_i > 9
+    elsif @isResidentialProperty && !is_integer?(@number_adults)
       errors.add(:number_adults, I18n.t(:number_adults_one, scope: :error))
-    elsif different_address.casecmp("YES").zero? && @number_adults.to_i > 9
-      errors.add(:number_adults, I18n.t(:number_adults_zero, scope: :error))
     end
+
+
+
+
+    # if !is_integer?(@number_adults) && different_address.casecmp("NO").zero?
+    #   errors.add(:number_adults, I18n.t(:number_adults_one, scope: :error))
+    # elsif !is_integer?(@number_adults) && different_address.casecmp("YES").zero?
+    #   errors.add(:number_adults, I18n.t(:number_adults_zero, scope: :error))
+    # elsif different_address.casecmp("NO").zero? && @number_adults.to_i < 1
+    #   errors.add(:number_adults, I18n.t(:number_adults_residential, scope: :error))
+    # elsif different_address.casecmp("YES").zero? && @number_adults.to_i.negative?
+    #   errors.add(:number_adults, I18n.t(:number_adults_zero, scope: :error))
+    # elsif different_address.casecmp("NO").zero? && @number_adults.to_i > 9
+    #   errors.add(:number_adults, I18n.t(:number_adults_one, scope: :error))
+    # elsif different_address.casecmp("YES").zero? && @number_adults.to_i > 9
+    #   errors.add(:number_adults, I18n.t(:number_adults_zero, scope: :error))
+    # end
 
     # @minimum_number = different_address.casecmp("YES").zero? ? 0 : 1
     # @error_message = different_address.casecmp("YES").zero? ? I18n.t(:number_adults_non_residential, scope: :error) : I18n.t(:number_adults_residential, scope: :error)
