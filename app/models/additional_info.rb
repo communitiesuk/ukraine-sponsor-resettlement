@@ -34,7 +34,7 @@ class AdditionalInfo < ApplicationRecord
   validate :validate_different_address, if: -> { run_validation? :different_address }
   validate :validate_more_properties, if: -> { run_validation? :more_properties }
   validate :validate_number_adults, if: -> { run_validation? :number_adults }
-  validates :number_children, numericality: { only_integer: true, greater_than_or_equal_to: 0, message: I18n.t(:number_children, scope: :error) }, if: -> { run_validation? :number_children }
+  validates :number_children, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 9, message: I18n.t(:number_children, scope: :error) }, if: -> { run_validation? :number_children }
   validate :validate_allow_pet_pet, if: -> { run_validation? :allow_pet }
   validate :validate_user_research, if: -> { run_validation? :user_research }
 
@@ -91,12 +91,19 @@ private
   end
 
   def validate_number_adults
-    @minimum_number = different_address.casecmp("YES").zero? ? 0 : 1
-    @error_message = different_address.casecmp("YES").zero? ? I18n.t(:number_adults_non_residential, scope: :error) : I18n.t(:number_adults_residential, scope: :error)
+    @is_residential_property = different_address.casecmp("NO").zero?
 
-    if !is_integer?(@number_adults) || @number_adults.to_i < @minimum_number
-      errors.add(:number_adults, @error_message)
-    elsif !is_integer?(@number_adults) || (@number_adults.to_i.zero? && number_children.to_i.positive?)
+    if @is_residential_property && is_integer?(@number_adults) && @number_adults.to_i.zero?
+      errors.add(:number_adults, I18n.t(:number_adults_residential, scope: :error))
+    elsif @is_residential_property && is_integer?(@number_adults) && @number_adults.to_i > 9
+      errors.add(:number_adults, I18n.t(:number_adults_one, scope: :error))
+    elsif @is_residential_property && !is_integer?(@number_adults)
+      errors.add(:number_adults, I18n.t(:number_adults_one, scope: :error))
+    elsif !@is_residential_property && !is_integer?(@number_adults)
+      errors.add(:number_adults, I18n.t(:number_adults_zero, scope: :error))
+    elsif !@is_residential_property && is_integer?(@number_adults) && @number_adults.to_i > 9
+      errors.add(:number_adults, I18n.t(:number_adults_zero, scope: :error))
+    elsif !@is_residential_property && is_integer?(@number_adults) && @number_adults.to_i.zero? && is_integer?(number_children) && number_children.to_i.positive?
       errors.add(:number_adults, I18n.t(:child_without_adult, scope: :error))
     end
   end
