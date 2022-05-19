@@ -91,16 +91,26 @@ private
   end
 
   def validate_number_adults
-    @minimum_number = different_address.casecmp("YES").zero? ? 0 : 1
-    @error_message = different_address.casecmp("YES").zero? ? I18n.t(:number_adults_non_residential, scope: :error) : I18n.t(:number_adults_residential, scope: :error)
-
-    if !is_integer?(@number_adults)
-      errors.add(:number_adults, I18n.t(:number_adults, scope: :error))
-    elsif is_integer?(@number_adults) || @number_adults.to_i < @minimum_number
-      errors.add(:number_adults, @error_message)
-    elsif is_integer?(@number_adults) || (@number_adults.to_i.zero? && number_children.to_i.positive?)
-      errors.add(:number_adults, I18n.t(:child_without_adult, scope: :error))
+    if !is_integer?(@number_adults) && different_address.casecmp("NO").zero?
+      errors.add(:number_adults, I18n.t(:number_adults_one, scope: :error))
+    elsif !is_integer?(@number_adults) && different_address.casecmp("YES").zero?
+      errors.add(:number_adults, I18n.t(:number_adults_zero, scope: :error))
+    elsif different_address.casecmp("NO").zero? && @number_adults.to_i > 9
+      errors.add(:number_adults, I18n.t(:number_adults_one, scope: :error))
+    elsif different_address.casecmp("YES").zero? && @number_adults.to_i > 9
+      errors.add(:number_adults, I18n.t(:number_adults_zero, scope: :error))
     end
+
+    # @minimum_number = different_address.casecmp("YES").zero? ? 0 : 1
+    # @error_message = different_address.casecmp("YES").zero? ? I18n.t(:number_adults_non_residential, scope: :error) : I18n.t(:number_adults_residential, scope: :error)
+    #
+    # if !is_integer?(@number_adults)
+    #   errors.add(:number_adults, I18n.t(:number_adults, scope: :error))
+    # elsif is_integer?(@number_adults) || @number_adults.to_i < @minimum_number
+    #   errors.add(:number_adults, @error_message)
+    # elsif is_integer?(@number_adults) || (@number_adults.to_i.zero? && number_children.to_i.positive?)
+    #   errors.add(:number_adults, I18n.t(:child_without_adult, scope: :error))
+    # end
   end
 
   def validate_allow_pet_pet
