@@ -47,6 +47,15 @@ RSpec.describe AdditionalInfo, type: :model do
       expect(app.errors[:number_adults].length).to be(0)
     end
 
+    it "validates the number of adults when child is greater than 0" do
+      app = described_class.new
+      app.different_address = "no"
+      app.number_adults = 1
+      app.number_children = 5
+      expect(app.valid?).to be(true)
+      expect(app.errors[:number_adults].length).to be(0)
+    end
+
     it "validates the number of children is not empty" do
       app = described_class.new
       app.different_address = "no"
