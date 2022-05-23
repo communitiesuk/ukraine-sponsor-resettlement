@@ -193,6 +193,26 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
       app.email = "first@last.com"
       expect(app.valid?).to be(true)
     end
+
+    it "validates the number of adults at a property is at least 1 when residential property" do
+      app = described_class.new
+      app.different_address = "no"
+      app.number_adults = 0
+      expect(app.valid?).to be(false)
+      expect(app.errors[:number_adults]).to include("There must be at least 1 adult living at your residential address")
+      app.number_adults = 1
+      expect(app.valid?).to be(true)
+    end
+
+    it "validates the number of adults at a property is at least 0 when not residential property" do
+      app = described_class.new
+      app.different_address = "yes"
+      app.number_adults = -1
+      expect(app.valid?).to be(false)
+      expect(app.errors[:number_adults]).to include("There must be at least 1 adult living at your residential address")
+      app.number_adults = 0
+      expect(app.valid?).to be(true)
+    end
   end
 
   describe "setting living_space" do

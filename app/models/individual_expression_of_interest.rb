@@ -34,6 +34,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
                 :property_one_postcode,
                 :more_properties_types,
                 :more_properties,
+                :number_adults,
                 :type,
                 :version,
                 :ip_address,
@@ -45,6 +46,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
   validate :validate_different_address, if: -> { run_validation? :different_address }
   validate :validate_accommodation_length, if: -> { run_validation? :accommodation_length }
   validate :validate_more_properties, if: -> { run_validation? :more_properties }
+  validate :validate_number_adults, if: -> { run_validation? :number_adults }
 
   after_initialize :after_initialize
   before_save :serialize
@@ -84,6 +86,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
       property_one_town:,
       property_one_postcode:,
       more_properties:,
+      number_adults:,
       family_type:,
       living_space:,
       step_free:,
@@ -115,6 +118,15 @@ private
 
   def validate_accommodation_length
     validate_enum(@accommodation_length_types, @accommodation_length, :accommodation_length)
+  end
+
+  def validate_number_adults
+    binding.pry
+    @minimum_number = different_address.casecmp("YES") ? 0 : 1
+
+    if @number_adults.nil? || @number_adults < @minimum_number
+      errors.add(:number_adults, I18n.t(:number_adults_residential, scope: :error))
+    end
   end
 
   def serialize
