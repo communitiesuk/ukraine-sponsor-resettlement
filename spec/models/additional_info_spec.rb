@@ -11,6 +11,16 @@ RSpec.describe AdditionalInfo, type: :model do
       expect(app.errors[:number_adults]).to include("There must be at least 1 adult living at your residential address")
     end
 
+    it "validates the number of adults is one when child at property" do
+      app = described_class.new
+      app.different_address = "no"
+      app.number_adults = 0
+      app.number_children = 1
+      expect(app.valid?).to be(false)
+      expect(app.errors[:number_adults].length).to be(1)
+      expect(app.errors[:number_adults]).to include("There must be at least 1 adult living at your residential address")
+    end
+
     it "validates the number of adults is empty" do
       app = described_class.new
       app.different_address = "no"
@@ -33,6 +43,15 @@ RSpec.describe AdditionalInfo, type: :model do
       app = described_class.new
       app.different_address = "no"
       app.number_adults = 2
+      expect(app.valid?).to be(true)
+      expect(app.errors[:number_adults].length).to be(0)
+    end
+
+    it "validates the number of adults when child is greater than 0" do
+      app = described_class.new
+      app.different_address = "no"
+      app.number_adults = 1
+      app.number_children = 5
       expect(app.valid?).to be(true)
       expect(app.errors[:number_adults].length).to be(0)
     end
@@ -101,7 +120,33 @@ RSpec.describe AdditionalInfo, type: :model do
       expect(app.errors[:number_adults].length).to be(0)
     end
 
-    it "validates the number of children is not empty" do
+    it "validates the number of children is not empty at residential property" do
+      app = described_class.new
+      app.different_address = "no"
+      app.number_children = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:number_children].length).to be(1)
+      expect(app.errors[:number_children]).to include("You must enter a number from 0-9")
+    end
+
+    it "validates the number of children is greater than 0 at residential property" do
+      app = described_class.new
+      app.different_address = "no"
+      app.number_children = 2
+      expect(app.valid?).to be(true)
+      expect(app.errors[:number_children].length).to be(0)
+    end
+
+    it "validates the number of children is less than or equal to 9 at residential property" do
+      app = described_class.new
+      app.different_address = "no"
+      app.number_children = 10
+      expect(app.valid?).to be(false)
+      expect(app.errors[:number_children].length).to be(1)
+      expect(app.errors[:number_children]).to include("You must enter a number from 0-9")
+    end
+
+    it "validates the number of children is not empty at non-residential property" do
       app = described_class.new
       app.different_address = "yes"
       app.number_children = ""
@@ -110,7 +155,15 @@ RSpec.describe AdditionalInfo, type: :model do
       expect(app.errors[:number_children]).to include("You must enter a number from 0-9")
     end
 
-    it "validates the number of children is greater than 9" do
+    it "validates the number of children is greater than 0 at non-residential property" do
+      app = described_class.new
+      app.different_address = "yes"
+      app.number_children = 2
+      expect(app.valid?).to be(true)
+      expect(app.errors[:number_children].length).to be(0)
+    end
+
+    it "validates the number of children is less than or equal to 9 at non-residential property" do
       app = described_class.new
       app.different_address = "yes"
       app.number_children = 10
@@ -119,12 +172,15 @@ RSpec.describe AdditionalInfo, type: :model do
       expect(app.errors[:number_children]).to include("You must enter a number from 0-9")
     end
 
-    it "validates the number of children is greater than 0" do
+    it "validates the number of children is valid when 0" do
+      app = described_class.new
+      app.different_address = "no"
+      app.number_children = 0
+      expect(app.valid?).to be(true)
       app = described_class.new
       app.different_address = "yes"
-      app.number_children = 2
+      app.number_children = 0
       expect(app.valid?).to be(true)
-      expect(app.errors[:number_children].length).to be(0)
     end
   end
 end
