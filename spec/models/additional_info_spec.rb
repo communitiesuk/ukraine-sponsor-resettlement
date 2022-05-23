@@ -11,6 +11,16 @@ RSpec.describe AdditionalInfo, type: :model do
       expect(app.errors[:number_adults]).to include("There must be at least 1 adult living at your residential address")
     end
 
+    it "validates the number of adults is one when child at property" do
+      app = described_class.new
+      app.different_address = "no"
+      app.number_adults = 0
+      app.number_children = 1
+      expect(app.valid?).to be(false)
+      expect(app.errors[:number_adults].length).to be(1)
+      expect(app.errors[:number_adults]).to include("There must be at least 1 adult living at your residential address")
+    end
+
     it "validates the number of adults is empty" do
       app = described_class.new
       app.different_address = "no"
