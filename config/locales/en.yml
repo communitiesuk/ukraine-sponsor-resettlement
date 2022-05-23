@@ -276,27 +276,9 @@ en:
     address_line_2: Please enter a valid address line 2
     address_town: Please enter a valid town or city
     address_postcode: Please enter a valid UK postcode
-<<<<<<< HEAD
-<<<<<<< HEAD
     number_adults_zero: You must enter a number from 0-9
     number_adults_one: You must enter a number from 1-9
     number_children: You must enter a number from 0-9
     child_without_adult: There must be at least 1 adult living with children
     number_adults_residential: There must be at least 1 adult living at your residential address
-=======
-<<<<<<< HEAD
-    number_adults: Please enter a valid number of adults
-=======
->>>>>>> e1280e4... Fix merge conflict
-    number_children: Please enter a valid number of children
-    child_without_adult: There must be at least 1 adult living at an address with children
-    number_adults_residential: There must be at least 1 adult living at your residential address
-    number_adults_non_residential: Please enter a valid number of adults
-<<<<<<< HEAD
-=======
-    number_adults_residential: There must be at least 1 adult living at your residential address
->>>>>>> c2351aa... *****WIP*****
->>>>>>> 7621095... Merge conflict
-=======
 
->>>>>>> e1280e4... Fix merge conflict
