@@ -124,7 +124,7 @@ private
   end
 
   def validate_number_adults
-    @is_residential_property    = different_address.casecmp("NO").zero?
+    @is_residential_property    = different_address.present? && different_address.casecmp("NO").zero?
     @is_number_adults_integer   = is_integer?(@number_adults)
     @is_number_children_integer = is_integer?(number_children)
 
