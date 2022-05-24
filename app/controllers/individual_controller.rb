@@ -1,5 +1,5 @@
 class IndividualController < ApplicationController
-  MAX_STEPS = 14
+  MAX_STEPS = 15
 
   def display
     @application = IndividualExpressionOfInterest.new(session[:individual_expression_of_interest])
@@ -63,9 +63,6 @@ class IndividualController < ApplicationController
       GovNotifyMailer.send_individual_confirmation_email(@application).deliver_later
       redirect_to "/individual/confirm"
     else
-      Rails.logger.debug "INVALID!"
-      Rails.logger.debug session[:individual_expression_of_interest]
-
       render "check_answers"
     end
   end
@@ -98,7 +95,8 @@ private
         :accommodation_length,
         :single_room_count,
         :double_room_count,
-        :step_free
+        :step_free,
+        :allow_pet
         )
   end
 end

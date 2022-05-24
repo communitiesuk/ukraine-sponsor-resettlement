@@ -99,6 +99,10 @@ en:
       number_children:
         short: Children
         full: Children
+      allow_pet:
+        short: Allow pets
+        full: Would you consider allowing guests to bring their pets?
+        hint: You will be given more information and asked to make a final decision about this later.
       agree_privacy_statement:
         short: Privacy statement
         full: Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme

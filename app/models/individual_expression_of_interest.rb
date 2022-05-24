@@ -32,6 +32,8 @@ class IndividualExpressionOfInterest < ApplicationRecord
                 :double_room_count,
                 :step_free_types,
                 :step_free,
+                :allow_pet_types,
+                :allow_pet,
                 :type,
                 :version,
                 :ip_address,
@@ -45,6 +47,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
   validate :validate_more_properties, if: -> { run_validation? :more_properties }
   validate :validate_number_adults, if: -> { run_validation? :number_adults }
   validates :number_children, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 9, message: I18n.t(:number_children, scope: :error) }, if: -> { run_validation? :number_children }
+  validate :validate_allow_pet_pet, if: -> { run_validation? :allow_pet }
 
   after_initialize :after_initialize
   before_save :serialize
@@ -61,6 +64,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
     @different_address_types = %i[yes no]
     @more_properties_types = %i[yes no]
     @step_free_types = %i[all some none unknown]
+    @allow_pet_types = %i[yes no]
   end
 
   def as_json
@@ -90,6 +94,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
       single_room_count:,
       double_room_count:,
       step_free:,
+      allow_pet:,
       ip_address:,
       user_agent:,
       started_at:,
@@ -108,6 +113,10 @@ private
 
   def validate_accommodation_length
     validate_enum(@accommodation_length_types, @accommodation_length, :accommodation_length)
+  end
+
+  def validate_allow_pet_pet
+    validate_enum(@allow_pet_types, @allow_pet, :allow_pet)
   end
 
   def validate_number_adults
