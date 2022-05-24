@@ -46,10 +46,12 @@ en:
         full: Does the property, or any of the properties, have step-free access?
       single_room_count:
         short: Single rooms available
-        full: How many single rooms do you have available?
+        full: How many single rooms do you have available in the property you have specified?
+        hint: If you are offering multiple properties you will be able to specify those rooms at a later date
       double_room_count:
         short: Double rooms available
-        full: How many double bedrooms (or larger) do you have available?
+        full: How many double bedrooms (or larger) do you have available in the property you have specified?
+        hint: If you are offering multiple properties you will be able to specify those rooms at a later date
       postcode:
         short: Property postcode(s)
         full: Enter the first part of the postcode of the property you’re offering

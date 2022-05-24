@@ -1,5 +1,5 @@
 class IndividualController < ApplicationController
-  MAX_STEPS = 12
+  MAX_STEPS = 13
 
   def display
     @application = IndividualExpressionOfInterest.new(session[:individual_expression_of_interest])
@@ -47,6 +47,13 @@ class IndividualController < ApplicationController
     @application.ip_address = request.ip
     @application.user_agent = request.user_agent
     @application.final_submission = true
+
+    # Set default answers for skipped questions
+    @application.more_properties = "no" if @application.more_properties.blank?
+    @application.property_one_line_1 = "same as main residence" if @application.property_one_line_1.blank?
+    @application.property_one_town = "same as main residence" if @application.property_one_town.blank?
+    @application.property_one_postcode = @application.residential_postcode if @application.property_one_postcode.blank?
+
     if @application.valid?
       @application.save!
       session[:app_reference] = @application.reference
@@ -56,6 +63,9 @@ class IndividualController < ApplicationController
       GovNotifyMailer.send_individual_confirmation_email(@application).deliver_later
       redirect_to "/individual/confirm"
     else
+      Rails.logger.debug "INVALID!"
+      Rails.logger.debug session[:individual_expression_of_interest]
+
       render "check_answers"
     end
   end
@@ -68,13 +78,7 @@ private
 
   def application_params
     params.require(:individual_expression_of_interest).permit(
-        :family_type,
-        :step_free,
-        :single_room_count,
-        :double_room_count,
-        :postcode,
-        :accommodation_length,
-        :answer_more_questions_type,
+        :reference,
         :fullname,
         :email,
         :phone_number,
@@ -83,18 +87,17 @@ private
         :residential_town,
         :residential_postcode,
         :different_address,
-        :user_research,
         :property_one_line_1,
         :property_one_line_2,
         :property_one_town,
         :property_one_postcode,
+        :more_properties,
         :number_adults,
         :number_children,
-        :allow_pet,
-        :more_properties,
-        :reference,
-        :agree_privacy_statement,
-        :agree_future_contact,
-        living_space: [])
+        :family_type,
+        :accommodation_length,
+        :single_room_count,
+        :double_room_count,
+        )
   end
 end

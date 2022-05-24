@@ -7,21 +7,9 @@ class IndividualExpressionOfInterest < ApplicationRecord
 
   SCHEMA_VERSION = 3
 
-  attr_accessor :family_types,
-                :living_space_types,
-                :step_free_types,
-                :accommodation_length_types,
-                :family_type,
-                :step_free,
-                :accommodation_length,
-                :single_room_count,
-                :double_room_count,
-                :postcode,
-                :phone_number,
-                :agree_future_contact,
-                :agree_privacy_statement,
-                :fullname,
+  attr_accessor :fullname,
                 :email,
+                :phone_number,
                 :residential_line_1,
                 :residential_line_2,
                 :residential_town,
@@ -36,6 +24,12 @@ class IndividualExpressionOfInterest < ApplicationRecord
                 :more_properties,
                 :number_adults,
                 :number_children,
+                :family_types,
+                :family_type,
+                :accommodation_length_types,
+                :accommodation_length,
+                :single_room_count,
+                :double_room_count,
                 :type,
                 :version,
                 :ip_address,
@@ -60,8 +54,6 @@ class IndividualExpressionOfInterest < ApplicationRecord
 
   def after_initialize
     @family_types = %i[single_adult more_than_one_adult adults_with_children no_preference]
-    @living_space_types = %i[rooms_in_home_shared_facilities self_contained_property multiple_properties]
-    @step_free_types = %i[all some none unknown]
     @accommodation_length_types = %i[from_6_to_9_months from_10_to_12_months more_than_12_months]
     @final_submission = false
     @different_address_types = %i[yes no]
@@ -91,22 +83,13 @@ class IndividualExpressionOfInterest < ApplicationRecord
       number_adults:,
       number_children:,
       family_type:,
-      living_space:,
-      step_free:,
+      accommodation_length:,
       single_room_count:,
       double_room_count:,
-      postcode:,
-      accommodation_length:,
-      agree_future_contact:,
-      agree_privacy_statement:,
       ip_address:,
       user_agent:,
       started_at:,
     }.compact
-  end
-
-  def living_space=(value)
-    @living_space = value.is_a?(Array) ? value.reject(&:empty?) : value
   end
 
 private

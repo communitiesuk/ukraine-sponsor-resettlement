@@ -3,11 +3,10 @@ require "rails_helper"
 RSpec.describe IndividualExpressionOfInterest, type: :model do
   describe "deserialising json into attributes" do
     it "sets attributes based on the json column on load" do
-      answers = { family_type: "single_adult", living_space: "rooms_in_home_shared_facilities" }
+      answers = { family_type: "single_adult" }
       id = ActiveRecord::Base.connection.insert("INSERT INTO individual_expressions_of_interest (answers, created_at, updated_at) VALUES ('#{JSON.generate(answers)}', NOW(), NOW())")
       record = described_class.find(id)
       expect(record.family_type).to eq(answers[:family_type])
-      expect(record.living_space).to eq(answers[:living_space])
     end
   end
 
@@ -26,23 +25,14 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
       expect(app.valid?).to be(true)
     end
 
-    it "validates that the living_space attribute matches the allowed values if set" do
-      app = described_class.new
-      app.living_space = []
-      expect(app.valid?).to be(false)
-      expect(app.errors[:living_space]).to include("Please choose one or more of the options")
-      app.living_space = %w[rooms_in_home_shared_facilities]
-      expect(app.valid?).to be(true)
-    end
-
-    it "validates that the step_free attribute matches the allowed values if set" do
-      app = described_class.new
-      app.step_free = ""
-      expect(app.valid?).to be(false)
-      expect(app.errors[:step_free]).to include("Please choose one of the options")
-      app.step_free = "all"
-      expect(app.valid?).to be(true)
-    end
+    # it "validates that the step_free attribute matches the allowed values if set" do
+    #   app = described_class.new
+    #   app.step_free = ""
+    #   expect(app.valid?).to be(false)
+    #   expect(app.errors[:step_free]).to include("Please choose one of the options")
+    #   app.step_free = "all"
+    #   expect(app.valid?).to be(true)
+    # end
 
     it "validates that the accommodation_length attribute matches the allowed values if set" do
       app = described_class.new
@@ -75,33 +65,6 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
       expect(app.valid?).to be(true)
     end
 
-    it "validates that the postcode attribute is at least 2 and less than 100 characters" do
-      app = described_class.new
-      app.postcode = ""
-      expect(app.valid?).to be(false)
-      expect(app.errors[:postcode]).to include("Please enter a valid UK postcode(s)")
-      app.postcode = "A"
-      expect(app.valid?).to be(false)
-      app.postcode = "X" * 101
-      expect(app.valid?).to be(false)
-      app.postcode = "AB"
-      expect(app.valid?).to be(true)
-    end
-
-    it "validates that the postcode attribute list only contains A-Z, 0-9 or commas" do
-      app = described_class.new
-      app.postcode = "A%"
-      expect(app.valid?).to be(false)
-      expect(app.errors[:postcode]).to include("Please enter a valid UK postcode(s)")
-      app.postcode = "^"
-      expect(app.valid?).to be(false)
-      expect(app.errors[:postcode]).to include("Please enter a valid UK postcode(s)")
-      app.postcode = "A1"
-      expect(app.valid?).to be(true)
-      app.postcode = "A1,A2"
-      expect(app.valid?).to be(true)
-    end
-
     it "validates that the phone_number attribute is correct" do
       app = described_class.new
       app.phone_number = "12345678"
@@ -127,27 +90,27 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
       expect(app.valid?).to be(true)
     end
 
-    it "validates that the agree_future_contact attribute is correct" do
-      app = described_class.new
-      app.agree_future_contact = ""
-      expect(app.valid?).to be(false)
-      expect(app.errors[:agree_future_contact]).to include("Must be accepted")
-      app.agree_future_contact = "false"
-      expect(app.valid?).to be(false)
-      app.agree_future_contact = "true"
-      expect(app.valid?).to be(true)
-    end
+    # it "validates that the agree_future_contact attribute is correct" do
+    #   app = described_class.new
+    #   app.agree_future_contact = ""
+    #   expect(app.valid?).to be(false)
+    #   expect(app.errors[:agree_future_contact]).to include("Must be accepted")
+    #   app.agree_future_contact = "false"
+    #   expect(app.valid?).to be(false)
+    #   app.agree_future_contact = "true"
+    #   expect(app.valid?).to be(true)
+    # end
 
-    it "validates that the agree_privacy_statement attribute is correct" do
-      app = described_class.new
-      app.agree_privacy_statement = ""
-      expect(app.valid?).to be(false)
-      expect(app.errors[:agree_privacy_statement]).to include("Must be accepted")
-      app.agree_privacy_statement = "false"
-      expect(app.valid?).to be(false)
-      app.agree_privacy_statement = "true"
-      expect(app.valid?).to be(true)
-    end
+    # it "validates that the agree_privacy_statement attribute is correct" do
+    #   app = described_class.new
+    #   app.agree_privacy_statement = ""
+    #   expect(app.valid?).to be(false)
+    #   expect(app.errors[:agree_privacy_statement]).to include("Must be accepted")
+    #   app.agree_privacy_statement = "false"
+    #   expect(app.valid?).to be(false)
+    #   app.agree_privacy_statement = "true"
+    #   expect(app.valid?).to be(true)
+    # end
 
     it "validates that the fullname attribute is two words" do
       app = described_class.new
@@ -378,18 +341,10 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
     end
   end
 
-  describe "setting living_space" do
-    it "removes empty elements from the array" do
-      app = described_class.new
-      app.living_space = ["", "", "rooms_in_home_shared_facilities"]
-      expect(app.living_space).to eq(%w[rooms_in_home_shared_facilities])
-    end
-  end
-
   describe "#as_json" do
     it "includes all of the answer values" do
-      app = described_class.new(family_type: :single_adult, living_space: :rooms_in_home_shared_facilities)
-      expect(app.as_json).to eq({ family_type: :single_adult, living_space: :rooms_in_home_shared_facilities })
+      app = described_class.new(family_type: :single_adult)
+      expect(app.as_json).to eq({ family_type: :single_adult})
     end
 
     it "does not include empty values" do

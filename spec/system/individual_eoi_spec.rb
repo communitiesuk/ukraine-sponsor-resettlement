@@ -38,6 +38,16 @@ RSpec.describe "Individual expression of interest", type: :system do
       choose("Single adult")
       click_button("Continue")
 
+      expect(page).to have_content("How long can you offer accommodation for?")
+      choose("From 6 to 9 months")
+      click_button("Continue")
+
+      fill_in("How many single rooms do you have available in the property you have specified?", with: 3)
+      click_button("Continue")
+
+      fill_in("How many double bedrooms (or larger) do you have available in the property you have specified?", with: 2)
+      click_button("Continue")
+
       expect(page).to have_content("Name John Smith")
       expect(page).to have_content("Email john.smith@example.com")
       expect(page).to have_content("Telephone number 01234567890")
@@ -46,6 +56,9 @@ RSpec.describe "Individual expression of interest", type: :system do
       expect(page).to have_content("Adults 1")
       expect(page).to have_content("Children 9")
       expect(page).to have_content("Who can you accommodate? Single adult")
+      expect(page).to have_content("Accommodation length From 6 to 9 months")
+      expect(page).to have_content("Single rooms available 3")
+      expect(page).to have_content("Double rooms available 2")
 
       click_button("Accept And Send")
 
@@ -63,6 +76,9 @@ RSpec.describe "Individual expression of interest", type: :system do
                                                  number_adults: "1",
                                                  number_children: "9",
                                                  family_type: "single_adult",
+                                                 accommodation_length: "from_6_to_9_months",
+                                                 single_room_count: "3",
+                                                 double_room_count: "2",
                                              })
 
       expect(application.ip_address).to eq("127.0.0.1")
@@ -115,6 +131,16 @@ RSpec.describe "Individual expression of interest", type: :system do
       choose("Single adult")
       click_button("Continue")
 
+      expect(page).to have_content("How long can you offer accommodation for?")
+      choose("From 6 to 9 months")
+      click_button("Continue")
+
+      fill_in("How many single rooms do you have available in the property you have specified?", with: 3)
+      click_button("Continue")
+
+      fill_in("How many double bedrooms (or larger) do you have available in the property you have specified?", with: 2)
+      click_button("Continue")
+
       expect(page).to have_content("Name John Smith")
       expect(page).to have_content("Email john.smith@example.com")
       expect(page).to have_content("Telephone number 01234567890")
@@ -125,6 +151,9 @@ RSpec.describe "Individual expression of interest", type: :system do
       expect(page).to have_content("Adults 1")
       expect(page).to have_content("Children 9")
       expect(page).to have_content("Who can you accommodate? Single adult")
+      expect(page).to have_content("Accommodation length From 6 to 9 months")
+      expect(page).to have_content("Single rooms available 3")
+      expect(page).to have_content("Double rooms available 2")
 
       click_button("Accept And Send")
 
@@ -146,6 +175,9 @@ RSpec.describe "Individual expression of interest", type: :system do
         number_adults: "1",
         number_children: "9",
         family_type: "single_adult",
+        accommodation_length: "from_6_to_9_months",
+        single_room_count: "3",
+        double_room_count: "2",
       })
 
       expect(application.ip_address).to eq("127.0.0.1")
