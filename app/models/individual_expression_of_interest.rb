@@ -30,6 +30,8 @@ class IndividualExpressionOfInterest < ApplicationRecord
                 :accommodation_length,
                 :single_room_count,
                 :double_room_count,
+                :step_free_types,
+                :step_free,
                 :type,
                 :version,
                 :ip_address,
@@ -58,6 +60,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
     @final_submission = false
     @different_address_types = %i[yes no]
     @more_properties_types = %i[yes no]
+    @step_free_types = %i[all some none unknown]
   end
 
   def as_json
@@ -86,6 +89,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
       accommodation_length:,
       single_room_count:,
       double_room_count:,
+      step_free:,
       ip_address:,
       user_agent:,
       started_at:,

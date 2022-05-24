@@ -25,14 +25,14 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
       expect(app.valid?).to be(true)
     end
 
-    # it "validates that the step_free attribute matches the allowed values if set" do
-    #   app = described_class.new
-    #   app.step_free = ""
-    #   expect(app.valid?).to be(false)
-    #   expect(app.errors[:step_free]).to include("Please choose one of the options")
-    #   app.step_free = "all"
-    #   expect(app.valid?).to be(true)
-    # end
+    it "validates that the step_free attribute matches the allowed values if set" do
+      app = described_class.new
+      app.step_free = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:step_free]).to include("Please choose one of the options")
+      app.step_free = "all"
+      expect(app.valid?).to be(true)
+    end
 
     it "validates that the accommodation_length attribute matches the allowed values if set" do
       app = described_class.new

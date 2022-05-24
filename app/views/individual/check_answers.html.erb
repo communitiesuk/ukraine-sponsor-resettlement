@@ -240,6 +240,24 @@
             </a>
           </dd>
         </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= t('step_free.short', scope: "individual.questions") %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <% if @application.errors.include?(:step_free) %>
+              <span class="govuk-error-message"><%= @application.errors[:step_free].join %></span>
+            <% else %>
+              <%= t(@application.step_free, scope: "individual.step_free") %>
+            <% end %>
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/individual/steps/14">
+              Change<span class="govuk-visually-hidden"> mobility impairment choice</span>
+            </a>
+          </dd>
+        </div>
       </dl>
 
     <h2 class="govuk-heading-m">Now send your application</h2>
