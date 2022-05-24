@@ -156,6 +156,15 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
       app.email = "first@last.com"
       expect(app.valid?).to be(true)
     end
+
+    it "validates that the allow pet attribute is selected" do
+      app = described_class.new
+      app.allow_pet = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:allow_pet]).to include("Please choose one of the options")
+      app.allow_pet = "yes"
+      expect(app.valid?).to be(true)
+    end
   end
 
   describe "validations for residential property" do
