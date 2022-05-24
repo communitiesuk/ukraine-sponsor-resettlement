@@ -2,7 +2,7 @@
   <div class="govuk-grid-column-two-thirds">
     <%= render partial: "shared/back_link" %>
 
-    <%= form_for @application, url: "/individual/steps/1", method: :post do |f| %>
+    <%= form_for @application, url: "/individual/steps/10", method: :post do |f| %>
       <%= f.govuk_collection_radio_buttons :family_type,
           @application.family_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "individual.family_type")) },
           :id,
