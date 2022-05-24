@@ -63,6 +63,9 @@ RSpec.describe "Individual expression of interest", type: :system do
       choose("Yes")
       click_button("Continue")
 
+      page.check("individual-expression-of-interest-agree-privacy-statement-true-field")
+      click_button("Continue")
+
       expect(page).to have_content("Name John Smith")
       expect(page).to have_content("Email john.smith@example.com")
       expect(page).to have_content("Telephone number 01234567890")
@@ -78,6 +81,7 @@ RSpec.describe "Individual expression of interest", type: :system do
       expect(page).to have_content("Allow pets no")
       expect(page).to have_content("Future contact Agreed")
       expect(page).to have_content("User research yes")
+      expect(page).to have_content("Privacy statement Agreed")
 
       click_button("Accept And Send")
 
@@ -102,6 +106,7 @@ RSpec.describe "Individual expression of interest", type: :system do
                                                  allow_pet: "no",
                                                  agree_future_contact: "true",
                                                  user_research: "yes",
+                                                 agree_privacy_statement: "true",
                                              })
 
       expect(application.ip_address).to eq("127.0.0.1")
@@ -179,6 +184,9 @@ RSpec.describe "Individual expression of interest", type: :system do
       choose("Yes")
       click_button("Continue")
 
+      page.check("individual-expression-of-interest-agree-privacy-statement-true-field")
+      click_button("Continue")
+
       expect(page).to have_content("Name John Smith")
       expect(page).to have_content("Email john.smith@example.com")
       expect(page).to have_content("Telephone number 01234567890")
@@ -196,6 +204,7 @@ RSpec.describe "Individual expression of interest", type: :system do
       expect(page).to have_content("Allow pets no")
       expect(page).to have_content("Future contact Agreed")
       expect(page).to have_content("User research yes")
+      expect(page).to have_content("Privacy statement Agreed")
 
       click_button("Accept And Send")
 
@@ -224,6 +233,7 @@ RSpec.describe "Individual expression of interest", type: :system do
         allow_pet: "no",
         agree_future_contact: "true",
         user_research: "yes",
+        agree_privacy_statement: "true",
       })
 
       expect(application.ip_address).to eq("127.0.0.1")

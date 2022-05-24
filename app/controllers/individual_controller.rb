@@ -1,5 +1,5 @@
 class IndividualController < ApplicationController
-  MAX_STEPS = 17
+  MAX_STEPS = 18
 
   def display
     @application = IndividualExpressionOfInterest.new(session[:individual_expression_of_interest])
@@ -99,6 +99,7 @@ private
         :allow_pet,
         :agree_future_contact,
         :user_research,
+        :agree_privacy_statement
         )
   end
 end
