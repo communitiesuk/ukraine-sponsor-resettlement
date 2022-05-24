@@ -289,6 +289,20 @@
             </a>
           </dd>
         </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= t('user_research.short', scope: "additional_info.questions") %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= @application.user_research %>
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/individual/steps/17">
+              Change<span class="govuk-visually-hidden"> user research</span>
+            </a>
+          </dd>
+        </div>
       </dl>
 
     <h2 class="govuk-heading-m">Now send your application</h2>

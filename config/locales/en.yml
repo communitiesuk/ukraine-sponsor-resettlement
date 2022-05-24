@@ -103,6 +103,10 @@ en:
         short: Future contact
         full: Can we contact you about your registration?
         comment: Please tick this box in order for us to contact you about your registration of interest to be a sponsor.
+      user_research:
+        short: User research
+        full: Would you like to take part in research to help us improve the Homes for Ukraine service?
+        hint: This could involve completing a survey or taking part in a video call with a user research team. If you choose ‘Yes’, you’re agreeing to be contacted using the email address or telephone number you provided in this form.
       agree_privacy_statement:
         short: Privacy statement
         full: Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme
