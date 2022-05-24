@@ -271,6 +271,24 @@
             </a>
           </dd>
         </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= t('agree_future_contact.short', scope: "individual.questions") %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <% if @application.errors.include?(:agree_future_contact) %>
+              <span class="govuk-error-message"><%= @application.errors[:agree_future_contact].join %></span>
+            <% else %>
+              <%= @application.agree_future_contact == "true" ? "Agreed" : "Not agreed" %>
+            <% end %>
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/individual/steps/16">
+              Change<span class="govuk-visually-hidden"> future contact agreement</span>
+            </a>
+          </dd>
+        </div>
       </dl>
 
     <h2 class="govuk-heading-m">Now send your application</h2>

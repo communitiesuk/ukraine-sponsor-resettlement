@@ -56,6 +56,9 @@ RSpec.describe "Individual expression of interest", type: :system do
       choose("No")
       click_button("Continue")
 
+      page.check("individual-expression-of-interest-agree-future-contact-true-field")
+      click_button("Continue")
+
       expect(page).to have_content("Name John Smith")
       expect(page).to have_content("Email john.smith@example.com")
       expect(page).to have_content("Telephone number 01234567890")
@@ -69,6 +72,7 @@ RSpec.describe "Individual expression of interest", type: :system do
       expect(page).to have_content("Double rooms available 2")
       expect(page).to have_content("Mobility impaired accessible property Yes, all")
       expect(page).to have_content("Allow pets no")
+      expect(page).to have_content("Future contact Agreed")
 
       click_button("Accept And Send")
 
@@ -91,6 +95,7 @@ RSpec.describe "Individual expression of interest", type: :system do
                                                  double_room_count: "2",
                                                  step_free: "all",
                                                  allow_pet: "no",
+                                                 agree_future_contact: "true",
                                              })
 
       expect(application.ip_address).to eq("127.0.0.1")
@@ -161,6 +166,9 @@ RSpec.describe "Individual expression of interest", type: :system do
       choose("No")
       click_button("Continue")
 
+      page.check("individual-expression-of-interest-agree-future-contact-true-field")
+      click_button("Continue")
+
       expect(page).to have_content("Name John Smith")
       expect(page).to have_content("Email john.smith@example.com")
       expect(page).to have_content("Telephone number 01234567890")
@@ -176,6 +184,7 @@ RSpec.describe "Individual expression of interest", type: :system do
       expect(page).to have_content("Double rooms available 2")
       expect(page).to have_content("Mobility impaired accessible property Yes, all")
       expect(page).to have_content("Allow pets no")
+      expect(page).to have_content("Future contact Agreed")
 
       click_button("Accept And Send")
 
@@ -202,6 +211,7 @@ RSpec.describe "Individual expression of interest", type: :system do
         double_room_count: "2",
         step_free: "all",
         allow_pet: "no",
+        agree_future_contact: "true",
       })
 
       expect(application.ip_address).to eq("127.0.0.1")

@@ -59,10 +59,6 @@ en:
       accommodation_length:
         short: Accommodation length
         full: How long can you offer accommodation for?
-      agree_future_contact:
-        short: Future contact
-        full: Can we contact you about your registration?
-        comment: Please tick this box in order for us to contact you about your registration of interest to be a sponsor. If you do not tick this box, we will not be able to invite you to become a sponsor.
       fullname:
         short: Name
         full: Enter your full name
@@ -103,6 +99,10 @@ en:
         short: Allow pets
         full: Would you consider allowing guests to bring their pets?
         hint: You will be given more information and asked to make a final decision about this later.
+      agree_future_contact:
+        short: Future contact
+        full: Can we contact you about your registration?
+        comment: Please tick this box in order for us to contact you about your registration of interest to be a sponsor.
       agree_privacy_statement:
         short: Privacy statement
         full: Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme
