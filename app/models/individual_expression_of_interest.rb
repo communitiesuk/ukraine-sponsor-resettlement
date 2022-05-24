@@ -35,6 +35,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
                 :more_properties_types,
                 :more_properties,
                 :number_adults,
+                :number_children,
                 :type,
                 :version,
                 :ip_address,
@@ -47,6 +48,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
   validate :validate_accommodation_length, if: -> { run_validation? :accommodation_length }
   validate :validate_more_properties, if: -> { run_validation? :more_properties }
   validate :validate_number_adults, if: -> { run_validation? :number_adults }
+  validates :number_children, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 9, message: I18n.t(:number_children, scope: :error) }, if: -> { run_validation? :number_children }
 
   after_initialize :after_initialize
   before_save :serialize
@@ -87,6 +89,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
       property_one_postcode:,
       more_properties:,
       number_adults:,
+      number_children:,
       family_type:,
       living_space:,
       step_free:,
@@ -121,11 +124,23 @@ private
   end
 
   def validate_number_adults
-    @minimum_number = different_address.casecmp("YES").zero? ? 0 : 1
+    @is_residential_property    = different_address.casecmp("NO").zero?
+    @is_number_adults_integer   = is_integer?(@number_adults)
+    @is_number_children_integer = is_integer?(number_children)
 
-    if @number_adults.nil? || @number_adults < @minimum_number
+    if @is_residential_property && (!@is_number_adults_integer || @number_adults.to_i > 9)
+      errors.add(:number_adults, I18n.t(:number_adults_one, scope: :error))
+    elsif @is_residential_property && @is_number_adults_integer && @number_adults.to_i.zero?
       errors.add(:number_adults, I18n.t(:number_adults_residential, scope: :error))
+    elsif !@is_residential_property && (!@is_number_adults_integer || @number_adults.to_i > 9)
+      errors.add(:number_adults, I18n.t(:number_adults_zero, scope: :error))
+    elsif !@is_residential_property && @is_number_adults_integer && @number_adults.to_i.zero? && @is_number_children_integer && number_children.to_i.positive?
+      errors.add(:number_adults, I18n.t(:child_without_adult, scope: :error))
     end
+  end
+
+  def is_integer?(value)
+    true if Integer(value, exception: false)
   end
 
   def serialize

@@ -6,7 +6,7 @@ RSpec.describe "Individual expression of interest", type: :system do
   end
 
   describe "submitting the form" do
-    it "saves all of the answers in the database" do
+    it "saves all of the answers in the database - different property" do
       visit root_path
       expect(page).to have_content("Homes for Ukraine")
       click_link("Register your interest as an individual")
@@ -42,36 +42,10 @@ RSpec.describe "Individual expression of interest", type: :system do
       expect(page).to have_content("You will be able to share information about any more properties you have to offer when your local authority contacts you")
       click_button("Continue")
 
-      # expect(page).to have_content("Who would you like to offer accommodation to?")
-      # choose("Single adult")
-      # click_button("Continue")
-      #
-      # expect(page).to have_content("What type of living space can you offer?")
-      # page.check("individual-expression-of-interest-living-space-rooms-in-home-shared-facilities-field")
-      # click_button("Continue")
-      #
-      # expect(page).to have_content("Does the property, or any of the properties, have step-free access?")
-      # choose("Yes, all")
-      # click_button("Continue")
-      #
-      # fill_in("How many single rooms do you have available?", with: 3)
-      # click_button("Continue")
-      #
-      # fill_in("How many double bedrooms (or larger) do you have available?", with: 2)
-      # click_button("Continue")
-      #
-      # fill_in("Enter the first part of the postcode of the property you’re offering (If you are offering multiple properties, please enter all the postcodes separated by a comma)", with: "SG")
-      # click_button("Continue")
-      #
-      # expect(page).to have_content("How long can you offer accommodation for?")
-      # choose("From 6 to 9 months")
-      # click_button("Continue")
-      #
-      # page.check("individual-expression-of-interest-agree-future-contact-true-field")
-      # click_button("Continue")
-      #
-      # page.check("individual-expression-of-interest-agree-privacy-statement-true-field")
-      # click_button("Continue")
+      expect(page).to have_content("How many people will be living at the address you’re offering (not including guests)?")
+      fill_in("Adults", with: "1")
+      fill_in("Children", with: "9")
+      click_button("Continue")
 
       expect(page).to have_content("Name John Smith")
       expect(page).to have_content("Email john.smith@example.com")
@@ -80,16 +54,8 @@ RSpec.describe "Individual expression of interest", type: :system do
       expect(page).to have_content("Different address yes")
       expect(page).to have_content("Property one address Property 1 House number and Street name")
       expect(page).to have_content("More properties yes")
-
-      # expect(page).to have_content("Who can you accommodate? Single adult")
-      # expect(page).to have_content("Living space Room(s) in your home with access to shared facilities (bathroom and kitchen)")
-      # expect(page).to have_content("Mobility impaired accessible property Yes, all")
-      # expect(page).to have_content("Single rooms available 3")
-      # expect(page).to have_content("Double rooms available 2")
-      # expect(page).to have_content("Property postcode(s) SG")
-      # expect(page).to have_content("Accommodation length From 6 to 9 months")
-      # expect(page).to have_content("Future contact Agreed")
-      # expect(page).to have_content("Privacy statement Agreed")
+      expect(page).to have_content("Adults 1")
+      expect(page).to have_content("Children 9")
 
       click_button("Accept And Send")
 
@@ -108,6 +74,8 @@ RSpec.describe "Individual expression of interest", type: :system do
         property_one_town: "Property 1 Some Town or City",
         property_one_postcode: "AA1 1AA",
         more_properties: "yes",
+        number_adults: "1",
+        number_children: "9"
       })
 
       expect(application.ip_address).to eq("127.0.0.1")
