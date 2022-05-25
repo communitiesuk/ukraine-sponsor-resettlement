@@ -41,13 +41,13 @@ class IndividualExpressionOfInterest < ApplicationRecord
                 :user_research,
                 :agree_privacy_statement,
                 :postcode,
+                :living_space,
                 :type,
                 :version,
                 :ip_address,
                 :user_agent,
                 :started_at,
                 :final_submission
-  attr_reader   :living_space
 
   validate :validate_different_address, if: -> { run_validation? :different_address }
   validate :validate_accommodation_length, if: -> { run_validation? :accommodation_length }
@@ -75,6 +75,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
     @allow_pet_types = %i[yes no]
     @user_research_types = %i[yes no]
     @postcode = "not asked"
+    @living_space = "rooms_in_home_shared_facilities"
   end
 
   def as_json

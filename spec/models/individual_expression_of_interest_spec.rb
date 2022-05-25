@@ -15,6 +15,11 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
       app = described_class.new
       expect(app.postcode).to eq("not asked")
     end
+
+    it "set living space to 'rooms_in_home_shared_facilities'" do
+      app = described_class.new
+      expect(app.living_space).to eq("rooms_in_home_shared_facilities")
+    end
   end
 
   describe "validations" do
