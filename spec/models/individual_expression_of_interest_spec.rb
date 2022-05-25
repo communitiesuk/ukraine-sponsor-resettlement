@@ -10,6 +10,13 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
     end
   end
 
+  describe "values for questions no longer asked" do
+    it "set postcode to 'not asked'" do
+      app = described_class.new
+      expect(app.postcode).to eq("not asked")
+    end
+  end
+
   describe "validations" do
     it "Doesn't validate fields if they are not set" do
       app = described_class.new
@@ -90,27 +97,27 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
       expect(app.valid?).to be(true)
     end
 
-    # it "validates that the agree_future_contact attribute is correct" do
-    #   app = described_class.new
-    #   app.agree_future_contact = ""
-    #   expect(app.valid?).to be(false)
-    #   expect(app.errors[:agree_future_contact]).to include("Must be accepted")
-    #   app.agree_future_contact = "false"
-    #   expect(app.valid?).to be(false)
-    #   app.agree_future_contact = "true"
-    #   expect(app.valid?).to be(true)
-    # end
+    it "validates that the agree_future_contact attribute is correct" do
+      app = described_class.new
+      app.agree_future_contact = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:agree_future_contact]).to include("Must be accepted")
+      app.agree_future_contact = "false"
+      expect(app.valid?).to be(false)
+      app.agree_future_contact = "true"
+      expect(app.valid?).to be(true)
+    end
 
-    # it "validates that the agree_privacy_statement attribute is correct" do
-    #   app = described_class.new
-    #   app.agree_privacy_statement = ""
-    #   expect(app.valid?).to be(false)
-    #   expect(app.errors[:agree_privacy_statement]).to include("Must be accepted")
-    #   app.agree_privacy_statement = "false"
-    #   expect(app.valid?).to be(false)
-    #   app.agree_privacy_statement = "true"
-    #   expect(app.valid?).to be(true)
-    # end
+    it "validates that the agree_privacy_statement attribute is correct" do
+      app = described_class.new
+      app.agree_privacy_statement = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:agree_privacy_statement]).to include("Must be accepted")
+      app.agree_privacy_statement = "false"
+      expect(app.valid?).to be(false)
+      app.agree_privacy_statement = "true"
+      expect(app.valid?).to be(true)
+    end
 
     it "validates that the fullname attribute is two words" do
       app = described_class.new
@@ -352,8 +359,8 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
 
   describe "#as_json" do
     it "includes all of the answer values" do
-      app = described_class.new(family_type: :single_adult)
-      expect(app.as_json).to eq({ family_type: :single_adult })
+      app = described_class.new(family_type: :single_adult, )
+      expect(app.as_json).to eq({ family_type: :single_adult, postcode: "not asked" })
     end
   end
 end

@@ -40,6 +40,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
                 :user_research_types,
                 :user_research,
                 :agree_privacy_statement,
+                :postcode,
                 :type,
                 :version,
                 :ip_address,
@@ -73,6 +74,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
     @step_free_types = %i[all some none unknown]
     @allow_pet_types = %i[yes no]
     @user_research_types = %i[yes no]
+    @postcode = "not asked"
   end
 
   def as_json
@@ -106,6 +108,7 @@ class IndividualExpressionOfInterest < ApplicationRecord
       agree_future_contact:,
       user_research:,
       agree_privacy_statement:,
+      postcode:,
       ip_address:,
       user_agent:,
       started_at:,
