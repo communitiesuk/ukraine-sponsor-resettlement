@@ -52,30 +52,6 @@ private
     end
   end
 
-  def validate_residential_line_1
-    if @residential_line_1.nil? || @residential_line_1.strip.length < MIN_ENTRY_DIGITS || @residential_line_1.strip.length > MAX_ENTRY_DIGITS
-      errors.add(:residential_line_1, I18n.t(:address_line_1, scope: :error))
-    end
-  end
-
-  def validate_residential_line_2
-    if @residential_line_2.present? && @residential_line_2.strip.length > MAX_ENTRY_DIGITS
-      errors.add(:residential_line_2, I18n.t(:address_line_2, scope: :error))
-    end
-  end
-
-  def validate_residential_town
-    if @residential_town.nil? || @residential_town.strip.length < MIN_ENTRY_DIGITS || @residential_town.strip.length > MAX_ENTRY_DIGITS
-      errors.add(:residential_town, I18n.t(:address_town, scope: :error))
-    end
-  end
-
-  def validate_residential_postcode
-    if @residential_postcode.nil? || @residential_postcode.strip.length < MIN_ENTRY_DIGITS || @residential_postcode.strip.length > MAX_ENTRY_DIGITS || !@residential_postcode.match(POSTCODE_REGEX)
-      errors.add(:residential_postcode, I18n.t(:address_postcode, scope: :error))
-    end
-  end
-
   def run_validation?(attribute)
     @final_submission || send(attribute)
   end

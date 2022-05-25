@@ -2,6 +2,7 @@ require "securerandom"
 
 class IndividualExpressionOfInterest < ApplicationRecord
   include IndividualValidations
+  include ContactDetailsValidations
 
   self.table_name = "individual_expressions_of_interest"
 
