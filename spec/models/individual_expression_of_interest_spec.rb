@@ -353,11 +353,6 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
   describe "#as_json" do
     it "includes all of the answer values" do
       app = described_class.new(family_type: :single_adult)
-      expect(app.as_json).to eq({ family_type: :single_adult})
-    end
-
-    it "does not include empty values" do
-      app = described_class.new(family_type: :single_adult)
       expect(app.as_json).to eq({ family_type: :single_adult })
     end
   end
