@@ -20,4 +20,26 @@ module CommonValidations
   def is_integer?(value)
     true if Integer(value, exception: false)
   end
+
+  def validate_different_address
+    validate_enum(@different_address_types, @different_address, :different_address)
+  end
+
+  def validate_allow_pet_pet
+    validate_enum(@allow_pet_types, @allow_pet, :allow_pet)
+  end
+
+  def validate_more_properties
+    validate_enum(@more_properties_types, @more_properties, :more_properties)
+  end
+
+  def validate_user_research
+    validate_enum(@user_research_types, @user_research, :user_research)
+  end
+
+  def validate_enum(enum, value, attribute)
+    unless value && enum.include?(value.to_sym)
+      errors.add(attribute, I18n.t(:choose_option, scope: :error))
+    end
+  end
 end
