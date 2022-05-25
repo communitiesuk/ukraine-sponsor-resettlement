@@ -89,25 +89,25 @@ RSpec.describe "Individual expression of interest", type: :system do
 
       application = IndividualExpressionOfInterest.order("created_at DESC").last
       expect(application.as_json).to include({
-                                                 fullname: "John Smith",
-                                                 email: "john.smith@example.com",
-                                                 phone_number: "01234567890",
-                                                 residential_line_1: "House number and Street name",
-                                                 residential_town: "Some Town or City",
-                                                 residential_postcode: "XX1 1XX",
-                                                 different_address: "no",
-                                                 number_adults: "1",
-                                                 number_children: "9",
-                                                 family_type: "single_adult",
-                                                 accommodation_length: "from_6_to_9_months",
-                                                 single_room_count: "3",
-                                                 double_room_count: "2",
-                                                 step_free: "all",
-                                                 allow_pet: "no",
-                                                 agree_future_contact: "true",
-                                                 user_research: "yes",
-                                                 agree_privacy_statement: "true",
-                                             })
+       fullname: "John Smith",
+       email: "john.smith@example.com",
+       phone_number: "01234567890",
+       residential_line_1: "House number and Street name",
+       residential_town: "Some Town or City",
+       residential_postcode: "XX1 1XX",
+       different_address: "no",
+       number_adults: "1",
+       number_children: "9",
+       family_type: "single_adult",
+       accommodation_length: "from_6_to_9_months",
+       single_room_count: "3",
+       double_room_count: "2",
+       step_free: "all",
+       allow_pet: "no",
+       agree_future_contact: "true",
+       user_research: "yes",
+       agree_privacy_statement: "true",
+      })
 
       expect(application.ip_address).to eq("127.0.0.1")
       expect(application.user_agent).to eq("DummyBrowser")
