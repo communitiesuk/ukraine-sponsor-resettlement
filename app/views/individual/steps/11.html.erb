@@ -3,13 +3,13 @@
     <%= render partial: "shared/back_link" %>
 
     <%= form_for @application, url: "/individual/steps/11", method: :post do |f| %>
-                <%= f.govuk_check_boxes_fieldset :agree_future_contact, multiple: false, legend: { text: t('agree_future_contact.full', scope: "individual.questions"), size: 'l' } do %>
-                <p class="govuk-body">
-                <%= t('agree_future_contact.comment', scope: "individual.questions") %>
-                </p>
-        <%= f.govuk_check_box :agree_future_contact, "true", "false", multiple: false, link_errors: true, label: { text: t('agree_future_contact.full', scope: "individual.questions") } %><% end %>
-        <%= f.govuk_submit t('continue') %>
+      <%= f.govuk_collection_radio_buttons :accommodation_length,
+        @application.accommodation_length_types.map{|type| OpenStruct.new(id: type, name: t(type, scope: "individual.accommodation_length")) },
+        :id,
+        :name,
+        legend: { text: t('accommodation_length.full', scope: "individual.questions") }
+      %>
+      <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>
 </div>
-

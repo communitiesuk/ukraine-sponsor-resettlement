@@ -67,3 +67,26 @@ actions will also fail with the message\
 `Cannot update this process while a deployment is in flight`.
 
 `cf cancel-deployment ukraine-sponsor-resettlement-<target environment>`
+
+#### Querying database
+
+You will need the Conduit plug-in installed\
+    `cf install-plugin conduit`
+
+1. Contact 1password manager to get access to the Ukraine Resettlement vault for deployment credentials
+
+2. Install Cloud Foundry CLI (https://docs.cloudfoundry.org/cf-cli/install-go-cli.html)
+
+3. Login:\
+   `cf login -a api.london.cloud.service.gov.uk -u dluhc-ulss-deploy@madetech.com`
+   
+4. Connect to database:\
+    `cf conduit ukraine-sponsor-resettlement-<target environment>-postgres -c '{"read_only": true}' -- psql`
+    
+    You will now be able to run SQL queries that require a ";" at the end to execute the query - for example:\
+    `select count(*) from additional_info;`
+
+5. Disconnect:\
+    `exit`
+    
+ 

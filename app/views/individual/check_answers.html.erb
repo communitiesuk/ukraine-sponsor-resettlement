@@ -3,247 +3,325 @@
 
     <h1 class="govuk-heading-l">Check your answers before sending your application</h1>
 
-    <h2 class="govuk-heading-m">Application details</h2>
+    <h2 class="govuk-heading-m">Personal details</h2>
 
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('family_type.short', scope: "individual.questions") %>
+          <%= t('fullname.short', scope: "additional_info.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <% if @application.errors.include?(:family_type) %>
-            <span class="govuk-error-message"><%= @application.errors[:family_type].join %></span>
-          <% else %>
-            <%= t(@application.family_type, scope: "individual.family_type") %>
-          <% end %>
+          <%= @application.fullname %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/individual/steps/1">
-            Change<span class="govuk-visually-hidden"> family or individual selection</span>
+            Change<span class="govuk-visually-hidden"> name</span>
           </a>
         </dd>
       </div>
-    </dl>
 
-    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('living_space.short', scope: "individual.questions") %>
+          <%= t('email.short', scope: "additional_info.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <% if @application.errors.include?(:living_space) %>
-            <span class="govuk-error-message"><%= @application.errors[:living_space].join %></span>
-          <% else %>
-            <%= @application.living_space && @application.living_space.reject(&:empty?).map{ |opt| t(opt, scope: "individual.living_space") }.join(", ") %>
-          <% end %>
+          <%= @application.email %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/individual/steps/2">
-            Change<span class="govuk-visually-hidden"> living space type</span>
-          </a>
-        </dd>
-      </div>
-    </dl>
-
-    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= t('step_free.short', scope: "individual.questions") %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <% if @application.errors.include?(:step_free) %>
-            <span class="govuk-error-message"><%= @application.errors[:step_free].join %></span>
-          <% else %>
-            <%= t(@application.step_free, scope: "individual.step_free") %>
-          <% end %>
-        </dd>
-        <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/individual/steps/3">
-            Change<span class="govuk-visually-hidden"> mobility impairment choice</span>
-          </a>
-        </dd>
-      </div>
-    </dl>
-
-    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= t('single_room_count.short', scope: "individual.questions") %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <% if @application.errors.include?(:single_room_count) %>
-            <span class="govuk-error-message"><%= @application.errors[:single_room_count].join %></span>
-          <% else %>
-            <%= t(@application.single_room_count) %>
-          <% end %>
-        </dd>
-        <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/individual/steps/4">
-            Change<span class="govuk-visually-hidden"> single rooms available</span>
-          </a>
-        </dd>
-      </div>
-    </dl>
-
-    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= t('double_room_count.short', scope: "individual.questions") %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <% if @application.errors.include?(:double_room_count) %>
-            <span class="govuk-error-message"><%= @application.errors[:double_room_count].join %></span>
-          <% else %>
-            <%= t(@application.double_room_count) %>
-          <% end %>
-        </dd>
-        <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/individual/steps/5">
-            Change<span class="govuk-visually-hidden"> double rooms available</span>
-          </a>
-        </dd>
-      </div>
-    </dl>
-
-    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= t('postcode.short', scope: "individual.questions") %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <% if @application.errors.include?(:postcode) %>
-            <span class="govuk-error-message"><%= @application.errors[:postcode].join %></span>
-          <% else %>
-            <%= @application.postcode %>
-          <% end %>
-        </dd>
-        <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/individual/steps/6">
-            Change<span class="govuk-visually-hidden"> postcode</span>
-          </a>
-        </dd>
-      </div>
-    </dl>
-
-    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= t('accommodation_length.short', scope: "individual.questions") %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <% if @application.errors.include?(:accommodation_length) %>
-            <span class="govuk-error-message"><%= @application.errors[:accommodation_length].join %></span>
-          <% else %>
-            <%= t(@application.accommodation_length, scope: "individual.accommodation_length") %>
-          <% end %>
-        </dd>
-        <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/individual/steps/7">
-            Change<span class="govuk-visually-hidden"> accommodation length</span>
-          </a>
-        </dd>
-      </div>
-    </dl>
-
-    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= t('fullname.short', scope: "individual.questions") %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <% if @application.errors.include?(:fullname) %>
-            <span class="govuk-error-message"><%= @application.errors[:fullname].join %></span>
-          <% else %>
-            <%= @application.fullname %>
-          <% end %>
-        </dd>
-        <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/individual/steps/8">
-            Change<span class="govuk-visually-hidden"> full name</span>
-          </a>
-        </dd>
-      </div>
-    </dl>
-
-    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= t('email.short', scope: "individual.questions") %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <% if @application.errors.include?(:email) %>
-            <span class="govuk-error-message"><%= @application.errors[:email].join %></span>
-          <% else %>
-            <%= @application.email %>
-          <% end %>
-        </dd>
-        <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/individual/steps/9">
             Change<span class="govuk-visually-hidden"> email</span>
           </a>
         </dd>
       </div>
-    </dl>
 
-    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('phone_number.short', scope: "individual.questions") %>
+          <%= t('phone_number.short', scope: "additional_info.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <% if @application.errors.include?(:phone_number) %>
-            <span class="govuk-error-message"><%= @application.errors[:phone_number].join %></span>
-          <% else %>
-            <%= @application.phone_number %>
-          <% end %>
+          <%= @application.phone_number %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/individual/steps/10">
+          <a class="govuk-link" href="/individual/steps/3">
             Change<span class="govuk-visually-hidden"> phone number</span>
           </a>
         </dd>
       </div>
-    </dl>
 
-    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('agree_future_contact.short', scope: "individual.questions") %>
+          Residential address
         </dt>
         <dd class="govuk-summary-list__value">
-          <% if @application.errors.include?(:agree_future_contact) %>
-            <span class="govuk-error-message"><%= @application.errors[:agree_future_contact].join %></span>
-          <% else %>
-            <%= @application.agree_future_contact == "true" ? "Agreed" : "Not agreed" %>
+          <%= @application.residential_line_1 %>
+          <br />
+
+          <% if @application.residential_line_2.present? %>
+            <%= @application.residential_line_2 %>
+            <br />
           <% end %>
+
+          <%= @application.residential_town %>
+          <br />
+          <%= @application.residential_postcode %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/individual/steps/11">
-            Change<span class="govuk-visually-hidden"> future contact agreement</span>
+          <a class="govuk-link" href="/individual/steps/4">
+            Change<span class="govuk-visually-hidden"> address</span>
+          </a>
+        </dd>
+      </div>
+
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('different_address.short', scope: "additional_info.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.different_address %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/individual/steps/5">
+            Change<span class="govuk-visually-hidden"> different address</span>
           </a>
         </dd>
       </div>
     </dl>
 
+    <% if @application.property_one_line_1.present? && @application.different_address.upcase == "YES" %>
+      <h2 class="govuk-heading-m">Host property details</h2>
+
+      <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Property one address
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= @application.property_one_line_1 %>
+            <br />
+
+            <% if @application.property_one_line_2.present? %>
+              <%= @application.property_one_line_2 %>
+              <br />
+            <% end %>
+
+            <%= @application.property_one_town %>
+            <br />
+            <%= @application.property_one_postcode %>
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/individual/steps/6">
+              Change<span class="govuk-visually-hidden"> address</span>
+            </a>
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= t('more_properties.short', scope: "additional_info.questions") %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= @application.more_properties %>
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/individual/steps/7">
+              Change<span class="govuk-visually-hidden"> more properties</span>
+            </a>
+          </dd>
+        </div>
+      </dl>
+    <% end %>
+
+    <h2 class="govuk-heading-m">Sponsor details</h2>
+
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          <%= t('agree_privacy_statement.short', scope: "individual.questions") %>
+          <%= t('number_adults.short', scope: "additional_info.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <% if @application.errors.include?(:agree_privacy_statement) %>
-            <span class="govuk-error-message"><%= @application.errors[:agree_privacy_statement].join %></span>
-          <% else %>
-            <%= @application.agree_privacy_statement == "true" ? "Agreed" : "Not agreed" %>
-          <% end %>
+          <%= @application.number_adults %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/individual/steps/12">
-            Change<span class="govuk-visually-hidden"> agree_privacy_statement agreement</span>
+          <a class="govuk-link" href="/individual/steps/9">
+            Change<span class="govuk-visually-hidden"> adults</span>
+          </a>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('number_children.short', scope: "additional_info.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.number_children %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/individual/steps/9">
+            Change<span class="govuk-visually-hidden"> children</span>
           </a>
         </dd>
       </div>
     </dl>
+
+      <h2 class="govuk-heading-m">Application details</h2>
+
+      <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= t('family_type.short', scope: "individual.questions") %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <% if @application.errors.include?(:family_type) %>
+              <span class="govuk-error-message"><%= @application.errors[:family_type].join %></span>
+            <% else %>
+              <%= t(@application.family_type, scope: "individual.family_type") %>
+            <% end %>
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/individual/steps/10">
+              Change<span class="govuk-visually-hidden"> family or individual selection</span>
+            </a>
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= t('accommodation_length.short', scope: "individual.questions") %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <% if @application.errors.include?(:accommodation_length) %>
+              <span class="govuk-error-message"><%= @application.errors[:accommodation_length].join %></span>
+            <% else %>
+              <%= t(@application.accommodation_length, scope: "individual.accommodation_length") %>
+            <% end %>
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/individual/steps/11">
+              Change<span class="govuk-visually-hidden"> accommodation length</span>
+            </a>
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= t('single_room_count.short', scope: "individual.questions") %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <% if @application.errors.include?(:single_room_count) %>
+              <span class="govuk-error-message"><%= @application.errors[:single_room_count].join %></span>
+            <% else %>
+              <%= t(@application.single_room_count) %>
+            <% end %>
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/individual/steps/12">
+              Change<span class="govuk-visually-hidden"> single rooms available</span>
+            </a>
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= t('double_room_count.short', scope: "individual.questions") %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <% if @application.errors.include?(:double_room_count) %>
+              <span class="govuk-error-message"><%= @application.errors[:double_room_count].join %></span>
+            <% else %>
+              <%= t(@application.double_room_count) %>
+            <% end %>
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/individual/steps/13">
+              Change<span class="govuk-visually-hidden"> double rooms available</span>
+            </a>
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= t('step_free.short', scope: "individual.questions") %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <% if @application.errors.include?(:step_free) %>
+              <span class="govuk-error-message"><%= @application.errors[:step_free].join %></span>
+            <% else %>
+              <%= t(@application.step_free, scope: "individual.step_free") %>
+            <% end %>
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/individual/steps/14">
+              Change<span class="govuk-visually-hidden"> mobility impairment choice</span>
+            </a>
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= t('allow_pet.short', scope: "additional_info.questions") %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= @application.allow_pet %>
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/individual/steps/15">
+              Change<span class="govuk-visually-hidden"> pet</span>
+            </a>
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= t('agree_future_contact.short', scope: "individual.questions") %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <% if @application.errors.include?(:agree_future_contact) %>
+              <span class="govuk-error-message"><%= @application.errors[:agree_future_contact].join %></span>
+            <% else %>
+              <%= @application.agree_future_contact == "true" ? "Agreed" : "Not agreed" %>
+            <% end %>
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/individual/steps/16">
+              Change<span class="govuk-visually-hidden"> future contact agreement</span>
+            </a>
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= t('user_research.short', scope: "additional_info.questions") %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%= @application.user_research %>
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/individual/steps/17">
+              Change<span class="govuk-visually-hidden"> user research</span>
+            </a>
+          </dd>
+        </div>
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= t('agree_privacy_statement.short', scope: "individual.questions") %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <% if @application.errors.include?(:agree_privacy_statement) %>
+              <span class="govuk-error-message"><%= @application.errors[:agree_privacy_statement].join %></span>
+            <% else %>
+              <%= @application.agree_privacy_statement == "true" ? "Agreed" : "Not agreed" %>
+            <% end %>
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/individual/steps/18">
+              Change<span class="govuk-visually-hidden"> agree_privacy_statement agreement</span>
+            </a>
+          </dd>
+        </div>
+      </dl>
 
     <h2 class="govuk-heading-m">Now send your application</h2>
 

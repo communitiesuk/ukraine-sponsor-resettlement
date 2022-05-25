@@ -1,5 +1,5 @@
 class IndividualController < ApplicationController
-  MAX_STEPS = 12
+  MAX_STEPS = 18
 
   def display
     @application = IndividualExpressionOfInterest.new(session[:individual_expression_of_interest])
@@ -24,7 +24,10 @@ class IndividualController < ApplicationController
     if @application.valid?
       # Update the session
       session[:individual_expression_of_interest] = @application.as_json
-      next_stage = params["stage"].to_i + 1
+
+      # Replace with routing engine to get next stage
+      next_stage = RoutingEngine.get_next_individual_step(@application, params["stage"].to_i)
+
       if next_stage > MAX_STEPS
         redirect_to "/individual/check_answers"
       else
@@ -44,6 +47,13 @@ class IndividualController < ApplicationController
     @application.ip_address = request.ip
     @application.user_agent = request.user_agent
     @application.final_submission = true
+
+    # Set default answers for skipped questions
+    @application.more_properties = "no" if @application.more_properties.blank?
+    @application.property_one_line_1 = "same as main residence" if @application.property_one_line_1.blank?
+    @application.property_one_town = "same as main residence" if @application.property_one_town.blank?
+    @application.property_one_postcode = @application.residential_postcode if @application.property_one_postcode.blank?
+
     if @application.valid?
       @application.save!
       session[:app_reference] = @application.reference
@@ -64,10 +74,33 @@ class IndividualController < ApplicationController
 private
 
   def application_params
-    params.require(:individual_expression_of_interest).permit(:family_type, :step_free, :single_room_count,
-                                                              :double_room_count, :postcode, :accommodation_length,
-                                                              :answer_more_questions_type, :fullname, :email,
-                                                              :phone_number, :reference, :agree_privacy_statement,
-                                                              :agree_future_contact, living_space: [])
+    params.require(:individual_expression_of_interest)
+        .permit(
+          :reference,
+          :fullname,
+          :email,
+          :phone_number,
+          :residential_line_1,
+          :residential_line_2,
+          :residential_town,
+          :residential_postcode,
+          :different_address,
+          :property_one_line_1,
+          :property_one_line_2,
+          :property_one_town,
+          :property_one_postcode,
+          :more_properties,
+          :number_adults,
+          :number_children,
+          :family_type,
+          :accommodation_length,
+          :single_room_count,
+          :double_room_count,
+          :step_free,
+          :allow_pet,
+          :agree_future_contact,
+          :user_research,
+          :agree_privacy_statement,
+        )
   end
 end

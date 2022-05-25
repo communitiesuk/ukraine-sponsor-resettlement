@@ -1,13 +1,15 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= render partial: "shared/back_link" %>
+
+    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
     <%= form_for @application, url: "/individual/steps/7", method: :post do |f| %>
-      <%= f.govuk_collection_radio_buttons :accommodation_length,
-        @application.accommodation_length_types.map{|type| OpenStruct.new(id: type, name: t(type, scope: "individual.accommodation_length")) },
-        :id,
-        :name,
-        legend: { text: t('accommodation_length.full', scope: "individual.questions") }
+      <%= f.govuk_collection_radio_buttons :more_properties,
+          @application.more_properties_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "individual.more_properties")) },
+          :id,
+          :name,
+          legend: { text: t('more_properties.full', scope: "additional_info.questions") },
+          hint: { text: t('more_properties.hint', scope: "additional_info.questions")}
       %>
       <%= f.govuk_submit t('continue') %>
     <% end %>

@@ -1,19 +1,61 @@
 require "securerandom"
 
 class IndividualExpressionOfInterest < ApplicationRecord
+  include IndividualValidations
+  include ContactDetailsValidations
   include CommonValidations
 
   self.table_name = "individual_expressions_of_interest"
 
-  SCHEMA_VERSION = 2
+  SCHEMA_VERSION = 3
 
-  attr_accessor :family_types, :living_space_types, :step_free_types, :accommodation_length_types,
-                :family_type, :step_free, :accommodation_length, :single_room_count,
-                :double_room_count, :postcode, :phone_number, :agree_future_contact, :agree_privacy_statement,
-                :fullname, :email, :type, :version, :ip_address, :user_agent, :started_at, :final_submission
-  attr_reader   :living_space
+  attr_accessor :fullname,
+                :email,
+                :phone_number,
+                :residential_line_1,
+                :residential_line_2,
+                :residential_town,
+                :residential_postcode,
+                :different_address_types,
+                :different_address,
+                :property_one_line_1,
+                :property_one_line_2,
+                :property_one_town,
+                :property_one_postcode,
+                :more_properties_types,
+                :more_properties,
+                :number_adults,
+                :number_children,
+                :family_types,
+                :family_type,
+                :accommodation_length_types,
+                :accommodation_length,
+                :single_room_count,
+                :double_room_count,
+                :step_free_types,
+                :step_free,
+                :allow_pet_types,
+                :allow_pet,
+                :agree_future_contact,
+                :user_research_types,
+                :user_research,
+                :agree_privacy_statement,
+                :postcode,
+                :living_space,
+                :type,
+                :version,
+                :ip_address,
+                :user_agent,
+                :started_at,
+                :final_submission
 
+  validate :validate_different_address, if: -> { run_validation? :different_address }
   validate :validate_accommodation_length, if: -> { run_validation? :accommodation_length }
+  validate :validate_more_properties, if: -> { run_validation? :more_properties }
+  validate :validate_number_adults, if: -> { run_validation? :number_adults }
+  validates :number_children, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 9, message: I18n.t(:number_children, scope: :error) }, if: -> { run_validation? :number_children }
+  validate :validate_allow_pet_pet, if: -> { run_validation? :allow_pet }
+  validate :validate_user_research, if: -> { run_validation? :user_research }
 
   after_initialize :after_initialize
   before_save :serialize
@@ -25,10 +67,15 @@ class IndividualExpressionOfInterest < ApplicationRecord
 
   def after_initialize
     @family_types = %i[single_adult more_than_one_adult adults_with_children no_preference]
-    @living_space_types = %i[rooms_in_home_shared_facilities self_contained_property multiple_properties]
-    @step_free_types = %i[all some none unknown]
     @accommodation_length_types = %i[from_6_to_9_months from_10_to_12_months more_than_12_months]
     @final_submission = false
+    @different_address_types = %i[yes no]
+    @more_properties_types = %i[yes no]
+    @step_free_types = %i[all some none unknown]
+    @allow_pet_types = %i[yes no]
+    @user_research_types = %i[yes no]
+    @postcode = "not asked"
+    @living_space = "rooms_in_home_shared_facilities"
   end
 
   def as_json
@@ -38,26 +85,35 @@ class IndividualExpressionOfInterest < ApplicationRecord
       created_at:,
       type:,
       version:,
-      family_type:,
-      living_space:,
-      step_free:,
-      single_room_count:,
-      double_room_count:,
-      postcode:,
-      accommodation_length:,
-      agree_future_contact:,
       fullname:,
       email:,
       phone_number:,
+      residential_line_1:,
+      residential_line_2:,
+      residential_town:,
+      residential_postcode:,
+      different_address:,
+      property_one_line_1:,
+      property_one_line_2:,
+      property_one_town:,
+      property_one_postcode:,
+      more_properties:,
+      number_adults:,
+      number_children:,
+      family_type:,
+      accommodation_length:,
+      single_room_count:,
+      double_room_count:,
+      step_free:,
+      allow_pet:,
+      agree_future_contact:,
+      user_research:,
       agree_privacy_statement:,
+      postcode:,
       ip_address:,
       user_agent:,
       started_at:,
     }.compact
-  end
-
-  def living_space=(value)
-    @living_space = value.is_a?(Array) ? value.reject(&:empty?) : value
   end
 
 private

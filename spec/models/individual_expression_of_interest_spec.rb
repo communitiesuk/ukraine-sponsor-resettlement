@@ -3,11 +3,22 @@ require "rails_helper"
 RSpec.describe IndividualExpressionOfInterest, type: :model do
   describe "deserialising json into attributes" do
     it "sets attributes based on the json column on load" do
-      answers = { family_type: "single_adult", living_space: "rooms_in_home_shared_facilities" }
+      answers = { family_type: "single_adult" }
       id = ActiveRecord::Base.connection.insert("INSERT INTO individual_expressions_of_interest (answers, created_at, updated_at) VALUES ('#{JSON.generate(answers)}', NOW(), NOW())")
       record = described_class.find(id)
       expect(record.family_type).to eq(answers[:family_type])
-      expect(record.living_space).to eq(answers[:living_space])
+    end
+  end
+
+  describe "values for questions no longer asked" do
+    it "set postcode to 'not asked'" do
+      app = described_class.new
+      expect(app.postcode).to eq("not asked")
+    end
+
+    it "set living space to 'rooms_in_home_shared_facilities'" do
+      app = described_class.new
+      expect(app.living_space).to eq("rooms_in_home_shared_facilities")
     end
   end
 
@@ -23,15 +34,6 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
       expect(app.valid?).to be(false)
       expect(app.errors[:family_type]).to include("Please choose one of the options")
       app.family_type = "single_adult"
-      expect(app.valid?).to be(true)
-    end
-
-    it "validates that the living_space attribute matches the allowed values if set" do
-      app = described_class.new
-      app.living_space = []
-      expect(app.valid?).to be(false)
-      expect(app.errors[:living_space]).to include("Please choose one or more of the options")
-      app.living_space = %w[rooms_in_home_shared_facilities]
       expect(app.valid?).to be(true)
     end
 
@@ -75,33 +77,6 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
       expect(app.valid?).to be(true)
     end
 
-    it "validates that the postcode attribute is at least 2 and less than 100 characters" do
-      app = described_class.new
-      app.postcode = ""
-      expect(app.valid?).to be(false)
-      expect(app.errors[:postcode]).to include("Please enter a valid UK postcode(s)")
-      app.postcode = "A"
-      expect(app.valid?).to be(false)
-      app.postcode = "X" * 101
-      expect(app.valid?).to be(false)
-      app.postcode = "AB"
-      expect(app.valid?).to be(true)
-    end
-
-    it "validates that the postcode attribute list only contains A-Z, 0-9 or commas" do
-      app = described_class.new
-      app.postcode = "A%"
-      expect(app.valid?).to be(false)
-      expect(app.errors[:postcode]).to include("Please enter a valid UK postcode(s)")
-      app.postcode = "^"
-      expect(app.valid?).to be(false)
-      expect(app.errors[:postcode]).to include("Please enter a valid UK postcode(s)")
-      app.postcode = "A1"
-      expect(app.valid?).to be(true)
-      app.postcode = "A1,A2"
-      expect(app.valid?).to be(true)
-    end
-
     it "validates that the phone_number attribute is correct" do
       app = described_class.new
       app.phone_number = "12345678"
@@ -109,13 +84,21 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
       expect(app.errors[:phone_number]).to include("Please enter a valid phone number")
       app.phone_number = "(12345678)"
       expect(app.valid?).to be(false)
+      expect(app.errors[:phone_number]).to include("Please enter a valid phone number")
       app.phone_number = "123456789012345"
       expect(app.valid?).to be(false)
+      expect(app.errors[:phone_number]).to include("Please enter a valid phone number")
       app.phone_number = "123456789XXXXXXXXXXXXXXXXXXXXXXX"
       expect(app.valid?).to be(false)
+      expect(app.errors[:phone_number]).to include("Please enter a valid phone number")
+      app.phone_number = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:phone_number]).to include("Please enter a valid phone number")
       app.phone_number = "(01234) 567890"
       expect(app.valid?).to be(true)
-      app.phone_number = ""
+      app.phone_number = "01234567890"
+      expect(app.valid?).to be(true)
+      app.phone_number = "01234 567 890"
       expect(app.valid?).to be(true)
     end
 
@@ -185,25 +168,204 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
       app.email = "first@last.com"
       expect(app.valid?).to be(true)
     end
+
+    it "validates that the allow pet attribute is selected" do
+      app = described_class.new
+      app.allow_pet = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:allow_pet]).to include("Please choose one of the options")
+      app.allow_pet = "yes"
+      expect(app.valid?).to be(true)
+    end
   end
 
-  describe "setting living_space" do
-    it "removes empty elements from the array" do
+  describe "validations for residential property" do
+    it "validates the number of adults is zero when minimum is one" do
       app = described_class.new
-      app.living_space = ["", "", "rooms_in_home_shared_facilities"]
-      expect(app.living_space).to eq(%w[rooms_in_home_shared_facilities])
+      app.different_address = "no"
+      app.number_adults = 0
+      expect(app.valid?).to be(false)
+      expect(app.errors[:number_adults].length).to be(1)
+      expect(app.errors[:number_adults]).to include("There must be at least 1 adult living at your residential address")
+    end
+
+    it "validates the number of adults is one when child at property" do
+      app = described_class.new
+      app.different_address = "no"
+      app.number_adults = 0
+      app.number_children = 1
+      expect(app.valid?).to be(false)
+      expect(app.errors[:number_adults].length).to be(1)
+      expect(app.errors[:number_adults]).to include("There must be at least 1 adult living at your residential address")
+    end
+
+    it "validates the number of adults is empty" do
+      app = described_class.new
+      app.different_address = "no"
+      app.number_adults = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:number_adults].length).to be(1)
+      expect(app.errors[:number_adults]).to include("You must enter a number from 1-9")
+    end
+
+    it "validates the number of adults is greater than 9" do
+      app = described_class.new
+      app.different_address = "no"
+      app.number_adults = 10
+      expect(app.valid?).to be(false)
+      expect(app.errors[:number_adults].length).to be(1)
+      expect(app.errors[:number_adults]).to include("You must enter a number from 1-9")
+    end
+
+    it "validates the number of adults is greater than 1" do
+      app = described_class.new
+      app.different_address = "no"
+      app.number_adults = 2
+      expect(app.valid?).to be(true)
+      expect(app.errors[:number_adults].length).to be(0)
+    end
+
+    it "validates the number of adults when child is greater than 0" do
+      app = described_class.new
+      app.different_address = "no"
+      app.number_adults = 1
+      app.number_children = 5
+      expect(app.valid?).to be(true)
+      expect(app.errors[:number_adults].length).to be(0)
+    end
+
+    it "validates the number of children is not empty" do
+      app = described_class.new
+      app.different_address = "no"
+      app.number_children = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:number_children].length).to be(1)
+      expect(app.errors[:number_children]).to include("You must enter a number from 0-9")
+    end
+
+    it "validates the number of children is greater than 9" do
+      app = described_class.new
+      app.different_address = "no"
+      app.number_children = 10
+      expect(app.valid?).to be(false)
+      expect(app.errors[:number_children].length).to be(1)
+      expect(app.errors[:number_children]).to include("You must enter a number from 0-9")
+    end
+
+    it "validates the number of children is greater than 0" do
+      app = described_class.new
+      app.different_address = "no"
+      app.number_children = 2
+      expect(app.valid?).to be(true)
+      expect(app.errors[:number_children].length).to be(0)
+    end
+  end
+
+  describe "validations for non residential property" do
+    it "validates the number of adults is empty" do
+      app = described_class.new
+      app.different_address = "yes"
+      app.number_adults = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:number_adults].length).to be(1)
+      expect(app.errors[:number_adults]).to include("You must enter a number from 0-9")
+    end
+
+    it "validates the number of adults is greater than 9" do
+      app = described_class.new
+      app.different_address = "yes"
+      app.number_adults = 10
+      expect(app.valid?).to be(false)
+      expect(app.errors[:number_adults].length).to be(1)
+      expect(app.errors[:number_adults]).to include("You must enter a number from 0-9")
+    end
+
+    it "validates the number of adults is zero when the number of children is 1" do
+      app = described_class.new
+      app.different_address = "yes"
+      app.number_adults = 0
+      app.number_children = 1
+      expect(app.valid?).to be(false)
+      expect(app.errors[:number_adults].length).to be(1)
+      expect(app.errors[:number_adults]).to include("There must be at least 1 adult living with children")
+    end
+
+    it "validates the number of adults is greater than 1" do
+      app = described_class.new
+      app.different_address = "yes"
+      app.number_adults = 2
+      expect(app.valid?).to be(true)
+      expect(app.errors[:number_adults].length).to be(0)
+    end
+
+    it "validates the number of children is not empty at residential property" do
+      app = described_class.new
+      app.different_address = "no"
+      app.number_children = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:number_children].length).to be(1)
+      expect(app.errors[:number_children]).to include("You must enter a number from 0-9")
+    end
+
+    it "validates the number of children is greater than 0 at residential property" do
+      app = described_class.new
+      app.different_address = "no"
+      app.number_children = 2
+      expect(app.valid?).to be(true)
+      expect(app.errors[:number_children].length).to be(0)
+    end
+
+    it "validates the number of children is less than or equal to 9 at residential property" do
+      app = described_class.new
+      app.different_address = "no"
+      app.number_children = 10
+      expect(app.valid?).to be(false)
+      expect(app.errors[:number_children].length).to be(1)
+      expect(app.errors[:number_children]).to include("You must enter a number from 0-9")
+    end
+
+    it "validates the number of children is not empty at non-residential property" do
+      app = described_class.new
+      app.different_address = "yes"
+      app.number_children = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:number_children].length).to be(1)
+      expect(app.errors[:number_children]).to include("You must enter a number from 0-9")
+    end
+
+    it "validates the number of children is greater than 0 at non-residential property" do
+      app = described_class.new
+      app.different_address = "yes"
+      app.number_children = 2
+      expect(app.valid?).to be(true)
+      expect(app.errors[:number_children].length).to be(0)
+    end
+
+    it "validates the number of children is less than or equal to 9 at non-residential property" do
+      app = described_class.new
+      app.different_address = "yes"
+      app.number_children = 10
+      expect(app.valid?).to be(false)
+      expect(app.errors[:number_children].length).to be(1)
+      expect(app.errors[:number_children]).to include("You must enter a number from 0-9")
+    end
+
+    it "validates the number of children is valid when 0" do
+      app = described_class.new
+      app.different_address = "no"
+      app.number_children = 0
+      expect(app.valid?).to be(true)
+      app = described_class.new
+      app.different_address = "yes"
+      app.number_children = 0
+      expect(app.valid?).to be(true)
     end
   end
 
   describe "#as_json" do
     it "includes all of the answer values" do
-      app = described_class.new(family_type: :single_adult, living_space: :rooms_in_home_shared_facilities)
-      expect(app.as_json).to eq({ family_type: :single_adult, living_space: :rooms_in_home_shared_facilities })
-    end
-
-    it "does not include empty values" do
       app = described_class.new(family_type: :single_adult)
-      expect(app.as_json).to eq({ family_type: :single_adult })
+      expect(app.as_json).to eq({ family_type: :single_adult, postcode: "not asked" })
     end
   end
 end
