@@ -1,7 +1,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
 
-    <h1 class="govuk-heading-l">Check your answers before sending your application</h1>
+    <h1 class="govuk-heading-l">Check your answers before sending your registration</h1>
 
     <h2 class="govuk-heading-m">Personal details</h2>
 
@@ -323,9 +323,9 @@
         </div>
       </dl>
 
-    <h2 class="govuk-heading-m">Now send your application</h2>
+    <h2 class="govuk-heading-m">Now send your registration</h2>
 
-    <p class="govuk-body">By submitting this application you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>
+    <p class="govuk-body">By submitting this registration you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>
 
     <%= form_for @application, url: "/individual/check_answers", method: :post do |f| %>
       <%= f.govuk_submit t('Accept and send') %>

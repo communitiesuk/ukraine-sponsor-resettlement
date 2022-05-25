@@ -85,7 +85,7 @@ RSpec.describe "Individual expression of interest", type: :system do
 
       click_button("Accept And Send")
 
-      expect(page).to have_content("Application complete")
+      expect(page).to have_content("Registration complete")
 
       application = IndividualExpressionOfInterest.order("created_at DESC").last
       expect(application.as_json).to include({
@@ -208,7 +208,7 @@ RSpec.describe "Individual expression of interest", type: :system do
 
       click_button("Accept And Send")
 
-      expect(page).to have_content("Application complete")
+      expect(page).to have_content("Registration complete")
 
       application = IndividualExpressionOfInterest.order("created_at DESC").last
       expect(application.as_json).to include({
