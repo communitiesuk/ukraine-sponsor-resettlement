@@ -55,24 +55,32 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
       expect(app.valid?).to be(true)
     end
 
-    it "validates that the single_room_count attribute is an integer >= 0" do
+    it "validates that the single_room_count attribute is an integer >= 0 and < 1000" do
       app = described_class.new
       app.single_room_count = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:single_room_count]).to include("Please enter a non-negative whole number")
+      expect(app.errors[:single_room_count]).to include("You must enter a number from 0 to 999")
       app.single_room_count = "-1"
       expect(app.valid?).to be(false)
+      expect(app.errors[:single_room_count]).to include("You must enter a number from 0 to 999")
+      app.single_room_count = "1000"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:single_room_count]).to include("You must enter a number from 0 to 999")
       app.single_room_count = "5"
       expect(app.valid?).to be(true)
     end
 
-    it "validates that the double_room_count attribute is an integer >= 0" do
+    it "validates that the double_room_count attribute is an integer >= 0 and < 1000" do
       app = described_class.new
       app.double_room_count = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:double_room_count]).to include("Please enter a non-negative whole number")
+      expect(app.errors[:double_room_count]).to include("You must enter a number from 0 to 999")
       app.double_room_count = "-1"
       expect(app.valid?).to be(false)
+      expect(app.errors[:double_room_count]).to include("You must enter a number from 0 to 999")
+      app.double_room_count = "1000"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:double_room_count]).to include("You must enter a number from 0 to 999")
       app.double_room_count = "5"
       expect(app.valid?).to be(true)
     end

@@ -280,6 +280,7 @@ en:
   error:
     choose_option: Please choose one of the options
     invalid_number: Please enter a non-negative whole number
+    invalid_room_count: You must enter a number from 0 to 999
     invalid_postcode: Please enter a valid UK postcode(s)
     invalid_email: Please enter a valid email address
     invalid_organisation_name: Please enter a valid organisation name
