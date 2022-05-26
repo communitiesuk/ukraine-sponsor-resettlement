@@ -6,7 +6,7 @@
     <%= form_for @application, url: "/individual/steps/8", method: :post do |f| %>
 
       <%= f.govuk_text_field :more_properties_statement,
-                             label: { text: t('more_properties_statement.full', scope: "individual.questions") },
+                             label: { text: t('more_properties_statement.full', scope: "individual.questions"), size: 'm' },
                              value: "shown",
                              type: "hidden" %>
 

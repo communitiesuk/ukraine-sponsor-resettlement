@@ -3,7 +3,7 @@
     <%= render partial: "shared/back_link" %>
 
     <%= form_for @application, url: "/organisation/steps/14", method: :post do |f| %>
-      <%= f.govuk_check_boxes_fieldset :agree_privacy_statement, multiple: false, legend: { text: t('agree_privacy_statement.full', scope: "organisation.questions"), size: 'l' } do %>
+      <%= f.govuk_check_boxes_fieldset :agree_privacy_statement, multiple: false, legend: { text: t('agree_privacy_statement.full', scope: "organisation.questions"), size: 'm' } do %>
         <p>
           <%= govuk_link_to t('organisation.questions.agree_privacy_statement.short'), "https://www.gov.uk/government/publications/homes-for-ukraine-scheme-expressions-of-interest-eois-privacy-notices/homes-for-ukraine-scheme-expressions-of-interest-charities-businesses-and-community-groups" %>
         </p>

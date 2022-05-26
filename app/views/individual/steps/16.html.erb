@@ -5,7 +5,7 @@
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
     <%= form_for @application, url: "/individual/steps/16", method: :post do |f| %>
-      <%= f.govuk_check_boxes_fieldset :agree_future_contact, multiple: false, legend: { text: t('agree_future_contact.full', scope: "individual.questions"), size: 'l' } do %>
+      <%= f.govuk_check_boxes_fieldset :agree_future_contact, multiple: false, legend: { text: t('agree_future_contact.full', scope: "individual.questions"), size: 'm' } do %>
         <p class="govuk-body">
           <%= t('agree_future_contact.comment', scope: "individual.questions") %>
         </p>

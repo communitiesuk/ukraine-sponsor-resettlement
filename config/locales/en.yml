@@ -130,6 +130,8 @@ en:
       from_6_to_9_months: From 6 to 9 months
       from_10_to_12_months: From 10 to 12 months
       more_than_12_months: More than 12 months
+    accept_and_send:
+      full: Accept and send
   organisation:
     family_types:
       single_adult: Single adult
@@ -280,6 +282,7 @@ en:
   error:
     choose_option: Please choose one of the options
     invalid_number: Please enter a non-negative whole number
+    invalid_room_count: You must enter a number from 0 to 999
     invalid_postcode: Please enter a valid UK postcode(s)
     invalid_email: Please enter a valid email address
     invalid_organisation_name: Please enter a valid organisation name
