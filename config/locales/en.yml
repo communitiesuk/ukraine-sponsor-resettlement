@@ -130,6 +130,8 @@ en:
       from_6_to_9_months: From 6 to 9 months
       from_10_to_12_months: From 10 to 12 months
       more_than_12_months: More than 12 months
+    accept_and_send:
+      full: Accept and send
   organisation:
     family_types:
       single_adult: Single adult
