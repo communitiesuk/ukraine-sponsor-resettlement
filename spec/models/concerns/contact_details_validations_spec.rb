@@ -21,7 +21,7 @@ RSpec.describe ContactDetailsValidations, type: :model do
       app = AdditionalInfo.new
       app.residential_line_2 = "X" * 129
       expect(app.valid?).to be(false)
-      expect(app.errors[:residential_line_2]).to include("Please enter a valid address line 2")
+      expect(app.errors[:residential_line_2]).to include("You must enter less than 128 characters")
       app.residential_line_2 = ""
       expect(app.valid?).to be(true)
       app.residential_line_2 = " "
