@@ -119,7 +119,7 @@ RSpec.describe OrganisationExpressionOfInterest, type: :model do
       app = described_class.new
       app.phone_number = "12345678"
       expect(app.valid?).to be(false)
-      expect(app.errors[:phone_number]).to include("Please enter a valid phone number")
+      expect(app.errors[:phone_number]).to include("You must enter a valid phone number")
       app.phone_number = "(12345678)"
       expect(app.valid?).to be(false)
       app.phone_number = "123456789012345"
@@ -158,11 +158,13 @@ RSpec.describe OrganisationExpressionOfInterest, type: :model do
       app = described_class.new
       app.fullname = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:fullname]).to include("Please enter a valid name")
+      expect(app.errors[:fullname]).to include("You must enter your full name")
       app.fullname = "oneword"
       expect(app.valid?).to be(false)
+      expect(app.errors[:fullname]).to include("You must enter your full name")
       app.fullname = "first #{'X' * 128}"
       expect(app.valid?).to be(false)
+      expect(app.errors[:fullname]).to include("You must enter your full name")
       app.fullname = "two words"
       expect(app.valid?).to be(true)
     end
@@ -171,12 +173,12 @@ RSpec.describe OrganisationExpressionOfInterest, type: :model do
       app = described_class.new
       app.fullname = "Bob!@£$%^&*(){}<>|\\/& Jones Ltd"
       expect(app.valid?).to be(false)
-      expect(app.errors[:fullname]).to include("Please enter a valid name")
+      expect(app.errors[:fullname]).to include("You must enter your full name")
       app.fullname = "Bryan O'Driscoll Ltd"
       expect(app.valid?).to be(true)
       app.fullname = "Bryan & Sandra Smith Plc"
       expect(app.valid?).to be(false)
-      expect(app.errors[:fullname]).to include("Please enter a valid name")
+      expect(app.errors[:fullname]).to include("You must enter your full name")
     end
 
     it "validates that the organisation name attribute does not allowed special characters except ' and &" do
@@ -194,12 +196,12 @@ RSpec.describe OrganisationExpressionOfInterest, type: :model do
       app = described_class.new
       app.email = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:email]).to include("Please enter a valid email address")
+      expect(app.errors[:email]).to include("You must enter a valid email address")
       app.email = "oneword"
       expect(app.valid?).to be(false)
       app.email = "#{'x' * 120}@domain.com"
       expect(app.valid?).to be(false)
-      expect(app.errors[:email]).to include("Please enter a valid email address")
+      expect(app.errors[:email]).to include("You must enter a valid email address")
       app.email = "first@last.com"
       expect(app.valid?).to be(true)
     end

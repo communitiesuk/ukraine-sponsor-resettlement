@@ -6,13 +6,13 @@ RSpec.describe ContactDetailsValidations, type: :model do
       app = AdditionalInfo.new
       app.residential_line_1 = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:residential_line_1]).to include("Please enter a valid address line 1")
+      expect(app.errors[:residential_line_1]).to include("You must enter an address")
       app.residential_line_1 = " "
       expect(app.valid?).to be(false)
-      expect(app.errors[:residential_line_1]).to include("Please enter a valid address line 1")
+      expect(app.errors[:residential_line_1]).to include("You must enter an address")
       app.residential_line_1 = "X" * 129
       expect(app.valid?).to be(false)
-      expect(app.errors[:residential_line_1]).to include("Please enter a valid address line 1")
+      expect(app.errors[:residential_line_1]).to include("You must enter an address")
       app.residential_line_1 = "House number & Street name"
       expect(app.valid?).to be(true)
     end
@@ -34,13 +34,13 @@ RSpec.describe ContactDetailsValidations, type: :model do
       app = AdditionalInfo.new
       app.residential_town = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:residential_town]).to include("Please enter a valid town or city")
+      expect(app.errors[:residential_town]).to include("You must enter a town or city")
       app.residential_town = " "
       expect(app.valid?).to be(false)
-      expect(app.errors[:residential_town]).to include("Please enter a valid town or city")
+      expect(app.errors[:residential_town]).to include("You must enter a town or city")
       app.residential_town = "X" * 129
       expect(app.valid?).to be(false)
-      expect(app.errors[:residential_town]).to include("Please enter a valid town or city")
+      expect(app.errors[:residential_town]).to include("You must enter a town or city")
       app.residential_town = "Town or city"
       expect(app.valid?).to be(true)
     end
@@ -49,19 +49,19 @@ RSpec.describe ContactDetailsValidations, type: :model do
       app = AdditionalInfo.new
       app.residential_postcode = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:residential_postcode]).to include("Please enter a valid UK postcode")
+      expect(app.errors[:residential_postcode]).to include("You must enter a valid UK postcode")
       app.residential_postcode = " "
       expect(app.valid?).to be(false)
-      expect(app.errors[:residential_postcode]).to include("Please enter a valid UK postcode")
+      expect(app.errors[:residential_postcode]).to include("You must enter a valid UK postcode")
       app.residential_postcode = "X" * 129
       expect(app.valid?).to be(false)
-      expect(app.errors[:residential_postcode]).to include("Please enter a valid UK postcode")
+      expect(app.errors[:residential_postcode]).to include("You must enter a valid UK postcode")
       app.residential_postcode = "XX1 XX"
       expect(app.valid?).to be(false)
-      expect(app.errors[:residential_postcode]).to include("Please enter a valid UK postcode")
+      expect(app.errors[:residential_postcode]).to include("You must enter a valid UK postcode")
       app.residential_postcode = "XX 1XX"
       expect(app.valid?).to be(false)
-      expect(app.errors[:residential_postcode]).to include("Please enter a valid UK postcode")
+      expect(app.errors[:residential_postcode]).to include("You must enter a valid UK postcode")
       app.residential_postcode = "XX1 1XX"
       expect(app.valid?).to be(true)
     end
@@ -72,13 +72,13 @@ RSpec.describe ContactDetailsValidations, type: :model do
       app = AdditionalInfo.new
       app.property_one_line_1 = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:property_one_line_1]).to include("Please enter a valid address line 1")
+      expect(app.errors[:property_one_line_1]).to include("You must enter an address")
       app.property_one_line_1 = " "
       expect(app.valid?).to be(false)
-      expect(app.errors[:property_one_line_1]).to include("Please enter a valid address line 1")
+      expect(app.errors[:property_one_line_1]).to include("You must enter an address")
       app.property_one_line_1 = "X" * 129
       expect(app.valid?).to be(false)
-      expect(app.errors[:property_one_line_1]).to include("Please enter a valid address line 1")
+      expect(app.errors[:property_one_line_1]).to include("You must enter an address")
       app.property_one_line_1 = "House number & Street name"
       expect(app.valid?).to be(true)
     end
@@ -87,7 +87,7 @@ RSpec.describe ContactDetailsValidations, type: :model do
       app = AdditionalInfo.new
       app.property_one_line_2 = "X" * 129
       expect(app.valid?).to be(false)
-      expect(app.errors[:property_one_line_2]).to include("Please enter a valid address line 2")
+      expect(app.errors[:property_one_line_2]).to include("You must enter less than 128 characters")
       app.property_one_line_2 = ""
       expect(app.valid?).to be(true)
       app.property_one_line_2 = " "
@@ -100,13 +100,13 @@ RSpec.describe ContactDetailsValidations, type: :model do
       app = AdditionalInfo.new
       app.property_one_town = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:property_one_town]).to include("Please enter a valid town or city")
+      expect(app.errors[:property_one_town]).to include("You must enter a town or city")
       app.property_one_town = " "
       expect(app.valid?).to be(false)
-      expect(app.errors[:property_one_town]).to include("Please enter a valid town or city")
+      expect(app.errors[:property_one_town]).to include("You must enter a town or city")
       app.property_one_town = "X" * 129
       expect(app.valid?).to be(false)
-      expect(app.errors[:property_one_town]).to include("Please enter a valid town or city")
+      expect(app.errors[:property_one_town]).to include("You must enter a town or city")
       app.property_one_town = "Town or city"
       expect(app.valid?).to be(true)
     end
@@ -115,16 +115,16 @@ RSpec.describe ContactDetailsValidations, type: :model do
       app = AdditionalInfo.new
       app.phone_number = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:phone_number]).to include("Please enter a valid phone number")
+      expect(app.errors[:phone_number]).to include("You must enter a valid phone number")
       app.phone_number = " "
       expect(app.valid?).to be(false)
-      expect(app.errors[:phone_number]).to include("Please enter a valid phone number")
+      expect(app.errors[:phone_number]).to include("You must enter a valid phone number")
       app.phone_number = "X" * 14
       expect(app.valid?).to be(false)
-      expect(app.errors[:phone_number]).to include("Please enter a valid phone number")
+      expect(app.errors[:phone_number]).to include("You must enter a valid phone number")
       app.phone_number = "01234 567 89"
       expect(app.valid?).to be(false)
-      expect(app.errors[:phone_number]).to include("Please enter a valid phone number")
+      expect(app.errors[:phone_number]).to include("You must enter a valid phone number")
       app.phone_number = "01234 567 890"
       expect(app.valid?).to be(true)
     end

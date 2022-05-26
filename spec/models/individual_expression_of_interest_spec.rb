@@ -89,19 +89,19 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
       app = described_class.new
       app.phone_number = "12345678"
       expect(app.valid?).to be(false)
-      expect(app.errors[:phone_number]).to include("Please enter a valid phone number")
+      expect(app.errors[:phone_number]).to include("You must enter a valid phone number")
       app.phone_number = "(12345678)"
       expect(app.valid?).to be(false)
-      expect(app.errors[:phone_number]).to include("Please enter a valid phone number")
+      expect(app.errors[:phone_number]).to include("You must enter a valid phone number")
       app.phone_number = "123456789012345"
       expect(app.valid?).to be(false)
-      expect(app.errors[:phone_number]).to include("Please enter a valid phone number")
+      expect(app.errors[:phone_number]).to include("You must enter a valid phone number")
       app.phone_number = "123456789XXXXXXXXXXXXXXXXXXXXXXX"
       expect(app.valid?).to be(false)
-      expect(app.errors[:phone_number]).to include("Please enter a valid phone number")
+      expect(app.errors[:phone_number]).to include("You must enter a valid phone number")
       app.phone_number = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:phone_number]).to include("Please enter a valid phone number")
+      expect(app.errors[:phone_number]).to include("You must enter a valid phone number")
       app.phone_number = "(01234) 567890"
       expect(app.valid?).to be(true)
       app.phone_number = "01234567890"
@@ -136,11 +136,13 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
       app = described_class.new
       app.fullname = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:fullname]).to include("Please enter a valid name")
+      expect(app.errors[:fullname]).to include("You must enter your full name")
       app.fullname = "oneword"
       expect(app.valid?).to be(false)
+      expect(app.errors[:fullname]).to include("You must enter your full name")
       app.fullname = "first #{'X' * 128}"
       expect(app.valid?).to be(false)
+      expect(app.errors[:fullname]).to include("You must enter your full name")
       app.fullname = "two words"
       expect(app.valid?).to be(true)
     end
@@ -149,30 +151,30 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
       app = described_class.new
       app.fullname = "Bob!@£$%^&*(){}<>|\\/& Jones"
       expect(app.valid?).to be(false)
-      expect(app.errors[:fullname]).to include("Please enter a valid name")
+      expect(app.errors[:fullname]).to include("You must enter your full name")
       app.fullname = "Bob; Jones"
       expect(app.valid?).to be(false)
-      expect(app.errors[:fullname]).to include("Please enter a valid name")
+      expect(app.errors[:fullname]).to include("You must enter your full name")
       app.fullname = "Bryan O'Driscoll"
       expect(app.valid?).to be(true)
       app.fullname = "Bryan & Sandra Smith"
       expect(app.valid?).to be(false)
-      expect(app.errors[:fullname]).to include("Please enter a valid name")
+      expect(app.errors[:fullname]).to include("You must enter your full name")
     end
 
     it "validates that the email attribute is correct" do
       app = described_class.new
       app.email = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:email]).to include("Please enter a valid email address")
+      expect(app.errors[:email]).to include("You must enter a valid email address")
       app.email = "oneword"
       expect(app.valid?).to be(false)
       app.email = "#{'x' * 120}@domain.com"
       expect(app.valid?).to be(false)
-      expect(app.errors[:email]).to include("Please enter a valid email address")
+      expect(app.errors[:email]).to include("You must enter a valid email address")
       app.email = "firstnamelastname0@gmail"
       expect(app.valid?).to be(false)
-      expect(app.errors[:email]).to include("Please enter a valid email address")
+      expect(app.errors[:email]).to include("You must enter a valid email address")
       app.email = "first@last.com"
       expect(app.valid?).to be(true)
     end
