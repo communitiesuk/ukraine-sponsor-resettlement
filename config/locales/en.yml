@@ -280,21 +280,21 @@ en:
       yes: Yes
       no: No
   error:
-    choose_option: Please choose one of the options
+    choose_option: You must select an option to continue
     invalid_number: Please enter a non-negative whole number
     invalid_room_count: You must enter a number from 0 to 999
     invalid_postcode: Please enter a valid UK postcode(s)
-    invalid_email: Please enter a valid email address
+    invalid_email: You must enter a valid email address
     invalid_organisation_name: Please enter a valid organisation name
-    invalid_phone_number: Please enter a valid phone number
-    invalid_fullname: Please enter a valid name
-    must_be_accepted: Must be accepted
+    invalid_phone_number: You must enter a valid phone number
+    invalid_fullname: You must enter your full name
+    must_be_accepted: You must tick the box to continue
     choose_one_or_more_options: Please choose one or more of the options
     max_500_chars: Please use 500 characters or less
-    address_line_1: Please enter a valid address line 1
-    address_line_2: Please enter a valid address line 2
-    address_town: Please enter a valid town or city
-    address_postcode: Please enter a valid UK postcode
+    address_line_1: You must enter an address
+    address_line_2: You must enter less than 128 characters
+    address_town: You must enter a town or city
+    address_postcode: You must enter a valid UK postcode
     number_adults_zero: You must enter a number from 0-9
     number_adults_one: You must enter a number from 1-9
     number_children: You must enter a number from 0-9
