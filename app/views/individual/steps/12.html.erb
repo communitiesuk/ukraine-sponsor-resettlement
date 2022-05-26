@@ -4,10 +4,9 @@
 
     <%= form_for @application, url: "/individual/steps/12", method: :post do |f| %>
       <%= f.govuk_text_field :single_room_count,
-        label: { text: t('single_room_count.full', scope: "individual.questions") },
-        hint: { text: t('single_room_count.hint', scope: "individual.questions")},
+        label: { text: t('single_room_count.full', scope: "individual.questions"), size: 'm' },
+        hint: { text: t('single_room_count.hint', scope: "individual.questions") },
         type: "number",
-        min: 0,
         width: 2
       %>
       <%= f.govuk_submit t('continue') %>

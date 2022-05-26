@@ -4,7 +4,7 @@
 
     <%= form_for @application, url: "/individual/steps/13", method: :post do |f| %>
       <%= f.govuk_text_field :double_room_count,
-        label: { text: t('double_room_count.full', scope: "individual.questions") },
+        label: { text: t('double_room_count.full', scope: "individual.questions"), size: 'm' },
         hint: { text: t('double_room_count.hint', scope: "individual.questions")},
         type: "number",
         min: 0,
