@@ -39,6 +39,9 @@ This application is running on GovUK PaaS (https://www.cloud.service.gov.uk/). T
 
 Please note: this takes up to about 15 minutes & "tiny-unencrypted-13" is the only size available on the free tier
 
+1. To create the S3 bucket:\
+    `cf create-service aws-s3-bucket default ukraine-sponsor-resettlement-<target environment>-s3`
+
 #### Deployments
 
 1. Contact 1password manager to get access to the Ukraine Resettlement vault for deployment credentials
@@ -49,7 +52,7 @@ Please note: this takes up to about 15 minutes & "tiny-unencrypted-13" is the on
    `cf login -a api.london.cloud.service.gov.uk -u dluhc-ulss-deploy@madetech.com`
 
 4. Set your deployment target environment (test/staging/):\
-   `cf target -o ukraine-sponsor-resettlement -s <deployment_target_environment>`
+   `cf target -o dluhc-ukraine-resettlement-sponsorship -s <deployment_target_environment>`
 
 5. Deploy:\
    `cf push ukraine-sponsor-resettlement-<target environment> --strategy rolling`
