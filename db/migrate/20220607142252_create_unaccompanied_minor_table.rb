@@ -1,5 +1,7 @@
 class CreateUnaccompaniedMinorTable < ActiveRecord::Migration[7.0]
   def change
+    enable_extension "pgcrypto" unless extension_enabled?("pgcrypto")
+
     create_table :unaccompanied_minors do |t|
       t.string :reference
       t.string :fullname, limit: 128, null: true
