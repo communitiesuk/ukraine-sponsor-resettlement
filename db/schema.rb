@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_14_103236) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_07_142252) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -45,6 +45,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_14_103236) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reference"], name: "index_organisation_expressions_of_interest_on_reference", unique: true
+  end
+
+  create_table "unaccompanied_minors", force: :cascade do |t|
+    t.string "reference"
+    t.string "fullname", limit: 128
+    t.string "email", limit: 128
+    t.json "answers"
+    t.datetime "transferred_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reference"], name: "index_unaccompanied_minors_on_reference", unique: true
   end
 
 end
