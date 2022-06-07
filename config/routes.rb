@@ -28,6 +28,10 @@ Rails.application.routes.draw do
   post "/additional-info/submit", to: "additional#submit"
   get "/additional-info/confirm", to: "additional#confirm"
 
+  get "/unaccompanied-minor", to: redirect("/unaccompanied/steps/1")
+  get "/unaccompanied-minor/steps/:stage", to: "unaccompanied#display"
+  post "/unaccompanied-minor/steps/:stage", to: "unaccompanied#handle_step"
+
   scope via: :all do
     match "/404", to: "errors#not_found"
     match "/429", to: "errors#too_many_requests"
