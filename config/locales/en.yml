@@ -279,6 +279,11 @@ en:
     user_research:
       yes: Yes
       no: No
+  unaccompanied_minor:
+    questions:
+      fullname:
+        short: Name
+        full: Enter your full name
   error:
     choose_option: You must select an option to continue
     invalid_number: Please enter a non-negative whole number
