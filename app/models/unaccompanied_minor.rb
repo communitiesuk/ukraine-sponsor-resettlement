@@ -5,7 +5,9 @@ class UnaccompaniedMinor < ApplicationRecord
 
   SCHEMA_VERSION = 1
 
-  attr_accessor :fullname,
+  attr_accessor :parental_consent,
+                :parental_consent_filename,
+                :fullname,
                 :email,
                 :type,
                 :version,
@@ -13,6 +15,9 @@ class UnaccompaniedMinor < ApplicationRecord
                 :user_agent,
                 :started_at,
                 :final_submission
+
+  validate :validate_parental_consent, if: -> { run_validation? :parental_consent }
+  validate :validate_full_name, if: -> { run_validation? :fullname }
 
   after_initialize :after_initialize
   before_save :serialize
@@ -33,6 +38,7 @@ class UnaccompaniedMinor < ApplicationRecord
       created_at:,
       type:,
       version:,
+      parental_consent_filename:,
       fullname:,
       email:,
       ip_address:,
@@ -42,6 +48,16 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
 private
+
+  def validate_parental_consent
+    errors.add(:parental_consent, I18n.t(:no_file_chosen, scope: :error))
+  end
+
+  def validate_full_name
+    if @fullname.nil? || @fullname.strip.length < MIN_ENTRY_DIGITS || @fullname.strip.length > MAX_ENTRY_DIGITS || @fullname.split.length < 2 || @fullname.match(/[!"£$%{}<>|&@\/()=?^;]/)
+      errors.add(:fullname, I18n.t(:invalid_fullname, scope: :error))
+    end
+  end
 
   def serialize
     self.type = "unaccompanied_minor"

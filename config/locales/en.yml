@@ -281,6 +281,10 @@ en:
       no: No
   unaccompanied_minor:
     questions:
+      parental_consent:
+        short: Consent
+        full: Upload your notarised parental written consent
+        hint: This is the hint
       fullname:
         short: Name
         full: Enter your full name
@@ -305,4 +309,5 @@ en:
     number_children: You must enter a number from 0-9
     child_without_adult: There must be at least 1 adult living with children
     number_adults_residential: There must be at least 1 adult living at your residential address
+    no_file_chosen: You must select a file
 

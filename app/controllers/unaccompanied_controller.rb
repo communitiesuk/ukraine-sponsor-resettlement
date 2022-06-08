@@ -1,5 +1,5 @@
 class UnaccompaniedController < ApplicationController
-  MAX_STEPS = 1
+  MAX_STEPS = 2
 
   def display
     @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
@@ -75,6 +75,7 @@ private
     params.require(:unaccompanied_minor)
         .permit(
           :reference,
+          :parental_consent,
           :fullname,
         )
   end
