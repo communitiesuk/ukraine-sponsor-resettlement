@@ -3,7 +3,7 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-    <%= form_for @application, url: "/unaccompanied-minor/steps/1", method: :post do |f| %>
+    <%= form_for @application, url: "/unaccompanied-minor/upload/1", method: :post do |f| %>
       <%= f.govuk_file_field :parental_consent,
         label: { text: t("parental_consent.full", scope: "unaccompanied_minor.questions") },
         hint: { text: t("parental_consent.hint", scope: "unaccompanied_minor.questions") }

@@ -13,6 +13,18 @@ class UnaccompaniedController < ApplicationController
     end
   end
 
+  def handle_upload
+    upload_params = params.require("unaccompanied_minor")["parental_consent"]
+    file = upload_params.tempfile
+    filename = upload_params.original_filename
+    content_type = upload_params.content_type
+
+    Rails.logger.debug "File upload!"
+    Rails.logger.debug file
+    Rails.logger.debug filename
+    Rails.logger.debug content_type
+  end
+
   def handle_step
     # Pull session data out of session and
     # instantiate new Application ActiveRecord object
@@ -34,6 +46,9 @@ class UnaccompaniedController < ApplicationController
         redirect_to "/unaccompanied-minor/steps/#{next_stage}"
       end
     else
+      Rails.logger.debug "Invalid!"
+      Rails.logger.debug session[:unaccompanied_minor]
+
       render "unaccompanied-minor/steps/#{params['stage']}"
     end
   end
