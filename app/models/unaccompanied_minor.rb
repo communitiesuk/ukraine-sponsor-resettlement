@@ -1,7 +1,6 @@
 require "securerandom"
 
 class UnaccompaniedMinor < ApplicationRecord
-
   self.table_name = "unaccompanied_minors"
 
   SCHEMA_VERSION = 1
@@ -29,16 +28,16 @@ class UnaccompaniedMinor < ApplicationRecord
 
   def as_json
     {
-        id:,
-        reference:,
-        created_at:,
-        type:,
-        version:,
-        fullname:,
-        email:,
-        ip_address:,
-        user_agent:,
-        started_at:,
+      id:,
+      reference:,
+      created_at:,
+      type:,
+      version:,
+      fullname:,
+      email:,
+      ip_address:,
+      user_agent:,
+      started_at:,
     }.compact
   end
 

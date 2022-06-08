@@ -26,7 +26,7 @@ class UnaccompaniedController < ApplicationController
       session[:unaccompanied_minor] = @application.as_json
 
       # Replace with routing engine to get next stage
-      next_stage = RoutingEngine.get_next_unaccompanied_minor_step(@application, params["stage"].to_i)
+      next_stage = RoutingEngine.get_next_unaccompanied_minor_step(params["stage"].to_i)
 
       if next_stage > MAX_STEPS
         redirect_to "/unaccompanied-minor/check-answers"
@@ -67,16 +67,16 @@ class UnaccompaniedController < ApplicationController
     @app_reference = session[:app_reference]
 
     render "unaccompanied-minor/confirm"
-  end
+    end
 
-  private
+private
 
   def application_params
     params.require(:unaccompanied_minor)
         .permit(
-            :reference,
-            :fullname,
-            )
+          :reference,
+          :fullname,
+        )
   end
 end
 
