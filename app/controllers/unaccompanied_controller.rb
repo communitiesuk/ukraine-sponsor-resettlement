@@ -67,7 +67,7 @@ class UnaccompaniedController < ApplicationController
     @app_reference = session[:app_reference]
 
     render "unaccompanied-minor/confirm"
-    end
+  end
 
 private
 
@@ -79,4 +79,3 @@ private
         )
   end
 end
-
