@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   get "/additional-info/steps/:stage", to: "additional#display"
   post "/additional-info/steps/:stage", to: "additional#handle_step"
   get "/additional-info/check-answers", to: "additional#check_answers"
+  get "/additional-info/check_answers", to: "additional#check_answers"
   post "/additional-info/submit", to: "additional#submit"
   get "/additional-info/confirm", to: "additional#confirm"
 
@@ -32,6 +33,7 @@ Rails.application.routes.draw do
   get "/unaccompanied-minor/steps/:stage", to: "unaccompanied#display"
   post "/unaccompanied-minor/steps/:stage", to: "unaccompanied#handle_step"
   get "/unaccompanied-minor/check-answers", to: "unaccompanied#check_answers"
+  get "/unaccompanied-minor/check_answers", to: "unaccompanied#check_answers"
   post "/unaccompanied-minor/check-answers", to: "unaccompanied#submit"
   get "/unaccompanied-minor/confirm", to: "unaccompanied#confirm"
 
