@@ -15,24 +15,24 @@ class UnaccompaniedController < ApplicationController
 
   def handle_upload
     upload_params = params.require("unaccompanied_minor")["parental_consent"]
-    file = upload_params.tempfile
-    filename = upload_params.original_filename
-    content_type = upload_params.content_type
-
-    Rails.logger.debug "File upload!"
-    Rails.logger.debug file
-    Rails.logger.debug filename
-    Rails.logger.debug content_type
+    # TODO: actually upload file
+    # file = upload_params.tempfile
 
     @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
     @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
-    @application.parental_consent_filename = filename
 
-    session[:unaccompanied_minor] = @application.as_json
+    @application.parental_consent_file_type = upload_params.content_type
+    @application.parental_consent_filename = upload_params.original_filename
 
-    next_stage = RoutingEngine.get_next_unaccompanied_minor_step(params["stage"].to_i)
+    if @application.valid?
+      session[:unaccompanied_minor] = @application.as_json
 
-    render "unaccompanied-minor/steps/#{next_stage}"
+      next_stage = RoutingEngine.get_next_unaccompanied_minor_step(params["stage"].to_i)
+
+      render "unaccompanied-minor/steps/#{next_stage}"
+    else
+      render "unaccompanied-minor/steps/#{params['stage']}"
+    end
   end
 
   def handle_step

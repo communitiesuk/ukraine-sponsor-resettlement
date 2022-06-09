@@ -309,5 +309,6 @@ en:
     number_children: You must enter a number from 0-9
     child_without_adult: There must be at least 1 adult living with children
     number_adults_residential: There must be at least 1 adult living at your residential address
+    invalid_file_type_chosen: You must select a PDF file
     no_file_chosen: You must select a file
 

@@ -8,6 +8,7 @@ class UnaccompaniedMinor < ApplicationRecord
   SCHEMA_VERSION = 1
 
   attr_accessor :parental_consent,
+                :parental_consent_file_type,
                 :parental_consent_filename,
                 :fullname,
                 :email,
@@ -37,6 +38,7 @@ class UnaccompaniedMinor < ApplicationRecord
       created_at:,
       type:,
       version:,
+      parental_consent_file_type:,
       parental_consent_filename:,
       fullname:,
       email:,
