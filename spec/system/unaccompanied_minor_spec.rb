@@ -6,14 +6,22 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   end
 
   describe "submitting the form" do
-    it "saves all of the answers in the database" do
+    it "saves all of the answers in the database", :focus do
       visit root_path
       expect(page).to have_content("Homes for Ukraine")
       click_link("Register your interest for unaccompanied minors")
 
+      test_file_path = File.join(File.dirname(__FILE__), "..", "test-document.pdf")
+
+      Rails.logger.debug File.exist? test_file_path
+
+      attach_file("unaccompanied-minor-parental-consent-field", test_file_path)
+      click_button("Upload")
+
       fill_in("Enter your full name", with: "John Smith")
       click_button("Continue")
 
+      expect(page).to have_content("Consent test-document.pdf")
       expect(page).to have_content("Name John Smith")
 
       click_button("Accept and send")

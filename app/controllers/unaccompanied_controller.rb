@@ -23,6 +23,16 @@ class UnaccompaniedController < ApplicationController
     Rails.logger.debug file
     Rails.logger.debug filename
     Rails.logger.debug content_type
+
+    @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
+    @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
+    @application.parental_consent_filename = filename
+
+    session[:unaccompanied_minor] = @application.as_json
+
+    next_stage = RoutingEngine.get_next_unaccompanied_minor_step(params["stage"].to_i)
+
+    render "unaccompanied-minor/steps/#{next_stage}"
   end
 
   def handle_step
@@ -46,9 +56,6 @@ class UnaccompaniedController < ApplicationController
         redirect_to "/unaccompanied-minor/steps/#{next_stage}"
       end
     else
-      Rails.logger.debug "Invalid!"
-      Rails.logger.debug session[:unaccompanied_minor]
-
       render "unaccompanied-minor/steps/#{params['stage']}"
     end
   end
@@ -74,7 +81,9 @@ class UnaccompaniedController < ApplicationController
       # GovNotifyMailer.send_individual_confirmation_email(@application).deliver_later
       redirect_to "/unaccompanied-minor/confirm"
     else
-      render "check_answers"
+      Rails.logger.debug "Invalid!"
+
+      render "unaccompanied-minor/check_answers"
     end
   end
 
