@@ -14,6 +14,7 @@ class UnaccompaniedController < ApplicationController
   end
 
   def handle_upload
+    # TODO: handle no file selected
     upload_params = params.require("unaccompanied_minor")["parental_consent"]
     # TODO: actually upload file
     # file = upload_params.tempfile
@@ -29,9 +30,9 @@ class UnaccompaniedController < ApplicationController
 
       next_stage = RoutingEngine.get_next_unaccompanied_minor_step(params["stage"].to_i)
 
-      render "unaccompanied-minor/steps/#{next_stage}"
+      redirect_to "/unaccompanied-minor/steps/#{next_stage}"
     else
-      render "unaccompanied-minor/steps/#{params['stage']}"
+      render "unaccompanied-minor/steps/#{params["stage"]}"
     end
   end
 
