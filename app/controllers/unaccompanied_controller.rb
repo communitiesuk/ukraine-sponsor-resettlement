@@ -14,16 +14,21 @@ class UnaccompaniedController < ApplicationController
   end
 
   def handle_upload
-    # TODO: handle no file selected
-    upload_params = params.require("unaccompanied_minor")["parental_consent"]
-    # TODO: actually upload file
-    # file = upload_params.tempfile
-
     @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
     @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
+    @application.parental_consent_filename = ""
 
-    @application.parental_consent_file_type = upload_params.content_type
-    @application.parental_consent_filename = upload_params.original_filename
+    begin
+      upload_params = params.require("unaccompanied_minor")["parental_consent"]
+      # TODO: actually upload file
+      # file = upload_params.tempfile
+
+      @application.parental_consent_file_type = upload_params.content_type
+      @application.parental_consent_filename = upload_params.original_filename
+    rescue
+      # Do nothing!
+      Rails.logger.debug "No upload file found!"
+    end
 
     if @application.valid?
       session[:unaccompanied_minor] = @application.as_json
