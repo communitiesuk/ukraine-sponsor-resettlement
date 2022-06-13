@@ -28,7 +28,8 @@ gem "sidekiq"
 gem "sentry-rails"
 gem "sentry-ruby"
 
-# Anti-virus
+# S3 & Anti-virus
+gem "aws-sdk-s3"
 gem "ratonvirus"
 
 group :development, :test do

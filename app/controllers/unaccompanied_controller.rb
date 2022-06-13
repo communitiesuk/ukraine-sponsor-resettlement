@@ -20,6 +20,7 @@ class UnaccompaniedController < ApplicationController
 
     begin
       upload_params = params.require("unaccompanied_minor")["parental_consent"]
+      # TODO: virus scan upload file
       # TODO: actually upload file
       # file = upload_params.tempfile
 
