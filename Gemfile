@@ -28,6 +28,9 @@ gem "sidekiq"
 gem "sentry-rails"
 gem "sentry-ruby"
 
+# Anti-virus
+gem "ratonvirus"
+
 group :development, :test do
   # Check gems for known vulnerabilities
   gem "bundler-audit"
