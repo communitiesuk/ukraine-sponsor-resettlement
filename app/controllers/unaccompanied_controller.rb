@@ -18,18 +18,16 @@ class UnaccompaniedController < ApplicationController
     @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
     @application.parental_consent_filename = ""
 
-    begin
+    # begin
       upload_params = params.require("unaccompanied_minor")["parental_consent"]
-      # TODO: virus scan upload file
-      # TODO: actually upload file
-      # file = upload_params.tempfile
 
+      # @application.parental_consent = upload_params.tempfile
       @application.parental_consent_file_type = upload_params.content_type
       @application.parental_consent_filename = upload_params.original_filename
-    rescue ActionController::ParameterMissing
-      # Do nothing!
-      Rails.logger.debug "No upload file found!"
-    end
+    # rescue ActionController::ParameterMissing
+    #   # Do nothing!
+    #   Rails.logger.debug "No upload file found!"
+    # end
 
     if @application.valid?
       session[:unaccompanied_minor] = @application.as_json

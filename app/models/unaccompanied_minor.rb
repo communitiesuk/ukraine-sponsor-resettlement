@@ -23,6 +23,10 @@ class UnaccompaniedMinor < ApplicationRecord
   before_save :serialize
   before_save :generate_reference
 
+  has_one_attached :parental_consent
+
+  validates :parental_consent, antivirus: true # Add this for antivirus validation
+
   after_find do
     assign_attributes(answers)
   end
