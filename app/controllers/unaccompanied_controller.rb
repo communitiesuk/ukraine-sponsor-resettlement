@@ -25,7 +25,7 @@ class UnaccompaniedController < ApplicationController
 
       @application.parental_consent_file_type = upload_params.content_type
       @application.parental_consent_filename = upload_params.original_filename
-    rescue
+    rescue ActionController::ParameterMissing
       # Do nothing!
       Rails.logger.debug "No upload file found!"
     end

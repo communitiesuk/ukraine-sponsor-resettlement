@@ -17,7 +17,7 @@ module UamValidations
   end
 
   def validate_parent_consent_filename
-    if @parental_consent_filename.nil? || @parental_consent_filename.strip.length < 1
+    if @parental_consent_filename.nil? || @parental_consent_filename.strip.empty?
       errors.add(:parental_consent, I18n.t(:no_file_chosen, scope: :error))
     end
   end
