@@ -21,7 +21,7 @@ class UnaccompaniedController < ApplicationController
     begin
       upload_params = params.require("unaccompanied_minor")["parental_consent"]
 
-      @service = StorageService.new(PaasConfigurationService.new, "ukraine-sponsor-resettlement-development-s3")
+      @service = StorageService.new(PaasConfigurationService.new, "ukraine-sponsor-resettlement-test-s3")
 
       @service.write_file(upload_params.original_filename, upload_params.tempfile)
 
