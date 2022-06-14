@@ -19,6 +19,7 @@ services:
       - pg
       - redis
       - sidekiq
+      - s3
     volumes:
       - .:/app
     environment:
@@ -27,8 +28,7 @@ services:
       DB_DATABASE: ukraine
       DB_USERNAME: ukraine
       DB_PASSWORD: password
-      VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-development-redis", "credentials":{"uri":"redis://redis"}}]}'
-      BASIC_AUTH_USER: admin
+      VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-test-redis","credentials":{"uri":"redis://redis"}}],"aws-s3-bucket":[{"instance_name":"ukraine-sponsor-resettlement-development-s3","credentials":{"aws_access_key_id":"access-key-id","aws_secret_access_key":"secret-access-key","aws_region":"eu-west-2","bucket_name":"upload-bucket"}}]}'
       BASIC_AUTH_PASS: password
     ports:
       - 8080:8080
@@ -80,9 +80,23 @@ services:
   redis:
     image: redis
 
+  s3:
+    image: localstack/localstack:latest
+    container_name: localstack-s3
+    environment:
+      - SERVICES=s3:5002
+      - DEFAULT_REGION=eu-west-2
+      - DATA_DIR=/tmp/localstack/data
+    ports:
+      - 5002:5002
+      - 9999:8080
+    volumes:
+      - .:/tmp/localstack
+
   mock-api:
     build:
       dockerfile: Dockerfile
       context: http-mock-server
     ports:
       - 8081:8081
+
