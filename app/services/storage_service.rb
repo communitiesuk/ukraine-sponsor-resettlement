@@ -3,12 +3,15 @@ class StorageService
 
   def initialize(paas_config_service, paas_instance_name)
     @paas_config_service = paas_config_service
-    @paas_instance_name = (paas_instance_name || "").to_sym
+    @paas_instance_name = ("#{paas_instance_name}-s3" || "").to_sym
     @configuration = create_configuration
     @client = create_client
   end
 
   def write_file(file_name, data)
+    Rails.logger.debug "Filename!"
+    Rails.logger.debug file_name
+
     begin
       @client.put_object(
           body: data,

@@ -24,6 +24,7 @@ services:
       - .:/app
     environment:
       RAILS_ENV: development
+      INSTANCE_NAME: ukraine-sponsor-resettlement-development
       DB_HOST: pg
       DB_DATABASE: ukraine
       DB_USERNAME: ukraine
@@ -44,6 +45,7 @@ services:
       - .:/app
     environment:
       RAILS_ENV: test
+      INSTANCE_NAME: ukraine-sponsor-resettlement-test
       DB_HOST: pg
       DB_USERNAME: ukraine
       DB_DATABASE: ukraine_test
@@ -64,7 +66,7 @@ services:
     volumes:
       - .:/app
     environment:
-      RAILS_ENV: development
+      RAILS_ENV: test
       DB_HOST: pg
       DB_DATABASE: ukraine
       DB_USERNAME: ukraine

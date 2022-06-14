@@ -1,3 +1,5 @@
+require "securerandom"
+
 class UnaccompaniedController < ApplicationController
   MAX_STEPS = 2
 
@@ -21,12 +23,12 @@ class UnaccompaniedController < ApplicationController
     begin
       upload_params = params.require("unaccompanied_minor")["parental_consent"]
 
-      @service = StorageService.new(PaasConfigurationService.new, "ukraine-sponsor-resettlement-test-s3")
-
-      @service.write_file(upload_params.original_filename, upload_params.tempfile)
-
       @application.parental_consent_file_type = upload_params.content_type
       @application.parental_consent_filename = upload_params.original_filename
+      @application.parental_consent_saved_filename = "#{SecureRandom.uuid.upcase}-#{upload_params.original_filename}"
+
+      @service = StorageService.new(PaasConfigurationService.new, ENV["INSTANCE_NAME"])
+      @service.write_file(@application.parental_consent_saved_filename, upload_params.tempfile)
     rescue ActionController::ParameterMissing
       # Do nothing!
       Rails.logger.debug "No upload file found!"

@@ -23,6 +23,7 @@ cf:
 .PHONY: test-local
 test-local:
 	RAILS_ENV=test \
+	INSTANCE_NAME=ukraine-sponsor-resettlement-test \
 	DB_HOST=localhost \
 	DB_USERNAME=ukraine \
 	DB_DATABASE=ukraine_test \
