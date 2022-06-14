@@ -6,7 +6,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   end
 
   describe "submitting the form" do
-    it "saves all of the answers in the database", :focus do
+    it "saves all of the answers in the database" do
       visit root_path
       expect(page).to have_content("Homes for Ukraine")
       click_link("Register your interest for unaccompanied minors")

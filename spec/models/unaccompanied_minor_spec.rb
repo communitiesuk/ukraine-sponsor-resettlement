@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe UnaccompaniedMinor, type: :model do
   describe "validations for file upload" do
-    it "ensure content type", :focus do
+    it "ensure content type" do
       app = described_class.new
       app.parental_consent_file_type = "invalid"
       expect(app.valid?).to be(false)
@@ -11,7 +11,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(true)
     end
 
-    it "ensure file name is provided", :focus do
+    it "ensure file name is provided" do
       app = described_class.new
       app.parental_consent_filename = ""
       expect(app.valid?).to be(false)

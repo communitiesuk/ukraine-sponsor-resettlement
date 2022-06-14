@@ -17,7 +17,7 @@ class UnaccompaniedController < ApplicationController
 
   def handle_upload
     @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
-    @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
+    @application.started_at = Time.zone.now.utc if params['stage'].to_i == 1
     @application.parental_consent_filename = ""
 
     begin

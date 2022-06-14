@@ -9,22 +9,19 @@ class StorageService
   end
 
   def write_file(file_name, data)
-    Rails.logger.debug "Filename!"
-    Rails.logger.debug file_name
-
     begin
       @client.put_object(
-          body: data,
-          bucket: @configuration.bucket_name,
-          key: file_name,
-          )
+        body: data,
+        bucket: @configuration.bucket_name,
+        key: file_name,
+      )
     rescue
       # Do nothing!
       Rails.logger.debug "Could NOT upload file!"
     end
   end
 
-  private
+private
 
   def create_configuration
     unless @paas_config_service.config_present?
@@ -40,12 +37,12 @@ class StorageService
 
   def create_client
     Aws::S3::Client.new(
-        region: @configuration.region,
-        credentials: Aws::Credentials.new(
-            @configuration.access_key_id,
-            @configuration.secret_access_key,
-            )
-        )
+    region: @configuration.region,
+    credentials: Aws::Credentials.new(
+        @configuration.access_key_id,
+        @configuration.secret_access_key,
+      )
+    )
   end
 end
 
@@ -61,8 +58,8 @@ class StorageConfiguration
 
   def ==(other)
     @access_key_id == other.access_key_id &&
-        @secret_access_key == other.secret_access_key &&
-        @bucket_name == other.bucket_name &&
-        @region == other.region
+    @secret_access_key == other.secret_access_key &&
+    @bucket_name == other.bucket_name &&
+    @region == other.region
   end
 end
