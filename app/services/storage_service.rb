@@ -9,6 +9,8 @@ class StorageService
   end
 
   def write_file(file_name, data)
+    # rubocop:disable Style/RedundantBegin
+    # rubocop:disable Style/RescueStandardError
     begin
       @client.put_object(
         body: data,
@@ -20,6 +22,8 @@ class StorageService
       # TODO remove try...catch
       Rails.logger.debug "Could NOT upload file!"
     end
+    # rubocop:enable Style/RedundantBegin
+    # rubocop:disable Style/RescueStandardError
   end
 
 private
