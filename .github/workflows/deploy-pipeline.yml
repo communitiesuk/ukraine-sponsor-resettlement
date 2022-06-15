@@ -48,10 +48,10 @@ jobs:
       DB_DATABASE: ukraine
       DB_USERNAME: ukraine
       DB_PASSWORD: password
-      GOVUK_NOTIFY_API_KEY: ${{ secrets.GOVUK_NOTIFY_API_KEY }}
       VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-test-redis","credentials":{"uri":"redis://redis"}}],"aws-s3-bucket":[{"instance_name":"ukraine-sponsor-resettlement-test-s3","credentials":{"aws_access_key_id":"access-key-id","aws_secret_access_key":"secret-access-key","aws_region":"eu-west-2","bucket_name":"test-bucket"}}]}'
+      GOVUK_NOTIFY_API_KEY: ${{ secrets.GOVUK_NOTIFY_API_KEY }}
 
-  steps:
+    steps:
       - name: Checkout
         uses: actions/checkout@v2
 
