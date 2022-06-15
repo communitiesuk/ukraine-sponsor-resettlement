@@ -42,7 +42,7 @@ private
       credentials: Aws::Credentials.new(
         @configuration.access_key_id,
         @configuration.secret_access_key,
-      )
+      ),
     )
   end
 end
@@ -59,8 +59,8 @@ class StorageConfiguration
 
   def ==(other)
     @access_key_id == other.access_key_id &&
-    @secret_access_key == other.secret_access_key &&
-    @bucket_name == other.bucket_name &&
-    @region == other.region
+      @secret_access_key == other.secret_access_key &&
+      @bucket_name == other.bucket_name &&
+      @region == other.region
   end
 end

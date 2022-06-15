@@ -37,7 +37,7 @@ class UnaccompaniedController < ApplicationController
     if @application.valid?
       session[:unaccompanied_minor] = @application.as_json
 
-      next_stage = RoutingEngine.get_next_unaccompanied_minor_step(params['stage'].to_i)
+      next_stage = RoutingEngine.get_next_unaccompanied_minor_step(params["stage"].to_i)
 
       redirect_to "/unaccompanied-minor/steps/#{next_stage}"
     else

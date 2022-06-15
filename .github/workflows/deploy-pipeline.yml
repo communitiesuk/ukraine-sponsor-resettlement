@@ -43,6 +43,7 @@ jobs:
           --health-retries 5
     env:
       RAILS_ENV: test
+      INSTANCE_NAME: ukraine-sponsor-resettlement-test
       GEMFILE_RUBY_VERSION: 3.1.1
       DB_HOST: localhost
       DB_DATABASE: ukraine
