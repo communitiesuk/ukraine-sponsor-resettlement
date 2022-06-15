@@ -42,6 +42,12 @@ Please note: this takes up to about 15 minutes & "tiny-unencrypted-13" is the on
 1. To create the S3 bucket:\
     `cf create-service aws-s3-bucket default ukraine-sponsor-resettlement-<target environment>-s3`
 
+2. Bind the service:\
+    `cf bind-service ukraine-sponsor-resettlement-<target environment> ukraine-sponsor-resettlement-<target environment>-s3 -c '{"permissions": "read-write"}'`
+
+3. Restage App:\
+    `cf restage ukraine-sponsor-resettlement-<target environment>`
+
 #### Deployments
 
 1. Contact 1password manager to get access to the Ukraine Resettlement vault for deployment credentials
