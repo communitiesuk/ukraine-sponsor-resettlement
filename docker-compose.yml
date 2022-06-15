@@ -41,6 +41,7 @@ services:
     depends_on:
       - pg
       - redis
+      - s3
     volumes:
       - .:/app
     environment:

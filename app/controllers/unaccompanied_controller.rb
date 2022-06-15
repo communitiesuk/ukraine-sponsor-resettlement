@@ -17,7 +17,7 @@ class UnaccompaniedController < ApplicationController
 
   def handle_upload
     @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
-    @application.started_at = Time.zone.now.utc if params['stage'].to_i == 1
+    @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
     @application.parental_consent_filename = ""
 
     begin
@@ -37,11 +37,11 @@ class UnaccompaniedController < ApplicationController
     if @application.valid?
       session[:unaccompanied_minor] = @application.as_json
 
-      next_stage = RoutingEngine.get_next_unaccompanied_minor_step(params["stage"].to_i)
+      next_stage = RoutingEngine.get_next_unaccompanied_minor_step(params['stage'].to_i)
 
       redirect_to "/unaccompanied-minor/steps/#{next_stage}"
     else
-      render "unaccompanied-minor/steps/#{params["stage"]}"
+      render "unaccompanied-minor/steps/#{params['stage']}"
     end
   end
 

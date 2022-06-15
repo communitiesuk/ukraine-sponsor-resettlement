@@ -16,7 +16,8 @@ class StorageService
         key: file_name,
       )
     rescue
-      # Do nothing!
+      # Do nothing for now!
+      # TODO remove try...catch
       Rails.logger.debug "Could NOT upload file!"
     end
   end
@@ -37,8 +38,8 @@ private
 
   def create_client
     Aws::S3::Client.new(
-    region: @configuration.region,
-    credentials: Aws::Credentials.new(
+      region: @configuration.region,
+      credentials: Aws::Credentials.new(
         @configuration.access_key_id,
         @configuration.secret_access_key,
       )
