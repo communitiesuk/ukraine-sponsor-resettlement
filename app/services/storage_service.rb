@@ -23,7 +23,7 @@ class StorageService
       Rails.logger.debug "Could NOT upload file!"
     end
     # rubocop:enable Style/RedundantBegin
-    # rubocop:disable Style/RescueStandardError
+    # rubocop:enable Style/RescueStandardError
   end
 
 private
