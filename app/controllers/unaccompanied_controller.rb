@@ -26,15 +26,16 @@ class UnaccompaniedController < ApplicationController
       @application.parental_consent_file_type = upload_params.content_type
       @application.parental_consent_filename = upload_params.original_filename
       @application.parental_consent_saved_filename = "#{SecureRandom.uuid.upcase}-#{upload_params.original_filename}"
-
-      @service = StorageService.new(PaasConfigurationService.new, ENV["INSTANCE_NAME"])
-      @service.write_file(@application.parental_consent_saved_filename, upload_params.tempfile)
+      Rails.logger.debug "New filename: #{@application.parental_consent_saved_filename}"
     rescue ActionController::ParameterMissing
       # Do nothing!
       Rails.logger.debug "No upload file found!"
     end
 
     if @application.valid?
+      @service = StorageService.new(PaasConfigurationService.new, ENV["INSTANCE_NAME"])
+      @service.write_file(@application.parental_consent_saved_filename, upload_params.tempfile)
+
       session[:unaccompanied_minor] = @application.as_json
 
       next_stage = RoutingEngine.get_next_unaccompanied_minor_step(params["stage"].to_i)
