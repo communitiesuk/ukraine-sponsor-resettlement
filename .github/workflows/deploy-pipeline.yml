@@ -148,6 +148,9 @@ jobs:
           ORGANISATION_CONFIRMATION_TEMPLATE_ID: ${{ secrets.ORGANISATION_CONFIRMATION_TEMPLATE_ID }}
           ADDITIONAL_INFO_CONFIRMATION_TEMPLATE_ID: ${{ secrets.ADDITIONAL_INFO_CONFIRMATION_TEMPLATE_ID }}
           SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
         run: |
           cf api $CF_API_ENDPOINT
           cf auth
@@ -162,6 +165,9 @@ jobs:
           cf set-env $APP_NAME ORGANISATION_CONFIRMATION_TEMPLATE_ID $ORGANISATION_CONFIRMATION_TEMPLATE_ID
           cf set-env $APP_NAME ADDITIONAL_INFO_CONFIRMATION_TEMPLATE_ID $ADDITIONAL_INFO_CONFIRMATION_TEMPLATE_ID
           cf set-env $APP_NAME SENTRY_DSN $SENTRY_DSN
+          cf set-env $APP_NAME AWS_ACCESS_KEY_ID $AWS_ACCESS_KEY_ID
+          cf set-env $APP_NAME AWS_SECRET_ACCESS_KEY $AWS_SECRET_ACCESS_KEY
+          cf set-env $APP_NAME AWS_BUCKET_NAME $AWS_BUCKET_NAME
           cf push -f web-manifest.yml $APP_NAME --strategy rolling --no-wait
 
       - name: Deploy Sidekiq
@@ -234,6 +240,9 @@ jobs:
           ORGANISATION_CONFIRMATION_TEMPLATE_ID: ${{ secrets.ORGANISATION_CONFIRMATION_TEMPLATE_ID }}
           ADDITIONAL_INFO_CONFIRMATION_TEMPLATE_ID: ${{ secrets.ADDITIONAL_INFO_CONFIRMATION_TEMPLATE_ID }}
           SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
         run: |
           cf api $CF_API_ENDPOINT
           cf auth
@@ -246,6 +255,9 @@ jobs:
           cf set-env $APP_NAME ORGANISATION_CONFIRMATION_TEMPLATE_ID $ORGANISATION_CONFIRMATION_TEMPLATE_ID
           cf set-env $APP_NAME ADDITIONAL_INFO_CONFIRMATION_TEMPLATE_ID $ADDITIONAL_INFO_CONFIRMATION_TEMPLATE_ID
           cf set-env $APP_NAME SENTRY_DSN $SENTRY_DSN
+          cf set-env $APP_NAME AWS_ACCESS_KEY_ID $AWS_ACCESS_KEY_ID
+          cf set-env $APP_NAME AWS_SECRET_ACCESS_KEY $AWS_SECRET_ACCESS_KEY
+          cf set-env $APP_NAME AWS_BUCKET_NAME $AWS_BUCKET_NAME
           cf push -f web-manifest.yml $APP_NAME --strategy rolling --no-wait
 
       - name: Deploy Sidekiq
