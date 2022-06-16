@@ -18,4 +18,8 @@ class RoutingEngine
       current_step + 1
     end
   end
+
+  def self.get_next_unaccompanied_minor_step(current_step)
+    current_step + 1
+  end
 end

@@ -19,16 +19,17 @@ services:
       - pg
       - redis
       - sidekiq
+      - s3
     volumes:
       - .:/app
     environment:
       RAILS_ENV: development
+      INSTANCE_NAME: ukraine-sponsor-resettlement-development
       DB_HOST: pg
       DB_DATABASE: ukraine
       DB_USERNAME: ukraine
       DB_PASSWORD: password
-      VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-development-redis", "credentials":{"uri":"redis://redis"}}]}'
-      BASIC_AUTH_USER: admin
+      VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-test-redis","credentials":{"uri":"redis://redis"}}],"aws-s3-bucket":[{"instance_name":"ukraine-sponsor-resettlement-development-s3","credentials":{"aws_access_key_id":"access-key-id","aws_secret_access_key":"secret-access-key","aws_region":"eu-west-2","bucket_name":"upload-bucket"}}]}'
       BASIC_AUTH_PASS: password
     ports:
       - 8080:8080
@@ -40,15 +41,17 @@ services:
     depends_on:
       - pg
       - redis
+      - s3
     volumes:
       - .:/app
     environment:
       RAILS_ENV: test
+      INSTANCE_NAME: ukraine-sponsor-resettlement-test
       DB_HOST: pg
       DB_USERNAME: ukraine
       DB_DATABASE: ukraine_test
       DB_PASSWORD: password
-      VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-test-redis", "credentials":{"uri":"redis://redis"}}]}'
+      VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-test-redis","credentials":{"uri":"redis://redis"}}],"aws-s3-bucket":[{"instance_name":"ukraine-sponsor-resettlement-test-s3","credentials":{"aws_access_key_id":"access-key-id","aws_secret_access_key":"secret-access-key","aws_region":"eu-west-2","bucket_name":"test-bucket"}}]}'
       REMOTE_API_URL: http://mock-api:8081/data
       GOVUK_NOTIFY_API_KEY: ${GOVUK_NOTIFY_API_KEY}
     command: bin/test.sh
@@ -64,12 +67,12 @@ services:
     volumes:
       - .:/app
     environment:
-      RAILS_ENV: development
+      RAILS_ENV: test
       DB_HOST: pg
       DB_DATABASE: ukraine
       DB_USERNAME: ukraine
       DB_PASSWORD: password
-      VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-development-redis", "credentials":{"uri":"redis://redis"}}]}'
+      VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-test-redis","credentials":{"uri":"redis://redis"}}],"aws-s3-bucket":[{"instance_name":"ukraine-sponsor-resettlement-test-s3","credentials":{"aws_access_key_id":"access-key-id","aws_secret_access_key":"secret-access-key","aws_region":"eu-west-2","bucket_name":"test-bucket"}}]}'
       REMOTE_API_URL: http://mock-api:8081/data
       INDIVIDUAL_CONFIRMATION_TEMPLATE_ID: "6c80930d-e25a-4dc6-8383-bb83a2c18d19"
       ORGANISATION_CONFIRMATION_TEMPLATE_ID: "3ae2501f-e2be-4ad6-886b-fcf5aa71d448"
@@ -80,9 +83,23 @@ services:
   redis:
     image: redis
 
+  s3:
+    image: localstack/localstack:latest
+    container_name: localstack-s3
+    environment:
+      - SERVICES=s3:5002
+      - DEFAULT_REGION=eu-west-2
+      - DATA_DIR=/tmp/localstack/data
+    ports:
+      - 5002:5002
+      - 9999:8080
+    volumes:
+      - .:/tmp/localstack
+
   mock-api:
     build:
       dockerfile: Dockerfile
       context: http-mock-server
     ports:
       - 8081:8081
+

@@ -279,6 +279,15 @@ en:
     user_research:
       yes: Yes
       no: No
+  unaccompanied_minor:
+    questions:
+      parental_consent:
+        short: Consent
+        full: Upload your notarised parental written consent
+        hint: This is the hint
+      fullname:
+        short: Name
+        full: Enter your full name
   error:
     choose_option: You must select an option to continue
     invalid_number: Please enter a non-negative whole number
@@ -300,4 +309,6 @@ en:
     number_children: You must enter a number from 0-9
     child_without_adult: There must be at least 1 adult living with children
     number_adults_residential: There must be at least 1 adult living at your residential address
+    invalid_file_type_chosen: You must select a PDF file
+    no_file_chosen: You must select a file
 

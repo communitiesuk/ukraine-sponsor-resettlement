@@ -28,6 +28,10 @@ gem "sidekiq"
 gem "sentry-rails"
 gem "sentry-ruby"
 
+# S3 & Anti-virus
+gem "aws-sdk-s3"
+gem "ratonvirus"
+
 group :development, :test do
   # Check gems for known vulnerabilities
   gem "bundler-audit"
