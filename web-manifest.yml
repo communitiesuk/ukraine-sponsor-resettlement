@@ -13,6 +13,7 @@ applications:
     <<: *defaults
     env:
       RAILS_ENV: test
+      INSTANCE_NAME: ukraine-sponsor-resettlement-test
     services:
       - ukraine-sponsor-resettlement-test-postgres
       - ukraine-sponsor-resettlement-test-s3
@@ -21,6 +22,7 @@ applications:
     <<: *defaults
     env:
       RAILS_ENV: staging
+      INSTANCE_NAME: ukraine-sponsor-resettlement-staging
     services:
       - ukraine-sponsor-resettlement-staging-postgres
       - ukraine-sponsor-resettlement-staging-redis
@@ -30,6 +32,7 @@ applications:
     <<: *defaults
     env:
       RAILS_ENV: production
+      INSTANCE_NAME: ukraine-sponsor-resettlement-production
     instances: 8
     memory: 512M
     services:
