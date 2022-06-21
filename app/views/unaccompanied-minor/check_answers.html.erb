@@ -77,6 +77,20 @@
         </dd>
       </div>
 
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('phone_number.short', scope: "unaccompanied_minor.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.phone_number %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/unaccompanied-minor/steps/6">
+            Change<span class="govuk-visually-hidden"> number</span>
+          </a>
+        </dd>
+      </div>
+
     </dl>
 
     <h2 class="govuk-heading-m">Now send your application</h2>

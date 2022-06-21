@@ -5,7 +5,7 @@
 
     <%= form_for @application, url: "/unaccompanied-minor/steps/5", method: :post do |f| %>
       <%= f.govuk_text_field :email,
-                             label: { text: t('email.full', scope: "unaccompanied_minor.questions") },
+                             label: { text: t('email.full', scope: "unaccompanied_minor.questions"), size: 'm' },
                              hint: { text: t('email.hint', scope: "unaccompanied_minor.questions")},
                              type: "email"
       %>

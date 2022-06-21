@@ -300,6 +300,10 @@ en:
         short: Email
         full: What is your email address?
         hint: Email
+      phone_number:
+        short: Telephone number
+        full: What is your telephone number?
+        hint: UK telephone number
   error:
     choose_option: You must select an option to continue
     invalid_number: Please enter a non-negative whole number
