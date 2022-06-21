@@ -283,11 +283,18 @@ en:
     questions:
       parental_consent:
         short: Consent
-        full: Upload your notarised parental written consent
+        full: Upload the child's parental consent form
         hint: This is the hint
       minor_fullname:
         short: Child name
         full: What is the name of the child you want to sponsor?
+        hint: Full name
+      minor_date_of_birth:
+        short: Child DoB
+        full: What is the child's date of birth?
+      fullname:
+        short: Name
+        full: What is your name?
         hint: Full name
   error:
     choose_option: You must select an option to continue

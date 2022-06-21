@@ -1,7 +1,7 @@
 require "securerandom"
 
 class UnaccompaniedController < ApplicationController
-  MAX_STEPS = 2
+  MAX_STEPS = 4
 
   def start
     render "unaccompanied-minor/start"
@@ -79,6 +79,7 @@ class UnaccompaniedController < ApplicationController
 
   def check_answers
     @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
+    @application.minor_date_of_birth_as_string = @application.minor_date_of_birth.map {|k,v| v}.join(' ').to_s
 
     render "unaccompanied-minor/check_answers"
   end
@@ -116,8 +117,13 @@ private
     params.require(:unaccompanied_minor)
         .permit(
           :reference,
-          :parental_consent,
+          :parental_consent_file_type,
+          :parental_consent_filename,
+          :parental_consent_saved_filename,
           :minor_fullname,
+          :minor_date_of_birth,
+          :minor_date_of_birth_as_string,
+          :fullname,
         )
   end
 end
