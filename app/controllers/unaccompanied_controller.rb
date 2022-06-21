@@ -3,6 +3,10 @@ require "securerandom"
 class UnaccompaniedController < ApplicationController
   MAX_STEPS = 2
 
+  def start
+    render "unaccompanied-minor/start"
+  end
+
   def display
     @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
 
