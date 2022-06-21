@@ -38,12 +38,18 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("What is your telephone number?", with: "07777 888 999")
       click_button("Continue")
 
+      fill_in("Address line 1", with: "House number and Street name")
+      fill_in("Town", with: "Some Town or City")
+      fill_in("Postcode", with: "XX1 1XX")
+      click_button("Continue")
+
       expect(page).to have_content("Child name John Smith")
       expect(page).to have_content("Child DoB 15 6 2017")
       expect(page).to have_content("Consent test-document.pdf")
       expect(page).to have_content("Name Jane Doe")
       expect(page).to have_content("Email jane.doe@test.com")
       expect(page).to have_content("Telephone number 07777 888 999")
+      expect(page).to have_content("Residential address House number and Street name")
 
       click_button("Accept and send")
 
@@ -57,7 +63,10 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
                                                  parental_consent_file_type: "application/pdf",
                                                  fullname: "Jane Doe",
                                                  email: "jane.doe@test.com",
-                                                 phone_number: "07777 888 999"
+                                                 phone_number: "07777 888 999",
+                                                 residential_line_1: "House number and Street name",
+                                                 residential_town: "Some Town or City",
+                                                 residential_postcode: "XX1 1XX",
       })
 
       expect(application.ip_address).to eq("127.0.0.1")

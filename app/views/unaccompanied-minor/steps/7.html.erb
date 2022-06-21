@@ -1,0 +1,32 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
+
+    <h2 class="govuk-heading-m">What address will you and the child be living at?</h2>
+
+    <p class="hint">This is the address where you live</p>
+
+    <%= form_for @application, url: "/unaccompanied-minor/steps/7", method: :post do |f| %>
+      <%= f.govuk_text_field :residential_line_1,
+                             label: { text: t('address_line_1.full', scope: "unaccompanied_minor.questions") },
+                             type: "text"
+      %>
+      <%= f.govuk_text_field :residential_line_2,
+                             label: { text: t('address_line_2.full', scope: "unaccompanied_minor.questions") },
+                             type: "text"
+      %>
+      <%= f.govuk_text_field :residential_town,
+                             label: { text: t('address_town.full', scope: "unaccompanied_minor.questions") },
+                             type: "text",
+                             width: 20
+      %>
+      <%= f.govuk_text_field :residential_postcode,
+                             label: { text: t('address_postcode.full', scope: "unaccompanied_minor.questions") },
+                             type: "text",
+                             width: 10
+      %>
+      <%= f.govuk_submit t('continue') %>
+    <% end %>
+  </div>
+</div>

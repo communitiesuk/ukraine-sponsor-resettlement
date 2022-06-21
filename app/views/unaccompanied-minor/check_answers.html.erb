@@ -91,6 +91,30 @@
         </dd>
       </div>
 
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Residential address
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.residential_line_1 %>
+          <br />
+
+          <% if @application.residential_line_2.present? %>
+            <%= @application.residential_line_2 %>
+            <br />
+          <% end %>
+
+          <%= @application.residential_town %>
+          <br />
+          <%= @application.residential_postcode %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/unaccompanied-minor/steps/7">
+            Change<span class="govuk-visually-hidden"> address</span>
+          </a>
+        </dd>
+      </div>
+
     </dl>
 
     <h2 class="govuk-heading-m">Now send your application</h2>

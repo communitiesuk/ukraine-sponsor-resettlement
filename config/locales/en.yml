@@ -304,6 +304,18 @@ en:
         short: Telephone number
         full: What is your telephone number?
         hint: UK telephone number
+      address_line_1:
+        short: Line 1
+        full: Address line 1
+      address_line_2:
+        short: Line 2
+        full: Address line 2 (optional)
+      address_town:
+        short: Town or city
+        full: Town or city
+      address_postcode:
+        short: Postcode
+        full: Postcode
   error:
     choose_option: You must select an option to continue
     invalid_number: Please enter a non-negative whole number
