@@ -319,6 +319,10 @@ en:
       sponsor_date_of_birth:
         short: Sponsor DoB
         full: What is your date of birth?
+      agree_privacy_statement:
+        short: Privacy statement
+        full: Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme
+        comment: Yes, I have read the privacy statement and agree that the information I have provided in this form can be used for the Homes for Ukraine scheme
   error:
     choose_option: You must select an option to continue
     invalid_number: Please enter a non-negative whole number

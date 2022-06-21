@@ -48,6 +48,9 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Year", with: "1987")
       click_button("Continue")
 
+      page.check("unaccompanied-minor-agree-privacy-statement-true-field")
+      click_button("Continue")
+
       expect(page).to have_content("Child name John Smith")
       expect(page).to have_content("Child DoB 15 6 2017")
       expect(page).to have_content("Consent test-document.pdf")
@@ -56,6 +59,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Telephone number 07777 888 999")
       expect(page).to have_content("Residential address House number and Street name")
       expect(page).to have_content("Sponsor DoB 6 11 1987")
+      expect(page).to have_content("Privacy statement Agreed")
 
       click_button("Accept and send")
 
@@ -74,6 +78,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
                                                  residential_town: "Some Town or City",
                                                  residential_postcode: "XX1 1XX",
                                                  sponsor_date_of_birth: {"1"=>1987, "2"=>11, "3"=>6},
+                                                 agree_privacy_statement: "true",
       })
 
       expect(application.ip_address).to eq("127.0.0.1")

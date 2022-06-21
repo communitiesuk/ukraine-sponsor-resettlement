@@ -129,6 +129,24 @@
         </dd>
       </div>
 
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('agree_privacy_statement.short', scope: "unaccompanied_minor.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <% if @application.errors.include?(:agree_privacy_statement) %>
+            <span class="govuk-error-message"><%= @application.errors[:agree_privacy_statement].join %></span>
+          <% else %>
+            <%= @application.agree_privacy_statement == "true" ? "Agreed" : "Not agreed" %>
+          <% end %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/unaccompanied-minor/steps/9">
+            Change<span class="govuk-visually-hidden"> agreement</span>
+          </a>
+        </dd>
+      </div>
+
     </dl>
 
     <h2 class="govuk-heading-m">Now send your application</h2>
