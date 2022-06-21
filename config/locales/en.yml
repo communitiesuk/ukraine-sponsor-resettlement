@@ -296,6 +296,10 @@ en:
         short: Name
         full: What is your name?
         hint: Full name
+      email:
+        short: Email
+        full: What is your email address?
+        hint: Email
   error:
     choose_option: You must select an option to continue
     invalid_number: Please enter a non-negative whole number

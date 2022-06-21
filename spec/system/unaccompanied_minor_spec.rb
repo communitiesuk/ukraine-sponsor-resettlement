@@ -32,10 +32,14 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("What is your name?", with: "Jane Doe")
       click_button("Continue")
 
+      fill_in("What is your email address?", with: "jane.doe@test.com")
+      click_button("Continue")
+
       expect(page).to have_content("Child name John Smith")
       expect(page).to have_content("Child DoB 15 6 2017")
       expect(page).to have_content("Consent test-document.pdf")
       expect(page).to have_content("Name Jane Doe")
+      expect(page).to have_content("Email jane.doe@test.com")
 
       click_button("Accept and send")
 
@@ -48,6 +52,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
                                                  parental_consent_filename: "test-document.pdf",
                                                  parental_consent_file_type: "application/pdf",
                                                  fullname: "Jane Doe",
+                                                 email: "jane.doe@test.com",
       })
 
       expect(application.ip_address).to eq("127.0.0.1")

@@ -1,7 +1,7 @@
 require "securerandom"
 
 class UnaccompaniedController < ApplicationController
-  MAX_STEPS = 4
+  MAX_STEPS = 5
 
   def start
     render "unaccompanied-minor/start"
@@ -124,6 +124,7 @@ private
           :minor_date_of_birth,
           :minor_date_of_birth_as_string,
           :fullname,
+          :email,
         )
   end
 end
