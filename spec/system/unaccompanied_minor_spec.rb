@@ -64,6 +64,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Accept and send")
 
       expect(page).to have_content("Application complete")
+      expect(page).to have_content("We've sent your application to your local council.")
 
       application = UnaccompaniedMinor.order("created_at DESC").last
       expect(application.as_json).to include({
