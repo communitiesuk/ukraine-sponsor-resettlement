@@ -316,6 +316,9 @@ en:
       address_postcode:
         short: Postcode
         full: Postcode
+      sponsor_date_of_birth:
+        short: Sponsor DoB
+        full: What is your date of birth?
   error:
     choose_option: You must select an option to continue
     invalid_number: Please enter a non-negative whole number

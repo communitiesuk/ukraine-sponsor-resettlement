@@ -115,6 +115,20 @@
         </dd>
       </div>
 
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('sponsor_date_of_birth.short', scope: "unaccompanied_minor.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.sponsor_date_of_birth_as_string %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/unaccompanied-minor/steps/8">
+            Change<span class="govuk-visually-hidden"> date of birth</span>
+          </a>
+        </dd>
+      </div>
+
     </dl>
 
     <h2 class="govuk-heading-m">Now send your application</h2>

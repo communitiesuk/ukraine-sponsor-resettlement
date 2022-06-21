@@ -1,7 +1,7 @@
 require "securerandom"
 
 class UnaccompaniedController < ApplicationController
-  MAX_STEPS = 7
+  MAX_STEPS = 8
 
   def start
     render "unaccompanied-minor/start"
@@ -80,6 +80,7 @@ class UnaccompaniedController < ApplicationController
   def check_answers
     @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
     @application.minor_date_of_birth_as_string = @application.minor_date_of_birth.map {|k,v| v}.join(' ').to_s
+    @application.sponsor_date_of_birth_as_string = @application.sponsor_date_of_birth.map {|k,v| v}.join(' ').to_s
 
     render "unaccompanied-minor/check_answers"
   end
@@ -130,6 +131,7 @@ private
           :residential_line_2,
           :residential_town,
           :residential_postcode,
+          :sponsor_date_of_birth,
         )
   end
 end
