@@ -1,7 +1,11 @@
 require "securerandom"
 
 class UnaccompaniedController < ApplicationController
-  MAX_STEPS = 2
+  MAX_STEPS = 9
+
+  def start
+    render "unaccompanied-minor/start"
+  end
 
   def display
     @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
@@ -67,12 +71,16 @@ class UnaccompaniedController < ApplicationController
         redirect_to "/unaccompanied-minor/steps/#{next_stage}"
       end
     else
+      Rails.logger.debug "Invalid!"
+
       render "unaccompanied-minor/steps/#{params['stage']}"
     end
   end
 
   def check_answers
     @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
+    @application.minor_date_of_birth_as_string = @application.minor_date_of_birth.map { |_, v| v }.join(" ").to_s
+    @application.sponsor_date_of_birth_as_string = @application.sponsor_date_of_birth.map { |_, v| v }.join(" ").to_s
 
     render "unaccompanied-minor/check_answers"
   end
@@ -110,8 +118,21 @@ private
     params.require(:unaccompanied_minor)
         .permit(
           :reference,
-          :parental_consent,
+          :parental_consent_file_type,
+          :parental_consent_filename,
+          :parental_consent_saved_filename,
+          :minor_fullname,
+          :minor_date_of_birth,
+          :minor_date_of_birth_as_string,
           :fullname,
+          :email,
+          :phone_number,
+          :residential_line_1,
+          :residential_line_2,
+          :residential_town,
+          :residential_postcode,
+          :sponsor_date_of_birth,
+          :agree_privacy_statement,
         )
   end
 end

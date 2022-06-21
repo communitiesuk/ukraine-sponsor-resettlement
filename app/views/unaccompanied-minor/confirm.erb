@@ -7,9 +7,32 @@
             Application complete
           </h1>
           <div class="govuk-panel__body">
-            Your response ID is <br><strong><%= @app_reference %></strong>
+            Your reference number is <br><strong><%= @app_reference %></strong>
           </div>
         </div>
+
+        <p class="govuk-body">
+          We have sent you a confirmation email.
+        </p>
+
+        <h2 class="govuk-heading-m">What happens next</h2>
+
+        <p class="govuk-body">
+          We've sent your application to your local council.
+        </p>
+
+        <p class="govuk-body">
+          They will contact you for more information and undertake some safety and criminal checks before granting you with the certificate you need to sponsor a child's visa.
+        </p>
+
+        <p class="govuk-body">
+          Read guidance on sponsoring a child from Ukraine for more information on what checks will be made to ensure you can sponsor a child.
+        </p>
+
+        <p class="govuk-body">
+          If you are granted a certificate, that will only be eligible for sponsoring the child mentioned in your application. If you would like to sponsor more than one child, even if they are related,
+          <%= govuk_link_to 'complete another application', '/unaccompanied-minor' %>.
+        </p>
 
       </div>
     </div>

@@ -1,0 +1,18 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render partial: "shared/back_link" %>
+
+    <%= form_for @application, url: "/unaccompanied-minor/steps/9", method: :post do |f| %>
+        <%= f.govuk_check_boxes_fieldset :agree_privacy_statement,
+                                         multiple: false,
+                                         legend: { text: t('agree_privacy_statement.full', scope: "unaccompanied_minor.questions"), size: 'm' } do %>
+            <p>
+              <%= govuk_link_to t('individual.questions.agree_privacy_statement.short'), "https://www.gov.uk/government/publications/homes-for-ukraine-scheme-expressions-of-interest-eois-privacy-notices/homes-for-ukraine-scheme-expressions-of-interest-individuals" %>
+            </p>
+        <%= f.govuk_check_box :agree_privacy_statement, "true", "false", multiple: false, link_errors: true, label: { text: t('agree_privacy_statement.comment', scope: "unaccompanied_minor.questions") } %><% end %>
+
+        <%= f.govuk_submit t('continue') %>
+    <% end %>
+  </div>
+</div>
+
