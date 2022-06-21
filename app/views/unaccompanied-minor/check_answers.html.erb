@@ -9,6 +9,20 @@
 
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
+          <%= t('minor_fullname.short', scope: "unaccompanied_minor.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.minor_fullname %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/unaccompanied-minor/steps/1">
+            Change<span class="govuk-visually-hidden"> name</span>
+          </a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
           <%= t('parental_consent.short', scope: "unaccompanied_minor.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
@@ -21,19 +35,7 @@
         </dd>
       </div>
 
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= t('fullname.short', scope: "unaccompanied_minor.questions") %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= @application.fullname %>
-        </dd>
-        <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/unaccompanied-minor/steps/2">
-            Change<span class="govuk-visually-hidden"> name</span>
-          </a>
-        </dd>
-      </div>
+
 
     </dl>
 

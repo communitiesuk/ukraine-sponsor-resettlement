@@ -285,9 +285,10 @@ en:
         short: Consent
         full: Upload your notarised parental written consent
         hint: This is the hint
-      fullname:
-        short: Name
-        full: Enter your full name
+      minor_fullname:
+        short: Child name
+        full: What is the name of the child you want to sponsor?
+        hint: Full name
   error:
     choose_option: You must select an option to continue
     invalid_number: Please enter a non-negative whole number
@@ -296,6 +297,7 @@ en:
     invalid_email: You must enter a valid email address
     invalid_organisation_name: Please enter a valid organisation name
     invalid_phone_number: You must enter a valid phone number
+    invalid_minor_fullname: You must enter the child's full name
     invalid_fullname: You must enter your full name
     must_be_accepted: You must tick the box to continue
     choose_one_or_more_options: Please choose one or more of the options

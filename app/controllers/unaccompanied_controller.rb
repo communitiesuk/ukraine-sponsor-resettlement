@@ -71,6 +71,8 @@ class UnaccompaniedController < ApplicationController
         redirect_to "/unaccompanied-minor/steps/#{next_stage}"
       end
     else
+      Rails.logger.debug "Invalid!"
+
       render "unaccompanied-minor/steps/#{params['stage']}"
     end
   end
@@ -115,7 +117,7 @@ private
         .permit(
           :reference,
           :parental_consent,
-          :fullname,
+          :minor_fullname,
         )
   end
 end
