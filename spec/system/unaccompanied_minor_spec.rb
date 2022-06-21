@@ -6,7 +6,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   end
 
   describe "submitting the form" do
-    it "saves all of the answers in the database", :focus do
+    it "saves all of the answers in the database" do
       visit "/unaccompanied-minor"
       expect(page).to have_content("Apply for certification to sponsor a child travelling on their own")
 
@@ -68,18 +68,18 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       application = UnaccompaniedMinor.order("created_at DESC").last
       expect(application.as_json).to include({
-                                                 minor_fullname: "John Smith",
-                                                 minor_date_of_birth: {"1"=>2017, "2"=>6, "3"=>15},
-                                                 parental_consent_filename: "test-document.pdf",
-                                                 parental_consent_file_type: "application/pdf",
-                                                 fullname: "Jane Doe",
-                                                 email: "jane.doe@test.com",
-                                                 phone_number: "07777 888 999",
-                                                 residential_line_1: "House number and Street name",
-                                                 residential_town: "Some Town or City",
-                                                 residential_postcode: "XX1 1XX",
-                                                 sponsor_date_of_birth: {"1"=>1987, "2"=>11, "3"=>6},
-                                                 agree_privacy_statement: "true",
+        minor_fullname: "John Smith",
+        minor_date_of_birth: { "1" => 2017, "2" => 6, "3" => 15 },
+        parental_consent_filename: "test-document.pdf",
+        parental_consent_file_type: "application/pdf",
+        fullname: "Jane Doe",
+        email: "jane.doe@test.com",
+        phone_number: "07777 888 999",
+        residential_line_1: "House number and Street name",
+        residential_town: "Some Town or City",
+        residential_postcode: "XX1 1XX",
+        sponsor_date_of_birth: { "1" => 1987, "2" => 11, "3" => 6 },
+        agree_privacy_statement: "true",
       })
 
       expect(application.ip_address).to eq("127.0.0.1")
