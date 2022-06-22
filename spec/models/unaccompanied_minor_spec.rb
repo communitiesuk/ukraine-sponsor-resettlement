@@ -29,6 +29,20 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.fullname = "John Smith"
       expect(app.valid?).to be(true)
     end
+
+    it "sponsor email is valid", :focus do
+      app = described_class.new
+      app.email = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:email]).to include("You must enter a valid email address")
+      expect(app.errors[:email].count).to be(1)
+      app.email = "John.Smith@"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:email]).to include("You must enter a valid email address")
+      expect(app.errors[:email].count).to be(1)
+      app.email = "John.Smith@test.com"
+      expect(app.valid?).to be(true)
+    end
   end
 
   describe "parental consent questions" do
