@@ -1,6 +1,35 @@
 require "rails_helper"
 
 RSpec.describe UnaccompaniedMinor, type: :model do
+  describe "full name validations" do
+    it "minor full name is valid", :focus do
+      app = described_class.new
+      app.minor_fullname = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:minor_fullname]).to include("You must enter the child's full name")
+      expect(app.errors[:minor_fullname].count).to be(1)
+      app.minor_fullname = "John"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:minor_fullname]).to include("You must enter the child's full name")
+      expect(app.errors[:minor_fullname].count).to be(1)
+      app.minor_fullname = "John Smith"
+      expect(app.valid?).to be(true)
+    end
+
+    it "sponsor full name is valid", :focus do
+      app = described_class.new
+      app.fullname = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:fullname]).to include("You must enter your full name")
+      expect(app.errors[:fullname].count).to be(1)
+      app.fullname = "John"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:fullname]).to include("You must enter your full name")
+      expect(app.errors[:fullname].count).to be(1)
+      app.fullname = "John Smith"
+      expect(app.valid?).to be(true)
+    end
+  end
   describe "age validations" do
     it "minor is less than 18", :focus do
       app = described_class.new
