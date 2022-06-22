@@ -282,8 +282,8 @@ en:
   unaccompanied_minor:
     questions:
       received_consent:
-        short: HJHJH
-        full: Have you received the child's parent consent form?
+        short: Parental consent
+        full: Have you received both parental consent forms?
         hint: You will need to upload a completed UK parental consent form on the next page
       parental_consent:
         short: Consent

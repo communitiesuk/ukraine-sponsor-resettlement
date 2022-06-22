@@ -7,7 +7,9 @@ class UnaccompaniedMinor < ApplicationRecord
 
   SCHEMA_VERSION = 1
 
-  attr_accessor :parental_consent,
+  attr_accessor :have_parental_consent,
+                :have_parental_consent_options,
+                :parental_consent,
                 :parental_consent_file_type,
                 :parental_consent_filename,
                 :parental_consent_saved_filename,
@@ -45,6 +47,7 @@ class UnaccompaniedMinor < ApplicationRecord
 
   def after_initialize
     @final_submission = false
+    @have_parental_consent_options = %i[yes no]
   end
 
   def as_json
@@ -54,6 +57,7 @@ class UnaccompaniedMinor < ApplicationRecord
       created_at:,
       type:,
       version:,
+      have_parental_consent:,
       parental_consent_file_type:,
       parental_consent_filename:,
       parental_consent_saved_filename:,
