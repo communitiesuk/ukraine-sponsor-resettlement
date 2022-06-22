@@ -93,6 +93,24 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.residential_line_2 = "Address line 2"
       expect(app.valid?).to be(true)
     end
+
+    it "sponsor address town is valid", :focus do
+      app = described_class.new
+      app.residential_town = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:residential_town]).to include("You must enter a town or city")
+      expect(app.errors[:residential_town].count).to be(1)
+      app.residential_town = "A"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:residential_town]).to include("You must enter a town or city")
+      expect(app.errors[:residential_town].count).to be(1)
+      app.residential_town = "#{'X' * 129}"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:residential_town]).to include("You must enter a town or city")
+      expect(app.errors[:residential_town].count).to be(1)
+      app.residential_town = "Address town"
+      expect(app.valid?).to be(true)
+    end
   end
 
   describe "parental consent questions" do
