@@ -1,7 +1,7 @@
 require "securerandom"
 
 class UnaccompaniedController < ApplicationController
-  MAX_STEPS = 9
+  MAX_STEPS = 11
 
   def start
     render "unaccompanied-minor/start"
