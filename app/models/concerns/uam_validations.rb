@@ -7,6 +7,7 @@ module UamValidations
   included do
     validate :validate_minor_full_name, if: -> { run_validation? :minor_fullname }
     validate :validate_minor_date_of_birth, if: -> { run_validation? :minor_date_of_birth }
+    validate :validate_sponsor_date_of_birth, if: -> { run_validation? :sponsor_date_of_birth }
     validate :validate_parent_consent_file_type, if: -> { run_validation? :parental_consent_file_type }
     validate :validate_parent_consent_filename, if: -> { run_validation? :parental_consent_filename }
     validate :validate_full_name, if: -> { run_validation? :fullname }
@@ -20,9 +21,17 @@ module UamValidations
 
   def validate_minor_date_of_birth
     if @minor_date_of_birth.nil? || @minor_date_of_birth.empty? || DateTime.parse(@minor_date_of_birth.map { |_, v| v }.join("-").to_s) >= DateTime.now.to_date
-      errors.add(:minor_date_of_birth, I18n.t(:invalid_minor_date_of_birth, scope: :error))
+      errors.add(:minor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
     elsif DateTime.parse(@minor_date_of_birth.map { |_, v| v }.join("-").to_s) < 18.years.ago.to_date
-      errors.add(:minor_date_of_birth, I18n.t(:too_old_minor_date_of_birth, scope: :error))
+      errors.add(:minor_date_of_birth, I18n.t(:too_old_date_of_birth, scope: :error))
+    end
+  end
+
+  def validate_sponsor_date_of_birth
+    if @sponsor_date_of_birth.nil? || @sponsor_date_of_birth.empty? || DateTime.parse(@sponsor_date_of_birth.map { |_, v| v }.join("-").to_s) >= DateTime.now.to_date
+      errors.add(:sponsor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
+    elsif DateTime.parse(@sponsor_date_of_birth.map { |_, v| v }.join("-").to_s) > 18.years.ago.to_date
+      errors.add(:sponsor_date_of_birth, I18n.t(:too_young_date_of_birth, scope: :error))
     end
   end
 

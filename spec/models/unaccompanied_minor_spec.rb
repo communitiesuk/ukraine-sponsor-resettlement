@@ -6,7 +6,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app = described_class.new
       app.minor_date_of_birth = {}
       expect(app.valid?).to be(false)
-      expect(app.errors[:minor_date_of_birth]).to include("Enter a valid child's date of birth")
+      expect(app.errors[:minor_date_of_birth]).to include("Enter a valid date of birth")
       expect(app.errors[:minor_date_of_birth].count).to be(1)
       app.minor_date_of_birth = { "1" => 2001, "2" => 6, "3" => 1 } #not ideal, but will 'work'
       expect(app.valid?).to be(false)
@@ -14,9 +14,27 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.errors[:minor_date_of_birth].count).to be(1)
       app.minor_date_of_birth = { "1" => DateTime.now.year, "2" => DateTime.now.month, "3" => DateTime.now.day }
       expect(app.valid?).to be(false)
-      expect(app.errors[:minor_date_of_birth]).to include("Enter a valid child's date of birth")
+      expect(app.errors[:minor_date_of_birth]).to include("Enter a valid date of birth")
       expect(app.errors[:minor_date_of_birth].count).to be(1)
       app.minor_date_of_birth = { "1" => 2022, "2" => 6, "3" => 21 } #not ideal, but will 'work' for about 18 years
+      expect(app.valid?).to be(true)
+    end
+
+    it "sponsor is greater than 18", :focus do
+      app = described_class.new
+      app.sponsor_date_of_birth = {}
+      expect(app.valid?).to be(false)
+      expect(app.errors[:sponsor_date_of_birth]).to include("Enter a valid date of birth")
+      expect(app.errors[:sponsor_date_of_birth].count).to be(1)
+      app.sponsor_date_of_birth = { "1" => 2022, "2" => 6, "3" => 21 } #not ideal, but will 'work' for about 18 years
+      expect(app.valid?).to be(false)
+      expect(app.errors[:sponsor_date_of_birth]).to include("A sponsor with this date of birth is less 18 and you cannot use this service to apply to sponsor them")
+      expect(app.errors[:sponsor_date_of_birth].count).to be(1)
+      app.sponsor_date_of_birth = { "1" => DateTime.now.year, "2" => DateTime.now.month, "3" => DateTime.now.day }
+      expect(app.valid?).to be(false)
+      expect(app.errors[:sponsor_date_of_birth]).to include("Enter a valid date of birth")
+      expect(app.errors[:sponsor_date_of_birth].count).to be(1)
+      app.sponsor_date_of_birth = { "1" => 2004, "2" => 6, "3" => 22 } #not ideal, but will 'work'
       expect(app.valid?).to be(true)
     end
   end
