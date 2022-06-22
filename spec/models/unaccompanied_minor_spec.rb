@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe UnaccompaniedMinor, type: :model do
   describe "contact detail validations" do
-    it "minor full name is valid", :focus do
+    it "minor full name is valid" do
       app = described_class.new
       app.minor_fullname = ""
       expect(app.valid?).to be(false)
@@ -16,7 +16,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(true)
     end
 
-    it "sponsor full name is valid", :focus do
+    it "sponsor full name is valid" do
       app = described_class.new
       app.fullname = ""
       expect(app.valid?).to be(false)
@@ -30,7 +30,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(true)
     end
 
-    it "sponsor email is valid", :focus do
+    it "sponsor email is valid" do
       app = described_class.new
       app.email = ""
       expect(app.valid?).to be(false)
@@ -44,7 +44,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(true)
     end
 
-    it "sponsor phone is valid", :focus do
+    it "sponsor phone is valid" do
       app = described_class.new
       app.phone_number = ""
       expect(app.valid?).to be(false)
@@ -62,7 +62,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(true)
     end
 
-    it "sponsor address line 1 is valid", :focus do
+    it "sponsor address line 1 is valid" do
       app = described_class.new
       app.residential_line_1 = ""
       expect(app.valid?).to be(false)
@@ -72,7 +72,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(false)
       expect(app.errors[:residential_line_1]).to include("You must enter an address")
       expect(app.errors[:residential_line_1].count).to be(1)
-      app.residential_line_1 = "#{'X' * 129}"
+      app.residential_line_1 = 'X' * 129.to_s
       expect(app.valid?).to be(false)
       expect(app.errors[:residential_line_1]).to include("You must enter an address")
       expect(app.errors[:residential_line_1].count).to be(1)
@@ -80,9 +80,9 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(true)
     end
 
-    it "sponsor address line 1 is valid", :focus do
+    it "sponsor address line 1 is valid" do
       app = described_class.new
-      app.residential_line_2 = "#{'X' * 129}"
+      app.residential_line_2 = 'X' * 129.to_s
       expect(app.valid?).to be(false)
       expect(app.errors[:residential_line_2]).to include("You must enter less than 128 characters")
       expect(app.errors[:residential_line_2].count).to be(1)
@@ -94,7 +94,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(true)
     end
 
-    it "sponsor address town is valid", :focus do
+    it "sponsor address town is valid" do
       app = described_class.new
       app.residential_town = ""
       expect(app.valid?).to be(false)
@@ -104,7 +104,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(false)
       expect(app.errors[:residential_town]).to include("You must enter a town or city")
       expect(app.errors[:residential_town].count).to be(1)
-      app.residential_town = "#{'X' * 129}"
+      app.residential_town = 'X' * 129.to_s
       expect(app.valid?).to be(false)
       expect(app.errors[:residential_town]).to include("You must enter a town or city")
       expect(app.errors[:residential_town].count).to be(1)
@@ -112,7 +112,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(true)
     end
 
-    it "address postcode is valid", :focus do
+    it "address postcode is valid" do
       app = described_class.new
       app.residential_postcode = ""
       expect(app.valid?).to be(false)
@@ -153,7 +153,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(true)
     end
 
-    it "validates that the have parental consent forms attribute is selected", :focus do
+    it "validates that the have parental consent forms attribute is selected" do
       app = described_class.new
       app.have_parental_consent = ""
       expect(app.valid?).to be(false)
@@ -164,13 +164,13 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   end
 
   describe "age validations" do
-    it "minor is less than 18", :focus do
+    it "minor is less than 18" do
       app = described_class.new
       app.minor_date_of_birth = {}
       expect(app.valid?).to be(false)
       expect(app.errors[:minor_date_of_birth]).to include("Enter a valid date of birth")
       expect(app.errors[:minor_date_of_birth].count).to be(1)
-      app.minor_date_of_birth = { "1" => 2001, "2" => 6, "3" => 1 } #not ideal, but will 'work'
+      app.minor_date_of_birth = { "1" => 2001, "2" => 6, "3" => 1 }
       expect(app.valid?).to be(false)
       expect(app.errors[:minor_date_of_birth]).to include("A person with this date of birth is over 18 and you cannot use this service to apply to sponsor them")
       expect(app.errors[:minor_date_of_birth].count).to be(1)
@@ -178,17 +178,17 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(false)
       expect(app.errors[:minor_date_of_birth]).to include("Enter a valid date of birth")
       expect(app.errors[:minor_date_of_birth].count).to be(1)
-      app.minor_date_of_birth = { "1" => 2022, "2" => 6, "3" => 21 } #not ideal, but will 'work' for about 18 years
+      app.minor_date_of_birth = { "1" => 2022, "2" => 6, "3" => 21 }
       expect(app.valid?).to be(true)
     end
 
-    it "sponsor is greater than 18", :focus do
+    it "sponsor is greater than 18" do
       app = described_class.new
       app.sponsor_date_of_birth = {}
       expect(app.valid?).to be(false)
       expect(app.errors[:sponsor_date_of_birth]).to include("Enter a valid date of birth")
       expect(app.errors[:sponsor_date_of_birth].count).to be(1)
-      app.sponsor_date_of_birth = { "1" => 2022, "2" => 6, "3" => 21 } #not ideal, but will 'work' for about 18 years
+      app.sponsor_date_of_birth = { "1" => 2022, "2" => 6, "3" => 21 }
       expect(app.valid?).to be(false)
       expect(app.errors[:sponsor_date_of_birth]).to include("A sponsor with this date of birth is less 18 and you cannot use this service to apply to sponsor them")
       expect(app.errors[:sponsor_date_of_birth].count).to be(1)
@@ -196,13 +196,13 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(false)
       expect(app.errors[:sponsor_date_of_birth]).to include("Enter a valid date of birth")
       expect(app.errors[:sponsor_date_of_birth].count).to be(1)
-      app.sponsor_date_of_birth = { "1" => 2004, "2" => 6, "3" => 22 } #not ideal, but will 'work'
+      app.sponsor_date_of_birth = { "1" => 2004, "2" => 6, "3" => 22 }
       expect(app.valid?).to be(true)
     end
   end
 
   describe "accept privacy terms" do
-    it "validates that the have privacy terms is selected", :focus do
+    it "validates that the have privacy terms is selected" do
       app = described_class.new
       app.agree_privacy_statement = ""
       expect(app.valid?).to be(false)
