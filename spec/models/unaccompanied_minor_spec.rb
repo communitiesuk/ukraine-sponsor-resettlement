@@ -80,7 +80,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(true)
     end
 
-    it "sponsor address line 1 is valid" do
+    it "sponsor address line 2 is valid" do
       app = described_class.new
       app.residential_line_2 = ("X" * 129).to_s
       expect(app.valid?).to be(false)
