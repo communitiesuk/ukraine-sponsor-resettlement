@@ -30,6 +30,36 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(true)
     end
   end
+
+  describe "parental consent questions" do
+    it "ensure content type" do
+      app = described_class.new
+      app.parental_consent_file_type = "invalid"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:parental_consent]).to include("You must select a PDF file")
+      app.parental_consent_file_type = "application/pdf"
+      expect(app.valid?).to be(true)
+    end
+
+    it "ensure file name is provided" do
+      app = described_class.new
+      app.parental_consent_filename = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:parental_consent]).to include("You must select a file")
+      app.parental_consent_filename = "name-of-file-uploaded"
+      expect(app.valid?).to be(true)
+    end
+
+    it "validates that the have parental consent forms attribute is selected", :focus do
+      app = described_class.new
+      app.have_parental_consent = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:have_parental_consent]).to include("You must select an option to continue")
+      app.have_parental_consent = "yes"
+      expect(app.valid?).to be(true)
+    end
+  end
+
   describe "age validations" do
     it "minor is less than 18", :focus do
       app = described_class.new
@@ -64,26 +94,6 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.errors[:sponsor_date_of_birth]).to include("Enter a valid date of birth")
       expect(app.errors[:sponsor_date_of_birth].count).to be(1)
       app.sponsor_date_of_birth = { "1" => 2004, "2" => 6, "3" => 22 } #not ideal, but will 'work'
-      expect(app.valid?).to be(true)
-    end
-  end
-
-  describe "validations for file upload" do
-    it "ensure content type" do
-      app = described_class.new
-      app.parental_consent_file_type = "invalid"
-      expect(app.valid?).to be(false)
-      expect(app.errors[:parental_consent]).to include("You must select a PDF file")
-      app.parental_consent_file_type = "application/pdf"
-      expect(app.valid?).to be(true)
-    end
-
-    it "ensure file name is provided" do
-      app = described_class.new
-      app.parental_consent_filename = ""
-      expect(app.valid?).to be(false)
-      expect(app.errors[:parental_consent]).to include("You must select a file")
-      app.parental_consent_filename = "name-of-file-uploaded"
       expect(app.valid?).to be(true)
     end
   end

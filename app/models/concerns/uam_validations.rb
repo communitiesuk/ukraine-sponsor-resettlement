@@ -9,6 +9,7 @@ module UamValidations
     validate :validate_minor_date_of_birth, if: -> { run_validation? :minor_date_of_birth }
     validate :validate_sponsor_full_name, if: -> { run_validation? :fullname }
     validate :validate_sponsor_date_of_birth, if: -> { run_validation? :sponsor_date_of_birth }
+    validate :validate_have_parental_consent, if: -> { run_validation? :have_parental_consent }
     validate :validate_parent_consent_file_type, if: -> { run_validation? :parental_consent_file_type }
     validate :validate_parent_consent_filename, if: -> { run_validation? :parental_consent_filename }
     validate :validate_full_name, if: -> { run_validation? :fullname }
@@ -54,11 +55,19 @@ module UamValidations
     end
   end
 
-
-
   def validate_full_name
     if @fullname.nil? || @fullname.strip.length < MIN_ENTRY_DIGITS || @fullname.strip.length > MAX_ENTRY_DIGITS || @fullname.split.length < 2 || @fullname.match(/[!"£$%{}<>|&@\/()=?^;]/)
       errors.add(:minor_fullname, I18n.t(:invalid_minor_fullname, scope: :error))
+    end
+  end
+
+  def validate_have_parental_consent
+    validate_enum(@have_parental_consent_options, @have_parental_consent, :have_parental_consent)
+  end
+
+  def validate_enum(enum, value, attribute)
+    unless value && enum.include?(value.to_sym)
+      errors.add(attribute, I18n.t(:choose_option, scope: :error))
     end
   end
 
