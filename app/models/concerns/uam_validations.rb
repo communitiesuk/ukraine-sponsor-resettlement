@@ -22,17 +22,17 @@ module UamValidations
   end
 
   def validate_minor_date_of_birth
-    if @minor_date_of_birth.blank? || Time.parse(@minor_date_of_birth.map { |_, v| v }.join("-").to_s) >= Time.now.to_date
+    if @minor_date_of_birth.blank? || Time.zone.parse(@minor_date_of_birth.map { |_, v| v }.join("-").to_s) >= Time.zone.now.to_date
       errors.add(:minor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
-    elsif Time.parse(@minor_date_of_birth.map { |_, v| v }.join("-").to_s) < 18.years.ago.to_date
+    elsif Time.zone.parse(@minor_date_of_birth.map { |_, v| v }.join("-").to_s) < 18.years.ago.to_date
       errors.add(:minor_date_of_birth, I18n.t(:too_old_date_of_birth, scope: :error))
     end
   end
 
   def validate_sponsor_date_of_birth
-    if @sponsor_date_of_birth.blank? || Time.parse(@sponsor_date_of_birth.map { |_, v| v }.join("-").to_s) >= Time.now.to_date
+    if @sponsor_date_of_birth.blank? || Time.zone.parse(@sponsor_date_of_birth.map { |_, v| v }.join("-").to_s) >= Time.zone.now.to_date
       errors.add(:sponsor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
-    elsif Time.parse(@sponsor_date_of_birth.map { |_, v| v }.join("-").to_s) > 18.years.ago.to_date
+    elsif Time.zone.parse(@sponsor_date_of_birth.map { |_, v| v }.join("-").to_s) > 18.years.ago.to_date
       errors.add(:sponsor_date_of_birth, I18n.t(:too_young_date_of_birth, scope: :error))
     end
   end

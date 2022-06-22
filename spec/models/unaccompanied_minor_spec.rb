@@ -72,7 +72,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(false)
       expect(app.errors[:residential_line_1]).to include("You must enter an address")
       expect(app.errors[:residential_line_1].count).to be(1)
-      app.residential_line_1 = 'X' * 129.to_s
+      app.residential_line_1 = ("X" * 129).to_s
       expect(app.valid?).to be(false)
       expect(app.errors[:residential_line_1]).to include("You must enter an address")
       expect(app.errors[:residential_line_1].count).to be(1)
@@ -82,7 +82,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
 
     it "sponsor address line 1 is valid" do
       app = described_class.new
-      app.residential_line_2 = 'X' * 129.to_s
+      app.residential_line_2 = ("X" * 129).to_s
       expect(app.valid?).to be(false)
       expect(app.errors[:residential_line_2]).to include("You must enter less than 128 characters")
       expect(app.errors[:residential_line_2].count).to be(1)
@@ -104,7 +104,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(false)
       expect(app.errors[:residential_town]).to include("You must enter a town or city")
       expect(app.errors[:residential_town].count).to be(1)
-      app.residential_town = 'X' * 129.to_s
+      app.residential_town = ("X" * 129).to_s
       expect(app.valid?).to be(false)
       expect(app.errors[:residential_town]).to include("You must enter a town or city")
       expect(app.errors[:residential_town].count).to be(1)
@@ -120,7 +120,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.residential_postcode = " "
       expect(app.valid?).to be(false)
       expect(app.errors[:residential_postcode]).to include("You must enter a valid UK postcode")
-      app.residential_postcode = "X" * 129
+      app.residential_postcode = ("X" * 129).to_s
       expect(app.valid?).to be(false)
       expect(app.errors[:residential_postcode]).to include("You must enter a valid UK postcode")
       app.residential_postcode = "XX1 XX"
@@ -174,7 +174,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(false)
       expect(app.errors[:minor_date_of_birth]).to include("A person with this date of birth is over 18 and you cannot use this service to apply to sponsor them")
       expect(app.errors[:minor_date_of_birth].count).to be(1)
-      app.minor_date_of_birth = { "1" => DateTime.now.year, "2" => DateTime.now.month, "3" => DateTime.now.day }
+      app.minor_date_of_birth = { "1" => Time.zone.now.year, "2" => Time.zone.now.month, "3" => Time.zone.now.day }
       expect(app.valid?).to be(false)
       expect(app.errors[:minor_date_of_birth]).to include("Enter a valid date of birth")
       expect(app.errors[:minor_date_of_birth].count).to be(1)
@@ -192,7 +192,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(false)
       expect(app.errors[:sponsor_date_of_birth]).to include("A sponsor with this date of birth is less 18 and you cannot use this service to apply to sponsor them")
       expect(app.errors[:sponsor_date_of_birth].count).to be(1)
-      app.sponsor_date_of_birth = { "1" => DateTime.now.year, "2" => DateTime.now.month, "3" => DateTime.now.day }
+      app.sponsor_date_of_birth = { "1" => Time.zone.now.year, "2" => Time.zone.now.month, "3" => Time.zone.now.day }
       expect(app.valid?).to be(false)
       expect(app.errors[:sponsor_date_of_birth]).to include("Enter a valid date of birth")
       expect(app.errors[:sponsor_date_of_birth].count).to be(1)
