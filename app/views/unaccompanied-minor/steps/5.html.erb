@@ -3,13 +3,13 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-    <%= form_for @application, url: "/unaccompanied-minor/steps/5", method: :post do |f| %>
-      <%= f.govuk_text_field :email,
-                             label: { text: t('email.full', scope: "unaccompanied_minor.questions"), size: 'm' },
-                             hint: { text: t('email.hint', scope: "unaccompanied_minor.questions")},
-                             type: "email"
+    <%= form_for @application, url: "/unaccompanied-minor/upload/5", method: :post do |f| %>
+      <%= f.govuk_file_field :parental_consent,
+        label: { text: t("parental_consent.full", scope: "unaccompanied_minor.questions"), size: 'm' },
+        hint: { text: t("parental_consent.hint", scope: "unaccompanied_minor.questions") }
       %>
-      <%= f.govuk_submit t('continue') %>
+      <%= f.govuk_submit t('Upload') %>
     <% end %>
   </div>
 </div>
+
