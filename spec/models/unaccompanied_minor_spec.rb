@@ -111,6 +111,27 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.residential_town = "Address town"
       expect(app.valid?).to be(true)
     end
+
+    it "address postcode is valid", :focus do
+      app = described_class.new
+      app.residential_postcode = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:residential_postcode]).to include("You must enter a valid UK postcode")
+      app.residential_postcode = " "
+      expect(app.valid?).to be(false)
+      expect(app.errors[:residential_postcode]).to include("You must enter a valid UK postcode")
+      app.residential_postcode = "X" * 129
+      expect(app.valid?).to be(false)
+      expect(app.errors[:residential_postcode]).to include("You must enter a valid UK postcode")
+      app.residential_postcode = "XX1 XX"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:residential_postcode]).to include("You must enter a valid UK postcode")
+      app.residential_postcode = "XX 1XX"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:residential_postcode]).to include("You must enter a valid UK postcode")
+      app.residential_postcode = "XX1 1XX"
+      expect(app.valid?).to be(true)
+    end
   end
 
   describe "parental consent questions" do
