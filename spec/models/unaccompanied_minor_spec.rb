@@ -79,6 +79,20 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.residential_line_1 = "Address line 1"
       expect(app.valid?).to be(true)
     end
+
+    it "sponsor address line 1 is valid", :focus do
+      app = described_class.new
+      app.residential_line_2 = "#{'X' * 129}"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:residential_line_2]).to include("You must enter less than 128 characters")
+      expect(app.errors[:residential_line_2].count).to be(1)
+      app.residential_line_2 = ""
+      expect(app.valid?).to be(true)
+      app.residential_line_2 = "A"
+      expect(app.valid?).to be(true)
+      app.residential_line_2 = "Address line 2"
+      expect(app.valid?).to be(true)
+    end
   end
 
   describe "parental consent questions" do
