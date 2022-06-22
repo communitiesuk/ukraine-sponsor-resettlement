@@ -6,6 +6,27 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   end
 
   describe "submitting the form" do
+    it "without parental consent form terminates early", :focus do
+      visit "/unaccompanied-minor"
+      expect(page).to have_content("Apply for certification to sponsor a child travelling on their own")
+
+      click_link("Start now")
+
+      fill_in("What is the name of the child you want to sponsor?", with: "John Smith")
+      click_button("Continue")
+
+      fill_in("Day", with: "15")
+      fill_in("Month", with: "6")
+      fill_in("Year", with: "2017")
+      click_button("Continue")
+
+      expect(page).to have_content("Have you received both parental consent forms?")
+      choose("No")
+      click_button("Continue")
+
+      expect(page).to have_content("You cannot apply without completed parental consent forms")
+    end
+
     it "saves all of the answers in the database", :focus do
       visit "/unaccompanied-minor"
       expect(page).to have_content("Apply for certification to sponsor a child travelling on their own")
