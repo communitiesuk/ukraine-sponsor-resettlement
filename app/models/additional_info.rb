@@ -1,6 +1,7 @@
 class AdditionalInfo < ApplicationRecord
   include ContactDetailsValidations
   include CommonValidations
+  include AdditionalInfoValidations
 
   self.table_name = "additional_info"
 

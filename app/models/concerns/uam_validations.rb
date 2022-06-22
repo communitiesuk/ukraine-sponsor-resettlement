@@ -7,7 +7,6 @@ module UamValidations
   included do
     validate :validate_minor_full_name, if: -> { run_validation? :minor_fullname }
     validate :validate_minor_date_of_birth, if: -> { run_validation? :minor_date_of_birth }
-    validate :validate_sponsor_full_name, if: -> { run_validation? :fullname }
     validate :validate_sponsor_date_of_birth, if: -> { run_validation? :sponsor_date_of_birth }
     validate :validate_have_parental_consent, if: -> { run_validation? :have_parental_consent }
     validate :validate_parent_consent_file_type, if: -> { run_validation? :parental_consent_file_type }
@@ -18,12 +17,6 @@ module UamValidations
   def validate_minor_full_name
     if @minor_fullname.nil? || @minor_fullname.strip.length < MIN_ENTRY_DIGITS || @minor_fullname.strip.length > MAX_ENTRY_DIGITS || @minor_fullname.split.length < 2 || @minor_fullname.match(/[!"£$%{}<>|&@\/()=?^;]/)
       errors.add(:minor_fullname, I18n.t(:invalid_minor_fullname, scope: :error))
-    end
-  end
-
-  def validate_sponsor_full_name
-    if @fullname.nil? || @fullname.strip.length < MIN_ENTRY_DIGITS || @fullname.strip.length > MAX_ENTRY_DIGITS || @fullname.split.length < 2 || @fullname.match(/[!"£$%{}<>|&@\/()=?^;]/)
-      errors.add(:fullname, I18n.t(:invalid_fullname, scope: :error))
     end
   end
 

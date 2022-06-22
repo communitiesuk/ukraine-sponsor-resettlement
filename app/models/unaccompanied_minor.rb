@@ -2,6 +2,7 @@ require "securerandom"
 
 class UnaccompaniedMinor < ApplicationRecord
   include UamValidations
+  include ContactDetailsValidations
 
   self.table_name = "unaccompanied_minors"
 
