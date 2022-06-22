@@ -6,6 +6,27 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   end
 
   describe "submitting the form" do
+    it "without parental consent form terminates early" do
+      visit "/unaccompanied-minor"
+      expect(page).to have_content("Apply for certification to sponsor a child travelling on their own")
+
+      click_link("Start now")
+
+      fill_in("What is the name of the child you want to sponsor?", with: "John Smith")
+      click_button("Continue")
+
+      fill_in("Day", with: "15")
+      fill_in("Month", with: "6")
+      fill_in("Year", with: "2017")
+      click_button("Continue")
+
+      expect(page).to have_content("Have you received both parental consent forms for John Smith?")
+      choose("No")
+      click_button("Continue")
+
+      expect(page).to have_content("You cannot apply without completed parental consent forms")
+    end
+
     it "saves all of the answers in the database" do
       visit "/unaccompanied-minor"
       expect(page).to have_content("Apply for certification to sponsor a child travelling on their own")
@@ -20,7 +41,11 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Year", with: "2017")
       click_button("Continue")
 
-      expect(page).to have_content("Upload the child's parental consent form")
+      expect(page).to have_content("Have you received both parental consent forms for John Smith?")
+      choose("Yes")
+      click_button("Continue")
+
+      expect(page).to have_content("Upload the UK local authority parental consent form for John Smith")
 
       test_file_path = File.join(File.dirname(__FILE__), "..", "test-document.pdf")
 
@@ -53,6 +78,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       expect(page).to have_content("Child name John Smith")
       expect(page).to have_content("Child DoB 15 6 2017")
+      expect(page).to have_content("Parental consent Yes")
       expect(page).to have_content("Consent test-document.pdf")
       expect(page).to have_content("Name Jane Doe")
       expect(page).to have_content("Email jane.doe@test.com")
@@ -70,6 +96,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(application.as_json).to include({
         minor_fullname: "John Smith",
         minor_date_of_birth: { "1" => 2017, "2" => 6, "3" => 15 },
+        have_parental_consent: "yes",
         parental_consent_filename: "test-document.pdf",
         parental_consent_file_type: "application/pdf",
         fullname: "Jane Doe",

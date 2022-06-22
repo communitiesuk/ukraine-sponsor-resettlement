@@ -3,13 +3,15 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-    <%= form_for @application, url: "/unaccompanied-minor/upload/3", method: :post do |f| %>
-      <%= f.govuk_file_field :parental_consent,
-        label: { text: t("parental_consent.full", scope: "unaccompanied_minor.questions"), size: 'm' },
-        hint: { text: t("parental_consent.hint", scope: "unaccompanied_minor.questions") }
+    <%= form_for @application, url: "/unaccompanied-minor/steps/3", method: :post do |f| %>
+      <%= f.govuk_collection_radio_buttons :have_parental_consent,
+          @application.have_parental_consent_options.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.received_consent")) },
+          :id,
+          :name,
+          legend: { text: t('received_consent.full', :name => @application.minor_fullname, scope: "unaccompanied_minor.questions")},
+          hint: { text: t('received_consent.hint_html', scope: "unaccompanied_minor.questions")}
       %>
-      <%= f.govuk_submit t('Upload') %>
+      <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>
 </div>
-
