@@ -12,6 +12,7 @@ module UamValidations
     validate :validate_parent_consent_file_type, if: -> { run_validation? :parental_consent_file_type }
     validate :validate_parent_consent_filename, if: -> { run_validation? :parental_consent_filename }
     validate :validate_full_name, if: -> { run_validation? :fullname }
+    validate :validate_agree_privacy_statement, if: -> { run_validation? :agree_privacy_statement }
   end
 
   def validate_minor_full_name
@@ -51,6 +52,12 @@ module UamValidations
   def validate_full_name
     if @fullname.nil? || @fullname.strip.length < MIN_ENTRY_DIGITS || @fullname.strip.length > MAX_ENTRY_DIGITS || @fullname.split.length < 2 || @fullname.match(/[!"£$%{}<>|&@\/()=?^;]/)
       errors.add(:minor_fullname, I18n.t(:invalid_minor_fullname, scope: :error))
+    end
+  end
+
+  def validate_agree_privacy_statement
+    if @agree_privacy_statement.nil? || @agree_privacy_statement.strip.length.zero?
+      errors.add(:agree_privacy_statement, I18n.t(:choose_option, scope: :error))
     end
   end
 

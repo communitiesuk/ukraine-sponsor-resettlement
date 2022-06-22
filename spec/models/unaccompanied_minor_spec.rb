@@ -200,4 +200,15 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(true)
     end
   end
+
+  describe "accept privacy terms" do
+    it "validates that the have privacy terms is selected", :focus do
+      app = described_class.new
+      app.agree_privacy_statement = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:agree_privacy_statement]).to include("You must select an option to continue")
+      app.agree_privacy_statement = "yes"
+      expect(app.valid?).to be(true)
+    end
+  end
 end
