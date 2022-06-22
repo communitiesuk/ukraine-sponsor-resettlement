@@ -283,12 +283,12 @@ en:
     questions:
       received_consent:
         short: Parental consent
-        full: Have you received both parental consent forms?
+        full: Have you received both parental consent forms for %{name}?
         hint_html: |
           You will need to upload a completed <ul class="govuk-list govuk-list--bullet"><li><a href=dummy-link target=_blank>UK local authority parental consent form</a> on the next page</li><li><a href=dummy-link target=_blank>Ukrainian authority parental consent form</a> on another page</li></ul>
       parental_consent:
         short: Consent
-        full: Upload the child's parental consent form
+        full: Upload the UK local authority parental consent form for %{name}
         hint: This is the hint
       minor_fullname:
         short: Child name
@@ -296,7 +296,7 @@ en:
         hint: Full name
       minor_date_of_birth:
         short: Child DoB
-        full: What is the child's date of birth?
+        full: Enter %{name}'s date of birth
       fullname:
         short: Name
         full: What is your name?

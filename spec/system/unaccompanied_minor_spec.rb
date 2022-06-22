@@ -20,7 +20,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Year", with: "2017")
       click_button("Continue")
 
-      expect(page).to have_content("Have you received both parental consent forms?")
+      expect(page).to have_content("Have you received both parental consent forms for John Smith?")
       choose("No")
       click_button("Continue")
 
@@ -41,11 +41,11 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Year", with: "2017")
       click_button("Continue")
 
-      expect(page).to have_content("Have you received both parental consent forms?")
+      expect(page).to have_content("Have you received both parental consent forms for John Smith?")
       choose("Yes")
       click_button("Continue")
 
-      expect(page).to have_content("Upload the child's parental consent form")
+      expect(page).to have_content("Upload the UK local authority parental consent form for John Smith")
 
       test_file_path = File.join(File.dirname(__FILE__), "..", "test-document.pdf")
 
