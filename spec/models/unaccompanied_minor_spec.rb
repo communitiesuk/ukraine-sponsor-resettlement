@@ -43,6 +43,24 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.email = "John.Smith@test.com"
       expect(app.valid?).to be(true)
     end
+
+    it "sponsor phone is valid", :focus do
+      app = described_class.new
+      app.phone_number = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:phone_number]).to include("You must enter a valid phone number")
+      expect(app.errors[:phone_number].count).to be(1)
+      app.phone_number = "07777 888 99"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:phone_number]).to include("You must enter a valid phone number")
+      expect(app.errors[:phone_number].count).to be(1)
+      app.phone_number = "123456789012345"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:phone_number]).to include("You must enter a valid phone number")
+      expect(app.errors[:phone_number].count).to be(1)
+      app.phone_number = "07777 888 999"
+      expect(app.valid?).to be(true)
+    end
   end
 
   describe "parental consent questions" do
