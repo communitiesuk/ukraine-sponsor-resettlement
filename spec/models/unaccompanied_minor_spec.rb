@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe UnaccompaniedMinor, type: :model do
-  describe "full name validations" do
+  describe "contact detail validations" do
     it "minor full name is valid", :focus do
       app = described_class.new
       app.minor_fullname = ""
@@ -59,6 +59,24 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.errors[:phone_number]).to include("You must enter a valid phone number")
       expect(app.errors[:phone_number].count).to be(1)
       app.phone_number = "07777 888 999"
+      expect(app.valid?).to be(true)
+    end
+
+    it "sponsor address line 1 is valid", :focus do
+      app = described_class.new
+      app.residential_line_1 = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:residential_line_1]).to include("You must enter an address")
+      expect(app.errors[:residential_line_1].count).to be(1)
+      app.residential_line_1 = "A"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:residential_line_1]).to include("You must enter an address")
+      expect(app.errors[:residential_line_1].count).to be(1)
+      app.residential_line_1 = "#{'X' * 129}"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:residential_line_1]).to include("You must enter an address")
+      expect(app.errors[:residential_line_1].count).to be(1)
+      app.residential_line_1 = "Address line 1"
       expect(app.valid?).to be(true)
     end
   end
