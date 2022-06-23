@@ -47,4 +47,19 @@ class TransferRecord
       end
     end
   end
+
+  def self.execute_unaccompanied_minor(record_id)
+    UnaccompaniedMinor.transaction do
+      application = UnaccompaniedMinor.find(record_id)
+      application.transferred_at = Time.zone.now
+      application.save!
+
+      uri = URI(ENV["REMOTE_API_URL"])
+      token = ENV["REMOTE_API_TOKEN"]
+      res = Net::HTTP.post(uri, JSON.generate(application.as_json), "Content-Type" => "application/json", "Authorization" => "Bearer #{token}")
+      unless res.code.to_i >= 200 && res.code.to_i < 300
+        raise ActiveRecord::Rollback
+      end
+    end
+  end
 end
