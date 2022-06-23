@@ -22,4 +22,12 @@ class GovNotifyMailer < GovukNotifyRails::Mailer
 
     mail(to: application.email)
   end
+
+  def send_unaccompanied_minor_confirmation_email(application)
+    set_template(ENV["SPONSOR_CONFIRMATION_TEMPLATE_ID"])
+
+    set_personalisation(fullname: application.fullname, reference: application.reference)
+
+    mail(to: application.email)
+  end
 end
