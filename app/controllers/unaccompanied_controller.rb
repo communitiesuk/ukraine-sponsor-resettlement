@@ -97,7 +97,8 @@ class UnaccompaniedController < ApplicationController
       session[:unaccompanied_minor] = {}
 
       # SendIndividualUpdateJob.perform_later(@application.id)
-      # GovNotifyMailer.send_individual_confirmation_email(@application).deliver_later
+      GovNotifyMailer.send_unaccompanied_minor_confirmation_email(@application).deliver_later
+
       redirect_to "/unaccompanied-minor/confirm"
     else
       Rails.logger.debug "Invalid!"
