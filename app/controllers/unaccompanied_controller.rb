@@ -96,7 +96,7 @@ class UnaccompaniedController < ApplicationController
       session[:app_reference] = @application.reference
       session[:unaccompanied_minor] = {}
 
-      # SendIndividualUpdateJob.perform_later(@application.id)
+      SendUnaccompaniedMinorJob.perform_later(@application.id)
       GovNotifyMailer.send_unaccompanied_minor_confirmation_email(@application).deliver_later
 
       redirect_to "/unaccompanied-minor/confirm"
