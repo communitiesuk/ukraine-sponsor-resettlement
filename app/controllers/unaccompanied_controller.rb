@@ -22,15 +22,15 @@ class UnaccompaniedController < ApplicationController
   def handle_upload
     @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
     @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
-    @application.parental_consent_filename = ""
+    @application.uk_parental_consent_filename = ""
 
     begin
-      upload_params = params.require("unaccompanied_minor")["parental_consent"]
+      upload_params = params.require("unaccompanied_minor")["uk_parental_consent"]
 
-      @application.parental_consent_file_type = upload_params.content_type
-      @application.parental_consent_filename = upload_params.original_filename
-      @application.parental_consent_saved_filename = "#{SecureRandom.uuid.upcase}-#{upload_params.original_filename}"
-      Rails.logger.debug "New filename: #{@application.parental_consent_saved_filename}"
+      @application.uk_parental_consent_file_type = upload_params.content_type
+      @application.uk_parental_consent_filename = upload_params.original_filename
+      @application.uk_parental_consent_saved_filename = "#{SecureRandom.uuid.upcase}-#{upload_params.original_filename}"
+      Rails.logger.debug "New filename: #{@application.uk_parental_consent_saved_filename}"
     rescue ActionController::ParameterMissing
       # Do nothing!
       Rails.logger.debug "No upload file found!"
@@ -38,7 +38,7 @@ class UnaccompaniedController < ApplicationController
 
     if @application.valid?
       @service = StorageService.new(PaasConfigurationService.new, ENV["INSTANCE_NAME"])
-      @service.write_file(@application.parental_consent_saved_filename, upload_params.tempfile)
+      @service.write_file(@application.uk_parental_consent_saved_filename, upload_params.tempfile)
 
       session[:unaccompanied_minor] = @application.as_json
 
@@ -120,9 +120,9 @@ private
         .permit(
           :reference,
           :have_parental_consent,
-          :parental_consent_file_type,
-          :parental_consent_filename,
-          :parental_consent_saved_filename,
+          :uk_parental_consent_file_type,
+          :uk_parental_consent_filename,
+          :uk_parental_consent_saved_filename,
           :minor_fullname,
           :minor_date_of_birth,
           :minor_date_of_birth_as_string,
