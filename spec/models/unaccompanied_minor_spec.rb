@@ -137,19 +137,19 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   describe "parental consent questions" do
     it "ensure content type" do
       app = described_class.new
-      app.parental_consent_file_type = "invalid"
+      app.uk_parental_consent_file_type = "invalid"
       expect(app.valid?).to be(false)
-      expect(app.errors[:parental_consent]).to include("You must select a PDF file")
-      app.parental_consent_file_type = "application/pdf"
+      expect(app.errors[:uk_parental_consent]).to include("You must select a PDF file")
+      app.uk_parental_consent_file_type = "application/pdf"
       expect(app.valid?).to be(true)
     end
 
     it "ensure file name is provided" do
       app = described_class.new
-      app.parental_consent_filename = ""
+      app.uk_parental_consent_filename = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:parental_consent]).to include("You must select a file")
-      app.parental_consent_filename = "name-of-file-uploaded"
+      expect(app.errors[:uk_parental_consent]).to include("You must select a file")
+      app.uk_parental_consent_filename = "name-of-file-uploaded"
       expect(app.valid?).to be(true)
     end
 

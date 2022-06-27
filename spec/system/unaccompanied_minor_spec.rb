@@ -51,7 +51,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       Rails.logger.debug File.exist? test_file_path
 
-      attach_file("unaccompanied-minor-parental-consent-field", test_file_path)
+      attach_file("unaccompanied-minor-uk-parental-consent-field", test_file_path)
       click_button("Upload")
 
       fill_in("What is your name?", with: "Jane Doe")
@@ -97,8 +97,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
         minor_fullname: "John Smith",
         minor_date_of_birth: { "1" => 2017, "2" => 6, "3" => 15 },
         have_parental_consent: "yes",
-        parental_consent_filename: "test-document.pdf",
-        parental_consent_file_type: "application/pdf",
+        uk_parental_consent_filename: "test-document.pdf",
+        uk_parental_consent_file_type: "application/pdf",
         fullname: "Jane Doe",
         email: "jane.doe@test.com",
         phone_number: "07777 888 999",
