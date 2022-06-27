@@ -27,6 +27,7 @@ class UnaccompaniedMinor < ApplicationRecord
                 :sponsor_date_of_birth,
                 :sponsor_date_of_birth_as_string,
                 :agree_privacy_statement,
+                :certificate_reference,
                 :type,
                 :version,
                 :ip_address,
@@ -49,6 +50,7 @@ class UnaccompaniedMinor < ApplicationRecord
   def after_initialize
     @final_submission = false
     @have_parental_consent_options = %i[yes no]
+    self.certificate_reference ||= sprintf("CERT-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
   end
 
   def as_json
@@ -75,6 +77,7 @@ class UnaccompaniedMinor < ApplicationRecord
       sponsor_date_of_birth:,
       sponsor_date_of_birth_as_string:,
       agree_privacy_statement:,
+      certificate_reference:,
       ip_address:,
       user_agent:,
       started_at:,
@@ -90,6 +93,6 @@ private
   end
 
   def generate_reference
-    self.reference ||= sprintf("ANON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
+    self.reference ||= sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
   end
 end
