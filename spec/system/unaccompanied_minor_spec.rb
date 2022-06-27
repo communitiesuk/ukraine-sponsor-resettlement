@@ -110,7 +110,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       })
 
       expect(application.reference).not_to be_nil
-      expect(application.reference).to start_with("UAMS-")
+      expect(application.reference).to start_with("SPON-")
       expect(application.certificate_reference).not_to be_nil
       expect(application.certificate_reference).to start_with("CERT-")
       expect(application.ip_address).to eq("127.0.0.1")
