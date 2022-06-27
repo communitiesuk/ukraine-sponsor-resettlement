@@ -109,6 +109,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
         agree_privacy_statement: "true",
       })
 
+      expect(application.certificate_reference).not_to be_nil
       expect(application.ip_address).to eq("127.0.0.1")
       expect(application.user_agent).to eq("DummyBrowser")
       expect(application.started_at).to match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d*Z/)

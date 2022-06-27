@@ -27,12 +27,15 @@ class UnaccompaniedMinor < ApplicationRecord
                 :sponsor_date_of_birth,
                 :sponsor_date_of_birth_as_string,
                 :agree_privacy_statement,
+                :certificate_reference,
                 :type,
                 :version,
                 :ip_address,
                 :user_agent,
                 :started_at,
                 :final_submission
+
+  attr_reader   :certificate_reference
 
   after_initialize :after_initialize
   before_save :serialize
@@ -49,6 +52,7 @@ class UnaccompaniedMinor < ApplicationRecord
   def after_initialize
     @final_submission = false
     @have_parental_consent_options = %i[yes no]
+    self.certificate_reference ||= SecureRandom.uuid.upcase
   end
 
   def as_json
@@ -75,6 +79,7 @@ class UnaccompaniedMinor < ApplicationRecord
       sponsor_date_of_birth:,
       sponsor_date_of_birth_as_string:,
       agree_privacy_statement:,
+      certificate_reference:,
       ip_address:,
       user_agent:,
       started_at:,
