@@ -35,8 +35,6 @@ class UnaccompaniedMinor < ApplicationRecord
                 :started_at,
                 :final_submission
 
-  attr_reader   :certificate_reference
-
   after_initialize :after_initialize
   before_save :serialize
   before_save :generate_reference
