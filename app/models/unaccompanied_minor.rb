@@ -50,7 +50,7 @@ class UnaccompaniedMinor < ApplicationRecord
   def after_initialize
     @final_submission = false
     @have_parental_consent_options = %i[yes no]
-    self.certificate_reference ||= SecureRandom.uuid.upcase
+    self.certificate_reference ||= sprintf("CERT-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
   end
 
   def as_json
@@ -93,6 +93,6 @@ private
   end
 
   def generate_reference
-    self.reference ||= sprintf("ANON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
+    self.reference ||= sprintf("UAMS-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
   end
 end
