@@ -80,8 +80,8 @@ class UnaccompaniedController < ApplicationController
 
   def check_answers
     @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
-    @application.minor_date_of_birth_as_string = FormatDateOfBirth @application.minor_date_of_birth
-    @application.sponsor_date_of_birth_as_string = FormatDateOfBirth @application.sponsor_date_of_birth
+    @application.minor_date_of_birth_as_string = format_date_of_birth @application.minor_date_of_birth
+    @application.sponsor_date_of_birth_as_string = format_date_of_birth @application.sponsor_date_of_birth
 
     render "unaccompanied-minor/check_answers"
   end
