@@ -79,8 +79,10 @@ class UnaccompaniedController < ApplicationController
 
   def check_answers
     @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
-    @application.minor_date_of_birth_as_string = @application.minor_date_of_birth.map { |_, v| v }.join(" ").to_s
-    @application.sponsor_date_of_birth_as_string = @application.sponsor_date_of_birth.map { |_, v| v }.join(" ").to_s
+
+    months = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    @application.minor_date_of_birth_as_string = "#{@application.minor_date_of_birth["3"]} #{months[@application.minor_date_of_birth["2"]]} #{@application.minor_date_of_birth["1"]}"
+    @application.sponsor_date_of_birth_as_string = "#{@application.sponsor_date_of_birth["3"]} #{months[@application.sponsor_date_of_birth["2"]]} #{@application.sponsor_date_of_birth["1"]}"
 
     render "unaccompanied-minor/check_answers"
   end
@@ -135,6 +137,7 @@ private
           :residential_postcode,
           :sponsor_date_of_birth,
           :agree_privacy_statement,
+          :certificate_reference,
         )
   end
 end
