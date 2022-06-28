@@ -1,6 +1,7 @@
 require "securerandom"
 
 class UnaccompaniedController < ApplicationController
+  include ApplicationHelper
   MAX_STEPS = 11
 
   def start
@@ -79,10 +80,8 @@ class UnaccompaniedController < ApplicationController
 
   def check_answers
     @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
-
-    months = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    @application.minor_date_of_birth_as_string = "#{@application.minor_date_of_birth["3"]} #{months[@application.minor_date_of_birth["2"]]} #{@application.minor_date_of_birth["1"]}"
-    @application.sponsor_date_of_birth_as_string = "#{@application.sponsor_date_of_birth["3"]} #{months[@application.sponsor_date_of_birth["2"]]} #{@application.sponsor_date_of_birth["1"]}"
+    @application.minor_date_of_birth_as_string = FormatDateOfBirth @application.minor_date_of_birth
+    @application.sponsor_date_of_birth_as_string = FormatDateOfBirth @application.sponsor_date_of_birth
 
     render "unaccompanied-minor/check_answers"
   end
