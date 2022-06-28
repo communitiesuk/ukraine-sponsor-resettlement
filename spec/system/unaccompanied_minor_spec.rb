@@ -77,14 +77,14 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
 
       expect(page).to have_content("Child name John Smith")
-      expect(page).to have_content("Child DoB 15 6 2017")
+      expect(page).to have_content("Child DoB 15 June 2017")
       expect(page).to have_content("Parental consent Yes")
       expect(page).to have_content("Consent test-document.pdf")
       expect(page).to have_content("Name Jane Doe")
       expect(page).to have_content("Email jane.doe@test.com")
       expect(page).to have_content("Telephone number 07777 888 999")
       expect(page).to have_content("Residential address House number and Street name")
-      expect(page).to have_content("Sponsor DoB 6 11 1987")
+      expect(page).to have_content("Sponsor DoB 6 November 1987")
       expect(page).to have_content("Privacy statement Agreed")
 
       click_button("Accept and send")
