@@ -37,18 +37,19 @@ class UnaccompaniedController < ApplicationController
       Rails.logger.debug "No upload file found!"
     end
 
-    if @application.valid?
-      @service = StorageService.new(PaasConfigurationService.new, ENV["INSTANCE_NAME"])
-      @service.write_file(@application.uk_parental_consent_saved_filename, upload_params.tempfile)
+    save_and_redirect(@application, @application.uk_parental_consent_saved_filename, upload_params.tempfile)
 
-      session[:unaccompanied_minor] = @application.as_json
-
-      next_stage = RoutingEngine.get_next_unaccompanied_minor_step(@application, params["stage"].to_i)
-
-      redirect_to "/unaccompanied-minor/steps/#{next_stage}"
-    else
-      render "unaccompanied-minor/steps/#{params['stage']}"
-    end
+    # if @application.valid?
+    #   save_file(@application.uk_parental_consent_saved_filename, upload_params.tempfile)
+    #
+    #   session[:unaccompanied_minor] = @application.as_json
+    #
+    #   next_stage = RoutingEngine.get_next_unaccompanied_minor_step(@application, params["stage"].to_i)
+    #
+    #   redirect_to "/unaccompanied-minor/steps/#{next_stage}"
+    # else
+    #   render "unaccompanied-minor/steps/#{params['stage']}"
+    # end
   end
 
   def handle_upload_ukraine
@@ -62,24 +63,25 @@ class UnaccompaniedController < ApplicationController
       @application.ukraine_parental_consent_file_type = upload_params.content_type
       @application.ukraine_parental_consent_filename = upload_params.original_filename
       @application.ukraine_parental_consent_saved_filename = "#{SecureRandom.uuid.upcase}-#{upload_params.original_filename}"
-      Rails.logger.debug "New filename: #{@application.uk_parental_consent_saved_filename}"
+      Rails.logger.debug "New filename: #{@application.ukraine_parental_consent_saved_filename}"
     rescue ActionController::ParameterMissing
       # Do nothing!
       Rails.logger.debug "No upload file found!"
     end
 
-    if @application.valid?
-      @service = StorageService.new(PaasConfigurationService.new, ENV["INSTANCE_NAME"])
-      @service.write_file(@application.ukraine_parental_consent_saved_filename, upload_params.tempfile)
+    save_and_redirect(@application, @application.ukraine_parental_consent_saved_filename, upload_params.tempfile)
 
-      session[:unaccompanied_minor] = @application.as_json
-
-      next_stage = RoutingEngine.get_next_unaccompanied_minor_step(@application, params["stage"].to_i)
-
-      redirect_to "/unaccompanied-minor/steps/#{next_stage}"
-    else
-      render "unaccompanied-minor/steps/#{params['stage']}"
-    end
+    # if @application.valid?
+    #   save_file(@application.ukraine_parental_consent_saved_filename, upload_params.tempfile)
+    #
+    #   session[:unaccompanied_minor] = @application.as_json
+    #
+    #   next_stage = RoutingEngine.get_next_unaccompanied_minor_step(@application, params["stage"].to_i)
+    #
+    #   redirect_to "/unaccompanied-minor/steps/#{next_stage}"
+    # else
+    #   render "unaccompanied-minor/steps/#{params['stage']}"
+    # end
   end
 
   def handle_step
@@ -146,6 +148,25 @@ class UnaccompaniedController < ApplicationController
   end
 
 private
+
+  def save_and_redirect(application, filename, file)
+    if application.valid?
+      save_file(filename, file)
+
+      session[:unaccompanied_minor] = application.as_json
+
+      next_stage = RoutingEngine.get_next_unaccompanied_minor_step(application, params["stage"].to_i)
+
+      redirect_to "/unaccompanied-minor/steps/#{next_stage}"
+    else
+      render "unaccompanied-minor/steps/#{params['stage']}"
+    end
+  end
+
+  def save_file(filename, file)
+    @service = StorageService.new(PaasConfigurationService.new, ENV["INSTANCE_NAME"])
+    @service.write_file(filename, file)
+  end
 
   def application_params
     params.require(:unaccompanied_minor)
