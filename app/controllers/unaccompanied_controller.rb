@@ -38,18 +38,6 @@ class UnaccompaniedController < ApplicationController
     end
 
     save_and_redirect(@application, @application.uk_parental_consent_saved_filename, upload_params.tempfile)
-
-    # if @application.valid?
-    #   save_file(@application.uk_parental_consent_saved_filename, upload_params.tempfile)
-    #
-    #   session[:unaccompanied_minor] = @application.as_json
-    #
-    #   next_stage = RoutingEngine.get_next_unaccompanied_minor_step(@application, params["stage"].to_i)
-    #
-    #   redirect_to "/unaccompanied-minor/steps/#{next_stage}"
-    # else
-    #   render "unaccompanied-minor/steps/#{params['stage']}"
-    # end
   end
 
   def handle_upload_ukraine
@@ -70,18 +58,6 @@ class UnaccompaniedController < ApplicationController
     end
 
     save_and_redirect(@application, @application.ukraine_parental_consent_saved_filename, upload_params.tempfile)
-
-    # if @application.valid?
-    #   save_file(@application.ukraine_parental_consent_saved_filename, upload_params.tempfile)
-    #
-    #   session[:unaccompanied_minor] = @application.as_json
-    #
-    #   next_stage = RoutingEngine.get_next_unaccompanied_minor_step(@application, params["stage"].to_i)
-    #
-    #   redirect_to "/unaccompanied-minor/steps/#{next_stage}"
-    # else
-    #   render "unaccompanied-minor/steps/#{params['stage']}"
-    # end
   end
 
   def handle_step
@@ -135,8 +111,6 @@ class UnaccompaniedController < ApplicationController
 
       redirect_to "/unaccompanied-minor/confirm"
     else
-      Rails.logger.debug "Invalid!"
-
       render "unaccompanied-minor/check_answers"
     end
   end
@@ -173,9 +147,6 @@ private
         .permit(
           :reference,
           :have_parental_consent,
-          :uk_parental_consent_file_type,
-          :uk_parental_consent_filename,
-          :uk_parental_consent_saved_filename,
           :minor_fullname,
           :minor_date_of_birth,
           :minor_date_of_birth_as_string,
