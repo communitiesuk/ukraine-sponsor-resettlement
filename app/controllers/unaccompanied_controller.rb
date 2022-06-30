@@ -2,7 +2,7 @@ require "securerandom"
 
 class UnaccompaniedController < ApplicationController
   include ApplicationHelper
-  MAX_STEPS = 11
+  MAX_STEPS = 12
 
   def start
     render "unaccompanied-minor/start"
@@ -20,7 +20,7 @@ class UnaccompaniedController < ApplicationController
     end
   end
 
-  def handle_upload
+  def handle_upload_uk
     @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
     @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
     @application.uk_parental_consent_filename = ""
@@ -40,6 +40,37 @@ class UnaccompaniedController < ApplicationController
     if @application.valid?
       @service = StorageService.new(PaasConfigurationService.new, ENV["INSTANCE_NAME"])
       @service.write_file(@application.uk_parental_consent_saved_filename, upload_params.tempfile)
+
+      session[:unaccompanied_minor] = @application.as_json
+
+      next_stage = RoutingEngine.get_next_unaccompanied_minor_step(@application, params["stage"].to_i)
+
+      redirect_to "/unaccompanied-minor/steps/#{next_stage}"
+    else
+      render "unaccompanied-minor/steps/#{params['stage']}"
+    end
+  end
+
+  def handle_upload_ukraine
+    @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
+    @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
+    @application.ukraine_parental_consent_filename = ""
+
+    begin
+      upload_params = params.require("unaccompanied_minor")["ukraine_parental_consent"]
+
+      @application.ukraine_parental_consent_file_type = upload_params.content_type
+      @application.ukraine_parental_consent_filename = upload_params.original_filename
+      @application.ukraine_parental_consent_saved_filename = "#{SecureRandom.uuid.upcase}-#{upload_params.original_filename}"
+      Rails.logger.debug "New filename: #{@application.uk_parental_consent_saved_filename}"
+    rescue ActionController::ParameterMissing
+      # Do nothing!
+      Rails.logger.debug "No upload file found!"
+    end
+
+    if @application.valid?
+      @service = StorageService.new(PaasConfigurationService.new, ENV["INSTANCE_NAME"])
+      @service.write_file(@application.ukraine_parental_consent_saved_filename, upload_params.tempfile)
 
       session[:unaccompanied_minor] = @application.as_json
 

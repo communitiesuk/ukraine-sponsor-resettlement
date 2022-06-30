@@ -54,6 +54,15 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       attach_file("unaccompanied-minor-uk-parental-consent-field", test_file_path)
       click_button("Upload")
 
+      expect(page).to have_content("Upload the Ukraine parental consent form for John Smith")
+
+      test_file_path = File.join(File.dirname(__FILE__), "..", "ukraine-test-document.pdf")
+
+      Rails.logger.debug File.exist? test_file_path
+
+      attach_file("unaccompanied-minor-ukraine-parental-consent-field", test_file_path)
+      click_button("Upload")
+
       fill_in("What is your name?", with: "Jane Doe")
       click_button("Continue")
 
@@ -79,7 +88,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Child name John Smith")
       expect(page).to have_content("Child DoB 15 June 2017")
       expect(page).to have_content("Parental consent Yes")
-      expect(page).to have_content("Consent uk-test-document.pdf")
+      expect(page).to have_content("UK consent uk-test-document.pdf")
+      expect(page).to have_content("Ukraine consent ukraine-test-document.pdf")
       expect(page).to have_content("Name Jane Doe")
       expect(page).to have_content("Email jane.doe@test.com")
       expect(page).to have_content("Telephone number 07777 888 999")
@@ -99,6 +109,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
         have_parental_consent: "yes",
         uk_parental_consent_filename: "uk-test-document.pdf",
         uk_parental_consent_file_type: "application/pdf",
+        ukraine_parental_consent_filename: "ukraine-test-document.pdf",
+        ukraine_parental_consent_file_type: "application/pdf",
         fullname: "Jane Doe",
         email: "jane.doe@test.com",
         phone_number: "07777 888 999",

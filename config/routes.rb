@@ -36,8 +36,10 @@ Rails.application.routes.draw do
   get "/unaccompanied-minor/check_answers", to: "unaccompanied#check_answers"
   post "/unaccompanied-minor/check-answers", to: "unaccompanied#submit"
   get "/unaccompanied-minor/confirm", to: "unaccompanied#confirm"
-  get "/unaccompanied-minor/upload/:stage", to: "unaccompanied#display"
-  post "/unaccompanied-minor/upload/:stage", to: "unaccompanied#handle_upload"
+  get "/unaccompanied-minor/upload-uk/:stage", to: "unaccompanied#display"
+  get "/unaccompanied-minor/upload-ukraine/:stage", to: "unaccompanied#display"
+  post "/unaccompanied-minor/upload-uk/:stage", to: "unaccompanied#handle_upload_uk"
+  post "/unaccompanied-minor/upload-ukraine/:stage", to: "unaccompanied#handle_upload_ukraine"
 
   scope via: :all do
     match "/404", to: "errors#not_found"

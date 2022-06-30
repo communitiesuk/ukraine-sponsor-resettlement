@@ -66,6 +66,20 @@
           </a>
         </dd>
       </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('ukraine_parental_consent.short', scope: "unaccompanied_minor.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.ukraine_parental_consent_filename %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/unaccompanied-minor/steps/6">
+            Change<span class="govuk-visually-hidden"> consent</span>
+          </a>
+        </dd>
+      </div>
     </dl>
 
     <h2 class="govuk-heading-m">Personal details</h2>
@@ -79,7 +93,7 @@
           <%= @application.fullname %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/unaccompanied-minor/steps/6">
+          <a class="govuk-link" href="/unaccompanied-minor/steps/7">
             Change<span class="govuk-visually-hidden"> name</span>
           </a>
         </dd>
@@ -93,7 +107,7 @@
           <%= @application.email %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/unaccompanied-minor/steps/7">
+          <a class="govuk-link" href="/unaccompanied-minor/steps/8">
             Change<span class="govuk-visually-hidden"> email</span>
           </a>
         </dd>
@@ -107,7 +121,7 @@
           <%= @application.phone_number %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/unaccompanied-minor/steps/8">
+          <a class="govuk-link" href="/unaccompanied-minor/steps/9">
             Change<span class="govuk-visually-hidden"> number</span>
           </a>
         </dd>
@@ -131,7 +145,7 @@
           <%= @application.residential_postcode %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/unaccompanied-minor/steps/9">
+          <a class="govuk-link" href="/unaccompanied-minor/steps/10">
             Change<span class="govuk-visually-hidden"> address</span>
           </a>
         </dd>
@@ -145,7 +159,7 @@
           <%= @application.sponsor_date_of_birth_as_string %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/unaccompanied-minor/steps/10">
+          <a class="govuk-link" href="/unaccompanied-minor/steps/11">
             Change<span class="govuk-visually-hidden"> date of birth</span>
           </a>
         </dd>
@@ -163,7 +177,7 @@
           <% end %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/unaccompanied-minor/steps/11">
+          <a class="govuk-link" href="/unaccompanied-minor/steps/12">
             Change<span class="govuk-visually-hidden"> agreement</span>
           </a>
         </dd>
