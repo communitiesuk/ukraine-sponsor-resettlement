@@ -9,8 +9,10 @@ module UamValidations
     validate :validate_minor_date_of_birth, if: -> { run_validation? :minor_date_of_birth }
     validate :validate_sponsor_date_of_birth, if: -> { run_validation? :sponsor_date_of_birth }
     validate :validate_have_parental_consent, if: -> { run_validation? :have_parental_consent }
-    validate :validate_parent_consent_file_type, if: -> { run_validation? :uk_parental_consent_file_type }
-    validate :validate_parent_consent_filename, if: -> { run_validation? :uk_parental_consent_filename }
+    validate :validate_uk_parent_consent_file_type, if: -> { run_validation? :uk_parental_consent_file_type }
+    validate :validate_uk_parent_consent_filename, if: -> { run_validation? :uk_parental_consent_filename }
+    validate :validate_ukraine_parent_consent_file_type, if: -> { run_validation? :ukraine_parental_consent_file_type }
+    validate :validate_ukraine_parent_consent_filename, if: -> { run_validation? :ukraine_parental_consent_filename }
     validate :validate_full_name, if: -> { run_validation? :fullname }
     validate :validate_agree_privacy_statement, if: -> { run_validation? :agree_privacy_statement }
   end
@@ -37,15 +39,27 @@ module UamValidations
     end
   end
 
-  def validate_parent_consent_file_type
+  def validate_uk_parent_consent_file_type
     if @uk_parental_consent_file_type.nil? || @uk_parental_consent_file_type != "application/pdf"
       errors.add(:uk_parental_consent, I18n.t(:invalid_file_type_chosen, scope: :error))
     end
   end
 
-  def validate_parent_consent_filename
+  def validate_uk_parent_consent_filename
     if @uk_parental_consent_filename.nil? || @uk_parental_consent_filename.strip.empty?
       errors.add(:uk_parental_consent, I18n.t(:no_file_chosen, scope: :error))
+    end
+  end
+
+  def validate_ukraine_parent_consent_file_type
+    if @ukraine_parental_consent_file_type.nil? || @ukraine_parental_consent_file_type != "application/pdf"
+      errors.add(:ukraine_parental_consent, I18n.t(:invalid_file_type_chosen, scope: :error))
+    end
+  end
+
+  def validate_ukraine_parent_consent_filename
+    if @ukraine_parental_consent_filename.nil? || @ukraine_parental_consent_filename.strip.empty?
+      errors.add(:ukraine_parental_consent, I18n.t(:no_file_chosen, scope: :error))
     end
   end
 
