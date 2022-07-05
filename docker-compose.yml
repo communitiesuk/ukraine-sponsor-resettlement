@@ -29,7 +29,7 @@ services:
       DB_DATABASE: ukraine
       DB_USERNAME: ukraine
       DB_PASSWORD: password
-      VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-test-redis","credentials":{"uri":"redis://redis"}}],"aws-s3-bucket":[{"instance_name":"ukraine-sponsor-resettlement-development-s3","credentials":{"aws_access_key_id":"access-key-id","aws_secret_access_key":"secret-access-key","aws_region":"eu-west-2","bucket_name":"upload-bucket"}}]}'
+      VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-development-redis","credentials":{"uri":"redis://redis"}}],"aws-s3-bucket":[{"instance_name":"ukraine-sponsor-resettlement-development-s3","credentials":{"aws_access_key_id":"access-key-id","aws_secret_access_key":"secret-access-key","aws_region":"eu-west-2","bucket_name":"upload-bucket"}}]}'
       BASIC_AUTH_PASS: password
     ports:
       - 8080:8080
