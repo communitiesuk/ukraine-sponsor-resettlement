@@ -6,9 +6,18 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   end
 
   describe "submitting the form" do
+    it "shows the guidance page before the start page" do
+      visit "/unaccompanied-minor/"
+      expect(page).to have_content("Sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Apply for permission to sponsor an unaccompanied child fleeing Ukraine")
+
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+    end
+
     it "without parental consent form terminates early" do
-      visit "/unaccompanied-minor"
-      expect(page).to have_content("Apply for certification to sponsor a child travelling on their own")
+      visit "/unaccompanied-minor/start"
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
       click_link("Start now")
 
@@ -28,8 +37,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
 
     it "saves all of the answers in the database" do
-      visit "/unaccompanied-minor"
-      expect(page).to have_content("Apply for certification to sponsor a child travelling on their own")
+      visit "/unaccompanied-minor/start"
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
       click_link("Start now")
 

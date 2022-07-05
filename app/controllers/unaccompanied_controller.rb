@@ -4,6 +4,10 @@ class UnaccompaniedController < ApplicationController
   include ApplicationHelper
   MAX_STEPS = 12
 
+  def guidance
+    render "unaccompanied-minor/guidance"
+  end
+
   def start
     render "unaccompanied-minor/start"
   end
