@@ -80,3 +80,6 @@ yarn-debug.log*
 
 # Ignote IntelliJ Settings
 /.idea
+
+# Ignore Vscode Settings
+/.vscode*
