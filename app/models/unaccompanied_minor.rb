@@ -3,6 +3,7 @@ require "securerandom"
 class UnaccompaniedMinor < ApplicationRecord
   include UamValidations
   include ContactDetailsValidations
+  include ApplicationHelper
 
   self.table_name = "unaccompanied_minors"
 
@@ -53,7 +54,7 @@ class UnaccompaniedMinor < ApplicationRecord
   def after_initialize
     @final_submission = false
     @have_parental_consent_options = %i[yes no]
-    self.certificate_reference ||= sprintf("CERT-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
+    self.certificate_reference ||= get_formatted_certificate_number
   end
 
   def as_json
