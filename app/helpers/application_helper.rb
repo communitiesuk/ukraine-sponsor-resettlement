@@ -10,6 +10,7 @@ module ApplicationHelper
   end
 
 private
+  
   def generate_alpha_code(number)
     charset = Array("A".."Z")
     Array.new(number) { charset.sample }.join
@@ -19,4 +20,5 @@ private
     numbers = Array("0".."9")
     Array.new(number) { numbers.sample }.join
   end
+
 end
