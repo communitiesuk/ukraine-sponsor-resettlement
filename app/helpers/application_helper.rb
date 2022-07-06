@@ -20,5 +20,4 @@ private
     numbers = Array("0".."9")
     Array.new(number) { numbers.sample }.join
   end
-
 end
