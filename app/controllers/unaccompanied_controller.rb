@@ -125,6 +125,10 @@ class UnaccompaniedController < ApplicationController
     render "unaccompanied-minor/confirm"
   end
 
+  def task_list
+    render "unaccompanied-minor/task_list"
+  end
+
 private
 
   def save_and_redirect(application, filename, file)
