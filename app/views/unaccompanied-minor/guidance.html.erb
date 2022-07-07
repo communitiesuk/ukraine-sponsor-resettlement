@@ -123,13 +123,12 @@
 </div>
 
 <%= content_for :extra_css do %>
-  <!--[if lte IE 8]><link href="/lib/stylesheets/gds-step_by_step_navigation-ie8.css" rel="stylesheet" type="text/css" /><![endif]-->
-  <!--[if gt IE 8]><!--><link href="/lib/stylesheets/gds-step_by_step_navigation.css" media="all" rel="stylesheet" type="text/css" /><!--<![endif]-->
+  <!--[if lte IE 8]><%= stylesheet_pack_tag 'gds-step_by_step_navigation-ie8', media: 'all' %><![endif]-->
+  <!--[if gt IE 8]><!--><%= stylesheet_pack_tag 'gds-step_by_step_navigation', media: 'all' %><!--<![endif]-->
 <% end %>
 
 <%= content_for :extra_js do %>
-  <script type="text/javascript" src="/lib/vendor/jquery-3.6.0.min.js"></script>
-  <script type="text/javascript" src="/lib/javascripts/gds-step_by_step_navigation.js"></script>
+  <%= javascript_pack_tag 'gds-step_by_step_navigation' %>
   
   <script type="text/javascript">
     var $element = $('#step-by-step-navigation');
