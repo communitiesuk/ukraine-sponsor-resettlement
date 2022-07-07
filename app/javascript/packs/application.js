@@ -17,7 +17,7 @@
 
 require.context('govuk-frontend/govuk/assets')
 
-import '../styles/application.scss'
-import { initAll } from 'govuk-frontend'
+import { initAll } from 'govuk-frontend';
+import '../styles/application.scss';
 
 initAll()
