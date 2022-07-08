@@ -75,16 +75,18 @@ RSpec.describe "Unaccompanied minor expression of interest", :focus, type: :syst
       click_button("Continue")
      
       # step 6
-      # expect(page).to have_content("Do you have permission to live and work in the UK for at least 3 years?")
-      # choose("Yes")
-      # click_button("Continue")
+      expect(page).to have_content("Are you a British citizen?")
+      choose("Yes")
+      click_button("Continue")
 
-      # step 7
-      # expect(page).to have_content("Can you commit to caring for the children until they are 18 or for at least 3 years?")
-      # choose("Yes")
-      # click_button("Continue")
+      # step 7 is skipped in this case
 
       # step 8
+      expect(page).to have_content("Can you commit to caring for the children until they are 18 or for at least 3 years?")
+      choose("Yes")
+      click_button("Continue")
+
+      # step 9
       # expect(page).to have_content("You can use this service")
       # application = UnaccompaniedMinor.order("created_at DESC").last
       # expect(application.as_json).to include({
@@ -130,16 +132,18 @@ RSpec.describe "Unaccompanied minor expression of interest", :focus, type: :syst
       click_button("Continue")
      
       # step 6
-      # expect(page).to have_content("Do you have permission to live and work in the UK for at least 3 years?")
-      # choose("Yes")
-      # click_button("Continue")
+      expect(page).to have_content("Are you a British citizen?")
+      choose("Yes")
+      click_button("Continue")
 
-      # step 7
-      # expect(page).to have_content("Can you commit to caring for the children until they are 18 or for at least 3 years?")
-      # choose("Yes")
-      # click_button("Continue")
+      # step 7 is skipped in this case
 
       # step 8
+      expect(page).to have_content("Can you commit to caring for the children until they are 18 or for at least 3 years?")
+      choose("Yes")
+      click_button("Continue")
+
+      # step 9
       # expect(page).to have_content("You can use this service")
       # application = UnaccompaniedMinor.order("created_at DESC").last
       # expect(application.as_json).to include({
