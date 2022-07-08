@@ -3,10 +3,16 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-    <h2 class="govuk-heading-m"><%= t('no_received_consent.heading', scope: "unaccompanied_minor") %></h2>
+    <%= form_for @application, url: "/unaccompanied-minor/steps/4", method: :post do |f| %>
 
-    <p class="gem-c-lead-paragraph">
-      <%= t('no_received_consent.body_html', scope: "unaccompanied_minor") %>
-    </p>
+      <%= f.govuk_radio_buttons_fieldset(:is_eligible,
+          legend: { size: 'm', text: t('sponsored_children_legal_guardian_traveling.full', scope: "unaccompanied_minor.questions") },
+          hint: { text: t('sponsored_children_legal_guardian_traveling.hint', scope: "unaccompanied_minor.questions")}) do %>
+        <%= f.govuk_radio_button :is_eligible, true, label: { text: t('Yes' ) } %>
+        <%= f.govuk_radio_button :is_eligible, false, label: { text: t('No' ) },  link_errors: true  %>
+      <% end %>
+
+      <%= f.govuk_submit t('continue') %>
+    <% end %>
   </div>
 </div>
