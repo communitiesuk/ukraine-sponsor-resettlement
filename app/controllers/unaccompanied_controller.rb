@@ -12,6 +12,10 @@ class UnaccompaniedController < ApplicationController
     render "unaccompanied-minor/start"
   end
 
+  def check_if_can_use
+    render "unaccompanied-minor/check_if_can_use"
+  end
+
   def display
     @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
 
@@ -154,6 +158,7 @@ private
     params.require(:unaccompanied_minor)
         .permit(
           :reference,
+          :is_eligible,
           :have_parental_consent,
           :minor_fullname,
           :minor_date_of_birth,
