@@ -55,36 +55,36 @@ RSpec.describe "Unaccompanied minor expression of interest", :focus, type: :syst
       # step 1
       expect(page).to have_content("Is the child you want to sponsor under 18?")
       choose("Yes")
-      click_link("Continue")
+      click_button("Continue")
 
-      # # step 2
-      # expect(page).to have_content("Were they living in Ukraine on 31 December 2021?")
-      # choose("Yes")
-      # click_link("Continue")
+      # step 2
+      expect(page).to have_content("Were they living in Ukraine on 31 December 2021?")
+      choose("Yes")
+      click_button("Continue")
 
-      # # step 3 is skipped in this instance
+      # step 3 is skipped in this instance
 
-      # # step 4
-      # expect(page).to have_content("Are they travelling to the UK with a parent or legal guardian?")
-      # choose("Yes")
-      # click_link("Continue")
+      # step 4
+      expect(page).to have_content("Are they travelling to the UK with a parent or legal guardian?")
+      choose("Yes")
+      click_button("Continue")
 
-      # # step 5
-      # expect(page).to have_content("Do they have a parent or legal guardian that can provide written consent?")
-      # choose("Yes")
-      # click_link("Continue")
+      # step 5
+      expect(page).to have_content("Do they have a parent or legal guardian that can provide written consent?")
+      choose("Yes")
+      click_button("Continue")
      
-      # # step 6
+      # step 6
       # expect(page).to have_content("Do you have permission to live and work in the UK for at least 3 years?")
       # choose("Yes")
-      # click_link("Continue")
+      # click_button("Continue")
 
-      # # step 7
+      # step 7
       # expect(page).to have_content("Can you commit to caring for the children until they are 18 or for at least 3 years?")
       # choose("Yes")
-      # click_link("Continue")
+      # click_button("Continue")
 
-      # # step 8
+      # step 8
       # expect(page).to have_content("You can use this service")
       # application = UnaccompaniedMinor.order("created_at DESC").last
       # expect(application.as_json).to include({
@@ -106,39 +106,40 @@ RSpec.describe "Unaccompanied minor expression of interest", :focus, type: :syst
       # step 1
       expect(page).to have_content("Is the child you want to sponsor under 18?")
       choose("Yes")
-      click_link("Continue")
+      click_button("Continue")
 
-      # # step 2
-      # expect(page).to have_content("Were they living in Ukraine on 31 December 2021?")
-      # choose("No")
-      # click_link("Continue")
+      # step 2
+      expect(page).to have_content("Were they living in Ukraine on 31 December 2021?")
+      choose("No")
+      click_button("Continue")
 
-      # # step 3
-      # expect(page).to have_content("Was the child born after 31 December 2021?")
-      # choose("Yes")
-      # click_link("Continue")
+      # step 3
+      expect(page).to have_content("Was the child born after 31 December 2021?")
+      choose("Yes")
+      click_button("Continue")
+ 
+      
+      # step 4
+      expect(page).to have_content("Are they travelling to the UK with a parent or legal guardian?")
+      choose("Yes")
+      click_button("Continue")
 
-      # # step 4
-      # expect(page).to have_content("Are they travelling to the UK with a parent or legal guardian?")
-      # choose("Yes")
-      # click_link("Continue")
-
-      # # step 5
-      # expect(page).to have_content("Do they have a parent or legal guardian that can provide written consent?")
-      # choose("Yes")
-      # click_link("Continue")
+      # step 5
+      expect(page).to have_content("Do they have a parent or legal guardian that can provide written consent?")
+      choose("Yes")
+      click_button("Continue")
      
-      # # step 6
+      # step 6
       # expect(page).to have_content("Do you have permission to live and work in the UK for at least 3 years?")
       # choose("Yes")
-      # click_link("Continue")
+      # click_button("Continue")
 
-      # # step 7
+      # step 7
       # expect(page).to have_content("Can you commit to caring for the children until they are 18 or for at least 3 years?")
       # choose("Yes")
-      # click_link("Continue")
+      # click_button("Continue")
 
-      # # step 8
+      # step 8
       # expect(page).to have_content("You can use this service")
       # application = UnaccompaniedMinor.order("created_at DESC").last
       # expect(application.as_json).to include({
