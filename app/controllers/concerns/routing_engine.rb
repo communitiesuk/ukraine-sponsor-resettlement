@@ -20,10 +20,15 @@ class RoutingEngine
   end
 
   def self.get_next_unaccompanied_minor_step(application, current_step)
-    if application.have_parental_consent.present? && application.have_parental_consent.casecmp("YES").zero? && current_step == 3
-      5
+    if application.is_eligible.present? && application.is_eligible.casecmp("false") == 1 && current_step == 2
+      4
     else
       current_step + 1
     end
+    #if application.have_parental_consent.present? && application.have_parental_consent.casecmp("YES").zero? && current_step == 3
+    #  5
+    #else
+    #  current_step + 1
+    #end
   end
 end
