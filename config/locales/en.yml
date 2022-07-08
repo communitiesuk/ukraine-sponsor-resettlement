@@ -299,6 +299,18 @@ en:
         short: Sponsored children legal guardian consent
         full: Do they have a parent or legal guardian that can provide written consent?
         hint_html: You must upload consent forms from at least one parent or legal guardian per child. <br /><br /><a href="">Read guidance about what consent forms are required</a>
+      sponsor_british_citizenship:
+        short: Sponsor british citizenship
+        full: Are you a British citizen?
+      sponsor_right_to_live_in_uk:
+        short: Sponsor right to live in the UK
+        full: To sponsor a child you must have the right to live in the UK for a minimum of
+        hint_html: <ul><li>3 years</li></ul> <br /><br /> OR <br /><br /><ul><li>Until the child turns 18</li><li>And a minimum of 6 months</li></ul> <br/><br/><strong>Do you meet these requirements?</strong>
+      sponsor_commitment:
+        short: Sponsor commitment
+        full: Can you commit to caring for the children until they are 18 or for at least 3 years?
+      eligibility_completed:
+        short: Eligibility checks completed
       received_consent:
         short: Parental consent
         full: Have you received both parental consent forms for %{name}?
