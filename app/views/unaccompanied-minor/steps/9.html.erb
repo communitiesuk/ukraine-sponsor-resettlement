@@ -3,14 +3,13 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
+    <h1 class="gem-c-title__text govuk-heading-l">
+      You can use this service
+    </h1>
+
+
     <%= form_for @application, url: "/unaccompanied-minor/steps/9", method: :post do |f| %>
-      <%= f.govuk_text_field :phone_number,
-        label: { text: t('phone_number.full', scope: "unaccompanied_minor.questions"), size: 'm' },
-        hint: { text: t('phone_number.hint', scope: "unaccompanied_minor.questions")},
-        type: "tel"
-      %>
-      <%= f.govuk_submit t('continue') %>
+      <%= f.govuk_submit t('Start application') %>
     <% end %>
   </div>
 </div>
-
