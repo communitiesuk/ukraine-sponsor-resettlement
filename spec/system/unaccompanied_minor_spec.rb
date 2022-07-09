@@ -66,7 +66,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Do they have a parent or legal guardian that can provide written consent?")
       choose("Yes")
       click_button("Continue")
-     
+
       # step 6
       expect(page).to have_content("Are you a British citizen?")
       choose("Yes")
@@ -97,7 +97,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
     it "shows eligibility question 7 if 6 is answered NO" do
       visit "/unaccompanied-minor/steps/6"
-     
+
       # step 6
       expect(page).to have_content("Are you a British citizen?")
       choose("No")
@@ -114,7 +114,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     #   expect(page).to have_content("Check if you can use this service")
 
     #   click_link("Continue")
-      
+
     #   choose("Yes")
     #   click_button("Continue")
 
