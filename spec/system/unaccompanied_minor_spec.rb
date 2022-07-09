@@ -40,7 +40,6 @@ RSpec.describe "Unaccompanied minor expression of interest", :focus, type: :syst
     #   click_link("Continue")
 
     # end
-      
 
     it "takes the user to the end of eligibility path" do
       visit "/unaccompanied-minor/start"
@@ -87,15 +86,10 @@ RSpec.describe "Unaccompanied minor expression of interest", :focus, type: :syst
       click_button("Continue")
 
       # step 9
-      # expect(page).to have_content("You can use this service")
-      # application = UnaccompaniedMinor.order("created_at DESC").last
-      # expect(application.as_json).to include({
-      #   is_eligible: "true",
-      # })
-      
+      expect(page).to have_content("You can use this service")
     end
 
-    it "takes the user to the end of eligibility path and shows question 3 if 2 is answered NO" do
+    it "takes the user to the end of eligibility path and shows question 3 and 7 if 2 and 6 are answered NO" do
       visit "/unaccompanied-minor/start"
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
@@ -119,7 +113,6 @@ RSpec.describe "Unaccompanied minor expression of interest", :focus, type: :syst
       expect(page).to have_content("Was the child born after 31 December 2021?")
       choose("Yes")
       click_button("Continue")
- 
       
       # step 4
       expect(page).to have_content("Are they travelling to the UK with a parent or legal guardian?")
@@ -133,10 +126,13 @@ RSpec.describe "Unaccompanied minor expression of interest", :focus, type: :syst
      
       # step 6
       expect(page).to have_content("Are you a British citizen?")
-      choose("Yes")
+      choose("No")
       click_button("Continue")
 
-      # step 7 is skipped in this case
+      # step 7
+      expect(page).to have_content("To sponsor a child you must have the right to live in the UK for a minimum of")
+      choose("Yes")
+      click_button("Continue")
 
       # step 8
       expect(page).to have_content("Can you commit to caring for the children until they are 18 or for at least 3 years?")
@@ -144,12 +140,7 @@ RSpec.describe "Unaccompanied minor expression of interest", :focus, type: :syst
       click_button("Continue")
 
       # step 9
-      # expect(page).to have_content("You can use this service")
-      # application = UnaccompaniedMinor.order("created_at DESC").last
-      # expect(application.as_json).to include({
-      #   is_eligible: "true",
-      # })
-      
+      expect(page).to have_content("You can use this service")
     end
 
     ### THE FOLLOWING TESTS MIGHT BE OBSOLETE AND WILL NEED REFACTORING ###
