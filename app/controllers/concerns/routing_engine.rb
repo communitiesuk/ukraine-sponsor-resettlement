@@ -20,13 +20,9 @@ class RoutingEngine
   end
 
   def self.get_next_unaccompanied_minor_step(application, current_step)
-    if application.is_eligible.present? && application.is_eligible.casecmp("false").zero? && current_step == 2
+    if application.is_eligible.present? && application.is_eligible.casecmp("true").zero? && current_step == 2
       4
-    else
-      current_step + 1
-    end
-
-    if application.is_eligible.present? && application.is_eligible.casecmp("false").zero? && current_step == 6
+    elsif application.is_eligible.present? && application.is_eligible.casecmp("true").zero? && current_step == 6
       8
     else
       current_step + 1
