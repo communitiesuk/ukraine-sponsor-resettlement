@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Unaccompanied minor expression of interest", :focus, type: :system do
+RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   before do
     driven_by(:rack_test_user_agent)
   end
@@ -24,22 +24,16 @@ RSpec.describe "Unaccompanied minor expression of interest", :focus, type: :syst
       expect(page).to have_content("Check if you can use this service")
     end
 
-    # it "shows the user uneligible page if they answer NO to any question" do
-    #   visit "/unaccompanied-minor/start"
-    #   expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+    it "shows the user uneligible page if they answer NO to any question" do
+      visit "/unaccompanied-minor/steps/1"
 
-    #   click_link("Start now")
+      # step 1
+      expect(page).to have_content("Is the child you want to sponsor under 18?")
+      choose("No")
+      click_button("Continue")
 
-    #   expect(page).to have_content("Check if you can use this service")
-
-    #   click_link("Continue")
-
-    #   # step 1
-    #   expect(page).to have_content("Is the child you want to sponsor under 18?")
-    #   choose("No")
-    #   click_link("Continue")
-
-    # end
+      expect(page).to have_content("You cannot use this service")
+    end
 
     it "takes the user to the end of eligibility path" do
       visit "/unaccompanied-minor/start"
@@ -89,20 +83,8 @@ RSpec.describe "Unaccompanied minor expression of interest", :focus, type: :syst
       expect(page).to have_content("You can use this service")
     end
 
-    it "takes the user to the end of eligibility path and shows question 3 and 7 if 2 and 6 are answered NO" do
-      visit "/unaccompanied-minor/start"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
-
-      click_link("Start now")
-
-      expect(page).to have_content("Check if you can use this service")
-
-      click_link("Continue")
-
-      # step 1
-      expect(page).to have_content("Is the child you want to sponsor under 18?")
-      choose("Yes")
-      click_button("Continue")
+    it "shows eligibility question 3 if 2 is answered NO" do
+      visit "/unaccompanied-minor/steps/2"
 
       # step 2
       expect(page).to have_content("Were they living in Ukraine on 31 December 2021?")
@@ -111,18 +93,10 @@ RSpec.describe "Unaccompanied minor expression of interest", :focus, type: :syst
 
       # step 3
       expect(page).to have_content("Was the child born after 31 December 2021?")
-      choose("Yes")
-      click_button("Continue")
-      
-      # step 4
-      expect(page).to have_content("Are they travelling to the UK with a parent or legal guardian?")
-      choose("Yes")
-      click_button("Continue")
+    end
 
-      # step 5
-      expect(page).to have_content("Do they have a parent or legal guardian that can provide written consent?")
-      choose("Yes")
-      click_button("Continue")
+    it "shows eligibility question 7 if 6 is answered NO" do
+      visit "/unaccompanied-minor/steps/6"
      
       # step 6
       expect(page).to have_content("Are you a British citizen?")
@@ -131,16 +105,6 @@ RSpec.describe "Unaccompanied minor expression of interest", :focus, type: :syst
 
       # step 7
       expect(page).to have_content("To sponsor a child you must have the right to live in the UK for a minimum of")
-      choose("Yes")
-      click_button("Continue")
-
-      # step 8
-      expect(page).to have_content("Can you commit to caring for the children until they are 18 or for at least 3 years?")
-      choose("Yes")
-      click_button("Continue")
-
-      # step 9
-      expect(page).to have_content("You can use this service")
     end
 
     ### THE FOLLOWING TESTS MIGHT BE OBSOLETE AND WILL NEED REFACTORING ###

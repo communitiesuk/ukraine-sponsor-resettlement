@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   post "/unaccompanied-minor/upload-ukraine/:stage", to: "unaccompanied#handle_upload_ukraine"
 
   get "/unaccompanied-minor/task-list", to: "unaccompanied#task_list"
+  get "/unaccompanied-minor/non-eligible", to: "unaccompanied#non_eligible"
 
   scope via: :all do
     match "/404", to: "errors#not_found"
