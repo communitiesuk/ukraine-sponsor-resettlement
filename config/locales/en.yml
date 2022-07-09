@@ -291,7 +291,7 @@ en:
       sponsored_children_december_birth:
         short: Sponsored children december birth
         full: Was the child born after 31 December 2021?
-      sponsored_children_legal_guardian_traveling:
+      sponsored_children_legal_guardian_travelling:
         short: Sponsored children legal guardian traveling
         full: Are they travelling to the UK with a parent or legal guardian?
         hint: This excludes travelling with another relative, such as a grandmother, aunty or uncle who is not their legal guardian.
@@ -305,7 +305,7 @@ en:
       sponsor_right_to_live_in_uk:
         short: Sponsor right to live in the UK
         full: To sponsor a child you must have the right to live in the UK for a minimum of
-        hint_html: <ul><li>3 years</li></ul> <br /><br /> OR <br /><br /><ul><li>Until the child turns 18</li><li>And a minimum of 6 months</li></ul> <br/><br/><strong>Do you meet these requirements?</strong>
+        hint_html: <ul><li>3 years</li></ul> OR <ul><li>Until the child turns 18</li><li>And a minimum of 6 months</li></ul> <br/><strong>Do you meet these requirements?</strong>
       sponsor_commitment:
         short: Sponsor commitment
         full: Can you commit to caring for the children until they are 18 or for at least 3 years?
