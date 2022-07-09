@@ -6,8 +6,8 @@
     <%= form_for @application, url: "/unaccompanied-minor/steps/4", method: :post do |f| %>
 
       <%= f.govuk_radio_buttons_fieldset(:is_eligible,
-          legend: { size: 'm', text: t('sponsored_children_legal_guardian_traveling.full', scope: "unaccompanied_minor.questions") },
-          hint: { text: t('sponsored_children_legal_guardian_traveling.hint', scope: "unaccompanied_minor.questions")}) do %>
+          legend: { size: 'm', text: t('sponsored_children_legal_guardian_travelling.full', scope: "unaccompanied_minor.questions") },
+          hint: { text: t('sponsored_children_legal_guardian_travelling.hint', scope: "unaccompanied_minor.questions")}) do %>
         <%= f.govuk_radio_button :is_eligible, true, label: { text: t('Yes' ) } %>
         <%= f.govuk_radio_button :is_eligible, false, label: { text: t('No' ) },  link_errors: true  %>
       <% end %>
