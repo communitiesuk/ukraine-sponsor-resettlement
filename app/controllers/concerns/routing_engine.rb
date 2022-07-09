@@ -24,14 +24,17 @@ class RoutingEngine
       4
     elsif application.is_eligible.present? && application.is_eligible.casecmp("true").zero? && current_step == 6
       8
+    elsif application.is_eligible.present? && application.is_eligible.casecmp("false").zero? && ![2, 6].include?(current_step)
+      # this needs to be the last check we do; returns the non-eligible path (excluding steps 2 and 6)
+      -1
     else
       current_step + 1
     end
 
-    #if application.have_parental_consent.present? && application.have_parental_consent.casecmp("YES").zero? && current_step == 3
+    # if application.have_parental_consent.present? && application.have_parental_consent.casecmp("YES").zero? && current_step == 3
     #  5
-    #else
+    # else
     #  current_step + 1
-    #end
+    # end
   end
 end
