@@ -145,7 +145,13 @@ class UnaccompaniedController < ApplicationController
 
   def cancel_application
     # cancel an application
-    render "unaccompanied-minor/task_list"
+    @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
+
+    render "unaccompanied-minor/cancel_application"
+  end
+
+  def  cancel_confirm
+    render "unaccompanied-minor/cancel_confirm"
   end
 
 private
