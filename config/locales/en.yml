@@ -281,6 +281,36 @@ en:
       no: No
   unaccompanied_minor:
     questions:
+      sponsored_children_age:
+        short: Sponsored children age
+        full: Is the child you want to sponsor under 18?
+      sponsored_children_living_december:
+        short: Sponsored children living december
+        full: Were they living in Ukraine on 31 December 2021?
+        hint: Select yes even if they were temporarily away at the time.
+      sponsored_children_december_birth:
+        short: Sponsored children december birth
+        full: Was the child born after 31 December 2021?
+      sponsored_children_legal_guardian_travelling:
+        short: Sponsored children legal guardian traveling
+        full: Are they travelling to the UK with a parent or legal guardian?
+        hint: This excludes travelling with another relative, such as a grandmother, aunty or uncle who is not their legal guardian.
+      sponsored_children_legal_guardian_consent:
+        short: Sponsored children legal guardian consent
+        full: Do they have a parent or legal guardian that can provide written consent?
+        hint_html: You must upload consent forms from at least one parent or legal guardian per child. <br /><br /><a href="">Read guidance about what consent forms are required</a>
+      sponsor_british_citizenship:
+        short: Sponsor british citizenship
+        full: Are you a British citizen?
+      sponsor_right_to_live_in_uk:
+        short: Sponsor right to live in the UK
+        full: To sponsor a child you must have the right to live in the UK for a minimum of
+        hint_html: <ul><li>3 years</li></ul> OR <ul><li>Until the child turns 18</li><li>And a minimum of 6 months</li></ul> <br/><strong>Do you meet these requirements?</strong>
+      sponsor_commitment:
+        short: Sponsor commitment
+        full: Can you commit to caring for the children until they are 18 or for at least 3 years?
+      eligibility_completed:
+        short: Eligibility checks completed
       received_consent:
         short: Parental consent
         full: Have you received both parental consent forms for %{name}?
@@ -365,4 +395,3 @@ en:
     invalid_date_of_birth: Enter a valid date of birth
     too_old_date_of_birth: A person with this date of birth is over 18 and you cannot use this service to apply to sponsor them
     too_young_date_of_birth: A sponsor with this date of birth is less 18 and you cannot use this service to apply to sponsor them
-

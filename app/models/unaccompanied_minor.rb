@@ -9,7 +9,8 @@ class UnaccompaniedMinor < ApplicationRecord
 
   SCHEMA_VERSION = 1
 
-  attr_accessor :have_parental_consent,
+  attr_accessor :is_eligible,
+                :have_parental_consent,
                 :have_parental_consent_options,
                 :parental_consent,
                 :uk_parental_consent_file_type,
@@ -64,6 +65,7 @@ class UnaccompaniedMinor < ApplicationRecord
       created_at:,
       type:,
       version:,
+      is_eligible:,
       have_parental_consent:,
       uk_parental_consent_file_type:,
       uk_parental_consent_filename:,

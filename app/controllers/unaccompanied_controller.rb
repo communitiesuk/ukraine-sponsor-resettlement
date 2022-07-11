@@ -4,10 +4,6 @@ class UnaccompaniedController < ApplicationController
   include ApplicationHelper
   MAX_STEPS = 12
 
-  def guidance
-    render "unaccompanied-minor/guidance"
-  end
-
   def start
     render "unaccompanied-minor/start"
   end
@@ -79,7 +75,9 @@ class UnaccompaniedController < ApplicationController
       # Replace with routing engine to get next stage
       next_stage = RoutingEngine.get_next_unaccompanied_minor_step(@application, params["stage"].to_i)
 
-      if next_stage > MAX_STEPS
+      if next_stage == -1
+        redirect_to "/unaccompanied-minor/non-eligible"
+      elsif next_stage > MAX_STEPS
         redirect_to "/unaccompanied-minor/check-answers"
       else
         redirect_to "/unaccompanied-minor/steps/#{next_stage}"
@@ -125,8 +123,24 @@ class UnaccompaniedController < ApplicationController
     render "unaccompanied-minor/confirm"
   end
 
+  def guidance
+    # first page to show before the start page
+    render "unaccompanied-minor/guidance"
+  end
+
+  def check_if_can_use
+    # mini-check page to show after start and before step 1
+    render "unaccompanied-minor/check_if_can_use"
+  end
+
   def task_list
     render "unaccompanied-minor/task_list"
+  end
+
+  def non_eligible
+    # page to show if between steps 1 and 8 (2,6 excluded) the user answers with
+    # NO to any of the questions asked
+    render "unaccompanied-minor/non_eligible"
   end
 
 private
@@ -154,6 +168,7 @@ private
     params.require(:unaccompanied_minor)
         .permit(
           :reference,
+          :is_eligible,
           :have_parental_consent,
           :minor_fullname,
           :minor_date_of_birth,

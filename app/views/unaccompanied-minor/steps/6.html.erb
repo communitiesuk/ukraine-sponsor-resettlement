@@ -3,13 +3,15 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-    <%= form_for @application, url: "/unaccompanied-minor/upload-ukraine/6", method: :post do |f| %>
-      <%= f.govuk_file_field :ukraine_parental_consent,
-        label: { text: t("ukraine_parental_consent.full", :name => @application.minor_fullname, scope: "unaccompanied_minor.questions"), size: 'm' },
-        hint: { text: t("ukraine_parental_consent.hint", scope: "unaccompanied_minor.questions") }
-      %>
-      <%= f.govuk_submit t('Upload') %>
+    <%= form_for @application, url: "/unaccompanied-minor/steps/6", method: :post do |f| %>
+
+      <%= f.govuk_radio_buttons_fieldset(:is_eligible, 
+          legend: { size: 'm', text: t('sponsor_british_citizenship.full', scope: "unaccompanied_minor.questions") }) do %>
+        <%= f.govuk_radio_button :is_eligible, true, label: { text: t('Yes' ) } %>
+        <%= f.govuk_radio_button :is_eligible, false, label: { text: t('No' ) },  link_errors: true  %>
+      <% end %>
+
+      <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>
 </div>
-

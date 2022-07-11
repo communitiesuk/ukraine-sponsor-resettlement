@@ -4,13 +4,12 @@
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
     <%= form_for @application, url: "/unaccompanied-minor/steps/3", method: :post do |f| %>
-      <%= f.govuk_collection_radio_buttons :have_parental_consent,
-          @application.have_parental_consent_options.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.received_consent")) },
-          :id,
-          :name,
-          legend: { text: t('received_consent.full', :name => @application.minor_fullname, scope: "unaccompanied_minor.questions")},
-          hint: { text: t('received_consent.hint_html', scope: "unaccompanied_minor.questions")}
-      %>
+
+      <%= f.govuk_radio_buttons_fieldset(:is_eligible, legend: { size: 'm', text: t('sponsored_children_december_birth.full', scope: "unaccompanied_minor.questions") }) do %>
+        <%= f.govuk_radio_button :is_eligible, true, label: { text: t('Yes' ) } %>
+        <%= f.govuk_radio_button :is_eligible, false, label: { text: t('No' ) },  link_errors: true  %>
+      <% end %>
+
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>

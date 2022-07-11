@@ -4,13 +4,15 @@
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
     <%= form_for @application, url: "/unaccompanied-minor/steps/7", method: :post do |f| %>
-      <%= f.govuk_text_field :fullname,
-        label: { text: t('fullname.full', scope: "unaccompanied_minor.questions"), size: 'm' },
-        hint: { text: t('fullname.hint', scope: "unaccompanied_minor.questions")},
-        type: "text"
-      %>
+
+      <%= f.govuk_radio_buttons_fieldset(:is_eligible, 
+          legend: { size: 'm', text: t('sponsor_right_to_live_in_uk.full', scope: "unaccompanied_minor.questions") },
+          hint: { text: t('sponsor_right_to_live_in_uk.hint_html', scope: "unaccompanied_minor.questions")}) do %>
+        <%= f.govuk_radio_button :is_eligible, true, label: { text: t('Yes' ) } %>
+        <%= f.govuk_radio_button :is_eligible, false, label: { text: t('No' ) },  link_errors: true  %>
+      <% end %>
+
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>
 </div>
-
