@@ -151,7 +151,14 @@ class UnaccompaniedController < ApplicationController
   end
 
   def  cancel_confirm
-    render "unaccompanied-minor/cancel_confirm"
+    if params[:cancel_application]
+      # Soft delete the application
+      
+      render "unaccompanied-minor/cancel_confirm"
+    else
+      # Redirect to show the task-list
+      redirect_to "/unaccompanied-minor/task-list"
+    end
   end
 
 private

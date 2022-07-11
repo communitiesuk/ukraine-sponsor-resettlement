@@ -7,9 +7,13 @@
       All the information you've provided will be deleted. This action cannot be reversed.
     </p>
 
-    <%= form_for @application, url: "/unaccompanied-minor/cancel-confirm", method: :post do |f| %>
-      <%= f.govuk_submit t('cancel_application.cancel', scope: "unaccompanied_minor"), class: "govuk-button--warning"%>
-      <%= f.govuk_submit t('cancel_application.continue', scope: "unaccompanied_minor"), class: "govuk-button--secondary"%>
+    <%= form_for @application, url: "/unaccompanied-minor/cancel-application", method: :post do |f| %>
+      <%= f.govuk_submit t('cancel_application.cancel', scope: "unaccompanied_minor"),
+                         name: "cancel_application",
+                         class: "govuk-button--warning"%>
+      <%= f.govuk_submit t('cancel_application.continue', scope: "unaccompanied_minor"),
+                         name: "continue_application",
+                         class: "govuk-button--secondary"%>
     <% end %>
   </div>
 </div>
