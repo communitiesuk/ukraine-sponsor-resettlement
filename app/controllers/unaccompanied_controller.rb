@@ -143,6 +143,11 @@ class UnaccompaniedController < ApplicationController
     render "unaccompanied-minor/non_eligible"
   end
 
+  def cancel_application
+    # cancel an application
+    render "unaccompanied-minor/task_list"
+  end
+
 private
 
   def save_and_redirect(application, filename, file)

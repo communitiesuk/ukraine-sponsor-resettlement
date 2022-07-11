@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   get "/unaccompanied-minor/upload-ukraine/:stage", to: "unaccompanied#display"
   post "/unaccompanied-minor/upload-uk/:stage", to: "unaccompanied#handle_upload_uk"
   post "/unaccompanied-minor/upload-ukraine/:stage", to: "unaccompanied#handle_upload_ukraine"
+  get "/unaccompanied-minor/cancel", to: "unaccompanied#cancel_application"
 
   get "/unaccompanied-minor/task-list", to: "unaccompanied#task_list"
   get "/unaccompanied-minor/non-eligible", to: "unaccompanied#non_eligible"
