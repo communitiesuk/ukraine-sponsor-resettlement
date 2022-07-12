@@ -1,0 +1,68 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+   
+   <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
+    
+    <h1 class="gem-c-title__text govuk-heading-xl">
+      Report fraud relating to the Homes for Ukraine scheme.
+    </h1>
+      <p class="gem-c-lead-paragraph">Use this service to report concerns of fraudulent activity relating to the Homes for Ukraine scheme.  </p>
+      
+      <p class="gem-c-lead-paragraph">You may remain anonymous if you wish. This will mean your details won't be collected or held and you won't be contacted for further information or updates. </p>
+
+      <p class="gem-c-lead-paragraph">Please provide as much information about the incident as you can. This could include: </p>
+        <ul class="govuk-list govuk-list--bullet">
+        <li>dates and times</li>
+        <li>addresses</li>
+        <li>names and contact details</li>
+        </ul>
+
+    <h1 class="gem-c-title__text govuk-heading-m">
+      Before you begin
+    </h1>
+
+
+    <h1 class="gem-c-title__text govuk-heading-s"><strong><em>Are you alone, in a safe place?</strong></em></h1>
+
+      <p class="gem-c-lead-paragraph">Make sure you aren't in danger of being interrupted by the subject(s) of your report. This will help to keep you safe and allow the information you submit to be as accurate as possible.</p>
+
+    <h1 class="gem-c-title__text govuk-heading-s"><strong><em>This page is specifically for reporting fraud.</strong></em></h1>
+
+      <p class="gem-c-lead-paragraph">If you have a safeguarding concern related to you or another and uou feel unable to call the emergency services, there are resources below.</p>
+     
+      <ul class="govuk-list">
+        <li> <%= govuk_link_to 'Modern Slavery and Human Trafficking', 'https://homesforukraine.campaign.gov.uk/' %> </li>
+        <li> <%= govuk_link_to 'Domestic violence', 'https://gov.uk/' %> </li>
+      </ul>
+
+
+    <div class="govuk-warning-text"> 
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+        <span class="govuk-warning-text__assistive">Warning</span>
+        If you or anyone else is in immediate danger, you should instead call 999
+        </strong>
+    </div>
+ 
+ 
+    <%= form_for @abstractconfirm, url: "/fraud-support", method: :post do |f| %>
+
+    <%= f.govuk_check_boxes_fieldset :confirm_and_continue, multiple: false, legend: { text: "Acceptance Checkbox", hidden: true} do %>
+      <%= f.govuk_check_box :confirm_and_continue, 1, 0, multiple: false, link_errors: true, 
+      label: { text: "I confirm that this form is not being used to report an issue that requires emergency attention" } %>
+      <% end %>
+      <%= f.govuk_submit t('Start Now') %>
+      <% end %>
+  
+  <h1 class="gem-c-title__text govuk-heading-m">What you need to know</h1>
+  <h1 class="gem-c-title__text govuk-heading-s">What happens after you report someone</h1>
+
+    <p class="gem-c-lead-paragraph">Your submission will be reviewed by the appropriate department for further investigation.</p>
+
+    <p class="gem-c-lead-paragraph">If you are able to provide contact details:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li> you might be contacted for more information about your report.</li>
+        <li> you might be able to follow the progress of your report.</li>
+    </ul>
+</div>
+</div>
