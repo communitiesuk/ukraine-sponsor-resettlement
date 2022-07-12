@@ -155,11 +155,8 @@ class UnaccompaniedController < ApplicationController
   def  cancel_confirm
     if params[:cancel_application]
       # Soft delete the application
-      binding.pry
       @application = UnaccompaniedMinor.find_by_reference(params[:reference])
       @application.update!(is_cancelled: true)
-
-      @application.assign_attributes(application_params)
 
       session[:app_reference] = @application.reference
 

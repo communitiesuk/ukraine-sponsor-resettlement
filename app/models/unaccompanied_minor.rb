@@ -38,8 +38,7 @@ class UnaccompaniedMinor < ApplicationRecord
                 :ip_address,
                 :user_agent,
                 :started_at,
-                :final_submission,
-                :is_cancelled
+                :final_submission
 
   after_initialize :after_initialize
   before_save :serialize
@@ -49,12 +48,7 @@ class UnaccompaniedMinor < ApplicationRecord
 
   validates :parental_consent, antivirus: true # Add this for antivirus validation
 
-  after_find do
-    assign_attributes(answers)
-  end
-
   def after_initialize
-    @is_cancelled = false if @is_cancelled.nil?
     @final_submission = false
     @have_parental_consent_options = %i[yes no]
     self.certificate_reference ||= get_formatted_certificate_number
