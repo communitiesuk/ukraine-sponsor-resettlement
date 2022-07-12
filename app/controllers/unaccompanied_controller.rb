@@ -218,7 +218,7 @@ private
           :sponsor_date_of_birth,
           :agree_privacy_statement,
           :certificate_reference,
-          :is_cancelled
+          :is_cancelled,
         )
   end
 end
