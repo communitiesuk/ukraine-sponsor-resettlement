@@ -5,6 +5,13 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     driven_by(:rack_test_user_agent)
   end
 
+  describe "start page" do
+    it "sponsor url shows page" do
+      visit "/sponsor-a-child"
+      expect(page).to have_content("Sponsor a child fleeing Ukraine without a parent")
+    end
+  end
+
   describe "submitting the form" do
     it "shows the guidance page before the start page" do
       visit "/unaccompanied-minor/"
