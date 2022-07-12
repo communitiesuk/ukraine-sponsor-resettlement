@@ -24,7 +24,16 @@ class RoutingEngine
       4
     elsif application.is_eligible.present? && application.is_eligible.casecmp("true").zero? && current_step == 6
       8
-    elsif application.is_eligible.present? && application.is_eligible.casecmp("false").zero? && ![2, 6].include?(current_step)
+    elsif application.has_other_names.present? && application.has_other_names.casecmp("false").zero? && current_step == 11
+      # sponsor does not have other names
+      14
+    elsif application.identification_type.present? && !application.identification_type.casecmp("none").zero? && current_step == 16
+      # sponsor has provided an identification document, jump to date of birth
+      18
+    elsif application.has_other_nationalities.present? && application.has_other_nationalities.casecmp("false").zero? && current_step == 20
+      # sponsor does not have other nationalities
+      0
+    elsif application.is_eligible.present? && application.is_eligible.casecmp("false").zero? && [1,3,4,5,7,8].include?(current_step)
       # this needs to be the last check we do; returns the non-eligible path (excluding steps 2 and 6)
       -1
     else
