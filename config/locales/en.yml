@@ -311,6 +311,39 @@ en:
         full: Can you commit to caring for the children until they are 18 or for at least 3 years?
       eligibility_completed:
         short: Eligibility checks completed
+      fullname:
+        short: Sponsor name
+        full: What is your name?
+        hint: Full name
+      other_names:
+        short: Sponsor other names
+        full: Have you ever been known by another name?
+        hint: For example, if you changed your name after marriage
+      email:
+        short: Email
+        full: What is your email address?
+        hint: Email
+      phone_number:
+        short: Telephone number
+        full: What is your UK telephone number?
+        hint: UK telephone number
+      identity_documents:
+        short: Sponsor identity documents
+        full: Do you have any of these identity documents?
+      sponsor_date_of_birth:
+        short: Sponsor DoB
+        full: Enter your date of birth
+      sponsor_nationality:
+        short: Sponsor nationality
+        full: What is your nationality?
+        hint: You will be able to add other nationalities on the next page
+      sponsor_has_other_nationality:
+        short: Sponsor has other nationality
+        full: Have you ever held any other nationalities?
+      sponsor_other_nationality:
+        short: Sponsor other nationality
+        full: What is your other nationality?
+        hint: You will be able to add other nationalities on the next page
       received_consent:
         short: Parental consent
         full: Have you received both parental consent forms for %{name}?
@@ -331,18 +364,6 @@ en:
       minor_date_of_birth:
         short: Child DoB
         full: Enter %{name}'s date of birth
-      fullname:
-        short: Name
-        full: What is your name?
-        hint: Full name
-      email:
-        short: Email
-        full: What is your email address?
-        hint: Email
-      phone_number:
-        short: Telephone number
-        full: What is your telephone number?
-        hint: UK telephone number
       address_line_1:
         short: Line 1
         full: Address line 1
@@ -355,9 +376,7 @@ en:
       address_postcode:
         short: Postcode
         full: Postcode
-      sponsor_date_of_birth:
-        short: Sponsor DoB
-        full: What is your date of birth?
+
       agree_privacy_statement:
         short: Privacy statement
         full: Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme
