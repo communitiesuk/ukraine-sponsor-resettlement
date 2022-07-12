@@ -2,7 +2,7 @@ require "securerandom"
 
 class UnaccompaniedController < ApplicationController
   include ApplicationHelper
-  MAX_STEPS = 12
+  MAX_STEPS = 22
 
   def start
     render "unaccompanied-minor/start"
@@ -70,6 +70,7 @@ class UnaccompaniedController < ApplicationController
 
     if @application.valid?
       # Update the session
+      @application.is_eligible = "true"
       session[:unaccompanied_minor] = @application.as_json
 
       # Replace with routing engine to get next stage
@@ -77,6 +78,8 @@ class UnaccompaniedController < ApplicationController
 
       if next_stage == -1
         redirect_to "/unaccompanied-minor/non-eligible"
+      elsif next_stage == 0
+          redirect_to "/unaccompanied-minor/task-list"
       elsif next_stage > MAX_STEPS
         redirect_to "/unaccompanied-minor/check-answers"
       else
@@ -174,8 +177,16 @@ private
           :minor_date_of_birth,
           :minor_date_of_birth_as_string,
           :fullname,
+          :has_other_names,
+          :other_names,
           :email,
           :phone_number,
+          :identification_type,
+          :identification_number,
+          :no_identification_reason,
+          :nationality,
+          :has_other_nationalities,
+          :other_nationalities,
           :residential_line_1,
           :residential_line_2,
           :residential_town,
