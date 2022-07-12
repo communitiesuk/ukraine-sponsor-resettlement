@@ -47,7 +47,7 @@
  
     <%= form_for @abstractconfirm, url: "/fraud-support", method: :post do |f| %>
 
-    <%= f.govuk_check_boxes_fieldset :confirm_and_continue, multiple: false, legend: { text: '', size: 'm' } do %>
+    <%= f.govuk_check_boxes_fieldset :confirm_and_continue, multiple: false, legend: { text: "Acceptance Checkbox", hidden: true} do %>
       <%= f.govuk_check_box :confirm_and_continue, 1, 0, multiple: false, link_errors: true, 
       label: { text: "I confirm that this form is not being used to report an issue that requires emergency attention" } %>
       <% end %>
