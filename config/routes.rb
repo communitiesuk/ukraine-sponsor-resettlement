@@ -46,6 +46,9 @@ Rails.application.routes.draw do
   get "/unaccompanied-minor/task-list", to: "unaccompanied#task_list"
   get "/unaccompanied-minor/non-eligible", to: "unaccompanied#non_eligible"
 
+  get "/fraud-support", to: "fraud#display"
+  post "/fraud-support", to: "fraud#post"
+
   scope via: :all do
     match "/404", to: "errors#not_found"
     match "/429", to: "errors#too_many_requests"
