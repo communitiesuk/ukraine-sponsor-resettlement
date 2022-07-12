@@ -47,26 +47,33 @@ RSpec.describe RoutingEngine, type: :model do
   end
 
   describe "getting the next step - unaccompanied minors" do
-    it "when next step is dependent on parental consent question" do
+    it "when next step is dependent on child not living in Ukraine before 31st December 2021" do
       application = UnaccompaniedMinor.new
 
-      application.have_parental_consent = "No"
-      expect(described_class.get_next_unaccompanied_minor_step(application, 3)).to be(4)
-      application.have_parental_consent = "Yes"
-      expect(described_class.get_next_unaccompanied_minor_step(application, 3)).to be(5)
+      application.is_eligible = "false"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 2)).to be(3)
+      application.is_eligible = "true"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 2)).to be(4)
     end
 
-    it "when next step is NOT dependent on parental consent question" do
+    it "when next step is dependent on sponsor not being a British citizen" do
       application = UnaccompaniedMinor.new
 
-      expect(described_class.get_next_unaccompanied_minor_step(application, 1)).to be(2)
-      expect(described_class.get_next_unaccompanied_minor_step(application, 2)).to be(3)
-      expect(described_class.get_next_unaccompanied_minor_step(application, 5)).to be(6)
+      application.is_eligible = "false"
       expect(described_class.get_next_unaccompanied_minor_step(application, 6)).to be(7)
-      expect(described_class.get_next_unaccompanied_minor_step(application, 7)).to be(8)
+      application.is_eligible = "true"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 6)).to be(8)
+    end
+
+    it "when next step is dependent on child living in Ukraine before 31st December 2021 or sponsor being a British citizen" do
+      application = UnaccompaniedMinor.new
+      application.is_eligible = "true"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 1)).to be(2)
+      expect(described_class.get_next_unaccompanied_minor_step(application, 2)).to be(4)
+      expect(described_class.get_next_unaccompanied_minor_step(application, 4)).to be(5)
+      expect(described_class.get_next_unaccompanied_minor_step(application, 5)).to be(6)
+      expect(described_class.get_next_unaccompanied_minor_step(application, 6)).to be(8)
       expect(described_class.get_next_unaccompanied_minor_step(application, 8)).to be(9)
-      expect(described_class.get_next_unaccompanied_minor_step(application, 9)).to be(10)
-      expect(described_class.get_next_unaccompanied_minor_step(application, 10)).to be(11)
     end
   end
 end

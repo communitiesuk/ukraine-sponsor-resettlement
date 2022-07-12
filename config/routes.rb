@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 
   get "/unaccompanied-minor", to: "unaccompanied#guidance"
   get "/unaccompanied-minor/start", to: "unaccompanied#start"
+  get "/unaccompanied-minor/check", to: "unaccompanied#check_if_can_use"
   get "/unaccompanied-minor/steps/:stage", to: "unaccompanied#display"
   post "/unaccompanied-minor/steps/:stage", to: "unaccompanied#handle_step"
   get "/unaccompanied-minor/check-answers", to: "unaccompanied#check_answers"
@@ -43,6 +44,7 @@ Rails.application.routes.draw do
   post "/unaccompanied-minor/upload-ukraine/:stage", to: "unaccompanied#handle_upload_ukraine"
 
   get "/unaccompanied-minor/task-list", to: "unaccompanied#task_list"
+  get "/unaccompanied-minor/non-eligible", to: "unaccompanied#non_eligible"
 
   get "/fraud-support", to: "fraud#display"
   post "/fraud-support", to: "fraud#post"
