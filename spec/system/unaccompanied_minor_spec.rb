@@ -7,14 +7,14 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   end
 
   describe "start page" do
-    it "sponsor url shows page", :focus do
+    it "sponsor url shows page" do
       visit "/sponsor-a-child"
       expect(page).to have_content("Sponsor a child fleeing Ukraine without a parent")
     end
   end
 
   describe "cancelling the application" do
-    it "updates the application as cancelled", :focus do
+    it "updates the application as cancelled" do
       answers = { fullname: "Bob The Builder" }
       test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
       id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), false)")
@@ -43,7 +43,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(cancelled_application.is_cancelled).to eq(true)
     end
 
-    it "render cancellation confirmation on task list if already cancelled", :focus do
+    it "render cancellation confirmation on task list if already cancelled" do
       answers = { is_eligible: "yes" }
       test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
       id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), TRUE)")
@@ -60,7 +60,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Your application has been cancelled")
     end
 
-    it "redirect to task list if user decides to continue application", :focus do
+    it "redirect to task list if user decides to continue application" do
       answers = { fullname: "Bob The Builder" }
       test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
       id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), false)")
@@ -91,7 +91,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   end
 
   describe "submitting the form" do
-    it "shows the guidance page before the start page", :focus do
+    it "shows the guidance page before the start page" do
       visit "/sponsor-a-child/"
       expect(page).to have_content("Sponsor a child fleeing Ukraine without a parent")
 
@@ -100,7 +100,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
     end
 
-    it "shows check if eligible for this service page", :focus do
+    it "shows check if eligible for this service page" do
       visit "/sponsor-a-child/start"
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
@@ -109,7 +109,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Check if you can use this service")
     end
 
-    it "shows the user uneligible page if they answer NO to any question", :focus do
+    it "shows the user uneligible page if they answer NO to any question" do
       visit "/sponsor-a-child/steps/1"
 
       # step 1
@@ -120,7 +120,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("You cannot use this service")
     end
 
-    it "takes the user to the end of eligibility path", :focus do
+    it "takes the user to the end of eligibility path" do
       visit "/sponsor-a-child/start"
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
@@ -168,7 +168,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("You can use this service")
     end
 
-    it "shows eligibility question 3 if 2 is answered NO", :focus do
+    it "shows eligibility question 3 if 2 is answered NO" do
       visit "/sponsor-a-child/steps/2"
 
       # step 2
@@ -180,7 +180,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Was the child born after 31 December 2021?")
     end
 
-    it "shows eligibility question 7 if 6 is answered NO", :focus do
+    it "shows eligibility question 7 if 6 is answered NO" do
       visit "/sponsor-a-child/steps/6"
 
       # step 6
