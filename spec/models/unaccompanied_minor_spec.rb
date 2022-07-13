@@ -16,7 +16,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(true)
     end
 
-    it "sponsor full name is valid", :focus do
+    it "sponsor full name is valid" do
       app = described_class.new
       app.given_name = nil
       app.family_name = nil
