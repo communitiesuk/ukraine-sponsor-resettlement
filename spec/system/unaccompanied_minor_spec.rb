@@ -1,4 +1,5 @@
 require "rails_helper"
+require "securerandom"
 
 RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   before do
@@ -13,31 +14,56 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 =======
   describe "cancelling the application" do
     it "updates the application as cancelled", :focus do
-      visit "/unaccompanied-minor/"
-      expect(page).to have_content("Sponsor a child fleeing Ukraine without a parent")
+      answers = { fullname: "Bob The Builder" }
+      test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
+      id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), false)")
 
-      click_link("Apply for permission to sponsor an unaccompanied child fleeing Ukraine")
+      new_application = UnaccompaniedMinor.find(id)
+      expect(new_application.reference).to eq(test_reference)
+      expect(new_application.certificate_reference).to start_with("CERT-")
+      expect(new_application.is_cancelled).to be(false)
 
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      page_url = "/unaccompanied-minor/task-list/#{new_application.reference}"
+      expect(page_url).to end_with(new_application.reference)
 
-      visit "/unaccompanied-minor/task-list"
+      visit page_url
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
       click_button("Cancel application")
-
       expect(page).to have_content("Are you sure you want to cancel your application?")
 
       click_button("Cancel application")
-
       expect(page).to have_content("Your application has been cancelled")
 <<<<<<< HEAD
 >>>>>>> bb4ce52... Add WIP test for cancelling an application
 =======
 
+<<<<<<< HEAD
       # TODO set the expectation once the application reference is included in the flow
       # application = UnaccompaniedMinor.order("created_at DESC").last
       # expect(application.is_cancelled).to eq(true)
 >>>>>>> 41e29f3... Remove expectation
+=======
+      cancelled_application = UnaccompaniedMinor.find(id)
+      expect(cancelled_application).to eq(new_application)
+      expect(cancelled_application.reference).to eq(test_reference)
+      expect(cancelled_application.certificate_reference).to start_with("CERT-")
+      expect(cancelled_application.is_cancelled).to eq(true)
+    end
+
+    it "redirects to confirm if already cancelled" do
+      answers = { is_eligible: "yes" }
+      test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
+      id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), TRUE)")
+
+      new_application = UnaccompaniedMinor.find(id)
+      expect(new_application.reference).to eq(test_reference)
+      expect(new_application.certificate_reference).to start_with("CERT-")
+      expect(new_application.is_cancelled).to be(true)
+
+      page_url = "/unaccompanied-minor/task-list/#{test_reference}"
+      expect(page_url).to end_with("test_reference")
+>>>>>>> 7724cba... *****WIP*****
     end
   end
 

@@ -54,6 +54,7 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
   def after_initialize
+    @is_cancelled = false if @is_cancelled.nil?
     @final_submission = false
     @have_parental_consent_options = %i[yes no]
     self.certificate_reference ||= get_formatted_certificate_number

@@ -147,7 +147,7 @@ class UnaccompaniedController < ApplicationController
 
   def cancel_application
     # cancel an application
-    @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
+    @application = UnaccompaniedMinor.find_by_reference(params[:reference])
 
     render "unaccompanied-minor/cancel_application"
   end
@@ -155,11 +155,15 @@ class UnaccompaniedController < ApplicationController
   def  cancel_confirm
     if params[:cancel_application]
       # Soft delete the application
-      @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
-      @application.is_cancelled = true
-      @application.save!
+      binding.pry
+      @application = UnaccompaniedMinor.find_by_reference(params[:reference])
+      @application.update!(is_cancelled: true)
 
-      #Remove application from session
+      @application.assign_attributes(application_params)
+
+      session[:app_reference] = @application.reference
+
+      # Remove application from session
       session[:unaccompanied_minor] = {}
 
       render "unaccompanied-minor/cancel_confirm"
@@ -209,6 +213,7 @@ private
           :sponsor_date_of_birth,
           :agree_privacy_statement,
           :certificate_reference,
+          :is_cancelled
         )
   end
 end

@@ -45,10 +45,10 @@ Rails.application.routes.draw do
   post "/unaccompanied-minor/upload-uk/:stage", to: "unaccompanied#handle_upload_uk"
   post "/unaccompanied-minor/upload-ukraine/:stage", to: "unaccompanied#handle_upload_ukraine"
 
-  post "/unaccompanied-minor/cancel", to: "unaccompanied#cancel_application"
-  post "/unaccompanied-minor/cancel-application", to: "unaccompanied#cancel_confirm"
+  post "/unaccompanied-minor/cancel/:reference", to: "unaccompanied#cancel_application"
+  post "/unaccompanied-minor/cancel-application/:reference", to: "unaccompanied#cancel_confirm"
 
-  get "/unaccompanied-minor/task-list", to: "unaccompanied#task_list"
+  get "/unaccompanied-minor/task-list/:reference", to: "unaccompanied#task_list"
   get "/unaccompanied-minor/non-eligible", to: "unaccompanied#non_eligible"
 
   get "/fraud-support", to: "fraud#display"
