@@ -3,6 +3,7 @@ module UamValidations
 
   MIN_ENTRY_DIGITS    = 3
   MAX_ENTRY_DIGITS    = 128
+  SPECIAL_CHARACTERS  = /[!"£$%{}<>|&@\/()=?^;]/
 
   included do
     validate :validate_minor_full_name, if: -> { run_validation? :minor_fullname }
@@ -13,8 +14,8 @@ module UamValidations
     validate :validate_uk_parent_consent_filename, if: -> { run_validation? :uk_parental_consent_filename }
     validate :validate_ukraine_parent_consent_file_type, if: -> { run_validation? :ukraine_parental_consent_file_type }
     validate :validate_ukraine_parent_consent_filename, if: -> { run_validation? :ukraine_parental_consent_filename }
-    validate :validate_given_name, if: -> { run_validation? :fullname }
-    validate :validate_family_name, if: -> { run_validation? :fullname }
+    validate :validate_given_name, if: -> { run_validation? :given_name }
+    validate :validate_family_name, if: -> { run_validation? :family_name }
     validate :validate_agree_privacy_statement, if: -> { run_validation? :agree_privacy_statement }
   end
 
