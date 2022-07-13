@@ -69,6 +69,7 @@ class UnaccompaniedController < ApplicationController
     @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
     @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
 
+    # capture other names
     if params["stage"].to_i == 12
       # adds other attributes
       (@application.other_names ||= [])  << [params["unaccompanied_minor"]["other_given_name"], params["unaccompanied_minor"]["other_family_name"]]
@@ -77,6 +78,15 @@ class UnaccompaniedController < ApplicationController
       params["unaccompanied_minor"]["other_family_name"] = ""
     end
 
+    # capture identification document number
+    if params["stage"].to_i == 16
+      Rails.logger.debug params
+      if params["unaccompanied_minor"]["identification_number"].present?
+        @application.identification_number = params["unaccompanied_minor"]["identification_number"]
+      end
+    end
+
+    # capture other nationalities
     if params["stage"].to_i == 21
       # adds other attributes
       (@application.other_nationalities ||= []) << [params["unaccompanied_minor"]["other_nationality"]]
