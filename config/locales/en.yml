@@ -322,7 +322,7 @@ en:
       other_fullname:
         short: Sponsor name
         full: What is your other name?
-        hint: Full name
+        hint: You will have the chance to add more than one previous name on the next page.
       email:
         short: Email
         full: What is your email address?
@@ -404,6 +404,8 @@ en:
     invalid_phone_number: You must enter a valid phone number
     invalid_minor_fullname: You must enter the child's full name
     invalid_fullname: You must enter your full name
+    invalid_family_name: You must enter a valid family name
+    invalid_given_name: You must enter a valid given name
     must_be_accepted: You must tick the box to continue
     choose_one_or_more_options: Please choose one or more of the options
     max_500_chars: Please use 500 characters or less
