@@ -334,6 +334,10 @@ en:
       identity_documents:
         short: Sponsor identity documents
         full: Do you have any of these identity documents?
+      no_identity_documents:
+        short: Sponsor no official identity documents
+        full: How would you provide evidence of your identity?
+        hint: If you have another document, for example, a drivers license, explain that here
       sponsor_date_of_birth:
         short: Sponsor DoB
         full: Enter your date of birth
