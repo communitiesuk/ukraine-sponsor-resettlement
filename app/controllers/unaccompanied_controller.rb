@@ -72,7 +72,7 @@ class UnaccompaniedController < ApplicationController
     # capture other names
     if params["stage"].to_i == 12
       # adds other attributes
-      (@application.other_names ||= [])  << [params["unaccompanied_minor"]["other_given_name"], params["unaccompanied_minor"]["other_family_name"]]
+      (@application.other_names ||= []) << [params["unaccompanied_minor"]["other_given_name"], params["unaccompanied_minor"]["other_family_name"]]
       # resets the current state
       params["unaccompanied_minor"]["other_given_name"] = ""
       params["unaccompanied_minor"]["other_family_name"] = ""

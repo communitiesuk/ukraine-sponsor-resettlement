@@ -205,13 +205,23 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       # step 10 - sponsor name
       visit "/unaccompanied-minor/steps/10"
-      fill_in("What is your name?", with: "Jane Doe")
+      fill_in("Given name(s)", with: "Jane")
+      fill_in("Family name", with: "Doe")
       click_button("Continue")
 
       # step 11 - other names
       expect(page).to have_content("Have you ever been known by another name?")
-      choose("No")
+      choose("Yes")
       click_button("Continue")
+
+      # step 12 - add other name
+      fill_in("Given name(s)", with: "Jane2")
+      fill_in("Family name", with: "Doe2")
+      click_button("Continue")
+
+      # step 13 - details
+      expect(page).to have_content("You have added 1 other names")
+      click_link("Continue")
 
       # step 14 - email address
       fill_in("What is your email address?", with: "jane.doe@test.com")
@@ -233,12 +243,21 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
 
       # Step 19 - Nationality
+      expect(page).to have_content("What is your nationality?")
       click_button("Continue")
 
       # Step 20 - Other nationality
       expect(page).to have_content("Have you ever held any other nationalities?")
-      choose("No")
+      choose("Yes")
       click_button("Continue")
+
+      # Step 21 - Other nationality
+      expect(page).to have_content("What is your other nationality?")
+      click_button("Continue")
+
+      # step 22 - details
+      expect(page).to have_content("You have added 1 other nationalities")
+      # click_link("Continue")
     end
 
     ### THE FOLLOWING TESTS MIGHT BE OBSOLETE AND WILL NEED REFACTORING ###
