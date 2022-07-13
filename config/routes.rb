@@ -48,6 +48,8 @@ Rails.application.routes.draw do
   post "/unaccompanied-minor/cancel/:reference", to: "unaccompanied#cancel_application"
   post "/unaccompanied-minor/cancel-application/:reference", to: "unaccompanied#cancel_confirm"
 
+  get "/unaccompanied-minor/start-application", to: "unaccompanied#start_application"
+
   get "/unaccompanied-minor/task-list/:reference", to: "unaccompanied#task_list"
   get "/unaccompanied-minor/non-eligible", to: "unaccompanied#non_eligible"
 
