@@ -134,9 +134,13 @@ class UnaccompaniedController < ApplicationController
   end
 
   def task_list
-    @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
+    @application = UnaccompaniedMinor.find_by_reference(params[:reference])
 
-    render "unaccompanied-minor/task_list"
+    if @application.is_cancelled?
+      render "unaccompanied-minor/cancel_confirm"
+    else
+      render "unaccompanied-minor/task_list"
+    end
   end
 
   def non_eligible
@@ -170,7 +174,7 @@ class UnaccompaniedController < ApplicationController
       render "unaccompanied-minor/cancel_confirm"
     else
       # Redirect to show the task-list
-      redirect_to "/unaccompanied-minor/task-list"
+      redirect_to "/unaccompanied-minor/task-list/#{params[:reference]}"
     end
   end
 

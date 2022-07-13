@@ -51,7 +51,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(cancelled_application.is_cancelled).to eq(true)
     end
 
-    it "redirects to confirm if already cancelled", :focus do
+    it "render cancellation confirmation on task list if already cancelled" do
       answers = { is_eligible: "yes" }
       test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
       id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), TRUE)")
@@ -69,10 +69,41 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page_url).to end_with(test_reference)
 
       visit page_url
+      expect(page).to have_content("Your application has been cancelled")
+    end
+
+    it "redirect to task list if user decides to continue application" do
+      answers = { fullname: "Bob The Builder" }
+      test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
+      id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), false)")
+
+      new_application = UnaccompaniedMinor.find(id)
+      expect(new_application.reference).to eq(test_reference)
+      expect(new_application.certificate_reference).to start_with("CERT-")
+      expect(new_application.is_cancelled).to be(false)
+
+      page_url = "/unaccompanied-minor/task-list/#{new_application.reference}"
+      expect(page_url).to end_with(new_application.reference)
+
+      visit page_url
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
       click_button("Cancel application")
+<<<<<<< HEAD
       expect(page).to have_content("Your application has been cancelled")
 >>>>>>> 3ca33b7... Amend controller to redirect when application already cancelled
+=======
+      expect(page).to have_content("Are you sure you want to cancel your application?")
+
+      click_button("Continue application")
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      continued_application = UnaccompaniedMinor.find(id)
+      expect(continued_application).to eq(new_application)
+      expect(continued_application.reference).to eq(test_reference)
+      expect(continued_application.certificate_reference).to start_with("CERT-")
+      expect(continued_application.is_cancelled).to eq(false)
+>>>>>>> 6c60a2a... Amend to return to task list with reference
     end
   end
 
