@@ -181,7 +181,5 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
     #   expect(page).to have_content("You cannot apply without completed parental consent forms")
     # end
-
-
   end
 end

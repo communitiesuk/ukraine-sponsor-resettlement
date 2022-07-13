@@ -33,7 +33,7 @@ class RoutingEngine
     elsif application.has_other_nationalities.present? && application.has_other_nationalities.casecmp("false").zero? && current_step == 20
       # sponsor does not have other nationalities
       0
-    elsif application.is_eligible.present? && application.is_eligible.casecmp("false").zero? && [1,3,4,5,7,8].include?(current_step)
+    elsif application.is_eligible.present? && application.is_eligible.casecmp("false").zero? && [1, 3, 4, 5, 7, 8].include?(current_step)
       # this needs to be the last check we do; returns the non-eligible path (excluding steps 2 and 6)
       -1
     else
