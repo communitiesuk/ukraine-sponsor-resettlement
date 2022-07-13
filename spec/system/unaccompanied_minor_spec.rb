@@ -13,7 +13,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Sponsor a child fleeing Ukraine without a parent")
 =======
   describe "cancelling the application" do
-    it "updates the application as cancelled", :focus do
+    it "updates the application as cancelled" do
       answers = { fullname: "Bob The Builder" }
       test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
       id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), false)")
@@ -51,7 +51,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(cancelled_application.is_cancelled).to eq(true)
     end
 
-    it "redirects to confirm if already cancelled" do
+    it "redirects to confirm if already cancelled", :focus do
       answers = { is_eligible: "yes" }
       test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
       id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), TRUE)")
@@ -62,8 +62,17 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(new_application.is_cancelled).to be(true)
 
       page_url = "/unaccompanied-minor/task-list/#{test_reference}"
+<<<<<<< HEAD
       expect(page_url).to end_with("test_reference")
 >>>>>>> 7724cba... *****WIP*****
+=======
+      expect(page_url).to end_with(test_reference)
+
+      visit page_url
+
+      click_button("Cancel application")
+      expect(page).to have_content("Your application has been cancelled")
+>>>>>>> 3ca33b7... Amend controller to redirect when application already cancelled
     end
   end
 

@@ -48,6 +48,10 @@ class UnaccompaniedMinor < ApplicationRecord
 
   validates :parental_consent, antivirus: true # Add this for antivirus validation
 
+  def is_cancelled?
+    is_cancelled
+  end
+
   def after_initialize
     @final_submission = false
     @have_parental_consent_options = %i[yes no]

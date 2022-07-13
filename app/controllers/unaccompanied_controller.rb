@@ -149,7 +149,11 @@ class UnaccompaniedController < ApplicationController
     # cancel an application
     @application = UnaccompaniedMinor.find_by_reference(params[:reference])
 
-    render "unaccompanied-minor/cancel_application"
+    if @application.is_cancelled?
+      render "unaccompanied-minor/cancel_confirm"
+    else
+      render "unaccompanied-minor/cancel_application"
+    end
   end
 
   def  cancel_confirm

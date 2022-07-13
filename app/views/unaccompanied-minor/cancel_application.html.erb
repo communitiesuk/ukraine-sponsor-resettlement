@@ -7,10 +7,6 @@
       All the information you've provided will be deleted. This action cannot be reversed.
     </p>
 
-    <div class="govuk-panel__body">
-      Your reference number is <br><strong><%= @app_reference %></strong>
-    </div>
-
     <%= form_for @application, url: "/unaccompanied-minor/cancel-application/#{params["reference"]}", method: :post do |f| %>
       <%= f.govuk_submit t('cancel_application.cancel', scope: "unaccompanied_minor"),
                          name: "cancel_application",
