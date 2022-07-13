@@ -80,8 +80,11 @@ class UnaccompaniedController < ApplicationController
 
     # capture identification document number
     if params["stage"].to_i == 16
-      Rails.logger.debug params
-      if params["unaccompanied_minor"]["identification_number"].present?
+      # how to have this comparison dealt with better???
+      if params["unaccompanied_minor"]["identification_type"][0].casecmp("none").zero?
+        @application.identification_type = ""
+        @application.identification_number = ""
+      elsif params["unaccompanied_minor"]["identification_number"].present?
         @application.identification_number = params["unaccompanied_minor"]["identification_number"]
       end
     end
