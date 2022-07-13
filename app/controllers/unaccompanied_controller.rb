@@ -68,6 +68,22 @@ class UnaccompaniedController < ApplicationController
     # instantiate new Application ActiveRecord object
     @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
     @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
+
+    if params["stage"].to_i == 12
+      # adds other attributes
+      (@application.other_names ||= [])  << [params["unaccompanied_minor"]["other_given_name"], params["unaccompanied_minor"]["other_family_name"]]
+      # resets the current state
+      params["unaccompanied_minor"]["other_given_name"] = ""
+      params["unaccompanied_minor"]["other_family_name"] = ""
+    end
+
+    if params["stage"].to_i == 21
+      # adds other attributes
+      (@application.other_nationalities ||= []) << [params["unaccompanied_minor"]["other_nationality"]]
+      # resets the current state
+      params["unaccompanied_minor"]["other_nationality"] = ""
+    end
+
     # Update Application object with new attributes
     @application.assign_attributes(application_params)
 
@@ -213,8 +229,11 @@ private
           :minor_fullname,
           :minor_date_of_birth,
           :minor_date_of_birth_as_string,
-          :fullname,
+          :given_name,
+          :family_name,
           :has_other_names,
+          :other_given_name,
+          :other_family_name,
           :other_names,
           :email,
           :phone_number,
@@ -223,6 +242,7 @@ private
           :no_identification_reason,
           :nationality,
           :has_other_nationalities,
+          :other_nationality,
           :other_nationalities,
           :residential_line_1,
           :residential_line_2,
