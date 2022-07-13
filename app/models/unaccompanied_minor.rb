@@ -64,6 +64,16 @@ class UnaccompaniedMinor < ApplicationRecord
     is_cancelled
   end
 
+  def sponsor_details_names?
+    if email.present?
+      "Completed"
+    elsif given_name.present? || family_name.present?
+      "In progress"
+    else
+      "Not started"
+    end
+  end
+
   def after_initialize
     @final_submission = false
     @have_parental_consent_options = %i[yes no]

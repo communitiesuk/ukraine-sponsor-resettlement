@@ -222,4 +222,16 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(true)
     end
   end
+
+  describe "task list sponsor details" do
+    it "return status for names", :focus do
+      app = described_class.new
+      expect(app.sponsor_details_names?).to eq("Not started")
+      app.given_name = "Bob"
+      app.family_name = "Smith"
+      expect(app.sponsor_details_names?).to eq("In progress")
+      app.email = "test@test.com"
+      expect(app.sponsor_details_names?).to eq("Completed")
+    end
+  end
 end
