@@ -192,49 +192,22 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("To sponsor a child you must have the right to live in the UK for a minimum of")
     end
 
-<<<<<<< HEAD
     it "saves all of the answers in the database" do
       # step 8 - only to set is_eligible = true
-      visit "/unaccompanied-minor/steps/8"
+      visit "/sponsor-a-child/steps/8"
       expect(page).to have_content("Can you commit to caring for the children until they are 18 or for at least 3 years?")
       choose("Yes")
       click_button("Continue")
-=======
-    ### THE FOLLOWING TESTS MIGHT BE OBSOLETE AND WILL NEED REFACTORING ###
-
-    # it "without parental consent form terminates early" do
-    #   visit "/sponsor-a-child/check"
-    #   expect(page).to have_content("Check if you can use this service")
-
-    #   click_link("Continue")
-
-    #   choose("Yes")
-    #   click_button("Continue")
-
-    #   fill_in("What is the name of the child you want to sponsor?", with: "John Smith")
-    #   click_button("Continue")
-
-    #   fill_in("Day", with: "15")
-    #   fill_in("Month", with: "6")
-    #   fill_in("Year", with: "2017")
-    #   click_button("Continue")
->>>>>>> d577ffc... Amend unaccompanied-minor to sponsor-a-child
 
       # skip step 9 - just a mini confirmation screen
 
       # steps 10 - 22 -> sponsor details form
 
-<<<<<<< HEAD
       # step 10 - sponsor name
-      visit "/unaccompanied-minor/steps/10"
+      visit "/sponsor-a-child/steps/10"
       fill_in("Given name(s)", with: "Jane")
       fill_in("Family name", with: "Doe")
       click_button("Continue")
-=======
-    # it "saves all of the answers in the database" do
-    #   visit "/sponsor-a-child/check"
-    #   expect(page).to have_content("Check if you can use this service")
->>>>>>> d577ffc... Amend unaccompanied-minor to sponsor-a-child
 
       # step 11 - other names
       expect(page).to have_content("Have you ever been known by another name?")
@@ -269,14 +242,9 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Year", with: "1987")
       click_button("Continue")
 
-<<<<<<< HEAD
       # Step 19 - Nationality
       expect(page).to have_content("What is your nationality?")
       click_button("Continue")
-=======
-    #   attach_file("sponsor-a-child-uk-parental-consent-field", test_file_path)
-    #   click_button("Upload")
->>>>>>> d577ffc... Amend unaccompanied-minor to sponsor-a-child
 
       # Step 20 - Other nationality
       expect(page).to have_content("Have you ever held any other nationalities?")
@@ -291,40 +259,5 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("You have added 1 other nationalities")
       # click_link("Continue")
     end
-
-<<<<<<< HEAD
-    ### THE FOLLOWING TESTS MIGHT BE OBSOLETE AND WILL NEED REFACTORING ###
-=======
-    #   attach_file("sponsor-a-child-ukraine-parental-consent-field", test_file_path)
-    #   click_button("Upload")
->>>>>>> d577ffc... Amend unaccompanied-minor to sponsor-a-child
-
-    # it "without parental consent form terminates early" do
-    #   visit "/unaccompanied-minor/check"
-    #   expect(page).to have_content("Check if you can use this service")
-
-    #   click_link("Continue")
-
-    #   choose("Yes")
-    #   click_button("Continue")
-
-    #   fill_in("What is the name of the child you want to sponsor?", with: "John Smith")
-    #   click_button("Continue")
-
-    #   fill_in("Day", with: "15")
-    #   fill_in("Month", with: "6")
-    #   fill_in("Year", with: "2017")
-    #   click_button("Continue")
-
-<<<<<<< HEAD
-    #   expect(page).to have_content("Have you received both parental consent forms for John Smith?")
-    #   choose("No")
-=======
-    #   page.check("sponsor-a-child-agree-privacy-statement-true-field")
->>>>>>> d577ffc... Amend unaccompanied-minor to sponsor-a-child
-    #   click_button("Continue")
-
-    #   expect(page).to have_content("You cannot apply without completed parental consent forms")
-    # end
   end
 end

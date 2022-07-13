@@ -3,8 +3,7 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-<<<<<<< HEAD
-    <%= form_for @application, url: "/unaccompanied-minor/steps/11", method: :post do |f| %>
+    <%= form_for @application, url: "/sponsor-a-child/steps/11", method: :post do |f| %>
 
       <%= f.govuk_radio_buttons_fieldset(:has_other_names,
           legend: { size: 'm', text: t('other_names.full', scope: "unaccompanied_minor.questions") },
@@ -12,13 +11,6 @@
         <%= f.govuk_radio_button :has_other_names, true, label: { text: t('Yes' ) } %>
         <%= f.govuk_radio_button :has_other_names, false, label: { text: t('No' ) },  link_errors: true  %>
       <% end %>
-=======
-    <%= form_for @application, url: "/sponsor-a-child/steps/11", method: :post do |f| %>
-      <%= f.govuk_date_field :sponsor_date_of_birth,
-                             date_of_birth: true,
-                             legend: { text: t('sponsor_date_of_birth.full', scope: "unaccompanied_minor.questions"), size: 'm' },
-                             hint: { text: 'For example, 31 3 1990' } %>
->>>>>>> d577ffc... Amend unaccompanied-minor to sponsor-a-child
 
       <%= f.govuk_submit t('continue') %>
     <% end %>

@@ -117,13 +117,9 @@ class UnaccompaniedController < ApplicationController
       next_stage = RoutingEngine.get_next_unaccompanied_minor_step(@application, params["stage"].to_i)
 
       if next_stage == -1
-<<<<<<< HEAD
-        redirect_to "/unaccompanied-minor/non-eligible"
-      elsif next_stage.zero?
-        redirect_to "/unaccompanied-minor/task-list"
-=======
         redirect_to "/sponsor-a-child/non-eligible"
->>>>>>> d577ffc... Amend unaccompanied-minor to sponsor-a-child
+      elsif next_stage.zero?
+        redirect_to "/sponsor-a-child/non-eligible"
       elsif next_stage > MAX_STEPS
         redirect_to "/sponsor-a-child/check-answers"
       else
