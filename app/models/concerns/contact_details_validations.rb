@@ -11,7 +11,7 @@ module ContactDetailsValidations
     validate :validate_residential_line_2, if: -> { run_validation? :residential_line_2 }
     validate :validate_residential_town, if: -> { run_validation? :residential_town }
     validate :validate_residential_postcode, if: -> { run_validation? :residential_postcode }
-    validate :validate_fullname, if: -> { run_validation? :fullname }
+    validate :validate_full_name, if: -> { run_validation? :fullname }
     validates :email, length: { maximum: 128, message: I18n.t(:invalid_email, scope: :error) }, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: I18n.t(:invalid_email, scope: :error) }, if: -> { run_validation? :email }
     validate :validate_phone_number, if: -> { run_validation? :phone_number }
   end
@@ -42,9 +42,9 @@ private
     end
   end
 
-  def validate_fullname
-    if @fullname.nil? || @fullname.strip.length < MIN_ENTRY_DIGITS || @fullname.strip.length > MAX_ENTRY_DIGITS || @fullname.split.length < 2 || @fullname.match(SPECIAL_CHARACTERS)
-      errors.add(:fullname, I18n.t(:invalid_fullname, scope: :error))
+  def validate_full_name
+    if @fullname.nil? || @fullname.strip.length < MIN_ENTRY_DIGITS || @fullname.strip.length > MAX_ENTRY_DIGITS || @fullname.split.length < 2 || @fullname.match(/[!"£$%{}<>|&@\/()=?^;]/)
+      errors.add(:minor_fullname, I18n.t(:invalid_minor_fullname, scope: :error))
     end
   end
 

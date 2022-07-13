@@ -1,0 +1,27 @@
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
+
+    <%= form_for @application, url: "/unaccompanied-minor/steps/16", method: :post do |f| %>
+      <%= f.govuk_check_boxes_fieldset :identification_type, multiple: false, legend: { text: t('identity_documents.full', scope: "unaccompanied_minor.questions"), size: "m" } do %>
+        
+        <%= f.govuk_check_box :identification_type, :passport, multiple: false, label: { text: "Passport" } do %>
+            <%= f.govuk_text_field :identification_number, label: { text: "Passport number" }, type: "text" %>
+        <% end %>
+        <%= f.govuk_check_box :identification_type, :national_identity_card, multiple: false, label: { text: "National Identity card" } do %>
+            <%= f.govuk_text_field :identification_number, label: { text: "National Identity card number"  }, type: "text"  %>
+        <% end %>
+        <%= f.govuk_check_box :identification_type, :refugee_travel_document, multiple: false, label: { text: "Refugee travel document" } do %>
+            <%= f.govuk_text_field :identification_number, label: { text: "Refugee travel document number"  }, type: "text"  %>
+        <% end %>
+        <%= f.govuk_check_box_divider %>
+        <%= f.govuk_check_box :identification_type, :none, exclusive: true, label: { text: "I don't have any of these" } %>
+
+      <% end %>
+      <%= f.govuk_submit t('continue') %>
+    <% end %>
+  </div>
+</div>
