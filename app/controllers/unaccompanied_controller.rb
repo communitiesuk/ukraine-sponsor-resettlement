@@ -11,7 +11,7 @@ class UnaccompaniedController < ApplicationController
   def start_application
     @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
     @application.started_at = Time.zone.now.utc if @application.started_at.nil?
-    @application.save!
+    @application.save! if @application.reference.nil?
 
     # Redirect to show the task-list
     redirect_to "/unaccompanied-minor/task-list/#{@application.reference}"
