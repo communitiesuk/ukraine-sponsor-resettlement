@@ -5,7 +5,6 @@ class UnaccompaniedController < ApplicationController
   MAX_STEPS = 43
   add_flash_types :error
 
-
   def start
     render "unaccompanied-minor/start"
   end
@@ -122,13 +121,13 @@ class UnaccompaniedController < ApplicationController
   def post
     @privacyconfirm = PrivacyConfirm.new
     @privacyconfirm.assign_attributes(confirm_params)
-   if @privacyconfirm.valid?
-     # if they confirm they will be redirected to next page
-        redirect_to "/"
-   else
-     # if they do not confirm reload page and show error
-          render "/send-application/data_sharing"
-   end
+    if @privacyconfirm.valid?
+      # if they confirm they will be redirected to next page
+      redirect_to "/"
+    else
+      # if they do not confirm reload page and show error
+      render "/send-application/data_sharing"
+    end
   end
 
   def confirm
@@ -164,16 +163,16 @@ class UnaccompaniedController < ApplicationController
   end
 
   def check_box_check
-      @application = UnaccompaniedMinor.find_by_reference(params[:reference])
-     if @application.valid?
-       # if they confirm they will be redirected to next page
-          redirect_to "/ste"
-     else
-       # if they do not confirm reload page and show error
-            render "/send-application/data_sharing"
-     end
+    @application = UnaccompaniedMinor.find_by_reference(params[:reference])
+    if @application.valid?
+      # if they confirm they will be redirected to next page
+      redirect_to "/ste"
+    else
+      # if they do not confirm reload page and show error
+      render "/send-application/data_sharing"
+    end
   end
-  
+
   def cancel_application
     # cancel an application
     @application = UnaccompaniedMinor.find_by_reference(params[:reference])
@@ -244,7 +243,7 @@ private
           :agree_privacy_statement,
           :certificate_reference,
           :privacy_statement_confirm,
-          :is_cancelled
+          :is_cancelled,
         )
   end
 end

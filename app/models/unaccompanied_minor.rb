@@ -48,8 +48,7 @@ class UnaccompaniedMinor < ApplicationRecord
   has_one_attached :parental_consent
 
   validates :parental_consent, antivirus: true # Add this for antivirus validation
-  validates :privacy_statement_confirm, acceptance: { message: "You must read and agree to the privacy statement to continue" } # Privacy statement checkbox required to proceed 
-
+  validates :privacy_statement_confirm, acceptance: { message: "You must read and agree to the privacy statement to continue" } # Privacy statement checkbox required to proceed
 
   def is_cancelled?
     is_cancelled
