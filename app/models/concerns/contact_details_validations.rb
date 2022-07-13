@@ -11,8 +11,7 @@ module ContactDetailsValidations
     validate :validate_residential_line_2, if: -> { run_validation? :residential_line_2 }
     validate :validate_residential_town, if: -> { run_validation? :residential_town }
     validate :validate_residential_postcode, if: -> { run_validation? :residential_postcode }
-    validate :validate_given_name, if: -> { run_validation? :given_name }
-    validate :validate_family_name, if: -> { run_validation? :family_name }
+    validate :validate_full_name, if: -> { run_validation? :fullname }
     validates :email, length: { maximum: 128, message: I18n.t(:invalid_email, scope: :error) }, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: I18n.t(:invalid_email, scope: :error) }, if: -> { run_validation? :email }
     validate :validate_phone_number, if: -> { run_validation? :phone_number }
   end
@@ -43,15 +42,9 @@ private
     end
   end
 
-  def validate_given_name
-    if @given_name.nil? || @given_name.strip.length < MIN_ENTRY_DIGITS || @given_name.strip.length > MAX_ENTRY_DIGITS || @given_name.match(SPECIAL_CHARACTERS)
-      errors.add(:given_name, I18n.t(:invalid_given_name, scope: :error))
-    end
-  end
-
-  def validate_family_name
-    if @family_name.nil? || @family_name.strip.length < MIN_ENTRY_DIGITS || @family_name.strip.length > MAX_ENTRY_DIGITS || @family_name.match(SPECIAL_CHARACTERS)
-      errors.add(:family_name, I18n.t(:invalid_family_name, scope: :error))
+  def validate_full_name
+    if @fullname.nil? || @fullname.strip.length < MIN_ENTRY_DIGITS || @fullname.strip.length > MAX_ENTRY_DIGITS || @fullname.split.length < 2 || @fullname.match(/[!"£$%{}<>|&@\/()=?^;]/)
+      errors.add(:minor_fullname, I18n.t(:invalid_minor_fullname, scope: :error))
     end
   end
 

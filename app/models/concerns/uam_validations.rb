@@ -13,7 +13,8 @@ module UamValidations
     validate :validate_uk_parent_consent_filename, if: -> { run_validation? :uk_parental_consent_filename }
     validate :validate_ukraine_parent_consent_file_type, if: -> { run_validation? :ukraine_parental_consent_file_type }
     validate :validate_ukraine_parent_consent_filename, if: -> { run_validation? :ukraine_parental_consent_filename }
-    validate :validate_full_name, if: -> { run_validation? :fullname }
+    validate :validate_given_name, if: -> { run_validation? :fullname }
+    validate :validate_family_name, if: -> { run_validation? :fullname }
     validate :validate_agree_privacy_statement, if: -> { run_validation? :agree_privacy_statement }
   end
 
@@ -63,9 +64,15 @@ module UamValidations
     end
   end
 
-  def validate_full_name
-    if @fullname.nil? || @fullname.strip.length < MIN_ENTRY_DIGITS || @fullname.strip.length > MAX_ENTRY_DIGITS || @fullname.split.length < 2 || @fullname.match(/[!"£$%{}<>|&@\/()=?^;]/)
-      errors.add(:minor_fullname, I18n.t(:invalid_minor_fullname, scope: :error))
+  def validate_given_name
+    if @given_name.nil? || @given_name.strip.length < MIN_ENTRY_DIGITS || @given_name.strip.length > MAX_ENTRY_DIGITS || @given_name.match(SPECIAL_CHARACTERS)
+      errors.add(:given_name, I18n.t(:invalid_given_name, scope: :error))
+    end
+  end
+
+  def validate_family_name
+    if @family_name.nil? || @family_name.strip.length < MIN_ENTRY_DIGITS || @family_name.strip.length > MAX_ENTRY_DIGITS || @family_name.match(SPECIAL_CHARACTERS)
+      errors.add(:family_name, I18n.t(:invalid_family_name, scope: :error))
     end
   end
 

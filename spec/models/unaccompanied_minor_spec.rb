@@ -16,17 +16,17 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(true)
     end
 
-    it "sponsor full name is valid" do
+    it "sponsor full name is valid", :focus do
       app = described_class.new
-      app.fullname = ""
+      app.given_name = nil
+      app.family_name = nil
       expect(app.valid?).to be(false)
-      expect(app.errors[:fullname]).to include("You must enter your full name")
-      expect(app.errors[:fullname].count).to be(1)
-      app.fullname = "John"
-      expect(app.valid?).to be(false)
-      expect(app.errors[:fullname]).to include("You must enter your full name")
-      expect(app.errors[:fullname].count).to be(1)
-      app.fullname = "John Smith"
+      expect(app.errors[:given_name]).to include("You must enter a valid given name")
+      expect(app.errors[:given_name].count).to be(1)
+      expect(app.errors[:family_name]).to include("You must enter a valid family name")
+      expect(app.errors[:family_name].count).to be(1)
+      app.given_name = "John"
+      app.family_name = "Smith"
       expect(app.valid?).to be(true)
     end
 
