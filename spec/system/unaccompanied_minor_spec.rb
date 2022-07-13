@@ -30,7 +30,14 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Cancel application")
 
       expect(page).to have_content("Your application has been cancelled")
+<<<<<<< HEAD
 >>>>>>> bb4ce52... Add WIP test for cancelling an application
+=======
+
+      # TODO set the expectation once the application reference is included in the flow
+      # application = UnaccompaniedMinor.order("created_at DESC").last
+      # expect(application.is_cancelled).to eq(true)
+>>>>>>> 41e29f3... Remove expectation
     end
   end
 
