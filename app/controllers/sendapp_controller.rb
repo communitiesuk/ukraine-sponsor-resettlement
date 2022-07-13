@@ -1,10 +1,7 @@
 class SendappController < ApplicationController
     add_flash_types :error
 
-    def display 
-        @privacyconfirm = PrivacyConfirm.new 
-        render "/send-application/data_sharing"
-    end
+  
 
     def post
       @privacyconfirm = PrivacyConfirm.new

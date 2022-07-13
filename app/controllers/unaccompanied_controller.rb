@@ -3,6 +3,7 @@ require "securerandom"
 class UnaccompaniedController < ApplicationController
   include ApplicationHelper
   MAX_STEPS = 12
+  add_flash_types :error
 
 
   def start
@@ -143,6 +144,18 @@ class UnaccompaniedController < ApplicationController
     # NO to any of the questions asked
     render "unaccompanied-minor/non_eligible"
   end
+
+  def check_box_check
+      @privacyconfirm = PrivacyConfirm.new
+      @privacyconfirm.assign_attributes(confirm_params)
+     if @privacyconfirm.valid?
+       # if they confirm they will be redirected to next page
+          redirect_to "/"
+     else
+       # if they do not confirm reload page and show error
+            render "/send-application/data_sharing"
+     end
+    end
 
 private
 

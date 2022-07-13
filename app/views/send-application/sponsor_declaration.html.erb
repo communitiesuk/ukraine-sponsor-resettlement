@@ -1,0 +1,16 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+   
+   <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
+
+   <%= form_for @privacyconfirm, url: "/unaccompanied-minor/check_answers", method: :post do |f| %>
+
+    <%= f.govuk_check_boxes_fieldset :sponsor_declaration, multiple: false, legend: { text: "Confirm that you have read and agree to the privacy statement", tag: "h1", size: "l"} do %>
+      <%= f.govuk_check_box :privacy_statement_confirm, 1, 0, multiple: false, link_errors: true, 
+      label: { text: "Yes, I have read the privacy statement and agree tha the information I have provided in this form can be used for the Homes for Ukraine scheme" } %>
+      <% end %>
+      <%= f.govuk_submit t('continue') %>
+      <% end %>
+
+  </div>
+</div>
