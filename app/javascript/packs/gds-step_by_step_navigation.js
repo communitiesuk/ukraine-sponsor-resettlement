@@ -7,6 +7,15 @@ global.$ = require("jquery")
 window.GOVUK = window.GOVUK || {}
 window.GOVUK.Modules = window.GOVUK.Modules || {};
 
+$(document).ready(function(){
+  var element = $('#step-by-step-navigation');
+
+  if (element) {
+    var stepByStepNavigation = new GOVUK.Modules.AppStepNav();
+    stepByStepNavigation.start(element);
+  }
+});
+
 (function (Modules) {
   'use strict'
 

@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get "/", to: "index#index", as: :root
 
+  get "sponsor-a-child", to: "unaccompanied#guidance"
+
   get "/health", to: proc { [200, {}, %w[OK]] }
 
   get "/individual", to: redirect("/individual/steps/1")
@@ -43,7 +45,10 @@ Rails.application.routes.draw do
   post "/unaccompanied-minor/upload-uk/:stage", to: "unaccompanied#handle_upload_uk"
   post "/unaccompanied-minor/upload-ukraine/:stage", to: "unaccompanied#handle_upload_ukraine"
 
-  get "/unaccompanied-minor/task-list", to: "unaccompanied#task_list"
+  post "/unaccompanied-minor/cancel/:reference", to: "unaccompanied#cancel_application"
+  post "/unaccompanied-minor/cancel-application/:reference", to: "unaccompanied#cancel_confirm"
+
+  get "/unaccompanied-minor/task-list/:reference", to: "unaccompanied#task_list"
   get "/unaccompanied-minor/non-eligible", to: "unaccompanied#non_eligible"
 
   get "/fraud-support", to: "fraud#display"

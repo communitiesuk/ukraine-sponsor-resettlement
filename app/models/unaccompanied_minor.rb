@@ -56,8 +56,8 @@ class UnaccompaniedMinor < ApplicationRecord
 
   validates :parental_consent, antivirus: true # Add this for antivirus validation
 
-  after_find do
-    assign_attributes(answers)
+  def is_cancelled?
+    is_cancelled
   end
 
   def after_initialize
