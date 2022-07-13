@@ -16,8 +16,11 @@
 // const imagePath = (name) => images(name, true)
 
 require.context('govuk-frontend/govuk/assets')
+require('jquery')
 
 import { initAll } from 'govuk-frontend';
 import '../styles/application.scss';
+import './gds-step_by_step_navigation';
 
 initAll()
+

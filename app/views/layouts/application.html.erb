@@ -21,7 +21,6 @@
         console.log(<%= session.to_json.html_safe %>)
       </script>
     <% end %>
-    <%= yield(:extra_css) %>
   </head>
 
   <body class="govuk-template__body ">
@@ -101,5 +100,4 @@
 
     </footer>
   </body>
-  <%= yield(:extra_js) %>
 </html>
