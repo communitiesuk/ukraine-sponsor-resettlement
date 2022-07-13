@@ -14,6 +14,9 @@ class UnaccompaniedController < ApplicationController
     step = params["stage"].to_i
 
     if step.positive? && step <= MAX_STEPS
+      if step == 19
+        @nationalities = get_nationalities_as_list
+      end
       render "unaccompanied-minor/steps/#{step}"
     else
       redirect_to "/unaccompanied-minor"
@@ -70,7 +73,6 @@ class UnaccompaniedController < ApplicationController
 
     if @application.valid?
       # Update the session
-      @application.is_eligible = "true"
       session[:unaccompanied_minor] = @application.as_json
 
       # Replace with routing engine to get next stage
@@ -78,8 +80,8 @@ class UnaccompaniedController < ApplicationController
 
       if next_stage == -1
         redirect_to "/unaccompanied-minor/non-eligible"
-      elsif next_stage == 0
-          redirect_to "/unaccompanied-minor/task-list"
+      elsif next_stage.zero?
+        redirect_to "/unaccompanied-minor/task-list"
       elsif next_stage > MAX_STEPS
         redirect_to "/unaccompanied-minor/check-answers"
       else

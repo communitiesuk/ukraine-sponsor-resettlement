@@ -4,7 +4,7 @@
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
     <%= form_for @application, url: "/unaccompanied-minor/steps/19", method: :post do |f| %>
-      <%= f.govuk_collection_select :nationality, [OpenStruct.new(id: 1, name: 'English')], :id, :name, legend: { text: t('sponsor_nationality.full', scope: "unaccompanied_minor.questions"), size: 'm' } %>
+      <%= f.govuk_collection_select :nationality, @nationalities, :val, :name, legend: { text: t('sponsor_nationality.full', scope: "unaccompanied_minor.questions"), size: 'm' } %>
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>
