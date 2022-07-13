@@ -368,6 +368,9 @@ en:
         You will need to upload a completed <a href=dummy-link target=_blank>UK parental consent form</a> in order to complete your application.<br /><br />Once the child's parent(s) or legal guardian(s) have completed the form and sent it to you, you can apply again.<br /><br />If it is not possible to obtain parental consent, or the child doesn't have a parent or legal guardian, please email <a href=mailto:homesforukraine@levellingup.gov.uk>homesforukraine@levellingup.gov.uk</a> to explain your circumstances.
     accept_and_send:
       full: Accept and send
+    cancel_application:
+      cancel: Cancel application
+      continue: Continue application
   error:
     choose_option: You must select an option to continue
     invalid_number: Please enter a non-negative whole number

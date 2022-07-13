@@ -134,13 +134,48 @@ class UnaccompaniedController < ApplicationController
   end
 
   def task_list
-    render "unaccompanied-minor/task_list"
+    @application = UnaccompaniedMinor.find_by_reference(params[:reference])
+
+    if @application.is_cancelled?
+      render "unaccompanied-minor/cancel_confirm"
+    else
+      render "unaccompanied-minor/task_list"
+    end
   end
 
   def non_eligible
     # page to show if between steps 1 and 8 (2,6 excluded) the user answers with
     # NO to any of the questions asked
     render "unaccompanied-minor/non_eligible"
+  end
+
+  def cancel_application
+    # cancel an application
+    @application = UnaccompaniedMinor.find_by_reference(params[:reference])
+
+    if @application.is_cancelled?
+      render "unaccompanied-minor/cancel_confirm"
+    else
+      render "unaccompanied-minor/cancel_application"
+    end
+  end
+
+  def  cancel_confirm
+    if params[:cancel_application]
+      # Soft delete the application
+      @application = UnaccompaniedMinor.find_by_reference(params[:reference])
+      @application.update!(is_cancelled: true)
+
+      session[:app_reference] = @application.reference
+
+      # Remove application from session
+      session[:unaccompanied_minor] = {}
+
+      render "unaccompanied-minor/cancel_confirm"
+    else
+      # Redirect to show the task-list
+      redirect_to "/unaccompanied-minor/task-list/#{params[:reference]}"
+    end
   end
 
 private
@@ -183,6 +218,7 @@ private
           :sponsor_date_of_birth,
           :agree_privacy_statement,
           :certificate_reference,
+          :is_cancelled,
         )
   end
 end
