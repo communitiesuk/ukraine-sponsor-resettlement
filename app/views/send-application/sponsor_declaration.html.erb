@@ -3,7 +3,7 @@
    
    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-   <%= form_for @privacyconfirm, url: "/unaccompanied-minor/check_answers", method: :post do |f| %>
+   <%= form_for @application, url: "/unaccompanied-minor/check_answers", method: :post do |f| %>
 
     <%= f.govuk_check_boxes_fieldset :sponsor_declaration, multiple: false, legend: { text: "Confirm that you have read and agree to the privacy statement", tag: "h1", size: "l"} do %>
       <%= f.govuk_check_box :privacy_statement_confirm, 1, 0, multiple: false, link_errors: true, 

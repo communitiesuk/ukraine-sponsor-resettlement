@@ -2,7 +2,7 @@ require "securerandom"
 
 class UnaccompaniedController < ApplicationController
   include ApplicationHelper
-  MAX_STEPS = 12
+  MAX_STEPS = 43
   add_flash_types :error
 
 
@@ -119,6 +119,18 @@ class UnaccompaniedController < ApplicationController
     end
   end
 
+  def post
+    @privacyconfirm = PrivacyConfirm.new
+    @privacyconfirm.assign_attributes(confirm_params)
+   if @privacyconfirm.valid?
+     # if they confirm they will be redirected to next page
+        redirect_to "/"
+   else
+     # if they do not confirm reload page and show error
+          render "/send-application/data_sharing"
+   end
+  end
+
   def confirm
     @app_reference = session[:app_reference]
 
@@ -152,11 +164,10 @@ class UnaccompaniedController < ApplicationController
   end
 
   def check_box_check
-      @privacyconfirm = PrivacyConfirm.new
-      @privacyconfirm.assign_attributes(confirm_params)
-     if @privacyconfirm.valid?
+      @application = UnaccompaniedMinor.find_by_reference(params[:reference])
+     if @application.valid?
        # if they confirm they will be redirected to next page
-          redirect_to "/"
+          redirect_to "/ste"
      else
        # if they do not confirm reload page and show error
             render "/send-application/data_sharing"
@@ -232,8 +243,8 @@ private
           :sponsor_date_of_birth,
           :agree_privacy_statement,
           :certificate_reference,
-          :privacy_statement_confirm
-          :is_cancelled,
+          :privacy_statement_confirm,
+          :is_cancelled
         )
   end
 end
