@@ -4,6 +4,7 @@ class UnaccompaniedController < ApplicationController
   include ApplicationHelper
   MAX_STEPS = 12
 
+
   def start
     render "unaccompanied-minor/start"
   end
@@ -183,6 +184,7 @@ private
           :sponsor_date_of_birth,
           :agree_privacy_statement,
           :certificate_reference,
+          :privacy_statement_confirm
         )
   end
 end

@@ -49,6 +49,9 @@ Rails.application.routes.draw do
   get "/fraud-support", to: "fraud#display"
   post "/fraud-support", to: "fraud#post"
 
+  get "/confirm-application", to: "sendapp#display"
+  post "/confirm-application", to: "sendapp#post"
+
   scope via: :all do
     match "/404", to: "errors#not_found"
     match "/429", to: "errors#too_many_requests"

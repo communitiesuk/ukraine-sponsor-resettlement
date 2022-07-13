@@ -39,6 +39,7 @@ class UnaccompaniedMinor < ApplicationRecord
                 :user_agent,
                 :started_at,
                 :final_submission
+                :privacy_statement_confirm
 
   after_initialize :after_initialize
   before_save :serialize
