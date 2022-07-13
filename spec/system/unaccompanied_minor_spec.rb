@@ -6,12 +6,13 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     driven_by(:rack_test_user_agent)
   end
 
-<<<<<<< HEAD
   describe "start page" do
     it "sponsor url shows page" do
       visit "/sponsor-a-child"
       expect(page).to have_content("Sponsor a child fleeing Ukraine without a parent")
-=======
+    end
+  end
+
   describe "cancelling the application" do
     it "updates the application as cancelled" do
       answers = { fullname: "Bob The Builder" }
@@ -34,16 +35,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       click_button("Cancel application")
       expect(page).to have_content("Your application has been cancelled")
-<<<<<<< HEAD
->>>>>>> bb4ce52... Add WIP test for cancelling an application
-=======
 
-<<<<<<< HEAD
-      # TODO set the expectation once the application reference is included in the flow
-      # application = UnaccompaniedMinor.order("created_at DESC").last
-      # expect(application.is_cancelled).to eq(true)
->>>>>>> 41e29f3... Remove expectation
-=======
       cancelled_application = UnaccompaniedMinor.find(id)
       expect(cancelled_application).to eq(new_application)
       expect(cancelled_application.reference).to eq(test_reference)
@@ -62,10 +54,6 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(new_application.is_cancelled).to be(true)
 
       page_url = "/unaccompanied-minor/task-list/#{test_reference}"
-<<<<<<< HEAD
-      expect(page_url).to end_with("test_reference")
->>>>>>> 7724cba... *****WIP*****
-=======
       expect(page_url).to end_with(test_reference)
 
       visit page_url
@@ -89,10 +77,6 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
       click_button("Cancel application")
-<<<<<<< HEAD
-      expect(page).to have_content("Your application has been cancelled")
->>>>>>> 3ca33b7... Amend controller to redirect when application already cancelled
-=======
       expect(page).to have_content("Are you sure you want to cancel your application?")
 
       click_button("Continue application")
@@ -103,7 +87,6 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(continued_application.reference).to eq(test_reference)
       expect(continued_application.certificate_reference).to start_with("CERT-")
       expect(continued_application.is_cancelled).to eq(false)
->>>>>>> 6c60a2a... Amend to return to task list with reference
     end
   end
 
