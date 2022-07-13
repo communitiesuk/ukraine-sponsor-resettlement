@@ -38,7 +38,7 @@ class UnaccompaniedMinor < ApplicationRecord
                 :ip_address,
                 :user_agent,
                 :started_at,
-                :final_submission
+                :final_submission,
                 :privacy_statement_confirm
 
   after_initialize :after_initialize
