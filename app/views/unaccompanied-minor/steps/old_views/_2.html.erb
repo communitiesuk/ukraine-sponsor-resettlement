@@ -3,7 +3,7 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-    <%= form_for @application, url: "/unaccompanied-minor/steps/2", method: :post do |f| %>
+    <%= form_for @application, url: "/sponsor-a-child/steps/2", method: :post do |f| %>
       <%= f.govuk_date_field :minor_date_of_birth,
                              date_of_birth: true,
                              legend: { text: t('minor_date_of_birth.full', :name => @application.minor_fullname, scope: "unaccompanied_minor.questions"), size: 'm' },

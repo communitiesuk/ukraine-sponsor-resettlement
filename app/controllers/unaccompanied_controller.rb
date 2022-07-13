@@ -14,7 +14,7 @@ class UnaccompaniedController < ApplicationController
     @application.save! if @application.reference.nil?
 
     # Redirect to show the task-list
-    redirect_to "/unaccompanied-minor/task-list/#{@application.reference}"
+    redirect_to "/sponsor-a-child/task-list/#{@application.reference}"
   end
 
   def display
@@ -28,7 +28,7 @@ class UnaccompaniedController < ApplicationController
       end
       render "unaccompanied-minor/steps/#{step}"
     else
-      redirect_to "/unaccompanied-minor"
+      redirect_to "/sponsor-a-child"
     end
   end
 
@@ -117,13 +117,17 @@ class UnaccompaniedController < ApplicationController
       next_stage = RoutingEngine.get_next_unaccompanied_minor_step(@application, params["stage"].to_i)
 
       if next_stage == -1
+<<<<<<< HEAD
         redirect_to "/unaccompanied-minor/non-eligible"
       elsif next_stage.zero?
         redirect_to "/unaccompanied-minor/task-list"
+=======
+        redirect_to "/sponsor-a-child/non-eligible"
+>>>>>>> d577ffc... Amend unaccompanied-minor to sponsor-a-child
       elsif next_stage > MAX_STEPS
-        redirect_to "/unaccompanied-minor/check-answers"
+        redirect_to "/sponsor-a-child/check-answers"
       else
-        redirect_to "/unaccompanied-minor/steps/#{next_stage}"
+        redirect_to "/sponsor-a-child/steps/#{next_stage}"
       end
     else
       Rails.logger.debug "Invalid!"
@@ -154,7 +158,7 @@ class UnaccompaniedController < ApplicationController
       SendUnaccompaniedMinorJob.perform_later(@application.id)
       GovNotifyMailer.send_unaccompanied_minor_confirmation_email(@application).deliver_later
 
-      redirect_to "/unaccompanied-minor/confirm"
+      redirect_to "/sponsor-a-child/confirm"
     else
       render "unaccompanied-minor/check_answers"
     end
@@ -217,7 +221,7 @@ class UnaccompaniedController < ApplicationController
       render "unaccompanied-minor/cancel_confirm"
     else
       # Redirect to show the task-list
-      redirect_to "/unaccompanied-minor/task-list/#{params[:reference]}"
+      redirect_to "/sponsor-a-child/task-list/#{params[:reference]}"
     end
   end
 
@@ -231,7 +235,7 @@ private
 
       next_stage = RoutingEngine.get_next_unaccompanied_minor_step(application, params["stage"].to_i)
 
-      redirect_to "/unaccompanied-minor/steps/#{next_stage}"
+      redirect_to "/sponsor-a-child/steps/#{next_stage}"
     else
       render "unaccompanied-minor/steps/#{params['stage']}"
     end

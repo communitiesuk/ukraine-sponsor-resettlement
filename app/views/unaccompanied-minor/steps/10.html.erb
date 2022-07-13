@@ -19,6 +19,28 @@
             <%= f.govuk_text_field :family_name, label: { text: 'Family name' }, type: "text" %>
       <% end %>
 
+<<<<<<< HEAD
+=======
+    <%= form_for @application, url: "/sponsor-a-child/steps/10", method: :post do |f| %>
+      <%= f.govuk_text_field :residential_line_1,
+                             label: { text: t('address_line_1.full', scope: "unaccompanied_minor.questions") },
+                             type: "text"
+      %>
+      <%= f.govuk_text_field :residential_line_2,
+                             label: { text: t('address_line_2.full', scope: "unaccompanied_minor.questions") },
+                             type: "text"
+      %>
+      <%= f.govuk_text_field :residential_town,
+                             label: { text: t('address_town.full', scope: "unaccompanied_minor.questions") },
+                             type: "text",
+                             width: 20
+      %>
+      <%= f.govuk_text_field :residential_postcode,
+                             label: { text: t('address_postcode.full', scope: "unaccompanied_minor.questions") },
+                             type: "text",
+                             width: 10
+      %>
+>>>>>>> d577ffc... Amend unaccompanied-minor to sponsor-a-child
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>
