@@ -24,7 +24,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(new_application.certificate_reference).to start_with("CERT-")
       expect(new_application.is_cancelled).to be(false)
 
-      page_url = "/unaccompanied-minor/task-list/#{new_application.reference}"
+      page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
       expect(page_url).to end_with(new_application.reference)
 
       visit page_url
@@ -53,7 +53,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(new_application.certificate_reference).to start_with("CERT-")
       expect(new_application.is_cancelled).to be(true)
 
-      page_url = "/unaccompanied-minor/task-list/#{test_reference}"
+      page_url = "/sponsor-a-child/task-list/#{test_reference}"
       expect(page_url).to end_with(test_reference)
 
       visit page_url
@@ -70,7 +70,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(new_application.certificate_reference).to start_with("CERT-")
       expect(new_application.is_cancelled).to be(false)
 
-      page_url = "/unaccompanied-minor/task-list/#{new_application.reference}"
+      page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
       expect(page_url).to end_with(new_application.reference)
 
       visit page_url
@@ -92,7 +92,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
   describe "submitting the form" do
     it "shows the guidance page before the start page" do
-      visit "/unaccompanied-minor/"
+      visit "/sponsor-a-child/"
       expect(page).to have_content("Sponsor a child fleeing Ukraine without a parent")
 
       click_link("Apply for permission to sponsor an unaccompanied child fleeing Ukraine")
@@ -101,7 +101,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
 
     it "shows check if eligible for this service page" do
-      visit "/unaccompanied-minor/start"
+      visit "/sponsor-a-child/start"
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
       click_link("Start now")
@@ -110,7 +110,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
 
     it "shows the user uneligible page if they answer NO to any question" do
-      visit "/unaccompanied-minor/steps/1"
+      visit "/sponsor-a-child/steps/1"
 
       # step 1
       expect(page).to have_content("Is the child you want to sponsor under 18?")
@@ -121,7 +121,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
 
     it "takes the user to the end of eligibility path" do
-      visit "/unaccompanied-minor/start"
+      visit "/sponsor-a-child/start"
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
       click_link("Start now")
@@ -169,7 +169,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
 
     it "shows eligibility question 3 if 2 is answered NO" do
-      visit "/unaccompanied-minor/steps/2"
+      visit "/sponsor-a-child/steps/2"
 
       # step 2
       expect(page).to have_content("Were they living in Ukraine on 31 December 2021?")
@@ -181,7 +181,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
 
     it "shows eligibility question 7 if 6 is answered NO" do
-      visit "/unaccompanied-minor/steps/6"
+      visit "/sponsor-a-child/steps/6"
 
       # step 6
       expect(page).to have_content("Are you a British citizen?")
@@ -194,7 +194,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
     it "saves all of the answers in the database" do
       # step 8 - only to set is_eligible = true
-      visit "/unaccompanied-minor/steps/8"
+      visit "/sponsor-a-child/steps/8"
       expect(page).to have_content("Can you commit to caring for the children until they are 18 or for at least 3 years?")
       choose("Yes")
       click_button("Continue")
@@ -204,7 +204,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       # steps 10 - 22 -> sponsor details form
 
       # step 10 - sponsor name
-      visit "/unaccompanied-minor/steps/10"
+      visit "/sponsor-a-child/steps/10"
       fill_in("Given name(s)", with: "Jane")
       fill_in("Family name", with: "Doe")
       click_button("Continue")
@@ -259,31 +259,5 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("You have added 1 other nationalities")
       # click_link("Continue")
     end
-
-    ### THE FOLLOWING TESTS MIGHT BE OBSOLETE AND WILL NEED REFACTORING ###
-
-    # it "without parental consent form terminates early" do
-    #   visit "/unaccompanied-minor/check"
-    #   expect(page).to have_content("Check if you can use this service")
-
-    #   click_link("Continue")
-
-    #   choose("Yes")
-    #   click_button("Continue")
-
-    #   fill_in("What is the name of the child you want to sponsor?", with: "John Smith")
-    #   click_button("Continue")
-
-    #   fill_in("Day", with: "15")
-    #   fill_in("Month", with: "6")
-    #   fill_in("Year", with: "2017")
-    #   click_button("Continue")
-
-    #   expect(page).to have_content("Have you received both parental consent forms for John Smith?")
-    #   choose("No")
-    #   click_button("Continue")
-
-    #   expect(page).to have_content("You cannot apply without completed parental consent forms")
-    # end
   end
 end

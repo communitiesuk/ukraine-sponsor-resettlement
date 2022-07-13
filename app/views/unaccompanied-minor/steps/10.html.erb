@@ -3,7 +3,7 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-    <%= form_for @application, url: "/unaccompanied-minor/steps/10", method: :post do |f| %>
+    <%= form_for @application, url: "/sponsor-a-child/steps/10", method: :post do |f| %>
 
       <%= f.govuk_fieldset legend: { text: t('fullname.full', scope: "unaccompanied_minor.questions") },
         hint: { text: t('fullname.hint', scope: "unaccompanied_minor.questions") } do %>
@@ -18,7 +18,7 @@
             <%= f.govuk_text_field :given_name, label: { text: 'Given name(s)' }, type: "text" %>
             <%= f.govuk_text_field :family_name, label: { text: 'Family name' }, type: "text" %>
       <% end %>
-
+      
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>
