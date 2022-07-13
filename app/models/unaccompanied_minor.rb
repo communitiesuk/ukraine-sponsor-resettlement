@@ -51,8 +51,8 @@ class UnaccompaniedMinor < ApplicationRecord
   validates :privacy_statement_confirm, acceptance: { message: "You must read and agree to the privacy statement to continue" } # Privacy statement checkbox required to proceed 
 
 
-  after_find do
-    assign_attributes(answers)
+  def is_cancelled?
+    is_cancelled
   end
 
   def after_initialize
