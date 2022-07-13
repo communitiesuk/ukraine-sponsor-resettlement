@@ -38,7 +38,8 @@ class UnaccompaniedMinor < ApplicationRecord
                 :ip_address,
                 :user_agent,
                 :started_at,
-                :final_submission
+                :final_submission,
+                :is_cancelled
 
   after_initialize :after_initialize
   before_save :serialize

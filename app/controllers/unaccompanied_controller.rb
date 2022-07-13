@@ -134,6 +134,8 @@ class UnaccompaniedController < ApplicationController
   end
 
   def task_list
+    @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
+
     render "unaccompanied-minor/task_list"
   end
 
@@ -153,7 +155,13 @@ class UnaccompaniedController < ApplicationController
   def  cancel_confirm
     if params[:cancel_application]
       # Soft delete the application
-      
+      @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
+      @application.is_cancelled = true
+      @application.save!
+
+      #Remove application from session
+      session[:unaccompanied_minor] = {}
+
       render "unaccompanied-minor/cancel_confirm"
     else
       # Redirect to show the task-list

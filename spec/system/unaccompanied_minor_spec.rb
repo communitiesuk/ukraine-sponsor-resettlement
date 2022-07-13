@@ -5,10 +5,32 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     driven_by(:rack_test_user_agent)
   end
 
+<<<<<<< HEAD
   describe "start page" do
     it "sponsor url shows page" do
       visit "/sponsor-a-child"
       expect(page).to have_content("Sponsor a child fleeing Ukraine without a parent")
+=======
+  describe "cancelling the application" do
+    it "updates the application as cancelled", :focus do
+      visit "/unaccompanied-minor/"
+      expect(page).to have_content("Sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Apply for permission to sponsor an unaccompanied child fleeing Ukraine")
+
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      visit "/unaccompanied-minor/task-list"
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_button("Cancel application")
+
+      expect(page).to have_content("Are you sure you want to cancel your application?")
+
+      click_button("Cancel application")
+
+      expect(page).to have_content("Your application has been cancelled")
+>>>>>>> bb4ce52... Add WIP test for cancelling an application
     end
   end
 

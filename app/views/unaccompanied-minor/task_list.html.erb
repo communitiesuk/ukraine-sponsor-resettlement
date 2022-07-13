@@ -153,8 +153,11 @@
       </li>
     </ol>
 
-    <%= govuk_button_link_to "Cancel application", "/unaccompanied-minor/cancel", class: "govuk-button--warning" %>
-
+    <%= form_for @application, url: "/unaccompanied-minor/cancel", method: :post do |f| %>
+      <%= f.govuk_submit t('cancel_application.cancel', scope: "unaccompanied_minor"),
+                         name: "cancel_application",
+                         class: "govuk-button--warning"%>
+    <% end %>
   </div>
 </div>
 
