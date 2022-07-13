@@ -4,11 +4,20 @@
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
     <%= form_for @application, url: "/unaccompanied-minor/steps/12", method: :post do |f| %>
-      <%= f.govuk_text_field :other_names,
-        label: { text: t('other_fullname.full', scope: "unaccompanied_minor.questions"), size: 'm' },
-        hint: { text: t('other_fullname.hint', scope: "unaccompanied_minor.questions")},
-        type: "text"
-      %>
+      <%= f.govuk_fieldset legend: { text: t('other_fullname.full', scope: "unaccompanied_minor.questions") },
+      hint: { text: t('other_fullname.hint', scope: "unaccompanied_minor.questions") } do %>
+            <details class="govuk-details" data-module="govuk-details">
+                <summary class="govuk-details__summary">
+                    <span class="govuk-details__summary-text">
+                    I'm not sure how to enter my name
+                    </span>
+                </summary>
+                <div class="govuk-details__text">lorem ipsum</div>
+            </details>
+            <%= f.govuk_text_field :other_given_name, label: { text: 'Given name' }, type: "text" %>
+            <%= f.govuk_text_field :other_family_name, label: { text: 'Family name' }, type: "text" %>
+      <% end %>
+
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>

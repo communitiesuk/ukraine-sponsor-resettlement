@@ -4,7 +4,7 @@
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
     <%= form_for @application, url: "/unaccompanied-minor/steps/21", method: :post do |f| %>
-      <%= f.govuk_collection_select :other_nationalities, @nationalities, :val, :name,
+      <%= f.govuk_collection_select :other_nationality, @nationalities, :val, :name,
           label: { text: t('sponsor_other_nationality.full', scope: "unaccompanied_minor.questions"), size: "m" } %>
       <%= f.govuk_submit t('continue') %>
     <% end %>
