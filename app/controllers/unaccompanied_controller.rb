@@ -14,7 +14,7 @@ class UnaccompaniedController < ApplicationController
     step = params["stage"].to_i
 
     if step.positive? && step <= MAX_STEPS
-      if step == 19
+      if step == 19 or step == 21
         @nationalities = get_nationalities_as_list
       end
       render "unaccompanied-minor/steps/#{step}"

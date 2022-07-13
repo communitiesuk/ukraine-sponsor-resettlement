@@ -319,6 +319,10 @@ en:
         short: Sponsor other names
         full: Have you ever been known by another name?
         hint: For example, if you changed your name after marriage
+      other_fullname:
+        short: Sponsor name
+        full: What is your other name?
+        hint: Full name
       email:
         short: Email
         full: What is your email address?
