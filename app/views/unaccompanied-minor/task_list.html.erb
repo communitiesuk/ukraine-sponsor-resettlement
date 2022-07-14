@@ -27,7 +27,9 @@
                   Names(s)
                 </a>
               </span>
-            <strong class="govuk-tag app-task-list__tag govuk-tag--grey"><%= @application.sponsor_details_names? %></strong>
+            <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.sponsor_details_names?) %>">
+              <%= @application.sponsor_details_names? %>
+            </strong>
           </li>
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
@@ -35,7 +37,9 @@
                   Contact details
                 </a>
               </span>
-            <strong class="govuk-tag app-task-list__tag govuk-tag--grey">Not started</strong>
+            <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.sponsor_details_contact_details?) %>">
+              <%= @application.sponsor_details_contact_details? %>
+            </strong>
           </li>
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
@@ -43,7 +47,9 @@
                   Additional details
                 </a>
               </span>
-            <strong class="govuk-tag app-task-list__tag govuk-tag--grey">Not started</strong>
+            <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.sponsor_details_additional_details?) %>">
+              <%= @application.sponsor_details_additional_details? %>
+            </strong>
           </li>
         </ul>
       </li>

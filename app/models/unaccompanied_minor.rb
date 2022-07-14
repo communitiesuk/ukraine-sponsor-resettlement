@@ -64,10 +64,40 @@ class UnaccompaniedMinor < ApplicationRecord
     is_cancelled
   end
 
+  def status_styles?(status)
+    if status === "Cannot start yet" || status === "Not started"
+      "govuk-tag--grey"
+    elsif status === "In progress"
+      "govuk-tag--blue"
+    else
+        ""
+    end
+  end
+
   def sponsor_details_names?
     if email.present?
       "Completed"
     elsif given_name.present? || family_name.present?
+      "In progress"
+    else
+      "Not started"
+    end
+  end
+
+  def sponsor_details_contact_details?
+    if phone_number.present?
+      "Completed"
+    elsif email.present?
+      "In progress"
+    else
+      "Not started"
+    end
+  end
+
+  def sponsor_details_additional_details?
+    if nationality.present?
+      "Completed"
+    elsif no_identification_reason.present?
       "In progress"
     else
       "Not started"
