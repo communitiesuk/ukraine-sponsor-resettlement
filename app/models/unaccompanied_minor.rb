@@ -65,12 +65,13 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
   def status_styles?(status)
-    if status == "Cannot start yet" || status == "Not started"
+    case status
+    when "Cannot start yet", "Not started"
       "govuk-tag--grey"
-    elsif status == "In progress"
+    when "In progress"
       "govuk-tag--blue"
     else
-        ""
+      ""
     end
   end
 
