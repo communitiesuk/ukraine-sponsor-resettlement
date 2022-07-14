@@ -1,0 +1,33 @@
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
+    <table class="govuk-table">
+        <caption class="govuk-table__caption govuk-table__caption--l">You have added <%= @application.other_names.length() %> other nationalities</caption>
+        <% @application.other_nationalities.each_with_index do |nationality, index| %>
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Other nationalities (<%= index+1 %>)</th>
+            <th scope="col" class="govuk-table__header"></th>
+            </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Nationality</th>
+            <td class="govuk-table__cell"><%= nationality[0] %></td>
+            </tr>
+        </tbody>
+        <% end %>
+    </table>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <%= govuk_button_link_to 'Add another', "/sponsor-a-child/steps/21", class: "govuk-button--secondary"  %>
+      </div>
+    </div>
+    <%= form_for @application, url: "/sponsor-a-child/steps/22", method: :post do |f| %>
+      <%= f.govuk_submit t('continue') %>
+    <% end %>
+  </div>
+</div>

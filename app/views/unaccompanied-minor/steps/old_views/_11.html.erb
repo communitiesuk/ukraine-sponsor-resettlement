@@ -1,0 +1,16 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
+
+    <%= form_for @application, url: "/unaccompanied-minor/steps/11", method: :post do |f| %>
+      <%= f.govuk_date_field :sponsor_date_of_birth,
+                             date_of_birth: true,
+                             legend: { text: t('sponsor_date_of_birth.full', scope: "unaccompanied_minor.questions"), size: 'm' },
+                             hint: { text: 'For example, 31 3 1990' } %>
+
+      <%= f.govuk_submit t('continue') %>
+    <% end %>
+  </div>
+</div>
+

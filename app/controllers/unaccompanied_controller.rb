@@ -2,11 +2,19 @@ require "securerandom"
 
 class UnaccompaniedController < ApplicationController
   include ApplicationHelper
-  MAX_STEPS = 43
-  add_flash_types :error
+  MAX_STEPS = 22
 
   def start
     render "unaccompanied-minor/start"
+  end
+
+  def start_application
+    @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
+    @application.started_at = Time.zone.now.utc if @application.started_at.nil?
+    @application.save! if @application.reference.nil?
+
+    # Redirect to show the task-list
+    redirect_to "/sponsor-a-child/task-list/#{@application.reference}"
   end
 
   def display
@@ -15,9 +23,12 @@ class UnaccompaniedController < ApplicationController
     step = params["stage"].to_i
 
     if step.positive? && step <= MAX_STEPS
+      if [19, 21].include?(step)
+        @nationalities = get_nationalities_as_list
+      end
       render "unaccompanied-minor/steps/#{step}"
     else
-      redirect_to "/unaccompanied-minor"
+      redirect_to "/sponsor-a-child"
     end
   end
 
@@ -66,6 +77,35 @@ class UnaccompaniedController < ApplicationController
     # instantiate new Application ActiveRecord object
     @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
     @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
+
+    # capture other names
+    if params["stage"].to_i == 12
+      # adds other attributes
+      (@application.other_names ||= []) << [params["unaccompanied_minor"]["other_given_name"], params["unaccompanied_minor"]["other_family_name"]]
+      # resets the current state
+      params["unaccompanied_minor"]["other_given_name"] = ""
+      params["unaccompanied_minor"]["other_family_name"] = ""
+    end
+
+    # capture identification document number
+    if params["stage"].to_i == 16
+      # how to have this comparison dealt with better???
+      if params["unaccompanied_minor"]["identification_type"][0].casecmp("none").zero?
+        @application.identification_type = ""
+        @application.identification_number = ""
+      elsif params["unaccompanied_minor"]["identification_number"].present?
+        @application.identification_number = params["unaccompanied_minor"]["identification_number"]
+      end
+    end
+
+    # capture other nationalities
+    if params["stage"].to_i == 21
+      # adds other attributes
+      (@application.other_nationalities ||= []) << [params["unaccompanied_minor"]["other_nationality"]]
+      # resets the current state
+      params["unaccompanied_minor"]["other_nationality"] = ""
+    end
+
     # Update Application object with new attributes
     @application.assign_attributes(application_params)
 
@@ -77,11 +117,13 @@ class UnaccompaniedController < ApplicationController
       next_stage = RoutingEngine.get_next_unaccompanied_minor_step(@application, params["stage"].to_i)
 
       if next_stage == -1
-        redirect_to "/unaccompanied-minor/non-eligible"
+        redirect_to "/sponsor-a-child/non-eligible"
+      elsif next_stage.zero?
+        redirect_to "/sponsor-a-child/non-eligible"
       elsif next_stage > MAX_STEPS
-        redirect_to "/unaccompanied-minor/check-answers"
+        redirect_to "/sponsor-a-child/check-answers"
       else
-        redirect_to "/unaccompanied-minor/steps/#{next_stage}"
+        redirect_to "/sponsor-a-child/steps/#{next_stage}"
       end
     else
       Rails.logger.debug "Invalid!"
@@ -112,7 +154,7 @@ class UnaccompaniedController < ApplicationController
       SendUnaccompaniedMinorJob.perform_later(@application.id)
       GovNotifyMailer.send_unaccompanied_minor_confirmation_email(@application).deliver_later
 
-      redirect_to "/unaccompanied-minor/confirm"
+      redirect_to "/sponsor-a-child/confirm"
     else
       render "unaccompanied-minor/check_answers"
     end
@@ -198,7 +240,7 @@ class UnaccompaniedController < ApplicationController
       render "unaccompanied-minor/cancel_confirm"
     else
       # Redirect to show the task-list
-      redirect_to "/unaccompanied-minor/task-list/#{params[:reference]}"
+      redirect_to "/sponsor-a-child/task-list/#{params[:reference]}"
     end
   end
 
@@ -212,7 +254,7 @@ private
 
       next_stage = RoutingEngine.get_next_unaccompanied_minor_step(application, params["stage"].to_i)
 
-      redirect_to "/unaccompanied-minor/steps/#{next_stage}"
+      redirect_to "/sponsor-a-child/steps/#{next_stage}"
     else
       render "unaccompanied-minor/steps/#{params['stage']}"
     end
@@ -232,9 +274,21 @@ private
           :minor_fullname,
           :minor_date_of_birth,
           :minor_date_of_birth_as_string,
-          :fullname,
+          :given_name,
+          :family_name,
+          :has_other_names,
+          :other_given_name,
+          :other_family_name,
+          :other_names,
           :email,
           :phone_number,
+          :identification_type,
+          :identification_number,
+          :no_identification_reason,
+          :nationality,
+          :has_other_nationalities,
+          :other_nationality,
+          :other_nationalities,
           :residential_line_1,
           :residential_line_2,
           :residential_town,

@@ -31,11 +31,18 @@ Rails.application.routes.draw do
   post "/additional-info/submit", to: "additional#submit"
   get "/additional-info/confirm", to: "additional#confirm"
 
-  get "/unaccompanied-minor", to: "unaccompanied#guidance"
-  get "/unaccompanied-minor/start", to: "unaccompanied#start"
-  get "/unaccompanied-minor/check", to: "unaccompanied#check_if_can_use"
-  get "/unaccompanied-minor/steps/:stage", to: "unaccompanied#display"
-  post "/unaccompanied-minor/steps/:stage", to: "unaccompanied#handle_step"
+  get "/sponsor-a-child", to: "unaccompanied#guidance"
+  get "/sponsor-a-child/start", to: "unaccompanied#start"
+  get "/sponsor-a-child/start-application", to: "unaccompanied#start_application"
+  get "/sponsor-a-child/check", to: "unaccompanied#check_if_can_use"
+  get "/sponsor-a-child/steps/:stage", to: "unaccompanied#display"
+  post "/sponsor-a-child/steps/:stage", to: "unaccompanied#handle_step"
+  get "/sponsor-a-child/task-list/:reference", to: "unaccompanied#task_list"
+  post "/sponsor-a-child/cancel/:reference", to: "unaccompanied#cancel_application"
+  post "/sponsor-a-child/cancel-application/:reference", to: "unaccompanied#cancel_confirm"
+  get "/sponsor-a-child/task-list/:reference", to: "unaccompanied#task_list"
+  get "/sponsor-a-child/non-eligible", to: "unaccompanied#non_eligible"
+
   get "/unaccompanied-minor/check-answers", to: "unaccompanied#check_answers"
   get "/unaccompanied-minor/check_answers", to: "unaccompanied#check_answers"
   post "/unaccompanied-minor/check-answers", to: "unaccompanied#submit"
@@ -44,12 +51,6 @@ Rails.application.routes.draw do
   get "/unaccompanied-minor/upload-ukraine/:stage", to: "unaccompanied#display"
   post "/unaccompanied-minor/upload-uk/:stage", to: "unaccompanied#handle_upload_uk"
   post "/unaccompanied-minor/upload-ukraine/:stage", to: "unaccompanied#handle_upload_ukraine"
-
-  post "/unaccompanied-minor/cancel/:reference", to: "unaccompanied#cancel_application"
-  post "/unaccompanied-minor/cancel-application/:reference", to: "unaccompanied#cancel_confirm"
-
-  get "/unaccompanied-minor/task-list/:reference", to: "unaccompanied#task_list"
-  get "/unaccompanied-minor/non-eligible", to: "unaccompanied#non_eligible"
 
   get "/fraud-support", to: "fraud#display"
   post "/fraud-support", to: "fraud#post"

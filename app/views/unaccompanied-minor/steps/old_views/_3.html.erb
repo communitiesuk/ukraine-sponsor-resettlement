@@ -3,7 +3,7 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-    <%= form_for @application, url: "/unaccompanied-minor/steps/3", method: :post do |f| %>
+    <%= form_for @application, url: "/sponsor-a-child/steps/3", method: :post do |f| %>
       <%= f.govuk_collection_radio_buttons :have_parental_consent,
           @application.have_parental_consent_options.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.received_consent")) },
           :id,
