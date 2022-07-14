@@ -281,6 +281,9 @@ en:
       no: No
   unaccompanied_minor:
     questions:
+      privacy_statement:
+        short: privacy statement
+        full_html: Yes, I have read the <a href= www.gov.uk/government/publications/homes-for-ukraine-scheme-expressions-of-interest-eois-privacy-notices/homes-for-ukraine-scheme-expressions-of-interest-individuals> privacy statement </a> and agree that the information I have provided in this form can be used for the Homes for Ukraine scheme
       sponsored_children_age:
         short: Sponsored children age
         full: Is the child you want to sponsor under 18?
