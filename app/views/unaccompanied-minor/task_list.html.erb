@@ -23,35 +23,33 @@
         <ul class="app-task-list__items">
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
-                <a href="#" aria-describedby="eligibility-status">
+                <a href="/sponsor-a-child/steps/10" aria-describedby="names">
                   Names(s)
                 </a>
               </span>
-            <strong class="govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>
+            <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.sponsor_details_names?) %>">
+              <%= @application.sponsor_details_names? %>
+            </strong>
           </li>
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
-                <a href="#" aria-describedby="read-declaration-status">
+                <a href="/sponsor-a-child/steps/14" aria-describedby="contact-details">
                   Contact details
                 </a>
               </span>
-            <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
+            <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.sponsor_details_contact_details?) %>">
+              <%= @application.sponsor_details_contact_details? %>
+            </strong>
           </li>
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
-                <a href="#" aria-describedby="read-declaration-status">
+                <a href="/sponsor-a-child/steps/16" aria-describedby="additional-details">
                   Additional details
                 </a>
               </span>
-            <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
-          </li>
-          <li class="app-task-list__item">
-              <span class="app-task-list__task-name">
-                <a href="#" aria-describedby="read-declaration-status">
-                  Household details
-                </a>
-              </span>
-            <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
+            <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.sponsor_details_additional_details?) %>">
+              <%= @application.sponsor_details_additional_details? %>
+            </strong>
           </li>
         </ul>
       </li>
@@ -63,24 +61,16 @@
         <ul class="app-task-list__items">
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
-                <a href="#" aria-describedby="eligibility-status">
-                  Names(s)
+                <a href="#" aria-describedby="household">
+                  Household
                 </a>
               </span>
             <strong class="govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>
           </li>
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
-                <a href="#" aria-describedby="read-declaration-status">
-                  Contact details
-                </a>
-              </span>
-            <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
-          </li>
-          <li class="app-task-list__item">
-              <span class="app-task-list__task-name">
-                <a href="#" aria-describedby="read-declaration-status">
-                  Additional details
+                <a href="#" aria-describedby="household-members">
+                  Household members
                 </a>
               </span>
             <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
@@ -95,7 +85,7 @@
         <ul class="app-task-list__items">
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
-                <a href="#" aria-describedby="eligibility-status">
+                <a href="#" aria-describedby="child-personal-details">
                   Child's personal details
                 </a>
               </span>
@@ -103,7 +93,7 @@
           </li>
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
-                <a href="#" aria-describedby="read-declaration-status">
+                <a href="#" aria-describedby="upload-parental-consent-British">
                   Upload parental consent (British)
                 </a>
               </span>
@@ -111,7 +101,7 @@
           </li>
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
-                <a href="#" aria-describedby="read-declaration-status">
+                <a href="#" aria-describedby="upload-parental-consent-Ukraine">
                   Upload parental consent (Ukraine)
                 </a>
               </span>
@@ -127,27 +117,21 @@
         <ul class="app-task-list__items">
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
-                <a href="#" aria-describedby="eligibility-status">
-                  Consent to sharing your data
-                </a>
+                Consent to sharing your data
               </span>
-            <strong class="govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>
+            <strong class="govuk-tag app-task-list__tag govuk-tag--grey">Cannot start yet</strong>
           </li>
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
-                <a href="#" aria-describedby="read-declaration-status">
-                  Sponsor declaration
-                </a>
+                Sponsor declaration
               </span>
-            <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
+            <strong class="govuk-tag app-task-list__tag govuk-tag--grey">Cannot start yet</strong>
           </li>
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
-                <a href="#" aria-describedby="read-declaration-status">
-                  Check your answers and send
-                </a>
+                Check your answers and send
               </span>
-            <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
+            <strong class="govuk-tag app-task-list__tag govuk-tag--grey">Cannot start yet</strong>
           </li>
         </ul>
       </li>

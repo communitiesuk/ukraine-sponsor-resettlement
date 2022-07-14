@@ -222,4 +222,44 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(true)
     end
   end
+
+  describe "task list status styles" do
+    it "return style for status name" do
+      app = described_class.new
+      expect(app.status_styles?("Cannot start yet")).to eq("govuk-tag--grey")
+      expect(app.status_styles?("Not started")).to eq("govuk-tag--grey")
+      expect(app.status_styles?("In progress")).to eq("govuk-tag--blue")
+      expect(app.status_styles?("Completed")).to eq("")
+    end
+  end
+
+  describe "task list sponsor details" do
+    it "return status for names" do
+      app = described_class.new
+      expect(app.sponsor_details_names?).to eq("Not started")
+      app.given_name = "Bob"
+      app.family_name = "Smith"
+      expect(app.sponsor_details_names?).to eq("In progress")
+      app.email = "test@test.com"
+      expect(app.sponsor_details_names?).to eq("Completed")
+    end
+
+    it "return status for contact details" do
+      app = described_class.new
+      expect(app.sponsor_details_contact_details?).to eq("Not started")
+      app.email = "test@test.com"
+      expect(app.sponsor_details_contact_details?).to eq("In progress")
+      app.phone_number = "07777 123 456"
+      expect(app.sponsor_details_contact_details?).to eq("Completed")
+    end
+
+    it "return status for additional details" do
+      app = described_class.new
+      expect(app.sponsor_details_additional_details?).to eq("Not started")
+      app.no_identification_reason = "reason"
+      expect(app.sponsor_details_additional_details?).to eq("In progress")
+      app.nationality = "nationality"
+      expect(app.sponsor_details_additional_details?).to eq("Completed")
+    end
+  end
 end
