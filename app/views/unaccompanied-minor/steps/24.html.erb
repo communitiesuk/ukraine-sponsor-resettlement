@@ -18,10 +18,10 @@
 
    <%= form_for @application, url: "/sponsor-a-child/steps/24", method: :post do |f| %>
 
-    <%= f.govuk_check_boxes_fieldset :sponsor_declaration, multiple: false, legend: { text: "Eligibility Checkbox", tag: "h1", size: "l", hidden: true} do %>
-      <%= f.govuk_check_box :sponsor_declaration, "true", "false", multiple: false, link_errors: true, 
-      label: { text: "I confirm that I am eligible to sponsor a person under 18, who is not travelling with or joining a parent or legal guardian under the Homes for Ukraine Scheme." } %>
-      <% end %>
+    <%= f.govuk_check_boxes_fieldset :sponsor_declaration,
+                                         multiple: false,
+                                         legend: { text: t('agree_privacy_statement.full', scope: "unaccompanied_minor.questions"), size: 'm', hidden: true } do %>
+       <%= f.govuk_check_box :sponsor_declaration, "true", "false", multiple: false, link_errors: true, label: { text: t('privacy_statement.full_html', scope: "unaccompanied_minor.questions") } %><% end %>
       <%= f.govuk_submit t('continue') %>
       <% end %>
 

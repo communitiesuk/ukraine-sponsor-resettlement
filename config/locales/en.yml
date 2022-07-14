@@ -402,6 +402,7 @@ en:
       cancel: Cancel application
       continue: Continue application
   error:
+    invalid_eligibility: You must confirm you are eligible
     privacy_statement: You must read and agree to the privacy statement
     choose_option: You must select an option to continue
     invalid_number: Please enter a non-negative whole number

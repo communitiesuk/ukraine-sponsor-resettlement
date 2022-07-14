@@ -17,6 +17,7 @@ module UamValidations
     validate :validate_given_name, if: -> { run_validation? :given_name }
     validate :validate_family_name, if: -> { run_validation? :family_name }
     validate :validate_privacy_statement_confirm, if: -> { run_validation? :privacy_statement_confirm }
+    validate :validate_sponsor_declaration, if: -> { run_validation? :sponsor_declaration }
   end
 
   def validate_minor_full_name
@@ -94,8 +95,8 @@ module UamValidations
   end
 
   def validate_sponsor_declaration
-    if @sponsor_declaration.nil? || @sponsor_declaration.strip.length.zero? 
-      errors.add(:sponsor_declaration, I18n.t(:choose_option, scope: :error))
+    if @sponsor_declaration.nil? || @sponsor_declaration.strip.length.zero? || @sponsor_declaration == "false"
+      errors.add(:sponsor_declaration, I18n.t(:invalid_eligibility, scope: :error))
     end
   end
 

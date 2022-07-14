@@ -50,7 +50,8 @@ class UnaccompaniedMinor < ApplicationRecord
                 :user_agent,
                 :started_at,
                 :final_submission,
-                :privacy_statement_confirm
+                :privacy_statement_confirm,
+                :sponsor_declaration
 
   after_initialize :after_initialize
   before_save :serialize
@@ -114,6 +115,7 @@ class UnaccompaniedMinor < ApplicationRecord
       ip_address:,
       user_agent:,
       started_at:,
+      sponsor_declaration:,
     }.compact
   end
 

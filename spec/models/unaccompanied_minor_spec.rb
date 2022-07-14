@@ -213,7 +213,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   end
 
   describe "accept privacy terms" do
-    it "validates that the have privacy terms is selected", :focus do
+    it "validates that the have privacy terms is selected" do
       app = described_class.new
       app.privacy_statement_confirm = ""
       expect(app.valid?).to be(false)
@@ -222,6 +222,20 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(false)
       expect(app.errors[:privacy_statement_confirm]).to include("You must read and agree to the privacy statement")
       app.privacy_statement_confirm = "yes"
+      expect(app.valid?).to be(true)
+    end
+  end
+
+  describe "accept sponsor declaration" do
+    it "validates that the have sponsor checkbox is selected", :focus do
+      app = described_class.new
+      app.sponsor_declaration = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:sponsor_declaration]).to include("You must confirm you are eligible")
+      app.sponsor_declaration = "false"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:sponsor_declaration]).to include("You must confirm you are eligible")
+      app.sponsor_declaration = "true"
       expect(app.valid?).to be(true)
     end
   end

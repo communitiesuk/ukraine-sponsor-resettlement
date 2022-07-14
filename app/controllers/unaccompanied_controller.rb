@@ -286,7 +286,7 @@ private
           :certificate_reference,
           :privacy_statement_confirm,
           :sponsor_declaration,
-          :is_cancelled,
+          :is_cancelled
         )
   end
 end
