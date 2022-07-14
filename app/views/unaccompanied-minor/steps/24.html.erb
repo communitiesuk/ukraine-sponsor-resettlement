@@ -15,15 +15,12 @@
         <li>Must commit to continue living in the UK for the full duration of the sponsorship agreement (up to 3 years), and confirm you have permission to do so because, for example, you are a British Citizen or have legally settled in the UK. </li>
       </ul>
 
-    <h1 class="gem-c-title__text govuk-heading-m">
-      Before you begin
-    </h1>
 
-   <%= form_for @privacyconfirm, url: "/unaccompanied-minor/", method: :post do |f| %>
+   <%= form_for @application, url: "/sponsor-a-child/steps/24", method: :post do |f| %>
 
-    <%= f.govuk_check_boxes_fieldset :sponsor_declaration, multiple: false, legend: { text: "Confirm that you have read and agree to the privacy statement", tag: "h1", size: "l"} do %>
-      <%= f.govuk_check_box :privacy_statement_confirm, 1, 0, multiple: false, link_errors: true, 
-      label: { text: "Yes, I have read the privacy statement and agree tha the information I have provided in this form can be used for the Homes for Ukraine scheme" } %>
+    <%= f.govuk_check_boxes_fieldset :sponsor_declaration, multiple: false, legend: { text: "Eligibility Checkbox", tag: "h1", size: "l", hidden: true} do %>
+      <%= f.govuk_check_box :sponsor_declaration, "true", "false", multiple: false, link_errors: true, 
+      label: { text: "I confirm that I am eligible to sponsor a person under 18, who is not travelling with or joining a parent or legal guardian under the Homes for Ukraine Scheme." } %>
       <% end %>
       <%= f.govuk_submit t('continue') %>
       <% end %>

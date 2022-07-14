@@ -2,7 +2,7 @@ require "securerandom"
 
 class UnaccompaniedController < ApplicationController
   include ApplicationHelper
-  MAX_STEPS = 22
+  MAX_STEPS = 24
 
   def start
     render "unaccompanied-minor/start"
@@ -160,18 +160,6 @@ class UnaccompaniedController < ApplicationController
     end
   end
 
-  def post
-    @privacyconfirm = PrivacyConfirm.new
-    @privacyconfirm.assign_attributes(confirm_params)
-    if @privacyconfirm.valid?
-      # if they confirm they will be redirected to next page
-      redirect_to "/"
-    else
-      # if they do not confirm reload page and show error
-      render "/send-application/data_sharing"
-    end
-  end
-
   def confirm
     @app_reference = session[:app_reference]
 
@@ -297,6 +285,7 @@ private
           :agree_privacy_statement,
           :certificate_reference,
           :privacy_statement_confirm,
+          :sponsor_declaration,
           :is_cancelled,
         )
   end

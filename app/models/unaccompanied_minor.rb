@@ -43,7 +43,6 @@ class UnaccompaniedMinor < ApplicationRecord
                 :residential_postcode,
                 :sponsor_date_of_birth,
                 :sponsor_date_of_birth_as_string,
-                :agree_privacy_statement,
                 :certificate_reference,
                 :type,
                 :version,
@@ -60,7 +59,6 @@ class UnaccompaniedMinor < ApplicationRecord
   has_one_attached :parental_consent
 
   validates :parental_consent, antivirus: true # Add this for antivirus validation
-  validates :privacy_statement_confirm, acceptance: { message: "You must read and agree to the privacy statement to continue" } # Privacy statement checkbox required to proceed
 
   def is_cancelled?
     is_cancelled
@@ -111,7 +109,7 @@ class UnaccompaniedMinor < ApplicationRecord
       residential_postcode:,
       sponsor_date_of_birth:,
       sponsor_date_of_birth_as_string:,
-      agree_privacy_statement:,
+      privacy_statement_confirm:,
       certificate_reference:,
       ip_address:,
       user_agent:,

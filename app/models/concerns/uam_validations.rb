@@ -16,7 +16,7 @@ module UamValidations
     validate :validate_ukraine_parent_consent_filename, if: -> { run_validation? :ukraine_parental_consent_filename }
     validate :validate_given_name, if: -> { run_validation? :given_name }
     validate :validate_family_name, if: -> { run_validation? :family_name }
-    validate :validate_agree_privacy_statement, if: -> { run_validation? :agree_privacy_statement }
+    validate :validate_privacy_statement_confirm, if: -> { run_validation? :privacy_statement_confirm }
   end
 
   def validate_minor_full_name
@@ -77,9 +77,9 @@ module UamValidations
     end
   end
 
-  def validate_agree_privacy_statement
-    if @agree_privacy_statement.nil? || @agree_privacy_statement.strip.length.zero?
-      errors.add(:agree_privacy_statement, I18n.t(:choose_option, scope: :error))
+  def validate_privacy_statement_confirm
+    if @privacy_statement_confirm.nil? || @privacy_statement_confirm.strip.length.zero? || @privacy_statement_confirm == "false"
+      errors.add(:privacy_statement_confirm, I18n.t(:privacy_statement, scope: :error))
     end
   end
 
@@ -90,6 +90,12 @@ module UamValidations
   def validate_enum(enum, value, attribute)
     unless value && enum.include?(value.to_sym)
       errors.add(attribute, I18n.t(:choose_option, scope: :error))
+    end
+  end
+
+  def validate_sponsor_declaration
+    if @sponsor_declaration.nil? || @sponsor_declaration.strip.length.zero? 
+      errors.add(:sponsor_declaration, I18n.t(:choose_option, scope: :error))
     end
   end
 
