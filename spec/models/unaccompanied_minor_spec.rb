@@ -227,7 +227,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   end
 
   describe "accept sponsor declaration" do
-    it "validates that the have sponsor checkbox is selected", :focus do
+    it "validates that the have sponsor checkbox is selected" do
       app = described_class.new
       app.sponsor_declaration = ""
       expect(app.valid?).to be(false)

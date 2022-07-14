@@ -326,6 +326,8 @@ en:
         short: Sponsor name
         full: What is your other name?
         hint: You will have the chance to add more than one previous name on the next page.
+      other_name:
+        short: Other names
       email:
         short: Email
         full: What is your email address?
@@ -344,6 +346,7 @@ en:
       sponsor_date_of_birth:
         short: Sponsor DoB
         full: Enter your date of birth
+        hint: Date of birth
       sponsor_nationality:
         short: Sponsor nationality
         full: What is your nationality?
@@ -363,11 +366,11 @@ en:
       uk_parental_consent:
         short: UK consent
         full: Upload the UK local authority parental consent form for %{name}
-        hint: This is the hint
+        hint: UK parental consent form
       ukraine_parental_consent:
         short: Ukraine consent
         full: Upload the Ukraine parental consent form for %{name}
-        hint: This is the hint
+        hint: Ukrainian parental consent form
       minor_fullname:
         short: Child name
         full: What is the name of the child you want to sponsor?
@@ -375,6 +378,7 @@ en:
       minor_date_of_birth:
         short: Child DoB
         full: Enter %{name}'s date of birth
+        hint: Date of birth 
       address_line_1:
         short: Line 1
         full: Address line 1
