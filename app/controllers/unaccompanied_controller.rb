@@ -288,7 +288,7 @@ private
           :sponsor_declaration,
           :is_cancelled,
           :adult_number,
-          :minor_contact_details
+          :minor_contact_details,
         )
   end
 end

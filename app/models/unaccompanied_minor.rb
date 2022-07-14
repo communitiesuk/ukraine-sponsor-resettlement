@@ -119,7 +119,7 @@ class UnaccompaniedMinor < ApplicationRecord
       started_at:,
       sponsor_declaration:,
       adult_number:,
-      minor_contact_details:
+      minor_contact_details:,
     }.compact
   end
 
