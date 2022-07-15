@@ -2,7 +2,7 @@ require "securerandom"
 
 class UnaccompaniedController < ApplicationController
   include ApplicationHelper
-  MAX_STEPS = 24
+  MAX_STEPS = 44
 
   def start
     render "sponsor-a-child/start"
