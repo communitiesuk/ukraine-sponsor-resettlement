@@ -209,14 +209,21 @@ class UnaccompaniedController < ApplicationController
     end
   end
 
-  def cancel_application
-    # cancel an application
+  def save_or_cancel_application
     @application = UnaccompaniedMinor.find_by_reference(params[:reference])
 
-    if @application.is_cancelled?
-      render "sponsor-a-child/cancel_confirm"
+    if params[:cancel_application]
+      # cancel an application
+      if @application.is_cancelled?
+        render "unaccompanied-minor/cancel_confirm"
+      else
+        render "unaccompanied-minor/cancel_application"
+      end
     else
-      render "sponsor-a-child/cancel_application"
+      # save and return later
+      GovNotifyMailer.send_save_and_return_email(@application.given_name, "link", @application.email).deliver_later
+
+      redirect_to "/sponsor-a-child/save-and-return-confirm"
     end
   end
 
@@ -236,6 +243,14 @@ class UnaccompaniedController < ApplicationController
       # Redirect to show the task-list
       redirect_to "/sponsor-a-child/task-list/#{params[:reference]}"
     end
+  end
+
+  def save_return_confirm
+    @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
+
+    session[:email] = @application.email
+
+    render "unaccompanied-minor/save_return_confirm"
   end
 
 private

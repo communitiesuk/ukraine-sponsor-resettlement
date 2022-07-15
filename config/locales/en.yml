@@ -407,6 +407,8 @@ en:
     cancel_application:
       cancel: Cancel application
       continue: Continue application
+    save_application:
+      save: Save and return later
   error:
     invalid_eligibility: You must confirm you are eligible
     privacy_statement: You must read and agree to the privacy statement

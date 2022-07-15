@@ -38,10 +38,11 @@ Rails.application.routes.draw do
   get "/sponsor-a-child/steps/:stage", to: "unaccompanied#display"
   post "/sponsor-a-child/steps/:stage", to: "unaccompanied#handle_step"
   get "/sponsor-a-child/task-list/:reference", to: "unaccompanied#task_list"
-  post "/sponsor-a-child/cancel/:reference", to: "unaccompanied#cancel_application"
+  post "/sponsor-a-child/save_or_cancel/:reference", to: "unaccompanied#save_or_cancel_application"
   post "/sponsor-a-child/cancel-application/:reference", to: "unaccompanied#cancel_confirm"
   get "/sponsor-a-child/task-list/:reference", to: "unaccompanied#task_list"
   get "/sponsor-a-child/non-eligible", to: "unaccompanied#non_eligible"
+  get "/sponsor-a-child/save-and-return-confirm", to: "unaccompanied#save_return_confirm"
 
   get "/sponsor-a-child/check-answers", to: "unaccompanied#check_answers"
   get "/sponsor-a-child/check_answers", to: "unaccompanied#check_answers"
