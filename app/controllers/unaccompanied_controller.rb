@@ -2,10 +2,10 @@ require "securerandom"
 
 class UnaccompaniedController < ApplicationController
   include ApplicationHelper
-  MAX_STEPS = 22
+  MAX_STEPS = 24
 
   def start
-    render "unaccompanied-minor/start"
+    render "sponsor-a-child/start"
   end
 
   def start_application
@@ -26,7 +26,7 @@ class UnaccompaniedController < ApplicationController
       if [19, 21].include?(step)
         @nationalities = get_nationalities_as_list
       end
-      render "unaccompanied-minor/steps/#{step}"
+      render "sponsor-a-child/steps/#{step}"
     else
       redirect_to "/sponsor-a-child"
     end
@@ -128,16 +128,18 @@ class UnaccompaniedController < ApplicationController
     else
       Rails.logger.debug "Invalid!"
 
-      render "unaccompanied-minor/steps/#{params['stage']}"
+      render "sponsor-a-child/steps/#{params['stage']}"
     end
   end
 
   def check_answers
     @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
-    @application.minor_date_of_birth_as_string = format_date_of_birth @application.minor_date_of_birth
-    @application.sponsor_date_of_birth_as_string = format_date_of_birth @application.sponsor_date_of_birth
+    # commented as question not asked yet so always nil
 
-    render "unaccompanied-minor/check_answers"
+    # @application.minor_date_of_birth_as_string = format_date_of_birth @application.minor_date_of_birth
+    # @application.sponsor_date_of_birth_as_string = format_date_of_birth @application.sponsor_date_of_birth
+
+    render "sponsor-a-child/check_answers"
   end
 
   def submit
@@ -156,24 +158,24 @@ class UnaccompaniedController < ApplicationController
 
       redirect_to "/sponsor-a-child/confirm"
     else
-      render "unaccompanied-minor/check_answers"
+      render "sponsor-a-child/check_answers"
     end
   end
 
   def confirm
     @app_reference = session[:app_reference]
 
-    render "unaccompanied-minor/confirm"
+    render "sponsor-a-child/confirm"
   end
 
   def guidance
     # first page to show before the start page
-    render "unaccompanied-minor/guidance"
+    render "sponsor-a-child/guidance"
   end
 
   def check_if_can_use
     # mini-check page to show after start and before step 1
-    render "unaccompanied-minor/check_if_can_use"
+    render "sponsor-a-child/check_if_can_use"
   end
 
   def task_list
@@ -184,16 +186,27 @@ class UnaccompaniedController < ApplicationController
     session[:unaccompanied_minor] = @application.as_json
 
     if @application.is_cancelled?
-      render "unaccompanied-minor/cancel_confirm"
+      render "sponsor-a-child/cancel_confirm"
     else
-      render "unaccompanied-minor/task_list"
+      render "sponsor-a-child/task_list"
     end
   end
 
   def non_eligible
     # page to show if between steps 1 and 8 (2,6 excluded) the user answers with
     # NO to any of the questions asked
-    render "unaccompanied-minor/non_eligible"
+    render "sponsor-a-child/non_eligible"
+  end
+
+  def check_box_check
+    @application = UnaccompaniedMinor.find_by_reference(params[:reference])
+    if @application.valid?
+      # if they confirm they will be redirected to next page
+      redirect_to "/ste"
+    else
+      # if they do not confirm reload page and show error
+      render "/send-application/data_sharing"
+    end
   end
 
   def cancel_application
@@ -201,9 +214,9 @@ class UnaccompaniedController < ApplicationController
     @application = UnaccompaniedMinor.find_by_reference(params[:reference])
 
     if @application.is_cancelled?
-      render "unaccompanied-minor/cancel_confirm"
+      render "sponsor-a-child/cancel_confirm"
     else
-      render "unaccompanied-minor/cancel_application"
+      render "sponsor-a-child/cancel_application"
     end
   end
 
@@ -218,7 +231,7 @@ class UnaccompaniedController < ApplicationController
       # Remove application from session
       session[:unaccompanied_minor] = {}
 
-      render "unaccompanied-minor/cancel_confirm"
+      render "sponsor-a-child/cancel_confirm"
     else
       # Redirect to show the task-list
       redirect_to "/sponsor-a-child/task-list/#{params[:reference]}"
@@ -237,7 +250,7 @@ private
 
       redirect_to "/sponsor-a-child/steps/#{next_stage}"
     else
-      render "unaccompanied-minor/steps/#{params['stage']}"
+      render "sponsor-a-child/steps/#{params['stage']}"
     end
   end
 
@@ -277,7 +290,11 @@ private
           :sponsor_date_of_birth,
           :agree_privacy_statement,
           :certificate_reference,
+          :privacy_statement_confirm,
+          :sponsor_declaration,
           :is_cancelled,
+          :adult_number,
+          :minor_contact_details,
         )
   end
 end

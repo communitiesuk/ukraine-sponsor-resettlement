@@ -1,0 +1,301 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+
+    <h1 class="govuk-heading-l">Check your answers before sending your application</h1>
+
+    <h2 class="govuk-heading-m">Sponsor details</h2>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('fullname.hint', scope: "unaccompanied_minor.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.fullname %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/sponsor-a-child/steps/7">
+            Change<span class="govuk-visually-hidden"> name</span>
+          </a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('other_name.short', scope: "unaccompanied_minor.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.other_names %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/sponsor-a-child/steps/7">
+            Change<span class="govuk-visually-hidden"> name</span>
+          </a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('email.short', scope: "unaccompanied_minor.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.email %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/sponsor-a-child/steps/8">
+            Change<span class="govuk-visually-hidden"> email</span>
+          </a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('phone_number.hint', scope: "unaccompanied_minor.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.phone_number %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/sponsor-a-child/steps/9">
+            Change<span class="govuk-visually-hidden"> number</span>
+          </a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('sponsor_date_of_birth.hint', scope: "unaccompanied_minor.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.sponsor_date_of_birth_as_string %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/sponsor-a-child/steps/11">
+            Change<span class="govuk-visually-hidden"> date of birth</span>
+          </a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Nationality
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.nationality %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/sponsor-a-child/steps/11">
+            Change<span class="govuk-visually-hidden"> nationality</span>
+          </a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+         Other nationalities
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.other_nationalities %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/sponsor-a-child/steps/11">
+            Change<span class="govuk-visually-hidden"> other nationalities</span>
+          </a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+         ID document
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.identification_type %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/sponsor-a-child/steps/11">
+            Change<span class="govuk-visually-hidden"> identification document type</span>
+          </a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+         Document number
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.identification_number %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/sponsor-a-child/steps/11">
+            Change<span class="govuk-visually-hidden"> identification document type</span>
+          </a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Address where you and the child will live
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.residential_line_1 %>
+          <br />
+
+          <% if @application.residential_line_2.present? %>
+            <%= @application.residential_line_2 %>
+            <br />
+          <% end %>
+
+          <%= @application.residential_town %>
+          <br />
+          <%= @application.residential_postcode %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/sponsor-a-child/steps/10">
+            Change<span class="govuk-visually-hidden"> address</span>
+          </a>
+        </dd>
+      </div>
+
+       <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+         Number of adults living at your address 
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.adult_number %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/sponsor-a-child/steps/11">
+            Change<span class="govuk-visually-hidden"> identification document type</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+
+
+      <h2 class="govuk-heading-m">Child's details</h2>
+      <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
+       <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('fullname.hint', scope: "unaccompanied_minor.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.minor_fullname %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/sponsor-a-child/steps/1">
+            Change<span class="govuk-visually-hidden"> name</span>
+          </a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Contact details
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.minor_contact_details %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/sponsor-a-child/steps/2">
+            Change<span class="govuk-visually-hidden"> child contact details</span>
+          </a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Date of birth
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.minor_date_of_birth_as_string %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/sponsor-a-child/steps/2">
+            Change<span class="govuk-visually-hidden"> date of birth</span>
+          </a>
+        </dd>
+      </div>
+  
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('uk_parental_consent.hint', scope: "unaccompanied_minor.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.uk_parental_consent_filename %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/sponsor-a-child/steps/5">
+            Change<span class="govuk-visually-hidden"> consent</span>
+          </a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          <%= t('ukraine_parental_consent.hint', scope: "unaccompanied_minor.questions") %>
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @application.ukraine_parental_consent_filename %>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/sponsor-a-child/steps/6">
+            Change<span class="govuk-visually-hidden"> consent</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+
+    <h2 class="govuk-heading-m">Sponsor declaration</h2>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Do you consent to the data sharing agreement?
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <% if @application.errors.include?(:privacy_statement_confirm) %>
+            <span class="govuk-error-message"><%= @application.errors[:agree_privacy_statement].join %></span>
+          <% else %>
+          <%= @application.privacy_statement_confirm == "true" ? "Agreed" : "Not agreed" %> 
+          <% end%>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/sponsor-a-child/steps/12">
+            Change<span class="govuk-visually-hidden"> data sharing agreement</span>
+          </a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Do you commit to the conditions of sponsoring an unaccompanied child?
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <% if @application.errors.include?(:sponsor_declaration) %>
+            <span class="govuk-error-message"><%= @application.errors[:sponsor_declaration].join %></span>
+          <% else %>
+          <%= @application.sponsor_declaration == "true" ? "Agreed" : "Not agreed" %> 
+          <% end%>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/sponsor-a-child/steps/12">
+            Change<span class="govuk-visually-hidden"> child sponosoring conditions</span>
+          </a>
+        </dd>
+      </div>
+
+    </dl>
+
+    <h2 class="govuk-heading-m">Now send your application</h2>
+
+    <p class="govuk-body">By sending this application you are confirming that, to the best of your knowledge, the details you are providing are correct. If the information is found to be false, this may impact your ability to sponsor.</p>
+
+    <%= form_for @application, url: "/sponsor-a-child/check-answers", method: :post do |f| %>
+      <%= f.govuk_submit t('accept_and_send.full', scope: "unaccompanied_minor") %>
+    <% end %>
+    
+
+  </div>
+</div>

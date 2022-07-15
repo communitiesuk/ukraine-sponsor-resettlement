@@ -43,17 +43,20 @@ Rails.application.routes.draw do
   get "/sponsor-a-child/task-list/:reference", to: "unaccompanied#task_list"
   get "/sponsor-a-child/non-eligible", to: "unaccompanied#non_eligible"
 
-  get "/unaccompanied-minor/check-answers", to: "unaccompanied#check_answers"
-  get "/unaccompanied-minor/check_answers", to: "unaccompanied#check_answers"
-  post "/unaccompanied-minor/check-answers", to: "unaccompanied#submit"
-  get "/unaccompanied-minor/confirm", to: "unaccompanied#confirm"
-  get "/unaccompanied-minor/upload-uk/:stage", to: "unaccompanied#display"
-  get "/unaccompanied-minor/upload-ukraine/:stage", to: "unaccompanied#display"
-  post "/unaccompanied-minor/upload-uk/:stage", to: "unaccompanied#handle_upload_uk"
-  post "/unaccompanied-minor/upload-ukraine/:stage", to: "unaccompanied#handle_upload_ukraine"
+  get "/sponsor-a-child/check-answers", to: "unaccompanied#check_answers"
+  get "/sponsor-a-child/check_answers", to: "unaccompanied#check_answers"
+  post "/sponsor-a-child/check-answers", to: "unaccompanied#submit"
+  get "/sponsor-a-child/confirm", to: "unaccompanied#confirm"
+  get "/sponsor-a-child/upload-uk/:stage", to: "unaccompanied#display"
+  get "/sponsor-a-child/upload-ukraine/:stage", to: "unaccompanied#display"
+  post "/sponsor-a-child/upload-uk/:stage", to: "unaccompanied#handle_upload_uk"
+  post "/sponsor-a-child/upload-ukraine/:stage", to: "unaccompanied#handle_upload_ukraine"
 
   get "/fraud-support", to: "fraud#display"
   post "/fraud-support", to: "fraud#post"
+
+  get "/confirm-application", to: "sendapp#display"
+  post "/confirm-application", to: "sendapp#post"
 
   scope via: :all do
     match "/404", to: "errors#not_found"

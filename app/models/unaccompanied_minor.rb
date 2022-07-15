@@ -43,14 +43,17 @@ class UnaccompaniedMinor < ApplicationRecord
                 :residential_postcode,
                 :sponsor_date_of_birth,
                 :sponsor_date_of_birth_as_string,
-                :agree_privacy_statement,
                 :certificate_reference,
                 :type,
                 :version,
                 :ip_address,
                 :user_agent,
                 :started_at,
-                :final_submission
+                :final_submission,
+                :privacy_statement_confirm,
+                :sponsor_declaration,
+                :adult_number,
+                :minor_contact_details
 
   after_initialize :after_initialize
   before_save :serialize
@@ -150,11 +153,14 @@ class UnaccompaniedMinor < ApplicationRecord
       residential_postcode:,
       sponsor_date_of_birth:,
       sponsor_date_of_birth_as_string:,
-      agree_privacy_statement:,
+      privacy_statement_confirm:,
       certificate_reference:,
       ip_address:,
       user_agent:,
       started_at:,
+      sponsor_declaration:,
+      adult_number:,
+      minor_contact_details:,
     }.compact
   end
 
