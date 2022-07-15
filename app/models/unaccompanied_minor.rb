@@ -19,7 +19,6 @@ class UnaccompaniedMinor < ApplicationRecord
                 :ukraine_parental_consent_file_type,
                 :ukraine_parental_consent_filename,
                 :ukraine_parental_consent_saved_filename,
-                :minor_fullname,
                 :minor_date_of_birth,
                 :minor_date_of_birth_as_string,
                 :given_name,
@@ -46,6 +45,9 @@ class UnaccompaniedMinor < ApplicationRecord
                 :certificate_reference,
                 :minor_given_name,
                 :minor_family_name,
+                :minor_contact_type,
+                :minor_email,
+                :minor_phone_number,
                 :type,
                 :version,
                 :ip_address,
@@ -67,6 +69,10 @@ class UnaccompaniedMinor < ApplicationRecord
 
   def is_cancelled?
     is_cancelled
+  end
+
+  def minor_full_name?
+    "#{minor_given_name} #{minor_family_name}"
   end
 
   def status_styles?(status)
@@ -131,7 +137,6 @@ class UnaccompaniedMinor < ApplicationRecord
       ukraine_parental_consent_file_type:,
       ukraine_parental_consent_filename:,
       ukraine_parental_consent_saved_filename:,
-      minor_fullname:,
       minor_date_of_birth:,
       minor_date_of_birth_as_string:,
       given_name:,
@@ -157,6 +162,11 @@ class UnaccompaniedMinor < ApplicationRecord
       sponsor_date_of_birth_as_string:,
       privacy_statement_confirm:,
       certificate_reference:,
+      minor_given_name:,
+      minor_family_name:,
+      minor_contact_type:,
+      minor_email:,
+      minor_phone_number:,
       ip_address:,
       user_agent:,
       started_at:,

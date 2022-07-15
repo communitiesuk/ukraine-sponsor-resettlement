@@ -2,7 +2,11 @@ require "securerandom"
 
 class UnaccompaniedController < ApplicationController
   include ApplicationHelper
+<<<<<<< HEAD
   MAX_STEPS = 44
+=======
+  MAX_STEPS = 24
+>>>>>>> df59a15 (Add child contact details)
 
   def start
     render "sponsor-a-child/start"
@@ -265,7 +269,6 @@ private
           :reference,
           :is_eligible,
           :have_parental_consent,
-          :minor_fullname,
           :minor_date_of_birth,
           :minor_date_of_birth_as_string,
           :given_name,
@@ -293,8 +296,16 @@ private
           :privacy_statement_confirm,
           :sponsor_declaration,
           :is_cancelled,
+<<<<<<< HEAD
           :adult_number,
           :minor_contact_details,
+=======
+          :minor_given_name,
+          :minor_family_name,
+          :minor_contact_type,
+          :minor_email,
+          :minor_phone_number,
+>>>>>>> df59a15 (Add child contact details)
         )
   end
 end

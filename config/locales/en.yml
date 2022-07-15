@@ -374,6 +374,9 @@ en:
       minor_fullname:
         short: Child name
         full: Name the child you want to sponsor
+      minor_contact_details:
+        short: Child contact
+        full: How can we contact %{name}?
       minor_date_of_birth:
         short: Child DoB
         full: Enter %{name}'s date of birth

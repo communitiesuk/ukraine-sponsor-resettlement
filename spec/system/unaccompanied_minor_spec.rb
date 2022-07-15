@@ -267,6 +267,10 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Given name(s)", with: "Jane")
       fill_in("Family name", with: "Doe")
       click_button("Continue")
+
+      check("Email")
+      fill_in("Email", with: "unaccompanied.minor@test.com")
+      click_button("Continue")
     end
   end
 end
