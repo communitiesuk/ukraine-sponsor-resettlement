@@ -6,7 +6,6 @@ module UamValidations
   SPECIAL_CHARACTERS  = /[!"£$%{}<>|&@\/()=?^;]/
 
   included do
-    validate :validate_minor_full_name, if: -> { run_validation? :minor_fullname }
     validate :validate_minor_date_of_birth, if: -> { run_validation? :minor_date_of_birth }
     validate :validate_sponsor_date_of_birth, if: -> { run_validation? :sponsor_date_of_birth }
     validate :validate_have_parental_consent, if: -> { run_validation? :have_parental_consent }
@@ -18,12 +17,8 @@ module UamValidations
     validate :validate_family_name, if: -> { run_validation? :family_name }
     validate :validate_privacy_statement_confirm, if: -> { run_validation? :privacy_statement_confirm }
     validate :validate_sponsor_declaration, if: -> { run_validation? :sponsor_declaration }
-  end
-
-  def validate_minor_full_name
-    if @minor_fullname.nil? || @minor_fullname.strip.length < MIN_ENTRY_DIGITS || @minor_fullname.strip.length > MAX_ENTRY_DIGITS || @minor_fullname.split.length < 2 || @minor_fullname.match(/[!"£$%{}<>|&@\/()=?^;]/)
-      errors.add(:minor_fullname, I18n.t(:invalid_minor_fullname, scope: :error))
-    end
+    validate :validate_minor_given_name, if: -> { run_validation? :minor_given_name }
+    validate :validate_minor_family_name, if: -> { run_validation? :minor_family_name }
   end
 
   def validate_minor_date_of_birth
@@ -81,6 +76,18 @@ module UamValidations
   def validate_privacy_statement_confirm
     if @privacy_statement_confirm.nil? || @privacy_statement_confirm.strip.length.zero? || @privacy_statement_confirm == "false"
       errors.add(:privacy_statement_confirm, I18n.t(:privacy_statement, scope: :error))
+    end
+  end
+
+  def validate_minor_given_name
+    if @minor_given_name.nil? || @minor_given_name.strip.length < MIN_ENTRY_DIGITS || @minor_given_name.strip.length > MAX_ENTRY_DIGITS || @minor_given_name.match(SPECIAL_CHARACTERS)
+      errors.add(:minor_given_name, I18n.t(:invalid_given_name, scope: :error))
+    end
+  end
+
+  def validate_minor_family_name
+    if @minor_family_name.nil? || @minor_family_name.strip.length < MIN_ENTRY_DIGITS || @minor_family_name.strip.length > MAX_ENTRY_DIGITS || @minor_family_name.match(SPECIAL_CHARACTERS)
+      errors.add(:minor_family_name, I18n.t(:invalid_family_name, scope: :error))
     end
   end
 

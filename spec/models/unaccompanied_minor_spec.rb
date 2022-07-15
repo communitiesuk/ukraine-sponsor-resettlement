@@ -2,20 +2,6 @@ require "rails_helper"
 
 RSpec.describe UnaccompaniedMinor, type: :model do
   describe "contact detail validations" do
-    it "minor full name is valid" do
-      app = described_class.new
-      app.minor_fullname = ""
-      expect(app.valid?).to be(false)
-      expect(app.errors[:minor_fullname]).to include("You must enter the child's full name")
-      expect(app.errors[:minor_fullname].count).to be(1)
-      app.minor_fullname = "John"
-      expect(app.valid?).to be(false)
-      expect(app.errors[:minor_fullname]).to include("You must enter the child's full name")
-      expect(app.errors[:minor_fullname].count).to be(1)
-      app.minor_fullname = "John Smith"
-      expect(app.valid?).to be(true)
-    end
-
     it "sponsor full name is valid" do
       app = described_class.new
       app.given_name = ""
@@ -277,6 +263,33 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.sponsor_details_additional_details?).to eq("In progress")
       app.nationality = "nationality"
       expect(app.sponsor_details_additional_details?).to eq("Completed")
+    end
+  end
+
+  describe "child flow validation" do
+    it "child's given and family name" do
+      app = described_class.new
+      app.minor_given_name = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:minor_given_name]).to include("You must enter a valid given name")
+      expect(app.errors[:minor_given_name].count).to be(1)
+      app.minor_family_name = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:minor_family_name]).to include("You must enter a valid family name")
+      expect(app.errors[:minor_family_name].count).to be(1)
+      app.minor_given_name = ""
+      app.minor_family_name = "Smith"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:minor_given_name]).to include("You must enter a valid given name")
+      expect(app.errors[:minor_given_name].count).to be(1)
+      app.minor_given_name = "John"
+      app.minor_family_name = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:minor_family_name]).to include("You must enter a valid family name")
+      expect(app.errors[:minor_family_name].count).to be(1)
+      app.minor_given_name = "John"
+      app.minor_family_name = "Smith"
+      expect(app.valid?).to be(true)
     end
   end
 end

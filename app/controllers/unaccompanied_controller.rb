@@ -265,7 +265,6 @@ private
           :reference,
           :is_eligible,
           :have_parental_consent,
-          :minor_fullname,
           :minor_date_of_birth,
           :minor_date_of_birth_as_string,
           :given_name,
@@ -294,7 +293,11 @@ private
           :sponsor_declaration,
           :is_cancelled,
           :adult_number,
-          :minor_contact_details,
+          :minor_given_name,
+          :minor_family_name,
+          :minor_contact_type,
+          :minor_email,
+          :minor_phone_number,
         )
   end
 end

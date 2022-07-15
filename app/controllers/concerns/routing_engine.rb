@@ -36,7 +36,7 @@ class RoutingEngine
     elsif application.is_eligible.present? && application.is_eligible.casecmp("false").zero? && [1, 3, 4, 5, 7, 8].include?(current_step)
       # this needs to be the last check we do; returns the non-eligible path (excluding steps 2 and 6)
       -1
-    elsif current_step == 22 # THIS MUST GO!!!!!!! KILL IT
+    elsif current_step == 28 # THIS MUST GO!!!!!!! KILL IT
       43
     else
       current_step + 1

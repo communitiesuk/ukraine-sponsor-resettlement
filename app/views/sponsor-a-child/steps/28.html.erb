@@ -3,9 +3,9 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-    <%= form_for @application, url: "/unaccompanied-minor/upload-ukraine/6", method: :post do |f| %>
+    <%= form_for @application, url: "/sponsor-a-child/upload-ukraine/28", method: :post do |f| %>
       <%= f.govuk_file_field :ukraine_parental_consent,
-        label: { text: t("ukraine_parental_consent.full", :name => @application.minor_fullname, scope: "unaccompanied_minor.questions"), size: 'm' },
+        label: { text: t("ukraine_parental_consent.full", :name => @application.minor_full_name?, scope: "unaccompanied_minor.questions"), size: 'm' },
         hint: { text: t("ukraine_parental_consent.hint", scope: "unaccompanied_minor.questions") }
       %>
       <%= f.govuk_submit t('Upload') %>
