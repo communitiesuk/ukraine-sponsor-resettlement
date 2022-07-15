@@ -135,7 +135,7 @@ class UnaccompaniedController < ApplicationController
   def check_answers
     @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
     # commented as question not asked yet so always nil
-    
+
     # @application.minor_date_of_birth_as_string = format_date_of_birth @application.minor_date_of_birth
     # @application.sponsor_date_of_birth_as_string = format_date_of_birth @application.sponsor_date_of_birth
 
