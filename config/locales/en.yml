@@ -398,6 +398,8 @@ en:
     cancel_application:
       cancel: Cancel application
       continue: Continue application
+    save_application:
+      save: Save and return later
   error:
     choose_option: You must select an option to continue
     invalid_number: Please enter a non-negative whole number
