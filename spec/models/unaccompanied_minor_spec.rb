@@ -2,19 +2,6 @@ require "rails_helper"
 
 RSpec.describe UnaccompaniedMinor, type: :model do
   describe "contact detail validations" do
-    it "minor full name is valid" do
-      app = described_class.new
-      app.minor_fullname = ""
-      expect(app.valid?).to be(false)
-      expect(app.errors[:minor_fullname]).to include("You must enter the child's full name")
-      expect(app.errors[:minor_fullname].count).to be(1)
-      app.minor_fullname = "John"
-      expect(app.valid?).to be(false)
-      expect(app.errors[:minor_fullname]).to include("You must enter the child's full name")
-      expect(app.errors[:minor_fullname].count).to be(1)
-      app.minor_fullname = "John Smith"
-      expect(app.valid?).to be(true)
-    end
 
     it "sponsor full name is valid" do
       app = described_class.new
@@ -175,7 +162,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   end
 
   describe "age validations" do
-    it "minor is less than 18", :focus do
+    it "minor is less than 18" do
       app = described_class.new
       app.minor_date_of_birth = {}
       expect(app.valid?).to be(false)
@@ -281,7 +268,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   end
 
   describe "child flow validation" do
-    it "child's given and family name", :focus do
+    it "child's given and family name" do
       app = described_class.new
       app.minor_given_name = ""
       expect(app.valid?).to be(false)
