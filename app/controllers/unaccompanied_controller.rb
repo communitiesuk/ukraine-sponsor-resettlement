@@ -3,10 +3,14 @@ require "securerandom"
 class UnaccompaniedController < ApplicationController
   include ApplicationHelper
 <<<<<<< HEAD
+<<<<<<< HEAD
   MAX_STEPS = 44
 =======
   MAX_STEPS = 24
 >>>>>>> df59a15 (Add child contact details)
+=======
+  MAX_STEPS = 25
+>>>>>>> 9bd1251 (Add minor date of birth)
 
   def start
     render "sponsor-a-child/start"

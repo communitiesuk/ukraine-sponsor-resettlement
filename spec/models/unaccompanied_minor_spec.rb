@@ -175,7 +175,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   end
 
   describe "age validations" do
-    it "minor is less than 18" do
+    it "minor is less than 18", :focus do
       app = described_class.new
       app.minor_date_of_birth = {}
       expect(app.valid?).to be(false)
