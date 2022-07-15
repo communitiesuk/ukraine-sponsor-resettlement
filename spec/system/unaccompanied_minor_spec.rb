@@ -281,18 +281,28 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Year", with: "2020")
       click_button("Continue")
 
-      #Step 4 - Press button
+      # Step 4 - Press button
       expect(page).to have_content("You need to upload 2 completed parental consent forms")
       click_link("Continue")
       expect(page).to have_content("Upload the UK local authority parental consent form for Jane Doe")
 
-      #Step 5 - Upload UK form
+      # Step 5 - Upload UK form
       test_file_path = File.join(File.dirname(__FILE__), "..", "uk-test-document.pdf")
 
       Rails.logger.debug File.exist? test_file_path
 
       attach_file("unaccompanied-minor-uk-parental-consent-field", test_file_path)
       click_button("Upload")
+
+      # Step 6 - Upload Ukraine form
+      test_file_path = File.join(File.dirname(__FILE__), "..", "ukraine-test-document.pdf")
+
+      Rails.logger.debug File.exist? test_file_path
+
+      attach_file("unaccompanied-minor-ukraine-parental-consent-field", test_file_path)
+      click_button("Upload")
+      expect(page).to have_content("Confirm you have read the privacy statement and agree that the information")
+
     end
   end
 end
