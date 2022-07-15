@@ -260,4 +260,13 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       # click_link("Continue")
     end
   end
+
+  describe "submitting the form for child's flow" do
+    it "saves all the data to the database", :focus do
+      visit "/sponsor-a-child/steps/23"
+      fill_in("Given name(s)", with: "Jane")
+      fill_in("Family name", with: "Doe")
+      click_button("Continue")
+    end
+  end
 end

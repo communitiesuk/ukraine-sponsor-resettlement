@@ -373,8 +373,7 @@ en:
         hint: Ukrainian parental consent form
       minor_fullname:
         short: Child name
-        full: What is the name of the child you want to sponsor?
-        hint: Full name
+        full: Name the child you want to sponsor
       minor_date_of_birth:
         short: Child DoB
         full: Enter %{name}'s date of birth

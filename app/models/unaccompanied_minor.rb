@@ -44,6 +44,8 @@ class UnaccompaniedMinor < ApplicationRecord
                 :sponsor_date_of_birth,
                 :sponsor_date_of_birth_as_string,
                 :certificate_reference,
+                :minor_given_name,
+                :minor_family_name,
                 :type,
                 :version,
                 :ip_address,
