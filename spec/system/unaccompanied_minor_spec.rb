@@ -262,7 +262,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   end
 
   describe "submitting the form for child's flow" do
-    it "saves all the data to the database", :focus do
+    it "saves all the data to the database" do
       visit "/sponsor-a-child/steps/23"
 
       # Step 1 - Given names
@@ -302,7 +302,6 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       attach_file("unaccompanied-minor-ukraine-parental-consent-field", test_file_path)
       click_button("Upload")
       expect(page).to have_content("Confirm you have read the privacy statement and agree that the information")
-
     end
   end
 end

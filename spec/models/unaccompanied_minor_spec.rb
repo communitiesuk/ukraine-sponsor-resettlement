@@ -2,7 +2,6 @@ require "rails_helper"
 
 RSpec.describe UnaccompaniedMinor, type: :model do
   describe "contact detail validations" do
-
     it "sponsor full name is valid" do
       app = described_class.new
       app.given_name = ""
