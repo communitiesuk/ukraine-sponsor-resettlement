@@ -240,6 +240,42 @@ class UnaccompaniedController < ApplicationController
     render "unaccompanied-minor/save_return_confirm"
   end
 
+  def save_return
+    lnk = params[:lnk]
+
+    redirect_to "/sponsor-a-child/save-and-return-expired"
+  end
+
+  def save_return_expired
+    @application = UnaccompaniedMinor.new()
+
+    render "unaccompanied-minor/save_return_expired"
+  end
+
+  def resend_link
+    email_address = params["unaccompanied_minor"]["email"]
+
+    if email_address.present?
+      @application = UnaccompaniedMinor.find_by_email(email_address)
+
+      if @application.nil?
+        # No application found
+        @application = UnaccompaniedMinor.new
+        @application.errors.add(:email, I18n.t(:no_application_found, scope: :error))
+
+        render "unaccompanied-minor/save_return_expired"
+      else
+        # Resend link
+      end
+
+    else
+      @application = UnaccompaniedMinor.new
+      @application.errors.add(:email, I18n.t(:invalid_email, scope: :error))
+
+      render "unaccompanied-minor/save_return_expired"
+    end
+  end
+
 private
 
   def save_and_redirect(application, filename, file)

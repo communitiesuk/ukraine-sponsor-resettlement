@@ -326,7 +326,7 @@ en:
       email:
         short: Email
         full: What is your email address?
-        hint: Email
+        hint: Email address
       phone_number:
         short: Telephone number
         full: What is your UK telephone number?
@@ -429,3 +429,4 @@ en:
     invalid_date_of_birth: Enter a valid date of birth
     too_old_date_of_birth: A person with this date of birth is over 18 and you cannot use this service to apply to sponsor them
     too_young_date_of_birth: A sponsor with this date of birth is less 18 and you cannot use this service to apply to sponsor them
+    no_application_found: There is no application associated with that email address
