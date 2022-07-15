@@ -144,7 +144,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       # step 4
       expect(page).to have_content("Are they travelling to the UK with a parent or legal guardian?")
-      choose("Yes")
+      choose("No")
       click_button("Continue")
 
       # step 5

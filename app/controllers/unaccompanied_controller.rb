@@ -177,7 +177,11 @@ class UnaccompaniedController < ApplicationController
   end
 
   def task_list
-    @application = UnaccompaniedMinor.find_by_reference(params[:reference])
+    @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
+    @application = UnaccompaniedMinor.find_by_reference(params[:reference]) if @application.reference != params[:reference]
+
+    # Ensure session matches application
+    session[:unaccompanied_minor] = @application.as_json
 
     if @application.is_cancelled?
       render "sponsor-a-child/cancel_confirm"
