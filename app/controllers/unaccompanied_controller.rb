@@ -3,6 +3,7 @@ require "securerandom"
 class UnaccompaniedController < ApplicationController
   include ApplicationHelper
   MAX_STEPS = 44
+  NOT_ELIGIBLE = [-1, 0]
 
   def start
     render "sponsor-a-child/start"
@@ -116,9 +117,7 @@ class UnaccompaniedController < ApplicationController
       # Replace with routing engine to get next stage
       next_stage = RoutingEngine.get_next_unaccompanied_minor_step(@application, params["stage"].to_i)
 
-      if next_stage == -1
-        redirect_to "/sponsor-a-child/non-eligible"
-      elsif next_stage.zero?
+      if NOT_ELIGIBLE.include?(next_stage)
         redirect_to "/sponsor-a-child/non-eligible"
       elsif next_stage > MAX_STEPS
         redirect_to "/sponsor-a-child/check-answers"
