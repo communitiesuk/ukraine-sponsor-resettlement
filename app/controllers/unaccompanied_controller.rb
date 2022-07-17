@@ -4,6 +4,7 @@ class UnaccompaniedController < ApplicationController
   include ApplicationHelper
   MAX_STEPS = 44
   NOT_ELIGIBLE = [-1, 0]
+  MINOR_OTHER_NAMES = 12
 
   def start
     render "sponsor-a-child/start"
@@ -80,7 +81,7 @@ class UnaccompaniedController < ApplicationController
     @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
 
     # capture other names
-    if params["stage"].to_i == 12
+    if params["stage"].to_i == MINOR_OTHER_NAMES
       # adds other attributes
       (@application.other_names ||= []) << [params["unaccompanied_minor"]["other_given_name"], params["unaccompanied_minor"]["other_family_name"]]
       # resets the current state
