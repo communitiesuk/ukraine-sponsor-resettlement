@@ -6,6 +6,8 @@ class UnaccompaniedController < ApplicationController
   NOT_ELIGIBLE = [-1, 0]
   MINOR_OTHER_NAMES = 12
   MINOR_ID_TYPE = 16
+  MINOR_NATIONALITY = 19
+  MINOR_OTHER_NATIONALITY = 21
 
   def start
     render "sponsor-a-child/start"
@@ -26,9 +28,10 @@ class UnaccompaniedController < ApplicationController
     step = params["stage"].to_i
 
     if step.positive? && step <= MAX_STEPS
-      if [19, 21].include?(step)
+      if step == MINOR_NATIONALITY || step == MINOR_OTHER_NATIONALITY
         @nationalities = get_nationalities_as_list
       end
+
       render "sponsor-a-child/steps/#{step}"
     else
       redirect_to "/sponsor-a-child"
@@ -102,7 +105,7 @@ class UnaccompaniedController < ApplicationController
     end
 
     # capture other nationalities
-    if params["stage"].to_i == 21
+    if params["stage"].to_i == MINOR_OTHER_NATIONALITY
       # adds other attributes
       (@application.other_nationalities ||= []) << [params["unaccompanied_minor"]["other_nationality"]]
       # resets the current state
