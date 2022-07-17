@@ -5,6 +5,7 @@ class UnaccompaniedController < ApplicationController
   MAX_STEPS = 44
   NOT_ELIGIBLE = [-1, 0]
   MINOR_OTHER_NAMES = 12
+  MINOR_ID_TYPE = 16
 
   def start
     render "sponsor-a-child/start"
@@ -90,7 +91,7 @@ class UnaccompaniedController < ApplicationController
     end
 
     # capture identification document number
-    if params["stage"].to_i == 16
+    if params["stage"].to_i == MINOR_ID_TYPE
       # how to have this comparison dealt with better???
       if params["unaccompanied_minor"]["identification_type"][0].casecmp("none").zero?
         @application.identification_type = ""
