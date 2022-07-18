@@ -1,0 +1,25 @@
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
+
+    <%= form_for @application, url: "/sponsor-a-child/steps/31", method: :post do |f| %>
+      <%= f.govuk_check_boxes_fieldset :minor_contact_type, multiple: false,
+                                       legend: { text: t('minor_contact_details.full', :name => @application.minor_full_name?, scope: "unaccompanied_minor.questions"), size: "m" } do %>
+
+        <%= f.govuk_check_box :minor_contact_type, :passport, multiple: false, label: { text: "Email" } do %>
+            <%= f.govuk_text_field :minor_email, label: { text: "Email" }, type: "text" %>
+        <% end %>
+        <%= f.govuk_check_box :minor_contact_type, :national_identity_card, multiple: false, label: { text: "Call or text" } do %>
+            <%= f.govuk_text_field :minor_phone_number, label: { text: "Telephone number"  }, type: "text", hint: { text: "Include country code" } %>
+        <% end %>
+        <%= f.govuk_check_box_divider %>
+        <%= f.govuk_check_box :minor_contact_type, :none, exclusive: true, label: { text: "They cannot be contacted" } %>
+
+      <% end %>
+      <%= f.govuk_submit t('continue') %>
+    <% end %>
+  </div>
+</div>

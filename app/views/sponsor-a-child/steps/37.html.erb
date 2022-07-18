@@ -1,6 +1,6 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-   
+
    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
    <h1 class="gem-c-title__text govuk-heading-xl">
@@ -8,7 +8,7 @@
    </h1>
 
       <p class="gem-c-lead-paragraph">To be eligible to sponsor a person under 18, who is not travelling with or joining a parent or legal guardian under the Homes for Ukraine Scheme, you (the sponsor):  </p>
-      
+
       <ul class="govuk-list govuk-list--bullet">
         <li>Should personally know the child's parents or legal guardian (unless there are exceptional circumstances), and you should have known them before the conflict started on 24 February 2022. </li>
         <li>Must commit to sponsoring the child for the whole 3 years of their permission to stay in the UK, or until they turn 18 and have been hosted for at least 6 months, whichever is soonest. </li>
@@ -16,7 +16,7 @@
       </ul>
 
 
-   <%= form_for @application, url: "/sponsor-a-child/steps/44", method: :post do |f| %>
+   <%= form_for @application, url: "/sponsor-a-child/steps/37", method: :post do |f| %>
 
     <%= f.govuk_check_boxes_fieldset :sponsor_declaration,
                                          multiple: false,

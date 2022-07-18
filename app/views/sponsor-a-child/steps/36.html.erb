@@ -1,13 +1,14 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
+
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-    <%= form_for @application, url: "/sponsor-a-child/steps/43", method: :post do |f| %>
+    <%= form_for @application, url: "/sponsor-a-child/steps/36", method: :post do |f| %>
         <%= f.govuk_check_boxes_fieldset :privacy_statement_confirm,
                                          multiple: false,
                                          legend: { text: t('agree_privacy_statement.full', scope: "unaccompanied_minor.questions"), size: 'm' } do %>
             <p>
-              
+
             </p>
         <%= f.govuk_check_box :privacy_statement_confirm, "true", "false", multiple: false, link_errors: true, label: { text: t('privacy_statement.full_html', scope: "unaccompanied_minor.questions") } %><% end %>
 
