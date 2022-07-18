@@ -3,11 +3,12 @@ require "securerandom"
 class UnaccompaniedController < ApplicationController
   include ApplicationHelper
   MAX_STEPS = 44
-  NOT_ELIGIBLE = [-1, 0]
+  NOT_ELIGIBLE = [-1, 0].freeze
   MINOR_OTHER_NAMES = 12
   MINOR_ID_TYPE = 16
   MINOR_NATIONALITY = 19
   MINOR_OTHER_NATIONALITY = 21
+  NATIONALITY_STEPS = [MINOR_NATIONALITY, MINOR_OTHER_NATIONALITY].freeze
   TASK_LIST_STEP = 999
 
   def start
@@ -49,7 +50,7 @@ class UnaccompaniedController < ApplicationController
     step = params["stage"].to_i
 
     if step.positive? && step <= MAX_STEPS
-      if step == MINOR_NATIONALITY || step == MINOR_OTHER_NATIONALITY
+      if NATIONALITY_STEPS.include?(step)
         @nationalities = get_nationalities_as_list
       end
 
