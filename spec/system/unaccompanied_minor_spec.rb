@@ -91,33 +91,6 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   end
 
   describe "submitting the form" do
-    # TODO: fix failing test
-    # it "starts and ends with the task list page - when answering 'No' to another name", :focus do
-    #   answers = { fullname: "Bob The Builder" }
-    #   test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
-    #   id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), false)")
-    #
-    #   new_application = UnaccompaniedMinor.find(id)
-    #   page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
-    #   expect(page_url).to end_with(new_application.reference)
-    #
-    #   visit page_url
-    #   expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
-    #
-    #   click_link("Name(s)")
-    #   expect(page).to have_content("What is your name?")
-    #
-    #   fill_in("Given name(s)", with: "Jane")
-    #   fill_in("Family name", with: "Doe")
-    #   click_button("Continue")
-    #
-    #   expect(page).to have_content("Have you ever been known by another name?")
-    #   choose("No")
-    #   click_button("Continue")
-    #
-    #   expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
-    # end
-
     it "shows the guidance page before the start page", :focus do
       visit "/sponsor-a-child/"
       expect(page).to have_content("Sponsor a child fleeing Ukraine without a parent")
