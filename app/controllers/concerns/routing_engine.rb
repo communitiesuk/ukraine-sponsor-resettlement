@@ -43,7 +43,7 @@ class RoutingEngine
       TASK_LIST_STEP
     elsif application.ukraine_parental_consent_filename.present? && current_step == 35
       TASK_LIST_STEP
-    elsif application.other_adults_address.present? && application.other_adults_address.casecmp("no").zero? && current_step = 25
+    elsif application.other_adults_address.present? && application.other_adults_address.casecmp("no").zero? && current_step == 25
       TASK_LIST_STEP
     elsif application.is_eligible.present? && application.is_eligible.casecmp("false").zero? && [1, 3, 4, 5, 7, 8].include?(current_step)
       # this needs to be the last check we do; returns the non-eligible path (excluding steps 2 and 6)
