@@ -79,6 +79,8 @@ RSpec.describe RoutingEngine, type: :model do
       application = UnaccompaniedMinor.new
       application.other_adults_address = "No"
       expect(described_class.get_next_unaccompanied_minor_step(application, 25)).to be(999)
+      application.other_adults_address = "Yes"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 25)).to be(26)
     end
   end
 
