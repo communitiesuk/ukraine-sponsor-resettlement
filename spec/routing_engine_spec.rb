@@ -68,6 +68,12 @@ RSpec.describe RoutingEngine, type: :model do
       application.has_other_nationalities = "true"
       expect(described_class.get_next_unaccompanied_minor_step(application, 22)).to be(999)
     end
+
+    it "when child's details is complete route to task list" do
+      application = UnaccompaniedMinor.new
+      application.ukraine_parental_consent_filename = "uploaded-file-name"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 28)).to be(999)
+    end
   end
 
   describe "getting the next step - unaccompanied minors" do
