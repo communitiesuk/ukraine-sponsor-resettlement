@@ -266,7 +266,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("To sponsor a child you must have the right to live in the UK for a minimum of")
     end
 
-    it "saves all of the answers in the database", :focus do
+    it "end to end eligibility journey", :focus do
       visit "/sponsor-a-child/start"
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
@@ -307,32 +307,34 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Can you commit to caring for the children until they are 18 or for at least 3 years?")
       choose("Yes")
       click_button("Continue")
+    end
 
-      # skip step 9 - just a mini confirmation screen
+    it "complete child flow name(s) section and save answers to the db", :focus do
+      answers = { fullname: "Bob The Builder" }
+      test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
+      id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), false)")
 
-      # steps 10 - 22 -> sponsor details form
+      new_application = UnaccompaniedMinor.find(id)
 
-      # TODO: move to separate test starting from the task list
-      # # step 10 - sponsor name
-      # visit "/sponsor-a-child/steps/10"
-      # fill_in("Given name(s)", with: "Jane")
-      # fill_in("Family name", with: "Doe")
-      # click_button("Continue")
-      #
-      # # step 11 - other names
-      # expect(page).to have_content("Have you ever been known by another name?")
-      # choose("Yes")
-      # click_button("Continue")
-      #
-      # # step 12 - add other name
-      # fill_in("Given name(s)", with: "Jane2")
-      # fill_in("Family name", with: "Doe2")
-      # click_button("Continue")
-      #
-      # # step 13 - details
-      # expect(page).to have_content("You have added 1 other names")
-      # click_link("Continue")
-      #
+      page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
+      expect(page_url).to end_with(new_application.reference)
+
+      visit page_url
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Name(s)")
+      expect(page).to have_content("What is your name?")
+
+      fill_in("Given name(s)", with: "Jane")
+      fill_in("Family name", with: "Doe")
+      click_button("Continue")
+
+      expect(page).to have_content("Have you ever been known by another name?")
+      choose("No")
+      click_button("Continue")
+      
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
       # # step 14 - email address
       # fill_in("What is your email address?", with: "jane.doe@test.com")
       # click_button("Continue")
