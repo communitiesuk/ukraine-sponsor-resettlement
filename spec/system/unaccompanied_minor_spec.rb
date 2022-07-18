@@ -427,7 +427,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   end
 
   describe "submitting the address for child" do
-    it "submit the form when address is where the child is staying", :focus do
+    it "submit the form when address is where the child is staying" do
       answers = { fullname: "Bob The Builder" }
       test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
       id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), false)")

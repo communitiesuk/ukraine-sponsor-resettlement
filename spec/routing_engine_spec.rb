@@ -75,7 +75,7 @@ RSpec.describe RoutingEngine, type: :model do
       expect(described_class.get_next_unaccompanied_minor_step(application, 35)).to be(999)
     end
 
-    it "when address section is complete route to task list", :focus do
+    it "when address section is complete route to task list" do
       application = UnaccompaniedMinor.new
       application.other_adults_address = "No"
       expect(described_class.get_next_unaccompanied_minor_step(application, 25)).to be(999)
