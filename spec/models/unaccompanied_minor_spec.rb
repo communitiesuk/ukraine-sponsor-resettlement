@@ -243,7 +243,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.given_name = "Bob"
       app.family_name = "Smith"
       expect(app.sponsor_details_names?).to eq("In progress")
-      app.email = "test@test.com"
+      app.has_other_names = "true"
       expect(app.sponsor_details_names?).to eq("Completed")
     end
 

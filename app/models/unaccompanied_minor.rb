@@ -87,7 +87,7 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
   def sponsor_details_names?
-    if email.present?
+    if has_other_names.present?
       "Completed"
     elsif given_name.present? || family_name.present?
       "In progress"
@@ -124,8 +124,6 @@ class UnaccompaniedMinor < ApplicationRecord
 
   def as_json
     {
-      id:,
-      reference:,
       created_at:,
       type:,
       version:,
