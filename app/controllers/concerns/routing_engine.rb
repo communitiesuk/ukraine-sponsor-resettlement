@@ -1,4 +1,6 @@
 class RoutingEngine
+  TASK_LIST_STEP = 999
+
   def self.get_next_additional_info_step(application, current_step)
     if application.different_address.present? && application.different_address.casecmp("NO").zero? && current_step == 5
       9
@@ -26,7 +28,10 @@ class RoutingEngine
       8
     elsif application.has_other_names.present? && application.has_other_names.casecmp("false").zero? && current_step == 11
       # sponsor does not have other names
-      14
+      TASK_LIST_STEP
+    elsif application.has_other_names.present? && application.has_other_names.casecmp("true").zero? && current_step == 13
+      # sponsor does not have other names
+      TASK_LIST_STEP
     elsif application.identification_type.present? && !application.identification_type.casecmp("none").zero? && current_step == 16
       # sponsor has provided an identification document, jump to date of birth
       18

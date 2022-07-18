@@ -8,6 +8,7 @@ class UnaccompaniedController < ApplicationController
   MINOR_ID_TYPE = 16
   MINOR_NATIONALITY = 19
   MINOR_OTHER_NATIONALITY = 21
+  TASK_LIST_STEP = 999
 
   def start
     render "sponsor-a-child/start"
@@ -131,6 +132,9 @@ class UnaccompaniedController < ApplicationController
 
       if NOT_ELIGIBLE.include?(next_stage)
         redirect_to "/sponsor-a-child/non-eligible"
+      elsif next_stage == TASK_LIST_STEP
+        # Redirect to show the task-list
+        redirect_to "/sponsor-a-child/task-list/#{@application.reference}"
       elsif next_stage > MAX_STEPS
         redirect_to "/sponsor-a-child/check-answers"
       else
@@ -190,8 +194,7 @@ class UnaccompaniedController < ApplicationController
   end
 
   def task_list
-    @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
-    @application = UnaccompaniedMinor.find_by_reference(params[:reference]) if @application.reference != params[:reference]
+    @application = UnaccompaniedMinor.find_by_reference(params["reference"])
 
     # Ensure session matches application
     session[:unaccompanied_minor] = @application.as_json
