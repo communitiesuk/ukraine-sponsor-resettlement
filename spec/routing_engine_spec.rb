@@ -47,7 +47,7 @@ RSpec.describe RoutingEngine, type: :model do
   end
 
   describe "unaccompanied minors - routing back to task list when a 'section' is complete" do
-    it "when name(s) is complete route to task list", :focus do
+    it "when name(s) is complete route to task list" do
       application = UnaccompaniedMinor.new
       application.has_other_names = "false"
       expect(described_class.get_next_unaccompanied_minor_step(application, 11)).to be(999)
@@ -55,13 +55,13 @@ RSpec.describe RoutingEngine, type: :model do
       expect(described_class.get_next_unaccompanied_minor_step(application, 13)).to be(999)
     end
 
-    it "when contact details is complete route to task list", :focus do
+    it "when contact details is complete route to task list" do
       application = UnaccompaniedMinor.new
       application.phone_number = "07777 123 456"
       expect(described_class.get_next_unaccompanied_minor_step(application, 15)).to be(999)
     end
 
-    it "when additional details is complete route to task list", :focus do
+    it "when additional details is complete route to task list" do
       application = UnaccompaniedMinor.new
       application.has_other_nationalities = "false"
       expect(described_class.get_next_unaccompanied_minor_step(application, 20)).to be(999)
