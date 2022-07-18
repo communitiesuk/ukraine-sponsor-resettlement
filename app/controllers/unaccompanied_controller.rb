@@ -327,6 +327,7 @@ private
           :minor_contact_type,
           :minor_email,
           :minor_phone_number,
+          :other_adults_address,
         )
   end
 end
