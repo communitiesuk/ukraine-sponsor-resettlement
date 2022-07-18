@@ -75,5 +75,17 @@ RSpec.describe RoutingEngine, type: :model do
       expect(described_class.get_next_unaccompanied_minor_step(application, 6)).to be(8)
       expect(described_class.get_next_unaccompanied_minor_step(application, 8)).to be(9)
     end
+
+    it "when completing names for child - choosing 'No' to other names" do
+      application = UnaccompaniedMinor.new
+      application.has_other_names = "false"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 11)).to be(14)
+    end
+
+    it "when completing names for child - choosing 'Yes' to other names" do
+      application = UnaccompaniedMinor.new
+      application.has_other_names = "true"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 11)).to be(12)
+    end
   end
 end

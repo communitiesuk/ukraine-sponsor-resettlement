@@ -41,11 +41,5 @@ class RoutingEngine
     else
       current_step + 1
     end
-
-    # if application.have_parental_consent.present? && application.have_parental_consent.casecmp("YES").zero? && current_step == 3
-    #  5
-    # else
-    #  current_step + 1
-    # end
   end
 end
