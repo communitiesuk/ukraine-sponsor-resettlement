@@ -3,9 +3,11 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-    <h2 class="govuk-heading-m">Enter the address where the child will be living in the UK</h2>
+    <h2 class="govuk-heading-m">What address will you and the child be living at?</h2>
 
-    <%= form_for @application, url: "/sponsor-a-child/steps/23", method: :post do |f| %>
+    <p class="hint">This is the address where you live</p>
+
+    <%= form_for @application, url: "/unaccompanied-minor/steps/10", method: :post do |f| %>
       <%= f.govuk_text_field :residential_line_1,
                              label: { text: t('address_line_1.full', scope: "unaccompanied_minor.questions") },
                              type: "text"
