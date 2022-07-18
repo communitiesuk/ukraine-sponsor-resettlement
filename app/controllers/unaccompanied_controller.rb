@@ -18,6 +18,9 @@ class UnaccompaniedController < ApplicationController
     @application.started_at = Time.zone.now.utc if @application.started_at.nil?
     @application.save! if @application.reference.nil?
 
+    # Update the session
+    session[:unaccompanied_minor] = @application.as_json
+
     # Redirect to show the task-list
     redirect_to "/sponsor-a-child/task-list/#{@application.reference}"
   end
@@ -81,7 +84,8 @@ class UnaccompaniedController < ApplicationController
   def handle_step
     # Pull session data out of session and
     # instantiate new Application ActiveRecord object
-    @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
+    application_id = session[:unaccompanied_minor][:id] if session[:unaccompanied_minor].present?
+    @application = UnaccompaniedMinor.find_or_create_by(id: application_id)
     @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
 
     # capture other names
@@ -116,6 +120,9 @@ class UnaccompaniedController < ApplicationController
     @application.assign_attributes(application_params)
 
     if @application.valid?
+      # Update the database
+      @application.update!(session[:unaccompanied_minor].except(:id)) if session[:unaccompanied_minor].present?
+
       # Update the session
       session[:unaccompanied_minor] = @application.as_json
 

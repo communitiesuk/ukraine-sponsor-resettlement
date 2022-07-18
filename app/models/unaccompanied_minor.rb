@@ -124,8 +124,6 @@ class UnaccompaniedMinor < ApplicationRecord
 
   def as_json
     {
-      id:,
-      reference:,
       created_at:,
       type:,
       version:,
