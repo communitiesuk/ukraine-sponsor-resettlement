@@ -140,7 +140,9 @@
     <%= form_for @application, url: "/sponsor-a-child/save_or_cancel/#{params["reference"]}", method: :post do |f| %>
       <%= f.govuk_submit t('save_application.save', scope: "unaccompanied_minor"),
                          name: "save_application",
-                         class: "govuk-button--secondary"%>
+                         class: "govuk-button--secondary",
+                         id: "later"
+                         %>
 
       <%= f.govuk_submit t('cancel_application.cancel', scope: "unaccompanied_minor"),
                          name: "cancel_application",

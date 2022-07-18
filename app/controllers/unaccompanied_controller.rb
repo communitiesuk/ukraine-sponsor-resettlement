@@ -198,26 +198,15 @@ class UnaccompaniedController < ApplicationController
     render "sponsor-a-child/non_eligible"
   end
 
-  def check_box_check
-    @application = UnaccompaniedMinor.find_by_reference(params[:reference])
-    if @application.valid?
-      # if they confirm they will be redirected to next page
-      redirect_to "/ste"
-    else
-      # if they do not confirm reload page and show error
-      render "/send-application/data_sharing"
-    end
-  end
-
   def save_or_cancel_application
     @application = UnaccompaniedMinor.find_by_reference(params[:reference])
 
     if params[:cancel_application]
       # cancel an application
       if @application.is_cancelled?
-        render "unaccompanied-minor/cancel_confirm"
+        render "sponsor-a-child/cancel_confirm"
       else
-        render "unaccompanied-minor/cancel_application"
+        render "sponsor-a-child/cancel_application"
       end
     else
       # save and return later
@@ -250,7 +239,7 @@ class UnaccompaniedController < ApplicationController
 
     session[:email] = @application.email
 
-    render "unaccompanied-minor/save_return_confirm"
+    render "sponsor-a-child/save_return_confirm"
   end
 
   def save_return
@@ -262,7 +251,7 @@ class UnaccompaniedController < ApplicationController
   def save_return_expired
     @application = UnaccompaniedMinor.new()
 
-    render "unaccompanied-minor/save_return_expired"
+    render "sponsor-a-child/save_return_expired"
   end
 
   def resend_link
@@ -276,7 +265,7 @@ class UnaccompaniedController < ApplicationController
         @application = UnaccompaniedMinor.new
         @application.errors.add(:email, I18n.t(:no_application_found, scope: :error))
 
-        render "unaccompanied-minor/save_return_expired"
+        render "sponsor-a-child/save_return_expired"
       else
         # Resend link
       end
@@ -285,7 +274,7 @@ class UnaccompaniedController < ApplicationController
       @application = UnaccompaniedMinor.new
       @application.errors.add(:email, I18n.t(:invalid_email, scope: :error))
 
-      render "unaccompanied-minor/save_return_expired"
+      render "sponsor-a-child/save_return_expired"
     end
   end
 
