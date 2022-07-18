@@ -334,42 +334,6 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
 
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
-
-      # # step 14 - email address
-      # fill_in("What is your email address?", with: "jane.doe@test.com")
-      # click_button("Continue")
-      #
-      # # step 15 - UK telephone number
-      # fill_in("What is your UK telephone number?", with: "07777 888 999")
-      # click_button("Continue")
-      #
-      # # step 16 - ID
-      # expect(page).to have_content("Do you have any of these identity documents?")
-      # page.check("unaccompanied-minor-identification-type-passport-field")
-      # click_button("Continue")
-      #
-      # # Step 18 - Date of birth
-      # fill_in("Day", with: "6")
-      # fill_in("Month", with: "11")
-      # fill_in("Year", with: "1987")
-      # click_button("Continue")
-      #
-      # # Step 19 - Nationality
-      # expect(page).to have_content("What is your nationality?")
-      # click_button("Continue")
-      #
-      # # Step 20 - Other nationality
-      # expect(page).to have_content("Have you ever held any other nationalities?")
-      # choose("Yes")
-      # click_button("Continue")
-      #
-      # # Step 21 - Other nationality
-      # expect(page).to have_content("What is your other nationality?")
-      # click_button("Continue")
-      #
-      # # step 22 - details
-      # expect(page).to have_content("You have added 1 other nationalities")
-      # # click_link("Continue")
     end
 
     it "complete child flow contact details section and save answers to the db", :focus do
@@ -392,6 +356,40 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
 
       fill_in("What is your UK telephone number?", with: "07777 888 999")
+      click_button("Continue")
+
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+    end
+
+    it "complete child flow additional details section and save answers to the db", :focus do
+      answers = { fullname: "Bob The Builder" }
+      test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
+      id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), false)")
+
+      new_application = UnaccompaniedMinor.find(id)
+
+      page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
+      expect(page_url).to end_with(new_application.reference)
+
+      visit page_url
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Additional details")
+      expect(page).to have_content("Do you have any of these identity documents?")
+
+      page.check("unaccompanied-minor-identification-type-passport-field")
+      click_button("Continue")
+
+      fill_in("Day", with: "6")
+      fill_in("Month", with: "11")
+      fill_in("Year", with: "1987")
+      click_button("Continue")
+
+      expect(page).to have_content("What is your nationality?")
+      click_button("Continue")
+
+      expect(page).to have_content("Have you ever held any other nationalities?")
+      choose("No")
       click_button("Continue")
 
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")

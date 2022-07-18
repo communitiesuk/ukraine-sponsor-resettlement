@@ -34,6 +34,10 @@ class RoutingEngine
       TASK_LIST_STEP
     elsif application.phone_number.present? && current_step == 15
       TASK_LIST_STEP
+    elsif application.has_other_nationalities.present? && application.has_other_nationalities.casecmp("false").zero? && current_step == 20
+      TASK_LIST_STEP
+    elsif application.has_other_nationalities.present? && application.has_other_nationalities.casecmp("true").zero? && current_step == 22
+      TASK_LIST_STEP
     elsif application.identification_type.present? && !application.identification_type.casecmp("none").zero? && current_step == 16
       # sponsor has provided an identification document, jump to date of birth
       18
