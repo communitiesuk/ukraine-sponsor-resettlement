@@ -32,6 +32,8 @@ class RoutingEngine
     elsif application.has_other_names.present? && application.has_other_names.casecmp("true").zero? && current_step == 13
       # sponsor does not have other names
       TASK_LIST_STEP
+    elsif application.phone_number.present? && current_step == 15
+      TASK_LIST_STEP
     elsif application.identification_type.present? && !application.identification_type.casecmp("none").zero? && current_step == 16
       # sponsor has provided an identification document, jump to date of birth
       18

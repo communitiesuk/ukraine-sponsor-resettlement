@@ -54,6 +54,12 @@ RSpec.describe RoutingEngine, type: :model do
       application.has_other_names = "true"
       expect(described_class.get_next_unaccompanied_minor_step(application, 13)).to be(999)
     end
+
+    it "when contact details is complete route to task list", :focus do
+      application = UnaccompaniedMinor.new
+      application.phone_number = "07777 123 456"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 15)).to be(999)
+    end
   end
 
   describe "getting the next step - unaccompanied minors" do
