@@ -61,7 +61,11 @@ class UnaccompaniedMinor < ApplicationRecord
 
   after_initialize :after_initialize
   before_save :serialize
-  before_save :generate_reference
+  # before_save :generate_reference
+
+  after_find do
+    assign_attributes(answers)
+  end
 
   has_one_attached :parental_consent
 
@@ -87,7 +91,7 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
   def sponsor_details_names?
-    if email.present?
+    if @has_other_names.present?
       "Completed"
     elsif given_name.present? || family_name.present?
       "In progress"
@@ -182,7 +186,7 @@ private
     self.answers = as_json
   end
 
-  def generate_reference
-    self.reference ||= sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
-  end
+  # def generate_reference
+  #   self.reference ||= sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
+  # end
 end

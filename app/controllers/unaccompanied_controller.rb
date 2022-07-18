@@ -27,7 +27,10 @@ class UnaccompaniedController < ApplicationController
   end
 
   def display
-    @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
+    @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
+
+    # Update the session
+    session[:unaccompanied_minor] = @application.as_json
 
     step = params["stage"].to_i
 
@@ -53,7 +56,6 @@ class UnaccompaniedController < ApplicationController
       @application.uk_parental_consent_file_type = upload_params.content_type
       @application.uk_parental_consent_filename = upload_params.original_filename
       @application.uk_parental_consent_saved_filename = "#{SecureRandom.uuid.upcase}-#{upload_params.original_filename}"
-      Rails.logger.debug "New filename: #{@application.uk_parental_consent_saved_filename}"
     rescue ActionController::ParameterMissing
       # Do nothing!
       Rails.logger.debug "No upload file found!"
@@ -73,7 +75,6 @@ class UnaccompaniedController < ApplicationController
       @application.ukraine_parental_consent_file_type = upload_params.content_type
       @application.ukraine_parental_consent_filename = upload_params.original_filename
       @application.ukraine_parental_consent_saved_filename = "#{SecureRandom.uuid.upcase}-#{upload_params.original_filename}"
-      Rails.logger.debug "New filename: #{@application.ukraine_parental_consent_saved_filename}"
     rescue ActionController::ParameterMissing
       # Do nothing!
       Rails.logger.debug "No upload file found!"
@@ -84,9 +85,8 @@ class UnaccompaniedController < ApplicationController
 
   def handle_step
     # Pull session data out of session and
-    # instantiate new Application ActiveRecord object
-    application_id = session[:unaccompanied_minor][:id] if session[:unaccompanied_minor].present?
-    @application = UnaccompaniedMinor.find_or_create_by(id: application_id)
+    # instantiate new or existing Application ActiveRecord object
+    @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
     @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
 
     # capture other names
@@ -122,7 +122,7 @@ class UnaccompaniedController < ApplicationController
 
     if @application.valid?
       # Update the database
-      @application.update!(session[:unaccompanied_minor].except(:id)) if session[:unaccompanied_minor].present?
+      @application.update!(session[:unaccompanied_minor].except(:id, :reference)) if session[:unaccompanied_minor].present?
 
       # Update the session
       session[:unaccompanied_minor] = @application.as_json
@@ -141,8 +141,6 @@ class UnaccompaniedController < ApplicationController
         redirect_to "/sponsor-a-child/steps/#{next_stage}"
       end
     else
-      Rails.logger.debug "Invalid!"
-
       render "sponsor-a-child/steps/#{params['stage']}"
     end
   end
@@ -194,9 +192,10 @@ class UnaccompaniedController < ApplicationController
   end
 
   def task_list
-    @application = UnaccompaniedMinor.find_by_reference(params["reference"])
+    @application = UnaccompaniedMinor.find_by_reference(params[:reference])
 
     # Ensure session matches application
+    session[:app_reference] = params[:reference]
     session[:unaccompanied_minor] = @application.as_json
 
     if @application.is_cancelled?
