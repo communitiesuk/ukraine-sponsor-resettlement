@@ -87,7 +87,7 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
   def sponsor_details_names?
-    if @has_other_names.present?
+    if has_other_names.present?
       "Completed"
     elsif given_name.present? || family_name.present?
       "In progress"

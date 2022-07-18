@@ -60,7 +60,7 @@ class UnaccompaniedController < ApplicationController
   end
 
   def handle_upload_uk
-    @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
+    @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
     @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
     @application.uk_parental_consent_filename = ""
 
@@ -79,7 +79,7 @@ class UnaccompaniedController < ApplicationController
   end
 
   def handle_upload_ukraine
-    @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
+    @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
     @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
     @application.ukraine_parental_consent_filename = ""
 
@@ -160,7 +160,7 @@ class UnaccompaniedController < ApplicationController
   end
 
   def check_answers
-    @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
+    @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
     # commented as question not asked yet so always nil
 
     # @application.minor_date_of_birth_as_string = format_date_of_birth @application.minor_date_of_birth
@@ -170,7 +170,7 @@ class UnaccompaniedController < ApplicationController
   end
 
   def submit
-    @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
+    @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
     @application.ip_address = request.ip
     @application.user_agent = request.user_agent
     @application.final_submission = true
@@ -271,7 +271,12 @@ private
 
       next_stage = RoutingEngine.get_next_unaccompanied_minor_step(application, params["stage"].to_i)
 
-      redirect_to "/sponsor-a-child/steps/#{next_stage}"
+      if next_stage == TASK_LIST_STEP
+        # Redirect to show the task-list
+        redirect_to "/sponsor-a-child/task-list/#{application.reference}"
+      else
+        redirect_to "/sponsor-a-child/steps/#{next_stage}"
+      end
     else
       render "sponsor-a-child/steps/#{params['stage']}"
     end

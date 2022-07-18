@@ -295,7 +295,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       visit page_url
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
-      click_link("Name(s)")
+      click_link("Name")
       expect(page).to have_content("What is your name?")
 
       fill_in("Given name(s)", with: "Jane")
@@ -422,7 +422,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       attach_file("unaccompanied-minor-ukraine-parental-consent-field", test_file_path)
       click_button("Upload")
 
-      expect(page).to have_content("Confirm you have read the privacy statement and agree that the information")
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
     end
   end
 end
