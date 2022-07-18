@@ -397,47 +397,59 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   end
 
   describe "submitting the form for child's flow" do
-    # TODO: test needs to start from the task list
-    # it "saves all the data to the database", :focus do
-    #   visit "/sponsor-a-child/steps/23"
-    #
-    #   # Step 1 - Given names
-    #   fill_in("Given name(s)", with: "Jane")
-    #   fill_in("Family name", with: "Doe")
-    #   click_button("Continue")
-    #
-    #   # Step 2 - Contact details
-    #   check("Email")
-    #   fill_in("Email", with: "unaccompanied.minor@test.com")
-    #   click_button("Continue")
-    #
-    #   # Step 3 - Date of birth
-    #   fill_in("Day", with: "6")
-    #   fill_in("Month", with: "11")
-    #   fill_in("Year", with: "2020")
-    #   click_button("Continue")
-    #
-    #   # Step 4 - Press button
-    #   expect(page).to have_content("You need to upload 2 completed parental consent forms")
-    #   click_link("Continue")
-    #   expect(page).to have_content("Upload the UK local authority parental consent form for Jane Doe")
-    #
-    #   # Step 5 - Upload UK form
-    #   test_file_path = File.join(File.dirname(__FILE__), "..", "uk-test-document.pdf")
-    #
-    #   Rails.logger.debug File.exist? test_file_path
-    #
-    #   attach_file("unaccompanied-minor-uk-parental-consent-field", test_file_path)
-    #   click_button("Upload")
-    #
-    #   # Step 6 - Upload Ukraine form
-    #   test_file_path = File.join(File.dirname(__FILE__), "..", "ukraine-test-document.pdf")
-    #
-    #   Rails.logger.debug File.exist? test_file_path
-    #
-    #   attach_file("unaccompanied-minor-ukraine-parental-consent-field", test_file_path)
-    #   click_button("Upload")
-    #   expect(page).to have_content("Confirm you have read the privacy statement and agree that the information")
-    # end
+    it "saves all the data to the database", :focus do
+      answers = { fullname: "Bob The Builder" }
+      test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
+      id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), false)")
+
+      new_application = UnaccompaniedMinor.find(id)
+
+      page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
+      expect(page_url).to end_with(new_application.reference)
+
+      visit page_url
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Child's personal details")
+      expect(page).to have_content("Name the child you want to sponsor")
+
+      fill_in("Given name(s)", with: "Jane")
+      fill_in("Family name", with: "Doe")
+
+      click_button("Continue")
+      expect(page).to have_content("How can we contact")
+
+      check("Email")
+      fill_in("Email", with: "unaccompanied.minor@test.com")
+
+      click_button("Continue")
+      expect(page).to have_content("date of birth")
+
+      fill_in("Day", with: "6")
+      fill_in("Month", with: "11")
+      fill_in("Year", with: "2020")
+
+      click_button("Continue")
+      expect(page).to have_content("You need to upload 2 completed parental consent forms")
+
+      click_link("Continue")
+      expect(page).to have_content("Upload the UK local authority parental consent form for")
+
+      test_file_path = File.join(File.dirname(__FILE__), "..", "uk-test-document.pdf")
+
+      Rails.logger.debug File.exist? test_file_path
+
+      attach_file("unaccompanied-minor-uk-parental-consent-field", test_file_path)
+      click_button("Upload")
+
+      test_file_path = File.join(File.dirname(__FILE__), "..", "ukraine-test-document.pdf")
+
+      Rails.logger.debug File.exist? test_file_path
+
+      attach_file("unaccompanied-minor-ukraine-parental-consent-field", test_file_path)
+      click_button("Upload")
+
+      expect(page).to have_content("Confirm you have read the privacy statement and agree that the information")
+    end
   end
 end
