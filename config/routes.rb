@@ -38,7 +38,6 @@ Rails.application.routes.draw do
   get "/sponsor-a-child/steps/:stage", to: "unaccompanied#display"
   post "/sponsor-a-child/steps/:stage", to: "unaccompanied#handle_step"
   get "/sponsor-a-child/task-list/:reference", to: "unaccompanied#task_list"
-  get "/sponsor-a-child/task-list/:reference", to: "unaccompanied#task_list"
   get "/sponsor-a-child/non-eligible", to: "unaccompanied#non_eligible"
 
   post "/sponsor-a-child/save_or_cancel/:reference", to: "unaccompanied#save_or_cancel_application"

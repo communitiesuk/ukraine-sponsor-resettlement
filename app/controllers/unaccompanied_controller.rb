@@ -212,7 +212,7 @@ class UnaccompaniedController < ApplicationController
       # save and return later
       GovNotifyMailer.send_save_and_return_email(@application.given_name, "link", @application.email).deliver_later
 
-      redirect_to "/sponsor-a-child/save-and-return-confirm"
+      redirect_to "/sponsor-a-child/save-and-return-confirm/#{params[:reference]}"
     end
   end
 
@@ -235,21 +235,17 @@ class UnaccompaniedController < ApplicationController
   end
 
   def save_return_confirm
-    @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
-
-    session[:email] = @application.email
-
     render "sponsor-a-child/save_return_confirm"
   end
 
   def save_return
-    lnk = params[:lnk]
+    # lnk = params[:lnk]
 
     redirect_to "/sponsor-a-child/save-and-return-expired"
   end
 
   def save_return_expired
-    @application = UnaccompaniedMinor.new()
+    @application = UnaccompaniedMinor.new
 
     render "sponsor-a-child/save_return_expired"
   end
@@ -266,8 +262,6 @@ class UnaccompaniedController < ApplicationController
         @application.errors.add(:email, I18n.t(:no_application_found, scope: :error))
 
         render "sponsor-a-child/save_return_expired"
-      else
-        # Resend link
       end
 
     else

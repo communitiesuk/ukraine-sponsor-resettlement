@@ -305,20 +305,18 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
   end
 
-  describe "Save and return later functionality", :focus do 
+  describe "Save and return later functionality" do
     it "clicks save and return later button and gets redirected to confirmation page" do
-     answers = { email: "test@example.com" }
-     test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
-     id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), FALSE)")
+      answers = { email: "test@example.com" }
+      test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
+      id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), FALSE)")
 
-     new_application = UnaccompaniedMinor.find(id)
-     page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
-     visit page_url
-     click_button('Save and return later')
-     expect(page).to have_http_status(:success)
-     expect(page).to have_content("We've sent you an email with a link to your saved application") 
-
+      new_application = UnaccompaniedMinor.find(id)
+      page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
+      visit page_url
+      click_button("Save and return later")
+      expect(page).to have_http_status(:success)
+      expect(page).to have_content("We've sent you an email with a link to your saved application")
     end
   end
-    
 end
