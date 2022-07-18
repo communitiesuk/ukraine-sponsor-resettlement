@@ -14,6 +14,19 @@ class UnaccompaniedController < ApplicationController
     render "sponsor-a-child/start"
   end
 
+  def check_if_can_use
+    @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
+    @application.started_at = Time.zone.now.utc if @application.started_at.nil?
+    @application.save! if @application.reference.nil?
+
+    # Update the session
+    session[:unaccompanied_minor] = @application.as_json
+    session[:app_reference] = @application.reference
+
+    # mini-check page to show after start and before step 1
+    render "sponsor-a-child/check_if_can_use"
+  end
+
   def start_application
     @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
     @application.started_at = Time.zone.now.utc if @application.started_at.nil?
@@ -21,6 +34,7 @@ class UnaccompaniedController < ApplicationController
 
     # Update the session
     session[:unaccompanied_minor] = @application.as_json
+    session[:app_reference] = @application.reference
 
     # Redirect to show the task-list
     redirect_to "/sponsor-a-child/task-list/#{@application.reference}"
@@ -186,11 +200,6 @@ class UnaccompaniedController < ApplicationController
     render "sponsor-a-child/guidance"
   end
 
-  def check_if_can_use
-    # mini-check page to show after start and before step 1
-    render "sponsor-a-child/check_if_can_use"
-  end
-
   def task_list
     @application = UnaccompaniedMinor.find_by_reference(params[:reference])
 
@@ -237,7 +246,8 @@ class UnaccompaniedController < ApplicationController
     if params[:cancel_application]
       # Soft delete the application
       @application = UnaccompaniedMinor.find_by_reference(params[:reference])
-      @application.update!(is_cancelled: true)
+      @application.is_cancelled = true
+      @application.save!(validate: false)
 
       session[:app_reference] = @application.reference
 
