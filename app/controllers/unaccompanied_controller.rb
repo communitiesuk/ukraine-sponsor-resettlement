@@ -106,17 +106,14 @@ class UnaccompaniedController < ApplicationController
       params["unaccompanied_minor"]["other_nationality"] = ""
     end
 
-    if params["stage"].to_i == 25
-          if (params["unaccompanied_minor"]["minor_date_of_birth(1i)"] || \
-              params["unaccompanied_minor"]["minor_date_of_birth(2i)"] || \
-              params["unaccompanied_minor"]["minor_date_of_birth(3i)"]).blank?
-      
-              @application.errors.add(:minor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
-              render "/sponsor-a-child/steps/25"
-              return
-            end
-          end
-    
+    if params["stage"].to_i == 25 && (params["unaccompanied_minor"]["minor_date_of_birth(1i)"] || \
+          params["unaccompanied_minor"]["minor_date_of_birth(2i)"] || \
+          params["unaccompanied_minor"]["minor_date_of_birth(3i)"]).blank?
+
+      @application.errors.add(:minor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
+      render "/sponsor-a-child/steps/25"
+      return
+    end
 
     # Update Application object with new attributes
     @application.assign_attributes(application_params)
@@ -149,7 +146,7 @@ class UnaccompaniedController < ApplicationController
     # commented as question not asked yet so always nil
 
     @application.minor_date_of_birth_as_string = format_date_of_birth @application.minor_date_of_birth
-    @application.sponsor_date_of_birth_as_string = format_date_of_birth @application.sponsor_§
+    @application.sponsor_date_of_birth_as_string = format_date_of_birth @application.sponsor_date_of_birth
 
     render "sponsor-a-child/check_answers"
   end
