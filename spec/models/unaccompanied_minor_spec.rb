@@ -169,7 +169,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.errors[:minor_date_of_birth].count).to be(1)
       app.minor_date_of_birth = { "1" => 2001, "2" => 6, "3" => 1 }
       expect(app.valid?).to be(false)
-      expect(app.errors[:minor_date_of_birth]).to include("A person with this date of birth is over 18 and you cannot use this service to apply to sponsor them")
+      expect(app.errors[:minor_date_of_birth]).to include("They must be under 18 to be considered a child in the UK")
       expect(app.errors[:minor_date_of_birth].count).to be(1)
       app.minor_date_of_birth = { "1" => Time.zone.now.year, "2" => Time.zone.now.month, "3" => Time.zone.now.day }
       expect(app.valid?).to be(false)
