@@ -65,7 +65,9 @@ class UnaccompaniedMinor < ApplicationRecord
                 :privacy_statement_confirm,
                 :sponsor_declaration,
                 :adult_number,
-                :minor_contact_details
+                :minor_contact_details,
+                :adult_given_name,
+                :adult_family_name
 
   after_initialize :after_initialize
   before_save :serialize
@@ -81,6 +83,10 @@ class UnaccompaniedMinor < ApplicationRecord
     else
       "#{@residential_line_1}, #{@residential_town}, #{@residential_postcode}"
     end
+  end
+
+  def number_of_adults?
+    "1 person"
   end
 
   def is_cancelled?
@@ -193,6 +199,8 @@ class UnaccompaniedMinor < ApplicationRecord
       sponsor_declaration:,
       adult_number:,
       minor_contact_details:,
+      adult_given_name:,
+      adult_family_name:,
     }.compact
   end
 
