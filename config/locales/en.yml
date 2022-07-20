@@ -300,8 +300,8 @@ en:
         hint: This excludes travelling with another relative, such as a grandmother, aunty or uncle who is not their legal guardian.
       sponsored_children_legal_guardian_consent:
         short: Sponsored children legal guardian consent
-        full: Do they have a parent or legal guardian that can provide written consent?
-        hint_html: You must upload consent forms from at least one parent or legal guardian per child. <br /><br /><a href="">Read guidance about what consent forms are required</a>
+        full: Can you upload both consent forms?
+        hint_html: You must be able to upload both completed and signed consent forms from at least one parent or legal guardian per child. <br /><br /><a href="">Read guidance about what consent forms are required</a>
       sponsor_british_citizenship:
         short: Sponsor british citizenship
         full: Are you a British citizen?
