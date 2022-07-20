@@ -22,8 +22,12 @@ module UamValidations
   end
 
   def validate_minor_date_of_birth
-    if @minor_date_of_birth.blank? || Time.zone.parse(@minor_date_of_birth.map { |_, v| v }.join("-").to_s) >= Time.zone.now.to_date
+    if @minor_date_of_birth[3].blank? || @minor_date_of_birth[2].blank? || @minor_date_of_birth[1].blank?
       errors.add(:minor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
+
+    elsif Time.zone.parse(@minor_date_of_birth.map { |_, v| v }.join("-").to_s) >= Time.zone.now.to_date
+      errors.add(:minor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
+
     elsif Time.zone.parse(@minor_date_of_birth.map { |_, v| v }.join("-").to_s) < 18.years.ago.to_date
       errors.add(:minor_date_of_birth, I18n.t(:too_old_date_of_birth, scope: :error))
     end

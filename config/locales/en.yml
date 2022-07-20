@@ -331,7 +331,7 @@ en:
       email:
         short: Email
         full: What is your email address?
-        hint: Email
+        hint: Email address
       phone_number:
         short: Telephone number
         full: What is your UK telephone number?
@@ -371,11 +371,14 @@ en:
         short: Ukraine consent
         full: Upload the Ukraine parental consent form for %{name}
         hint: Ukrainian parental consent form
-      minor_fullname:
-        short: Child name
+      minor_given_name:
+        short: Given names
         full: Name the child you want to sponsor
+      minor_family_name:
+        short: Family name
+        full: The family name of the child you want to sponsor
       minor_contact_details:
-        short: Child contact
+        short: Child contact details
         full: How can we contact %{name}?
       minor_date_of_birth:
         short: Child DoB
@@ -412,6 +415,8 @@ en:
     cancel_application:
       cancel: Cancel application
       continue: Continue application
+    save_application:
+      save: Save and return later
   error:
     invalid_eligibility: You must confirm you are eligible
     privacy_statement: You must read and agree to the privacy statement
@@ -441,5 +446,6 @@ en:
     invalid_file_type_chosen: You must select a PDF file
     no_file_chosen: You must select a file
     invalid_date_of_birth: Enter a valid date of birth
-    too_old_date_of_birth: A person with this date of birth is over 18 and you cannot use this service to apply to sponsor them
+    too_old_date_of_birth: They must be under 18 to be considered a child in the UK
     too_young_date_of_birth: A sponsor with this date of birth is less 18 and you cannot use this service to apply to sponsor them
+    no_application_found: There is no application associated with that email address

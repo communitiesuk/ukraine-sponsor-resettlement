@@ -384,7 +384,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
       click_link("Child's personal details")
-      expect(page).to have_content("Name the child you want to sponsor")
+      expect(page).to have_content("Enter the name of the child you want to sponsor")
 
       fill_in("Given name(s)", with: "Jane")
       fill_in("Family name", with: "Doe")
@@ -403,24 +403,24 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Year", with: "2020")
 
       click_button("Continue")
-      expect(page).to have_content("You need to upload 2 completed parental consent forms")
+      expect(page).to have_content("You must upload 2 completed parental consent forms")
 
       click_link("Continue")
-      expect(page).to have_content("Upload the UK local authority parental consent form for")
+      expect(page).to have_content("Upload the UK sponsorship arrangement consent form")
 
       test_file_path = File.join(File.dirname(__FILE__), "..", "uk-test-document.pdf")
 
       Rails.logger.debug File.exist? test_file_path
 
       attach_file("unaccompanied-minor-uk-parental-consent-field", test_file_path)
-      click_button("Upload")
+      click_button("Continue")
 
       test_file_path = File.join(File.dirname(__FILE__), "..", "ukraine-test-document.pdf")
 
       Rails.logger.debug File.exist? test_file_path
 
       attach_file("unaccompanied-minor-ukraine-parental-consent-field", test_file_path)
-      click_button("Upload")
+      click_button("Continue")
 
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
     end
@@ -459,6 +459,21 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
 
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+    end
+  end
+
+  describe "Save and return later functionality" do
+    it "clicks save and return later button and gets redirected to confirmation page" do
+      answers = { email: "test@example.com" }
+      test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
+      id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), FALSE)")
+
+      new_application = UnaccompaniedMinor.find(id)
+      page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
+      visit page_url
+      click_button("Save and return later")
+      expect(page).to have_http_status(:success)
+      expect(page).to have_content("We've sent you an email with a link to your saved application")
     end
   end
 end

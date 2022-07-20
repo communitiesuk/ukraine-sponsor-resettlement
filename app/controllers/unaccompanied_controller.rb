@@ -10,6 +10,7 @@ class UnaccompaniedController < ApplicationController
   MINOR_OTHER_NATIONALITY = 21
   NATIONALITY_STEPS = [MINOR_NATIONALITY, MINOR_OTHER_NATIONALITY].freeze
   TASK_LIST_STEP = 999
+  MINOR_DATE_OF_BIRTH = 32
 
   def start
     render "sponsor-a-child/start"
@@ -132,6 +133,15 @@ class UnaccompaniedController < ApplicationController
       params["unaccompanied_minor"]["other_nationality"] = ""
     end
 
+    if params["stage"].to_i == MINOR_DATE_OF_BIRTH && (params["unaccompanied_minor"]["minor_date_of_birth(3i)"] && \
+          params["unaccompanied_minor"]["minor_date_of_birth(2i)"] && \
+          params["unaccompanied_minor"]["minor_date_of_birth(3i)"]).blank?
+      @application.errors.add(:minor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
+
+      render "sponsor-a-child/steps/#{MINOR_DATE_OF_BIRTH}"
+      return
+    end
+
     # Update Application object with new attributes
     @application.assign_attributes(application_params)
 
@@ -164,8 +174,8 @@ class UnaccompaniedController < ApplicationController
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
     # commented as question not asked yet so always nil
 
-    # @application.minor_date_of_birth_as_string = format_date_of_birth @application.minor_date_of_birth
-    # @application.sponsor_date_of_birth_as_string = format_date_of_birth @application.sponsor_date_of_birth
+    @application.minor_date_of_birth_as_string = format_date_of_birth @application.minor_date_of_birth
+    @application.sponsor_date_of_birth_as_string = format_date_of_birth @application.sponsor_date_of_birth
 
     render "sponsor-a-child/check_answers"
   end
@@ -221,25 +231,21 @@ class UnaccompaniedController < ApplicationController
     render "sponsor-a-child/non_eligible"
   end
 
-  def check_box_check
-    @application = UnaccompaniedMinor.find_by_reference(params[:reference])
-    if @application.valid?
-      # if they confirm they will be redirected to next page
-      redirect_to "/ste"
-    else
-      # if they do not confirm reload page and show error
-      render "/send-application/data_sharing"
-    end
-  end
-
-  def cancel_application
-    # cancel an application
+  def save_or_cancel_application
     @application = UnaccompaniedMinor.find_by_reference(params[:reference])
 
-    if @application.is_cancelled?
-      render "sponsor-a-child/cancel_confirm"
+    if params[:cancel_application]
+      # cancel an application
+      if @application.is_cancelled?
+        render "sponsor-a-child/cancel_confirm"
+      else
+        render "sponsor-a-child/cancel_application"
+      end
     else
-      render "sponsor-a-child/cancel_application"
+      # save and return later
+      GovNotifyMailer.send_save_and_return_email(@application.given_name, "link", @application.email).deliver_later
+
+      redirect_to "/sponsor-a-child/save-and-return-confirm/#{params[:reference]}"
     end
   end
 
@@ -259,6 +265,44 @@ class UnaccompaniedController < ApplicationController
     else
       # Redirect to show the task-list
       redirect_to "/sponsor-a-child/task-list/#{params[:reference]}"
+    end
+  end
+
+  def save_return_confirm
+    render "sponsor-a-child/save_return_confirm"
+  end
+
+  def save_return
+    # lnk = params[:lnk]
+
+    redirect_to "/sponsor-a-child/save-and-return-expired"
+  end
+
+  def save_return_expired
+    @application = UnaccompaniedMinor.new
+
+    render "sponsor-a-child/save_return_expired"
+  end
+
+  def resend_link
+    email_address = params["unaccompanied_minor"]["email"]
+
+    if email_address.present?
+      @application = UnaccompaniedMinor.find_by_email(email_address)
+
+      if @application.nil?
+        # No application found
+        @application = UnaccompaniedMinor.new
+        @application.errors.add(:email, I18n.t(:no_application_found, scope: :error))
+
+        render "sponsor-a-child/save_return_expired"
+      end
+
+    else
+      @application = UnaccompaniedMinor.new
+      @application.errors.add(:email, I18n.t(:invalid_email, scope: :error))
+
+      render "sponsor-a-child/save_return_expired"
     end
   end
 

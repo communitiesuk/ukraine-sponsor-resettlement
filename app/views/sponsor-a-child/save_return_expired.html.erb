@@ -1,0 +1,23 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+
+    <h1 class="govuk-heading-l">This link has expired</h1>
+
+    <p class="govuk-body">
+        Confirm your email address and we will send you a new one so you can continue your application.
+    </p>
+
+    <%= form_for @application, url: "/sponsor-a-child/resend-link", method: :post do |f| %>
+      <%= f.govuk_text_field :email,
+                             label: { text: t('email.full', scope: "unaccompanied_minor.questions"), size: 'm', hidden: true },
+                             hint: { text: t('email.hint', scope: "unaccompanied_minor.questions")},
+                             type: "email"
+      %>
+
+      <%= f.govuk_submit t('Send link') %>
+
+      <a href="/sponsor-a-child/start" class="govuk-link">Start a new application</a>
+    <% end %>
+
+  </div>
+</div>
