@@ -328,7 +328,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
     end
 
-    it "complete child flow additional details section and save answers to the db", :focus do
+    it "complete child flow additional details section and save answers to the db" do
       new_application = UnaccompaniedMinor.new
       new_application.save!
 
@@ -362,11 +362,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
   describe "submitting the form for child's flow" do
     it "saves all the data to the database" do
-      answers = { fullname: "Bob The Builder" }
-      test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
-      id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), false)")
-
-      new_application = UnaccompaniedMinor.find(id)
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
 
       page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
       expect(page_url).to end_with(new_application.reference)
@@ -381,6 +378,9 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Family name", with: "Doe")
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c481e31... Fix failing test
       click_button("Continue")
       expect(page).to have_content("How can we contact")
 
@@ -395,23 +395,35 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Year", with: "2020")
 
       click_button("Continue")
+<<<<<<< HEAD
       expect(page).to have_content("You must upload 2 completed parental consent forms")
 
       click_link("Continue")
       expect(page).to have_content("Upload the UK sponsorship arrangement consent form")
+=======
+      expect(page).to have_content("You need to upload 2 completed parental consent forms")
+
+      click_link("Continue")
+      expect(page).to have_content("Upload the UK local authority parental consent form for")
+>>>>>>> c481e31... Fix failing test
 
       test_file_path = File.join(File.dirname(__FILE__), "..", "uk-test-document.pdf")
 
       Rails.logger.debug File.exist? test_file_path
 
       attach_file("unaccompanied-minor-uk-parental-consent-field", test_file_path)
+<<<<<<< HEAD
       click_button("Continue")
+=======
+      click_button("Upload")
+>>>>>>> c481e31... Fix failing test
 
       test_file_path = File.join(File.dirname(__FILE__), "..", "ukraine-test-document.pdf")
 
       Rails.logger.debug File.exist? test_file_path
 
       attach_file("unaccompanied-minor-ukraine-parental-consent-field", test_file_path)
+<<<<<<< HEAD
       click_button("Continue")
 
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
@@ -452,6 +464,11 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       #
       # expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 >>>>>>> b625bbc... Fix test expectation
+=======
+      click_button("Upload")
+
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+>>>>>>> c481e31... Fix failing test
     end
   end
 
