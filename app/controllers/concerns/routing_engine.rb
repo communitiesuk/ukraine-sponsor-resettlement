@@ -27,6 +27,8 @@ class RoutingEngine
       NOT_ELIGIBLE
     elsif application.is_living_december.present? && application.is_living_december.casecmp("yes").zero? && current_step == 2
       4
+    elsif application.is_born_after_december.present? && application.is_born_after_december.casecmp("no").zero? && current_step == 3
+      NOT_ELIGIBLE
     elsif application.is_eligible.present? && application.is_eligible.casecmp("true").zero? && current_step == 6
       8
     elsif application.identification_type.present? && !application.identification_type.casecmp("none").zero? && current_step == 16
@@ -49,8 +51,8 @@ class RoutingEngine
       TASK_LIST_STEP
     elsif application.other_adults_address.present? && application.other_adults_address.casecmp("no").zero? && current_step == 25
       TASK_LIST_STEP
-    # elsif application.is_eligible.present? && application.is_eligible.casecmp("false").zero? && [3, 4, 5, 7, 8].include?(current_step)
-    #   # this needs to be the last check we do; returns the non-eligible path (excluding steps 2 and 6)
+    # elsif application.is_eligible.present? && application.is_eligible.casecmp("false").zero? && [, 4, 5, 7, 8].include?(current_step)
+    #   # this needs to be the last check we do; returns the non-eligible path (excluding steps  and 6)
     #   -1
     else
       current_step + 1
