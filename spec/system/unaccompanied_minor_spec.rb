@@ -306,11 +306,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
 
     it "complete child flow contact details section and save answers to the db" do
-      answers = { fullname: "Bob The Builder" }
-      test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
-      id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), false)")
-
-      new_application = UnaccompaniedMinor.find(id)
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
 
       page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
       expect(page_url).to end_with(new_application.reference)
@@ -325,10 +322,10 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
 
       # TDDO fix this test
-      # fill_in("What is your UK telephone number?", with: "07777 888 999")
-      # click_button("Continue")
-      #
-      # expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      fill_in("What is your UK telephone number?", with: "07777 888 999")
+      click_button("Continue")
+
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
     end
 
     it "complete child flow additional details section and save answers to the db" do
