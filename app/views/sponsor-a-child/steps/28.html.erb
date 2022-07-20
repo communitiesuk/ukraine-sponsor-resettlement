@@ -1,0 +1,32 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
+
+    <h1 class="gem-c-title__text govuk-heading-m">
+      You have added <%= @application.number_of_adults? %> over 16 who wil live with the child
+    </h1>
+
+    <p class="govuk-body">
+      <strong>
+        Residents
+      </strong>
+    </p>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <% @application.adults_at_address.each do |key, val| %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__value">
+            <%= "#{@application.adults_at_address[key]["given_name"]} #{@application.adults_at_address[key]["family_name"]}" %>
+          </dt>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/sponsor-a-child/remove/">
+              Remove<span class="govuk-visually-hidden"> name</span>
+            </a>
+          </dd>
+        </div>
+      <% end %>
+    </dl>
+
+  </div>
+</div>
