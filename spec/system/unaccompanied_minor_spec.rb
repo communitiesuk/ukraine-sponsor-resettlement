@@ -281,11 +281,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
 
     it "complete child flow name(s) section and save answers to the db" do
-      answers = { fullname: "Bob The Builder" }
-      test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
-      id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), false)")
-
-      new_application = UnaccompaniedMinor.find(id)
+      new_application = UnaccompaniedMinor.new()
+      new_application.save!
 
       page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
       expect(page_url).to end_with(new_application.reference)
@@ -298,14 +295,14 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       fill_in("Given name(s)", with: "Jane")
       fill_in("Family name", with: "Doe")
+
+      click_button("Continue")
+      expect(page).to have_content("Have you ever been known by another name?")
+
+      choose("No")
       click_button("Continue")
 
-      # TODO fix this test
-      # expect(page).to have_content("Have you ever been known by another name?")
-      # choose("No")
-      # click_button("Continue")
-      #
-      # expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
     end
 
     it "complete child flow contact details section and save answers to the db" do
