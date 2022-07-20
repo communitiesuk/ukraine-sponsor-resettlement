@@ -321,7 +321,6 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("What is your email address?", with: "jane.doe@test.com")
       click_button("Continue")
 
-      # TDDO fix this test
       fill_in("What is your UK telephone number?", with: "07777 888 999")
       click_button("Continue")
 
@@ -377,10 +376,6 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Given name(s)", with: "Jane")
       fill_in("Family name", with: "Doe")
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c481e31... Fix failing test
       click_button("Continue")
       expect(page).to have_content("How can we contact")
 
@@ -395,80 +390,26 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Year", with: "2020")
 
       click_button("Continue")
-<<<<<<< HEAD
       expect(page).to have_content("You must upload 2 completed parental consent forms")
 
       click_link("Continue")
       expect(page).to have_content("Upload the UK sponsorship arrangement consent form")
-=======
-      expect(page).to have_content("You need to upload 2 completed parental consent forms")
-
-      click_link("Continue")
-      expect(page).to have_content("Upload the UK local authority parental consent form for")
->>>>>>> c481e31... Fix failing test
 
       test_file_path = File.join(File.dirname(__FILE__), "..", "uk-test-document.pdf")
 
       Rails.logger.debug File.exist? test_file_path
 
       attach_file("unaccompanied-minor-uk-parental-consent-field", test_file_path)
-<<<<<<< HEAD
       click_button("Continue")
-=======
-      click_button("Upload")
->>>>>>> c481e31... Fix failing test
 
       test_file_path = File.join(File.dirname(__FILE__), "..", "ukraine-test-document.pdf")
 
       Rails.logger.debug File.exist? test_file_path
 
       attach_file("unaccompanied-minor-ukraine-parental-consent-field", test_file_path)
-<<<<<<< HEAD
       click_button("Continue")
 
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
-=======
-      # TODO fix this test
-      # click_button("Continue")
-      # expect(page).to have_content("How can we contact")
-      #
-      # check("Email")
-      # fill_in("Email", with: "unaccompanied.minor@test.com")
-      #
-      # click_button("Continue")
-      # expect(page).to have_content("date of birth")
-      #
-      # fill_in("Day", with: "6")
-      # fill_in("Month", with: "11")
-      # fill_in("Year", with: "2020")
-      #
-      # click_button("Continue")
-      # expect(page).to have_content("You need to upload 2 completed parental consent forms")
-      #
-      # click_link("Continue")
-      # expect(page).to have_content("Upload the UK local authority parental consent form for")
-      #
-      # test_file_path = File.join(File.dirname(__FILE__), "..", "uk-test-document.pdf")
-      #
-      # Rails.logger.debug File.exist? test_file_path
-      #
-      # attach_file("unaccompanied-minor-uk-parental-consent-field", test_file_path)
-      # click_button("Upload")
-      #
-      # test_file_path = File.join(File.dirname(__FILE__), "..", "ukraine-test-document.pdf")
-      #
-      # Rails.logger.debug File.exist? test_file_path
-      #
-      # attach_file("unaccompanied-minor-ukraine-parental-consent-field", test_file_path)
-      # click_button("Upload")
-      #
-      # expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
->>>>>>> b625bbc... Fix test expectation
-=======
-      click_button("Upload")
-
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
->>>>>>> c481e31... Fix failing test
     end
   end
 

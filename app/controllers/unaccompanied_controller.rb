@@ -311,7 +311,6 @@ class UnaccompaniedController < ApplicationController
 private
 
   def save_and_redirect(application, filename, file)
-    if application.valid?
       save_file(filename, file)
 
       session[:unaccompanied_minor] = application.as_json
@@ -324,9 +323,6 @@ private
       else
         redirect_to "/sponsor-a-child/steps/#{next_stage}"
       end
-    else
-      render "sponsor-a-child/steps/#{params['stage']}"
-    end
   end
 
   def save_file(filename, file)
