@@ -46,6 +46,44 @@ RSpec.describe RoutingEngine, type: :model do
     end
   end
 
+  describe "unaccompanied minors - routing back to task list when a 'section' is complete" do
+    it "when name(s) is complete route to task list" do
+      application = UnaccompaniedMinor.new
+      application.has_other_names = "false"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 11)).to be(999)
+      application.has_other_names = "true"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 13)).to be(999)
+    end
+
+    it "when contact details is complete route to task list" do
+      application = UnaccompaniedMinor.new
+      application.phone_number = "07777 123 456"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 15)).to be(999)
+    end
+
+    it "when additional details is complete route to task list" do
+      application = UnaccompaniedMinor.new
+      application.has_other_nationalities = "false"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 20)).to be(999)
+      application.has_other_nationalities = "true"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 22)).to be(999)
+    end
+
+    it "when child's details is complete route to task list" do
+      application = UnaccompaniedMinor.new
+      application.ukraine_parental_consent_filename = "uploaded-file-name"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 35)).to be(999)
+    end
+
+    it "when address section is complete route to task list" do
+      application = UnaccompaniedMinor.new
+      application.other_adults_address = "No"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 25)).to be(999)
+      application.other_adults_address = "Yes"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 25)).to be(26)
+    end
+  end
+
   describe "getting the next step - unaccompanied minors" do
     it "when next step is dependent on child not living in Ukraine before 31st December 2021" do
       application = UnaccompaniedMinor.new
@@ -74,6 +112,12 @@ RSpec.describe RoutingEngine, type: :model do
       expect(described_class.get_next_unaccompanied_minor_step(application, 5)).to be(6)
       expect(described_class.get_next_unaccompanied_minor_step(application, 6)).to be(8)
       expect(described_class.get_next_unaccompanied_minor_step(application, 8)).to be(9)
+    end
+
+    it "when completing names for child - choosing 'Yes' to other names" do
+      application = UnaccompaniedMinor.new
+      application.has_other_names = "true"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 11)).to be(12)
     end
   end
 end

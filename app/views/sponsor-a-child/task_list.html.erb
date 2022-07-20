@@ -11,6 +11,7 @@
       </strong>
     </p>
 
+<!--    TODO: work out number of sections and number of completed sections-->
     <p>
       You have completed 0 of 4 sections.
     </p>
@@ -18,13 +19,13 @@
     <ol class="app-task-list">
       <li>
         <h2 class="app-task-list__section">
-          <span class="app-task-list__section-number">1. </span> Sponsor details
+          <span class="app-task-list__section-number">1. </span> Who are you?
         </h2>
         <ul class="app-task-list__items">
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
                 <a href="/sponsor-a-child/steps/10" aria-describedby="names">
-                  Names(s)
+                  Name
                 </a>
               </span>
             <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.sponsor_details_names?) %>">
@@ -56,13 +57,13 @@
 
       <li>
         <h2 class="app-task-list__section">
-          <span class="app-task-list__section-number">2. </span> Household member's details
+          <span class="app-task-list__section-number">2. </span> Where will the child live?
         </h2>
         <ul class="app-task-list__items">
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
-                <a href="#" aria-describedby="household">
-                  Household
+                <a href="/sponsor-a-child/steps/23" aria-describedby="household">
+                  Address
                 </a>
               </span>
             <strong class="govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>
@@ -70,7 +71,7 @@
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
                 <a href="#" aria-describedby="household-members">
-                  Household members
+                  Who will live there?
                 </a>
               </span>
             <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
@@ -78,14 +79,16 @@
         </ul>
       </li>
 
+<!--      TODO: dynamic section based on the answers to the who lives there question-->
+
       <li>
         <h2 class="app-task-list__section">
-          <span class="app-task-list__section-number">3. </span> Child's details
+          <span class="app-task-list__section-number">3. </span> Tell use about the child
         </h2>
         <ul class="app-task-list__items">
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
-                <a href="#" aria-describedby="child-personal-details">
+                <a href="/sponsor-a-child/steps/30" aria-describedby="child-personal-details">
                   Child's personal details
                 </a>
               </span>
@@ -93,7 +96,7 @@
           </li>
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
-                <a href="#" aria-describedby="upload-parental-consent-British">
+                <a href="/sponsor-a-child/steps/34" aria-describedby="upload-parental-consent-British">
                   Upload parental consent (British)
                 </a>
               </span>
@@ -101,7 +104,7 @@
           </li>
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
-                <a href="#" aria-describedby="upload-parental-consent-Ukraine">
+                <a href=href="/sponsor-a-child/steps/35" aria-describedby="upload-parental-consent-Ukraine">
                   Upload parental consent (Ukraine)
                 </a>
               </span>
@@ -150,7 +153,3 @@
     <% end %>
   </div>
 </div>
-
-<%= content_for :extra_css do %>
-  <%= stylesheet_pack_tag 'gds-task-list', media: 'all' %>
-<% end %>

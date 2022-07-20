@@ -48,6 +48,10 @@ class UnaccompaniedMinor < ApplicationRecord
                 :minor_contact_type,
                 :minor_email,
                 :minor_phone_number,
+                :different_address_types,
+                :different_address,
+                :other_adults_address_types,
+                :other_adults_address,
                 :type,
                 :version,
                 :ip_address,
@@ -58,6 +62,9 @@ class UnaccompaniedMinor < ApplicationRecord
                 :sponsor_declaration,
                 :adult_number,
                 :minor_contact_details
+
+  validate :validate_different_sponsor_address, if: -> { run_validation? :different_address }
+  validate :validate_other_adults_address, if: -> { run_validation? :other_adults_address }
 
   after_initialize :after_initialize
   before_save :serialize
@@ -87,7 +94,7 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
   def sponsor_details_names?
-    if email.present?
+    if has_other_names.present?
       "Completed"
     elsif given_name.present? || family_name.present?
       "In progress"
@@ -119,13 +126,13 @@ class UnaccompaniedMinor < ApplicationRecord
   def after_initialize
     @final_submission = false
     @have_parental_consent_options = %i[yes no]
+    @different_address_types = %i[yes no]
+    @other_adults_address_types = %i[yes no]
     self.certificate_reference ||= get_formatted_certificate_number
   end
 
   def as_json
     {
-      id:,
-      reference:,
       created_at:,
       type:,
       version:,
@@ -186,5 +193,13 @@ private
 
   def generate_reference
     self.reference ||= sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
+  end
+
+  def validate_different_sponsor_address
+    validate_enum(@different_address_types, @different_address, :different_address)
+  end
+
+  def validate_other_adults_address
+    validate_enum(@other_adults_address_types, @other_adults_address, :other_adults_address)
   end
 end

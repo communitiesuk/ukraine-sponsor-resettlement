@@ -1,5 +1,3 @@
-
-
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
@@ -23,19 +21,12 @@
 
 
     <%= form_for @application, url: "/sponsor-a-child/steps/24", method: :post do |f| %>
-      <%= f.govuk_check_boxes_fieldset :minor_contact_type, multiple: false,
-                                       legend: { text: t('minor_contact_details.short', scope: "unaccompanied_minor.questions"), size: "l", hidden: true } do %>
-
-        <%= f.govuk_check_box :minor_contact_type, :passport, multiple: false, label: { text: "Email" } do %>
-            <%= f.govuk_text_field :minor_email, label: { text: "Email" }, type: "text" %>
-        <% end %>
-        <%= f.govuk_check_box :minor_contact_type, :national_identity_card, multiple: false, label: { text: "Phone" } do %>
-            <%= f.govuk_text_field :minor_phone_number, label: { text: "Phone number"  }, type: "text", hint: { text: "Include country codes" } %>
-        <% end %>
-        <%= f.govuk_check_box_divider %>
-        <%= f.govuk_check_box :minor_contact_type, :none, exclusive: true, label: { text: "They cannot be contacted" } %>
-
-      <% end %>
+      <%= f.govuk_collection_radio_buttons :different_address,
+          @application.different_address_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
+          :id,
+          :name,
+          legend: { text: t('different_address.full', scope: "unaccompanied_minor.questions") }
+      %>
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>

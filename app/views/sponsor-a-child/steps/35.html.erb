@@ -3,22 +3,21 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
+<<<<<<< HEAD:app/views/sponsor-a-child/steps/28.html.erb
     <h1 class="gem-c-title__text govuk-heading-xl">
-      Upload the UK sponsorship arrangement consent form
+      Upload the Ukraine notarised consent form
    </h1>
     
    <div class="govuk-inset-text">  
     <%=@application.minor_full_name?%>
    </div>
 
-    <p class="govuk-body">
-         You will need to upload the <a class="govuk-link" href="dummy-link">Ukrainian notarised consent form</a> on the next page.
-     </p>
 
-
-
-    <%= form_for @application, url: "/sponsor-a-child/upload-uk/27", method: :post do |f| %>
-      <%= f.govuk_file_field :uk_parental_consent,
+    <%= form_for @application, url: "/sponsor-a-child/upload-ukraine/28", method: :post do |f| %>
+=======
+    <%= form_for @application, url: "/sponsor-a-child/upload-ukraine/35", method: :post do |f| %>
+>>>>>>> 9062516893c870ec1f8113cf6bc7a99377763ccd:app/views/sponsor-a-child/steps/35.html.erb
+      <%= f.govuk_file_field :ukraine_parental_consent,
         label: { text: "Upload a file" }%>
 
          <details class="govuk-details" data-module="govuk-details">
