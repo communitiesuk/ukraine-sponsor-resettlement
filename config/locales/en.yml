@@ -311,7 +311,7 @@ en:
         hint_html: <ul><li>3 years</li></ul> OR <ul><li>Until the child turns 18</li><li>And a minimum of 6 months</li></ul> <br/><strong>Do you meet these requirements?</strong>
       sponsor_commitment:
         short: Sponsor commitment
-        full: Can you commit to caring for the children until they are 18 or for at least 3 years?
+        full: Can you commit to hosting the child for the minimum period?
         hint_html: You must commit to hosting the child in the UK for at least<ul><li>3 years</li></ul> OR <ul><li>Until the child turns 18 and you have hosted them for at least 6 months</li>
       eligibility_completed:
         short: Eligibility checks completed

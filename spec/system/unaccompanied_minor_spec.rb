@@ -44,7 +44,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
 
     it "render cancellation confirmation on task list if already cancelled" do
-      answers = { is_eligible: "yes" }
+      answers = { is_under_18: "yes" }
       test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
       id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), TRUE)")
 
@@ -126,7 +126,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("You cannot use this service")
     end
 
-    it "takes the user to the end of eligibility path" do
+    it "takes the user to the end of eligibility path", :focus do
       visit "/sponsor-a-child/start"
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
@@ -154,27 +154,25 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
 
       # step 5
-      expect(page).to have_content("Do they have a parent or legal guardian that can provide written consent?")
+      expect(page).to have_content("Can you upload both consent forms?")
       choose("Yes")
       click_button("Continue")
 
       # step 6
-      expect(page).to have_content("Are you a British citizen?")
+      expect(page).to have_content("Can you commit to hosting the child for the minimum period?")
       choose("Yes")
       click_button("Continue")
 
-      # step 7 is skipped in this case
-
-      # step 8
-      expect(page).to have_content("Can you commit to caring for the children until they are 18 or for at least 3 years?")
+      # step 7
+      expect(page).to have_content("Do you have permission to live in the UK for the minimum period?")
       choose("Yes")
       click_button("Continue")
 
       # step 9
-      expect(page).to have_content("You can use this service")
+      expect(page).to have_content("You are eligible to use this service")
     end
 
-    it "shows eligibility question 3 if 2 is answered NO", :focus do
+    it "shows eligibility question 3 if 2 is answered NO" do
       visit "/sponsor-a-child/start"
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
@@ -226,12 +224,12 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
 
       # step 5
-      expect(page).to have_content("Do they have a parent or legal guardian that can provide written consent?")
+      expect(page).to have_content("Can you upload both consent forms?")
       choose("Yes")
       click_button("Continue")
 
       # step 6
-      expect(page).to have_content("Are you a British citizen?")
+      expect(page).to have_content("Can you commit to caring for the children until they are 18 or for at least 3 years?")
       choose("No")
       click_button("Continue")
 
@@ -267,12 +265,12 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
 
       # step 5
-      expect(page).to have_content("Do they have a parent or legal guardian that can provide written consent?")
+      expect(page).to have_content("Can you upload both consent forms?")
       choose("Yes")
       click_button("Continue")
 
       # step 6
-      expect(page).to have_content("Are you a British citizen?")
+      expect(page).to have_content("Can you commit to caring for the children until they are 18 or for at least 3 years?")
       choose("Yes")
       click_button("Continue")
 
