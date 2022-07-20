@@ -345,6 +345,7 @@ private
           :is_unaccompanied,
           :is_consent,
           :is_committed,
+          :is_permitted,
           :have_parental_consent,
           :minor_date_of_birth,
           :minor_date_of_birth_as_string,

@@ -141,15 +141,12 @@ RSpec.describe RoutingEngine, type: :model do
       expect(described_class.get_next_unaccompanied_minor_step(application, 6)).to be(7)
     end
 
-    it "when next step is dependent on child living in Ukraine before 31st December 2021 or sponsor being a British citizen" do
+    it "sponsor is permitted to live in the UK", :focus do
       application = UnaccompaniedMinor.new
-      application.is_eligible = "true"
-      expect(described_class.get_next_unaccompanied_minor_step(application, 1)).to be(2)
-      expect(described_class.get_next_unaccompanied_minor_step(application, 2)).to be(4)
-      expect(described_class.get_next_unaccompanied_minor_step(application, 4)).to be(5)
-      expect(described_class.get_next_unaccompanied_minor_step(application, 5)).to be(6)
-      expect(described_class.get_next_unaccompanied_minor_step(application, 6)).to be(8)
-      expect(described_class.get_next_unaccompanied_minor_step(application, 8)).to be(9)
+      application.is_permitted = "no"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 7)).to be(-1)
+      application.is_permitted = "yes"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 7)).to be(9)
     end
 
     it "when completing names for child - choosing 'Yes' to other names" do
