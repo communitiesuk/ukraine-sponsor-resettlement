@@ -6,6 +6,13 @@ module UamValidations
   SPECIAL_CHARACTERS  = /[!"£$%{}<>|&@\/()=?^;]/
 
   included do
+    validate :validate_is_under_18, if: -> { run_validation? :is_under_18 }
+    validate :validate_is_living_december, if: -> { run_validation? :is_living_december }
+    validate :validate_is_born_after_december, if: -> { run_validation? :is_born_after_december }
+    validate :validate_is_unaccompanied, if: -> { run_validation? :is_unaccompanied }
+    validate :validate_is_consent, if: -> { run_validation? :is_consent }
+    validate :validate_is_committed, if: -> { run_validation? :is_committed }
+    validate :validate_is_permitted, if: -> { run_validation? :is_permitted }
     validate :validate_minor_date_of_birth, if: -> { run_validation? :minor_date_of_birth }
     validate :validate_sponsor_date_of_birth, if: -> { run_validation? :sponsor_date_of_birth }
     validate :validate_have_parental_consent, if: -> { run_validation? :have_parental_consent }
@@ -25,6 +32,34 @@ module UamValidations
     validate :validate_residential_line_2, if: -> { run_validation? :sponsor_address_line_2 }
     validate :validate_residential_town, if: -> { run_validation? :sponsor_address_town }
     validate :validate_residential_postcode, if: -> { run_validation? :sponsor_address_postcode }
+  end
+
+  def validate_is_under_18
+    validate_enum(@eligibility_types, @is_under_18, :is_under_18)
+  end
+
+  def validate_is_living_december
+    validate_enum(@eligibility_types, @is_living_december, :is_living_december)
+  end
+
+  def validate_is_born_after_december
+    validate_enum(@eligibility_types, @is_born_after_december, :is_born_after_december)
+  end
+
+  def validate_is_unaccompanied
+    validate_enum(@eligibility_types, @is_unaccompanied, :is_unaccompanied)
+  end
+
+  def validate_is_consent
+    validate_enum(@eligibility_types, @is_consent, :is_consent)
+  end
+
+  def validate_is_committed
+    validate_enum(@eligibility_types, @is_committed, :is_committed)
+  end
+
+  def validate_is_permitted
+    validate_enum(@eligibility_types, @is_permitted, :is_permitted)
   end
 
   def validate_minor_date_of_birth
