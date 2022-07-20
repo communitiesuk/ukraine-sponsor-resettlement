@@ -505,11 +505,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
 
     it "submit the form when address is where the child is NOT staying with the sponsor" do
-      answers = { fullname: "Bob The Builder" }
-      test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
-      id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), false)")
-
-      new_application = UnaccompaniedMinor.find(id)
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
 
       page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
       expect(page_url).to end_with(new_application.reference)
@@ -524,28 +521,27 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Town", with: "Address town")
       fill_in("Postcode", with: "XX1 1XX")
 
-      # TODO: fix this test
-      # click_button("Continue")
-      # expect(page).to have_content("Will you be living at this address?")
-      #
-      # choose("No")
-      # click_button("Continue")
-      #
-      # expect(page).to have_content("Enter the address where you will be living in the UK")
-      #
-      # fill_in("Address line 1", with: "Sponsor address line 1")
-      # fill_in("Address line 1", with: "Sponsor address line 2")
-      # fill_in("Town", with: "Sponsor address town")
-      # fill_in("Postcode", with: "XX1 1XX")
-      #
-      # click_button("Continue")
-      # expect(page).to have_content("Enter the name of the person over 16 who will live with the child")
-      #
-      # fill_in("Given name(s)", with: "Another")
-      # fill_in("Family name", with: "Adult")
-      #
-      # click_button("Continue")
-      # expect(page).to have_content("You have added 1 person over 16 who wil live with the child")
+      click_button("Continue")
+      expect(page).to have_content("Will you be living at this address?")
+
+      choose("No")
+      click_button("Continue")
+
+      expect(page).to have_content("Enter the address where you will be living in the UK")
+
+      fill_in("Address line 1", with: "Sponsor address line 1")
+      fill_in("Address line 1", with: "Sponsor address line 2")
+      fill_in("Town", with: "Sponsor address town")
+      fill_in("Postcode", with: "XX1 1XX")
+
+      click_button("Continue")
+      expect(page).to have_content("Enter the name of the person over 16 who will live with the child")
+
+      fill_in("Given name(s)", with: "Another")
+      fill_in("Family name", with: "Adult")
+
+      click_button("Continue")
+      expect(page).to have_content("You have added 1 person over 16 who wil live with the child")
     end
   end
 
