@@ -31,8 +31,10 @@ class RoutingEngine
       NOT_ELIGIBLE
     elsif application.is_unaccompanied.present? && application.is_unaccompanied.casecmp("yes").zero? && current_step == 4
       NOT_ELIGIBLE
-    elsif application.is_eligible.present? && application.is_eligible.casecmp("true").zero? && current_step == 6
-      8
+    elsif application.is_consent.present? && application.is_consent.casecmp("no").zero? && current_step == 5
+      NOT_ELIGIBLE
+    elsif application.is_committed.present? && application.is_committed.casecmp("no").zero? && current_step == 6
+      NOT_ELIGIBLE
     elsif application.identification_type.present? && !application.identification_type.casecmp("none").zero? && current_step == 16
       18
     elsif application.different_address.present? && application.different_address.casecmp("no").zero? && current_step == 24
@@ -53,7 +55,7 @@ class RoutingEngine
       TASK_LIST_STEP
     elsif application.other_adults_address.present? && application.other_adults_address.casecmp("no").zero? && current_step == 25
       TASK_LIST_STEP
-    # elsif application.is_eligible.present? && application.is_eligible.casecmp("false").zero? && [, , 5, 7, 8].include?(current_step)
+    # elsif application.is_eligible.present? && application.is_eligible.casecmp("false").zero? && [, , , 7, 8].include?(current_step)
     #   # this needs to be the last check we do; returns the non-eligible path (excluding steps  and 6)
     #   -1
     else

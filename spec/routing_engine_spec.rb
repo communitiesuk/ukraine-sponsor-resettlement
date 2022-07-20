@@ -125,13 +125,20 @@ RSpec.describe RoutingEngine, type: :model do
       expect(described_class.get_next_unaccompanied_minor_step(application, 4)).to be(-1)
     end
 
-    it "when next step is dependent on sponsor not being a British citizen" do
+    it "when sponsor has consent forms", :focus do
       application = UnaccompaniedMinor.new
+      application.is_consent = "no"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 5)).to be(-1)
+      application.is_consent = "yes"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 5)).to be(6)
+    end
 
-      application.is_eligible = "false"
+    it "when sponsor is committed to 3 years", :focus do
+      application = UnaccompaniedMinor.new
+      application.is_committed = "no"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 6)).to be(-1)
+      application.is_committed = "yes"
       expect(described_class.get_next_unaccompanied_minor_step(application, 6)).to be(7)
-      application.is_eligible = "true"
-      expect(described_class.get_next_unaccompanied_minor_step(application, 6)).to be(8)
     end
 
     it "when next step is dependent on child living in Ukraine before 31st December 2021 or sponsor being a British citizen" do

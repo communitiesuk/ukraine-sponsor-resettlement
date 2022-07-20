@@ -343,6 +343,8 @@ private
           :is_living_december,
           :is_born_after_december,
           :is_unaccompanied,
+          :is_consent,
+          :is_committed,
           :have_parental_consent,
           :minor_date_of_birth,
           :minor_date_of_birth_as_string,
