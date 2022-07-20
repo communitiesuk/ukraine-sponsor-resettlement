@@ -10,6 +10,7 @@ class UnaccompaniedController < ApplicationController
   MINOR_OTHER_NATIONALITY = 21
   NATIONALITY_STEPS = [MINOR_NATIONALITY, MINOR_OTHER_NATIONALITY].freeze
   TASK_LIST_STEP = 999
+  MINOR_DATE_OF_BIRTH = 32
 
   def start
     render "sponsor-a-child/start"
@@ -132,12 +133,12 @@ class UnaccompaniedController < ApplicationController
       params["unaccompanied_minor"]["other_nationality"] = ""
     end
 
-    if params["stage"].to_i == 32 && (params["unaccompanied_minor"]["minor_date_of_birth(1i)"] || \
-          params["unaccompanied_minor"]["minor_date_of_birth(2i)"] || \
+    if params["stage"].to_i == MINOR_DATE_OF_BIRTH && (params["unaccompanied_minor"]["minor_date_of_birth(3i)"] && \
+          params["unaccompanied_minor"]["minor_date_of_birth(2i)"] && \
           params["unaccompanied_minor"]["minor_date_of_birth(3i)"]).blank?
-
       @application.errors.add(:minor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
-      render "/sponsor-a-child/steps/25"
+
+      render "sponsor-a-child/steps/#{MINOR_DATE_OF_BIRTH}"
       return
     end
 

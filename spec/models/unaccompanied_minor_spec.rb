@@ -160,22 +160,42 @@ RSpec.describe UnaccompaniedMinor, type: :model do
     end
   end
 
-  describe "age validations" do
-    it "minor is less than 18" do
-      app = described_class.new
-      app.minor_date_of_birth = {}
+  describe "age validations, minor is less than 18" do
+    app = described_class.new
+
+    it "shows error when any input is empty" do
+      app.minor_date_of_birth = { 3 => nil, 2 => "2", 1 => "2010" }
       expect(app.valid?).to be(false)
       expect(app.errors[:minor_date_of_birth]).to include("Enter a valid date of birth")
       expect(app.errors[:minor_date_of_birth].count).to be(1)
-      app.minor_date_of_birth = { "1" => 2001, "2" => 6, "3" => 1 }
+
+      app.minor_date_of_birth = { 3 => "1", 2 => nil, 1 => "2013" }
+      expect(app.valid?).to be(false)
+      expect(app.errors[:minor_date_of_birth]).to include("Enter a valid date of birth")
+      expect(app.errors[:minor_date_of_birth].count).to be(1)
+
+      app.minor_date_of_birth = { 3 => "3", 2 => "9", 1 => nil }
+      expect(app.valid?).to be(false)
+      expect(app.errors[:minor_date_of_birth]).to include("Enter a valid date of birth")
+      expect(app.errors[:minor_date_of_birth].count).to be(1)
+    end
+
+    it "shows error if minor is over 18" do
+      app.minor_date_of_birth = { 3 => "1", 2 => "6", 1 => "2001" }
       expect(app.valid?).to be(false)
       expect(app.errors[:minor_date_of_birth]).to include("They must be under 18 to be considered a child in the UK")
       expect(app.errors[:minor_date_of_birth].count).to be(1)
-      app.minor_date_of_birth = { "1" => Time.zone.now.year, "2" => Time.zone.now.month, "3" => Time.zone.now.day }
+    end
+
+    it "shows error if date of birth is current day or in future" do
+      app.minor_date_of_birth = { 3 => Time.zone.now.day.to_s, 2 => Time.zone.now.month.to_s, 1 => Time.zone.now.year.to_s }
       expect(app.valid?).to be(false)
       expect(app.errors[:minor_date_of_birth]).to include("Enter a valid date of birth")
       expect(app.errors[:minor_date_of_birth].count).to be(1)
-      app.minor_date_of_birth = { "1" => 2022, "2" => 6, "3" => 21 }
+    end
+
+    it "is valid when minor under 18" do
+      app.minor_date_of_birth = { 3 => "21", 2 => "6", 1 => "2022" }
       expect(app.valid?).to be(true)
     end
 
