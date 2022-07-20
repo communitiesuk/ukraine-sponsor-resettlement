@@ -338,7 +338,6 @@ private
     params.require(:unaccompanied_minor)
         .permit(
           :reference,
-          :is_eligible,
           :is_under_18,
           :is_living_december,
           :is_born_after_december,

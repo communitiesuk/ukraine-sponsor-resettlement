@@ -9,8 +9,7 @@ class UnaccompaniedMinor < ApplicationRecord
 
   SCHEMA_VERSION = 1
 
-  attr_accessor :is_eligible,
-                :eligibility_types,
+  attr_accessor :eligibility_types,
                 :is_under_18,
                 :is_living_december,
                 :is_born_after_december,
@@ -170,7 +169,6 @@ class UnaccompaniedMinor < ApplicationRecord
       created_at:,
       type:,
       version:,
-      is_eligible:,
       is_under_18:,
       is_living_december:,
       is_born_after_december:,
