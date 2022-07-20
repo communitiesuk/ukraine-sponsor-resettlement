@@ -117,7 +117,7 @@ RSpec.describe RoutingEngine, type: :model do
       expect(described_class.get_next_unaccompanied_minor_step(application, 3)).to be(4)
     end
 
-    it "when minor is born after 31st December 2021" do
+    it "when minor is unaccompanied" do
       application = UnaccompaniedMinor.new
       application.is_unaccompanied = "no"
       expect(described_class.get_next_unaccompanied_minor_step(application, 4)).to be(5)
