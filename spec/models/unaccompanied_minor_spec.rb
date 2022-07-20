@@ -313,4 +313,25 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(true)
     end
   end
+
+  describe "address formatting" do
+    it "show address when address line 2 blank" do
+      app = described_class.new
+      app.residential_line_1 = "Address line 1"
+      app.residential_town = "Town"
+      app.residential_postcode = "AA1 1AA"
+
+      expect(app.formatted_address?).to eq("Address line 1, Town, AA1 1AA")
+    end
+
+    it "show address when address line 2 not blank" do
+      app = described_class.new
+      app.residential_line_1 = "Address line 1"
+      app.residential_line_2 = "Address line 2"
+      app.residential_town = "Town"
+      app.residential_postcode = "AA1 1AA"
+
+      expect(app.formatted_address?).to eq("Address line 1, Address line 2, Town, AA1 1AA")
+    end
+  end
 end

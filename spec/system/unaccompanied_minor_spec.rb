@@ -44,7 +44,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
 
     it "render cancellation confirmation on task list if already cancelled" do
-      answers = { is_eligible: "yes" }
+      answers = { is_under_18: "yes" }
       test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
       id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), TRUE)")
 
@@ -154,24 +154,22 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
 
       # step 5
-      expect(page).to have_content("Do they have a parent or legal guardian that can provide written consent?")
+      expect(page).to have_content("Can you upload both consent forms?")
       choose("Yes")
       click_button("Continue")
 
       # step 6
-      expect(page).to have_content("Are you a British citizen?")
+      expect(page).to have_content("Can you commit to hosting the child for the minimum period?")
       choose("Yes")
       click_button("Continue")
 
-      # step 7 is skipped in this case
-
-      # step 8
-      expect(page).to have_content("Can you commit to caring for the children until they are 18 or for at least 3 years?")
+      # step 7
+      expect(page).to have_content("Do you have permission to live in the UK for the minimum period?")
       choose("Yes")
       click_button("Continue")
 
       # step 9
-      expect(page).to have_content("You can use this service")
+      expect(page).to have_content("You are eligible to use this service")
     end
 
     it "shows eligibility question 3 if 2 is answered NO" do
@@ -198,7 +196,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Was the child born after 31 December 2021?")
     end
 
-    it "shows eligibility question 7 if 6 is answered NO" do
+    it "shows ineligibility if 6 is answered NO" do
       visit "/sponsor-a-child/start"
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
@@ -226,17 +224,17 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
 
       # step 5
-      expect(page).to have_content("Do they have a parent or legal guardian that can provide written consent?")
+      expect(page).to have_content("Can you upload both consent forms?")
       choose("Yes")
       click_button("Continue")
 
       # step 6
-      expect(page).to have_content("Are you a British citizen?")
+      expect(page).to have_content("Can you commit to hosting the child for the minimum period?")
       choose("No")
       click_button("Continue")
 
-      # step 7
-      expect(page).to have_content("To sponsor a child you must have the right to live in the UK for a minimum of")
+      # ineligible
+      expect(page).to have_content("You cannot use this service")
     end
 
     it "end to end eligibility journey" do
@@ -267,27 +265,24 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
 
       # step 5
-      expect(page).to have_content("Do they have a parent or legal guardian that can provide written consent?")
+      expect(page).to have_content("Can you upload both consent forms?")
       choose("Yes")
       click_button("Continue")
 
       # step 6
-      expect(page).to have_content("Are you a British citizen?")
+      expect(page).to have_content("Can you commit to hosting the child for the minimum period?")
       choose("Yes")
       click_button("Continue")
 
-      # step 8 - only to set is_eligible = true
-      expect(page).to have_content("Can you commit to caring for the children until they are 18 or for at least 3 years?")
+      # step 7
+      expect(page).to have_content("Do you have permission to live in the UK for the minimum period?")
       choose("Yes")
       click_button("Continue")
     end
 
     it "complete child flow name(s) section and save answers to the db" do
-      answers = { fullname: "Bob The Builder" }
-      test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
-      id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), false)")
-
-      new_application = UnaccompaniedMinor.find(id)
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
 
       page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
       expect(page_url).to end_with(new_application.reference)
@@ -300,9 +295,10 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       fill_in("Given name(s)", with: "Jane")
       fill_in("Family name", with: "Doe")
-      click_button("Continue")
 
+      click_button("Continue")
       expect(page).to have_content("Have you ever been known by another name?")
+
       choose("No")
       click_button("Continue")
 
@@ -310,11 +306,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
 
     it "complete child flow contact details section and save answers to the db" do
-      answers = { fullname: "Bob The Builder" }
-      test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
-      id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), false)")
-
-      new_application = UnaccompaniedMinor.find(id)
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
 
       page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
       expect(page_url).to end_with(new_application.reference)
@@ -335,11 +328,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
 
     it "complete child flow additional details section and save answers to the db" do
-      answers = { fullname: "Bob The Builder" }
-      test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
-      id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), false)")
-
-      new_application = UnaccompaniedMinor.find(id)
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
 
       page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
       expect(page_url).to end_with(new_application.reference)
@@ -371,11 +361,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
   describe "submitting the form for child's flow" do
     it "saves all the data to the database" do
-      answers = { fullname: "Bob The Builder" }
-      test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
-      id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), false)")
-
-      new_application = UnaccompaniedMinor.find(id)
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
 
       page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
       expect(page_url).to end_with(new_application.reference)
@@ -427,12 +414,9 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   end
 
   describe "submitting the address for child" do
-    it "submit the form when address is where the child is staying" do
-      answers = { fullname: "Bob The Builder" }
-      test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
-      id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), false)")
-
-      new_application = UnaccompaniedMinor.find(id)
+    it "submit the form when address is where the child is staying with the sponsor" do
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
 
       page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
       expect(page_url).to end_with(new_application.reference)
@@ -459,6 +443,46 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
 
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+    end
+
+    it "submit the form when address is where the child is NOT staying with the sponsor" do
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
+
+      page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
+      expect(page_url).to end_with(new_application.reference)
+
+      visit page_url
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Address")
+      expect(page).to have_content("Enter the address where the child will be living in the UK")
+
+      fill_in("Address line 1", with: "Address line 1")
+      fill_in("Town", with: "Address town")
+      fill_in("Postcode", with: "XX1 1XX")
+
+      click_button("Continue")
+      expect(page).to have_content("Will you be living at this address?")
+
+      choose("No")
+      click_button("Continue")
+
+      expect(page).to have_content("Enter the address where you will be living in the UK")
+
+      fill_in("Address line 1", with: "Sponsor address line 1")
+      fill_in("Address line 1", with: "Sponsor address line 2")
+      fill_in("Town", with: "Sponsor address town")
+      fill_in("Postcode", with: "XX1 1XX")
+
+      click_button("Continue")
+      expect(page).to have_content("Enter the name of the person over 16 who will live with the child")
+
+      fill_in("Given name(s)", with: "Another")
+      fill_in("Family name", with: "Adult")
+
+      click_button("Continue")
+      expect(page).to have_content("You have added 1 person over 16 who wil live with the child")
     end
   end
 

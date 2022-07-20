@@ -5,12 +5,13 @@
 
     <%= form_for @application, url: "/sponsor-a-child/steps/4", method: :post do |f| %>
 
-      <%= f.govuk_radio_buttons_fieldset(:is_eligible,
-          legend: { size: 'm', text: t('sponsored_children_legal_guardian_travelling.full', scope: "unaccompanied_minor.questions") },
-          hint: { text: t('sponsored_children_legal_guardian_travelling.hint', scope: "unaccompanied_minor.questions")}) do %>
-        <%= f.govuk_radio_button :is_eligible, false, label: { text: t('Yes' ) } %>
-        <%= f.govuk_radio_button :is_eligible, true, label: { text: t('No' ) },  link_errors: true  %>
-      <% end %>
+      <%= f.govuk_collection_radio_buttons :is_unaccompanied,
+                                           @application.eligibility_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
+                                           :id,
+                                           :name,
+                                           legend: { text: t('sponsored_children_legal_guardian_travelling.full', scope: "unaccompanied_minor.questions") },
+                                           hint: { text: t('sponsored_children_legal_guardian_travelling.hint', scope: "unaccompanied_minor.questions")}
+      %>
 
       <%= f.govuk_submit t('continue') %>
     <% end %>

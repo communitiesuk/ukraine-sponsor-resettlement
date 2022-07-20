@@ -300,18 +300,19 @@ en:
         hint: This excludes travelling with another relative, such as a grandmother, aunty or uncle who is not their legal guardian.
       sponsored_children_legal_guardian_consent:
         short: Sponsored children legal guardian consent
-        full: Do they have a parent or legal guardian that can provide written consent?
-        hint_html: You must upload consent forms from at least one parent or legal guardian per child. <br /><br /><a href="">Read guidance about what consent forms are required</a>
+        full: Can you upload both consent forms?
+        hint_html: You must be able to upload both completed and signed consent forms from at least one parent or legal guardian per child. <br /><br /><a href="">Read guidance about what consent forms are required</a>
       sponsor_british_citizenship:
         short: Sponsor british citizenship
         full: Are you a British citizen?
       sponsor_right_to_live_in_uk:
         short: Sponsor right to live in the UK
-        full: To sponsor a child you must have the right to live in the UK for a minimum of
+        full: Do you have permission to live in the UK for the minimum period?
         hint_html: <ul><li>3 years</li></ul> OR <ul><li>Until the child turns 18</li><li>And a minimum of 6 months</li></ul> <br/><strong>Do you meet these requirements?</strong>
       sponsor_commitment:
         short: Sponsor commitment
-        full: Can you commit to caring for the children until they are 18 or for at least 3 years?
+        full: Can you commit to hosting the child for the minimum period?
+        hint_html: You must commit to hosting the child in the UK for at least<ul><li>3 years</li></ul> OR <ul><li>Until the child turns 18 and you have hosted them for at least 6 months</li>
       eligibility_completed:
         short: Eligibility checks completed
       fullname:
@@ -399,9 +400,18 @@ en:
       different_address:
         short: Different address
         full: Will you be living at this address?
+        hint_html: |
+          <div class="govuk-inset-text">%{formatted_address}</div>
       other_adults_address:
         short: Different address
         full: Will anyone else over the age of 16 be living at this address?
+        hint_html: |
+          <div class="govuk-inset-text">%{formatted_address}</div>
+      adults_at_address:
+        short: Adults at address
+        full: Enter the name of the person over 16 who will live with the child
+        hint_html: |
+          <div class="govuk-inset-text">%{formatted_address}</div>
       agree_privacy_statement:
         short: Privacy statement
         full: Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme

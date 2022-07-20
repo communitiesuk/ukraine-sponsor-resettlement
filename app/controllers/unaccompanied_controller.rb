@@ -48,6 +48,8 @@ class UnaccompaniedController < ApplicationController
     # Update the session
     session[:unaccompanied_minor] = @application.as_json
 
+    Rails.logger.debug "App JSON: #{@application.as_json}"
+
     step = params["stage"].to_i
 
     if step.positive? && step <= MAX_STEPS
@@ -309,21 +311,17 @@ class UnaccompaniedController < ApplicationController
 private
 
   def save_and_redirect(application, filename, file)
-    if application.valid?
-      save_file(filename, file)
+    save_file(filename, file)
 
-      session[:unaccompanied_minor] = application.as_json
+    session[:unaccompanied_minor] = application.as_json
 
-      next_stage = RoutingEngine.get_next_unaccompanied_minor_step(application, params["stage"].to_i)
+    next_stage = RoutingEngine.get_next_unaccompanied_minor_step(application, params["stage"].to_i)
 
-      if next_stage == TASK_LIST_STEP
-        # Redirect to show the task-list
-        redirect_to "/sponsor-a-child/task-list/#{application.reference}"
-      else
-        redirect_to "/sponsor-a-child/steps/#{next_stage}"
-      end
+    if next_stage == TASK_LIST_STEP
+      # Redirect to show the task-list
+      redirect_to "/sponsor-a-child/task-list/#{application.reference}"
     else
-      render "sponsor-a-child/steps/#{params['stage']}"
+      redirect_to "/sponsor-a-child/steps/#{next_stage}"
     end
   end
 
@@ -336,7 +334,13 @@ private
     params.require(:unaccompanied_minor)
         .permit(
           :reference,
-          :is_eligible,
+          :is_under_18,
+          :is_living_december,
+          :is_born_after_december,
+          :is_unaccompanied,
+          :is_consent,
+          :is_committed,
+          :is_permitted,
           :have_parental_consent,
           :minor_date_of_birth,
           :minor_date_of_birth_as_string,
@@ -359,6 +363,10 @@ private
           :residential_line_2,
           :residential_town,
           :residential_postcode,
+          :sponsor_address_line_1,
+          :sponsor_address_line_2,
+          :sponsor_address_town,
+          :sponsor_address_postcode,
           :sponsor_date_of_birth,
           :agree_privacy_statement,
           :certificate_reference,
@@ -371,7 +379,10 @@ private
           :minor_contact_type,
           :minor_email,
           :minor_phone_number,
+          :different_address,
           :other_adults_address,
+          :adult_given_name,
+          :adult_family_name,
         )
   end
 end

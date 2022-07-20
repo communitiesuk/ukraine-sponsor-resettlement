@@ -9,7 +9,14 @@ class UnaccompaniedMinor < ApplicationRecord
 
   SCHEMA_VERSION = 1
 
-  attr_accessor :is_eligible,
+  attr_accessor :eligibility_types,
+                :is_under_18,
+                :is_living_december,
+                :is_born_after_december,
+                :is_unaccompanied,
+                :is_consent,
+                :is_committed,
+                :is_permitted,
                 :have_parental_consent,
                 :have_parental_consent_options,
                 :parental_consent,
@@ -40,6 +47,10 @@ class UnaccompaniedMinor < ApplicationRecord
                 :residential_line_2,
                 :residential_town,
                 :residential_postcode,
+                :sponsor_address_line_1,
+                :sponsor_address_line_2,
+                :sponsor_address_town,
+                :sponsor_address_postcode,
                 :sponsor_date_of_birth,
                 :sponsor_date_of_birth_as_string,
                 :certificate_reference,
@@ -61,18 +72,38 @@ class UnaccompaniedMinor < ApplicationRecord
                 :privacy_statement_confirm,
                 :sponsor_declaration,
                 :adult_number,
-                :minor_contact_details
-
-  validate :validate_different_sponsor_address, if: -> { run_validation? :different_address }
-  validate :validate_other_adults_address, if: -> { run_validation? :other_adults_address }
+                :minor_contact_details,
+                :adult_given_name,
+                :adult_family_name,
+                :adults_at_address
 
   after_initialize :after_initialize
   before_save :serialize
   before_save :generate_reference
 
+  after_find do
+    assign_attributes(answers)
+  end
+
   has_one_attached :parental_consent
 
   validates :parental_consent, antivirus: true # Add this for antivirus validation
+
+  def formatted_address?
+    if @residential_line_2.present?
+      "#{@residential_line_1}, #{@residential_line_2}, #{@residential_town}, #{@residential_postcode}"
+    else
+      "#{@residential_line_1}, #{@residential_town}, #{@residential_postcode}"
+    end
+  end
+
+  def number_of_adults?
+    if @adults_at_address.length > 1
+      "#{@adults_at_address.length} people"
+    else
+      "1 person"
+    end
+  end
 
   def is_cancelled?
     is_cancelled
@@ -125,9 +156,11 @@ class UnaccompaniedMinor < ApplicationRecord
 
   def after_initialize
     @final_submission = false
+    @eligibility_types = %i[yes no]
     @have_parental_consent_options = %i[yes no]
     @different_address_types = %i[yes no]
     @other_adults_address_types = %i[yes no]
+    @adults_at_address = {}
     self.certificate_reference ||= get_formatted_certificate_number
   end
 
@@ -136,7 +169,13 @@ class UnaccompaniedMinor < ApplicationRecord
       created_at:,
       type:,
       version:,
-      is_eligible:,
+      is_under_18:,
+      is_living_december:,
+      is_born_after_december:,
+      is_unaccompanied:,
+      is_consent:,
+      is_committed:,
+      is_permitted:,
       have_parental_consent:,
       uk_parental_consent_file_type:,
       uk_parental_consent_filename:,
@@ -165,6 +204,10 @@ class UnaccompaniedMinor < ApplicationRecord
       residential_line_2:,
       residential_town:,
       residential_postcode:,
+      sponsor_address_line_1:,
+      sponsor_address_line_2:,
+      sponsor_address_town:,
+      sponsor_address_postcode:,
       sponsor_date_of_birth:,
       sponsor_date_of_birth_as_string:,
       privacy_statement_confirm:,
@@ -180,6 +223,8 @@ class UnaccompaniedMinor < ApplicationRecord
       sponsor_declaration:,
       adult_number:,
       minor_contact_details:,
+      adult_given_name:,
+      adult_family_name:,
     }.compact
   end
 
@@ -193,13 +238,5 @@ private
 
   def generate_reference
     self.reference ||= sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
-  end
-
-  def validate_different_sponsor_address
-    validate_enum(@different_address_types, @different_address, :different_address)
-  end
-
-  def validate_other_adults_address
-    validate_enum(@other_adults_address_types, @other_adults_address, :other_adults_address)
   end
 end

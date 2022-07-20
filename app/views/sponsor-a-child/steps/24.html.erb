@@ -10,7 +10,8 @@
           @application.different_address_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
           :id,
           :name,
-          legend: { text: t('different_address.full', scope: "unaccompanied_minor.questions") }
+          legend: { text: t('different_address.full', scope: "unaccompanied_minor.questions") },
+          hint: { text: t('different_address.hint_html', :formatted_address => @application.formatted_address?, scope: "unaccompanied_minor.questions") }
       %>
       <%= f.govuk_submit t('continue') %>
     <% end %>
