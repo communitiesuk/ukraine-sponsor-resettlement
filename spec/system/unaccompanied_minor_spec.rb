@@ -126,7 +126,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("You cannot use this service")
     end
 
-    it "takes the user to the end of eligibility path", :focus do
+    it "takes the user to the end of eligibility path" do
       visit "/sponsor-a-child/start"
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
@@ -196,7 +196,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Was the child born after 31 December 2021?")
     end
 
-    it "shows eligibility question 7 if 6 is answered NO" do
+    it "shows ineligibility if 6 is answered NO" do
       visit "/sponsor-a-child/start"
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
@@ -229,12 +229,12 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
 
       # step 6
-      expect(page).to have_content("Can you commit to caring for the children until they are 18 or for at least 3 years?")
+      expect(page).to have_content("Can you commit to hosting the child for the minimum period?")
       choose("No")
       click_button("Continue")
 
-      # step 7
-      expect(page).to have_content("To sponsor a child you must have the right to live in the UK for a minimum of")
+      # ineligible
+      expect(page).to have_content("You cannot use this service")
     end
 
     it "end to end eligibility journey" do
@@ -270,7 +270,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
 
       # step 6
-      expect(page).to have_content("Can you commit to caring for the children until they are 18 or for at least 3 years?")
+      expect(page).to have_content("Can you commit to hosting the child for the minimum period?")
       choose("Yes")
       click_button("Continue")
 
