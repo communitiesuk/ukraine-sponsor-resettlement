@@ -195,7 +195,8 @@ RSpec.describe UnaccompaniedMinor, type: :model do
     end
 
     it "is valid when minor under 18" do
-      app.minor_date_of_birth = { 3 => "21", 2 => "6", 1 => "2022" }
+      year = (Time.zone.now.year - 4).to_s
+      app.minor_date_of_birth = { 3 => "21", 2 => "6", 1 => year }
       expect(app.valid?).to be(true)
     end
 
