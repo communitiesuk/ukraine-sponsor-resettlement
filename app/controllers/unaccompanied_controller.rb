@@ -132,7 +132,7 @@ class UnaccompaniedController < ApplicationController
       params["unaccompanied_minor"]["other_nationality"] = ""
     end
 
-    if params["stage"].to_i == 25 && (params["unaccompanied_minor"]["minor_date_of_birth(1i)"] || \
+    if params["stage"].to_i == 32 && (params["unaccompanied_minor"]["minor_date_of_birth(1i)"] || \
           params["unaccompanied_minor"]["minor_date_of_birth(2i)"] || \
           params["unaccompanied_minor"]["minor_date_of_birth(3i)"]).blank?
 

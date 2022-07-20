@@ -42,7 +42,7 @@ Rails.application.routes.draw do
 
   post "/sponsor-a-child/save_or_cancel/:reference", to: "unaccompanied#save_or_cancel_application"
   post "/sponsor-a-child/cancel-application/:reference", to: "unaccompanied#cancel_confirm"
-  get "/sponsor-a-child/save-and-return-confirm", to: "unaccompanied#save_return_confirm"
+  get "/sponsor-a-child/save-and-return-confirm/:reference", to: "unaccompanied#save_return_confirm"
   get "/sponsor-a-child/save-and-return/:lnk", to: "unaccompanied#save_return"
   get "/sponsor-a-child/save-and-return-expired", to: "unaccompanied#save_return_expired"
   post "/sponsor-a-child/resend-link", to: "unaccompanied#resend_link"

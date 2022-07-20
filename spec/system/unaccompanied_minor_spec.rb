@@ -384,7 +384,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
       click_link("Child's personal details")
-      expect(page).to have_content("Name the child you want to sponsor")
+      expect(page).to have_content("Enter the name of the child you want to sponsor")
 
       fill_in("Given name(s)", with: "Jane")
       fill_in("Family name", with: "Doe")
@@ -403,24 +403,24 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Year", with: "2020")
 
       click_button("Continue")
-      expect(page).to have_content("You need to upload 2 completed parental consent forms")
+      expect(page).to have_content("You must upload 2 completed parental consent forms")
 
       click_link("Continue")
-      expect(page).to have_content("Upload the UK local authority parental consent form for")
+      expect(page).to have_content("Upload the UK sponsorship arrangement consent form")
 
       test_file_path = File.join(File.dirname(__FILE__), "..", "uk-test-document.pdf")
 
       Rails.logger.debug File.exist? test_file_path
 
       attach_file("unaccompanied-minor-uk-parental-consent-field", test_file_path)
-      click_button("Upload")
+      click_button("Continue")
 
       test_file_path = File.join(File.dirname(__FILE__), "..", "ukraine-test-document.pdf")
 
       Rails.logger.debug File.exist? test_file_path
 
       attach_file("unaccompanied-minor-ukraine-parental-consent-field", test_file_path)
-      click_button("Upload")
+      click_button("Continue")
 
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
     end

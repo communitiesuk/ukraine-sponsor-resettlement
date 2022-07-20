@@ -3,21 +3,6 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-     <h1 class="gem-c-title__text govuk-heading-l">
-      How can we contact the child?
-    </h1>
-
-    <div class="govuk-inset-text">
-    <%=@application.minor_full_name?%>
-    </div>
-
-   <p class="govuk-body">
-    We may contact them to check how they feel about coming to the UK.
-    <br/>
-    <br/>
-    Select all that apply
-
-    </p>
 
 
     <%= form_for @application, url: "/sponsor-a-child/steps/24", method: :post do |f| %>
