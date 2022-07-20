@@ -281,7 +281,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
 
     it "complete child flow name(s) section and save answers to the db" do
-      new_application = UnaccompaniedMinor.new()
+      new_application = UnaccompaniedMinor.new
       new_application.save!
 
       page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
