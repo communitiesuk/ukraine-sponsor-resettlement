@@ -83,6 +83,14 @@ RSpec.describe RoutingEngine, type: :model do
       expect(described_class.get_next_unaccompanied_minor_step(application, 24)).to be(26)
     end
 
+    it "when sponsor is or is not living with over 16 year olds", :focus do
+      application = UnaccompaniedMinor.new
+      application.other_adults_address = "Yes"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 25)).to be(27)
+      application.other_adults_address = "No"
+      expect(described_class.get_next_unaccompanied_minor_step(application, 25)).to be(999)
+    end
+
     it "when address section is complete route to task list" do
       application = UnaccompaniedMinor.new
       application.other_adults_address = "No"

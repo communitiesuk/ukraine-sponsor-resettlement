@@ -406,6 +406,11 @@ en:
         full: Will anyone else over the age of 16 be living at this address?
         hint_html: |
           <div class="govuk-inset-text">%{formatted_address}</div>
+      adults_at_address:
+        short: Adults at address
+        full: Enter the name of the person over 16 who will live with the child
+        hint_html: |
+          <div class="govuk-inset-text">%{formatted_address}</div>
       agree_privacy_statement:
         short: Privacy statement
         full: Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme
