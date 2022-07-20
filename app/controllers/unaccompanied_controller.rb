@@ -339,6 +339,8 @@ private
         .permit(
           :reference,
           :is_eligible,
+          :is_under_18,
+          :is_living_december,
           :have_parental_consent,
           :minor_date_of_birth,
           :minor_date_of_birth_as_string,

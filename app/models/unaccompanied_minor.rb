@@ -10,6 +10,9 @@ class UnaccompaniedMinor < ApplicationRecord
   SCHEMA_VERSION = 1
 
   attr_accessor :is_eligible,
+                :eligibility_types,
+                :is_under_18,
+                :is_living_december,
                 :have_parental_consent,
                 :have_parental_consent_options,
                 :parental_consent,
@@ -67,11 +70,16 @@ class UnaccompaniedMinor < ApplicationRecord
                 :adult_number,
                 :minor_contact_details,
                 :adult_given_name,
-                :adult_family_name
+                :adult_family_name,
+                :adults_at_address
 
   after_initialize :after_initialize
   before_save :serialize
   before_save :generate_reference
+
+  after_find do
+    assign_attributes(answers)
+  end
 
   has_one_attached :parental_consent
 
@@ -86,7 +94,11 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
   def number_of_adults?
-    "1 person"
+    if @adults_at_address.length > 1
+      "#{@adults_at_address.length} people"
+    else
+      "1 person"
+    end
   end
 
   def is_cancelled?
@@ -140,9 +152,11 @@ class UnaccompaniedMinor < ApplicationRecord
 
   def after_initialize
     @final_submission = false
+    @eligibility_types = %i[yes no]
     @have_parental_consent_options = %i[yes no]
     @different_address_types = %i[yes no]
     @other_adults_address_types = %i[yes no]
+    @adults_at_address = {}
     self.certificate_reference ||= get_formatted_certificate_number
   end
 
@@ -152,6 +166,8 @@ class UnaccompaniedMinor < ApplicationRecord
       type:,
       version:,
       is_eligible:,
+      is_under_18:,
+      is_living_december:,
       have_parental_consent:,
       uk_parental_consent_file_type:,
       uk_parental_consent_filename:,
