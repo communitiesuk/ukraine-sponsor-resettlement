@@ -328,12 +328,9 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
     end
 
-    it "complete child flow additional details section and save answers to the db" do
-      answers = { fullname: "Bob The Builder" }
-      test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
-      id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), false)")
-
-      new_application = UnaccompaniedMinor.find(id)
+    it "complete child flow additional details section and save answers to the db", :focus do
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
 
       page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
       expect(page_url).to end_with(new_application.reference)
@@ -347,20 +344,19 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.check("unaccompanied-minor-identification-type-passport-field")
       click_button("Continue")
 
-      # TODO fix this test
-      # fill_in("Day", with: "6")
-      # fill_in("Month", with: "11")
-      # fill_in("Year", with: "1987")
-      # click_button("Continue")
-      #
-      # expect(page).to have_content("What is your nationality?")
-      # click_button("Continue")
-      #
-      # expect(page).to have_content("Have you ever held any other nationalities?")
-      # choose("No")
-      # click_button("Continue")
-      #
-      # expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      fill_in("Day", with: "6")
+      fill_in("Month", with: "11")
+      fill_in("Year", with: "1987")
+      click_button("Continue")
+
+      expect(page).to have_content("What is your nationality?")
+      click_button("Continue")
+
+      expect(page).to have_content("Have you ever held any other nationalities?")
+      choose("No")
+      click_button("Continue")
+
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
     end
   end
 
