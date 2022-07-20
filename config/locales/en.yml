@@ -399,6 +399,8 @@ en:
       different_address:
         short: Different address
         full: Will you be living at this address?
+        hint_html: |
+          <div class="govuk-inset-text">%{formatted_address}</div>
       other_adults_address:
         short: Different address
         full: Will anyone else over the age of 16 be living at this address?

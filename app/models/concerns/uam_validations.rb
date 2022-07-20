@@ -19,6 +19,8 @@ module UamValidations
     validate :validate_sponsor_declaration, if: -> { run_validation? :sponsor_declaration }
     validate :validate_minor_given_name, if: -> { run_validation? :minor_given_name }
     validate :validate_minor_family_name, if: -> { run_validation? :minor_family_name }
+    validate :validate_different_sponsor_address, if: -> { run_validation? :different_address }
+    validate :validate_other_adults_address, if: -> { run_validation? :other_adults_address }
   end
 
   def validate_minor_date_of_birth
@@ -97,6 +99,14 @@ module UamValidations
 
   def validate_have_parental_consent
     validate_enum(@have_parental_consent_options, @have_parental_consent, :have_parental_consent)
+  end
+
+  def validate_different_sponsor_address
+    validate_enum(@different_address_types, @different_address, :different_address)
+  end
+
+  def validate_other_adults_address
+    validate_enum(@other_adults_address_types, @other_adults_address, :other_adults_address)
   end
 
   def validate_enum(enum, value, attribute)

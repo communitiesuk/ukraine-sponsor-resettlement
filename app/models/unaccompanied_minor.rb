@@ -63,9 +63,6 @@ class UnaccompaniedMinor < ApplicationRecord
                 :adult_number,
                 :minor_contact_details
 
-  validate :validate_different_sponsor_address, if: -> { run_validation? :different_address }
-  validate :validate_other_adults_address, if: -> { run_validation? :other_adults_address }
-
   after_initialize :after_initialize
   before_save :serialize
   before_save :generate_reference
@@ -73,6 +70,14 @@ class UnaccompaniedMinor < ApplicationRecord
   has_one_attached :parental_consent
 
   validates :parental_consent, antivirus: true # Add this for antivirus validation
+
+  def formatted_address?
+    if @residential_line_2.present?
+      "#{@residential_line_1}, #{@residential_line_2}, #{@residential_town}, #{@residential_postcode}"
+    else
+      "#{@residential_line_1}, #{@residential_town}, #{@residential_postcode}"
+    end
+  end
 
   def is_cancelled?
     is_cancelled
@@ -193,13 +198,5 @@ private
 
   def generate_reference
     self.reference ||= sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
-  end
-
-  def validate_different_sponsor_address
-    validate_enum(@different_address_types, @different_address, :different_address)
-  end
-
-  def validate_other_adults_address
-    validate_enum(@other_adults_address_types, @other_adults_address, :other_adults_address)
   end
 end
