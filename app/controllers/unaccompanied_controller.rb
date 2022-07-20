@@ -48,6 +48,8 @@ class UnaccompaniedController < ApplicationController
     # Update the session
     session[:unaccompanied_minor] = @application.as_json
 
+    Rails.logger.debug "App JSON: #{@application.as_json}"
+
     step = params["stage"].to_i
 
     if step.positive? && step <= MAX_STEPS
@@ -377,6 +379,8 @@ private
           :minor_phone_number,
           :different_address,
           :other_adults_address,
+          :adult_given_name,
+          :adult_family_name,
         )
   end
 end
