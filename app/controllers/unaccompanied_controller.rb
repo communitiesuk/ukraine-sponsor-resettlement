@@ -359,6 +359,10 @@ private
           :residential_line_2,
           :residential_town,
           :residential_postcode,
+          :sponsor_address_line_1,
+          :sponsor_address_line_2,
+          :sponsor_address_town,
+          :sponsor_address_postcode,
           :sponsor_date_of_birth,
           :agree_privacy_statement,
           :certificate_reference,
@@ -371,6 +375,7 @@ private
           :minor_contact_type,
           :minor_email,
           :minor_phone_number,
+          :different_address,
           :other_adults_address,
         )
   end

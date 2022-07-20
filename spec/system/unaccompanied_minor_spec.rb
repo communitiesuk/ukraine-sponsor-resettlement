@@ -427,7 +427,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   end
 
   describe "submitting the address for child" do
-    it "submit the form when address is where the child is staying" do
+    it "submit the form when address is where the child is staying with the sponsor", :focus do
       answers = { fullname: "Bob The Builder" }
       test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
       id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), false)")
@@ -459,6 +459,35 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
 
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+    end
+
+    it "submit the form when address is where the child is NOT staying with the sponsor", :focus do
+      answers = { fullname: "Bob The Builder" }
+      test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
+      id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), false)")
+
+      new_application = UnaccompaniedMinor.find(id)
+
+      page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
+      expect(page_url).to end_with(new_application.reference)
+
+      visit page_url
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Address")
+      expect(page).to have_content("Enter the address where the child will be living in the UK")
+
+      fill_in("Address line 1", with: "Address line 1")
+      fill_in("Town", with: "Address town")
+      fill_in("Postcode", with: "XX1 1XX")
+
+      click_button("Continue")
+      expect(page).to have_content("Will you be living at this address?")
+
+      choose("No")
+      click_button("Continue")
+
+      expect(page).to have_content("Enter the address where you will be living in the UK")
     end
   end
 

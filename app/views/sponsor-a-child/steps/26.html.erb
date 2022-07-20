@@ -1,0 +1,30 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
+
+    <h2 class="govuk-heading-m">Enter the address where you will be living in the UK</h2>
+
+    <%= form_for @application, url: "/sponsor-a-child/steps/26", method: :post do |f| %>
+      <%= f.govuk_text_field :sponsor_address_line_1,
+                             label: { text: t('address_line_1.full', scope: "unaccompanied_minor.questions") },
+                             type: "text"
+      %>
+      <%= f.govuk_text_field :sponsor_address_line_2,
+                             label: { text: t('address_line_2.full', scope: "unaccompanied_minor.questions") },
+                             type: "text"
+      %>
+      <%= f.govuk_text_field :sponsor_address_town,
+                             label: { text: t('address_town.full', scope: "unaccompanied_minor.questions") },
+                             type: "text",
+                             width: 20
+      %>
+      <%= f.govuk_text_field :sponsor_address_postcode,
+                             label: { text: t('address_postcode.full', scope: "unaccompanied_minor.questions") },
+                             type: "text",
+                             width: 10
+      %>
+      <%= f.govuk_submit t('continue') %>
+    <% end %>
+  </div>
+</div>

@@ -21,6 +21,10 @@ module UamValidations
     validate :validate_minor_family_name, if: -> { run_validation? :minor_family_name }
     validate :validate_different_sponsor_address, if: -> { run_validation? :different_address }
     validate :validate_other_adults_address, if: -> { run_validation? :other_adults_address }
+    validate :validate_residential_line_1, if: -> { run_validation? :sponsor_address_line_1 }
+    validate :validate_residential_line_2, if: -> { run_validation? :sponsor_address_line_2 }
+    validate :validate_residential_town, if: -> { run_validation? :sponsor_address_town }
+    validate :validate_residential_postcode, if: -> { run_validation? :sponsor_address_postcode }
   end
 
   def validate_minor_date_of_birth
@@ -118,6 +122,30 @@ module UamValidations
   def validate_sponsor_declaration
     if @sponsor_declaration.nil? || @sponsor_declaration.strip.length.zero? || @sponsor_declaration == "false"
       errors.add(:sponsor_declaration, I18n.t(:invalid_eligibility, scope: :error))
+    end
+  end
+
+  def validate_sponsor_address_line_1
+    if @sponsor_address_line_1.nil? || @sponsor_address_line_1.strip.length < MIN_ENTRY_DIGITS || @sponsor_address_line_1.strip.length > MAX_ENTRY_DIGITS
+      errors.add(:residential_line_1, I18n.t(:address_line_1, scope: :error))
+    end
+  end
+
+  def validate_sponsor_address_line_2
+    if @sponsor_address_line_2.present? && @sponsor_address_line_2.strip.length > MAX_ENTRY_DIGITS
+      errors.add(:residential_line_2, I18n.t(:address_line_2, scope: :error))
+    end
+  end
+
+  def validate_sponsor_address_town
+    if @sponsor_address_town.nil? || @sponsor_address_town.strip.length < MIN_ENTRY_DIGITS || @sponsor_address_town.strip.length > MAX_ENTRY_DIGITS
+      errors.add(:residential_town, I18n.t(:address_town, scope: :error))
+    end
+  end
+
+  def validate_sponsor_address_postcode
+    if @sponsor_address_postcode.nil? || @sponsor_address_postcode.strip.length < MIN_ENTRY_DIGITS || @sponsor_address_postcode.strip.length > MAX_ENTRY_DIGITS || !@sponsor_address_postcode.match(POSTCODE_REGEX)
+      errors.add(:residential_postcode, I18n.t(:address_postcode, scope: :error))
     end
   end
 
