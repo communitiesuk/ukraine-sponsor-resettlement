@@ -159,7 +159,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app = described_class.new
       app.uk_parental_consent_filename = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:uk_parental_consent]).to include("You must select a file")
+      expect(app.errors[:uk_parental_consent]).to include("You must choose a file")
       app.uk_parental_consent_filename = "name-of-file-uploaded"
       expect(app.valid?).to be(true)
     end
