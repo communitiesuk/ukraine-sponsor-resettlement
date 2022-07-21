@@ -139,8 +139,9 @@ class UnaccompaniedController < ApplicationController
     # capture the other adults at address
     if params["stage"].to_i == ADULTS_AT_ADDRESS
       # TODO: create keys
+      @application.adults_at_address = {} if @application.adults_at_address.nil?
+
       @application.adults_at_address.store("321", Adult.new(params["unaccompanied_minor"]["adult_given_name"], params["unaccompanied_minor"]["adult_family_name"]))
-      Rails.logger.debug "Over 16s: #{@application.adults_at_address}"
     end
 
     # Update Application object with new attributes
