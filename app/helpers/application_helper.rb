@@ -28,12 +28,12 @@ module ApplicationHelper
     nationalities
   end
 
-  def create_expiring_jwt(data)
-    secret = "mysecret" # Rails.application.credentials.secret_key_base
+  def create_expiring_jwt(email_address)
+    secret = Rails.application.credentials.secret_key_base
     encoding = "HS256"
-    exp = 7.days.from_now.to_i
+    expiry = 7.days.from_now.to_i
 
-    payload = { data:, exp: }
+    payload = { data: email_address, exp: expiry }
     JWT.encode payload, secret, encoding
   end
 

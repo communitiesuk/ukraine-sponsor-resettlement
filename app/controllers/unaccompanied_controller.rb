@@ -174,6 +174,7 @@ class UnaccompaniedController < ApplicationController
 
   def check_answers
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
+
     # commented as question not asked yet so always nil
 
     @application.minor_date_of_birth_as_string = format_date_of_birth @application.minor_date_of_birth

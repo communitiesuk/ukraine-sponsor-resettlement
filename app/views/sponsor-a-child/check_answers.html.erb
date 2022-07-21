@@ -180,7 +180,7 @@
           <%= t('fullname.hint', scope: "unaccompanied_minor.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= @application.minor_fullname %>
+          <%= @application.minor_full_name? %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/sponsor-a-child/steps/1">
