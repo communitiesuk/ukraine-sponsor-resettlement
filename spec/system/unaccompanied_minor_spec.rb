@@ -490,6 +490,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   describe "Save and return later functionality" do
     it "clicks save and return later button and gets redirected to confirmation page" do
       new_application = UnaccompaniedMinor.new
+      new_application.email = "test@example.com"
+      new_application.phone_number = "07123123123"
       new_application.save!
 
       page_url = "/sponsor-a-child/task-list/#{new_application.reference}"

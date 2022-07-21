@@ -336,9 +336,18 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   end
 
   describe "checks if application is valid to save and return later" do
+    
     it "returns false if no email or phone number" do
       app = described_class.new
       expect(app.valid_to_save_and_return?).to eq(false)
+    end
+
+    it "returns true when email and phone number are present" do
+      app = described_class.new
+      app.email = 'test@example.com'
+      app.phone_number = '07983123456'
+      
+      expect(app.valid_to_save_and_return?).to eq(true)
     end
   end
 
