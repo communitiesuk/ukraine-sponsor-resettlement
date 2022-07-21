@@ -490,7 +490,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     it "clicks save and return later button and gets redirected to confirmation page" do
       new_application = UnaccompaniedMinor.new
       new_application.save!
-      
+
       page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
       visit page_url
       click_button("Save and return later")
