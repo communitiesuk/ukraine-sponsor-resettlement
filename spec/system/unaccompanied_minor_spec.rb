@@ -483,7 +483,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Family name", with: "Adult")
 
       click_button("Continue")
-      expect(page).to have_content("You have added 1 person over 16 who wil live with the child")
+      expect(page).to have_content("You have added 1 person over 16 who will live with the child")
       expect(page).to have_content("Another Adult")
     end
   end
