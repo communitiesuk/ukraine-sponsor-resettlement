@@ -62,6 +62,12 @@ class RoutingEngine
       TASK_LIST_STEP
     elsif current_step == 28
       TASK_LIST_STEP
+    elsif current_step == 32
+      TASK_LIST_STEP
+    elsif current_step == 34
+      TASK_LIST_STEP
+    elsif current_step == 35
+      TASK_LIST_STEP
     else
       current_step + 1
     end
