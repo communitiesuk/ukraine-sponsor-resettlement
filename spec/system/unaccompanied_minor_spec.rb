@@ -488,11 +488,9 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
   describe "Save and return later functionality" do
     it "clicks save and return later button and gets redirected to confirmation page" do
-      answers = { email: "test@example.com" }
-      test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
-      id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), FALSE)")
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
 
-      new_application = UnaccompaniedMinor.find(id)
       page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
       visit page_url
       click_button("Save and return later")
