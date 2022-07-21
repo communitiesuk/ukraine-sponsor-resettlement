@@ -132,7 +132,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   end
 
   describe "parental consent questions" do
-    it "ensure content type", :focus do
+    it "ensure content type" do
       app = described_class.new
       app.uk_parental_consent_file_type = "invalid"
       expect(app.valid?).to be(false)
