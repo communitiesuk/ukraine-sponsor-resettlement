@@ -83,7 +83,7 @@ class UnaccompaniedController < ApplicationController
     if @application.valid?
       save_and_redirect(@application, @application.uk_parental_consent_saved_filename, upload_params.tempfile)
     else
-      render "sponsor-a-child/steps/#{params["stage"]}"
+      render "sponsor-a-child/steps/#{params['stage']}"
     end
   end
 
@@ -106,7 +106,7 @@ class UnaccompaniedController < ApplicationController
     if @application.valid?
       save_and_redirect(@application, @application.ukraine_parental_consent_saved_filename, upload_params.tempfile)
     else
-      render "sponsor-a-child/steps/#{params["stage"]}"
+      render "sponsor-a-child/steps/#{params['stage']}"
     end
   end
 
