@@ -20,6 +20,7 @@ gem "bootsnap", ">= 1.4.4", require: false
 # GovUK Notify notifications and client
 gem "govuk_notify_rails"
 
+gem "jwt", "~> 2.4", ">= 2.4.1"
 gem "rack-attack"
 gem "redis"
 gem "sidekiq"

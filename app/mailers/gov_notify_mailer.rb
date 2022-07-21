@@ -32,7 +32,7 @@ class GovNotifyMailer < GovukNotifyRails::Mailer
   end
 
   def send_save_and_return_email(given_name, link, email)
-    set_template(ENV["SAVE_AND_RETURN_TEMPLATE_ID"])
+    set_template(ENV["856b0664-1f96-463c-8acd-c4ef782cdcad"])
 
     set_personalisation(given_name:, save_and_return_link: link)
 

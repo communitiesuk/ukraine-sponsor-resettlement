@@ -531,9 +531,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Enter a valid date of birth")
     end
   end
-  
-  describe "save and return functionality tests" do
 
+  describe "save and return functionality tests" do
     it "save and return button disabled if email and phone not present" do
       new_application = UnaccompaniedMinor.new
       new_application.save!
@@ -542,10 +541,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       visit page_url
 
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
-      expect(page).to have_button('Save and return later', disabled: true)
-
-
+      expect(page).to have_button("Save and return later", disabled: true)
     end
   end
-
 end

@@ -353,6 +353,7 @@ DEPENDENCIES
   govuk-components
   govuk_design_system_formbuilder
   govuk_notify_rails
+  jwt (~> 2.4, >= 2.4.1)
   listen (~> 3.3)
   pg (~> 1.1)
   pry-byebug

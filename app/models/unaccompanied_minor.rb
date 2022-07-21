@@ -106,7 +106,7 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
   def valid_to_save_and_return?
-    @email.present? && @phone_number.present?  
+    @email.present? && @phone_number.present?
   end
 
   def is_cancelled?
