@@ -55,6 +55,7 @@ Rails.application.routes.draw do
   get "/sponsor-a-child/upload-ukraine/:stage", to: "unaccompanied#display"
   post "/sponsor-a-child/upload-uk/:stage", to: "unaccompanied#handle_upload_uk"
   post "/sponsor-a-child/upload-ukraine/:stage", to: "unaccompanied#handle_upload_ukraine"
+  get "/sponsor-a-child/remote/:key", to: "unaccompanied#remove_adult"
 
   get "/fraud-support", to: "fraud#display"
   post "/fraud-support", to: "fraud#post"
