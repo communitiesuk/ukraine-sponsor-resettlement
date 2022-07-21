@@ -138,8 +138,8 @@ class UnaccompaniedController < ApplicationController
 
     # capture the other adults at address
     if params["stage"].to_i == ADULTS_AT_ADDRESS
-      Rails.logger.debug "Add over 16s!"
-      @application.adults_at_address.store("123", Adult.new(params["unaccompanied_minor"]["adult_given_name"], params["unaccompanied_minor"]["adult_family_name"]))
+      # TODO: create keys
+      @application.adults_at_address.store("321", Adult.new(params["unaccompanied_minor"]["adult_given_name"], params["unaccompanied_minor"]["adult_family_name"]))
       Rails.logger.debug "Over 16s: #{@application.adults_at_address}"
     end
 
@@ -147,9 +147,8 @@ class UnaccompaniedController < ApplicationController
     @application.assign_attributes(application_params)
 
     if @application.valid?
-      Rails.logger.debug "Valid!"
       # Update the database
-      @application.update!(session[:unaccompanied_minor].except(:id, :reference)) if session[:unaccompanied_minor].present?
+      @application.update!(@application.as_json)
 
       # Update the session
       session[:unaccompanied_minor] = @application.as_json
@@ -168,8 +167,6 @@ class UnaccompaniedController < ApplicationController
         redirect_to "/sponsor-a-child/steps/#{next_stage}"
       end
     else
-      Rails.logger.debug "Invalid!"
-
       render "sponsor-a-child/steps/#{params['stage']}"
     end
   end
@@ -385,7 +382,6 @@ private
           :other_adults_address,
           :adult_given_name,
           :adult_family_name,
-          :adults_at_address
         )
   end
 end
