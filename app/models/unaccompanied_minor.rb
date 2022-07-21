@@ -105,6 +105,11 @@ class UnaccompaniedMinor < ApplicationRecord
     end
   end
 
+  def valid_to_save_and_return?
+    false
+    
+  end
+
   def is_cancelled?
     is_cancelled
   end

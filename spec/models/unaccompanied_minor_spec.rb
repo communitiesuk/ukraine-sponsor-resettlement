@@ -334,4 +334,12 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.formatted_address?).to eq("Address line 1, Address line 2, Town, AA1 1AA")
     end
   end
+
+  describe "checks if application is valid to save and return later" do
+    it "returns false if no email or phone number" do
+      app = described_class.new
+      expect(app.valid_to_save_and_return?).to eq(false)
+    end
+  end
+
 end

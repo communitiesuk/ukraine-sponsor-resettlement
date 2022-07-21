@@ -144,7 +144,8 @@
       <%= f.govuk_submit t('save_application.save', scope: "unaccompanied_minor"),
                          name: "save_application",
                          class: "govuk-button--secondary",
-                         id: "later"
+                         id: "later",
+                         disabled: !@application.valid_to_save_and_return?
                          %>
 
       <%= f.govuk_submit t('cancel_application.cancel', scope: "unaccompanied_minor"),

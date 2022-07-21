@@ -22,6 +22,11 @@
 
       <% end %>
       <%= f.govuk_submit t('continue') %>
+       <%= f.govuk_submit t('save_application.save', scope: "unaccompanied_minor"),
+                         name: "save_application",
+                         class: "govuk-button--secondary",
+                         id: "later"
+                         %>
     <% end %>
   </div>
 </div>
