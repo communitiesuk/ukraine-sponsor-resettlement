@@ -19,8 +19,10 @@ module UamValidations
     validate :validate_have_parental_consent, if: -> { run_validation? :have_parental_consent }
     validate :validate_uk_parent_consent_file_type, if: -> { run_validation? :uk_parental_consent_file_type }
     validate :validate_uk_parent_consent_filename, if: -> { run_validation? :uk_parental_consent_filename }
+    validate :validate_uk_parent_consent_file_size, if: -> { run_validation? :uk_parental_consent_file_size }
     validate :validate_ukraine_parent_consent_file_type, if: -> { run_validation? :ukraine_parental_consent_file_type }
     validate :validate_ukraine_parent_consent_filename, if: -> { run_validation? :ukraine_parental_consent_filename }
+    validate :validate_ukraine_parent_consent_file_size, if: -> { run_validation? :ukraine_parental_consent_file_size }
     validate :validate_given_name, if: -> { run_validation? :given_name }
     validate :validate_family_name, if: -> { run_validation? :family_name }
     validate :validate_privacy_statement_confirm, if: -> { run_validation? :privacy_statement_confirm }
@@ -95,6 +97,12 @@ module UamValidations
     end
   end
 
+  def validate_uk_parent_consent_file_size
+    if @uk_parental_consent_file_size > 1024**20
+      errors.add(:uk_parental_consent, I18n.t(:file_too_large, scope: :error))
+    end
+  end
+
   def validate_ukraine_parent_consent_file_type
     if @ukraine_parental_consent_file_type.nil? || @ukraine_parental_consent_file_type != "application/pdf"
       errors.add(:ukraine_parental_consent, I18n.t(:invalid_file_type_chosen, scope: :error))
@@ -104,6 +112,12 @@ module UamValidations
   def validate_ukraine_parent_consent_filename
     if @ukraine_parental_consent_filename.nil? || @ukraine_parental_consent_filename.strip.empty?
       errors.add(:ukraine_parental_consent, I18n.t(:no_file_chosen, scope: :error))
+    end
+  end
+
+  def validate_ukraine_parent_consent_file_size
+    if @ukraine_parental_consent_file_size > 1024**20
+      errors.add(:ukraine_parental_consent, I18n.t(:file_too_large, scope: :error))
     end
   end
 
