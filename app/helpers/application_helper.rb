@@ -1,4 +1,5 @@
 require "csv"
+require "jwt"
 
 module ApplicationHelper
   def format_date_of_birth(date_of_birth)
@@ -25,6 +26,15 @@ module ApplicationHelper
       nationalities << OpenStruct.new(val: "#{row[0]} - #{row[1]}", name: (row[1]).to_s)
     end
     nationalities
+  end
+
+  def create_expiring_jwt(data)
+    secret = "mysecret" # Rails.application.credentials.secret_key_base
+    encoding = "HS256"
+    exp = 7.days.from_now.to_i
+
+    payload = { data:, exp: }
+    JWT.encode payload, secret, encoding
   end
 
 private
