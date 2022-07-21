@@ -306,6 +306,19 @@ class UnaccompaniedController < ApplicationController
     end
   end
 
+  def remove_adult
+    @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
+    @application.adults_at_address = @application.adults_at_address.except!(params["key"]) if @application.adults_at_address.key?(params["key"])
+
+    @application.update!(@application.as_json)
+
+    if @application.adults_at_address.length.zero?
+      redirect_to "/sponsor-a-child/steps/27"
+    else
+      redirect_to "/sponsor-a-child/steps/28"
+    end
+  end
+
 private
 
   def save_and_redirect(application, filename, file)
