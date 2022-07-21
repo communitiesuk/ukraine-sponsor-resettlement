@@ -162,7 +162,6 @@ class UnaccompaniedMinor < ApplicationRecord
     @have_parental_consent_options = %i[yes no]
     @different_address_types = %i[yes no]
     @other_adults_address_types = %i[yes no]
-    @adults_at_address = {}
     self.certificate_reference ||= get_formatted_certificate_number
   end
 
