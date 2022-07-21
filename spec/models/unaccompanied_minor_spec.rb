@@ -155,6 +155,20 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(true)
     end
 
+    it "ensure the file is 20MB or smaller" do
+      app = described_class.new
+      app.uk_parental_consent_file_size = 1024**21
+      expect(app.valid?).to be(false)
+      expect(app.errors[:uk_parental_consent]).to include("Your file must be smaller than 20MB")
+      app.uk_parental_consent_file_size = 1024**20
+      expect(app.valid?).to be(true)
+      app.ukraine_parental_consent_file_size = 1024**21
+      expect(app.valid?).to be(false)
+      expect(app.errors[:ukraine_parental_consent]).to include("Your file must be smaller than 20MB")
+      app.ukraine_parental_consent_file_size = 1024**20
+      expect(app.valid?).to be(true)
+    end
+
     it "ensure file name is provided" do
       app = described_class.new
       app.uk_parental_consent_filename = ""

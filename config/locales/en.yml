@@ -455,6 +455,7 @@ en:
     number_adults_residential: There must be at least 1 adult living at your residential address
     invalid_file_type_chosen: You can only upload PDF, JPEG or PNG files
     no_file_chosen: You must choose a file
+    file_too_large: Your file must be smaller than 20MB
     invalid_date_of_birth: Enter a valid date of birth
     too_old_date_of_birth: They must be under 18 to be considered a child in the UK
     too_young_date_of_birth: A sponsor with this date of birth is less 18 and you cannot use this service to apply to sponsor them
