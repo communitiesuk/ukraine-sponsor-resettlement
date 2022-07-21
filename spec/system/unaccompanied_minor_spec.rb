@@ -446,7 +446,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
     end
 
-    it "submit the form when address is where the child is NOT staying with the sponsor" do
+    it "submit the form when address is where the child is NOT staying with the sponsor", :focus do
       new_application = UnaccompaniedMinor.new
       new_application.save!
 
@@ -484,6 +484,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       click_button("Continue")
       expect(page).to have_content("You have added 1 person over 16 who wil live with the child")
+      expect(page).to have_content("Another Adult")
     end
   end
 

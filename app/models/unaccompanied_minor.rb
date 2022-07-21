@@ -1,5 +1,7 @@
 require "securerandom"
 
+Adult = Struct.new(:given_name, :family_name, :date_of_birth, :nationality, :id_type_and_number)
+
 class UnaccompaniedMinor < ApplicationRecord
   include UamValidations
   include ContactDetailsValidations
@@ -223,8 +225,7 @@ class UnaccompaniedMinor < ApplicationRecord
       sponsor_declaration:,
       adult_number:,
       minor_contact_details:,
-      adult_given_name:,
-      adult_family_name:,
+      adults_at_address:,
     }.compact
   end
 
