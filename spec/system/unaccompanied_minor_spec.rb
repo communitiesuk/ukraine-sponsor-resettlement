@@ -391,6 +391,20 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Year", with: minor_dob_under_18_year.to_s)
 
       click_button("Continue")
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+    end
+
+    it "saves all the UK parent consent form to the database" do
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
+
+      page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
+      expect(page_url).to end_with(new_application.reference)
+
+      visit page_url
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Upload parental consent (British)")
       expect(page).to have_content("You must upload 2 completed parental consent forms")
 
       click_link("Continue")
@@ -398,14 +412,26 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       test_file_path = File.join(File.dirname(__FILE__), "..", "uk-test-document.pdf")
 
-      Rails.logger.debug File.exist? test_file_path
-
       attach_file("unaccompanied-minor-uk-parental-consent-field", test_file_path)
       click_button("Continue")
 
-      test_file_path = File.join(File.dirname(__FILE__), "..", "ukraine-test-document.pdf")
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+    end
 
-      Rails.logger.debug File.exist? test_file_path
+    it "saves all the Ukraine parent consent form to the database" do
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
+
+      page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
+      expect(page_url).to end_with(new_application.reference)
+
+      visit page_url
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Upload parental consent (Ukraine)")
+      expect(page).to have_content("Upload the Ukraine notarised consent form")
+
+      test_file_path = File.join(File.dirname(__FILE__), "..", "ukraine-test-document.pdf")
 
       attach_file("unaccompanied-minor-ukraine-parental-consent-field", test_file_path)
       click_button("Continue")

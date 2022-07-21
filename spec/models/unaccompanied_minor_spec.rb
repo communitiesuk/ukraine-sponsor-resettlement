@@ -136,8 +136,22 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app = described_class.new
       app.uk_parental_consent_file_type = "invalid"
       expect(app.valid?).to be(false)
-      expect(app.errors[:uk_parental_consent]).to include("You must select a PDF file")
+      expect(app.errors[:uk_parental_consent]).to include("You can only upload PDF, JPEG or PNG files")
       app.uk_parental_consent_file_type = "application/pdf"
+      expect(app.valid?).to be(true)
+      app.uk_parental_consent_file_type = "image/png"
+      expect(app.valid?).to be(true)
+      app.uk_parental_consent_file_type = "image/jpg"
+      expect(app.valid?).to be(true)
+      app.uk_parental_consent_file_type = "image/jpeg"
+      expect(app.valid?).to be(true)
+      app.uk_parental_consent_file_type = "APPLICATION/PDF"
+      expect(app.valid?).to be(true)
+      app.uk_parental_consent_file_type = "IMAGE/PNG"
+      expect(app.valid?).to be(true)
+      app.uk_parental_consent_file_type = "IMAGE/JPG"
+      expect(app.valid?).to be(true)
+      app.uk_parental_consent_file_type = "IMAGE/JPEG"
       expect(app.valid?).to be(true)
     end
 
@@ -145,7 +159,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app = described_class.new
       app.uk_parental_consent_filename = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:uk_parental_consent]).to include("You must select a file")
+      expect(app.errors[:uk_parental_consent]).to include("You must choose a file")
       app.uk_parental_consent_filename = "name-of-file-uploaded"
       expect(app.valid?).to be(true)
     end

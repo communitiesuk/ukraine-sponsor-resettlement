@@ -80,7 +80,11 @@ class UnaccompaniedController < ApplicationController
       Rails.logger.debug "No upload file found!"
     end
 
-    save_and_redirect(@application, @application.uk_parental_consent_saved_filename, upload_params.tempfile)
+    if @application.valid?
+      save_and_redirect(@application, @application.uk_parental_consent_saved_filename, upload_params.tempfile)
+    else
+      render "sponsor-a-child/steps/#{params['stage']}"
+    end
   end
 
   def handle_upload_ukraine
@@ -99,7 +103,11 @@ class UnaccompaniedController < ApplicationController
       Rails.logger.debug "No upload file found!"
     end
 
-    save_and_redirect(@application, @application.ukraine_parental_consent_saved_filename, upload_params.tempfile)
+    if @application.valid?
+      save_and_redirect(@application, @application.ukraine_parental_consent_saved_filename, upload_params.tempfile)
+    else
+      render "sponsor-a-child/steps/#{params['stage']}"
+    end
   end
 
   def handle_step

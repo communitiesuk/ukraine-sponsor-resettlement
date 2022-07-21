@@ -4,6 +4,7 @@ module UamValidations
   MIN_ENTRY_DIGITS    = 3
   MAX_ENTRY_DIGITS    = 128
   SPECIAL_CHARACTERS  = /[!"£$%{}<>|&@\/()=?^;]/
+  ALLOWED_FILE_TYPES = ["application/pdf", "image/png", "image/jpeg", "image/jpg"].freeze
 
   included do
     validate :validate_is_under_18, if: -> { run_validation? :is_under_18 }
@@ -83,7 +84,7 @@ module UamValidations
   end
 
   def validate_uk_parent_consent_file_type
-    if @uk_parental_consent_file_type.nil? || @uk_parental_consent_file_type != "application/pdf"
+    if @uk_parental_consent_file_type.nil? || !ALLOWED_FILE_TYPES.include?(@uk_parental_consent_file_type.downcase)
       errors.add(:uk_parental_consent, I18n.t(:invalid_file_type_chosen, scope: :error))
     end
   end
