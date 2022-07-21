@@ -60,6 +60,8 @@ class RoutingEngine
       TASK_LIST_STEP
     elsif application.other_adults_address.present? && application.other_adults_address.casecmp("no").zero? && current_step == 25
       TASK_LIST_STEP
+    elsif current_step == 28
+      TASK_LIST_STEP
     else
       current_step + 1
     end

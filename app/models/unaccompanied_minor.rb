@@ -1,5 +1,7 @@
 require "securerandom"
 
+Adult = Struct.new(:given_name, :family_name, :date_of_birth, :nationality, :id_type_and_number)
+
 class UnaccompaniedMinor < ApplicationRecord
   include UamValidations
   include ContactDetailsValidations
@@ -160,7 +162,6 @@ class UnaccompaniedMinor < ApplicationRecord
     @have_parental_consent_options = %i[yes no]
     @different_address_types = %i[yes no]
     @other_adults_address_types = %i[yes no]
-    @adults_at_address = {}
     self.certificate_reference ||= get_formatted_certificate_number
   end
 
@@ -223,8 +224,7 @@ class UnaccompaniedMinor < ApplicationRecord
       sponsor_declaration:,
       adult_number:,
       minor_contact_details:,
-      adult_given_name:,
-      adult_family_name:,
+      adults_at_address:,
     }.compact
   end
 

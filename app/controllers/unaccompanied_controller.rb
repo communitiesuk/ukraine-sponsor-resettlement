@@ -9,8 +9,9 @@ class UnaccompaniedController < ApplicationController
   MINOR_NATIONALITY = 19
   MINOR_OTHER_NATIONALITY = 21
   NATIONALITY_STEPS = [MINOR_NATIONALITY, MINOR_OTHER_NATIONALITY].freeze
-  TASK_LIST_STEP = 999
+  ADULTS_AT_ADDRESS = 27
   MINOR_DATE_OF_BIRTH = 32
+  TASK_LIST_STEP = 999
 
   def start
     render "sponsor-a-child/start"
@@ -135,13 +136,10 @@ class UnaccompaniedController < ApplicationController
       params["unaccompanied_minor"]["other_nationality"] = ""
     end
 
-    if params["stage"].to_i == MINOR_DATE_OF_BIRTH && (params["unaccompanied_minor"]["minor_date_of_birth(3i)"] && \
-          params["unaccompanied_minor"]["minor_date_of_birth(2i)"] && \
-          params["unaccompanied_minor"]["minor_date_of_birth(3i)"]).blank?
-      @application.errors.add(:minor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
-
-      render "sponsor-a-child/steps/#{MINOR_DATE_OF_BIRTH}"
-      return
+    # capture the other adults at address
+    if params["stage"].to_i == ADULTS_AT_ADDRESS
+      @application.adults_at_address = {} if @application.adults_at_address.nil?
+      @application.adults_at_address.store(SecureRandom.uuid.upcase.to_s, Adult.new(params["unaccompanied_minor"]["adult_given_name"], params["unaccompanied_minor"]["adult_family_name"]))
     end
 
     # Update Application object with new attributes
@@ -149,7 +147,7 @@ class UnaccompaniedController < ApplicationController
 
     if @application.valid?
       # Update the database
-      @application.update!(session[:unaccompanied_minor].except(:id, :reference)) if session[:unaccompanied_minor].present?
+      @application.update!(@application.as_json)
 
       # Update the session
       session[:unaccompanied_minor] = @application.as_json
@@ -305,6 +303,19 @@ class UnaccompaniedController < ApplicationController
       @application.errors.add(:email, I18n.t(:invalid_email, scope: :error))
 
       render "sponsor-a-child/save_return_expired"
+    end
+  end
+
+  def remove_adult
+    @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
+    @application.adults_at_address = @application.adults_at_address.except!(params["key"]) if @application.adults_at_address.key?(params["key"])
+
+    @application.update!(@application.as_json)
+
+    if @application.adults_at_address.length.zero?
+      redirect_to "/sponsor-a-child/steps/27"
+    else
+      redirect_to "/sponsor-a-child/steps/28"
     end
   end
 

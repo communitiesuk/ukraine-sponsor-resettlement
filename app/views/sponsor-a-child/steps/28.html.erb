@@ -4,7 +4,7 @@
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
     <h1 class="gem-c-title__text govuk-heading-m">
-      You have added <%= @application.number_of_adults? %> over 16 who wil live with the child
+      You have added <%= @application.number_of_adults? %> over 16 who will live with the child
     </h1>
 
     <p class="govuk-body">
@@ -14,19 +14,23 @@
     </p>
 
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-      <%# @application.adults_at_address.each do |key, val| %>
-<!--        <div class="govuk-summary-list__row">-->
-<!--          <dt class="govuk-summary-list__value">-->
-            <%#= "#{@application.adults_at_address[key]["given_name"]} #{@application.adults_at_address[key]["family_name"]}" %>
-<!--          </dt>-->
-<!--          <dd class="govuk-summary-list__actions">-->
-<!--            <a class="govuk-link" href="/sponsor-a-child/remove/">-->
-<!--              Remove<span class="govuk-visually-hidden"> name</span>-->
-<!--            </a>-->
-<!--          </dd>-->
-<!--        </div>-->
-      <%# end %>
+      <% @application.adults_at_address.each do |key, val| %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__value">
+            <%= "#{@application.adults_at_address[key]["given_name"]} #{@application.adults_at_address[key]["family_name"]}" %>
+          </dt>
+          <dd class="govuk-summary-list__actions">
+            <%= link_to("Remove", "/sponsor-a-child/remove/#{key}") %>
+          </dd>
+        </div>
+      <% end %>
     </dl>
+
+    <%= govuk_button_link_to 'Add another person', "/sponsor-a-child/steps/27", class: "govuk-button--secondary"  %>
+
+    <p>
+      <%= link_to("Continue", "/sponsor-a-child/task-list/#{@application.reference}", class: "govuk-button") %>
+    </p>
 
   </div>
 </div>
