@@ -313,6 +313,15 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.nationality = "nationality"
       expect(app.sponsor_details_additional_details?).to eq("Completed")
     end
+
+    it "return status for address", :focus do
+      app = described_class.new
+      expect(app.sponsor_address_details?).to eq("Not started")
+      app.residential_line_1 = "address line 1"
+      expect(app.sponsor_address_details?).to eq("In progress")
+      app.other_adults_address = "no"
+      expect(app.sponsor_address_details?).to eq("Completed")
+    end
   end
 
   describe "child flow validation" do
