@@ -155,7 +155,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(true)
     end
 
-    it "ensure the file is 20MB or smaller", :focus do
+    it "ensure the file is 20MB or smaller" do
       app = described_class.new
       app.uk_parental_consent_file_size = 1024**21
       expect(app.valid?).to be(false)
