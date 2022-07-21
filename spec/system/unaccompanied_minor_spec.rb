@@ -418,7 +418,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
     end
 
-    it "saves all the UK parent consent form to the database" do
+    it "saves all the Ukraine parent consent form to the database" do
       new_application = UnaccompaniedMinor.new
       new_application.save!
 
