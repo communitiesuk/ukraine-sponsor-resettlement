@@ -75,6 +75,7 @@ class UnaccompaniedController < ApplicationController
       @application.uk_parental_consent_file_type = upload_params.content_type
       @application.uk_parental_consent_filename = upload_params.original_filename
       @application.uk_parental_consent_saved_filename = "#{SecureRandom.uuid.upcase}-#{upload_params.original_filename}"
+      @application.uk_parental_consent_file_size = upload_params.size
     rescue ActionController::ParameterMissing
       # Do nothing!
       Rails.logger.debug "No upload file found!"
@@ -98,6 +99,7 @@ class UnaccompaniedController < ApplicationController
       @application.ukraine_parental_consent_file_type = upload_params.content_type
       @application.ukraine_parental_consent_filename = upload_params.original_filename
       @application.ukraine_parental_consent_saved_filename = "#{SecureRandom.uuid.upcase}-#{upload_params.original_filename}"
+      @application.ukraine_parental_consent_file_size = upload_params.size
     rescue ActionController::ParameterMissing
       # Do nothing!
       Rails.logger.debug "No upload file found!"
