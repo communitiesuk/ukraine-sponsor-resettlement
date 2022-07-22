@@ -12,6 +12,11 @@ RSpec.describe UnaccompaniedMinor, type: :model do
     it "calculates the number of completed sections", :focus do
       app = described_class.new
       expect(app.number_of_completed_sections?).to be(0)
+      # Who are you section is complete
+      app.has_other_names = "true"
+      app.phone_number = "07777 123 456"
+      app.nationality = "nationality"
+      expect(app.number_of_completed_sections?).to be(1)
     end
   end
 

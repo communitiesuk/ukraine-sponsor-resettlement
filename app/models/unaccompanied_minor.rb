@@ -122,7 +122,13 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
   def number_of_completed_sections?
-    0
+    completed_sections = 0
+
+    if sponsor_details_names? == TASK_LABEL_COMPLETE && sponsor_details_contact_details? == TASK_LABEL_COMPLETE && sponsor_details_additional_details? == TASK_LABEL_COMPLETE
+      completed_sections += 1
+    end
+
+    completed_sections
   end
 
   def is_cancelled?
