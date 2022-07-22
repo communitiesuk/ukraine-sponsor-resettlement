@@ -188,6 +188,14 @@ class UnaccompaniedMinor < ApplicationRecord
     end
   end
 
+  def uk_consent_form?
+    if uk_parental_consent_filename.present?
+      "Completed"
+    else
+      "Not started"
+    end
+  end
+
   def after_initialize
     @final_submission = false
     @eligibility_types = %i[yes no]

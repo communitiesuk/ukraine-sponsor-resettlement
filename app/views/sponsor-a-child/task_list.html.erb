@@ -106,7 +106,9 @@
                   Upload parental consent (British)
                 </a>
               </span>
-            <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
+            <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.uk_consent_form?) %>">
+              <%= @application.uk_consent_form? %>
+            </strong>
           </li>
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">

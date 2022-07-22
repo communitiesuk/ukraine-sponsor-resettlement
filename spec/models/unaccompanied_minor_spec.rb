@@ -344,6 +344,13 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.minor_date_of_birth = { 1 => 1, 2 => 2, 3 => 2020 }
       expect(app.sponsor_child_details?).to eq("Completed")
     end
+
+    it "return status for UK consent form", :focus do
+      app = described_class.new
+      expect(app.uk_consent_form?).to eq("Not started")
+      app.uk_parental_consent_filename = "UK consent file name"
+      expect(app.uk_consent_form?).to eq("Completed")
+    end
   end
 
   describe "child flow validation" do
