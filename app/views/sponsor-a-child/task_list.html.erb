@@ -132,7 +132,9 @@
               <span class="app-task-list__task-name">
                 Consent to sharing your data
               </span>
-            <strong class="govuk-tag app-task-list__tag govuk-tag--grey">Cannot start yet</strong>
+            <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.privacy_consent?) %>">
+              <%= @application.privacy_consent? %>
+            </strong>
           </li>
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">

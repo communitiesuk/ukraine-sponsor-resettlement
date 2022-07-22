@@ -358,6 +358,13 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.ukraine_parental_consent_filename = "Ukraine consent file name"
       expect(app.ukraine_consent_form?).to eq("Completed")
     end
+
+    it "return status for privacy consent form", :focus do
+      app = described_class.new
+      expect(app.privacy_consent?).to eq("Not started")
+      app.privacy_statement_confirm = "true"
+      expect(app.privacy_consent?).to eq("Completed")
+    end
   end
 
   describe "child flow validation" do
