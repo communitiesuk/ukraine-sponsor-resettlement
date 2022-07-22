@@ -154,6 +154,16 @@ class UnaccompaniedController < ApplicationController
       params["unaccompanied_minor"]["other_nationality"] = ""
     end
 
+    # handle minor's date of birth
+    if params["stage"].to_i == MINOR_DATE_OF_BIRTH && (params["unaccompanied_minor"]["minor_date_of_birth(3i)"] && \
+          params["unaccompanied_minor"]["minor_date_of_birth(2i)"] && \
+          params["unaccompanied_minor"]["minor_date_of_birth(3i)"]).blank?
+      @application.errors.add(:minor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
+
+      render "sponsor-a-child/steps/#{MINOR_DATE_OF_BIRTH}"
+      return
+    end
+
     # capture the other adults at address
     if params["stage"].to_i == ADULTS_AT_ADDRESS
       @application.adults_at_address = {} if @application.adults_at_address.nil?
