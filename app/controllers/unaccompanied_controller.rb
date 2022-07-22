@@ -112,6 +112,10 @@ class UnaccompaniedController < ApplicationController
       Rails.logger.debug "Errors: #{@application.errors.full_messages}"
       Rails.logger.debug "****************************************************************"
 
+      Rails.logger.debug "================================================================"
+      Rails.logger.debug "JSON: #{@application.as_json}"
+      Rails.logger.debug "================================================================"
+
       render "sponsor-a-child/steps/#{params['stage']}"
     end
   end
