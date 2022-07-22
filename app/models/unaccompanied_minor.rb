@@ -139,6 +139,13 @@ class UnaccompaniedMinor < ApplicationRecord
       completed_sections += 1
     end
 
+    # Send your application
+    if privacy_consent? == TASK_LABEL_COMPLETE && sponsor_declaration? == TASK_LABEL_COMPLETE
+      completed_sections += 1
+    end
+
+    # TODO: include dynamic section
+
     completed_sections
   end
 

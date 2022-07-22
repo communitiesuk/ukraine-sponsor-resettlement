@@ -26,6 +26,10 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.uk_parental_consent_filename = "UK consent file name"
       app.ukraine_parental_consent_filename = "Ukraine consent file name"
       expect(app.number_of_completed_sections?).to be(3)
+      # Send your application section is complete
+      app.privacy_statement_confirm = "true"
+      app.sponsor_declaration = "true"
+      expect(app.number_of_completed_sections?).to be(4)
     end
   end
 
