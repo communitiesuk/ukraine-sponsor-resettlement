@@ -62,7 +62,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
     it "render confirmation on task list if already submitted" do
       new_application = UnaccompaniedMinor.new
-      new_application.transferred_at = DateTime.now
+      new_application.transferred_at = Time.zone.now
       new_application.save!
 
       expect(new_application.transferred_at).not_to be_nil
