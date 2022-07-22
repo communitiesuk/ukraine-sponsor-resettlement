@@ -10,10 +10,10 @@ class UnaccompaniedMinor < ApplicationRecord
   self.table_name = "unaccompanied_minors"
 
   SCHEMA_VERSION = 1
-  TASK_LABEL_COMPLETE = "Completed"
-  TASK_LABEL_IN_PROGRESS = "In progress"
-  TASK_LABEL_TO_DO = "Not started"
-  TASK_LABEL_UNAVAILABLE = "Cannot start yet"
+  TASK_LABEL_COMPLETE = "Completed".freeze
+  TASK_LABEL_IN_PROGRESS = "In progress".freeze
+  TASK_LABEL_TO_DO = "Not started".freeze
+  TASK_LABEL_UNAVAILABLE = "Cannot start yet".freeze
 
   attr_accessor :eligibility_types,
                 :is_under_18,
