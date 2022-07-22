@@ -336,16 +336,7 @@ private
   def save_and_redirect(application, filename, file)
     save_file(filename, file)
 
-    session[:unaccompanied_minor] = application.as_json
-
-    next_stage = RoutingEngine.get_next_unaccompanied_minor_step(application, params["stage"].to_i)
-
-    if next_stage == TASK_LIST_STEP
-      # Redirect to show the task-list
-      redirect_to "/sponsor-a-child/task-list/#{application.reference}"
-    else
-      redirect_to "/sponsor-a-child/steps/#{next_stage}"
-    end
+    redirect_to "/sponsor-a-child/task-list/#{application.reference}"
   end
 
   def save_file(filename, file)
