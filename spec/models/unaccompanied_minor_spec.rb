@@ -286,7 +286,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   end
 
   describe "task list sponsor details" do
-    it "return status for names" do
+    it "return status for names", :focus do
       app = described_class.new
       expect(app.sponsor_details_names?).to eq("Not started")
       app.given_name = "Bob"
@@ -296,7 +296,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.sponsor_details_names?).to eq("Completed")
     end
 
-    it "return status for contact details" do
+    it "return status for contact details", :focus do
       app = described_class.new
       expect(app.sponsor_details_contact_details?).to eq("Not started")
       app.email = "test@test.com"
@@ -305,7 +305,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.sponsor_details_contact_details?).to eq("Completed")
     end
 
-    it "return status for additional details" do
+    it "return status for additional details", :focus do
       app = described_class.new
       expect(app.sponsor_details_additional_details?).to eq("Not started")
       app.no_identification_reason = "reason"
@@ -314,7 +314,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.sponsor_details_additional_details?).to eq("Completed")
     end
 
-    it "return status for address" do
+    it "return status for address", :focus do
       app = described_class.new
       expect(app.sponsor_address_details?).to eq("Not started")
       app.residential_line_1 = "address line 1"

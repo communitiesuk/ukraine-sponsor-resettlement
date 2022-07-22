@@ -10,6 +10,10 @@ class UnaccompaniedMinor < ApplicationRecord
   self.table_name = "unaccompanied_minors"
 
   SCHEMA_VERSION = 1
+  TASK_LABEL_COMPLETE = "Completed"
+  TASK_LABEL_IN_PROGRESS = "In progress"
+  TASK_LABEL_TO_DO = "Not started"
+  TASK_LABEL_UNAVAILABLE = "Cannot start yet"
 
   attr_accessor :eligibility_types,
                 :is_under_18,
@@ -119,9 +123,9 @@ class UnaccompaniedMinor < ApplicationRecord
 
   def status_styles?(status)
     case status
-    when "Cannot start yet", "Not started"
+    when TASK_LABEL_UNAVAILABLE, TASK_LABEL_TO_DO
       "govuk-tag--grey"
-    when "In progress"
+    when TASK_LABEL_IN_PROGRESS
       "govuk-tag--blue"
     else
       ""
@@ -130,77 +134,77 @@ class UnaccompaniedMinor < ApplicationRecord
 
   def sponsor_details_names?
     if has_other_names.present?
-      "Completed"
+      TASK_LABEL_COMPLETE
     elsif given_name.present? || family_name.present?
-      "In progress"
+      TASK_LABEL_IN_PROGRESS
     else
-      "Not started"
+      TASK_LABEL_TO_DO
     end
   end
 
   def sponsor_details_contact_details?
     if phone_number.present?
-      "Completed"
+      TASK_LABEL_COMPLETE
     elsif email.present?
-      "In progress"
+      TASK_LABEL_IN_PROGRESS
     else
-      "Not started"
+      TASK_LABEL_TO_DO
     end
   end
 
   def sponsor_details_additional_details?
     if nationality.present?
-      "Completed"
+      TASK_LABEL_COMPLETE
     elsif no_identification_reason.present?
-      "In progress"
+      TASK_LABEL_IN_PROGRESS
     else
-      "Not started"
+      TASK_LABEL_TO_DO
     end
   end
 
   def sponsor_address_details?
     if other_adults_address.present?
-      "Completed"
+      TASK_LABEL_COMPLETE
     elsif residential_line_1.present?
-      "In progress"
+      TASK_LABEL_IN_PROGRESS
     else
-      "Not started"
+      TASK_LABEL_TO_DO
     end
   end
 
   def sponsor_living_there_details?
     if (adults_at_address.present? && adults_at_address.length.positive?) || other_adults_address.present?
-      "Completed"
+      TASK_LABEL_COMPLETE
     elsif different_address.present?
-      "In progress"
+      TASK_LABEL_IN_PROGRESS
     else
-      "Not started"
+      TASK_LABEL_TO_DO
     end
   end
 
   def sponsor_child_details?
     if minor_date_of_birth.present? && minor_date_of_birth.length.positive?
-      "Completed"
+      TASK_LABEL_COMPLETE
     elsif minor_given_name.present?
-      "In progress"
+      TASK_LABEL_IN_PROGRESS
     else
-      "Not started"
+      TASK_LABEL_TO_DO
     end
   end
 
   def uk_consent_form?
     if uk_parental_consent_filename.present?
-      "Completed"
+      TASK_LABEL_COMPLETE
     else
-      "Not started"
+      TASK_LABEL_TO_DO
     end
   end
 
   def ukraine_consent_form?
     if ukraine_parental_consent_filename.present?
-      "Completed"
+      TASK_LABEL_COMPLETE
     else
-      "Not started"
+      TASK_LABEL_TO_DO
     end
   end
 
