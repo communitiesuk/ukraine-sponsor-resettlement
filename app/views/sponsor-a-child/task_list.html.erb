@@ -96,7 +96,9 @@
                   Child's personal details
                 </a>
               </span>
-            <strong class="govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>
+            <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.sponsor_child_details?) %>">
+              <%= @application.sponsor_child_details? %>
+            </strong>
           </li>
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">

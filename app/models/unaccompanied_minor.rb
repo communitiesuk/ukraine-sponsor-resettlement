@@ -178,6 +178,16 @@ class UnaccompaniedMinor < ApplicationRecord
     end
   end
 
+  def sponsor_child_details?
+    if minor_date_of_birth.present? && minor_date_of_birth.length.positive?
+      "Completed"
+    elsif minor_given_name.present?
+      "In progress"
+    else
+      "Not started"
+    end
+  end
+
   def after_initialize
     @final_submission = false
     @eligibility_types = %i[yes no]
