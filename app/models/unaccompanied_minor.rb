@@ -124,13 +124,18 @@ class UnaccompaniedMinor < ApplicationRecord
   def number_of_completed_sections?
     completed_sections = 0
 
-    # Section 1 checks
+    # Who are you?
     if sponsor_details_names? == TASK_LABEL_COMPLETE && sponsor_details_contact_details? == TASK_LABEL_COMPLETE && sponsor_details_additional_details? == TASK_LABEL_COMPLETE
       completed_sections += 1
     end
 
-    # Section 2 checks
+    # Where will the child live?
     if sponsor_address_details? == TASK_LABEL_COMPLETE && sponsor_living_there_details? == TASK_LABEL_COMPLETE
+      completed_sections += 1
+    end
+
+    # Tell use about the child
+    if sponsor_child_details? == TASK_LABEL_COMPLETE && uk_consent_form? == TASK_LABEL_COMPLETE && ukraine_consent_form? == TASK_LABEL_COMPLETE
       completed_sections += 1
     end
 
