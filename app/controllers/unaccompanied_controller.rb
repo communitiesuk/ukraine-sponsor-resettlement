@@ -334,11 +334,11 @@ class UnaccompaniedController < ApplicationController
 private
 
   def save_and_redirect(application, filename, file)
-    puts "BEFORE save_file"
+    Rails.logger.debug "BEFORE save_file"
     save_file(filename, file)
-    puts "AFTER save_file"
+    Rails.logger.debug "AFTER save_file"
 
-    puts "Going to redirect to task list"
+    Rails.logger.debug "Going to redirect to task list"
     redirect_to "/sponsor-a-child/task-list/#{application.reference}"
   end
 
