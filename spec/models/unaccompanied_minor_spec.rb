@@ -1,6 +1,15 @@
 require "rails_helper"
 
 RSpec.describe UnaccompaniedMinor, type: :model do
+  describe "dynamic task list requirements" do
+    it "calculates the number of sections to be completed", :focus do
+      app = described_class.new
+      expect(app.number_of_sections?).to be(4)
+      app.adults_at_address = { "123" => Adult.new }
+      expect(app.number_of_sections?).to be(5)
+    end
+  end
+
   describe "contact detail validations" do
     it "sponsor full name is valid" do
       app = described_class.new

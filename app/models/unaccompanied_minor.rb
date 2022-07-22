@@ -113,6 +113,14 @@ class UnaccompaniedMinor < ApplicationRecord
     end
   end
 
+  def number_of_sections?
+    if adults_at_address.present? && adults_at_address.length.positive?
+      5
+    else
+      4
+    end
+  end
+
   def is_cancelled?
     is_cancelled
   end
