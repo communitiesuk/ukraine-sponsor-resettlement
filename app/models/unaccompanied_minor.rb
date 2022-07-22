@@ -121,6 +121,10 @@ class UnaccompaniedMinor < ApplicationRecord
     end
   end
 
+  def number_of_completed_sections?
+    0
+  end
+
   def is_cancelled?
     is_cancelled
   end

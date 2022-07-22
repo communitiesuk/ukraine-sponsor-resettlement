@@ -13,7 +13,7 @@
 
 <!--    TODO: work out number of sections and number of completed sections-->
     <p>
-      You have completed 0 of <%= @application.number_of_sections? %> sections.
+      You have completed <%= @application.number_of_completed_sections? %> of <%= @application.number_of_sections? %> sections.
     </p>
 
     <ol class="app-task-list">

@@ -8,6 +8,11 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.adults_at_address = { "123" => Adult.new }
       expect(app.number_of_sections?).to be(5)
     end
+
+    it "calculates the number of completed sections", :focus do
+      app = described_class.new
+      expect(app.number_of_completed_sections?).to be(0)
+    end
   end
 
   describe "contact detail validations" do
