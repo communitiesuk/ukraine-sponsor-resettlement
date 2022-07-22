@@ -216,6 +216,14 @@ class UnaccompaniedMinor < ApplicationRecord
     end
   end
 
+  def sponsor_declaration?
+    if sponsor_declaration.present?
+      TASK_LABEL_COMPLETE
+    else
+      TASK_LABEL_TO_DO
+    end
+  end
+
   def after_initialize
     @final_submission = false
     @eligibility_types = %i[yes no]

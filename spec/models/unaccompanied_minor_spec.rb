@@ -286,7 +286,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   end
 
   describe "task list sponsor details" do
-    it "return status for names", :focus do
+    it "return status for names" do
       app = described_class.new
       expect(app.sponsor_details_names?).to eq("Not started")
       app.given_name = "Bob"
@@ -296,7 +296,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.sponsor_details_names?).to eq("Completed")
     end
 
-    it "return status for contact details", :focus do
+    it "return status for contact details" do
       app = described_class.new
       expect(app.sponsor_details_contact_details?).to eq("Not started")
       app.email = "test@test.com"
@@ -305,7 +305,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.sponsor_details_contact_details?).to eq("Completed")
     end
 
-    it "return status for additional details", :focus do
+    it "return status for additional details" do
       app = described_class.new
       expect(app.sponsor_details_additional_details?).to eq("Not started")
       app.no_identification_reason = "reason"
@@ -314,7 +314,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.sponsor_details_additional_details?).to eq("Completed")
     end
 
-    it "return status for address", :focus do
+    it "return status for address" do
       app = described_class.new
       expect(app.sponsor_address_details?).to eq("Not started")
       app.residential_line_1 = "address line 1"
@@ -323,7 +323,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.sponsor_address_details?).to eq("Completed")
     end
 
-    it "return status for who will be living at address", :focus do
+    it "return status for who will be living at address" do
       app = described_class.new
       expect(app.sponsor_living_there_details?).to eq("Not started")
       app.different_address = "yes"
@@ -336,7 +336,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.sponsor_living_there_details?).to eq("Completed")
     end
 
-    it "return status for child personal details", :focus do
+    it "return status for child personal details" do
       app = described_class.new
       expect(app.sponsor_child_details?).to eq("Not started")
       app.minor_given_name = "First name"
@@ -345,25 +345,32 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.sponsor_child_details?).to eq("Completed")
     end
 
-    it "return status for UK consent form", :focus do
+    it "return status for UK consent form" do
       app = described_class.new
       expect(app.uk_consent_form?).to eq("Not started")
       app.uk_parental_consent_filename = "UK consent file name"
       expect(app.uk_consent_form?).to eq("Completed")
     end
 
-    it "return status for Ukraine consent form", :focus do
+    it "return status for Ukraine consent form" do
       app = described_class.new
       expect(app.ukraine_consent_form?).to eq("Not started")
       app.ukraine_parental_consent_filename = "Ukraine consent file name"
       expect(app.ukraine_consent_form?).to eq("Completed")
     end
 
-    it "return status for privacy consent form", :focus do
+    it "return status for privacy consent form" do
       app = described_class.new
       expect(app.privacy_consent?).to eq("Not started")
       app.privacy_statement_confirm = "true"
       expect(app.privacy_consent?).to eq("Completed")
+    end
+
+    it "return status for sponsor declaration form" do
+      app = described_class.new
+      expect(app.sponsor_declaration?).to eq("Not started")
+      app.sponsor_declaration = "true"
+      expect(app.sponsor_declaration?).to eq("Completed")
     end
   end
 
