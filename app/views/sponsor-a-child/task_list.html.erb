@@ -116,7 +116,9 @@
                   Upload parental consent (Ukraine)
                 </a>
               </span>
-            <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
+            <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.ukraine_consent_form?) %>">
+              <%= @application.ukraine_consent_form? %>
+            </strong>
           </li>
         </ul>
       </li>
