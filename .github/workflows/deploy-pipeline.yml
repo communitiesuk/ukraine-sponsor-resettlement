@@ -194,6 +194,9 @@ jobs:
           SPONSOR_CONFIRMATION_TEMPLATE_ID: ${{ secrets.SPONSOR_CONFIRMATION_TEMPLATE_ID }}
           SAVE_AND_RETURN_TEMPLATE_ID: ${{ secrets.SAVE_AND_RETURN_TEMPLATE_ID }}
           SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
         run: |
           cf api $CF_API_ENDPOINT
           cf auth
@@ -210,6 +213,9 @@ jobs:
           cf set-env $APP_NAME SPONSOR_CONFIRMATION_TEMPLATE_ID $SPONSOR_CONFIRMATION_TEMPLATE_ID
           cf set-env $APP_NAME SAVE_AND_RETURN_TEMPLATE_ID $SAVE_AND_RETURN_TEMPLATE_ID
           cf set-env $APP_NAME SENTRY_DSN $SENTRY_DSN
+          cf set-env $APP_NAME AWS_ACCESS_KEY_ID $AWS_ACCESS_KEY_ID
+          cf set-env $APP_NAME AWS_SECRET_ACCESS_KEY $AWS_SECRET_ACCESS_KEY
+          cf set-env $APP_NAME AWS_BUCKET_NAME $AWS_BUCKET_NAME
           cf set-env $APP_NAME MALLOC_ARENA_MAX 2
           cf push -f worker-manifest.yml $APP_NAME --strategy rolling --no-wait
 
@@ -290,6 +296,9 @@ jobs:
           SPONSOR_CONFIRMATION_TEMPLATE_ID: ${{ secrets.SPONSOR_CONFIRMATION_TEMPLATE_ID }}
           SAVE_AND_RETURN_TEMPLATE_ID: ${{ secrets.SAVE_AND_RETURN_TEMPLATE_ID }}
           SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
         run: |
           cf api $CF_API_ENDPOINT
           cf auth
@@ -304,5 +313,8 @@ jobs:
           cf set-env $APP_NAME SPONSOR_CONFIRMATION_TEMPLATE_ID $SPONSOR_CONFIRMATION_TEMPLATE_ID
           cf set-env $APP_NAME SAVE_AND_RETURN_TEMPLATE_ID $SAVE_AND_RETURN_TEMPLATE_ID
           cf set-env $APP_NAME SENTRY_DSN $SENTRY_DSN
+          cf set-env $APP_NAME AWS_ACCESS_KEY_ID $AWS_ACCESS_KEY_ID
+          cf set-env $APP_NAME AWS_SECRET_ACCESS_KEY $AWS_SECRET_ACCESS_KEY
+          cf set-env $APP_NAME AWS_BUCKET_NAME $AWS_BUCKET_NAME
           cf set-env $APP_NAME MALLOC_ARENA_MAX 2
           cf push -f worker-manifest.yml $APP_NAME --strategy rolling --no-wait
