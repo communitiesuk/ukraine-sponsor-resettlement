@@ -66,7 +66,9 @@
                   Address
                 </a>
               </span>
-            <strong class="govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>
+            <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.sponsor_address_details?) %>">
+              <%= @application.sponsor_address_details? %>
+            </strong>
           </li>
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
@@ -74,7 +76,9 @@
                   Who will live there?
                 </a>
               </span>
-            <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
+            <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.sponsor_living_there_details?) %>">
+              <%= @application.sponsor_living_there_details? %>
+            </strong>
           </li>
         </ul>
       </li>
@@ -92,7 +96,9 @@
                   Child's personal details
                 </a>
               </span>
-            <strong class="govuk-tag app-task-list__tag" id="eligibility-status">Completed</strong>
+            <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.sponsor_child_details?) %>">
+              <%= @application.sponsor_child_details? %>
+            </strong>
           </li>
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
@@ -100,7 +106,9 @@
                   Upload parental consent (British)
                 </a>
               </span>
-            <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
+            <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.uk_consent_form?) %>">
+              <%= @application.uk_consent_form? %>
+            </strong>
           </li>
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
@@ -108,7 +116,9 @@
                   Upload parental consent (Ukraine)
                 </a>
               </span>
-            <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
+            <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.ukraine_consent_form?) %>">
+              <%= @application.ukraine_consent_form? %>
+            </strong>
           </li>
         </ul>
       </li>
@@ -122,13 +132,17 @@
               <span class="app-task-list__task-name">
                 Consent to sharing your data
               </span>
-            <strong class="govuk-tag app-task-list__tag govuk-tag--grey">Cannot start yet</strong>
+            <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.privacy_consent?) %>">
+              <%= @application.privacy_consent? %>
+            </strong>
           </li>
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
                 Sponsor declaration
               </span>
-            <strong class="govuk-tag app-task-list__tag govuk-tag--grey">Cannot start yet</strong>
+            <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.sponsor_declaration?) %>">
+              <%= @application.sponsor_declaration? %>
+            </strong>
           </li>
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
