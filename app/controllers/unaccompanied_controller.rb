@@ -108,6 +108,10 @@ class UnaccompaniedController < ApplicationController
     if @application.valid?
       save_and_redirect(@application, @application.ukraine_parental_consent_saved_filename, upload_params.tempfile)
     else
+      Rails.logger.debug "****************************************************************"
+      Rails.logger.debug "Errors: #{@application.errors.full_messages}"
+      Rails.logger.debug "****************************************************************"
+
       render "sponsor-a-child/steps/#{params['stage']}"
     end
   end
