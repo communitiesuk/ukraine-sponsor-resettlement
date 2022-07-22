@@ -2,20 +2,20 @@ class StorageService
   attr_reader :configuration
 
   def initialize(paas_config_service, paas_instance_name)
-    Rails.logger.debug "Initialising storage service"
+    puts "Initialising storage service"
     @paas_config_service = paas_config_service
     @paas_instance_name = ("#{paas_instance_name}-s3" || "").to_sym
     @configuration = create_configuration
     @client = create_client
-    Rails.logger.debug "Initialising storage service - complete!"
+    puts "Initialising storage service - complete!"
   end
 
   def write_file(file_name, data)
     # rubocop:disable Style/RedundantBegin
     # rubocop:disable Style/RescueStandardError
     begin
-      Rails.logger.debug "BUCKET NAME: #{@configuration.bucket_name}"
-      Rails.logger.debug "BEFORE 'put' save to S3 - file: #{file_name}"
+      puts "BUCKET NAME: #{@configuration.bucket_name}"
+      puts "BEFORE 'put' save to S3 - file: #{file_name}"
 
       @client.put_object(
         body: data,
@@ -23,13 +23,13 @@ class StorageService
         key: file_name,
       )
 
-      Rails.logger.debug "AFTER 'put' save to S3 - file: #{file_name}"
+      puts "AFTER 'put' save to S3 - file: #{file_name}"
     rescue
       # Do nothing for now! Really MUST fix this!
       # TODO remove try...catch
-      Rails.logger.debug "****************************************************************"
-      Rails.logger.debug "Could NOT upload file!"
-      Rails.logger.debug "****************************************************************"
+      puts "****************************************************************"
+      puts "Could NOT upload file!"
+      puts "****************************************************************"
     end
     # rubocop:enable Style/RedundantBegin
     # rubocop:enable Style/RescueStandardError
