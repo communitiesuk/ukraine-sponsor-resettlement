@@ -154,15 +154,16 @@ class UnaccompaniedController < ApplicationController
       params["unaccompanied_minor"]["other_nationality"] = ""
     end
 
-    # handle minor's date of birth
-    if params["stage"].to_i == MINOR_DATE_OF_BIRTH && (params["unaccompanied_minor"]["minor_date_of_birth(3i)"] && \
-          params["unaccompanied_minor"]["minor_date_of_birth(2i)"] && \
-          params["unaccompanied_minor"]["minor_date_of_birth(3i)"]).blank?
-      @application.errors.add(:minor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
 
-      render "sponsor-a-child/steps/#{MINOR_DATE_OF_BIRTH}"
-      return
-    end
+
+    # if params["stage"].to_i == MINOR_DATE_OF_BIRTH && (params["unaccompanied_minor"]["minor_date_of_birth(3i)"] && \
+    #       params["unaccompanied_minor"]["minor_date_of_birth(2i)"] && \
+    #       params["unaccompanied_minor"]["minor_date_of_birth(3i)"]).blank?
+    #   @application.errors.add(:minor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
+    #
+    #   render "sponsor-a-child/steps/#{MINOR_DATE_OF_BIRTH}"
+    #   return
+    # end
 
     # capture the other adults at address
     if params["stage"].to_i == ADULTS_AT_ADDRESS
@@ -172,6 +173,12 @@ class UnaccompaniedController < ApplicationController
 
     # Update Application object with new attributes
     @application.assign_attributes(application_params)
+
+    # handle minor's date of birth
+    if params["stage"].to_i == MINOR_DATE_OF_BIRTH
+      # Parameters: {"unaccompanied_minor"=>{"minor_date_of_birth(3i)"=>"15", "minor_date_of_birth(2i)"=>"11", "minor_date_of_birth(1i)"=>"2021"}}
+      @application.minor_date_of_birth = { 3 => params["unaccompanied_minor"]["minor_date_of_birth(3i)"], 2 => params["unaccompanied_minor"]["minor_date_of_birth(2i)"], 1 => params["unaccompanied_minor"]["minor_date_of_birth(1i)"] }
+    end
 
     if @application.valid?
       # Update the database

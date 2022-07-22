@@ -2,6 +2,19 @@ require "securerandom"
 
 Adult = Struct.new(:given_name, :family_name, :date_of_birth, :nationality, :id_type_and_number)
 
+class DateOfBirth
+  attr_accessor :year, :month, :day
+
+  # They must be positive integers
+  # validates :year, :month, :day, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
+
+  # validates_date :date_of_birth, :before => lambda { 18.years.ago }, :before_message => "must be at least 18 years old"
+
+  def to_date
+    Date.new(year, month, day)
+  end
+end
+
 class UnaccompaniedMinor < ApplicationRecord
   include UamValidations
   include ContactDetailsValidations
@@ -187,13 +200,13 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
   def sponsor_child_details?
-    if minor_date_of_birth.present? && minor_date_of_birth.length.positive?
-      TASK_LABEL_COMPLETE
-    elsif minor_given_name.present?
-      TASK_LABEL_IN_PROGRESS
-    else
+    # if minor_date_of_birth.present? && minor_date_of_birth.length.positive?
+    #   TASK_LABEL_COMPLETE
+    # elsif minor_given_name.present?
+    #   TASK_LABEL_IN_PROGRESS
+    # else
       TASK_LABEL_TO_DO
-    end
+    # end
   end
 
   def uk_consent_form?
@@ -234,6 +247,7 @@ class UnaccompaniedMinor < ApplicationRecord
     @have_parental_consent_options = %i[yes no]
     @different_address_types = %i[yes no]
     @other_adults_address_types = %i[yes no]
+    # @minor_date_of_birth = DateOfBirth.new
     self.certificate_reference ||= get_formatted_certificate_number
   end
 
