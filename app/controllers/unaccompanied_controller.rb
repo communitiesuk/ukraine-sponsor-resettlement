@@ -108,6 +108,14 @@ class UnaccompaniedController < ApplicationController
     if @application.valid?
       save_and_redirect(@application, @application.ukraine_parental_consent_saved_filename, upload_params.tempfile)
     else
+      Rails.logger.debug "****************************************************************"
+      Rails.logger.debug "Errors: #{@application.errors.full_messages}"
+      Rails.logger.debug "****************************************************************"
+
+      Rails.logger.debug "================================================================"
+      Rails.logger.debug "JSON: #{@application.as_json}"
+      Rails.logger.debug "================================================================"
+
       render "sponsor-a-child/steps/#{params['stage']}"
     end
   end
@@ -334,18 +342,12 @@ class UnaccompaniedController < ApplicationController
 private
 
   def save_and_redirect(application, filename, file)
+    Rails.logger.debug "BEFORE save_file"
     save_file(filename, file)
+    Rails.logger.debug "AFTER save_file"
 
-    session[:unaccompanied_minor] = application.as_json
-
-    next_stage = RoutingEngine.get_next_unaccompanied_minor_step(application, params["stage"].to_i)
-
-    if next_stage == TASK_LIST_STEP
-      # Redirect to show the task-list
-      redirect_to "/sponsor-a-child/task-list/#{application.reference}"
-    else
-      redirect_to "/sponsor-a-child/steps/#{next_stage}"
-    end
+    Rails.logger.debug "Going to redirect to task list"
+    redirect_to "/sponsor-a-child/task-list/#{application.reference}"
   end
 
   def save_file(filename, file)
