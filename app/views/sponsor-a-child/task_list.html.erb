@@ -76,7 +76,9 @@
                   Who will live there?
                 </a>
               </span>
-            <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
+            <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.sponsor_living_there_details?) %>">
+              <%= @application.sponsor_living_there_details? %>
+            </strong>
           </li>
         </ul>
       </li>

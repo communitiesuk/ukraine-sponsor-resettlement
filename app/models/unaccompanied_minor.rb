@@ -168,6 +168,16 @@ class UnaccompaniedMinor < ApplicationRecord
     end
   end
 
+  def sponsor_living_there_details?
+    if (adults_at_address.present? && adults_at_address.length.positive?) || other_adults_address.present?
+      "Completed"
+    elsif different_address.present?
+      "In progress"
+    else
+      "Not started"
+    end
+  end
+
   def after_initialize
     @final_submission = false
     @eligibility_types = %i[yes no]
