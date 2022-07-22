@@ -230,6 +230,8 @@ class UnaccompaniedController < ApplicationController
 
     if @application.is_cancelled?
       render "sponsor-a-child/cancel_confirm"
+    elsif @application.is_submitted?
+      render "sponsor-a-child/confirm"
     else
       render "sponsor-a-child/task_list"
     end

@@ -117,6 +117,10 @@ class UnaccompaniedMinor < ApplicationRecord
     is_cancelled
   end
 
+  def is_submitted?
+    transferred_at.present?
+  end
+
   def minor_full_name?
     "#{minor_given_name} #{minor_family_name}"
   end
