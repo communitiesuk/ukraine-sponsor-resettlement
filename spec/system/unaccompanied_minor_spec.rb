@@ -22,7 +22,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       page.set_rack_session(app_reference: new_application.reference)
 
-      visit "/sponsor-a-child/task-list/"
+      visit "/sponsor-a-child/task-list"
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
       click_button("Cancel application")
@@ -57,7 +57,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       page.set_rack_session(app_reference: new_application.reference)
 
-      visit "/sponsor-a-child/task-list/"
+      visit "/sponsor-a-child/task-list"
       expect(page).to have_content("Application complete")
     end
 
