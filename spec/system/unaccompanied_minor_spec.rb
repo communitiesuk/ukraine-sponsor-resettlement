@@ -48,16 +48,16 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Your application has been cancelled")
     end
 
-    it "render confirmation on task list if already submitted" do
+    it "render confirmation on task list if already submitted", :focus do
       new_application = UnaccompaniedMinor.new
       new_application.transferred_at = Time.zone.now
       new_application.save!
 
       expect(new_application.transferred_at).not_to be_nil
 
-      page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
+      page.set_rack_session(app_reference: new_application.reference)
 
-      visit page_url
+      visit "/sponsor-a-child/task-list/"
       expect(page).to have_content("Application complete")
     end
 
