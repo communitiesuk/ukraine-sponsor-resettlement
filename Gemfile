@@ -44,6 +44,8 @@ group :development, :test do
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "scss_lint-govuk"
+  # Session middleware for testing
+  gem "rack_session_access"
 end
 
 group :development do

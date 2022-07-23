@@ -40,7 +40,7 @@ class UnaccompaniedController < ApplicationController
     session[:app_reference] = @application.reference
 
     # Redirect to show the task-list
-    redirect_to "/sponsor-a-child/task-list/#{@application.reference}"
+    redirect_to "/sponsor-a-child/task-list"
   end
 
   def display
@@ -82,7 +82,7 @@ class UnaccompaniedController < ApplicationController
     end
 
     if @application.valid?
-      save_and_redirect(@application, @application.uk_parental_consent_saved_filename, upload_params.tempfile)
+      save_and_redirect(@application.uk_parental_consent_saved_filename, upload_params.tempfile)
     else
       render "sponsor-a-child/steps/#{params['stage']}"
     end
@@ -106,7 +106,7 @@ class UnaccompaniedController < ApplicationController
     end
 
     if @application.valid?
-      save_and_redirect(@application, @application.ukraine_parental_consent_saved_filename, upload_params.tempfile)
+      save_and_redirect(@application.ukraine_parental_consent_saved_filename, upload_params.tempfile)
     else
       render "sponsor-a-child/steps/#{params['stage']}"
     end
@@ -169,7 +169,7 @@ class UnaccompaniedController < ApplicationController
         redirect_to "/sponsor-a-child/non-eligible"
       elsif next_stage == TASK_LIST_STEP
         # Redirect to show the task-list
-        redirect_to "/sponsor-a-child/task-list/#{@application.reference}"
+        redirect_to "/sponsor-a-child/task-list"
       elsif next_stage > MAX_STEPS
         redirect_to "/sponsor-a-child/check-answers"
       else
@@ -222,10 +222,9 @@ class UnaccompaniedController < ApplicationController
   end
 
   def task_list
-    @application = UnaccompaniedMinor.find_by_reference(params[:reference])
+    @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
 
     # Ensure session matches application
-    session[:app_reference] = params[:reference]
     session[:unaccompanied_minor] = @application.as_json
 
     if @application.is_cancelled?
@@ -244,7 +243,7 @@ class UnaccompaniedController < ApplicationController
   end
 
   def save_or_cancel_application
-    @application = UnaccompaniedMinor.find_by_reference(params[:reference])
+    @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
 
     if params[:cancel_application]
       # cancel an application
@@ -257,14 +256,14 @@ class UnaccompaniedController < ApplicationController
       # save and return later
       GovNotifyMailer.send_save_and_return_email(@application.given_name, "link", @application.email).deliver_later
 
-      redirect_to "/sponsor-a-child/save-and-return-confirm/#{params[:reference]}"
+      redirect_to "/sponsor-a-child/save-and-return-confirm"
     end
   end
 
   def  cancel_confirm
     if params[:cancel_application]
       # Soft delete the application
-      @application = UnaccompaniedMinor.find_by_reference(params[:reference])
+      @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
       @application.is_cancelled = true
       @application.save!(validate: false)
 
@@ -276,7 +275,7 @@ class UnaccompaniedController < ApplicationController
       render "sponsor-a-child/cancel_confirm"
     else
       # Redirect to show the task-list
-      redirect_to "/sponsor-a-child/task-list/#{params[:reference]}"
+      redirect_to "/sponsor-a-child/task-list"
     end
   end
 
@@ -333,10 +332,10 @@ class UnaccompaniedController < ApplicationController
 
 private
 
-  def save_and_redirect(application, filename, file)
+  def save_and_redirect(filename, file)
     save_file(filename, file)
 
-    redirect_to "/sponsor-a-child/task-list/#{application.reference}"
+    redirect_to "/sponsor-a-child/task-list"
   end
 
   def save_file(filename, file)
