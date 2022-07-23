@@ -592,27 +592,29 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
   end
 
-  describe "Save and return later functionality", :focus do
+  describe "Save and return later functionality" do
     it "clicks save and return later button and gets redirected to confirmation page" do
       new_application = UnaccompaniedMinor.new
       new_application.save!
 
-      page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
-      visit page_url
+      page.set_rack_session(app_reference: new_application.reference)
+
+      visit "/sponsor-a-child/task-list"
       click_button("Save and return later")
+
       expect(page).to have_http_status(:success)
       expect(page).to have_content("We've sent you an email with a link to your saved application")
     end
   end
 
-  describe "Goes through child flow and enters DoB", :focus do
+  describe "Goes through child flow and enters DoB" do
     it "enters blank DoB" do
       new_application = UnaccompaniedMinor.new
       new_application.save!
 
-      page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
+      page.set_rack_session(app_reference: new_application.reference)
 
-      visit page_url
+      visit "/sponsor-a-child/task-list"
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
       click_link("Child's personal details")
@@ -630,7 +632,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
       expect(page).to have_content("date of birth")
 
-      # TODO: failing on this branch but passing on the other branch - hopefully passing when that branch is merged
+      # TODO: re-instate this expectation once date of birth validation is resolved
       # click_button("Continue")
       # expect(page).to have_content("Enter a valid date of birth")
     end
