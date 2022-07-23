@@ -13,8 +13,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
   end
 
-  describe "cancelling the application" do
-    it "updates the application as cancelled", :focus do
+  describe "cancelling the application", :focus do
+    it "updates the application as cancelled" do
       new_application = UnaccompaniedMinor.new
       new_application.save!
 
@@ -35,7 +35,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(cancelled_application.is_cancelled).to eq(true)
     end
 
-    it "render cancellation confirmation on task list if already cancelled", :focus do
+    it "render cancellation confirmation on task list if already cancelled" do
       new_application = UnaccompaniedMinor.new
       new_application.is_cancelled = true
       new_application.save!
@@ -48,7 +48,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Your application has been cancelled")
     end
 
-    it "render confirmation on task list if already submitted", :focus do
+    it "render confirmation on task list if already submitted" do
       new_application = UnaccompaniedMinor.new
       new_application.transferred_at = Time.zone.now
       new_application.save!
@@ -62,19 +62,14 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
 
     it "redirect to task list if user decides to continue application" do
-      answers = { fullname: "Bob The Builder" }
-      test_reference = sprintf("SPON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
-      id = ActiveRecord::Base.connection.insert("INSERT INTO unaccompanied_minors (reference, answers, created_at, updated_at, is_cancelled) VALUES ('#{test_reference}', '#{JSON.generate(answers)}', NOW(), NOW(), false)")
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
 
-      new_application = UnaccompaniedMinor.find(id)
-      expect(new_application.reference).to eq(test_reference)
-      expect(new_application.certificate_reference).to start_with("CERT-")
       expect(new_application.is_cancelled).to be(false)
 
-      page_url = "/sponsor-a-child/task-list/#{new_application.reference}"
-      expect(page_url).to end_with(new_application.reference)
+      page.set_rack_session(app_reference: new_application.reference)
 
-      visit page_url
+      visit "/sponsor-a-child/task-list"
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
       click_button("Cancel application")
@@ -83,10 +78,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue application")
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
-      continued_application = UnaccompaniedMinor.find(id)
-      expect(continued_application).to eq(new_application)
-      expect(continued_application.reference).to eq(test_reference)
-      expect(continued_application.certificate_reference).to start_with("CERT-")
+      continued_application = UnaccompaniedMinor.find_by_reference(new_application.reference)
       expect(continued_application.is_cancelled).to eq(false)
     end
   end
