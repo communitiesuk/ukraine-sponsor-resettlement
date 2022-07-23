@@ -273,7 +273,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
     end
 
-    it "complete child flow name(s) section and save answers to the db", :focus do
+    it "complete child flow name(s) section and save answers to the db" do
       new_application = UnaccompaniedMinor.new
       new_application.save!
 
@@ -297,7 +297,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
     end
 
-    it "complete child flow contact details section and save answers to the db", :focus do
+    it "complete child flow contact details section and save answers to the db" do
       new_application = UnaccompaniedMinor.new
       new_application.save!
 
@@ -318,7 +318,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
     end
 
-    it "complete child flow additional details section and save answers to the db", :focus do
+    it "complete child flow additional details section and save answers to the db" do
       new_application = UnaccompaniedMinor.new
       new_application.save!
 
@@ -349,11 +349,13 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
   end
 
-  describe "submitting the form for child's flow" do
+  describe "submitting the form for child's flow", :focus do
     it "saves all the data to the database" do
       new_application = UnaccompaniedMinor.new
       new_application.save!
       minor_dob_under_18_year = Time.zone.now.year - 4
+
+      page.set_rack_session(app_reference: new_application.reference)
 
       visit "/sponsor-a-child/task-list"
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
@@ -385,6 +387,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       new_application = UnaccompaniedMinor.new
       new_application.save!
 
+      page.set_rack_session(app_reference: new_application.reference)
+
       visit "/sponsor-a-child/task-list"
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
@@ -405,6 +409,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     it "saves all the Ukraine parent consent form to the database" do
       new_application = UnaccompaniedMinor.new
       new_application.save!
+
+      page.set_rack_session(app_reference: new_application.reference)
 
       visit "/sponsor-a-child/task-list"
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
