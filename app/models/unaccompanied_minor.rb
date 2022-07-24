@@ -161,6 +161,14 @@ class UnaccompaniedMinor < ApplicationRecord
     "#{minor_given_name} #{minor_family_name}"
   end
 
+  def heading_number?(default)
+    if adults_at_address.present? && adults_at_address.length.positive?
+      "#{default + 1}."
+    else
+      "#{default}."
+    end
+  end
+
   def status_styles?(status)
     case status
     when TASK_LABEL_UNAVAILABLE, TASK_LABEL_TO_DO

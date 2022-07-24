@@ -87,7 +87,7 @@
 
       <li>
         <h2 class="app-task-list__section">
-          <span class="app-task-list__section-number">3. </span> Tell use about the child
+          <span class="app-task-list__section-number"><%= @application.heading_number?(3) %> </span> Tell use about the child
         </h2>
         <ul class="app-task-list__items">
           <li class="app-task-list__item">
@@ -125,7 +125,7 @@
 
       <li>
         <h2 class="app-task-list__section">
-          <span class="app-task-list__section-number">4. </span> Send your application
+          <span class="app-task-list__section-number"><%= @application.heading_number?(4) %> </span> Send your application
         </h2>
         <ul class="app-task-list__items">
           <li class="app-task-list__item">

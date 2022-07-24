@@ -637,4 +637,25 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       # expect(page).to have_content("Enter a valid date of birth")
     end
   end
+
+  describe "task list dynamic elements", :focus do
+    it "correctly numbers the headings" do
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
+
+      page.set_rack_session(app_reference: new_application.reference)
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("3. Tell use about the child")
+      expect(page).to have_content("4. Send your application")
+
+      new_application.adults_at_address = {}
+      new_application.adults_at_address.store("123", Adult.new("Bob", "Jones"))
+      new_application.save!
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("4. Tell use about the child")
+      expect(page).to have_content("5. Send your application")
+    end
+  end
 end
