@@ -355,6 +355,7 @@ class UnaccompaniedMinor < ApplicationRecord
       sponsor_declaration:,
       adult_number:,
       minor_contact_details:,
+      other_adults_address:,
       adults_at_address:,
     }.compact
   end
