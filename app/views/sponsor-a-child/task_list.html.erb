@@ -90,9 +90,16 @@
           <span class="app-task-list__section-number">3. </span> Residents' details
         </h2>
         <ul class="app-task-list__items">
-          <%# @application.adults_at_address.each do |key, val| %>
-
-          <%# end %>
+          <% @application.adults_at_address.each do |key, val| %>
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <%= link_to("#{val["given_name"]} #{val["family_name"]} details", "/steps/29/#{key}", "aria-describedby": "child-personal-details") %>
+              </span>
+              <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.sponsor_child_details?) %>">
+                <%= @application.sponsor_child_details? %>
+              </strong>
+            </li>
+          <% end %>
         </ul>
       </li>
     <% end %>
