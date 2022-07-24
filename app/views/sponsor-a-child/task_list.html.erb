@@ -83,7 +83,19 @@
         </ul>
       </li>
 
-<!--      TODO: dynamic section based on the answers to the who lives there question-->
+<!-- Dynamic section based on the answers to the who lives there question -->
+    <% if @application.is_adults_at_address_populated? %>
+      <li>
+        <h2 class="app-task-list__section">
+          <span class="app-task-list__section-number">3. </span> Residents' details
+        </h2>
+        <ul class="app-task-list__items">
+          <%# @application.adults_at_address.each do |key, val| %>
+
+          <%# end %>
+        </ul>
+      </li>
+    <% end %>
 
       <li>
         <h2 class="app-task-list__section">

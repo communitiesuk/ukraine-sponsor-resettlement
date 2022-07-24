@@ -646,6 +646,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: new_application.reference)
 
       visit "/sponsor-a-child/task-list"
+      expect(page).not_to have_content("3. Residents' details")
       expect(page).to have_content("3. Tell use about the child")
       expect(page).to have_content("4. Send your application")
 
@@ -654,6 +655,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       new_application.save!
 
       visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("3. Residents' details")
       expect(page).to have_content("4. Tell use about the child")
       expect(page).to have_content("5. Send your application")
     end

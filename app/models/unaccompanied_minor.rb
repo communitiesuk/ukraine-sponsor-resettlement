@@ -161,8 +161,12 @@ class UnaccompaniedMinor < ApplicationRecord
     "#{minor_given_name} #{minor_family_name}"
   end
 
+  def is_adults_at_address_populated?
+    adults_at_address.present? && adults_at_address.length.positive?
+  end
+
   def heading_number?(default)
-    if adults_at_address.present? && adults_at_address.length.positive?
+    if is_adults_at_address_populated?
       "#{default + 1}."
     else
       "#{default}."
