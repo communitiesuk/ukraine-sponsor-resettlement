@@ -678,5 +678,17 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Bob Jones details")
       expect(page).to have_content("Jane Smith details")
     end
+
+    it "correctly creates the resident details task item links" do
+      new_application = UnaccompaniedMinor.new
+      new_application.adults_at_address = {}
+      new_application.adults_at_address.store("123", Adult.new("Bob", "Jones"))
+      new_application.save!
+
+      page.set_rack_session(app_reference: new_application.reference)
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_link("", href: "/sponsor-a-child/steps/29/123")
+    end
   end
 end
