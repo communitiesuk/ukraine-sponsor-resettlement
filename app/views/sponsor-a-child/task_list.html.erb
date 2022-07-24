@@ -11,7 +11,6 @@
       </strong>
     </p>
 
-<!--    TODO: work out number of sections and number of completed sections-->
     <p>
       You have completed <%= @application.number_of_completed_sections? %> of <%= @application.number_of_sections? %> sections.
     </p>
@@ -95,8 +94,8 @@
               <span class="app-task-list__task-name">
                 <%= link_to("#{val["given_name"]} #{val["family_name"]} details", "/sponsor-a-child/steps/29/#{key}", "aria-describedby": "child-personal-details") %>
               </span>
-              <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.sponsor_child_details?) %>">
-                <%= @application.sponsor_child_details? %>
+              <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.sponsor_resident_details?(val["date_of_birth"], val["id_type_and_number"])) %>">
+                <%= @application.sponsor_resident_details?(val["date_of_birth"], val["id_type_and_number"]) %>
               </strong>
             </li>
           <% end %>
