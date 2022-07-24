@@ -383,6 +383,15 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.sponsor_child_details?).to eq("Completed")
     end
 
+    it "return status for resident personal details", :focus do
+      app = described_class.new
+      # app.adults_at_address = {}
+      # app.adults_at_address.store("123", Adult.new("Bob", "Jones"))
+      expect(app.sponsor_resident_details?("", "")).to eq("Not started")
+      expect(app.sponsor_resident_details?("dob", "")).to eq("In progress")
+      expect(app.sponsor_resident_details?("dob", "id_and_type")).to eq("Completed")
+    end
+
     it "return status for UK consent form" do
       app = described_class.new
       expect(app.uk_consent_form?).to eq("Not started")

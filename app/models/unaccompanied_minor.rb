@@ -114,7 +114,7 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
   def number_of_sections?
-    if adults_at_address.present? && adults_at_address.length.positive?
+    if is_adults_at_address_populated?
       5
     else
       4
@@ -238,6 +238,16 @@ class UnaccompaniedMinor < ApplicationRecord
     if minor_date_of_birth.present? && minor_date_of_birth.length.positive?
       TASK_LABEL_COMPLETE
     elsif minor_given_name.present?
+      TASK_LABEL_IN_PROGRESS
+    else
+      TASK_LABEL_TO_DO
+    end
+  end
+
+  def sponsor_resident_details?(date_of_birth, id)
+    if id.present?
+      TASK_LABEL_COMPLETE
+    elsif date_of_birth.present?
       TASK_LABEL_IN_PROGRESS
     else
       TASK_LABEL_TO_DO
