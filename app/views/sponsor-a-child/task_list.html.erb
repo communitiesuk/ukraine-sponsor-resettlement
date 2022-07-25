@@ -147,17 +147,17 @@
         </h2>
         <ul class="app-task-list__items">
           <li class="app-task-list__item">
-              <span class="app-task-list__task-name">
-                Consent to sharing your data
-              </span>
+            <a href="/sponsor-a-child/steps/36" aria-describedby="consent-to-share-your-data">
+              Consent to sharing your data
+            </a>
             <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.privacy_consent?) %>">
               <%= @application.privacy_consent? %>
             </strong>
           </li>
           <li class="app-task-list__item">
-              <span class="app-task-list__task-name">
-                Sponsor declaration
-              </span>
+            <a href="/sponsor-a-child/steps/37" aria-describedby="sponsor-declaration">
+              Sponsor declaration
+            </a>
             <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.sponsor_declaration?) %>">
               <%= @application.sponsor_declaration? %>
             </strong>
