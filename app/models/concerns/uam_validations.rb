@@ -37,7 +37,6 @@ module UamValidations
     validates :minor_date_of_birth_day, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 31, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :minor_date_of_birth_day }
     validates :minor_date_of_birth_month, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 12, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :minor_date_of_birth_month }
     validates :minor_date_of_birth_year, numericality: { only_integer: true, greater_than_or_equal_to: 1900, less_than_or_equal_to: 2100, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :minor_date_of_birth_year }
-
   end
 
   def validate_is_under_18

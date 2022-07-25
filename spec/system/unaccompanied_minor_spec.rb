@@ -350,7 +350,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   end
 
   describe "submitting the form for child's flow" do
-    it "saves all the data to the database", :focus do
+    it "saves all the data to the database" do
       new_application = UnaccompaniedMinor.new
       new_application.save!
       minor_dob_under_18_year = Time.zone.now.year - 4
