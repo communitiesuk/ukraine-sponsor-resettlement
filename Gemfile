@@ -23,6 +23,7 @@ gem "govuk_notify_rails"
 gem "rack-attack"
 gem "redis"
 gem "sidekiq"
+gem 'devise'
 
 # Sentry - Application Monitoring
 gem "sentry-rails"
