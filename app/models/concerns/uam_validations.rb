@@ -14,7 +14,6 @@ module UamValidations
     validate :validate_is_consent, if: -> { run_validation? :is_consent }
     validate :validate_is_committed, if: -> { run_validation? :is_committed }
     validate :validate_is_permitted, if: -> { run_validation? :is_permitted }
-    # validate :validate_sponsor_date_of_birth, if: -> { run_validation? :sponsor_date_of_birth }
     validate :validate_have_parental_consent, if: -> { run_validation? :have_parental_consent }
     validate :validate_uk_parent_consent_file_type, if: -> { run_validation? :uk_parental_consent_file_type }
     validate :validate_uk_parent_consent_filename, if: -> { run_validation? :uk_parental_consent_filename }
@@ -37,6 +36,9 @@ module UamValidations
     validates :minor_date_of_birth_day, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 31, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :minor_date_of_birth_day }
     validates :minor_date_of_birth_month, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 12, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :minor_date_of_birth_month }
     validates :minor_date_of_birth_year, numericality: { only_integer: true, greater_than_or_equal_to: 1900, less_than_or_equal_to: 2100, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :minor_date_of_birth_year }
+    validates :sponsor_date_of_birth_day, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 31, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :sponsor_date_of_birth_day }
+    validates :sponsor_date_of_birth_month, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 12, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :sponsor_date_of_birth_month }
+    validates :sponsor_date_of_birth_year, numericality: { only_integer: true, greater_than_or_equal_to: 1900, less_than_or_equal_to: 2100, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :sponsor_date_of_birth_year }
   end
 
   def validate_is_under_18
@@ -65,14 +67,6 @@ module UamValidations
 
   def validate_is_permitted
     validate_enum(@eligibility_types, @is_permitted, :is_permitted)
-  end
-
-  def validate_sponsor_date_of_birth
-    if @sponsor_date_of_birth.blank? || Time.zone.parse(@sponsor_date_of_birth.map { |_, v| v }.join("-").to_s) >= Time.zone.now.to_date
-      errors.add(:sponsor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
-    elsif Time.zone.parse(@sponsor_date_of_birth.map { |_, v| v }.join("-").to_s) > 18.years.ago.to_date
-      errors.add(:sponsor_date_of_birth, I18n.t(:too_young_date_of_birth, scope: :error))
-    end
   end
 
   def validate_uk_parent_consent_file_type

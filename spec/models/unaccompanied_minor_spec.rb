@@ -225,23 +225,16 @@ RSpec.describe UnaccompaniedMinor, type: :model do
     end
   end
 
-  describe "age validations, minor is less than 18" do
-    it "sponsor is greater than 18" do
-      pending("work out how to validate dob")
+  describe "age validations" do
+    it "sponsor is greater than 18", :focus do
       app = described_class.new
-      app.sponsor_date_of_birth = {}
+      app.sponsor_date_of_birth_day = 0
       expect(app.valid?).to be(false)
-      expect(app.errors[:sponsor_date_of_birth]).to include("Enter a valid date of birth")
-      expect(app.errors[:sponsor_date_of_birth].count).to be(1)
-      app.sponsor_date_of_birth = { "1" => 2022, "2" => 6, "3" => 21 }
-      expect(app.valid?).to be(false)
-      expect(app.errors[:sponsor_date_of_birth]).to include("A sponsor with this date of birth is less 18 and you cannot use this service to apply to sponsor them")
-      expect(app.errors[:sponsor_date_of_birth].count).to be(1)
-      app.sponsor_date_of_birth = { "1" => Time.zone.now.year, "2" => Time.zone.now.month, "3" => Time.zone.now.day }
-      expect(app.valid?).to be(false)
-      expect(app.errors[:sponsor_date_of_birth]).to include("Enter a valid date of birth")
-      expect(app.errors[:sponsor_date_of_birth].count).to be(1)
-      app.sponsor_date_of_birth = { "1" => 2004, "2" => 6, "3" => 22 }
+      expect(app.errors[:sponsor_date_of_birth_day]).to include("Enter a valid date of birth")
+      expect(app.errors[:sponsor_date_of_birth_day].count).to be(1)
+      app.sponsor_date_of_birth_day = 1
+      app.sponsor_date_of_birth_month = 6
+      app.sponsor_date_of_birth_year = 2002
       expect(app.valid?).to be(true)
     end
   end
