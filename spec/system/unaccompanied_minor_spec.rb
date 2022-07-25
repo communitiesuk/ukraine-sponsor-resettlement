@@ -592,21 +592,6 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
   end
 
-  describe "Save and return later functionality" do
-    it "clicks save and return later button and gets redirected to confirmation page" do
-      new_application = UnaccompaniedMinor.new
-      new_application.save!
-
-      page.set_rack_session(app_reference: new_application.reference)
-
-      visit "/sponsor-a-child/task-list"
-      click_button("Save and return later")
-
-      expect(page).to have_http_status(:success)
-      expect(page).to have_content("We've sent you an email with a link to your saved application")
-    end
-  end
-
   describe "Goes through child flow and enters DoB" do
     it "enters blank DoB" do
       new_application = UnaccompaniedMinor.new
