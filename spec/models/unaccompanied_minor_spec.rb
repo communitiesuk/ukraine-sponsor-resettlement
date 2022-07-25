@@ -2,14 +2,14 @@ require "rails_helper"
 
 RSpec.describe UnaccompaniedMinor, type: :model do
   describe "dynamic task list requirements" do
-    it "calculates the number of sections to be completed", :focus do
+    it "calculates the number of sections to be completed" do
       app = described_class.new
       expect(app.number_of_sections?).to be(4)
       app.adults_at_address = { "123" => Adult.new }
       expect(app.number_of_sections?).to be(5)
     end
 
-    it "calculates the number of completed sections", :focus do
+    it "calculates the number of completed sections" do
       app = described_class.new
       expect(app.number_of_completed_sections?).to be(0)
       # Who are you? section is complete
@@ -323,7 +323,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
     end
   end
 
-  describe "task list sponsor details", :focus do
+  describe "task list sponsor details" do
     it "return status for names" do
       app = described_class.new
       expect(app.sponsor_details_names?).to eq("Not started")

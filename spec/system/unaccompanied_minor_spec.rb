@@ -638,7 +638,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
   end
 
-  describe "task list dynamic elements", :focus do
+  describe "task list dynamic elements" do
     it "correctly numbers the headings" do
       new_application = UnaccompaniedMinor.new
       new_application.save!
