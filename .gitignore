@@ -1,3 +1,4 @@
+/data/startup_info.json
 *.rbc
 capybara-*.html
 .rspec
