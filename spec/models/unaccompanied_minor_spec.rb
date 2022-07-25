@@ -220,10 +220,41 @@ RSpec.describe UnaccompaniedMinor, type: :model do
     end
   end
 
-  describe "age validations, minor is less than 18" do
+  describe "age validations, minor is less than 18", :focus do
     app = described_class.new
 
-    # :minor_date_of_birth=>{"3"=>15, "2"=>6, "1"=>2017}
+    it "shows an error when the day is less than 1 or greater than 31" do
+      app.minor_date_of_birth_day = 0
+      expect(app.valid?).to be(false)
+      expect(app.errors[:minor_date_of_birth_day]).to include("Enter a valid date of birth")
+      app.minor_date_of_birth_day = 32
+      expect(app.valid?).to be(false)
+      expect(app.errors[:minor_date_of_birth_day]).to include("Enter a valid date of birth")
+      app.minor_date_of_birth_day = 10
+      expect(app.valid?).to be(true)
+    end
+
+    it "shows an error when the month is less than 1 or greater than 12" do
+      app.minor_date_of_birth_month = 0
+      expect(app.valid?).to be(false)
+      expect(app.errors[:minor_date_of_birth_month]).to include("Enter a valid date of birth")
+      app.minor_date_of_birth_month = 13
+      expect(app.valid?).to be(false)
+      expect(app.errors[:minor_date_of_birth_month]).to include("Enter a valid date of birth")
+      app.minor_date_of_birth_month = 10
+      expect(app.valid?).to be(true)
+    end
+
+    it "shows an error when the year is less than 1900 or greater than 2100" do
+      app.minor_date_of_birth_year = 1899
+      expect(app.valid?).to be(false)
+      expect(app.errors[:minor_date_of_birth_year]).to include("Enter a valid date of birth")
+      app.minor_date_of_birth_year = 2101
+      expect(app.valid?).to be(false)
+      expect(app.errors[:minor_date_of_birth_year]).to include("Enter a valid date of birth")
+      app.minor_date_of_birth_year = 2010
+      expect(app.valid?).to be(true)
+    end
 
     it "shows error when any input is empty" do
       pending("work out how to validate dob")
