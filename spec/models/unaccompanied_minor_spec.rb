@@ -21,13 +21,8 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.other_adults_address = "no"
       app.adults_at_address = { "123" => Adult.new }
       expect(app.number_of_completed_sections?).to be(2)
-<<<<<<< HEAD
-      # Tell us about the child section is complete
-      app.minor_date_of_birth = { 1 => 1, 2 => 2, 3 => 2020 }
-=======
       # Tell use about the child section is complete
       app.minor_date_of_birth_year = 2020
->>>>>>> 54b19a5... Add validation in controller for minors to be under 18
       app.uk_parental_consent_filename = "UK consent file name"
       app.ukraine_parental_consent_filename = "Ukraine consent file name"
       expect(app.number_of_completed_sections?).to be(3)
