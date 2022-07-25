@@ -318,7 +318,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
     end
 
-    it "complete child flow additional details section and save answers to the db", :focus do
+    it "complete child flow additional details section and save answers to the db" do
       new_application = UnaccompaniedMinor.new
       new_application.save!
 
@@ -617,9 +617,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
       expect(page).to have_content("date of birth")
 
-      # TODO: re-instate this expectation once date of birth validation is resolved
-      # click_button("Continue")
-      # expect(page).to have_content("Enter a valid date of birth")
+      click_button("Continue")
+      expect(page).to have_content("Enter a valid date of birth")
     end
   end
 

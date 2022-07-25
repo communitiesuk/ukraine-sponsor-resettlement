@@ -226,7 +226,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   end
 
   describe "age validations" do
-    it "sponsor is greater than 18", :focus do
+    it "sponsor is greater than 18" do
       app = described_class.new
       app.sponsor_date_of_birth_day = 0
       expect(app.valid?).to be(false)
