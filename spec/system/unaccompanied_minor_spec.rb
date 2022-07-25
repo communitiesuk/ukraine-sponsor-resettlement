@@ -373,11 +373,11 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Email", with: "unaccompanied.minor@test.com")
 
       click_button("Continue")
-      expect(page).to have_content("date of birth")
+      expect(page).to have_content("Enter their date of birth")
 
-      fill_in("Day", with: "6")
-      fill_in("Month", with: "11")
-      fill_in("Year", with: minor_dob_under_18_year.to_s)
+      fill_in("Day", with: 3)
+      fill_in("Month", with: 6)
+      fill_in("Year", with: minor_dob_under_18_year)
 
       click_button("Continue")
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
@@ -617,9 +617,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
       expect(page).to have_content("date of birth")
 
-      # TODO: re-instate this expectation once date of birth validation is resolved
-      # click_button("Continue")
-      # expect(page).to have_content("Enter a valid date of birth")
+      click_button("Continue")
+      expect(page).to have_content("Enter a valid date of birth")
     end
   end
 

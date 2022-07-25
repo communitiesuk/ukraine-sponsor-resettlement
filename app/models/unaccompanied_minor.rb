@@ -34,7 +34,9 @@ class UnaccompaniedMinor < ApplicationRecord
                 :ukraine_parental_consent_filename,
                 :ukraine_parental_consent_saved_filename,
                 :ukraine_parental_consent_file_size,
-                :minor_date_of_birth,
+                :minor_date_of_birth_day,
+                :minor_date_of_birth_month,
+                :minor_date_of_birth_year,
                 :minor_date_of_birth_as_string,
                 :given_name,
                 :family_name,
@@ -59,7 +61,9 @@ class UnaccompaniedMinor < ApplicationRecord
                 :sponsor_address_line_2,
                 :sponsor_address_town,
                 :sponsor_address_postcode,
-                :sponsor_date_of_birth,
+                :sponsor_date_of_birth_day,
+                :sponsor_date_of_birth_month,
+                :sponsor_date_of_birth_year,
                 :sponsor_date_of_birth_as_string,
                 :certificate_reference,
                 :minor_given_name,
@@ -255,7 +259,7 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
   def sponsor_child_details?
-    if minor_date_of_birth.present? && minor_date_of_birth.length.positive?
+    if minor_date_of_birth_year.present?
       TASK_LABEL_COMPLETE
     elsif minor_given_name.present?
       TASK_LABEL_IN_PROGRESS
@@ -335,7 +339,9 @@ class UnaccompaniedMinor < ApplicationRecord
       ukraine_parental_consent_file_type:,
       ukraine_parental_consent_filename:,
       ukraine_parental_consent_saved_filename:,
-      minor_date_of_birth:,
+      minor_date_of_birth_day:,
+      minor_date_of_birth_month:,
+      minor_date_of_birth_year:,
       minor_date_of_birth_as_string:,
       given_name:,
       family_name:,
@@ -360,7 +366,9 @@ class UnaccompaniedMinor < ApplicationRecord
       sponsor_address_line_2:,
       sponsor_address_town:,
       sponsor_address_postcode:,
-      sponsor_date_of_birth:,
+      sponsor_date_of_birth_day:,
+      sponsor_date_of_birth_month:,
+      sponsor_date_of_birth_year:,
       sponsor_date_of_birth_as_string:,
       privacy_statement_confirm:,
       certificate_reference:,

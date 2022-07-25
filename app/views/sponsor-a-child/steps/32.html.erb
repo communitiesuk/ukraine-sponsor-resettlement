@@ -9,17 +9,33 @@
 
     <div class="govuk-inset-text">
     <%=@application.minor_full_name?%>
-    
+
     </div>
 
     <%= form_for @application, url: "/sponsor-a-child/steps/32", method: :post do |f| %>
-      <%= f.govuk_date_field :minor_date_of_birth,
-                             date_of_birth: true,
-                             legend: { text: t('minor_date_of_birth.full', :name => @application.minor_full_name?, scope: "unaccompanied_minor.questions"), size: 'm' },
-                             hint: { text: 'For example, 31 3 2010' } %>
+
+      <%= f.govuk_fieldset legend: { text: t('minor_date_of_birth.full', :name => @application.minor_full_name?, scope: "unaccompanied_minor.questions"), size: 'm' }, hint: { text: 'For example, 31 3 2010' }, class: "govuk-date-input" do %>
+
+        <div class="govuk-hint" id="unaccompanied-minor-minor-date-of-birth-hint">For example, 31 3 2010</div>
+
+        <div class="govuk-date-input">
+          <div class="govuk-date-input__item">
+            <%= f.govuk_text_field :minor_date_of_birth_day, label: { text: 'Day' }, type: "number", width: 2 %>
+          </div>
+          <div class="govuk-date-input__item">
+            <%= f.govuk_text_field :minor_date_of_birth_month, label: { text: 'Month' }, type: "number", width: 2 %>
+          </div>
+          <div class="govuk-date-input__item">
+            <%= f.govuk_text_field :minor_date_of_birth_year, label: { text: 'Year' }, type: "number", width: 4 %>
+          </div>
+        </div>
+
+      <% end %>
 
       <%= f.govuk_submit t('continue') %>
     <% end %>
+
+
+
   </div>
 </div>
-

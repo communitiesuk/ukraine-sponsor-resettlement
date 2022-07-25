@@ -21,8 +21,8 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.other_adults_address = "no"
       app.adults_at_address = { "123" => Adult.new }
       expect(app.number_of_completed_sections?).to be(2)
-      # Tell us about the child section is complete
-      app.minor_date_of_birth = { 1 => 1, 2 => 2, 3 => 2020 }
+      # Tell use about the child section is complete
+      app.minor_date_of_birth_year = 2020
       app.uk_parental_consent_filename = "UK consent file name"
       app.ukraine_parental_consent_filename = "Ukraine consent file name"
       expect(app.number_of_completed_sections?).to be(3)
@@ -220,67 +220,16 @@ RSpec.describe UnaccompaniedMinor, type: :model do
     end
   end
 
-  describe "age validations, minor is less than 18" do
-    app = described_class.new
-
-    # :minor_date_of_birth=>{"3"=>15, "2"=>6, "1"=>2017}
-
-    it "shows error when any input is empty" do
-      pending("work out how to validate dob")
-      app.minor_date_of_birth = { 3 => nil, 2 => "2", 1 => "2010" }
-      expect(app.valid?).to be(false)
-      expect(app.errors[:minor_date_of_birth]).to include("Enter a valid date of birth")
-      expect(app.errors[:minor_date_of_birth].count).to be(1)
-
-      app.minor_date_of_birth = { 3 => "1", 2 => nil, 1 => "2013" }
-      expect(app.valid?).to be(false)
-      expect(app.errors[:minor_date_of_birth]).to include("Enter a valid date of birth")
-      expect(app.errors[:minor_date_of_birth].count).to be(1)
-
-      app.minor_date_of_birth = { 3 => "3", 2 => "9", 1 => nil }
-      expect(app.valid?).to be(false)
-      expect(app.errors[:minor_date_of_birth]).to include("Enter a valid date of birth")
-      expect(app.errors[:minor_date_of_birth].count).to be(1)
-    end
-
-    it "shows error if minor is over 18" do
-      pending("work out how to validate dob")
-      app.minor_date_of_birth = { 3 => "1", 2 => "6", 1 => "2001" }
-      expect(app.valid?).to be(false)
-      expect(app.errors[:minor_date_of_birth]).to include("They must be under 18 to be considered a child in the UK")
-      expect(app.errors[:minor_date_of_birth].count).to be(1)
-    end
-
-    it "shows error if date of birth is current day or in future" do
-      pending("work out how to validate dob")
-      app.minor_date_of_birth = { 3 => Time.zone.now.day.to_s, 2 => Time.zone.now.month.to_s, 1 => Time.zone.now.year.to_s }
-      expect(app.valid?).to be(false)
-      expect(app.errors[:minor_date_of_birth]).to include("Enter a valid date of birth")
-      expect(app.errors[:minor_date_of_birth].count).to be(1)
-    end
-
-    it "is valid when minor under 18" do
-      year = (Time.zone.now.year - 4).to_s
-      app.minor_date_of_birth = { 3 => "21", 2 => "6", 1 => year }
-      expect(app.valid?).to be(true)
-    end
-
+  describe "age validations" do
     it "sponsor is greater than 18" do
-      pending("work out how to validate dob")
       app = described_class.new
-      app.sponsor_date_of_birth = {}
+      app.sponsor_date_of_birth_day = 0
       expect(app.valid?).to be(false)
-      expect(app.errors[:sponsor_date_of_birth]).to include("Enter a valid date of birth")
-      expect(app.errors[:sponsor_date_of_birth].count).to be(1)
-      app.sponsor_date_of_birth = { "1" => 2022, "2" => 6, "3" => 21 }
-      expect(app.valid?).to be(false)
-      expect(app.errors[:sponsor_date_of_birth]).to include("A sponsor with this date of birth is less 18 and you cannot use this service to apply to sponsor them")
-      expect(app.errors[:sponsor_date_of_birth].count).to be(1)
-      app.sponsor_date_of_birth = { "1" => Time.zone.now.year, "2" => Time.zone.now.month, "3" => Time.zone.now.day }
-      expect(app.valid?).to be(false)
-      expect(app.errors[:sponsor_date_of_birth]).to include("Enter a valid date of birth")
-      expect(app.errors[:sponsor_date_of_birth].count).to be(1)
-      app.sponsor_date_of_birth = { "1" => 2004, "2" => 6, "3" => 22 }
+      expect(app.errors[:sponsor_date_of_birth_day]).to include("Enter a valid date of birth")
+      expect(app.errors[:sponsor_date_of_birth_day].count).to be(1)
+      app.sponsor_date_of_birth_day = 1
+      app.sponsor_date_of_birth_month = 6
+      app.sponsor_date_of_birth_year = 2002
       expect(app.valid?).to be(true)
     end
   end
@@ -379,7 +328,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.sponsor_child_details?).to eq("Not started")
       app.minor_given_name = "First name"
       expect(app.sponsor_child_details?).to eq("In progress")
-      app.minor_date_of_birth = { 1 => 1, 2 => 2, 3 => 2020 }
+      app.minor_date_of_birth_year = 2020
       expect(app.sponsor_child_details?).to eq("Completed")
     end
 

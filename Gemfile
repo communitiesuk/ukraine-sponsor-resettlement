@@ -20,10 +20,10 @@ gem "bootsnap", ">= 1.4.4", require: false
 # GovUK Notify notifications and client
 gem "govuk_notify_rails"
 
+gem "devise"
 gem "rack-attack"
 gem "redis"
 gem "sidekiq"
-gem 'devise'
 
 # Sentry - Application Monitoring
 gem "sentry-rails"
