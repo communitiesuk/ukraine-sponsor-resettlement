@@ -146,6 +146,18 @@ class UnaccompaniedController < ApplicationController
       params["unaccompanied_minor"]["other_nationality"] = ""
     end
 
+    if params["stage"].to_i == MINOR_DATE_OF_BIRTH
+      # There must be a better way!
+      minor_dob = Date.new(@application.minor_date_of_birth_year.to_i, @application.minor_date_of_birth_month.to_i, @application.minor_date_of_birth_day.to_i)
+
+      if minor_dob < 18.years.ago.to_date
+        @application.errors.add(:minor_date_of_birth_year, I18n.t(:too_old_date_of_birth, scope: :error))
+
+        render "sponsor-a-child/steps/#{MINOR_DATE_OF_BIRTH}"
+        return
+      end
+    end
+
     # capture the other adults at address
     if params["stage"].to_i == ADULTS_AT_ADDRESS
       @application.adults_at_address = {} if @application.adults_at_address.nil?
