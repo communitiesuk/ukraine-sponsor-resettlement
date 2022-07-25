@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_11_114922) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_25_110450) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -53,6 +53,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_11_114922) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "application_tokens", force: :cascade do |t|
+    t.string "token"
+    t.datetime "expires_at"
+    t.bigint "unaccompanied_minor_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["unaccompanied_minor_id"], name: "index_application_tokens_on_unaccompanied_minor_id"
+  end
+
   create_table "individual_expressions_of_interest", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "reference"
     t.string "fullname", limit: 128
@@ -89,4 +98,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_11_114922) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "application_tokens", "unaccompanied_minors"
 end
