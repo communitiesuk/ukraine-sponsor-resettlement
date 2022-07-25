@@ -632,7 +632,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       visit "/sponsor-a-child/task-list"
       expect(page).not_to have_content("3. Residents' details")
-      expect(page).to have_content("3. Tell use about the child")
+      expect(page).to have_content("3. Tell us about the child")
       expect(page).to have_content("4. Send your application")
 
       new_application.adults_at_address = {}
@@ -641,7 +641,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       visit "/sponsor-a-child/task-list"
       expect(page).to have_content("3. Residents' details")
-      expect(page).to have_content("4. Tell use about the child")
+      expect(page).to have_content("4. Tell us about the child")
       expect(page).to have_content("5. Send your application")
     end
 

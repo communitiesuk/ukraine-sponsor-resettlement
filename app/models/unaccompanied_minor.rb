@@ -154,7 +154,7 @@ class UnaccompaniedMinor < ApplicationRecord
       completed_sections += 1
     end
 
-    # Tell use about the child
+    # Tell us about the child
     if is_section_three_complete?
       completed_sections += 1
     end

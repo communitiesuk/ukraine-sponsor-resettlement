@@ -21,7 +21,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.other_adults_address = "no"
       app.adults_at_address = { "123" => Adult.new }
       expect(app.number_of_completed_sections?).to be(2)
-      # Tell use about the child section is complete
+      # Tell us about the child section is complete
       app.minor_date_of_birth = { 1 => 1, 2 => 2, 3 => 2020 }
       app.uk_parental_consent_filename = "UK consent file name"
       app.ukraine_parental_consent_filename = "Ukraine consent file name"
