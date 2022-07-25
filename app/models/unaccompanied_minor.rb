@@ -121,26 +121,42 @@ class UnaccompaniedMinor < ApplicationRecord
     end
   end
 
+  def is_section_one_complete?
+    sponsor_details_names? == TASK_LABEL_COMPLETE && sponsor_details_contact_details? == TASK_LABEL_COMPLETE && sponsor_details_additional_details? == TASK_LABEL_COMPLETE
+  end
+
+  def is_section_two_complete?
+    sponsor_address_details? == TASK_LABEL_COMPLETE && sponsor_living_there_details? == TASK_LABEL_COMPLETE
+  end
+
+  def is_section_three_complete?
+    sponsor_child_details? == TASK_LABEL_COMPLETE && uk_consent_form? == TASK_LABEL_COMPLETE && ukraine_consent_form? == TASK_LABEL_COMPLETE
+  end
+
+  def is_section_four_complete?
+    privacy_consent? == TASK_LABEL_COMPLETE && sponsor_declaration? == TASK_LABEL_COMPLETE
+  end
+
   def number_of_completed_sections?
     completed_sections = 0
 
     # Who are you?
-    if sponsor_details_names? == TASK_LABEL_COMPLETE && sponsor_details_contact_details? == TASK_LABEL_COMPLETE && sponsor_details_additional_details? == TASK_LABEL_COMPLETE
+    if is_section_one_complete?
       completed_sections += 1
     end
 
     # Where will the child live?
-    if sponsor_address_details? == TASK_LABEL_COMPLETE && sponsor_living_there_details? == TASK_LABEL_COMPLETE
+    if is_section_two_complete?
       completed_sections += 1
     end
 
     # Tell use about the child
-    if sponsor_child_details? == TASK_LABEL_COMPLETE && uk_consent_form? == TASK_LABEL_COMPLETE && ukraine_consent_form? == TASK_LABEL_COMPLETE
+    if is_section_three_complete?
       completed_sections += 1
     end
 
     # Send your application
-    if privacy_consent? == TASK_LABEL_COMPLETE && sponsor_declaration? == TASK_LABEL_COMPLETE
+    if is_section_four_complete?
       completed_sections += 1
     end
 

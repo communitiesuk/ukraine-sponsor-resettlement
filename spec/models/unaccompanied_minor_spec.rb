@@ -323,7 +323,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
     end
   end
 
-  describe "task list sponsor details" do
+  describe "task list sponsor details", :focus do
     it "return status for names" do
       app = described_class.new
       expect(app.sponsor_details_names?).to eq("Not started")
@@ -361,7 +361,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.sponsor_address_details?).to eq("Completed")
     end
 
-    it "return status for who will be living at address", :focus do
+    it "return status for who will be living at address" do
       app = described_class.new
       expect(app.sponsor_living_there_details?).to eq("Not started")
       app.different_address = "yes"
@@ -383,7 +383,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.sponsor_child_details?).to eq("Completed")
     end
 
-    it "return status for resident personal details", :focus do
+    it "return status for resident personal details" do
       app = described_class.new
       # app.adults_at_address = {}
       # app.adults_at_address.store("123", Adult.new("Bob", "Jones"))
