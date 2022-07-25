@@ -11,9 +11,8 @@
       </strong>
     </p>
 
-<!--    TODO: work out number of sections and number of completed sections-->
     <p>
-      You have completed 0 of 4 sections.
+      You have completed <%= @application.number_of_completed_sections? %> of <%= @application.number_of_sections? %> sections.
     </p>
 
     <ol class="app-task-list">
@@ -83,11 +82,30 @@
         </ul>
       </li>
 
-<!--      TODO: dynamic section based on the answers to the who lives there question-->
+<!-- Dynamic section based on the answers to the who lives there question -->
+    <% if @application.is_adults_at_address_populated? %>
+      <li>
+        <h2 class="app-task-list__section">
+          <span class="app-task-list__section-number">3. </span> Residents' details
+        </h2>
+        <ul class="app-task-list__items">
+          <% @application.adults_at_address.each do |key, val| %>
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <%= link_to("#{val["given_name"]} #{val["family_name"]} details", "/sponsor-a-child/steps/29/#{key}", "aria-describedby": "child-personal-details") %>
+              </span>
+              <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.sponsor_resident_details?(val["date_of_birth"], val["id_type_and_number"])) %>">
+                <%= @application.sponsor_resident_details?(val["date_of_birth"], val["id_type_and_number"]) %>
+              </strong>
+            </li>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
 
       <li>
         <h2 class="app-task-list__section">
-          <span class="app-task-list__section-number">3. </span> Tell use about the child
+          <span class="app-task-list__section-number"><%= @application.heading_number?(3) %> </span> Tell use about the child
         </h2>
         <ul class="app-task-list__items">
           <li class="app-task-list__item">
@@ -125,42 +143,48 @@
 
       <li>
         <h2 class="app-task-list__section">
-          <span class="app-task-list__section-number">4. </span> Send your application
+          <span class="app-task-list__section-number"><%= @application.heading_number?(4) %> </span> Send your application
         </h2>
         <ul class="app-task-list__items">
           <li class="app-task-list__item">
-              <span class="app-task-list__task-name">
-                Consent to sharing your data
-              </span>
+            <a href="/sponsor-a-child/steps/36" aria-describedby="consent-to-share-your-data">
+              Consent to sharing your data
+            </a>
             <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.privacy_consent?) %>">
               <%= @application.privacy_consent? %>
             </strong>
           </li>
           <li class="app-task-list__item">
-              <span class="app-task-list__task-name">
-                Sponsor declaration
-              </span>
+            <a href="/sponsor-a-child/steps/37" aria-describedby="sponsor-declaration">
+              Sponsor declaration
+            </a>
             <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.sponsor_declaration?) %>">
               <%= @application.sponsor_declaration? %>
             </strong>
           </li>
+        <% if @application.is_application_ready_to_be_sent? %>
           <li class="app-task-list__item">
-              <span class="app-task-list__task-name">
-                Check your answers and send
-              </span>
+            <span class="app-task-list__task-name">
+              Check your answers and send
+            </span>
+            <a href="/sponsor-a-child/check-answers" aria-describedby="check-your-answers-and-send">
+              Sponsor declaration
+            </a>
+            <strong class="govuk-tag app-task-list__tag govuk-tag--grey">Not started</strong>
+          </li>
+        <% else %>
+          <li class="app-task-list__item">
+            <span class="app-task-list__task-name">
+              Check your answers and send
+            </span>
             <strong class="govuk-tag app-task-list__tag govuk-tag--grey">Cannot start yet</strong>
           </li>
+        <% end %>
         </ul>
       </li>
     </ol>
 
     <%= form_for @application, url: "/sponsor-a-child/save_or_cancel", method: :post do |f| %>
-      <%= f.govuk_submit t('save_application.save', scope: "unaccompanied_minor"),
-                         name: "save_application",
-                         class: "govuk-button--secondary",
-                         id: "later"
-                         %>
-
       <%= f.govuk_submit t('cancel_application.cancel', scope: "unaccompanied_minor"),
                          name: "cancel_application",
                          class: "govuk-button--warning"%>

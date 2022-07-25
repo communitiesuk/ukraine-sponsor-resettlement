@@ -592,21 +592,6 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
   end
 
-  describe "Save and return later functionality" do
-    it "clicks save and return later button and gets redirected to confirmation page" do
-      new_application = UnaccompaniedMinor.new
-      new_application.save!
-
-      page.set_rack_session(app_reference: new_application.reference)
-
-      visit "/sponsor-a-child/task-list"
-      click_button("Save and return later")
-
-      expect(page).to have_http_status(:success)
-      expect(page).to have_content("We've sent you an email with a link to your saved application")
-    end
-  end
-
   describe "Goes through child flow and enters DoB" do
     it "enters blank DoB" do
       new_application = UnaccompaniedMinor.new
@@ -635,6 +620,60 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       # TODO: re-instate this expectation once date of birth validation is resolved
       # click_button("Continue")
       # expect(page).to have_content("Enter a valid date of birth")
+    end
+  end
+
+  describe "task list dynamic elements" do
+    it "correctly numbers the headings" do
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
+
+      page.set_rack_session(app_reference: new_application.reference)
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).not_to have_content("3. Residents' details")
+      expect(page).to have_content("3. Tell use about the child")
+      expect(page).to have_content("4. Send your application")
+
+      new_application.adults_at_address = {}
+      new_application.adults_at_address.store("123", Adult.new("Bob", "Jones"))
+      new_application.save!
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("3. Residents' details")
+      expect(page).to have_content("4. Tell use about the child")
+      expect(page).to have_content("5. Send your application")
+    end
+
+    it "correctly shows the resident details task items" do
+      new_application = UnaccompaniedMinor.new
+      new_application.adults_at_address = {}
+      new_application.adults_at_address.store("123", Adult.new("Bob", "Jones"))
+      new_application.save!
+
+      page.set_rack_session(app_reference: new_application.reference)
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("Bob Jones details")
+
+      new_application.adults_at_address.store("456", Adult.new("Jane", "Smith"))
+      new_application.save!
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("Bob Jones details")
+      expect(page).to have_content("Jane Smith details")
+    end
+
+    it "correctly creates the resident details task item links" do
+      new_application = UnaccompaniedMinor.new
+      new_application.adults_at_address = {}
+      new_application.adults_at_address.store("123", Adult.new("Bob", "Jones"))
+      new_application.save!
+
+      page.set_rack_session(app_reference: new_application.reference)
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_link("", href: "/sponsor-a-child/steps/29/123")
     end
   end
 end

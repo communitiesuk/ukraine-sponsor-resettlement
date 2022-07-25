@@ -110,6 +110,16 @@ RSpec.describe RoutingEngine, type: :model do
       application = UnaccompaniedMinor.new
       expect(described_class.get_next_unaccompanied_minor_step(application, 35)).to be(999)
     end
+
+    it "when sponsor has answered consent to share your data" do
+      application = UnaccompaniedMinor.new
+      expect(described_class.get_next_unaccompanied_minor_step(application, 36)).to be(999)
+    end
+
+    it "when sponsor has answered sponsor declaration" do
+      application = UnaccompaniedMinor.new
+      expect(described_class.get_next_unaccompanied_minor_step(application, 37)).to be(999)
+    end
   end
 
   describe "getting the next step - unaccompanied minors" do

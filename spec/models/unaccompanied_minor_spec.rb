@@ -1,6 +1,38 @@
 require "rails_helper"
 
 RSpec.describe UnaccompaniedMinor, type: :model do
+  describe "dynamic task list requirements" do
+    it "calculates the number of sections to be completed" do
+      app = described_class.new
+      expect(app.number_of_sections?).to be(4)
+      app.adults_at_address = { "123" => Adult.new }
+      expect(app.number_of_sections?).to be(5)
+    end
+
+    it "calculates the number of completed sections" do
+      app = described_class.new
+      expect(app.number_of_completed_sections?).to be(0)
+      # Who are you? section is complete
+      app.has_other_names = "true"
+      app.phone_number = "07777 123 456"
+      app.nationality = "nationality"
+      expect(app.number_of_completed_sections?).to be(1)
+      # Where will the child live? section is complete
+      app.other_adults_address = "no"
+      app.adults_at_address = { "123" => Adult.new }
+      expect(app.number_of_completed_sections?).to be(2)
+      # Tell use about the child section is complete
+      app.minor_date_of_birth = { 1 => 1, 2 => 2, 3 => 2020 }
+      app.uk_parental_consent_filename = "UK consent file name"
+      app.ukraine_parental_consent_filename = "Ukraine consent file name"
+      expect(app.number_of_completed_sections?).to be(3)
+      # Send your application section is complete
+      app.privacy_statement_confirm = "true"
+      app.sponsor_declaration = "true"
+      expect(app.number_of_completed_sections?).to be(4)
+    end
+  end
+
   describe "contact detail validations" do
     it "sponsor full name is valid" do
       app = described_class.new
@@ -334,10 +366,10 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.sponsor_living_there_details?).to eq("Not started")
       app.different_address = "yes"
       expect(app.sponsor_living_there_details?).to eq("In progress")
+      app.adults_at_address = {}
       app.other_adults_address = "no"
       expect(app.sponsor_living_there_details?).to eq("Completed")
       app.other_adults_address = nil
-      app.adults_at_address = {}
       app.adults_at_address = { "123" => Adult.new }
       expect(app.sponsor_living_there_details?).to eq("Completed")
     end
@@ -349,6 +381,15 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.sponsor_child_details?).to eq("In progress")
       app.minor_date_of_birth = { 1 => 1, 2 => 2, 3 => 2020 }
       expect(app.sponsor_child_details?).to eq("Completed")
+    end
+
+    it "return status for resident personal details" do
+      app = described_class.new
+      # app.adults_at_address = {}
+      # app.adults_at_address.store("123", Adult.new("Bob", "Jones"))
+      expect(app.sponsor_resident_details?("", "")).to eq("Not started")
+      expect(app.sponsor_resident_details?("dob", "")).to eq("In progress")
+      expect(app.sponsor_resident_details?("dob", "id_and_type")).to eq("Completed")
     end
 
     it "return status for UK consent form" do

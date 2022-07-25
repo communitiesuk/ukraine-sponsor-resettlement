@@ -113,6 +113,62 @@ class UnaccompaniedMinor < ApplicationRecord
     end
   end
 
+  def number_of_sections?
+    if is_adults_at_address_populated?
+      5
+    else
+      4
+    end
+  end
+
+  def is_section_one_complete?
+    sponsor_details_names? == TASK_LABEL_COMPLETE && sponsor_details_contact_details? == TASK_LABEL_COMPLETE && sponsor_details_additional_details? == TASK_LABEL_COMPLETE
+  end
+
+  def is_section_two_complete?
+    sponsor_address_details? == TASK_LABEL_COMPLETE && sponsor_living_there_details? == TASK_LABEL_COMPLETE
+  end
+
+  def is_section_three_complete?
+    sponsor_child_details? == TASK_LABEL_COMPLETE && uk_consent_form? == TASK_LABEL_COMPLETE && ukraine_consent_form? == TASK_LABEL_COMPLETE
+  end
+
+  def is_section_four_complete?
+    privacy_consent? == TASK_LABEL_COMPLETE && sponsor_declaration? == TASK_LABEL_COMPLETE
+  end
+
+  def is_application_ready_to_be_sent?
+    false
+  end
+
+  def number_of_completed_sections?
+    completed_sections = 0
+
+    # Who are you?
+    if is_section_one_complete?
+      completed_sections += 1
+    end
+
+    # Where will the child live?
+    if is_section_two_complete?
+      completed_sections += 1
+    end
+
+    # Tell use about the child
+    if is_section_three_complete?
+      completed_sections += 1
+    end
+
+    # Send your application
+    if is_section_four_complete?
+      completed_sections += 1
+    end
+
+    # TODO: include dynamic section
+
+    completed_sections
+  end
+
   def is_cancelled?
     is_cancelled
   end
@@ -123,6 +179,18 @@ class UnaccompaniedMinor < ApplicationRecord
 
   def minor_full_name?
     "#{minor_given_name} #{minor_family_name}"
+  end
+
+  def is_adults_at_address_populated?
+    adults_at_address.present? && adults_at_address.length.positive?
+  end
+
+  def heading_number?(default)
+    if is_adults_at_address_populated?
+      "#{default + 1}."
+    else
+      "#{default}."
+    end
   end
 
   def status_styles?(status)
@@ -190,6 +258,16 @@ class UnaccompaniedMinor < ApplicationRecord
     if minor_date_of_birth.present? && minor_date_of_birth.length.positive?
       TASK_LABEL_COMPLETE
     elsif minor_given_name.present?
+      TASK_LABEL_IN_PROGRESS
+    else
+      TASK_LABEL_TO_DO
+    end
+  end
+
+  def sponsor_resident_details?(date_of_birth, id)
+    if id.present?
+      TASK_LABEL_COMPLETE
+    elsif date_of_birth.present?
       TASK_LABEL_IN_PROGRESS
     else
       TASK_LABEL_TO_DO
@@ -297,6 +375,7 @@ class UnaccompaniedMinor < ApplicationRecord
       sponsor_declaration:,
       adult_number:,
       minor_contact_details:,
+      other_adults_address:,
       adults_at_address:,
     }.compact
   end
