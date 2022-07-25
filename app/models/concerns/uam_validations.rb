@@ -14,7 +14,6 @@ module UamValidations
     validate :validate_is_consent, if: -> { run_validation? :is_consent }
     validate :validate_is_committed, if: -> { run_validation? :is_committed }
     validate :validate_is_permitted, if: -> { run_validation? :is_permitted }
-    # validate :validate_minor_date_of_birth, if: -> { run_validation? :minor_date_of_birth }
     # validate :validate_sponsor_date_of_birth, if: -> { run_validation? :sponsor_date_of_birth }
     validate :validate_have_parental_consent, if: -> { run_validation? :have_parental_consent }
     validate :validate_uk_parent_consent_file_type, if: -> { run_validation? :uk_parental_consent_file_type }
@@ -67,18 +66,6 @@ module UamValidations
 
   def validate_is_permitted
     validate_enum(@eligibility_types, @is_permitted, :is_permitted)
-  end
-
-  def validate_minor_date_of_birth
-    if @minor_date_of_birth[3].blank? || @minor_date_of_birth[2].blank? || @minor_date_of_birth[1].blank?
-      errors.add(:minor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
-
-    elsif Time.zone.parse(@minor_date_of_birth.map { |_, v| v }.join("-").to_s) >= Time.zone.now.to_date
-      errors.add(:minor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
-
-    elsif Time.zone.parse(@minor_date_of_birth.map { |_, v| v }.join("-").to_s) < 18.years.ago.to_date
-      errors.add(:minor_date_of_birth, I18n.t(:too_old_date_of_birth, scope: :error))
-    end
   end
 
   def validate_sponsor_date_of_birth

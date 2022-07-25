@@ -350,7 +350,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   end
 
   describe "submitting the form for child's flow" do
-    it "saves all the data to the database" do
+    it "saves all the data to the database", :focus do
       new_application = UnaccompaniedMinor.new
       new_application.save!
       minor_dob_under_18_year = Time.zone.now.year - 4
@@ -373,11 +373,11 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Email", with: "unaccompanied.minor@test.com")
 
       click_button("Continue")
-      expect(page).to have_content("date of birth")
+      expect(page).to have_content("Enter their date of birth")
 
-      fill_in("Day", with: "6")
-      fill_in("Month", with: "11")
-      fill_in("Year", with: minor_dob_under_18_year.to_s)
+      fill_in("Day", with: 3)
+      fill_in("Month", with: 6)
+      fill_in("Year", with: minor_dob_under_18_year)
 
       click_button("Continue")
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")

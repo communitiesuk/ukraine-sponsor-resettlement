@@ -37,7 +37,6 @@ class UnaccompaniedMinor < ApplicationRecord
                 :minor_date_of_birth_day,
                 :minor_date_of_birth_month,
                 :minor_date_of_birth_year,
-                :minor_date_of_birth,
                 :minor_date_of_birth_as_string,
                 :given_name,
                 :family_name,
@@ -258,7 +257,7 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
   def sponsor_child_details?
-    if minor_date_of_birth.present? && minor_date_of_birth.length.positive?
+    if minor_date_of_birth_year.present?
       TASK_LABEL_COMPLETE
     elsif minor_given_name.present?
       TASK_LABEL_IN_PROGRESS
@@ -341,7 +340,6 @@ class UnaccompaniedMinor < ApplicationRecord
       minor_date_of_birth_day:,
       minor_date_of_birth_month:,
       minor_date_of_birth_year:,
-      minor_date_of_birth:,
       minor_date_of_birth_as_string:,
       given_name:,
       family_name:,

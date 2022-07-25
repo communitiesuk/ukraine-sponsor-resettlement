@@ -148,10 +148,17 @@ class UnaccompaniedController < ApplicationController
 
     if params["stage"].to_i == MINOR_DATE_OF_BIRTH
       # There must be a better way!
-      minor_dob = Date.new(@application.minor_date_of_birth_year.to_i, @application.minor_date_of_birth_month.to_i, @application.minor_date_of_birth_day.to_i)
+      begin
+        minor_dob = Date.new(params["unaccompanied_minor"]["minor_date_of_birth_year"].to_i, params["unaccompanied_minor"]["minor_date_of_birth_month"].to_i, params["unaccompanied_minor"]["minor_date_of_birth_day"].to_i)
 
-      if minor_dob < 18.years.ago.to_date
-        @application.errors.add(:minor_date_of_birth_year, I18n.t(:too_old_date_of_birth, scope: :error))
+        if minor_dob < 18.years.ago.to_date
+          @application.errors.add(:minor_date_of_birth_day, I18n.t(:too_old_date_of_birth, scope: :error))
+
+          render "sponsor-a-child/steps/#{MINOR_DATE_OF_BIRTH}"
+          return
+        end
+      rescue Date::Error
+        @application.errors.add(:minor_date_of_birth_day, I18n.t(:invalid_date_of_birth, scope: :error))
 
         render "sponsor-a-child/steps/#{MINOR_DATE_OF_BIRTH}"
         return
@@ -370,7 +377,6 @@ private
           :minor_date_of_birth_day,
           :minor_date_of_birth_month,
           :minor_date_of_birth_year,
-          :minor_date_of_birth,
           :minor_date_of_birth_as_string,
           :given_name,
           :family_name,
