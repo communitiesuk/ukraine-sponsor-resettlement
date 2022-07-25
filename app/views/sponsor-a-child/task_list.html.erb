@@ -162,12 +162,24 @@
               <%= @application.sponsor_declaration? %>
             </strong>
           </li>
+        <% if @application.is_application_ready_to_be_sent? %>
           <li class="app-task-list__item">
-              <span class="app-task-list__task-name">
-                Check your answers and send
-              </span>
+            <span class="app-task-list__task-name">
+              Check your answers and send
+            </span>
+            <a href="/sponsor-a-child/check-answers" aria-describedby="check-your-answers-and-send">
+              Sponsor declaration
+            </a>
+            <strong class="govuk-tag app-task-list__tag govuk-tag--grey">Not started</strong>
+          </li>
+        <% else %>
+          <li class="app-task-list__item">
+            <span class="app-task-list__task-name">
+              Check your answers and send
+            </span>
             <strong class="govuk-tag app-task-list__tag govuk-tag--grey">Cannot start yet</strong>
           </li>
+        <% end %>
         </ul>
       </li>
     </ol>

@@ -137,6 +137,10 @@ class UnaccompaniedMinor < ApplicationRecord
     privacy_consent? == TASK_LABEL_COMPLETE && sponsor_declaration? == TASK_LABEL_COMPLETE
   end
 
+  def is_application_ready_to_be_sent?
+    false
+  end
+
   def number_of_completed_sections?
     completed_sections = 0
 
