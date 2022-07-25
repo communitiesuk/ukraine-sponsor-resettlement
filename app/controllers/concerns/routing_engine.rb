@@ -1,6 +1,7 @@
 class RoutingEngine
   TASK_LIST_STEP = 999
   NOT_ELIGIBLE = -1
+  CURRENT_PAGE_TO_TASK_LIST = [28, 32, 34, 35, 36, 37].freeze
 
   def self.get_next_additional_info_step(application, current_step)
     if application.different_address.present? && application.different_address.casecmp("NO").zero? && current_step == 5
@@ -60,13 +61,7 @@ class RoutingEngine
       TASK_LIST_STEP
     elsif application.other_adults_address.present? && application.other_adults_address.casecmp("no").zero? && current_step == 25
       TASK_LIST_STEP
-    elsif current_step == 28
-      TASK_LIST_STEP
-    elsif current_step == 32
-      TASK_LIST_STEP
-    elsif current_step == 34
-      TASK_LIST_STEP
-    elsif current_step == 35
+    elsif CURRENT_PAGE_TO_TASK_LIST.include?(current_step)
       TASK_LIST_STEP
     else
       current_step + 1
