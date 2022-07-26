@@ -14,6 +14,7 @@ module UamValidations
     validate :validate_is_consent, if: -> { run_validation? :is_consent }
     validate :validate_is_committed, if: -> { run_validation? :is_committed }
     validate :validate_is_permitted, if: -> { run_validation? :is_permitted }
+    validate :validate_have_parental_consent, if: -> { run_validation? :have_parental_consent }
     validate :validate_uk_parent_consent_file_type, if: -> { run_validation? :uk_parental_consent_file_type }
     validate :validate_uk_parent_consent_filename, if: -> { run_validation? :uk_parental_consent_filename }
     validate :validate_uk_parent_consent_file_size, if: -> { run_validation? :uk_parental_consent_file_size }
@@ -66,6 +67,10 @@ module UamValidations
 
   def validate_is_permitted
     validate_enum(@eligibility_types, @is_permitted, :is_permitted)
+  end
+
+  def validate_have_parental_consent
+    validate_enum(@have_parental_consent_options, @have_parental_consent, :have_parental_consent)
   end
 
   def validate_uk_parent_consent_file_type

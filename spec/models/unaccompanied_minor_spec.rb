@@ -162,7 +162,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(true)
     end
 
-    it "other adults at address is valid when page is skipped", :focus do
+    it "other adults at address is valid when page is skipped" do
       app = described_class.new
       app.other_adults_address = ""
       app.different_address = "yes"
@@ -432,7 +432,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   end
 
   describe "eligibility validation" do
-    it "is born after december", :focus do
+    it "is born after december" do
       app = described_class.new
       app.is_living_december = "yes"
       app.is_born_after_december = ""

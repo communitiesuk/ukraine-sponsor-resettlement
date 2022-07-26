@@ -395,7 +395,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_link("Upload parental consent (British)")
       expect(page).to have_content("You must upload 2 completed parental consent forms")
 
-      click_link("Continue")
+      click_button("Continue")
       expect(page).to have_content("Upload the UK sponsorship arrangement consent form")
 
       test_file_path = File.join(File.dirname(__FILE__), "..", "uk-test-document.pdf")
@@ -776,7 +776,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_link("Upload parental consent (British)")
       expect(page).to have_content("You must upload 2 completed parental consent forms")
 
-      click_link("Continue")
+      click_button("Continue")
       expect(page).to have_content("Upload the UK sponsorship arrangement consent form")
 
       test_file_path = File.join(File.dirname(__FILE__), "..", "uk-test-document.pdf")
@@ -819,7 +819,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(saved_application.ukraine_parental_consent_file_size).not_to be_nil
     end
 
-    it "have parental consent", :focus do
+    it "have parental consent" do
       new_application = UnaccompaniedMinor.new
       new_application.save!
 
@@ -838,7 +838,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(saved_application.have_parental_consent).to eq("true")
     end
 
-    it "different address", :focus do
+    it "different address" do
       new_application = UnaccompaniedMinor.new
       new_application.save!
 
@@ -866,7 +866,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(saved_application.different_address).to eq("yes")
     end
 
-    it "other adults at address", :focus do
+    it "other adults at address" do
       new_application = UnaccompaniedMinor.new
       new_application.save!
 
