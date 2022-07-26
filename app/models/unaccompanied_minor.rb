@@ -351,6 +351,7 @@ class UnaccompaniedMinor < ApplicationRecord
       ukraine_parental_consent_file_type:,
       ukraine_parental_consent_filename:,
       ukraine_parental_consent_saved_filename:,
+      ukraine_parental_consent_file_size:,
       minor_date_of_birth_day:,
       minor_date_of_birth_month:,
       minor_date_of_birth_year:,

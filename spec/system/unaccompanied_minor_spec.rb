@@ -762,4 +762,61 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     click_button("Continue")
     expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
   end
+
+  describe "ensure valid properties are saved and retrieved" do
+    it "UK parental consent form" do
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
+
+      page.set_rack_session(app_reference: new_application.reference)
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Upload parental consent (British)")
+      expect(page).to have_content("You must upload 2 completed parental consent forms")
+
+      click_link("Continue")
+      expect(page).to have_content("Upload the UK sponsorship arrangement consent form")
+
+      test_file_path = File.join(File.dirname(__FILE__), "..", "uk-test-document.pdf")
+
+      attach_file("unaccompanied-minor-uk-parental-consent-field", test_file_path)
+      click_button("Continue")
+
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      saved_application = UnaccompaniedMinor.find_by_reference(new_application.reference)
+      expect(saved_application.uk_parental_consent_filename).to eq("uk-test-document.pdf")
+      expect(saved_application.uk_parental_consent_file_type).to eq("application/pdf")
+      expect(saved_application.uk_parental_consent_saved_filename).to end_with("uk-test-document.pdf")
+      expect(saved_application.uk_parental_consent_file_size).not_to be_nil
+    end
+
+    it "Ukraine parental consent form" do
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
+
+      page.set_rack_session(app_reference: new_application.reference)
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Upload parental consent (Ukraine)")
+      expect(page).to have_content("Upload the Ukraine notarised consent form")
+
+      test_file_path = File.join(File.dirname(__FILE__), "..", "ukraine-test-document.pdf")
+
+      attach_file("unaccompanied-minor-ukraine-parental-consent-field", test_file_path)
+      click_button("Continue")
+
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      saved_application = UnaccompaniedMinor.find_by_reference(new_application.reference)
+      expect(saved_application.ukraine_parental_consent_filename).to eq("ukraine-test-document.pdf")
+      expect(saved_application.ukraine_parental_consent_file_type).to eq("application/pdf")
+      expect(saved_application.ukraine_parental_consent_saved_filename).to end_with("ukraine-test-document.pdf")
+      expect(saved_application.ukraine_parental_consent_file_size).not_to be_nil
+    end
+  end
 end

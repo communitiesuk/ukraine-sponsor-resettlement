@@ -309,6 +309,8 @@ class UnaccompaniedController < ApplicationController
     @application.user_agent = request.user_agent
     @application.final_submission = true
 
+    Rails.logger.debug "Submit JSON: #{@application.as_json}"
+
     if @application.valid?
       @application.save!
       session[:app_reference] = @application.reference
@@ -447,6 +449,8 @@ private
 
   def save_and_redirect(filename, file)
     save_file(filename, file)
+
+    @application.save!
 
     redirect_to "/sponsor-a-child/task-list"
   end
