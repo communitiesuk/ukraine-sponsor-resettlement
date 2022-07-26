@@ -12,9 +12,10 @@ class UnaccompaniedController < ApplicationController
   ADULTS_AT_ADDRESS = 27
   ADULT_DATE_OF_BIRTH = 29
   ADULT_NATIONALITY = 30
+  ADULT_ID_TYPE_AND_NUMBER = 31
   MINOR_DATE_OF_BIRTH = 34
   NATIONALITY_STEPS = [MINOR_NATIONALITY, MINOR_OTHER_NATIONALITY, ADULT_NATIONALITY].freeze
-  ADULT_STEPS = [ADULT_DATE_OF_BIRTH, ADULT_NATIONALITY].freeze
+  ADULT_STEPS = [ADULT_DATE_OF_BIRTH, ADULT_NATIONALITY, ADULT_ID_TYPE_AND_NUMBER].freeze
   TASK_LIST_STEP = 999
 
   def start
@@ -486,6 +487,7 @@ private
           :adult_date_of_birth_month,
           :adult_date_of_birth_year,
           :adult_nationality,
+          :adult_identification_type,
         )
   end
 end

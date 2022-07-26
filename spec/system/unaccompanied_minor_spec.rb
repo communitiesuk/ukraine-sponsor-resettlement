@@ -676,8 +676,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
   end
 
-  describe "complete over 16 year old flow", :focus do
-    it "answer the date of birth question" do
+  describe "complete over 16 year old flow" do
+    it "answer the date of birth question", :focus do
       new_application = UnaccompaniedMinor.new
       new_application.adults_at_address = {}
       new_application.adults_at_address.store("123", Adult.new("Bob", "Jones"))
@@ -708,7 +708,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
   end
 
-  it "answer the nationality question" do
+  it "answer the nationality question", :focus do
     new_application = UnaccompaniedMinor.new
     new_application.adults_at_address = {}
     new_application.adults_at_address.store("123", Adult.new("Bob", "Jones", "2001-6-13"))
@@ -732,13 +732,13 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     select("Denmark", from: "unaccompanied-minor-adult-nationality-field")
 
     click_button("Continue")
-    expect(page).to have_content("TODO ID and Number question")
+    expect(page).to have_content("Do you have any of these identity documents?")
   end
 
-  it "answer the id type and number question" do
+  it "answer the id type and number question", :focus do
     new_application = UnaccompaniedMinor.new
     new_application.adults_at_address = {}
-    new_application.adults_at_address.store("123", Adult.new("Bob", "Jones", "2001-6-13", "Australia"))
+    new_application.adults_at_address.store("123", Adult.new("Bob", "Jones", "2001-6-13", "Afghanistan"))
     new_application.save!
 
     page.set_rack_session(app_reference: new_application.reference)
@@ -756,9 +756,10 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     click_button("Continue")
     expect(page).to have_content("What is your nationality?")
 
-    expect(page).to have_select("unaccompanied-minor-adult-nationality-field", selected: "Australia")
+    click_button("Continue")
+    expect(page).to have_content("Do you have any of these identity documents?")
 
     click_button("Continue")
-    expect(page).to have_content("TODO ID and Number question")
+    expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
   end
 end

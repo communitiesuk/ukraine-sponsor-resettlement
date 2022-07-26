@@ -47,7 +47,7 @@ RSpec.describe RoutingEngine, type: :model do
   end
 
   describe "unaccompanied minors - routing back to task list when a 'section' is complete" do
-    it "when name(s) is complete route to task list" do
+    it "when name(s) is complete route to task list", :focus do
       application = UnaccompaniedMinor.new
       application.has_other_names = "false"
       expect(described_class.get_next_unaccompanied_minor_step(application, 11)).to be(999)
@@ -94,6 +94,11 @@ RSpec.describe RoutingEngine, type: :model do
     it "when sponsor has finished adding over 16 year olds" do
       application = UnaccompaniedMinor.new
       expect(described_class.get_next_unaccompanied_minor_step(application, 28)).to be(999)
+    end
+
+    it "when sponsor has answered adult at address, if any, id type and number" do
+      application = UnaccompaniedMinor.new
+      expect(described_class.get_next_unaccompanied_minor_step(application, 31)).to be(999)
     end
 
     it "when sponsor has finished child questions" do

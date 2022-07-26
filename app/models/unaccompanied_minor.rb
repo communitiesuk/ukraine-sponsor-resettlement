@@ -91,7 +91,8 @@ class UnaccompaniedMinor < ApplicationRecord
                 :adult_date_of_birth_day,
                 :adult_date_of_birth_month,
                 :adult_date_of_birth_year,
-                :adult_nationality
+                :adult_nationality,
+                :adult_identification_type
 
   after_initialize :after_initialize
   before_save :serialize
