@@ -87,7 +87,15 @@ class UnaccompaniedMinor < ApplicationRecord
                 :minor_contact_details,
                 :adult_given_name,
                 :adult_family_name,
-                :adults_at_address
+                :adults_at_address,
+                :adult_date_of_birth_day,
+                :adult_date_of_birth_month,
+                :adult_date_of_birth_year,
+                :adult_nationality,
+                :adult_identification_type,
+                :adult_passport_identification_number,
+                :adult_id_identification_number,
+                :adult_refugee_identification_number
 
   after_initialize :after_initialize
   before_save :serialize

@@ -1,29 +1,40 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-   <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
+    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-   <h1 class="gem-c-title__text govuk-heading-xl">
-      Confirm your eligibility to sponsor a child from Ukraine
+    <h1 class="gem-c-title__text govuk-heading-xl">
+      Upload the Ukraine notarised consent form
    </h1>
 
-      <p class="gem-c-lead-paragraph">To be eligible to sponsor a person under 18, who is not travelling with or joining a parent or legal guardian under the Homes for Ukraine Scheme, you (the sponsor):  </p>
-
-      <ul class="govuk-list govuk-list--bullet">
-        <li>Should personally know the child's parents or legal guardian (unless there are exceptional circumstances), and you should have known them before the conflict started on 24 February 2022. </li>
-        <li>Must commit to sponsoring the child for the whole 3 years of their permission to stay in the UK, or until they turn 18 and have been hosted for at least 6 months, whichever is soonest. </li>
-        <li>Must commit to continue living in the UK for the full duration of the sponsorship agreement (up to 3 years), and confirm you have permission to do so because, for example, you are a British Citizen or have legally settled in the UK. </li>
-      </ul>
+   <div class="govuk-inset-text">
+    <%=@application.minor_full_name?%>
+   </div>
 
 
-   <%= form_for @application, url: "/sponsor-a-child/steps/37", method: :post do |f| %>
+    <%= form_for @application, url: "/sponsor-a-child/upload-ukraine/37", method: :post do |f| %>
+      <%= f.govuk_file_field :ukraine_parental_consent,
+        label: { text: "Upload a file" }%>
 
-    <%= f.govuk_check_boxes_fieldset :sponsor_declaration,
-                                         multiple: false,
-                                         legend: { text: t('agree_privacy_statement.full', scope: "unaccompanied_minor.questions"), size: 'm', hidden: true } do %>
-       <%= f.govuk_check_box :sponsor_declaration, "true", "false", multiple: false, link_errors: true, label: { text: t('privacy_statement.full_html', scope: "unaccompanied_minor.questions") } %><% end %>
-      <%= f.govuk_submit t('continue') %>
-      <% end %>
+         <details class="govuk-details" data-module="govuk-details">
+                <summary class="govuk-details__summary">
+                    <span class="govuk-details__summary-text">
+                    I need help
+                    </span>
+                </summary>
+                <div class="govuk-details__text">
+                You can upload the most common file types, like images and documents.<br/>
+                <br/>
+                You can only upload 1 file. If you have multiple files, please use an app or website to combine the documents into a single PDF file.<br/>
+                <br/>
+                If the parents or guardians are struggling to complete the form and send it to you, they should <a class="govuk-link" href="dummy-link"> read the guidance on completing parental consent forms.</a>
 
+                </div>
+
+            </details>
+
+      <%= f.govuk_submit t('Continue') %>
+    <% end %>
   </div>
 </div>
+

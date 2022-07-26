@@ -9,9 +9,13 @@ class UnaccompaniedController < ApplicationController
   SPONSOR_DATE_OF_BIRTH = 18
   MINOR_NATIONALITY = 19
   MINOR_OTHER_NATIONALITY = 21
-  NATIONALITY_STEPS = [MINOR_NATIONALITY, MINOR_OTHER_NATIONALITY].freeze
   ADULTS_AT_ADDRESS = 27
-  MINOR_DATE_OF_BIRTH = 32
+  ADULT_DATE_OF_BIRTH = 29
+  ADULT_NATIONALITY = 30
+  ADULT_ID_TYPE_AND_NUMBER = 31
+  MINOR_DATE_OF_BIRTH = 34
+  NATIONALITY_STEPS = [MINOR_NATIONALITY, MINOR_OTHER_NATIONALITY, ADULT_NATIONALITY].freeze
+  ADULT_STEPS = [ADULT_DATE_OF_BIRTH, ADULT_NATIONALITY, ADULT_ID_TYPE_AND_NUMBER].freeze
   TASK_LIST_STEP = 999
 
   def start
@@ -57,6 +61,30 @@ class UnaccompaniedController < ApplicationController
     if step.positive? && step <= MAX_STEPS
       if NATIONALITY_STEPS.include?(step)
         @nationalities = get_nationalities_as_list
+      elsif ADULT_STEPS.include?(step)
+        # Set properties based on values from hash of adults
+        @adult = @application.adults_at_address[params["key"]]
+        adult_dob = @adult["date_of_birth"]
+        adult_nationality = @adult["nationality"]
+        adult_id_type_and_number = @adult["id_type_and_number"]
+        if adult_dob.present? && adult_dob.length.positive?
+          @application.adult_date_of_birth_day = Date.parse(adult_dob).day
+          @application.adult_date_of_birth_month = Date.parse(adult_dob).month
+          @application.adult_date_of_birth_year = Date.parse(adult_dob).year
+        end
+        @application.nationality = adult_nationality if adult_nationality.present? && adult_nationality.length.positive?
+        if adult_id_type_and_number.present? && adult_id_type_and_number.length.positive?
+          id_type_and_number = adult_id_type_and_number.split(" - ")
+          @application.adult_identification_type = id_type_and_number[0].to_s
+          case id_type_and_number[0].to_s
+          when "passport"
+            @application.adult_passport_identification_number = id_type_and_number[1].to_s
+          when "national_identity_card"
+            @application.adult_id_identification_number = id_type_and_number[1].to_s
+          when "refugee_travel_document"
+            @application.adult_refugee_identification_number = id_type_and_number[1].to_s
+          end
+        end
       end
 
       render "sponsor-a-child/steps/#{step}"
@@ -185,10 +213,53 @@ class UnaccompaniedController < ApplicationController
       end
     end
 
+    if params["stage"].to_i == ADULT_DATE_OF_BIRTH
+      # There must be a better way!
+      @adult = @application.adults_at_address[params["key"]]
+      begin
+        adult_dob = Date.new(params["unaccompanied_minor"]["adult_date_of_birth_year"].to_i, params["unaccompanied_minor"]["adult_date_of_birth_month"].to_i, params["unaccompanied_minor"]["adult_date_of_birth_day"].to_i)
+
+        if adult_dob > 16.years.ago.to_date
+          @application.adults_at_address[params["key"]]["date_of_birth"] = ""
+          @application.errors.add(:adult_date_of_birth_day, I18n.t(:not_over_16_years_old, scope: :error))
+
+          render "sponsor-a-child/steps/#{ADULT_DATE_OF_BIRTH}"
+          return
+        else
+          @application.adults_at_address[params["key"]]["date_of_birth"] = adult_dob
+        end
+      rescue Date::Error
+        @application.adults_at_address[params["key"]]["date_of_birth"] = ""
+        @application.errors.add(:adult_date_of_birth_day, I18n.t(:invalid_date_of_birth, scope: :error))
+
+        render "sponsor-a-child/steps/#{MINOR_DATE_OF_BIRTH}"
+        return
+      end
+    end
+
     # capture the other adults at address
     if params["stage"].to_i == ADULTS_AT_ADDRESS
       @application.adults_at_address = {} if @application.adults_at_address.nil?
       @application.adults_at_address.store(SecureRandom.uuid.upcase.to_s, Adult.new(params["unaccompanied_minor"]["adult_given_name"], params["unaccompanied_minor"]["adult_family_name"]))
+    end
+
+    # capture the over 16 year old at address nationality
+    if params["stage"].to_i == ADULT_NATIONALITY
+      @application.adults_at_address[params["key"]]["nationality"] = params["unaccompanied_minor"]["adult_nationality"]
+    end
+
+    # capture the over 16 year old at address id type and number
+    if params["stage"].to_i == ADULT_ID_TYPE_AND_NUMBER
+      @application.adults_at_address[params["key"]]["id_type_and_number"] = case params["unaccompanied_minor"]["adult_identification_type"]
+                                                                            when "passport"
+                                                                              "#{params['unaccompanied_minor']['adult_identification_type']} - #{params['unaccompanied_minor']['adult_passport_identification_number']}"
+                                                                            when "national_identity_card"
+                                                                              "#{params['unaccompanied_minor']['adult_identification_type']} - #{params['unaccompanied_minor']['adult_id_identification_number']}"
+                                                                            when "refugee_travel_document"
+                                                                              "#{params['unaccompanied_minor']['adult_identification_type']} - #{params['unaccompanied_minor']['adult_refugee_identification_number']}"
+                                                                            else
+                                                                              "#{params['unaccompanied_minor']['adult_identification_type']} - 123456789"
+                                                                            end
     end
 
     # Update Application object with new attributes
@@ -211,6 +282,8 @@ class UnaccompaniedController < ApplicationController
         redirect_to "/sponsor-a-child/task-list"
       elsif next_stage > MAX_STEPS
         redirect_to "/sponsor-a-child/check-answers"
+      elsif ADULT_STEPS.include?(next_stage)
+        redirect_to "/sponsor-a-child/steps/#{next_stage}/#{params['key']}"
       else
         redirect_to "/sponsor-a-child/steps/#{next_stage}"
       end
@@ -437,6 +510,14 @@ private
           :other_adults_address,
           :adult_given_name,
           :adult_family_name,
+          :adult_date_of_birth_day,
+          :adult_date_of_birth_month,
+          :adult_date_of_birth_year,
+          :adult_nationality,
+          :adult_identification_type,
+          :adult_passport_identification_number,
+          :adult_id_identification_number,
+          :adult_refugee_identification_number,
         )
   end
 end

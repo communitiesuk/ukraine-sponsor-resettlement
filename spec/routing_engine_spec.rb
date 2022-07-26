@@ -72,7 +72,7 @@ RSpec.describe RoutingEngine, type: :model do
     it "when child's details is complete route to task list" do
       application = UnaccompaniedMinor.new
       application.ukraine_parental_consent_filename = "uploaded-file-name"
-      expect(described_class.get_next_unaccompanied_minor_step(application, 35)).to be(999)
+      expect(described_class.get_next_unaccompanied_minor_step(application, 37)).to be(999)
     end
 
     it "when sponsor is or is not living at address" do
@@ -96,29 +96,34 @@ RSpec.describe RoutingEngine, type: :model do
       expect(described_class.get_next_unaccompanied_minor_step(application, 28)).to be(999)
     end
 
-    it "when sponsor has finished child questions" do
+    it "when sponsor has answered adult at address, if any, id type and number" do
       application = UnaccompaniedMinor.new
-      expect(described_class.get_next_unaccompanied_minor_step(application, 32)).to be(999)
+      expect(described_class.get_next_unaccompanied_minor_step(application, 31)).to be(999)
     end
 
-    it "when sponsor has uploaded UK consent form" do
+    it "when sponsor has finished child questions" do
       application = UnaccompaniedMinor.new
       expect(described_class.get_next_unaccompanied_minor_step(application, 34)).to be(999)
     end
 
-    it "when sponsor has uploaded Ukraine consent form" do
-      application = UnaccompaniedMinor.new
-      expect(described_class.get_next_unaccompanied_minor_step(application, 35)).to be(999)
-    end
-
-    it "when sponsor has answered consent to share your data" do
+    it "when sponsor has uploaded UK consent form" do
       application = UnaccompaniedMinor.new
       expect(described_class.get_next_unaccompanied_minor_step(application, 36)).to be(999)
     end
 
-    it "when sponsor has answered sponsor declaration" do
+    it "when sponsor has uploaded Ukraine consent form" do
       application = UnaccompaniedMinor.new
       expect(described_class.get_next_unaccompanied_minor_step(application, 37)).to be(999)
+    end
+
+    it "when sponsor has answered consent to share your data" do
+      application = UnaccompaniedMinor.new
+      expect(described_class.get_next_unaccompanied_minor_step(application, 38)).to be(999)
+    end
+
+    it "when sponsor has answered sponsor declaration" do
+      application = UnaccompaniedMinor.new
+      expect(described_class.get_next_unaccompanied_minor_step(application, 39)).to be(999)
     end
   end
 
