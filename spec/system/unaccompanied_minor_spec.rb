@@ -675,4 +675,29 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_link("", href: "/sponsor-a-child/steps/29/123")
     end
   end
+
+  describe "session times out after inactivity", pending: true do
+    it "redirects the user to the session timed out page" do
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
+
+      page.set_rack_session(app_reference: new_application.reference)
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Contact details")
+      expect(page).to have_content("What is your email address?")
+
+      # email address is required for the happy path
+      fill_in("What is your email address?", with: "jane.doe@example.com")
+      click_button("Continue")
+      fill_in("What is your UK telephone number?", with: "07777 888 999")
+      
+      # wait for set period! Perhaps mock?
+      click_button("Continue")
+
+      expect(page).to have_content("Your session has timed out due to inactivity")
+    end
+  end
 end
