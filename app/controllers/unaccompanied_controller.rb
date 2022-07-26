@@ -452,7 +452,7 @@ private
     checkpoint = last_seen + last_seen_activity_threshold
 
     if checkpoint < Time.zone.now.utc
-      render "sponsor-a-child/non_eligible"
+      redirect_to "/sponsor-a-child/session-expired"
     end
   end
 

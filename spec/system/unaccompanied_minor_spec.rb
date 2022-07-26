@@ -700,8 +700,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       click_button("Continue")
 
-      # Back to home page for now
-      expect(page).to have_content("You cannot use this service")
+      expect(page).to have_content("Your session has timed out due to inactivity")
     end
   end
 
