@@ -321,6 +321,10 @@ class UnaccompaniedController < ApplicationController
 
       redirect_to "/sponsor-a-child/confirm"
     else
+      Rails.logger.debug "****************************************************************"
+      Rails.logger.debug "Errors: #{@application.errors.full_messages}"
+      Rails.logger.debug "****************************************************************"
+
       render "sponsor-a-child/check_answers"
     end
   end
