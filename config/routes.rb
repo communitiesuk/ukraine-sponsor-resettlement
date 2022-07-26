@@ -57,6 +57,11 @@ Rails.application.routes.draw do
   post "/sponsor-a-child/upload-ukraine/:stage", to: "unaccompanied#handle_upload_ukraine"
   get "/sponsor-a-child/remove/:key", to: "unaccompanied#remove_adult"
 
+  get "/sponsor-a-child/resume-application", to: "token_based_resume#display"
+  post "/sponsor-a-child/resume-application", to: "token_based_resume#submit"
+  get "/sponsor-a-child/session-expired", to: "token_based_resume#session_expired"
+
+
   get "/fraud-support", to: "fraud#display"
   post "/fraud-support", to: "fraud#post"
 
