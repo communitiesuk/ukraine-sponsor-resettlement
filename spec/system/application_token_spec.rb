@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe FraudController, type: :system do
+RSpec.describe TokenBasedResumeController, type: :system do
   before do
     driven_by(:rack_test_user_agent)
   end
