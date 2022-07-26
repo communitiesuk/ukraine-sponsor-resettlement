@@ -417,4 +417,21 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.formatted_address?).to eq("Address line 1, Address line 2, Town, AA1 1AA")
     end
   end
+
+  describe "eligibility validation" do
+    it "is born after december", :focus do
+      app = described_class.new
+      app.is_living_december = "yes"
+      app.is_born_after_december = ""
+      expect(app.valid?).to be(true)
+      app.is_living_december = "no"
+      app.is_born_after_december = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:is_born_after_december]).to include("You must select an option to continue")
+      expect(app.errors[:is_born_after_december].count).to be(1)
+      app.is_living_december = "no"
+      app.is_born_after_december = "yes"
+      expect(app.valid?).to be(true)
+    end
+  end
 end

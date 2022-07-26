@@ -50,7 +50,7 @@ module UamValidations
   end
 
   def validate_is_born_after_december
-    validate_enum(@eligibility_types, @is_born_after_december, :is_born_after_december)
+    validate_enum(@eligibility_types, @is_born_after_december, :is_born_after_december) if @is_living_december.present? && @is_living_december.casecmp("no").zero?
   end
 
   def validate_is_unaccompanied
