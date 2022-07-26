@@ -113,14 +113,14 @@
         <dt class="govuk-summary-list__key">
          Other nationalities
         </dt>
-        <% if @application.has_other_nationalities.casecmp("true").zero? %>
-          <% @application.other_nationalities.each_with_index do |nationality, index| %>
-            <%= nationality[0] %>
-          <% end %>
-        <% else %>
+        <% if @application.has_other_nationalities.empty? %>
           <dd class="govuk-summary-list__value">
             None
           </dd>
+        <% else %>
+          <% @application.other_nationalities.each_with_index do |nationality, index| %>
+            <%= nationality[0] %>
+          <% end %>
         <% end %>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/sponsor-a-child/steps/20">
