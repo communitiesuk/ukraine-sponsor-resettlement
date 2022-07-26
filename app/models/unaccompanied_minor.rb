@@ -90,7 +90,8 @@ class UnaccompaniedMinor < ApplicationRecord
                 :adults_at_address,
                 :adult_date_of_birth_day,
                 :adult_date_of_birth_month,
-                :adult_date_of_birth_year
+                :adult_date_of_birth_year,
+                :adult_nationality
 
   after_initialize :after_initialize
   before_save :serialize

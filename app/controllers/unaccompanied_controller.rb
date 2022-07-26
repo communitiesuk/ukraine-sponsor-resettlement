@@ -9,10 +9,11 @@ class UnaccompaniedController < ApplicationController
   SPONSOR_DATE_OF_BIRTH = 18
   MINOR_NATIONALITY = 19
   MINOR_OTHER_NATIONALITY = 21
-  NATIONALITY_STEPS = [MINOR_NATIONALITY, MINOR_OTHER_NATIONALITY].freeze
   ADULTS_AT_ADDRESS = 27
   ADULT_DATE_OF_BIRTH = 29
+  ADULT_NATIONALITY = 30
   MINOR_DATE_OF_BIRTH = 34
+  NATIONALITY_STEPS = [MINOR_NATIONALITY, MINOR_OTHER_NATIONALITY, ADULT_NATIONALITY].freeze
   TASK_LIST_STEP = 999
 
   def start
@@ -469,6 +470,7 @@ private
           :adult_date_of_birth_day,
           :adult_date_of_birth_month,
           :adult_date_of_birth_year,
+          :adult_nationality,
         )
   end
 end
