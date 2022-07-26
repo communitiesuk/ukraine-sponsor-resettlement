@@ -294,10 +294,11 @@ class UnaccompaniedController < ApplicationController
 
   def check_answers
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
-    # commented as question not asked yet so always nil
 
-    # @application.minor_date_of_birth_as_string = format_date_of_birth @application.minor_date_of_birth
-    # @application.sponsor_date_of_birth_as_string = format_date_of_birth @application.sponsor_date_of_birth
+    Rails.logger.debug "Check answers JSON: #{@application.as_json}"
+
+    # @application.sponsor_date_of_birth_as_string format_date_of_birth(@application.sponsor_date_of_birth_year, @application.sponsor_date_of_birth_month, @application.sponsor_date_of_birth_day)
+    # @application.minor_date_of_birth_as_string format_date_of_birth(@application.minor_date_of_birth_year, @application.minor_date_of_birth_month, @application.minor_date_of_birth_day)
 
     render "sponsor-a-child/check_answers"
   end

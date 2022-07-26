@@ -1,10 +1,12 @@
 require "csv"
 
 module ApplicationHelper
-  def format_date_of_birth(date_of_birth)
-    months = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-
-    "#{date_of_birth['3']} #{months[date_of_birth['2']]} #{date_of_birth['1']}"
+  def format_date_of_birth(year, month, day)
+    begin
+      Date.new(year.to_i, month.to_i, day.to_i).strftime("%dd %MMMM %Y")
+    rescue Date::Error
+      "Unknown"
+    end
   end
 
   def get_formatted_certificate_number
