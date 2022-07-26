@@ -73,7 +73,18 @@ class UnaccompaniedController < ApplicationController
           @application.adult_date_of_birth_year = Date.parse(adult_dob).year
         end
         @application.nationality = adult_nationality if adult_nationality.present? && adult_nationality.length.positive?
-        @application.adult_identification_type = adult_id_type_and_number if adult_id_type_and_number.present? && adult_id_type_and_number.length.positive?
+        if adult_id_type_and_number.present? && adult_id_type_and_number.length.positive?
+          id_type_and_number = adult_id_type_and_number.split(" - ")
+          @application.adult_identification_type = id_type_and_number[0].to_s
+          case id_type_and_number[0].to_s
+          when "passport"
+            @application.adult_passport_identification_number = id_type_and_number[1].to_s
+          when "national_identity_card"
+            @application.adult_id_identification_number = id_type_and_number[1].to_s
+          when "refugee_travel_document"
+            @application.adult_refugee_identification_number = id_type_and_number[1].to_s
+          end
+        end
       end
 
       render "sponsor-a-child/steps/#{step}"
@@ -246,9 +257,8 @@ class UnaccompaniedController < ApplicationController
       elsif params["unaccompanied_minor"]["adult_identification_type"] == "refugee_travel_document"
         @application.adults_at_address[params["key"]]["id_type_and_number"] = "#{params["unaccompanied_minor"]["adult_identification_type"]} - #{params["unaccompanied_minor"]["adult_refugee_identification_number"]}"
       else
-        @application.adults_at_address[params["key"]]["id_type_and_number"] = params["unaccompanied_minor"]["adult_identification_type"]
+        @application.adults_at_address[params["key"]]["id_type_and_number"] = "#{params["unaccompanied_minor"]["adult_identification_type"]} - 123456789"
       end
-
     end
 
     # Update Application object with new attributes
