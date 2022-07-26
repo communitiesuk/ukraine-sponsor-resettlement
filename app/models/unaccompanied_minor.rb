@@ -189,6 +189,10 @@ class UnaccompaniedMinor < ApplicationRecord
     transferred_at.present?
   end
 
+  def sponsor_full_name?
+    "#{given_name} #{family_name}"
+  end
+
   def minor_full_name?
     "#{minor_given_name} #{minor_family_name}"
   end

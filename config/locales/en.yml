@@ -345,7 +345,7 @@ en:
         full: How would you provide evidence of your identity?
         hint: If you have another document, for example, a drivers license, explain that here
       sponsor_date_of_birth:
-        short: Sponsor DoB
+        short: Date of birth
         full: Enter your date of birth
         hint: Date of birth
       sponsor_nationality:
@@ -382,7 +382,7 @@ en:
         short: Child contact details
         full: How can we contact %{name}?
       minor_date_of_birth:
-        short: Child DoB
+        short: Date of birth
         full: Enter %{name}'s date of birth
         hint: Date of birth
       address_line_1:
@@ -403,7 +403,7 @@ en:
         hint_html: |
           <div class="govuk-inset-text">%{formatted_address}</div>
       other_adults_address:
-        short: Different address
+        short: Over 16s
         full: Will anyone else over the age of 16 be living at this address?
         hint_html: |
           <div class="govuk-inset-text">%{formatted_address}</div>

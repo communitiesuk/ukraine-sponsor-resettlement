@@ -88,7 +88,7 @@ module UamValidations
   end
 
   def validate_ukraine_parent_consent_file_type
-    if @ukraine_parental_consent_file_type.nil? || @ukraine_parental_consent_file_type != "application/pdf"
+    if @ukraine_parental_consent_file_type.nil? || !ALLOWED_FILE_TYPES.include?(@ukraine_parental_consent_file_type.downcase)
       errors.add(:ukraine_parental_consent, I18n.t(:invalid_file_type_chosen, scope: :error))
     end
   end
