@@ -818,5 +818,24 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(saved_application.ukraine_parental_consent_saved_filename).to end_with("ukraine-test-document.pdf")
       expect(saved_application.ukraine_parental_consent_file_size).not_to be_nil
     end
+
+    it "have parental consent", :focus do
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
+
+      page.set_rack_session(app_reference: new_application.reference)
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Upload parental consent (British)")
+      expect(page).to have_content("You must upload 2 completed parental consent forms")
+
+      click_button("Continue")
+      expect(page).to have_content("Upload the UK sponsorship arrangement consent form")
+
+      saved_application = UnaccompaniedMinor.find_by_reference(new_application.reference)
+      expect(saved_application.have_parental_consent).to eq("true")
+    end
   end
 end
