@@ -837,5 +837,33 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       saved_application = UnaccompaniedMinor.find_by_reference(new_application.reference)
       expect(saved_application.have_parental_consent).to eq("true")
     end
+
+    it "different address", :focus do
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
+
+      page.set_rack_session(app_reference: new_application.reference)
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Address")
+      expect(page).to have_content("Enter the address where the child will be living in the UK")
+
+      fill_in("Address line 1", with: "Address line 1")
+      fill_in("Town", with: "Address town")
+      fill_in("Postcode", with: "XX1 1XX")
+
+      click_button("Continue")
+      expect(page).to have_content("Will you be living at this address?")
+
+      choose("Yes")
+      click_button("Continue")
+
+      expect(page).to have_content("Will anyone else over the age of 16 be living at this address?")
+
+      saved_application = UnaccompaniedMinor.find_by_reference(new_application.reference)
+      expect(saved_application.different_address).to eq("yes")
+    end
   end
 end
