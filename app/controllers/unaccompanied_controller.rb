@@ -2,6 +2,9 @@ require "securerandom"
 
 class UnaccompaniedController < ApplicationController
   include ApplicationHelper
+
+  before_action :check_last_activity, only: [:handle_step]
+
   MAX_STEPS = 44
   NOT_ELIGIBLE = [-1, 0].freeze
   MINOR_OTHER_NAMES = 12
@@ -370,6 +373,25 @@ class UnaccompaniedController < ApplicationController
   end
 
 private
+
+  def check_last_activity
+    activity_threshold = 5.seconds
+
+    # TODO: Refactor into appcontroller
+    if session[:last_seen].nil?
+      session[:last_seen] = Time.zone.now.utc.to_s
+    end
+
+    last_seen = Time.zone.parse(session[:last_seen])
+    checkpoint = last_seen + activity_threshold
+
+    if checkpoint < Time.zone.now.utc
+      render "sponsor-a-child/non_eligible"
+      return
+    end
+
+    session[:last_seen] = Time.zone.now.utc.to_s
+  end
 
   def save_and_redirect(filename, file)
     save_file(filename, file)
