@@ -677,7 +677,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   end
 
   describe "complete over 16 year old flow" do
-    it "answer the date of birth question", :focus do
+    it "answer the date of birth question" do
       new_application = UnaccompaniedMinor.new
       new_application.adults_at_address = {}
       new_application.adults_at_address.store("123", Adult.new("Bob", "Jones"))
@@ -708,7 +708,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
   end
 
-  it "answer the nationality question", :focus do
+  it "answer the nationality question" do
     new_application = UnaccompaniedMinor.new
     new_application.adults_at_address = {}
     new_application.adults_at_address.store("123", Adult.new("Bob", "Jones", "2001-6-13"))
@@ -735,7 +735,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     expect(page).to have_content("Do you have any of these identity documents?")
   end
 
-  it "answer the id type and number question", :focus do
+  it "answer the id type and number question" do
     new_application = UnaccompaniedMinor.new
     new_application.adults_at_address = {}
     new_application.adults_at_address.store("123", Adult.new("Bob", "Jones", "2001-6-13", "Afghanistan"))

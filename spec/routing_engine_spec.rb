@@ -47,7 +47,7 @@ RSpec.describe RoutingEngine, type: :model do
   end
 
   describe "unaccompanied minors - routing back to task list when a 'section' is complete" do
-    it "when name(s) is complete route to task list", :focus do
+    it "when name(s) is complete route to task list" do
       application = UnaccompaniedMinor.new
       application.has_other_names = "false"
       expect(described_class.get_next_unaccompanied_minor_step(application, 11)).to be(999)

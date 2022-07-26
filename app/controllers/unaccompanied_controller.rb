@@ -250,15 +250,16 @@ class UnaccompaniedController < ApplicationController
 
     # capture the over 16 year old at address id type and number
     if params["stage"].to_i == ADULT_ID_TYPE_AND_NUMBER
-      if params["unaccompanied_minor"]["adult_identification_type"] == "passport"
-        @application.adults_at_address[params["key"]]["id_type_and_number"] = "#{params["unaccompanied_minor"]["adult_identification_type"]} - #{params["unaccompanied_minor"]["adult_passport_identification_number"]}"
-      elsif params["unaccompanied_minor"]["adult_identification_type"] == "national_identity_card"
-        @application.adults_at_address[params["key"]]["id_type_and_number"] = "#{params["unaccompanied_minor"]["adult_identification_type"]} - #{params["unaccompanied_minor"]["adult_id_identification_number"]}"
-      elsif params["unaccompanied_minor"]["adult_identification_type"] == "refugee_travel_document"
-        @application.adults_at_address[params["key"]]["id_type_and_number"] = "#{params["unaccompanied_minor"]["adult_identification_type"]} - #{params["unaccompanied_minor"]["adult_refugee_identification_number"]}"
-      else
-        @application.adults_at_address[params["key"]]["id_type_and_number"] = "#{params["unaccompanied_minor"]["adult_identification_type"]} - 123456789"
-      end
+      @application.adults_at_address[params["key"]]["id_type_and_number"] = case params["unaccompanied_minor"]["adult_identification_type"]
+                                                                            when "passport"
+                                                                              "#{params['unaccompanied_minor']['adult_identification_type']} - #{params['unaccompanied_minor']['adult_passport_identification_number']}"
+                                                                            when "national_identity_card"
+                                                                              "#{params['unaccompanied_minor']['adult_identification_type']} - #{params['unaccompanied_minor']['adult_id_identification_number']}"
+                                                                            when "refugee_travel_document"
+                                                                              "#{params['unaccompanied_minor']['adult_identification_type']} - #{params['unaccompanied_minor']['adult_refugee_identification_number']}"
+                                                                            else
+                                                                              "#{params['unaccompanied_minor']['adult_identification_type']} - 123456789"
+                                                                            end
     end
 
     # Update Application object with new attributes
@@ -282,7 +283,7 @@ class UnaccompaniedController < ApplicationController
       elsif next_stage > MAX_STEPS
         redirect_to "/sponsor-a-child/check-answers"
       elsif ADULT_STEPS.include?(next_stage)
-        redirect_to "/sponsor-a-child/steps/#{next_stage}/#{params["key"]}"
+        redirect_to "/sponsor-a-child/steps/#{next_stage}/#{params['key']}"
       else
         redirect_to "/sponsor-a-child/steps/#{next_stage}"
       end
