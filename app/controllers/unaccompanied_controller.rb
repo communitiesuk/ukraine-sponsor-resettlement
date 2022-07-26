@@ -450,6 +450,8 @@ private
   def save_and_redirect(filename, file)
     save_file(filename, file)
 
+    @application.save!
+
     redirect_to "/sponsor-a-child/task-list"
   end
 
