@@ -377,20 +377,15 @@ private
   def check_last_activity
     activity_threshold = 5.seconds
 
-    # TODO: Refactor into appcontroller
-    if session[:last_seen].nil?
-      session[:last_seen] = Time.zone.now.utc.to_s
-    end
-
-    last_seen = Time.zone.parse(session[:last_seen])
+    last_seen = Time.parse(session[:last_seen])
     checkpoint = last_seen + activity_threshold
 
-    if checkpoint < Time.zone.now.utc
+    if checkpoint < Time.now.utc
       render "sponsor-a-child/non_eligible"
       return
     end
 
-    session[:last_seen] = Time.zone.now.utc.to_s
+    session[:last_seen] = Time.now.utc.to_s
   end
 
   def save_and_redirect(filename, file)
