@@ -726,10 +726,37 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     expect(page).to have_field("Month", with: 6)
     expect(page).to have_field("Year", with: 2001)
 
+    click_button("Continue")
+    expect(page).to have_content("What is your nationality?")
+
     select("Denmark", from: "unaccompanied-minor-adult-nationality-field")
 
     click_button("Continue")
+    expect(page).to have_content("TODO ID and Number question")
+  end
+
+  it "answer the id type and number question" do
+    new_application = UnaccompaniedMinor.new
+    new_application.adults_at_address = {}
+    new_application.adults_at_address.store("123", Adult.new("Bob", "Jones", "2001-6-13", "Australia"))
+    new_application.save!
+
+    page.set_rack_session(app_reference: new_application.reference)
+
+    visit "/sponsor-a-child/task-list"
+    expect(page).to have_content("Bob Jones details")
+
+    click_link("Bob Jones details")
+    expect(page).to have_content("Enter their date of birth")
+
+    expect(page).to have_field("Day", with: 13)
+    expect(page).to have_field("Month", with: 6)
+    expect(page).to have_field("Year", with: 2001)
+
+    click_button("Continue")
     expect(page).to have_content("What is your nationality?")
+
+    expect(page).to have_select("unaccompanied-minor-adult-nationality-field", selected: "Australia")
 
     click_button("Continue")
     expect(page).to have_content("TODO ID and Number question")

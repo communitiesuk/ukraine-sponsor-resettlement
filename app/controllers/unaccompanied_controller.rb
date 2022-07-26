@@ -14,6 +14,7 @@ class UnaccompaniedController < ApplicationController
   ADULT_NATIONALITY = 30
   MINOR_DATE_OF_BIRTH = 34
   NATIONALITY_STEPS = [MINOR_NATIONALITY, MINOR_OTHER_NATIONALITY, ADULT_NATIONALITY].freeze
+  ADULT_STEPS = [ADULT_DATE_OF_BIRTH, ADULT_NATIONALITY].freeze
   TASK_LIST_STEP = 999
 
   def start
@@ -59,10 +60,17 @@ class UnaccompaniedController < ApplicationController
     if step.positive? && step <= MAX_STEPS
       if NATIONALITY_STEPS.include?(step)
         @nationalities = get_nationalities_as_list
-      elsif step == ADULT_DATE_OF_BIRTH
-        # Set property based on values from hash of adults
+      elsif ADULT_STEPS.include?(step)
+        # Set properties based on values from hash of adults
         @adult = @application.adults_at_address[params["key"]]
-        # @application.adult_dob = @adult["date_of_birth"]
+        adult_dob = @adult["date_of_birth"]
+        adult_nationality = @adult["nationality"]
+        if adult_dob.present? && adult_dob.length.positive?
+          @application.adult_date_of_birth_day = Date.parse(adult_dob).day
+          @application.adult_date_of_birth_month = Date.parse(adult_dob).month
+          @application.adult_date_of_birth_year = Date.parse(adult_dob).year
+        end
+        @application.nationality = adult_nationality if adult_nationality.present? && adult_nationality.length.positive?
       end
 
       render "sponsor-a-child/steps/#{step}"
