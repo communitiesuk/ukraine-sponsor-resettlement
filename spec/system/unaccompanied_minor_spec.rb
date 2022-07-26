@@ -704,7 +704,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("You cannot use this service")
     end
   end
-  
+
   describe "complete over 16 year old flow" do
     it "answer the date of birth question" do
       new_application = UnaccompaniedMinor.new
