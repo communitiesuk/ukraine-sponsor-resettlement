@@ -694,8 +694,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
       fill_in("What is your UK telephone number?", with: "07777 888 999")
 
-      # wait for set period! Perhaps mock?
-      sleep 6
+      allow_any_instance_of(UnaccompaniedController).to receive(:last_seen_activity_threshold).and_return(- 10.seconds)
       click_button("Continue")
 
       # Back to home page for now
