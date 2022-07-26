@@ -460,3 +460,4 @@ en:
     too_old_date_of_birth: They must be under 18 to be considered a child in the UK
     too_young_date_of_birth: A sponsor with this date of birth is less 18 and you cannot use this service to apply to sponsor them
     no_application_found: There is no application associated with that email address
+    not_over_16_years_old: They must be over 16
