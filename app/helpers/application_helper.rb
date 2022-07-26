@@ -2,11 +2,9 @@ require "csv"
 
 module ApplicationHelper
   def format_date_of_birth(year, month, day)
-    begin
-      Date.new(year.to_i, month.to_i, day.to_i).strftime("%d %B %Y")
-    rescue Date::Error
-      "Unknown"
-    end
+    Date.new(year.to_i, month.to_i, day.to_i).strftime("%d %B %Y")
+  rescue Date::Error
+    "Unknown"
   end
 
   def get_formatted_certificate_number
