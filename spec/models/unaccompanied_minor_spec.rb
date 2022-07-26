@@ -161,6 +161,19 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.residential_postcode = "XX1 1XX"
       expect(app.valid?).to be(true)
     end
+
+    it "other adults at address is valid when page is skipped", :focus do
+      app = described_class.new
+      app.other_adults_address = ""
+      app.different_address = "yes"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:other_adults_address]).to include("You must select an option to continue")
+      app.different_address = "yes"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:other_adults_address]).to include("You must select an option to continue")
+      app.different_address = "no"
+      expect(app.valid?).to be(true)
+    end
   end
 
   describe "parental consent questions" do

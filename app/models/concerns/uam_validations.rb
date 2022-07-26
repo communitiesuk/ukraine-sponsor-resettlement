@@ -139,7 +139,7 @@ module UamValidations
   end
 
   def validate_other_adults_address
-    validate_enum(@other_adults_address_types, @other_adults_address, :other_adults_address)
+    validate_enum(@other_adults_address_types, @other_adults_address, :other_adults_address) if @different_address.present? && @different_address.casecmp("yes").zero?
   end
 
   def validate_enum(enum, value, attribute)
