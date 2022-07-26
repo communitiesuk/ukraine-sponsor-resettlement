@@ -148,7 +148,7 @@
         </dd>
       </div>
 
-    <% if @application.other_adults_address.casecmp("yes").zero? %>
+    <% if !@application.adults_at_address.empty? %>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           Over 16 years old
