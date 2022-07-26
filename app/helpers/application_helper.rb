@@ -3,7 +3,7 @@ require "csv"
 module ApplicationHelper
   def format_date_of_birth(year, month, day)
     begin
-      Date.new(year.to_i, month.to_i, day.to_i).strftime("%dd %MMMM %Y")
+      Date.new(year.to_i, month.to_i, day.to_i).strftime("%d %B %Y")
     rescue Date::Error
       "Unknown"
     end

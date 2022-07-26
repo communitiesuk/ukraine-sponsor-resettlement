@@ -297,8 +297,8 @@ class UnaccompaniedController < ApplicationController
 
     Rails.logger.debug "Check answers JSON: #{@application.as_json}"
 
-    # @application.sponsor_date_of_birth_as_string format_date_of_birth(@application.sponsor_date_of_birth_year, @application.sponsor_date_of_birth_month, @application.sponsor_date_of_birth_day)
-    # @application.minor_date_of_birth_as_string format_date_of_birth(@application.minor_date_of_birth_year, @application.minor_date_of_birth_month, @application.minor_date_of_birth_day)
+    @application.sponsor_date_of_birth_as_string = format_date_of_birth(@application.sponsor_date_of_birth_year, @application.sponsor_date_of_birth_month, @application.sponsor_date_of_birth_day)
+    @application.minor_date_of_birth_as_string = format_date_of_birth(@application.minor_date_of_birth_year, @application.minor_date_of_birth_month, @application.minor_date_of_birth_day)
 
     render "sponsor-a-child/check_answers"
   end
@@ -495,7 +495,9 @@ private
           :sponsor_address_line_2,
           :sponsor_address_town,
           :sponsor_address_postcode,
-          :sponsor_date_of_birth,
+          :sponsor_date_of_birth_day,
+          :sponsor_date_of_birth_month,
+          :sponsor_date_of_birth_year,
           :agree_privacy_statement,
           :certificate_reference,
           :privacy_statement_confirm,
