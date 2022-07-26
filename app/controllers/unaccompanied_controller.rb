@@ -66,12 +66,14 @@ class UnaccompaniedController < ApplicationController
         @adult = @application.adults_at_address[params["key"]]
         adult_dob = @adult["date_of_birth"]
         adult_nationality = @adult["nationality"]
+        adult_id_type_and_number = @adult["id_type_and_number"]
         if adult_dob.present? && adult_dob.length.positive?
           @application.adult_date_of_birth_day = Date.parse(adult_dob).day
           @application.adult_date_of_birth_month = Date.parse(adult_dob).month
           @application.adult_date_of_birth_year = Date.parse(adult_dob).year
         end
         @application.nationality = adult_nationality if adult_nationality.present? && adult_nationality.length.positive?
+        @application.adult_identification_type = adult_id_type_and_number if adult_id_type_and_number.present? && adult_id_type_and_number.length.positive?
       end
 
       render "sponsor-a-child/steps/#{step}"
@@ -233,6 +235,20 @@ class UnaccompaniedController < ApplicationController
     # capture the over 16 year old at address nationality
     if params["stage"].to_i == ADULT_NATIONALITY
       @application.adults_at_address[params["key"]]["nationality"] = params["unaccompanied_minor"]["adult_nationality"]
+    end
+
+    # capture the over 16 year old at address id type and number
+    if params["stage"].to_i == ADULT_ID_TYPE_AND_NUMBER
+      if params["unaccompanied_minor"]["adult_identification_type"] == "passport"
+        @application.adults_at_address[params["key"]]["id_type_and_number"] = "#{params["unaccompanied_minor"]["adult_identification_type"]} - #{params["unaccompanied_minor"]["adult_passport_identification_number"]}"
+      elsif params["unaccompanied_minor"]["adult_identification_type"] == "national_identity_card"
+        @application.adults_at_address[params["key"]]["id_type_and_number"] = "#{params["unaccompanied_minor"]["adult_identification_type"]} - #{params["unaccompanied_minor"]["adult_id_identification_number"]}"
+      elsif params["unaccompanied_minor"]["adult_identification_type"] == "refugee_travel_document"
+        @application.adults_at_address[params["key"]]["id_type_and_number"] = "#{params["unaccompanied_minor"]["adult_identification_type"]} - #{params["unaccompanied_minor"]["adult_refugee_identification_number"]}"
+      else
+        @application.adults_at_address[params["key"]]["id_type_and_number"] = params["unaccompanied_minor"]["adult_identification_type"]
+      end
+
     end
 
     # Update Application object with new attributes
@@ -488,6 +504,9 @@ private
           :adult_date_of_birth_year,
           :adult_nationality,
           :adult_identification_type,
+          :adult_passport_identification_number,
+          :adult_id_identification_number,
+          :adult_refugee_identification_number,
         )
   end
 end
