@@ -229,6 +229,11 @@ class UnaccompaniedController < ApplicationController
       @application.adults_at_address.store(SecureRandom.uuid.upcase.to_s, Adult.new(params["unaccompanied_minor"]["adult_given_name"], params["unaccompanied_minor"]["adult_family_name"]))
     end
 
+    # capture the over 16 year old at address nationality
+    if params["stage"].to_i == ADULT_NATIONALITY
+      @application.adults_at_address[params["key"]]["nationality"] = params["unaccompanied_minor"]["adult_nationality"]
+    end
+
     # Update Application object with new attributes
     @application.assign_attributes(application_params)
 
@@ -249,6 +254,8 @@ class UnaccompaniedController < ApplicationController
         redirect_to "/sponsor-a-child/task-list"
       elsif next_stage > MAX_STEPS
         redirect_to "/sponsor-a-child/check-answers"
+      elsif ADULT_STEPS.include?(next_stage)
+        redirect_to "/sponsor-a-child/steps/#{next_stage}/#{params["key"]}"
       else
         redirect_to "/sponsor-a-child/steps/#{next_stage}"
       end
