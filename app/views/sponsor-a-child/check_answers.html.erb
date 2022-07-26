@@ -20,19 +20,23 @@
         </dd>
       </div>
 
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          <%= t('other_name.short', scope: "unaccompanied_minor.questions") %>
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= @application.other_names %>
-        </dd>
-        <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/sponsor-a-child/steps/7">
-            Change<span class="govuk-visually-hidden"> name</span>
-          </a>
-        </dd>
-      </div>
+    <% if @application.has_other_names.casecmp("true").zero? %>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= t('other_name.short', scope: "unaccompanied_minor.questions") %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <% @application.other_names.each_with_index do |name, index| %>
+              <%= name[0] %>&nbsp;<%= name[1] %><br />
+            <% end %>
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/sponsor-a-child/steps/13">
+              Change<span class="govuk-visually-hidden"> name</span>
+            </a>
+          </dd>
+        </div>
+    <% end %>
 
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
