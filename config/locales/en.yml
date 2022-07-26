@@ -382,7 +382,7 @@ en:
         short: Child contact details
         full: How can we contact %{name}?
       minor_date_of_birth:
-        short: Child DoB
+        short: Date of birth
         full: Enter %{name}'s date of birth
         hint: Date of birth
       address_line_1:
