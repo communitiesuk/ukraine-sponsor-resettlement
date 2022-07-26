@@ -11,6 +11,7 @@ class UnaccompaniedController < ApplicationController
   MINOR_OTHER_NATIONALITY = 21
   NATIONALITY_STEPS = [MINOR_NATIONALITY, MINOR_OTHER_NATIONALITY].freeze
   ADULTS_AT_ADDRESS = 27
+  ADULT_DATE_OF_BIRTH = 29
   MINOR_DATE_OF_BIRTH = 32
   TASK_LIST_STEP = 999
 
@@ -57,6 +58,10 @@ class UnaccompaniedController < ApplicationController
     if step.positive? && step <= MAX_STEPS
       if NATIONALITY_STEPS.include?(step)
         @nationalities = get_nationalities_as_list
+      elsif step == ADULT_DATE_OF_BIRTH
+        # Set property based on values from hash of adults
+        @adult = @application.adults_at_address[params["key"]]
+        # @application.adult_dob = @adult["date_of_birth"]
       end
 
       render "sponsor-a-child/steps/#{step}"
@@ -179,6 +184,30 @@ class UnaccompaniedController < ApplicationController
         end
       rescue Date::Error
         @application.errors.add(:minor_date_of_birth_day, I18n.t(:invalid_date_of_birth, scope: :error))
+
+        render "sponsor-a-child/steps/#{MINOR_DATE_OF_BIRTH}"
+        return
+      end
+    end
+
+    if params["stage"].to_i == ADULT_DATE_OF_BIRTH
+      # There must be a better way!
+      @adult = @application.adults_at_address[params["key"]]
+      begin
+        adult_dob = Date.new(params["unaccompanied_minor"]["adult_date_of_birth_year"].to_i, params["unaccompanied_minor"]["adult_date_of_birth_month"].to_i, params["unaccompanied_minor"]["adult_date_of_birth_day"].to_i)
+
+        if adult_dob > 16.years.ago.to_date
+          @application.adults_at_address[params["key"]]["date_of_birth"] = ""
+          @application.errors.add(:adult_date_of_birth_day, I18n.t(:not_over_16_years_old, scope: :error))
+
+          render "sponsor-a-child/steps/#{ADULT_DATE_OF_BIRTH}"
+          return
+        else
+          @application.adults_at_address[params["key"]]["date_of_birth"] = adult_dob
+        end
+      rescue Date::Error
+        @application.adults_at_address[params["key"]]["date_of_birth"] = ""
+        @application.errors.add(:adult_date_of_birth_day, I18n.t(:invalid_date_of_birth, scope: :error))
 
         render "sponsor-a-child/steps/#{MINOR_DATE_OF_BIRTH}"
         return
@@ -437,6 +466,9 @@ private
           :other_adults_address,
           :adult_given_name,
           :adult_family_name,
+          :adult_date_of_birth_day,
+          :adult_date_of_birth_month,
+          :adult_date_of_birth_year,
         )
   end
 end

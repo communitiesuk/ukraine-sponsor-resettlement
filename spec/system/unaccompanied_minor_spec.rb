@@ -675,4 +675,37 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_link("", href: "/sponsor-a-child/steps/29/123")
     end
   end
+
+  describe "complete over 16 year old flow" do
+    it "answer the date of birth question" do
+      new_application = UnaccompaniedMinor.new
+      new_application.adults_at_address = {}
+      new_application.adults_at_address.store("123", Adult.new("Bob", "Jones"))
+      new_application.save!
+
+      page.set_rack_session(app_reference: new_application.reference)
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("Bob Jones details")
+
+      click_link("Bob Jones details")
+      expect(page).to have_content("Enter their date of birth")
+
+      fill_in("Day", with: 1)
+      fill_in("Month", with: 2)
+      fill_in("Year", with: Time.zone.now.year - 12)
+
+      click_button("Continue")
+      expect(page).to have_content("Enter their date of birth")
+      expect(page).to have_content("They must be over 16")
+
+      fill_in("Day", with: 1)
+      fill_in("Month", with: 2)
+      fill_in("Year", with: Time.zone.now.year - 20)
+
+      # TODO: fix expectation - once nationality page is created
+      click_button("Continue")
+      expect(page).to have_content("Enter the name of the child you want to sponsor")
+    end
+  end
 end
