@@ -309,6 +309,8 @@ class UnaccompaniedController < ApplicationController
     @application.user_agent = request.user_agent
     @application.final_submission = true
 
+    Rails.logger.debug "Submit JSON: #{@application.as_json}"
+
     if @application.valid?
       @application.save!
       session[:app_reference] = @application.reference
