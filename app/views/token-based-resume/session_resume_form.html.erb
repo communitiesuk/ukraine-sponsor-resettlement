@@ -1,0 +1,35 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
+
+    <h1 class="gem-c-title__text govuk-heading-l">
+      We've sent a 6-digit code to your email
+    </h1>
+
+    <p class="govuk-body">We've sent a secure one time time code to your email. Enter the code to access your application.</p>
+
+    <%= form_for @abstractresumetoken, url: "/sponsor-a-child/resume-application", method: :post do |f| %>
+      <%= f.govuk_text_field :token, 
+                             width: 10,
+                             label: { text: t('6-digit code'), size: 'm'},
+                             pattern: "[0-9]*",
+                             inputmode: "numeric",
+                             required: true
+      %>
+
+      <% if flash[:error] %>
+        <p class="govuk-error-message">
+            <%= flash[:error] %>
+        </p>
+      <% end %>
+      <%= f.govuk_submit t('Continue') %>
+
+      <a href="/sponsor-a-child/start" class="govuk-link">Start a new application</a>
+    <% end %>
+
+  </div>
+</div>
+
+
+
