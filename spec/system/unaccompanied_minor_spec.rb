@@ -676,7 +676,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
   end
 
-  describe "complete over 16 year old flow" do
+  describe "complete over 16 year old flow", :focus do
     it "answer the date of birth question" do
       new_application = UnaccompaniedMinor.new
       new_application.adults_at_address = {}
@@ -705,7 +705,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       # TODO: fix expectation - once nationality page is created
       click_button("Continue")
-      expect(page).to have_content("Enter the name of the child you want to sponsor")
+      expect(page).to have_content("TODO add nationalities to this page")
     end
   end
 end

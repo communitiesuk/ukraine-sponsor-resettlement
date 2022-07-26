@@ -3,43 +3,39 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-    <h1 class="gem-c-title__text govuk-heading-xl">
-      Upload the UK sponsorship arrangement consent form
-   </h1>
-    
-   <div class="govuk-inset-text">  
+    <h1 class="gem-c-title__text govuk-heading-l">
+      Enter their date of birth
+    </h1>
+
+    <div class="govuk-inset-text">
     <%=@application.minor_full_name?%>
-   </div>
 
-    <p class="govuk-body">
-         You will need to upload the <a class="govuk-link" href="dummy-link">Ukrainian notarised consent form</a> on the next page.
-     </p>
+    </div>
 
+    <%= form_for @application, url: "/sponsor-a-child/steps/34", method: :post do |f| %>
 
+      <%= f.govuk_fieldset legend: { text: t('minor_date_of_birth.full', :name => @application.minor_full_name?, scope: "unaccompanied_minor.questions"), size: 'm' }, hint: { text: 'For example, 31 3 2010' }, class: "govuk-date-input" do %>
 
-    <%= form_for @application, url: "/sponsor-a-child/upload-uk/34", method: :post do |f| %>
-      <%= f.govuk_file_field :uk_parental_consent,
-        label: { text: "Upload a file" }%>
+        <div class="govuk-hint" id="unaccompanied-minor-minor-date-of-birth-hint">For example, 31 3 2010</div>
 
-         <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary">
-                    <span class="govuk-details__summary-text">
-                    I need help
-                    </span>
-                </summary>
-                <div class="govuk-details__text">
-                You can upload the most common file types, like images and documents.<br/>
-                <br/>
-                You can only upload 1 file. If you have multiple files, please use an app or website to combine the documents into a single PDF file.<br/>
-                <br/>
-                If the parents or guardians are struggling to complete the form and send it to you, they should <a class="govuk-link" href="dummy-link"> read the guidance on completing parental consent forms.</a>
-                
-                </div>
+        <div class="govuk-date-input">
+          <div class="govuk-date-input__item">
+            <%= f.govuk_text_field :minor_date_of_birth_day, label: { text: 'Day' }, type: "number", width: 2 %>
+          </div>
+          <div class="govuk-date-input__item">
+            <%= f.govuk_text_field :minor_date_of_birth_month, label: { text: 'Month' }, type: "number", width: 2 %>
+          </div>
+          <div class="govuk-date-input__item">
+            <%= f.govuk_text_field :minor_date_of_birth_year, label: { text: 'Year' }, type: "number", width: 4 %>
+          </div>
+        </div>
 
-            </details>
+      <% end %>
 
-      <%= f.govuk_submit t('Continue') %>
+      <%= f.govuk_submit t('continue') %>
     <% end %>
+
+
+
   </div>
 </div>
-

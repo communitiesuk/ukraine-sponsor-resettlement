@@ -3,16 +3,40 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-    <%= form_for @application, url: "/sponsor-a-child/steps/36", method: :post do |f| %>
-        <%= f.govuk_check_boxes_fieldset :privacy_statement_confirm,
-                                         multiple: false,
-                                         legend: { text: t('agree_privacy_statement.full', scope: "unaccompanied_minor.questions"), size: 'm' } do %>
-            <p>
+    <h1 class="gem-c-title__text govuk-heading-xl">
+      Upload the UK sponsorship arrangement consent form
+   </h1>
 
-            </p>
-        <%= f.govuk_check_box :privacy_statement_confirm, "true", "false", multiple: false, link_errors: true, label: { text: t('privacy_statement.full_html', scope: "unaccompanied_minor.questions") } %><% end %>
+   <div class="govuk-inset-text">
+    <%=@application.minor_full_name?%>
+   </div>
 
-        <%= f.govuk_submit t('continue') %>
+    <p class="govuk-body">
+         You will need to upload the <a class="govuk-link" href="dummy-link">Ukrainian notarised consent form</a> on the next page.
+    </p>
+
+    <%= form_for @application, url: "/sponsor-a-child/upload-uk/36", method: :post do |f| %>
+      <%= f.govuk_file_field :uk_parental_consent,
+        label: { text: "Upload a file" }%>
+
+         <details class="govuk-details" data-module="govuk-details">
+                <summary class="govuk-details__summary">
+                    <span class="govuk-details__summary-text">
+                    I need help
+                    </span>
+                </summary>
+                <div class="govuk-details__text">
+                You can upload the most common file types, like images and documents.<br/>
+                <br/>
+                You can only upload 1 file. If you have multiple files, please use an app or website to combine the documents into a single PDF file.<br/>
+                <br/>
+                If the parents or guardians are struggling to complete the form and send it to you, they should <a class="govuk-link" href="dummy-link"> read the guidance on completing parental consent forms.</a>
+
+                </div>
+
+            </details>
+
+      <%= f.govuk_submit t('Continue') %>
     <% end %>
   </div>
 </div>
