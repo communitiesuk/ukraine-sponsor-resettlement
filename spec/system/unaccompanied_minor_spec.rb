@@ -694,7 +694,10 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
       fill_in("What is your UK telephone number?", with: "07777 888 999")
 
+      # rubocop:disable RSpec/AnyInstance
       allow_any_instance_of(UnaccompaniedController).to receive(:last_seen_activity_threshold).and_return(- 10.seconds)
+      # rubocop:enable RSpec/AnyInstance
+
       click_button("Continue")
 
       # Back to home page for now

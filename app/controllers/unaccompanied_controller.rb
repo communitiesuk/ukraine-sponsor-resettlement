@@ -380,7 +380,6 @@ private
 
     if checkpoint < Time.zone.now.utc
       render "sponsor-a-child/non_eligible"
-      nil
     end
   end
 
