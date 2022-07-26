@@ -11,10 +11,10 @@
           <%= t('fullname.hint', scope: "unaccompanied_minor.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= @application.fullname %>
+          <%= @application.sponsor_full_name? %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/sponsor-a-child/steps/7">
+          <a class="govuk-link" href="/sponsor-a-child/steps/10">
             Change<span class="govuk-visually-hidden"> name</span>
           </a>
         </dd>
@@ -158,7 +158,7 @@
 
        <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-         Number of adults living at your address 
+         Number of adults living at your address
         </dt>
         <dd class="govuk-summary-list__value">
           <%= @application.adult_number %>
@@ -180,7 +180,7 @@
           <%= t('fullname.hint', scope: "unaccompanied_minor.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= @application.minor_fullname %>
+          <%= @application.minor_full_name? %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/sponsor-a-child/steps/1">
@@ -216,7 +216,7 @@
           </a>
         </dd>
       </div>
-  
+
 
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
@@ -258,7 +258,7 @@
           <% if @application.errors.include?(:privacy_statement_confirm) %>
             <span class="govuk-error-message"><%= @application.errors[:agree_privacy_statement].join %></span>
           <% else %>
-          <%= @application.privacy_statement_confirm == "true" ? "Agreed" : "Not agreed" %> 
+          <%= @application.privacy_statement_confirm == "true" ? "Agreed" : "Not agreed" %>
           <% end%>
         </dd>
         <dd class="govuk-summary-list__actions">
@@ -276,7 +276,7 @@
           <% if @application.errors.include?(:sponsor_declaration) %>
             <span class="govuk-error-message"><%= @application.errors[:sponsor_declaration].join %></span>
           <% else %>
-          <%= @application.sponsor_declaration == "true" ? "Agreed" : "Not agreed" %> 
+          <%= @application.sponsor_declaration == "true" ? "Agreed" : "Not agreed" %>
           <% end%>
         </dd>
         <dd class="govuk-summary-list__actions">
@@ -295,7 +295,7 @@
     <%= form_for @application, url: "/sponsor-a-child/check-answers", method: :post do |f| %>
       <%= f.govuk_submit t('accept_and_send.full', scope: "unaccompanied_minor") %>
     <% end %>
-    
+
 
   </div>
 </div>
