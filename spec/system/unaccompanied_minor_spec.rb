@@ -961,5 +961,17 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("AUS - Australia")
       expect(page).to have_content("CHF - Switzerland")
     end
+
+    it "when minor cannot be contacted", :focus do
+      application = UnaccompaniedMinor.new
+      application.has_other_names = "false"
+      application.save!
+
+      page.set_rack_session(app_reference: application.reference)
+
+      visit "/sponsor-a-child/check-answers"
+      expect(page).to have_content("Check your answers before sending your application")
+      expect(page).to have_content("They cannot be contacted")
+    end
   end
 end
