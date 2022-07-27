@@ -26,7 +26,7 @@
             <%= t('other_name.short', scope: "unaccompanied_minor.questions") %>
           </dt>
           <dd class="govuk-summary-list__value">
-            <% @application.other_names.each_with_index do |name, index| %>
+            <% @application.other_names.each do |name| %>
               <%= name %>&nbsp;<%= name %><br />
             <% end %>
           </dd>
