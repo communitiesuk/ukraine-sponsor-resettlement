@@ -20,8 +20,8 @@
 
     <%= f.govuk_check_boxes_fieldset :sponsor_declaration,
                                          multiple: false,
-                                         legend: { text: t('agree_privacy_statement.full', scope: "unaccompanied_minor.questions"), size: 'm', hidden: true } do %>
-       <%= f.govuk_check_box :sponsor_declaration, "true", "false", multiple: false, link_errors: true, label: { text: t('privacy_statement.full_html', scope: "unaccompanied_minor.questions") } %><% end %>
+                                         legend: { text: t('sponsor_declaration.full', scope: "unaccompanied_minor.questions"), size: 'm', hidden: true } do %>
+       <%= f.govuk_check_box :sponsor_declaration, "true", "false", multiple: false, link_errors: true, label: { text: t('sponsor_declaration.full', scope: "unaccompanied_minor.questions") } %><% end %>
       <%= f.govuk_submit t('continue') %>
       <% end %>
 
