@@ -85,7 +85,6 @@ GEM
       aws-sigv4 (~> 1.4)
     aws-sigv4 (1.5.0)
       aws-eventstream (~> 1, >= 1.0.2)
-    bcrypt (3.1.18)
     bindex (0.8.1)
     bootsnap (1.12.0)
       msgpack (~> 1.2)
@@ -108,12 +107,6 @@ GEM
     concurrent-ruby (1.1.10)
     connection_pool (2.2.5)
     crass (1.0.6)
-    devise (4.8.1)
-      bcrypt (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 4.1.0)
-      responders
-      warden (~> 1.2.3)
     diff-lcs (1.5.0)
     digest (3.1.0)
     dotenv (2.7.6)
@@ -184,7 +177,6 @@ GEM
       racc (~> 1.4)
     notifications-ruby-client (5.3.0)
       jwt (>= 1.5, < 3)
-    orm_adapter (0.5.0)
     pagy (5.10.1)
       activesupport
     parallel (1.22.1)
@@ -246,9 +238,6 @@ GEM
       ffi (~> 1.0)
     redis (4.7.1)
     regexp_parser (2.5.0)
-    responders (3.0.1)
-      actionpack (>= 5.0)
-      railties (>= 5.0)
     rexml (3.2.5)
     rspec-core (3.11.0)
       rspec-support (~> 3.11.0)
@@ -306,6 +295,7 @@ GEM
       sass (~> 3.5, >= 3.5.5)
     scss_lint-govuk (0.2.0)
       scss_lint
+    securerandom (0.2.0)
     selenium-webdriver (4.3.0)
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
@@ -333,8 +323,6 @@ GEM
     view_component (2.56.2)
       activesupport (>= 5.0.0, < 8.0)
       method_source (~> 1.0)
-    warden (1.2.9)
-      rack (>= 2.0.9)
     web-console (4.2.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -365,7 +353,6 @@ DEPENDENCIES
   bundler-audit
   byebug
   capybara
-  devise
   dotenv-rails
   govuk-components
   govuk_design_system_formbuilder
@@ -384,6 +371,7 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   scss_lint-govuk
+  securerandom
   selenium-webdriver
   sentry-rails
   sentry-ruby
