@@ -452,6 +452,13 @@ RSpec.describe UnaccompaniedMinor, type: :model do
     it "can not be submitted when section 4 is incomplete" do
       app = described_class.new
 
+      # Minimum set for section 1
+      app.has_other_names = "false"
+      app.phone_number = "01234567890"
+      app.nationality = "CH"
+
+      app.privacy_statement_confirm = nil
+
       expect(app.is_application_ready_to_be_sent?).to be(false)
     end
 
@@ -461,7 +468,11 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       # Minimum set for section 1
       app.has_other_names = "false"
       app.phone_number = "01234567890"
-      app.nationality = "CHF"
+      app.nationality = "CH"
+
+      # Minimum for section 4
+      app.privacy_statement_confirm = "Completed"
+      app.sponsor_declaration = "Completed"
 
       expect(app.is_application_ready_to_be_sent?).to be(true)
     end
