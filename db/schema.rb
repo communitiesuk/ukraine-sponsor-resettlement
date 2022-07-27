@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_25_110450) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_27_091734) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -59,6 +59,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_25_110450) do
     t.bigint "unaccompanied_minor_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "magic_link"
+    t.index ["magic_link"], name: "index_application_tokens_on_magic_link"
     t.index ["unaccompanied_minor_id"], name: "index_application_tokens_on_unaccompanied_minor_id"
   end
 
