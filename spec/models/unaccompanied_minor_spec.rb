@@ -455,6 +455,10 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       uam.nationality = "CH"
     end
 
+    def populate_min_valid_section_two(uam)
+      uam.other_adults_address = "IS THIS VALID?"
+    end
+
     def populate_min_valid_section_four(uam)
       uam.privacy_statement_confirm = "Completed"
       uam.sponsor_declaration = "Completed"
@@ -467,10 +471,11 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.is_application_ready_to_be_sent?).to be(false)
     end
 
-    it "can be submitted when sections one and 4 are complete" do
+    it "can be submitted when sections 1,2,4 are complete" do
       app = described_class.new
 
       populate_min_valid_section_one(app)
+      populate_min_valid_section_two(app)
       populate_min_valid_section_four(app)
 
       expect(app.is_application_ready_to_be_sent?).to be(true)

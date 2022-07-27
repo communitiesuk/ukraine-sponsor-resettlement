@@ -157,6 +157,7 @@ class UnaccompaniedMinor < ApplicationRecord
 
   def is_application_ready_to_be_sent?
     is_section_one_complete? && \
+      is_section_two_complete? && \
       is_section_four_complete?
   end
 
