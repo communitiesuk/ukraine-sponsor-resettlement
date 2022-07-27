@@ -459,6 +459,12 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       uam.other_adults_address = "IS THIS VALID?"
     end
 
+    def populate_min_valid_section_three(uam)
+      uam.minor_date_of_birth_year = "2020"
+      uam.uk_parental_consent_filename = "uk_parental_consent.pdf"
+      uam.ukraine_parental_consent_filename = "ukraine_parental_consent.pdf"
+    end
+
     def populate_min_valid_section_four(uam)
       uam.privacy_statement_confirm = "Completed"
       uam.sponsor_declaration = "Completed"
@@ -476,6 +482,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
 
       populate_min_valid_section_one(app)
       populate_min_valid_section_two(app)
+      populate_min_valid_section_three(app)
       populate_min_valid_section_four(app)
 
       expect(app.is_application_ready_to_be_sent?).to be(true)
