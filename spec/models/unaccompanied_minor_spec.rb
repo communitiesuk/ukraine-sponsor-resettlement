@@ -477,7 +477,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.is_application_ready_to_be_sent?).to be(false)
     end
 
-    it "can be submitted when sections 1,2,4 are complete" do
+    it "can be submitted when sections 1,2,3 and 4 are complete" do
       app = described_class.new
 
       populate_min_valid_section_one(app)
