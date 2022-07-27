@@ -9,7 +9,7 @@
 
     <p class="govuk-body">We've sent a secure one time time code to your email. Enter the code to access your application.</p>
 
-    <%= form_for @abstractresumetoken, url: "/sponsor-a-child/resume-application", method: :post do |f| %>
+    <%= form_for @abstractresumetoken, url: "/sponsor-a-child/resume-application?uuid=#{params["uuid"]}", method: :post do |f| %>
       <%= f.govuk_text_field :token, 
                              width: 10,
                              label: { text: t('6-digit code'), size: 'm'},
