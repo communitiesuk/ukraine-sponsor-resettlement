@@ -449,30 +449,29 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   end
 
   describe "application is valid for submission" do
+    def populate_min_valid_section_one(uam)
+      uam.has_other_names = "false"
+      uam.phone_number = "01234567890"
+      uam.nationality = "CH"
+    end
+
+    def populate_min_valid_section_four(uam)
+      uam.privacy_statement_confirm = "Completed"
+      uam.sponsor_declaration = "Completed"
+    end
+
     it "can not be submitted when section 4 is incomplete" do
       app = described_class.new
-
-      # Minimum set for section 1
-      app.has_other_names = "false"
-      app.phone_number = "01234567890"
-      app.nationality = "CH"
-
       app.privacy_statement_confirm = nil
 
       expect(app.is_application_ready_to_be_sent?).to be(false)
     end
 
-    it "can be submitted when sections are complete" do
+    it "can be submitted when sections one and 4 are complete" do
       app = described_class.new
 
-      # Minimum set for section 1
-      app.has_other_names = "false"
-      app.phone_number = "01234567890"
-      app.nationality = "CH"
-
-      # Minimum for section 4
-      app.privacy_statement_confirm = "Completed"
-      app.sponsor_declaration = "Completed"
+      populate_min_valid_section_one(app)
+      populate_min_valid_section_four(app)
 
       expect(app.is_application_ready_to_be_sent?).to be(true)
     end
