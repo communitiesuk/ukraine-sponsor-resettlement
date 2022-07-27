@@ -472,7 +472,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
 
     it "can not be submitted when all but section 1 is complete" do
       app = described_class.new
-      
+
       populate_min_valid_section_two(app)
       populate_min_valid_section_three(app)
       populate_min_valid_section_four(app)
@@ -482,7 +482,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
 
     it "can not be submitted when all but section 2 is complete" do
       app = described_class.new
-      
+
       populate_min_valid_section_one(app)
       populate_min_valid_section_three(app)
       populate_min_valid_section_four(app)
@@ -492,7 +492,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
 
     it "can not be submitted when all but section 3 is complete" do
       app = described_class.new
-      
+
       populate_min_valid_section_one(app)
       populate_min_valid_section_two(app)
       populate_min_valid_section_four(app)
