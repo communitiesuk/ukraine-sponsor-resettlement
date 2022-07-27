@@ -26,8 +26,8 @@
             <%= t('other_name.short', scope: "unaccompanied_minor.questions") %>
           </dt>
           <dd class="govuk-summary-list__value">
-            <% @application.other_names.each_with_index do |name, index| %>
-              <%= name[0] %>&nbsp;<%= name[1] %><br />
+            <% @application.other_names.each do |name| %>
+              <%= name %>&nbsp;<%= name %><br />
             <% end %>
           </dd>
           <dd class="govuk-summary-list__actions">
@@ -113,13 +113,13 @@
         <dt class="govuk-summary-list__key">
          Other nationalities
         </dt>
-        <% if @application.has_other_nationalities.empty? %>
+        <% if @application.other_nationalities.nil? || @application.other_nationalities.empty? %>
           <dd class="govuk-summary-list__value">
             None
           </dd>
         <% else %>
-          <% @application.other_nationalities.each_with_index do |nationality, index| %>
-            <%= nationality[0] %>
+          <% @application.other_nationalities.each do |nationality| %>
+            <%= nationality %>
           <% end %>
         <% end %>
         <dd class="govuk-summary-list__actions">
@@ -143,12 +143,12 @@
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/sponsor-a-child/steps/23">
-            Change<span class="govuk-visually-hidden"> name</span>
+            Change<span class="govuk-visually-hidden"> address</span>
           </a>
         </dd>
       </div>
 
-    <% if !@application.adults_at_address.empty? %>
+    <% if !@application.adults_at_address.nil? && !@application.adults_at_address.empty? %>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           Over 16 years old
@@ -190,10 +190,12 @@
           Contact
         </dt>
         <dd class="govuk-summary-list__value">
-          <% if @application.minor_contact_type.casecmp("email").zero? %>
-            <%= @application.minor_email %>
-          <% elsif @application.minor_contact_type.casecmp("telephone").zero? %>
-            <%= @application.minor_phone_number %>
+          <% if @application.minor_contact_type.present? %>
+            <% if @application.minor_contact_type.casecmp("email").zero? %>
+              <%= @application.minor_email %>
+            <% elsif @application.minor_contact_type.casecmp("telephone").zero? %>
+              <%= @application.minor_phone_number %>
+            <% end %>
           <% else %>
             They cannot be contacted
           <% end %>
@@ -274,15 +276,11 @@
           Do you commit to the conditions of sponsoring an unaccompanied child?
         </dt>
         <dd class="govuk-summary-list__value">
-          <% if @application.errors.include?(:sponsor_declaration) %>
-            <span class="govuk-error-message"><%= @application.errors[:sponsor_declaration].join %></span>
-          <% else %>
           <%= @application.sponsor_declaration == "true" ? "Agreed" : "Not agreed" %>
-          <% end%>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/sponsor-a-child/steps/39">
-            Change<span class="govuk-visually-hidden"> child sponosoring conditions</span>
+            Change<span class="govuk-visually-hidden"> child sponsoring declaration</span>
           </a>
         </dd>
       </div>
