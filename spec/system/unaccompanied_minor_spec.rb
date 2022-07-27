@@ -944,5 +944,22 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Check your answers before sending your application")
       expect(page).to have_content("Other first name Other family name")
     end
+
+    it "when other nationalities collection is NOT empty", :focus do
+      # Create application with minimum expected values
+      application = UnaccompaniedMinor.new
+      application.has_other_names = "false"
+      application.minor_contact_type = "email"
+      application.other_nationalities = ["AFG - Afghanistan", "AUS - Australia", "CHF - Switzerland"]
+      application.save!
+
+      page.set_rack_session(app_reference: application.reference)
+
+      visit "/sponsor-a-child/check-answers"
+      expect(page).to have_content("Check your answers before sending your application")
+      expect(page).to have_content("AFG - Afghanistan")
+      expect(page).to have_content("AUS - Australia")
+      expect(page).to have_content("CHF - Switzerland")
+    end
   end
 end

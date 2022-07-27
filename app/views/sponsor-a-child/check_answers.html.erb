@@ -118,8 +118,8 @@
             None
           </dd>
         <% else %>
-          <% @application.other_nationalities.each_with_index do |nationality, index| %>
-            <%= nationality[0] %>
+          <% @application.other_nationalities.each do |nationality| %>
+            <%= nationality %>
           <% end %>
         <% end %>
         <dd class="govuk-summary-list__actions">
