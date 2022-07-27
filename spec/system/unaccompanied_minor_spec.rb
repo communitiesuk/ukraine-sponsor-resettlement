@@ -990,5 +990,21 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content(email_address)
     end
 
+    it "when minor can be contacted by telephone" do
+      telephone_number = "0777123456"
+
+      application = UnaccompaniedMinor.new
+      application.has_other_names = "false"
+      application.minor_contact_type = "telephone"
+      application.minor_phone_number = telephone_number
+      application.save!
+
+      page.set_rack_session(app_reference: application.reference)
+
+      visit "/sponsor-a-child/check-answers"
+      expect(page).to have_content("Check your answers before sending your application")
+      expect(page).to have_content(telephone_number)
+    end
+
   end
 end
