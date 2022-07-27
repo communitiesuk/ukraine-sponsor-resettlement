@@ -2,11 +2,10 @@ class TokenBasedResumeController < ApplicationController
   require "notifications/client"
 
   add_flash_types :error
-  ## skip_after_action :update_session_last_seen
-
+  
   def session_expired
     send_email
-    ##  session_reset
+    reset_session
     render "token-based-resume/session_expired"
   end
 
