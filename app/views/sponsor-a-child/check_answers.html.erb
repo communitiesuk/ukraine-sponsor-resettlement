@@ -276,11 +276,7 @@
           Do you commit to the conditions of sponsoring an unaccompanied child?
         </dt>
         <dd class="govuk-summary-list__value">
-          <% if @application.errors.include?(:sponsor_declaration) %>
-            <span class="govuk-error-message"><%= @application.errors[:sponsor_declaration].join %></span>
-          <% else %>
           <%= @application.sponsor_declaration == "true" ? "Agreed" : "Not agreed" %>
-          <% end%>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/sponsor-a-child/steps/39">
