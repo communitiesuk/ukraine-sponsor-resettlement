@@ -904,7 +904,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     it "when collections are empty", :focus do
       # Create application with minimum expected values
       application = UnaccompaniedMinor.new
-      application.has_other_names = "no"
+      application.has_other_names = "false"
       application.minor_contact_type = "email"
       application.save!
 
@@ -914,10 +914,25 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Check your answers before sending your application")
     end
 
+    it "when other names collection is NOT empty", :focus do
+      # Create application with minimum expected values
+      application = UnaccompaniedMinor.new
+      application.has_other_names = "true"
+      application.minor_contact_type = "email"
+      application.other_names = ["Other given name", "Other family name"]
+      application.save!
+
+      page.set_rack_session(app_reference: application.reference)
+
+      visit "/sponsor-a-child/check-answers"
+      expect(page).to have_content("Check your answers before sending your application")
+      expect(page).to have_content("Other given name Other family name")
+    end
+
     it "when other adults collection is NOT empty", :focus do
       # Create application with minimum expected values
       application = UnaccompaniedMinor.new
-      application.has_other_names = "no"
+      application.has_other_names = "false"
       application.minor_contact_type = "email"
       application.adults_at_address = {}
       application.adults_at_address.store("ABC", Adult.new("Other first name", "Other family name"))
