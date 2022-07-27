@@ -190,10 +190,12 @@
           Contact
         </dt>
         <dd class="govuk-summary-list__value">
-          <% if @application.minor_contact_type.present? && @application.minor_contact_type.casecmp("email").zero? %>
-            <%= @application.minor_email %>
-          <% elsif @application.minor_contact_type.present? && @application.minor_contact_type.casecmp("telephone").zero? %>
-            <%= @application.minor_phone_number %>
+          <% if @application.minor_contact_type.present? %>
+            <% if @application.minor_contact_type.casecmp("email").zero? %>
+              <%= @application.minor_email %>
+            <% elsif @application.minor_contact_type.casecmp("telephone").zero? %>
+              <%= @application.minor_phone_number %>
+            <% end %>
           <% else %>
             They cannot be contacted
           <% end %>
