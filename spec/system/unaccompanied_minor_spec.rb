@@ -1005,6 +1005,5 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Check your answers before sending your application")
       expect(page).to have_content(telephone_number)
     end
-
   end
 end
