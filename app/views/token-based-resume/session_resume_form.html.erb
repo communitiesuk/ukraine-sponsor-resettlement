@@ -4,10 +4,10 @@
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
     <h1 class="gem-c-title__text govuk-heading-l">
-      We've sent a 6-digit code to your email
+      We've sent a 6-digit code to your phone
     </h1>
 
-    <p class="govuk-body">We've sent a secure one time time code to your email. Enter the code to access your application.</p>
+    <p class="govuk-body">We've sent a secure one time time code to your phone. Enter the code to access your application.</p>
 
     <%= form_for @abstractresumetoken, url: "/sponsor-a-child/resume-application?uuid=#{params["uuid"]}", method: :post do |f| %>
       <%= f.govuk_text_field :token, 
