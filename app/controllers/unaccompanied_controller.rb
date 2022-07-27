@@ -23,12 +23,11 @@ class UnaccompaniedController < ApplicationController
   end
 
   def check_if_can_use
-    @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
-    @application.started_at = Time.zone.now.utc if @application.started_at.nil?
-    @application.save! if @application.reference.nil?
+    @application = UnaccompaniedMinor.new
+    @application.started_at = Time.zone.now.utc
+    @application.save!
 
     # Update the session
-    session[:unaccompanied_minor] = @application.as_json
     session[:app_reference] = @application.reference
 
     # mini-check page to show after start and before step 1
@@ -36,23 +35,12 @@ class UnaccompaniedController < ApplicationController
   end
 
   def start_application
-    @application = UnaccompaniedMinor.new(session[:unaccompanied_minor])
-    @application.started_at = Time.zone.now.utc if @application.started_at.nil?
-    @application.save! if @application.reference.nil?
-
-    # Update the session
-    session[:unaccompanied_minor] = @application.as_json
-    session[:app_reference] = @application.reference
-
     # Redirect to show the task-list
     redirect_to "/sponsor-a-child/task-list"
   end
 
   def display
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
-
-    # Update the session
-    session[:unaccompanied_minor] = @application.as_json
 
     Rails.logger.debug "App JSON: #{@application.as_json}"
 
@@ -269,9 +257,6 @@ class UnaccompaniedController < ApplicationController
       # Update the database
       @application.update!(@application.as_json)
 
-      # Update the session
-      session[:unaccompanied_minor] = @application.as_json
-
       # Replace with routing engine to get next stage
       next_stage = RoutingEngine.get_next_unaccompanied_minor_step(@application, params["stage"].to_i)
 
@@ -343,9 +328,6 @@ class UnaccompaniedController < ApplicationController
   def task_list
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
 
-    # Ensure session matches application
-    session[:unaccompanied_minor] = @application.as_json
-
     if @application.is_cancelled?
       render "sponsor-a-child/cancel_confirm"
     elsif @application.is_submitted?
@@ -356,8 +338,6 @@ class UnaccompaniedController < ApplicationController
   end
 
   def non_eligible
-    # page to show if between steps 1 and 8 (2,6 excluded) the user answers with
-    # NO to any of the questions asked
     render "sponsor-a-child/non_eligible"
   end
 
