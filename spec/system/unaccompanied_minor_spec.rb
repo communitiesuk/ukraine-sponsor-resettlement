@@ -835,7 +835,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Upload the UK sponsorship arrangement consent form")
 
       saved_application = UnaccompaniedMinor.find_by_reference(new_application.reference)
-      expect(saved_application.have_parental_consent).to eq("true")
+      expect(saved_application.have_parental_consent).to eq("yes")
     end
 
     it "different address" do
