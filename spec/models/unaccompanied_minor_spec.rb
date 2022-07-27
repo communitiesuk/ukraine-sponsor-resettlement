@@ -161,6 +161,19 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.residential_postcode = "XX1 1XX"
       expect(app.valid?).to be(true)
     end
+
+    it "other adults at address is valid when page is skipped" do
+      app = described_class.new
+      app.other_adults_address = ""
+      app.different_address = "yes"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:other_adults_address]).to include("You must select an option to continue")
+      app.different_address = "yes"
+      expect(app.valid?).to be(false)
+      expect(app.errors[:other_adults_address]).to include("You must select an option to continue")
+      app.different_address = "no"
+      expect(app.valid?).to be(true)
+    end
   end
 
   describe "parental consent questions" do
@@ -415,6 +428,23 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.residential_postcode = "AA1 1AA"
 
       expect(app.formatted_address?).to eq("Address line 1, Address line 2, Town, AA1 1AA")
+    end
+  end
+
+  describe "eligibility validation" do
+    it "is born after december" do
+      app = described_class.new
+      app.is_living_december = "yes"
+      app.is_born_after_december = ""
+      expect(app.valid?).to be(true)
+      app.is_living_december = "no"
+      app.is_born_after_december = ""
+      expect(app.valid?).to be(false)
+      expect(app.errors[:is_born_after_december]).to include("You must select an option to continue")
+      expect(app.errors[:is_born_after_december].count).to be(1)
+      app.is_living_december = "no"
+      app.is_born_after_december = "yes"
+      expect(app.valid?).to be(true)
     end
   end
 end

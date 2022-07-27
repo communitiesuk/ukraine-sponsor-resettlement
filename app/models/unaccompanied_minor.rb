@@ -189,6 +189,10 @@ class UnaccompaniedMinor < ApplicationRecord
     transferred_at.present?
   end
 
+  def sponsor_full_name?
+    "#{given_name} #{family_name}"
+  end
+
   def minor_full_name?
     "#{minor_given_name} #{minor_family_name}"
   end
@@ -347,6 +351,7 @@ class UnaccompaniedMinor < ApplicationRecord
       ukraine_parental_consent_file_type:,
       ukraine_parental_consent_filename:,
       ukraine_parental_consent_saved_filename:,
+      ukraine_parental_consent_file_size:,
       minor_date_of_birth_day:,
       minor_date_of_birth_month:,
       minor_date_of_birth_year:,
@@ -370,6 +375,7 @@ class UnaccompaniedMinor < ApplicationRecord
       residential_line_2:,
       residential_town:,
       residential_postcode:,
+      different_address:,
       sponsor_address_line_1:,
       sponsor_address_line_2:,
       sponsor_address_town:,
