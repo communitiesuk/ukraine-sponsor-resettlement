@@ -143,12 +143,12 @@
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/sponsor-a-child/steps/23">
-            Change<span class="govuk-visually-hidden"> name</span>
+            Change<span class="govuk-visually-hidden"> address</span>
           </a>
         </dd>
       </div>
 
-    <% if @application.adults_at_address.present? && !@application.adults_at_address.empty? %>
+    <% if !@application.adults_at_address.nil? && !@application.adults_at_address.empty? %>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           Over 16 years old
