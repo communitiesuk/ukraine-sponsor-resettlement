@@ -27,6 +27,10 @@ module ApplicationHelper
     nationalities
   end
 
+  def last_seen_activity_threshold
+    30.minutes
+  end
+
 private
 
   def generate_alpha_code(number)

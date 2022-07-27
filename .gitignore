@@ -1,4 +1,4 @@
-/data/startup_info.json
+/data/*.json
 *.rbc
 capybara-*.html
 .rspec
@@ -84,3 +84,4 @@ yarn-debug.log*
 
 # Ignore Vscode Settings
 /.vscode*
+data/startup_info.json
