@@ -447,4 +447,78 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(true)
     end
   end
+
+  describe "application is ready for submission" do
+    def populate_min_valid_section_one(uam)
+      uam.has_other_names = "false"
+      uam.phone_number = "01234567890"
+      uam.nationality = "CH"
+    end
+
+    def populate_min_valid_section_two(uam)
+      uam.other_adults_address = "true"
+    end
+
+    def populate_min_valid_section_three(uam)
+      uam.minor_date_of_birth_year = "2020"
+      uam.uk_parental_consent_filename = "uk_parental_consent.pdf"
+      uam.ukraine_parental_consent_filename = "ukraine_parental_consent.pdf"
+    end
+
+    def populate_min_valid_section_four(uam)
+      uam.privacy_statement_confirm = "true"
+      uam.sponsor_declaration = "true"
+    end
+
+    it "can not be submitted when all but section 1 is complete" do
+      app = described_class.new
+
+      populate_min_valid_section_two(app)
+      populate_min_valid_section_three(app)
+      populate_min_valid_section_four(app)
+
+      expect(app.is_application_ready_to_be_sent?).to be(false)
+    end
+
+    it "can not be submitted when all but section 2 is complete" do
+      app = described_class.new
+
+      populate_min_valid_section_one(app)
+      populate_min_valid_section_three(app)
+      populate_min_valid_section_four(app)
+
+      expect(app.is_application_ready_to_be_sent?).to be(false)
+    end
+
+    it "can not be submitted when all but section 3 is complete" do
+      app = described_class.new
+
+      populate_min_valid_section_one(app)
+      populate_min_valid_section_two(app)
+      populate_min_valid_section_four(app)
+
+      expect(app.is_application_ready_to_be_sent?).to be(false)
+    end
+
+    it "can not be submitted when section 4 is incomplete" do
+      app = described_class.new
+
+      populate_min_valid_section_one(app)
+      populate_min_valid_section_two(app)
+      populate_min_valid_section_three(app)
+
+      expect(app.is_application_ready_to_be_sent?).to be(false)
+    end
+
+    it "can be submitted when sections 1,2,3 and 4 are complete" do
+      app = described_class.new
+
+      populate_min_valid_section_one(app)
+      populate_min_valid_section_two(app)
+      populate_min_valid_section_three(app)
+      populate_min_valid_section_four(app)
+
+      expect(app.is_application_ready_to_be_sent?).to be(true)
+    end
+  end
 end
