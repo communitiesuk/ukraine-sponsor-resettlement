@@ -283,7 +283,7 @@ en:
     questions:
       privacy_statement:
         short: privacy statement
-        full_html: Yes, I have read the <a href=https://www.gov.uk/government/publications/homes-for-ukraine-scheme-expressions-of-interest-eois-privacy-notices/homes-for-ukraine-scheme-expressions-of-interest-individuals> privacy statement </a> and agree that the information I have provided in this form can be used for the Homes for Ukraine scheme
+        full_html: Yes, I have read the <a href=https://www.gov.uk/government/publications/homes-for-ukraine-scheme-expressions-of-interest-eois-privacy-notices/homes-for-ukraine-scheme-expressions-of-interest-individuals target=_blank> privacy statement </a> and agree that the information I have provided in this form can be used for the Homes for Ukraine scheme
       sponsor_declaration:
         short: sponsor declaration
         full: I confirm that I am eligible to sponsor a person under 18, who is not travelling with or joining a parent or legal guardian under the Homes for Ukraine Scheme.
