@@ -8,7 +8,7 @@ class UnaccompaniedController < ApplicationController
   MAX_STEPS = 44
   NOT_ELIGIBLE = [-1, 0].freeze
   MINOR_OTHER_NAMES = 12
-  MINOR_ID_TYPE = 16
+  SPONSOR_ID_TYPE = 16
   SPONSOR_DATE_OF_BIRTH = 18
   MINOR_NATIONALITY = 19
   MINOR_OTHER_NATIONALITY = 21
@@ -148,13 +148,19 @@ class UnaccompaniedController < ApplicationController
     end
 
     # capture identification document number
-    if params["stage"].to_i == MINOR_ID_TYPE
+    if params["stage"].to_i == SPONSOR_ID_TYPE
       # how to have this comparison dealt with better???
-      if params["unaccompanied_minor"]["identification_type"][0].casecmp("none").zero?
-        @application.identification_type = ""
+      @application.identification_type = params["unaccompanied_minor"]["identification_type"]
+
+      case @application.identification_type
+      when "passport"
+        @application.identification_number = params["unaccompanied_minor"]["passport_identification_number"]
+      when "abc"
+        @application.identification_number = params["unaccompanied_minor"]["id_identification_number"]
+      when "def"
+        @application.identification_number = params["unaccompanied_minor"]["refugee_identification_number"]
+      else
         @application.identification_number = ""
-      elsif params["unaccompanied_minor"]["identification_number"].present?
-        @application.identification_number = params["unaccompanied_minor"]["identification_number"]
       end
     end
 
@@ -482,6 +488,9 @@ private
           :phone_number,
           :identification_type,
           :identification_number,
+          :passport_identification_number,
+          :id_identification_number,
+          :refugee_identification_number,
           :no_identification_reason,
           :nationality,
           :has_other_nationalities,

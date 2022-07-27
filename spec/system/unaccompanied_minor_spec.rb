@@ -1034,4 +1034,29 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content(telephone_number)
     end
   end
+
+  describe "sponsor id type and number is saved" do
+    it "when id is passport", :focus do
+      application = UnaccompaniedMinor.new
+      application.save!
+
+      page.set_rack_session(app_reference: application.reference)
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Additional details")
+      expect(page).to have_content("Do you have any of these identity documents?")
+
+      page.check("Passport")
+      fill_in("Passport number", with: "123456789")
+
+      click_button("Continue")
+      expect(page).to have_content("Enter your date of birth")
+
+      saved_application = UnaccompaniedMinor.find_by_reference(application.reference)
+      expect(saved_application.identification_type).to eq("passport")
+      expect(saved_application.identification_number).to eq("123456789")
+    end
+  end
 end
