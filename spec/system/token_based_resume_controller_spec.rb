@@ -50,5 +50,22 @@ RSpec.describe TokenBasedResumeController, type: :system do
 
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
     end
+
+    it "validates the expiry date on the code" do
+      new_application = UnaccompaniedMinor.new
+      new_application.phone_number = "07511824127"
+      new_application.save!
+
+      personal_uuid = SecureRandom.uuid
+      new_application_token = ApplicationToken.new(unaccompanied_minor: new_application, magic_link: personal_uuid, token: 456_313, expires_at: (Time.zone.now.utc - 1.hour))
+      new_application_token.save!
+
+      visit "/sponsor-a-child/resume-application?uuid=#{personal_uuid}"
+
+      fill_in("6 Digit Code", with: 456_313)
+      click_button("Continue")
+
+      expect(page).to have_content("This code has timed out, please request a new one")
+    end
   end
 end

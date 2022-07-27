@@ -1,4 +1,6 @@
 class TokenBasedResumeController < ApplicationController
+  require "notifications/client"
+
   add_flash_types :error
   ## skip_after_action :update_session_last_seen
 
@@ -10,6 +12,7 @@ class TokenBasedResumeController < ApplicationController
 
   def display
     @abstractresumetoken = AbstractResumeToken.new(magic_link: params[:uuid])
+    send_token
     render "token-based-resume/session_resume_form"
   end
 
@@ -21,12 +24,18 @@ class TokenBasedResumeController < ApplicationController
       @applicationtoken = ApplicationToken.find_by(magic_link: @abstractresumetoken.magic_link, token: @abstractresumetoken.token)
 
       if @applicationtoken.present?
-        # the application exists, store in the session and let them resume
-        @application = @applicationtoken.unaccompanied_minor
-        session[:app_reference] = @application.reference
-        session[:unaccompanied_minor] = @application.as_json
+        if Time.zone.now.utc <= @applicationtoken.expires_at
+          # the application exists, store in the session and let them resume
+          @application = @applicationtoken.unaccompanied_minor
+          session[:app_reference] = @application.reference
+          session[:unaccompanied_minor] = @application.as_json
 
-        render "sponsor-a-child/task_list"
+          render "sponsor-a-child/task_list"
+        else
+          # token has timed out
+          flash[:error] = "This code has timed out, please request a new one"
+          redirect_to "/sponsor-a-child/resume-application?uuid=#{params[:uuid]}"
+        end
       else
         # no application was found with this token
         flash[:error] = "No application found for this code"
@@ -34,6 +43,7 @@ class TokenBasedResumeController < ApplicationController
       end
     else
       # the token is invalid
+      flash[:error] = "Please enter a valid code"
       render "token-based-resume/session_resume_form"
     end
   end
@@ -58,6 +68,7 @@ private
       unaccompanied_minor: application,
       magic_link:,
       token: generate_token,
+      expires_at: Time.zone.now.utc + 20.minutes,
     )
     application_token.save!
   end
@@ -68,5 +79,13 @@ private
     return_link = generate_magic_link(personal_uuid)
     generate_application_token(@application, personal_uuid)
     GovNotifyMailer.send_save_and_return_email(@application.email, @application.given_name, return_link).deliver_later
+  end
+
+  def send_token
+    texter = Notifications::Client.new("expiry_sms_token-e8fd0b83-9213-4a38-8632-7a461ad7f71e-b999939e-0a65-40be-8c0b-bbd214751421")
+    @application_reference = ApplicationToken.find_by(magic_link: params[:uuid])
+    sms_token = @application_reference.token
+    number = @application_reference.unaccompanied_minor.phone_number
+    texter.send_sms(phone_number: number, template_id: "b51a151e-f352-473a-b52e-185d2873cbf5", personalisation: { OTP: sms_token })
   end
 end
