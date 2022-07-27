@@ -901,7 +901,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   end
 
   describe "show check answers page" do
-    it "when collections are empty", :focus do
+    it "when collections are empty" do
       # Create application with minimum expected values
       application = UnaccompaniedMinor.new
       application.has_other_names = "false"
@@ -914,7 +914,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Check your answers before sending your application")
     end
 
-    it "when other names collection is NOT empty", :focus do
+    it "when other names collection is NOT empty" do
       # Create application with minimum expected values
       application = UnaccompaniedMinor.new
       application.has_other_names = "true"
@@ -929,7 +929,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Other given name Other family name")
     end
 
-    it "when other adults collection is NOT empty", :focus do
+    it "when other adults collection is NOT empty" do
       # Create application with minimum expected values
       application = UnaccompaniedMinor.new
       application.has_other_names = "false"
@@ -945,7 +945,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Other first name Other family name")
     end
 
-    it "when other nationalities collection is NOT empty", :focus do
+    it "when other nationalities collection is NOT empty" do
       # Create application with minimum expected values
       application = UnaccompaniedMinor.new
       application.has_other_names = "false"
@@ -962,7 +962,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("CHF - Switzerland")
     end
 
-    it "when minor cannot be contacted", :focus do
+    it "when minor cannot be contacted" do
       application = UnaccompaniedMinor.new
       application.has_other_names = "false"
       application.save!
@@ -973,5 +973,22 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Check your answers before sending your application")
       expect(page).to have_content("They cannot be contacted")
     end
+
+    it "when minor can be contacted by email" do
+      email_address = "minor@example.com"
+
+      application = UnaccompaniedMinor.new
+      application.has_other_names = "false"
+      application.minor_contact_type = "email"
+      application.minor_email = email_address
+      application.save!
+
+      page.set_rack_session(app_reference: application.reference)
+
+      visit "/sponsor-a-child/check-answers"
+      expect(page).to have_content("Check your answers before sending your application")
+      expect(page).to have_content(email_address)
+    end
+
   end
 end
