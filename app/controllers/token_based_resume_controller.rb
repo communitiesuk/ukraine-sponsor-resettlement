@@ -1,7 +1,10 @@
 class TokenBasedResumeController < ApplicationController
   add_flash_types :error
+  ## skip_after_action :update_session_last_seen
 
   def session_expired
+  ##  send_email
+  ##  session_reset
     render "token-based-resume/session_expired"
   end
 
@@ -40,4 +43,19 @@ private
   def confirm_params
     params.require(:abstract_resume_token).permit(:token)
   end
+
+  ##def send_email
+  ##  @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
+  ##  return_link = url_for(:action => 'display', :controller => 'token_based_resume_controller', :only_path => false)
+  ##  GovNotifyMailer.send_save_and_return_email(@application.email, @application.given_name, return_link).deliver_later
+  ##end
+##
+  ##def create_and_send_code
+  ##  @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
+  ##  generate_code = 6.times.map{rand(10)}.join
+  ##  ApplicationToken.new(unaccompanied_minor: application, token: generate_code)
+##
+##
+  ##end
+
 end
