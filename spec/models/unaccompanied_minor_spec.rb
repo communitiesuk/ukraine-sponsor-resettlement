@@ -448,7 +448,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
     end
   end
 
-  describe "application is valid for submission" do
+  describe "application is ready for submission" do
     def populate_min_valid_section_one(uam)
       uam.has_other_names = "false"
       uam.phone_number = "01234567890"
@@ -456,7 +456,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
     end
 
     def populate_min_valid_section_two(uam)
-      uam.other_adults_address = "IS THIS VALID?"
+      uam.other_adults_address = "true"
     end
 
     def populate_min_valid_section_three(uam)
@@ -466,13 +466,46 @@ RSpec.describe UnaccompaniedMinor, type: :model do
     end
 
     def populate_min_valid_section_four(uam)
-      uam.privacy_statement_confirm = "Completed"
-      uam.sponsor_declaration = "Completed"
+      uam.privacy_statement_confirm = "true"
+      uam.sponsor_declaration = "true"
+    end
+
+    it "can not be submitted when all but section 1 is complete" do
+      app = described_class.new
+      
+      populate_min_valid_section_two(app)
+      populate_min_valid_section_three(app)
+      populate_min_valid_section_four(app)
+
+      expect(app.is_application_ready_to_be_sent?).to be(false)
+    end
+
+    it "can not be submitted when all but section 2 is complete" do
+      app = described_class.new
+      
+      populate_min_valid_section_one(app)
+      populate_min_valid_section_three(app)
+      populate_min_valid_section_four(app)
+
+      expect(app.is_application_ready_to_be_sent?).to be(false)
+    end
+
+    it "can not be submitted when all but section 3 is complete" do
+      app = described_class.new
+      
+      populate_min_valid_section_one(app)
+      populate_min_valid_section_two(app)
+      populate_min_valid_section_four(app)
+
+      expect(app.is_application_ready_to_be_sent?).to be(false)
     end
 
     it "can not be submitted when section 4 is incomplete" do
       app = described_class.new
-      app.privacy_statement_confirm = nil
+
+      populate_min_valid_section_one(app)
+      populate_min_valid_section_two(app)
+      populate_min_valid_section_three(app)
 
       expect(app.is_application_ready_to_be_sent?).to be(false)
     end
