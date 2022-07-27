@@ -134,23 +134,29 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
   def is_section_one_complete?
-    sponsor_details_names? == TASK_LABEL_COMPLETE && sponsor_details_contact_details? == TASK_LABEL_COMPLETE && sponsor_details_additional_details? == TASK_LABEL_COMPLETE
+    sponsor_details_names? == TASK_LABEL_COMPLETE && \
+      sponsor_details_contact_details? == TASK_LABEL_COMPLETE && \
+      sponsor_details_additional_details? == TASK_LABEL_COMPLETE
   end
 
   def is_section_two_complete?
-    sponsor_address_details? == TASK_LABEL_COMPLETE && sponsor_living_there_details? == TASK_LABEL_COMPLETE
+    sponsor_address_details? == TASK_LABEL_COMPLETE && \
+      sponsor_living_there_details? == TASK_LABEL_COMPLETE
   end
 
   def is_section_three_complete?
-    sponsor_child_details? == TASK_LABEL_COMPLETE && uk_consent_form? == TASK_LABEL_COMPLETE && ukraine_consent_form? == TASK_LABEL_COMPLETE
+    sponsor_child_details? == TASK_LABEL_COMPLETE && \
+      uk_consent_form? == TASK_LABEL_COMPLETE && \
+      ukraine_consent_form? == TASK_LABEL_COMPLETE
   end
 
   def is_section_four_complete?
-    privacy_consent? == TASK_LABEL_COMPLETE && sponsor_declaration? == TASK_LABEL_COMPLETE
+    privacy_consent? == TASK_LABEL_COMPLETE && \
+      sponsor_declaration? == TASK_LABEL_COMPLETE
   end
 
   def is_application_ready_to_be_sent?
-    false
+    is_section_one_complete?
   end
 
   def number_of_completed_sections?
