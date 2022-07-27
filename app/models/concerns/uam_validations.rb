@@ -50,7 +50,7 @@ module UamValidations
   end
 
   def validate_is_born_after_december
-    validate_enum(@eligibility_types, @is_born_after_december, :is_born_after_december)
+    validate_enum(@eligibility_types, @is_born_after_december, :is_born_after_december) if @is_living_december.present? && @is_living_december.casecmp("no").zero?
   end
 
   def validate_is_unaccompanied
@@ -67,6 +67,10 @@ module UamValidations
 
   def validate_is_permitted
     validate_enum(@eligibility_types, @is_permitted, :is_permitted)
+  end
+
+  def validate_have_parental_consent
+    validate_enum(@have_parental_consent_options, @have_parental_consent, :have_parental_consent)
   end
 
   def validate_uk_parent_consent_file_type
@@ -135,16 +139,12 @@ module UamValidations
     end
   end
 
-  def validate_have_parental_consent
-    validate_enum(@have_parental_consent_options, @have_parental_consent, :have_parental_consent)
-  end
-
   def validate_different_sponsor_address
     validate_enum(@different_address_types, @different_address, :different_address)
   end
 
   def validate_other_adults_address
-    validate_enum(@other_adults_address_types, @other_adults_address, :other_adults_address)
+    validate_enum(@other_adults_address_types, @other_adults_address, :other_adults_address) if @different_address.present? && @different_address.casecmp("yes").zero?
   end
 
   def validate_enum(enum, value, attribute)

@@ -375,6 +375,7 @@ class UnaccompaniedMinor < ApplicationRecord
       residential_line_2:,
       residential_town:,
       residential_postcode:,
+      different_address:,
       sponsor_address_line_1:,
       sponsor_address_line_2:,
       sponsor_address_town:,
