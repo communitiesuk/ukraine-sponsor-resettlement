@@ -239,13 +239,13 @@ class UnaccompaniedController < ApplicationController
         minor_dob = Date.new(params["unaccompanied_minor"]["minor_date_of_birth_year"].to_i, params["unaccompanied_minor"]["minor_date_of_birth_month"].to_i, params["unaccompanied_minor"]["minor_date_of_birth_day"].to_i)
 
         if minor_dob < 18.years.ago.to_date
-          @application.errors..add(:base, I18n.t(:too_old_date_of_birth, scope: :error))
+          @application.errors.add(:base, I18n.t(:too_old_date_of_birth, scope: :error))
 
           render "sponsor-a-child/steps/#{MINOR_DATE_OF_BIRTH}"
           return
         end
       rescue Date::Error
-        @application.errors..add(:base, I18n.t(:invalid_date_of_birth, scope: :error))
+        @application.errors.add(:base, I18n.t(:invalid_date_of_birth, scope: :error))
 
         render "sponsor-a-child/steps/#{MINOR_DATE_OF_BIRTH}"
         return
@@ -260,7 +260,7 @@ class UnaccompaniedController < ApplicationController
 
         if adult_dob > 16.years.ago.to_date
           @application.adults_at_address[params["key"]]["date_of_birth"] = ""
-          @application.errors..add(:base, II18n.t(:not_over_16_years_old, scope: :error))
+          @application.errors.add(:base, I18n.t(:not_over_16_years_old, scope: :error))
 
           render "sponsor-a-child/steps/#{ADULT_DATE_OF_BIRTH}"
           return
@@ -269,7 +269,7 @@ class UnaccompaniedController < ApplicationController
         end
       rescue Date::Error
         @application.adults_at_address[params["key"]]["date_of_birth"] = ""
-        @application.errors..add(:base, II18n.t(:invalid_date_of_birth, scope: :error))
+        @application.errors.add(:base, I18n.t(:invalid_date_of_birth, scope: :error))
 
         render "sponsor-a-child/steps/#{MINOR_DATE_OF_BIRTH}"
         return
