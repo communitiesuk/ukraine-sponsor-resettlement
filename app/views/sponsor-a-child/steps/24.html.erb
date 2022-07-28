@@ -3,16 +3,20 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-
+    <h1 class="gem-c-title__text govuk-heading-l">
+      Will you (the sponsor) be living at this address?
+    </h1>
 
     <%= form_for @application, url: "/sponsor-a-child/steps/24", method: :post do |f| %>
+    <p class="govuk-body">There must be at least one an adult living with the child, but it doesn't have to be you. If you select 'No', we will ask you for this adult's details.</p>
       <%= f.govuk_collection_radio_buttons :different_address,
           @application.different_address_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
           :id,
           :name,
-          legend: { text: t('different_address.full', scope: "unaccompanied_minor.questions") },
+          legend: { text: t('different_address.full', scope: "unaccompanied_minor.questions"), hidden: true },
           hint: { text: t('different_address.hint_html', :formatted_address => @application.formatted_address?, scope: "unaccompanied_minor.questions") }
       %>
+
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>
