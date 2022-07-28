@@ -149,6 +149,12 @@ class UnaccompaniedMinor < ApplicationRecord
       ukraine_consent_form? == TASK_LABEL_COMPLETE
   end
 
+  def is_section_four_enabled?
+    is_section_one_complete? && \
+      is_section_two_complete? && \
+      is_section_three_complete?
+  end
+
   def is_section_four_complete?
     privacy_consent? == TASK_LABEL_COMPLETE && \
       sponsor_declaration? == TASK_LABEL_COMPLETE
