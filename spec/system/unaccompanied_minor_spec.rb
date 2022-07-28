@@ -99,7 +99,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       click_link("Start now")
 
-      expect(page).to have_content("Check if you can use this service")
+      expect(page).to have_content("Check if you are eligible to use this service")
     end
 
     it "shows the user uneligible page if they answer NO to any question" do
@@ -107,7 +107,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
 
       click_link("Start now")
-      expect(page).to have_content("Check if you can use this service")
+      expect(page).to have_content("Check if you are eligible to use this service")
 
       click_link("Continue")
 
@@ -125,7 +125,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       click_link("Start now")
 
-      expect(page).to have_content("Check if you can use this service")
+      expect(page).to have_content("Check if you are eligible to use this service")
 
       click_link("Continue")
 
@@ -135,7 +135,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
 
       # step 2
-      expect(page).to have_content("Were they living in Ukraine on 31 December 2021?")
+      expect(page).to have_content("Was the child living in Ukraine on or before 31 December 2021?")
       choose("Yes")
       click_button("Continue")
 
@@ -171,7 +171,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       click_link("Start now")
 
-      expect(page).to have_content("Check if you can use this service")
+      expect(page).to have_content("Check if you are eligible to use this service")
 
       click_link("Continue")
 
@@ -181,7 +181,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
 
       # step 2
-      expect(page).to have_content("Were they living in Ukraine on 31 December 2021?")
+      expect(page).to have_content("Was the child living in Ukraine on or before 31 December 2021?")
       choose("No")
       click_button("Continue")
 
@@ -195,7 +195,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       click_link("Start now")
 
-      expect(page).to have_content("Check if you can use this service")
+      expect(page).to have_content("Check if you are eligible to use this service")
 
       click_link("Continue")
 
@@ -205,7 +205,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
 
       # step 2
-      expect(page).to have_content("Were they living in Ukraine on 31 December 2021?")
+      expect(page).to have_content("Was the child living in Ukraine on or before 31 December 2021?")
       choose("Yes")
       click_button("Continue")
 
@@ -236,7 +236,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       click_link("Start now")
 
-      expect(page).to have_content("Check if you can use this service")
+      expect(page).to have_content("Check if you are eligible to use this service")
 
       click_link("Continue")
 
@@ -246,7 +246,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
 
       # step 2
-      expect(page).to have_content("Were they living in Ukraine on 31 December 2021?")
+      expect(page).to have_content("Was the child living in Ukraine on or before 31 December 2021?")
       choose("Yes")
       click_button("Continue")
 

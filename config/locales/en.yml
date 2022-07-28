@@ -292,26 +292,27 @@ en:
         full: Is the child you want to sponsor under 18?
       sponsored_children_living_december:
         short: Sponsored children living december
-        full: Were they living in Ukraine on 31 December 2021?
-        hint: Select yes even if they were temporarily away at the time.
+        full: Was the child living in Ukraine on or before 31 December 2021?
+        hint: Select 'Yes' even if they were temporarily away at the time.
+              Select 'No' if they were born after 31 December 2021.
       sponsored_children_december_birth:
         short: Sponsored children december birth
         full: Was the child born after 31 December 2021?
       sponsored_children_legal_guardian_travelling:
         short: Sponsored children legal guardian traveling
         full: Are they travelling to the UK with a parent or legal guardian?
-        hint: This excludes travelling with another relative, such as a grandmother, aunty or uncle who is not their legal guardian.
+        hint: This excludes travelling with another relative, such as a grandmother, aunt or uncle who is not their legal guardian.
       sponsored_children_legal_guardian_consent:
         short: Sponsored children legal guardian consent
         full: Can you upload both consent forms?
-        hint_html: You must be able to upload both completed and signed consent forms from at least one parent or legal guardian per child. <br /><br /><a href="">Read guidance about what consent forms are required</a>
+        hint_html: You must be able to upload both completed and signed consent forms from at least one of the child's parents or their legal guardian.<br /><br /><a href="https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians#parent-or-legal-guardian-consent">Read guidance about what consent forms are required</a>
       sponsor_british_citizenship:
         short: Sponsor british citizenship
         full: Are you a British citizen?
       sponsor_right_to_live_in_uk:
         short: Sponsor right to live in the UK
         full: Do you have permission to live in the UK for the minimum period?
-        hint_html: <ul><li>3 years</li></ul> OR <ul><li>Until the child turns 18</li><li>And a minimum of 6 months</li></ul> <br/><strong>Do you meet these requirements?</strong>
+        hint_html: You will need permission to live in the UK for at least <ul><li>3 years</li></ul> OR <ul><li>Until the child turns 18 and you have hosted them for at least 6 months</li></ul> 
       sponsor_commitment:
         short: Sponsor commitment
         full: Can you commit to hosting the child for the minimum period?

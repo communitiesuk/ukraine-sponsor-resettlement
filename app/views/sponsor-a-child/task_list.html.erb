@@ -69,16 +69,25 @@
               <%= @application.sponsor_address_details? %>
             </strong>
           </li>
-          <li class="app-task-list__item">
-              <span class="app-task-list__task-name">
-                <a href="/sponsor-a-child/steps/25" aria-describedby="household-members">
-                  Who will live there?
-                </a>
-              </span>
-            <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.sponsor_living_there_details?) %>">
-              <%= @application.sponsor_living_there_details? %>
-            </strong>
-          </li>
+          <% if @application.is_sponsor_address_details_populated? %>
+            <li class="app-task-list__item">
+                <span class="app-task-list__task-name">
+                  <a href="/sponsor-a-child/steps/25" aria-describedby="household-members">
+                    Who will live there?
+                  </a>
+                </span>
+              <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.sponsor_living_there_details?) %>">
+                <%= @application.sponsor_living_there_details? %>
+              </strong>
+            </li>
+          <% else %>
+            <li class="app-task-list__item">
+                <span class="app-task-list__task-name">
+                    Who will live there?
+                </span>
+                <strong class="govuk-tag app-task-list__tag govuk-tag--grey">Cannot start yet</strong>
+            </li>
+          <% end %>
         </ul>
       </li>
 
@@ -145,41 +154,64 @@
         <h2 class="app-task-list__section">
           <span class="app-task-list__section-number"><%= @application.heading_number?(4) %> </span> Send your application
         </h2>
-        <ul class="app-task-list__items">
-          <li class="app-task-list__item">
-            <a href="/sponsor-a-child/steps/38" aria-describedby="consent-to-share-your-data">
-              Consent to sharing your data
-            </a>
-            <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.privacy_consent?) %>">
-              <%= @application.privacy_consent? %>
-            </strong>
-          </li>
-          <li class="app-task-list__item">
-            <a href="/sponsor-a-child/steps/39" aria-describedby="sponsor-declaration">
-              Sponsor declaration
-            </a>
-            <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.sponsor_declaration?) %>">
-              <%= @application.sponsor_declaration? %>
-            </strong>
-          </li>
-        <% if @application.is_application_ready_to_be_sent? %>
-          <li class="app-task-list__item">
-            <span class="app-task-list__task-name">
-              <a href="/sponsor-a-child/check-answers" aria-describedby="check-your-answers-and-send">
-                Check your answers and send 
+        <% if @application.is_section_four_enabled? %>
+          <ul class="app-task-list__items">
+            <li class="app-task-list__item">
+              <a href="/sponsor-a-child/steps/38" aria-describedby="consent-to-share-your-data">
+                Consent to sharing your data
               </a>
-            </span>
-            <strong class="govuk-tag app-task-list__tag govuk-tag--grey">Not started</strong>
-          </li>
+              <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.privacy_consent?) %>">
+                <%= @application.privacy_consent? %>
+              </strong>
+            </li>
+            <li class="app-task-list__item">
+              <a href="/sponsor-a-child/steps/39" aria-describedby="sponsor-declaration">
+                Sponsor declaration
+              </a>
+              <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.sponsor_declaration?) %>">
+                <%= @application.sponsor_declaration? %>
+              </strong>
+            </li>
+            <% if @application.is_application_ready_to_be_sent? %>
+              <li class="app-task-list__item">
+                <span class="app-task-list__task-name">
+                  <a href="/sponsor-a-child/check-answers" aria-describedby="check-your-answers-and-send">
+                    Check your answers and send 
+                  </a>
+                </span>
+                <strong class="govuk-tag app-task-list__tag govuk-tag--grey">Not started</strong>
+              </li>
+            <% else %>
+              <li class="app-task-list__item">
+                <span class="app-task-list__task-name">
+                  Check your answers and send
+                </span>
+                <strong class="govuk-tag app-task-list__tag govuk-tag--grey">Cannot start yet</strong>
+              </li>
+            <% end %>
+          </ul>
         <% else %>
-          <li class="app-task-list__item">
-            <span class="app-task-list__task-name">
-              Check your answers and send
-            </span>
-            <strong class="govuk-tag app-task-list__tag govuk-tag--grey">Cannot start yet</strong>
-          </li>
+          <ul class="app-task-list__items">
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                Consent to sharing your data
+              </span>
+              <strong class="govuk-tag app-task-list__tag govuk-tag--grey">Cannot start yet</strong>
+            </li>
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                Sponsor declaration
+              </span>
+              <strong class="govuk-tag app-task-list__tag govuk-tag--grey">Cannot start yet</strong>
+            </li>
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                Check your answers and send
+              </span>
+              <strong class="govuk-tag app-task-list__tag govuk-tag--grey">Cannot start yet</strong>
+            </li>
+          </ul>
         <% end %>
-        </ul>
       </li>
     </ol>
 
