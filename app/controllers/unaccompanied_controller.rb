@@ -52,7 +52,9 @@ class UnaccompaniedController < ApplicationController
     if step.positive? && step <= MAX_STEPS
       if NATIONALITY_STEPS.include?(step)
         @nationalities = get_nationalities_as_list
-      elsif step == SPONSOR_ID_TYPE
+      end
+
+      if step == SPONSOR_ID_TYPE
         case @application.identification_type
         when "passport"
           @application.passport_identification_number = @application.identification_number
@@ -62,8 +64,13 @@ class UnaccompaniedController < ApplicationController
           @application.refugee_identification_number = @application.identification_number
         end
       elsif ADULT_STEPS.include?(step)
+        Rails.logger.debug "Adult page!"
+
         # Set properties based on values from hash of adults
         @adult = @application.adults_at_address[params["key"]]
+
+        Rails.logger.debug "Adult: #{@adult}"
+
         adult_dob = @adult["date_of_birth"]
         adult_nationality = @adult["nationality"]
         adult_id_type_and_number = @adult["id_type_and_number"]

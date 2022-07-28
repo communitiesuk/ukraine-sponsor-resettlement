@@ -733,7 +733,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Year", with: Time.zone.now.year - 20)
 
       click_button("Continue")
-      expect(page).to have_content("What is your nationality?")
+      expect(page).to have_content("Enter their nationality")
     end
   end
 
@@ -756,7 +756,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     expect(page).to have_field("Year", with: 2001)
 
     click_button("Continue")
-    expect(page).to have_content("What is your nationality?")
+    expect(page).to have_content("Enter their nationality")
 
     select("Denmark", from: "unaccompanied-minor-adult-nationality-field")
 
@@ -783,7 +783,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     expect(page).to have_field("Year", with: 2001)
 
     click_button("Continue")
-    expect(page).to have_content("What is your nationality?")
+    expect(page).to have_content("Enter their nationality")
 
     click_button("Continue")
     expect(page).to have_content("Do you have any of these identity documents?")
