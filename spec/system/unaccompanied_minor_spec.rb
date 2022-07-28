@@ -1036,7 +1036,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   end
 
   describe "sponsor id type and number is saved" do
-    it "when id is passport", :focus do
+    it "when id is passport" do
       application = UnaccompaniedMinor.new
       application.save!
 
@@ -1063,7 +1063,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(saved_application.identification_number).to eq("123456789")
     end
 
-    it "when id is national id card", :focus do
+    it "when id is national id card" do
       application = UnaccompaniedMinor.new
       application.save!
 
@@ -1090,7 +1090,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(saved_application.identification_number).to eq("ABC123456789")
     end
 
-    it "when id is refugee travel document", :focus do
+    it "when id is refugee travel document" do
       application = UnaccompaniedMinor.new
       application.save!
 
@@ -1117,7 +1117,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(saved_application.identification_number).to eq("ABC123456789")
     end
 
-    it "when id is none", :focus do
+    it "when id is none" do
       application = UnaccompaniedMinor.new
       application.save!
 
@@ -1139,7 +1139,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(saved_application.identification_number).to eq("")
     end
 
-    it "when nothing is selected an error is displayed", :focus do
+    it "when nothing is selected an error is displayed" do
       application = UnaccompaniedMinor.new
       application.save!
 
