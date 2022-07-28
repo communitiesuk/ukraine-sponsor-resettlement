@@ -57,8 +57,6 @@ class RoutingEngine
       TASK_LIST_STEP
     elsif application.has_other_nationalities.present? && application.has_other_nationalities.casecmp("true").zero? && current_step == 22
       TASK_LIST_STEP
-    elsif application.ukraine_parental_consent_filename.present? && current_step == 35
-      TASK_LIST_STEP
     elsif application.other_adults_address.present? && application.other_adults_address.casecmp("no").zero? && current_step == 25
       TASK_LIST_STEP
     elsif CURRENT_PAGE_TO_TASK_LIST.include?(current_step)
