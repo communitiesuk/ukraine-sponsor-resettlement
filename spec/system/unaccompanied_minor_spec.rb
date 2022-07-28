@@ -1056,8 +1056,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Passport number", with: "123456789")
 
       click_button("Continue")
-      # TODO: uncomment this expectation once routing is resolved
-      # expect(page).to have_content("Enter your date of birth")
+      expect(page).to have_content("Enter your date of birth")
 
       saved_application = UnaccompaniedMinor.find_by_reference(application.reference)
       expect(saved_application.identification_type).to eq("passport")
@@ -1084,8 +1083,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("National Identity card number", with: "ABC123456789")
 
       click_button("Continue")
-      # TODO: uncomment this expectation once routing is resolved
-      # expect(page).to have_content("Enter your date of birth")
+      expect(page).to have_content("Enter your date of birth")
 
       saved_application = UnaccompaniedMinor.find_by_reference(application.reference)
       expect(saved_application.identification_type).to eq("national_identity_card")
@@ -1112,8 +1110,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Refugee travel document number", with: "ABC123456789")
 
       click_button("Continue")
-      # TODO: uncomment this expectation once routing is resolved
-      # expect(page).to have_content("Enter your date of birth")
+      expect(page).to have_content("Enter your date of birth")
 
       saved_application = UnaccompaniedMinor.find_by_reference(application.reference)
       expect(saved_application.identification_type).to eq("refugee_travel_document")
@@ -1135,8 +1132,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       choose("I don't have any of these")
 
       click_button("Continue")
-      # TODO: uncomment this expectation once routing is resolved
-      # expect(page).to have_content("How would you provide evidence of your identity?")
+      expect(page).to have_content("How would you provide evidence of your identity?")
 
       saved_application = UnaccompaniedMinor.find_by_reference(application.reference)
       expect(saved_application.identification_type).to eq("none")
