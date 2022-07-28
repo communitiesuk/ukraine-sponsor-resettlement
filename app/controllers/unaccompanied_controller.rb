@@ -350,7 +350,7 @@ class UnaccompaniedController < ApplicationController
 
     isvalid = @application.valid?
 
-    if !isvalid
+    unless isvalid
       if @application.errors.include?(:adult_given_name)
         @application.errors.delete(:adult_given_name)
       end
