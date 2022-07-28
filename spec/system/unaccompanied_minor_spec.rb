@@ -1130,5 +1130,21 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(saved_application.identification_type).to eq("none")
       expect(saved_application.identification_number).to eq("")
     end
+
+    it "when nothing is selected an error is displayed", :focus do
+      application = UnaccompaniedMinor.new
+      application.save!
+
+      page.set_rack_session(app_reference: application.reference)
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Additional details")
+      expect(page).to have_content("Do you have any of these identity documents?")
+
+      click_button("Continue")
+      expect(page).to have_content("Select an identity document you have, or select ‘I don't have any of these’")
+    end
   end
 end

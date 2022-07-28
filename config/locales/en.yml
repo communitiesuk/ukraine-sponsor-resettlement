@@ -464,3 +464,4 @@ en:
     too_young_date_of_birth: A sponsor with this date of birth is less 18 and you cannot use this service to apply to sponsor them
     no_application_found: There is no application associated with that email address
     not_over_16_years_old: They must be over 16
+    invalid_id_type: Select an identity document you have, or select ‘I don't have any of these’

@@ -161,7 +161,10 @@ class UnaccompaniedController < ApplicationController
       when "none"
         @application.identification_number = ""
       else
-        @application.identification_number = ""
+        @application.errors.add(:identification_type, I18n.t(:invalid_id_type, scope: :error))
+
+        render "sponsor-a-child/steps/#{SPONSOR_ID_TYPE}"
+        return
       end
     end
 
