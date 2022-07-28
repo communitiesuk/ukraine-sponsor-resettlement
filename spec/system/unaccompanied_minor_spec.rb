@@ -1049,6 +1049,10 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Do you have any of these identity documents?")
 
       choose("Passport")
+      click_button("Continue")
+
+      expect(page).to have_content("You must enter a valid identity document number")
+
       fill_in("Passport number", with: "123456789")
 
       click_button("Continue")
@@ -1073,6 +1077,10 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Do you have any of these identity documents?")
 
       choose("National Identity card")
+      click_button("Continue")
+
+      expect(page).to have_content("You must enter a valid identity document number")
+
       fill_in("National Identity card number", with: "ABC123456789")
 
       click_button("Continue")
@@ -1097,6 +1105,10 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Do you have any of these identity documents?")
 
       choose("Refugee travel document")
+      click_button("Continue")
+
+      expect(page).to have_content("You must enter a valid identity document number")
+
       fill_in("Refugee travel document number", with: "ABC123456789")
 
       click_button("Continue")
@@ -1124,7 +1136,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       click_button("Continue")
       # TODO: uncomment this expectation once routing is resolved
-      # expect(page).to have_content("Enter your date of birth")
+      # expect(page).to have_content("How would you provide evidence of your identity?")
 
       saved_application = UnaccompaniedMinor.find_by_reference(application.reference)
       expect(saved_application.identification_type).to eq("none")

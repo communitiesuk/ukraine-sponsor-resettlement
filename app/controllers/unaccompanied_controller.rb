@@ -149,15 +149,37 @@ class UnaccompaniedController < ApplicationController
 
     # capture identification document number
     if params["stage"].to_i == SPONSOR_ID_TYPE
+      # Really don't like this! Validation logic should be in UAM_Validation class
       @application.identification_type = params["unaccompanied_minor"]["identification_type"]
 
       case @application.identification_type
       when "passport"
         @application.identification_number = params["unaccompanied_minor"]["passport_identification_number"]
+
+        if @application.identification_number.strip.length.zero?
+          @application.errors.add(:passport_identification_number, I18n.t(:invalid_id_number, scope: :error))
+
+          render "sponsor-a-child/steps/#{SPONSOR_ID_TYPE}"
+          return
+        end
       when "national_identity_card"
         @application.identification_number = params["unaccompanied_minor"]["id_identification_number"]
+
+        if @application.identification_number.strip.length.zero?
+          @application.errors.add(:id_identification_number, I18n.t(:invalid_id_number, scope: :error))
+
+          render "sponsor-a-child/steps/#{SPONSOR_ID_TYPE}"
+          return
+        end
       when "refugee_travel_document"
         @application.identification_number = params["unaccompanied_minor"]["refugee_identification_number"]
+
+        if @application.identification_number.strip.length.zero?
+          @application.errors.add(:refugee_identification_number, I18n.t(:invalid_id_number, scope: :error))
+
+          render "sponsor-a-child/steps/#{SPONSOR_ID_TYPE}"
+          return
+        end
       when "none"
         @application.identification_number = ""
       else

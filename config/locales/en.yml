@@ -465,3 +465,4 @@ en:
     no_application_found: There is no application associated with that email address
     not_over_16_years_old: They must be over 16
     invalid_id_type: Select an identity document you have, or select ‘I don't have any of these’
+    invalid_id_number: You must enter a valid identity document number
