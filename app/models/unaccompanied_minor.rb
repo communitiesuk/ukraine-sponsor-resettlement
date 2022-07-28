@@ -113,11 +113,7 @@ class UnaccompaniedMinor < ApplicationRecord
   validates :parental_consent, antivirus: true # Add this for antivirus validation
 
   def formatted_address?
-    if @residential_line_2.present?
-      "#{@residential_line_1}, #{@residential_line_2}, #{@residential_town}, #{@residential_postcode}"
-    else
-      "#{@residential_line_1}, #{@residential_town}, #{@residential_postcode}"
-    end
+    [@residential_line_1, @residential_line_2, @residential_town, @residential_postcode].reject(&:blank?).join(", ")
   end
 
   def number_of_adults?
@@ -207,6 +203,10 @@ class UnaccompaniedMinor < ApplicationRecord
 
   def minor_full_name?
     "#{minor_given_name} #{minor_family_name}"
+  end
+
+  def is_sponsor_address_details_populated?
+    formatted_address?.present? && formatted_address?.length.positive?
   end
 
   def is_adults_at_address_populated?
