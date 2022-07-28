@@ -374,7 +374,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Email", with: "unaccompanied.minor@test.com")
 
       click_button("Continue")
-      expect(page).to have_content("Enter this person's date of birth")
+      expect(page).to have_content("Enter Jane Doe's date of birth")
 
       fill_in("Day", with: 3)
       fill_in("Month", with: 6)
