@@ -9,7 +9,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   describe "start page" do
     it "sponsor url shows page" do
       visit "/sponsor-a-child"
-      expect(page).to have_content("Sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
     end
   end
 
@@ -86,16 +86,16 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   describe "submitting the form" do
     it "shows the guidance page before the start page" do
       visit "/sponsor-a-child/"
-      expect(page).to have_content("Sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
 
       click_link("Apply for permission to sponsor an unaccompanied child fleeing Ukraine")
 
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
     end
 
     it "shows check if eligible for this service page" do
       visit "/sponsor-a-child/start"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
 
       click_link("Start now")
 
@@ -104,7 +104,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
     it "shows the user uneligible page if they answer NO to any question" do
       visit "/sponsor-a-child/start"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
 
       click_link("Start now")
       expect(page).to have_content("Check if you are eligible to use this service")
@@ -121,7 +121,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
     it "takes the user to the end of eligibility path" do
       visit "/sponsor-a-child/start"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
 
       click_link("Start now")
 
@@ -167,7 +167,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
     it "shows eligibility question 3 if 2 is answered NO" do
       visit "/sponsor-a-child/start"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
 
       click_link("Start now")
 
@@ -191,7 +191,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
     it "shows ineligibility if 6 is answered NO" do
       visit "/sponsor-a-child/start"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
 
       click_link("Start now")
 
@@ -232,7 +232,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
     it "end to end eligibility journey" do
       visit "/sponsor-a-child/start"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
 
       click_link("Start now")
 
@@ -339,7 +339,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Year", with: "1987")
       click_button("Continue")
 
-      expect(page).to have_content("What is your nationality?")
+      expect(page).to have_content("Enter your nationality")
       click_button("Continue")
 
       expect(page).to have_content("Have you ever held any other nationalities?")
@@ -733,7 +733,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Year", with: Time.zone.now.year - 20)
 
       click_button("Continue")
-      expect(page).to have_content("What is your nationality?")
+      expect(page).to have_content("Enter your nationality")
     end
   end
 
@@ -756,7 +756,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     expect(page).to have_field("Year", with: 2001)
 
     click_button("Continue")
-    expect(page).to have_content("What is your nationality?")
+    expect(page).to have_content("Enter your nationality")
 
     select("Denmark", from: "unaccompanied-minor-adult-nationality-field")
 
@@ -783,7 +783,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     expect(page).to have_field("Year", with: 2001)
 
     click_button("Continue")
-    expect(page).to have_content("What is your nationality?")
+    expect(page).to have_content("Enter your nationality")
 
     click_button("Continue")
     expect(page).to have_content("Do you have any of these identity documents?")
@@ -1133,7 +1133,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       choose("I don't have any of these")
 
       click_button("Continue")
-      expect(page).to have_content("How would you provide evidence of your identity?")
+      expect(page).to have_content("What can you use to prove your identity?")
 
       saved_application = UnaccompaniedMinor.find_by_reference(application.reference)
       expect(saved_application.identification_type).to eq("none")
