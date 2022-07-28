@@ -165,11 +165,10 @@
         <% if @application.is_application_ready_to_be_sent? %>
           <li class="app-task-list__item">
             <span class="app-task-list__task-name">
-              Check your answers and send
+              <a href="/sponsor-a-child/check-answers" aria-describedby="check-your-answers-and-send">
+                Check your answers and send 
+              </a>
             </span>
-            <a href="/sponsor-a-child/check-answers" aria-describedby="check-your-answers-and-send">
-              Sponsor declaration
-            </a>
             <strong class="govuk-tag app-task-list__tag govuk-tag--grey">Not started</strong>
           </li>
         <% else %>
