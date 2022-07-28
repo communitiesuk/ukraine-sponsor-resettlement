@@ -312,7 +312,7 @@ en:
       sponsor_right_to_live_in_uk:
         short: Sponsor right to live in the UK
         full: Do you have permission to live in the UK for the minimum period?
-        hint_html: You will need permission to live in the UK for at least <ul><li>3 years</li></ul> OR <ul><li>Until the child turns 18 and you have hosted them for at least 6 months</li></ul> 
+        hint_html: You will need permission to live in the UK for at least <ul><li>3 years</li></ul> OR <ul><li>Until the child turns 18 and you have hosted them for at least 6 months</li></ul>
       sponsor_commitment:
         short: Sponsor commitment
         full: Can you commit to hosting the child for the minimum period?
@@ -363,7 +363,17 @@ en:
       sponsor_other_nationality:
         short: Sponsor other nationality
         full: What is your other nationality?
-        hint: Select your country of nationality
+        hint: You will be able to add other nationalities on the next page
+      resident_nationality:
+        short: Resident nationality
+        full: Enter their nationality
+        hint_html: |
+          <div class="govuk-inset-text">%{name}</div>
+      resident_identity_documents:
+        short: Sponsor identity documents
+        full: Do they have any of these identity documents?
+        hint_html: |
+          <div class="govuk-inset-text">%{name}</div>
       received_consent:
         short: Parental consent
         full: Have you received both parental consent forms for %{name}?

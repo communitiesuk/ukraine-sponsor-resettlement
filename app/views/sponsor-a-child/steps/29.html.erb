@@ -4,7 +4,7 @@
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
     <h1 class="gem-c-title__text govuk-heading-m">
-      Enter their date of birth
+      Enter this person's date of birth
     </h1>
 
     <div class="govuk-inset-text">
@@ -13,9 +13,7 @@
 
     <%= form_for @application, url: "/sponsor-a-child/steps/29/#{params["key"]}", method: :post do |f| %>
 
-      <%= f.govuk_fieldset legend: { text: t("minor_date_of_birth.full", :name => "#{@adult["given_name"]} #{@adult["family_name"]}", scope: "unaccompanied_minor.questions"), size: "m" } do %>
-
-        <div class="govuk-hint" id="unaccompanied-minor-minor-date-of-birth-hint">For example, 31 3 2010</div>
+      <%= f.govuk_fieldset legend: { text: t("minor_date_of_birth.full", :name => "#{@adult["given_name"]} #{@adult["family_name"]}", scope: "unaccompanied_minor.questions"), size: "m", hidden: true } do %>
 
         <div class="govuk-date-input">
           <div class="govuk-date-input__item">
