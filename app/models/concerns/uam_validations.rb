@@ -29,6 +29,8 @@ module UamValidations
     validate :validate_minor_family_name, if: -> { run_validation? :minor_family_name }
     validate :validate_different_sponsor_address, if: -> { run_validation? :different_address }
     validate :validate_other_adults_address, if: -> { run_validation? :other_adults_address }
+    validate :validate_adult_given_name, if: -> { run_validation? :adult_given_name }
+    validate :validate_adult_family_name, if: -> { run_validation? :adult_family_name }
     validate :validate_residential_line_1, if: -> { run_validation? :sponsor_address_line_1 }
     validate :validate_residential_line_2, if: -> { run_validation? :sponsor_address_line_2 }
     validate :validate_residential_town, if: -> { run_validation? :sponsor_address_town }
@@ -145,6 +147,18 @@ module UamValidations
 
   def validate_other_adults_address
     validate_enum(@other_adults_address_types, @other_adults_address, :other_adults_address) if @different_address.present? && @different_address.casecmp("yes").zero?
+  end
+
+  def validate_adult_given_name
+    if @adult_given_name.nil? || @adult_given_name.strip.length < MIN_ENTRY_DIGITS || @adult_given_name.strip.length > MAX_ENTRY_DIGITS || @adult_given_name.match(SPECIAL_CHARACTERS)
+      errors.add(:adult_given_name, I18n.t(:invalid_given_name, scope: :error))
+    end
+  end
+
+  def validate_adult_family_name
+    if @adult_family_name.nil? || @adult_family_name.strip.length < MIN_ENTRY_DIGITS || @adult_family_name.strip.length > MAX_ENTRY_DIGITS || @adult_family_name.match(SPECIAL_CHARACTERS)
+      errors.add(:adult_family_name, I18n.t(:invalid_family_name, scope: :error))
+    end
   end
 
   def validate_enum(enum, value, attribute)
