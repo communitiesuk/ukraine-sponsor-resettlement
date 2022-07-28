@@ -339,7 +339,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Year", with: "1987")
       click_button("Continue")
 
-      expect(page).to have_content("What is your nationality?")
+      expect(page).to have_content("Enter your nationality")
       click_button("Continue")
 
       expect(page).to have_content("Have you ever held any other nationalities?")
@@ -733,7 +733,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Year", with: Time.zone.now.year - 20)
 
       click_button("Continue")
-      expect(page).to have_content("What is your nationality?")
+      expect(page).to have_content("Enter your nationality")
     end
   end
 
@@ -756,7 +756,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     expect(page).to have_field("Year", with: 2001)
 
     click_button("Continue")
-    expect(page).to have_content("What is your nationality?")
+    expect(page).to have_content("Enter your nationality")
 
     select("Denmark", from: "unaccompanied-minor-adult-nationality-field")
 
@@ -783,7 +783,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     expect(page).to have_field("Year", with: 2001)
 
     click_button("Continue")
-    expect(page).to have_content("What is your nationality?")
+    expect(page).to have_content("Enter your nationality")
 
     click_button("Continue")
     expect(page).to have_content("Do you have any of these identity documents?")
@@ -1133,7 +1133,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       choose("I don't have any of these")
 
       click_button("Continue")
-      expect(page).to have_content("How would you provide evidence of your identity?")
+      expect(page).to have_content("What can you use to prove your identity?")
 
       saved_application = UnaccompaniedMinor.find_by_reference(application.reference)
       expect(saved_application.identification_type).to eq("none")

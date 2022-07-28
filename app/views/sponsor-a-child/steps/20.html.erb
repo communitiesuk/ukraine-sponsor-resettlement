@@ -6,7 +6,8 @@
     <%= form_for @application, url: "/sponsor-a-child/steps/20", method: :post do |f| %>
 
       <%= f.govuk_radio_buttons_fieldset(:has_other_nationalities,
-          legend: { size: 'm', text: t('sponsor_has_other_nationality.full', scope: "unaccompanied_minor.questions") }) do %>
+          legend: { size: 'l', text: t('sponsor_has_other_nationality.full', scope: "unaccompanied_minor.questions") },
+          hint: { text: t('sponsor_has_other_nationality.hint', scope: "unaccompanied_minor.questions")} ) do %>
         <%= f.govuk_radio_button :has_other_nationalities, true, label: { text: t('Yes' ) } %>
         <%= f.govuk_radio_button :has_other_nationalities, false, label: { text: t('No' ) },  link_errors: true  %>
       <% end %>
