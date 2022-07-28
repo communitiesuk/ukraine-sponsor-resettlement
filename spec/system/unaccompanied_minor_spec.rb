@@ -374,7 +374,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Email", with: "unaccompanied.minor@test.com")
 
       click_button("Continue")
-      expect(page).to have_content("Enter their date of birth")
+      expect(page).to have_content("Enter this person's date of birth")
 
       fill_in("Day", with: 3)
       fill_in("Month", with: 6)
@@ -718,14 +718,14 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Bob Jones details")
 
       click_link("Bob Jones details")
-      expect(page).to have_content("Enter their date of birth")
+      expect(page).to have_content("Enter this person's date of birth")
 
       fill_in("Day", with: 1)
       fill_in("Month", with: 2)
       fill_in("Year", with: Time.zone.now.year - 12)
 
       click_button("Continue")
-      expect(page).to have_content("Enter their date of birth")
+      expect(page).to have_content("Enter this person's date of birth")
       expect(page).to have_content("They must be over 16")
 
       fill_in("Day", with: 1)
@@ -749,7 +749,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     expect(page).to have_content("Bob Jones details")
 
     click_link("Bob Jones details")
-    expect(page).to have_content("Enter their date of birth")
+    expect(page).to have_content("Enter this person's date of birth")
 
     expect(page).to have_field("Day", with: 13)
     expect(page).to have_field("Month", with: 6)
@@ -776,7 +776,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     expect(page).to have_content("Bob Jones details")
 
     click_link("Bob Jones details")
-    expect(page).to have_content("Enter their date of birth")
+    expect(page).to have_content("Enter this person's date of birth")
 
     expect(page).to have_field("Day", with: 13)
     expect(page).to have_field("Month", with: 6)
