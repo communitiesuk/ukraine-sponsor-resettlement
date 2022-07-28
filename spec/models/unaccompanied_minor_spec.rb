@@ -459,7 +459,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
     end
   end
 
-  describe "application is ready for submission", :focus do
+  describe "application is ready for submission" do
     def populate_min_valid_section_one(uam)
       uam.has_other_names = "false"
       uam.phone_number = "01234567890"

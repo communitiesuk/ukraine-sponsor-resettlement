@@ -163,7 +163,7 @@ class UnaccompaniedMinor < ApplicationRecord
   def is_section_adults_at_address_complete?
     statuses = []
 
-    self.adults_at_address.each do |key, val|
+    adults_at_address.each do |_key, val|
       statuses << val["id_type_and_number"].to_s.length.positive?
     end
 
@@ -172,11 +172,11 @@ class UnaccompaniedMinor < ApplicationRecord
 
   def is_application_ready_to_be_sent?
     all_sections_completed = is_section_one_complete? && \
-        is_section_two_complete? && \
-        is_section_three_complete? && \
-        is_section_four_complete?
+      is_section_two_complete? && \
+      is_section_three_complete? && \
+      is_section_four_complete?
 
-    if all_sections_completed && self.adults_at_address.present?
+    if all_sections_completed && adults_at_address.present?
       all_sections_completed = is_section_adults_at_address_complete?
     end
 
