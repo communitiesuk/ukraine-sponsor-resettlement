@@ -29,6 +29,7 @@
             <%= f.govuk_text_field :minor_date_of_birth_year, label: { text: 'Year' }, type: "number", width: 4 %>
           </div>
         </div>
+        <%= f.govuk_error_summary link_base_errors_to: :minor_date_of_birth_day %>
 
       <% end %>
 
