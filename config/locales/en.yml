@@ -346,19 +346,20 @@ en:
         full: Do you have any of these identity documents?
       no_identity_documents:
         short: Sponsor no official identity documents
-        full: How would you provide evidence of your identity?
-        hint: If you have another document, for example, a drivers license, explain that here
+        full: What can you use to prove your identity?
+        hint: Tell us if you have another document that can prove your identity, for example, a drivers license or birth certificate.
       sponsor_date_of_birth:
         short: Date of birth
         full: Enter your date of birth
         hint: Date of birth
       sponsor_nationality:
         short: Sponsor nationality
-        full: What is your nationality?
-        hint: You will be able to add other nationalities on the next page
+        full: Enter your nationality
+        hint_html: You will be able to add other nationalities on the next page. <br/> <br/> Select your country of nationality.
       sponsor_has_other_nationality:
         short: Sponsor has other nationality
         full: Have you ever held any other nationalities?
+        hint: Select 'Yes' if you have ever held any other nationalities, even if you don't hold them any more.
       sponsor_other_nationality:
         short: Sponsor other nationality
         full: What is your other nationality?
@@ -472,7 +473,7 @@ en:
     file_too_large: Your file must be smaller than 20MB
     invalid_date_of_birth: Enter a valid date of birth
     too_old_date_of_birth: They must be under 18 to be considered a child in the UK
-    too_young_date_of_birth: A sponsor with this date of birth is less 18 and you cannot use this service to apply to sponsor them
+    too_young_date_of_birth: You must be over 18 to sponsor a child
     no_application_found: There is no application associated with that email address
     not_over_16_years_old: They must be over 16
     invalid_id_type: Select an identity document you have, or select ‘I don't have any of these’
