@@ -45,8 +45,8 @@ class RoutingEngine
       18
     elsif application.different_address.present? && application.different_address.casecmp("no").zero? && current_step == 24
       26
-    elsif application.other_adults_address.present? && application.other_adults_address.casecmp("yes").zero? && current_step == 25
-      27
+    elsif application.adults_at_address.present? && !application.adults_at_address.empty? && [24, 26].include?(current_step)
+      28
     elsif application.has_other_names.present? && application.has_other_names.casecmp("false").zero? && current_step == 11
       TASK_LIST_STEP
     elsif application.has_other_names.present? && application.has_other_names.casecmp("true").zero? && current_step == 13
@@ -57,6 +57,8 @@ class RoutingEngine
       TASK_LIST_STEP
     elsif application.has_other_nationalities.present? && application.has_other_nationalities.casecmp("true").zero? && current_step == 22
       TASK_LIST_STEP
+    elsif application.other_adults_address.present? && application.other_adults_address.casecmp("yes").zero? && current_step == 25
+      27
     elsif application.other_adults_address.present? && application.other_adults_address.casecmp("no").zero? && current_step == 25
       TASK_LIST_STEP
     elsif CURRENT_PAGE_TO_TASK_LIST.include?(current_step)

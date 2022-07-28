@@ -277,7 +277,8 @@ class UnaccompaniedController < ApplicationController
     end
 
     # capture the other adults at address
-    if params["stage"].to_i == ADULTS_AT_ADDRESS
+    # only store them if given and family name are not empty ("")
+    if params["stage"].to_i == ADULTS_AT_ADDRESS && !(params["unaccompanied_minor"]["adult_given_name"].empty? && params["unaccompanied_minor"]["adult_family_name"].empty?)
       @application.adults_at_address = {} if @application.adults_at_address.nil?
       @application.adults_at_address.store(SecureRandom.uuid.upcase.to_s, Adult.new(params["unaccompanied_minor"]["adult_given_name"], params["unaccompanied_minor"]["adult_family_name"]))
     end
