@@ -348,8 +348,21 @@ class UnaccompaniedController < ApplicationController
 
     Rails.logger.debug "Submit JSON: #{@application.as_json}"
 
-    if @application.valid?
-      @application.save!
+    isvalid = @application.valid?
+
+    unless isvalid
+      if @application.errors.include?(:adult_given_name)
+        @application.errors.delete(:adult_given_name)
+      end
+      if @application.errors.include?(:adult_family_name)
+        @application.errors.delete(:adult_family_name)
+      end
+
+      isvalid = @application.errors.empty?
+    end
+
+    if isvalid
+      @application.save!(validate: false)
       session[:app_reference] = @application.reference
       session[:unaccompanied_minor] = {}
 
@@ -359,7 +372,8 @@ class UnaccompaniedController < ApplicationController
       redirect_to "/sponsor-a-child/confirm"
     else
       Rails.logger.debug "****************************************************************"
-      Rails.logger.debug "Errors: #{@application.errors.full_messages}"
+      Rails.logger.debug "Errors: #{@application.errors}"
+      Rails.logger.debug "errors.full_messages: #{@application.errors.full_messages}"
       Rails.logger.debug "****************************************************************"
 
       render "sponsor-a-child/check_answers"
