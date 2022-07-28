@@ -1155,5 +1155,89 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
       expect(page).to have_content("Select an identity document you have, or select ‘I don't have any of these’")
     end
+
+    it "when passport number is displayed when going through id question" do
+      application = UnaccompaniedMinor.new
+      application.save!
+
+      page.set_rack_session(app_reference: application.reference)
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Additional details")
+      expect(page).to have_content("Do you have any of these identity documents?")
+
+      choose("Passport")
+      fill_in("Passport number", with: "123987456")
+
+      click_button("Continue")
+      expect(page).to have_content("Enter your date of birth")
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Additional details")
+      expect(page).to have_content("Do you have any of these identity documents?")
+
+      choose("Passport")
+      expect(page).to have_field("Passport number", with: "123987456")
+    end
+
+    it "when National Identity card is displayed when going through id question" do
+      application = UnaccompaniedMinor.new
+      application.save!
+
+      page.set_rack_session(app_reference: application.reference)
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Additional details")
+      expect(page).to have_content("Do you have any of these identity documents?")
+
+      choose("National Identity card")
+      fill_in("National Identity card number", with: "ABC123987456")
+
+      click_button("Continue")
+      expect(page).to have_content("Enter your date of birth")
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Additional details")
+      expect(page).to have_content("Do you have any of these identity documents?")
+
+      choose("National Identity card")
+      expect(page).to have_field("National Identity card number", with: "ABC123987456")
+    end
+
+    it "when Refugee travel document is displayed when going through id question" do
+      application = UnaccompaniedMinor.new
+      application.save!
+
+      page.set_rack_session(app_reference: application.reference)
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Additional details")
+      expect(page).to have_content("Do you have any of these identity documents?")
+
+      choose("Refugee travel document")
+      fill_in("Refugee travel document number", with: "XYZ123987456")
+
+      click_button("Continue")
+      expect(page).to have_content("Enter your date of birth")
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Additional details")
+      expect(page).to have_content("Do you have any of these identity documents?")
+
+      choose("Refugee travel document")
+      expect(page).to have_field("Refugee travel document number", with: "XYZ123987456")
+    end
   end
 end

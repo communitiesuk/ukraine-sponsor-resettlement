@@ -52,6 +52,15 @@ class UnaccompaniedController < ApplicationController
     if step.positive? && step <= MAX_STEPS
       if NATIONALITY_STEPS.include?(step)
         @nationalities = get_nationalities_as_list
+      elsif step == SPONSOR_ID_TYPE
+        case @application.identification_type
+        when "passport"
+          @application.passport_identification_number = @application.identification_number
+        when "national_identity_card"
+          @application.id_identification_number = @application.identification_number
+        when "refugee_travel_document"
+          @application.refugee_identification_number = @application.identification_number
+        end
       elsif ADULT_STEPS.include?(step)
         # Set properties based on values from hash of adults
         @adult = @application.adults_at_address[params["key"]]
