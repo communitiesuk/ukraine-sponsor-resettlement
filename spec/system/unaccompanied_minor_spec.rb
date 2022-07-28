@@ -761,7 +761,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     select("Denmark", from: "unaccompanied-minor-adult-nationality-field")
 
     click_button("Continue")
-    expect(page).to have_content("Do you have any of these identity documents?")
+    expect(page).to have_content("Do they have any of these identity documents?")
   end
 
   it "answer the id type and number question" do
@@ -786,7 +786,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     expect(page).to have_content("Enter their nationality")
 
     click_button("Continue")
-    expect(page).to have_content("Do you have any of these identity documents?")
+    expect(page).to have_content("Do they have any of these identity documents?")
 
     click_button("Continue")
     expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")

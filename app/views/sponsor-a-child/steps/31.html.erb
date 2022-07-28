@@ -4,7 +4,7 @@
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
     <%= form_for @application, url: "/sponsor-a-child/steps/31/#{params["key"]}", method: :post do |f| %>
-      <%= f.govuk_radio_buttons_fieldset :adult_identification_type, legend: { text: t('identity_documents.full', scope: "unaccompanied_minor.questions"), size: "m" } do %>
+      <%= f.govuk_radio_buttons_fieldset :adult_identification_type, legend: { text: t('resident_identity_documents.full', scope: "unaccompanied_minor.questions"), size: "m" }, hint: { text: t('resident_identity_documents.hint_html', :name => "#{@adult["given_name"]} #{@adult["family_name"]}", scope: "unaccompanied_minor.questions")} do %>
 
         <%= f.govuk_radio_button :adult_identification_type, :passport, label: { text: "Passport" } do %>
           <%= f.govuk_text_field :adult_passport_identification_number, label: { text: "Passport number" }, type: "text" %>

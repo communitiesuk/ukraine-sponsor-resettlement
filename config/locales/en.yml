@@ -368,6 +368,11 @@ en:
         full: Enter their nationality
         hint_html: |
           <div class="govuk-inset-text">%{name}</div>
+      resident_identity_documents:
+        short: Sponsor identity documents
+        full: Do they have any of these identity documents?
+        hint_html: |
+          <div class="govuk-inset-text">%{name}</div>
       received_consent:
         short: Parental consent
         full: Have you received both parental consent forms for %{name}?
