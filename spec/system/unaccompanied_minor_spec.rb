@@ -9,7 +9,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   describe "start page" do
     it "sponsor url shows page" do
       visit "/sponsor-a-child"
-      expect(page).to have_content("Sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
     end
   end
 
@@ -86,16 +86,16 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   describe "submitting the form" do
     it "shows the guidance page before the start page" do
       visit "/sponsor-a-child/"
-      expect(page).to have_content("Sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
 
       click_link("Apply for permission to sponsor an unaccompanied child fleeing Ukraine")
 
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
     end
 
     it "shows check if eligible for this service page" do
       visit "/sponsor-a-child/start"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
 
       click_link("Start now")
 
@@ -104,7 +104,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
     it "shows the user uneligible page if they answer NO to any question" do
       visit "/sponsor-a-child/start"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
 
       click_link("Start now")
       expect(page).to have_content("Check if you can use this service")
@@ -121,7 +121,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
     it "takes the user to the end of eligibility path" do
       visit "/sponsor-a-child/start"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
 
       click_link("Start now")
 
@@ -167,7 +167,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
     it "shows eligibility question 3 if 2 is answered NO" do
       visit "/sponsor-a-child/start"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
 
       click_link("Start now")
 
@@ -191,7 +191,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
     it "shows ineligibility if 6 is answered NO" do
       visit "/sponsor-a-child/start"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
 
       click_link("Start now")
 
@@ -232,7 +232,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
     it "end to end eligibility journey" do
       visit "/sponsor-a-child/start"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
 
       click_link("Start now")
 
