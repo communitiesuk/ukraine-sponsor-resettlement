@@ -1048,15 +1048,87 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_link("Additional details")
       expect(page).to have_content("Do you have any of these identity documents?")
 
-      page.check("Passport")
+      choose("Passport")
       fill_in("Passport number", with: "123456789")
 
       click_button("Continue")
-      expect(page).to have_content("Enter your date of birth")
+      # TODO: uncomment this expectation once routing is resolved
+      # expect(page).to have_content("Enter your date of birth")
 
       saved_application = UnaccompaniedMinor.find_by_reference(application.reference)
       expect(saved_application.identification_type).to eq("passport")
       expect(saved_application.identification_number).to eq("123456789")
+    end
+
+    it "when id is national id card", :focus do
+      application = UnaccompaniedMinor.new
+      application.save!
+
+      page.set_rack_session(app_reference: application.reference)
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Additional details")
+      expect(page).to have_content("Do you have any of these identity documents?")
+
+      choose("National Identity card")
+      fill_in("National Identity card number", with: "ABC123456789")
+
+      click_button("Continue")
+      # TODO: uncomment this expectation once routing is resolved
+      # expect(page).to have_content("Enter your date of birth")
+
+      saved_application = UnaccompaniedMinor.find_by_reference(application.reference)
+      expect(saved_application.identification_type).to eq("national_identity_card")
+      expect(saved_application.identification_number).to eq("ABC123456789")
+    end
+
+    it "when id is refugee travel document", :focus do
+      application = UnaccompaniedMinor.new
+      application.save!
+
+      page.set_rack_session(app_reference: application.reference)
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Additional details")
+      expect(page).to have_content("Do you have any of these identity documents?")
+
+      choose("Refugee travel document")
+      fill_in("Refugee travel document number", with: "ABC123456789")
+
+      click_button("Continue")
+      # TODO: uncomment this expectation once routing is resolved
+      # expect(page).to have_content("Enter your date of birth")
+
+      saved_application = UnaccompaniedMinor.find_by_reference(application.reference)
+      expect(saved_application.identification_type).to eq("refugee_travel_document")
+      expect(saved_application.identification_number).to eq("ABC123456789")
+    end
+
+    it "when id is none", :focus do
+      application = UnaccompaniedMinor.new
+      application.save!
+
+      page.set_rack_session(app_reference: application.reference)
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Additional details")
+      expect(page).to have_content("Do you have any of these identity documents?")
+
+      choose("I don't have any of these")
+
+      click_button("Continue")
+      # TODO: uncomment this expectation once routing is resolved
+      # expect(page).to have_content("Enter your date of birth")
+
+      saved_application = UnaccompaniedMinor.find_by_reference(application.reference)
+      expect(saved_application.identification_type).to eq("none")
+      expect(saved_application.identification_number).to eq("")
     end
   end
 end

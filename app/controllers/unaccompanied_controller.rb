@@ -149,16 +149,17 @@ class UnaccompaniedController < ApplicationController
 
     # capture identification document number
     if params["stage"].to_i == SPONSOR_ID_TYPE
-      # how to have this comparison dealt with better???
       @application.identification_type = params["unaccompanied_minor"]["identification_type"]
 
       case @application.identification_type
       when "passport"
         @application.identification_number = params["unaccompanied_minor"]["passport_identification_number"]
-      when "abc"
+      when "national_identity_card"
         @application.identification_number = params["unaccompanied_minor"]["id_identification_number"]
-      when "def"
+      when "refugee_travel_document"
         @application.identification_number = params["unaccompanied_minor"]["refugee_identification_number"]
+      when "none"
+        @application.identification_number = ""
       else
         @application.identification_number = ""
       end
