@@ -330,7 +330,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_link("Additional details")
       expect(page).to have_content("Do you have any of these identity documents?")
 
-      page.check("unaccompanied-minor-identification-type-passport-field")
+      choose("Passport")
+      fill_in("Passport number", with: "123456789")
       click_button("Continue")
 
       fill_in("Day", with: "6")
