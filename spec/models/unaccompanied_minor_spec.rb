@@ -381,6 +381,17 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.sponsor_declaration = "true"
       expect(app.sponsor_declaration?).to eq("Completed")
     end
+
+    # it "return status for each dynamic over 16 task item", :focus do
+    #   app = described_class.new
+    #   app.adults_at_address = {}
+    #   app.adults_at_address.store("abc", Adult.new("John", "Smith"))
+    #   expect(app.task_item?("abc")).to eq("Not started")
+    #   app.adults_at_address.store("abc", Adult.new(date_of_birth => "20-02-2002"))
+    #   expect(app.task_item?("abc")).to eq("In progress")
+    #   app.adults_at_address.store("abc", Adult.new(id_type_and_number: "id - number"))
+    #   expect(app.task_item?("abc")).to eq("Completed")
+    # end
   end
 
   describe "child flow validation" do
@@ -470,6 +481,16 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       uam.sponsor_declaration = "true"
     end
 
+    def populate_min_other_adults_section(uam)
+      uam.adults_at_address = {}
+      uam.adults_at_address.store("123", Adult.new("First name", "Last name", "1990-09-19", "AUS - Australia", "P - 123456789"))
+    end
+
+    def populate_incomplete_other_adults_section(uam)
+      uam.adults_at_address = {}
+      uam.adults_at_address.store("123", Adult.new("First name", "Last name", "1990-09-19", "AUS - Australia"))
+    end
+
     it "can not be submitted when all but section 1 is complete" do
       app = described_class.new
 
@@ -519,6 +540,42 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       populate_min_valid_section_four(app)
 
       expect(app.is_application_ready_to_be_sent?).to be(true)
+    end
+
+    it "can be submitted when other adults section is complete" do
+      app = described_class.new
+
+      populate_min_valid_section_one(app)
+      populate_min_valid_section_two(app)
+      populate_min_valid_section_three(app)
+      populate_min_valid_section_four(app)
+      populate_min_other_adults_section(app)
+
+      expect(app.is_application_ready_to_be_sent?).to be(true)
+    end
+
+    it "can not be submitted when other adults section is incomplete" do
+      app = described_class.new
+
+      populate_min_valid_section_one(app)
+      populate_min_valid_section_two(app)
+      populate_min_valid_section_three(app)
+      populate_min_valid_section_four(app)
+      populate_min_other_adults_section(app)
+      populate_incomplete_other_adults_section(app)
+
+      expect(app.is_application_ready_to_be_sent?).to be(false)
+    end
+
+    it "can not be submitted when other adults section is complete but one other section is incomplete" do
+      app = described_class.new
+
+      populate_min_valid_section_two(app)
+      populate_min_valid_section_three(app)
+      populate_min_valid_section_four(app)
+      populate_min_other_adults_section(app)
+
+      expect(app.is_application_ready_to_be_sent?).to be(false)
     end
   end
 end

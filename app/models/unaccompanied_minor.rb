@@ -160,11 +160,27 @@ class UnaccompaniedMinor < ApplicationRecord
       sponsor_declaration? == TASK_LABEL_COMPLETE
   end
 
+  def is_section_adults_at_address_complete?
+    statuses = []
+
+    adults_at_address.each do |_key, val|
+      statuses << val["id_type_and_number"].to_s.length.positive?
+    end
+
+    !statuses.include?(false)
+  end
+
   def is_application_ready_to_be_sent?
-    is_section_one_complete? && \
+    all_sections_completed = is_section_one_complete? && \
       is_section_two_complete? && \
       is_section_three_complete? && \
       is_section_four_complete?
+
+    if all_sections_completed && adults_at_address.present?
+      all_sections_completed = is_section_adults_at_address_complete?
+    end
+
+    all_sections_completed
   end
 
   def number_of_completed_sections?
