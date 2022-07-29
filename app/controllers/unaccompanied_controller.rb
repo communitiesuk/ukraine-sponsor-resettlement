@@ -211,7 +211,7 @@ class UnaccompaniedController < ApplicationController
       begin
         sponsor_dob = Date.new(params["unaccompanied_minor"]["sponsor_date_of_birth_year"].to_i, params["unaccompanied_minor"]["sponsor_date_of_birth_month"].to_i, params["unaccompanied_minor"]["sponsor_date_of_birth_day"].to_i)
 
-        if sponsor_dob > 18.years.ago.to_date
+        if 18.years.ago.to_date < sponsor_dob
           @application.errors.add(:base, I18n.t(:too_young_date_of_birth, scope: :error))
 
           render "sponsor-a-child/steps/#{SPONSOR_DATE_OF_BIRTH}"
