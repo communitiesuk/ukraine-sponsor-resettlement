@@ -19,7 +19,6 @@ RSpec.describe TokenBasedResumeController, type: :system do
   end
 
   describe "User tries to resume their application" do
-   
     it "requires the code to be numeric otherwise shows an error" do
       new_application = UnaccompaniedMinor.new
       new_application.phone_number = "07511824127"

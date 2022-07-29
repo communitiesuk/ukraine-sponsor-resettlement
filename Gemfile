@@ -48,7 +48,7 @@ group :development, :test do
   gem "scss_lint-govuk"
   # Session middleware for testing
   gem "rack_session_access"
-  gem 'rails-controller-testing'
+  gem "rails-controller-testing"
 end
 
 group :development do

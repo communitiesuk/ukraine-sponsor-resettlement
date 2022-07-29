@@ -26,18 +26,15 @@ RSpec.describe TokenBasedResumeController, type: :controller do
   end
 
   describe "User errors" do
-
     it "gets error when sms code is not entered" do
       magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc".freeze
-      parms = {abstract_resume_token: { token: ""}, uuid: magic_id}
+      parms = { abstract_resume_token: { token: "" }, uuid: magic_id }
 
       post :submit, params: parms
 
       expect(response.status).to eq(200)
       expect(response).to render_template("token-based-resume/session_resume_form")
-      expect(flash[:error]).to eq('Please enter a valid code')
+      expect(flash[:error]).to eq("Please enter a valid code")
     end
-
   end
-
 end
