@@ -36,5 +36,17 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       expect(response).to render_template("token-based-resume/session_resume_form")
       expect(flash[:error]).to eq("Please enter a valid code")
     end
+
+    it "shows an error when sms code is not numeric" do
+      magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc".freeze
+      non_numeric_code = "ABCDEF".freeze
+      parms = { abstract_resume_token: { token: non_numeric_code }, uuid: magic_id }
+
+      post :submit, params: parms
+
+      expect(response.status).to eq(200)
+      expect(response).to render_template("token-based-resume/session_resume_form")
+      expect(flash[:error]).to eq("Please enter a valid code")
+    end
   end
 end
