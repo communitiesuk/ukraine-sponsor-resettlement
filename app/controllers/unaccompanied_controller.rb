@@ -3,7 +3,7 @@ require "securerandom"
 class UnaccompaniedController < ApplicationController
   include ApplicationHelper
 
-  before_action :check_last_activity, only: [:handle_step]
+  before_action :check_last_activity, only: [:handle_step, :display]
 
   MAX_STEPS = 44
   NOT_ELIGIBLE = [-1, 0].freeze
