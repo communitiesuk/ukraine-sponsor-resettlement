@@ -82,7 +82,9 @@ private
   end
 
   def send_token
-    @texter = Notifications::Client.new("expiry_sms_token-e8fd0b83-9213-4a38-8632-7a461ad7f71e-b999939e-0a65-40be-8c0b-bbd214751421")
+    sms_api = ENV["GOVUK_NOTIFY_SMS_API_KEY"]
+
+    @texter = Notifications::Client.new(sms_api)
 
     @application_reference = ApplicationToken.find_by(magic_link: params[:uuid])
     sms_token = @application_reference.token
