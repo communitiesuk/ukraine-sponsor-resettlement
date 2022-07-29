@@ -21,7 +21,7 @@ services:
       - sidekiq
       - s3
     volumes:
-      - .:/app
+      - .:/app:cached
     environment:
       RAILS_ENV: development
       INSTANCE_NAME: ukraine-sponsor-resettlement-development

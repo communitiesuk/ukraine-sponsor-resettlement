@@ -20,8 +20,9 @@ class TokenBasedResumeController < ApplicationController
     @abstractresumetoken.assign_attributes(confirm_params)
 
     if @abstractresumetoken.valid?
+      Rails.logger.debug @abstractresumetoken
       @applicationtoken = ApplicationToken.find_by(magic_link: @abstractresumetoken.magic_link, token: @abstractresumetoken.token)
-
+      Rails.logger.debug @applicationtoken
       if @applicationtoken.present?
         if Time.zone.now.utc <= @applicationtoken.expires_at
           # the application exists, store in the session and let them resume
@@ -81,10 +82,11 @@ private
   end
 
   def send_token
-    texter = Notifications::Client.new("expiry_sms_token-e8fd0b83-9213-4a38-8632-7a461ad7f71e-b999939e-0a65-40be-8c0b-bbd214751421")
+    @texter = Notifications::Client.new("expiry_sms_token-e8fd0b83-9213-4a38-8632-7a461ad7f71e-b999939e-0a65-40be-8c0b-bbd214751421")
+
     @application_reference = ApplicationToken.find_by(magic_link: params[:uuid])
     sms_token = @application_reference.token
     number = @application_reference.unaccompanied_minor.phone_number
-    texter.send_sms(phone_number: number, template_id: "b51a151e-f352-473a-b52e-185d2873cbf5", personalisation: { OTP: sms_token })
+    @texter.send_sms(phone_number: number, template_id: "b51a151e-f352-473a-b52e-185d2873cbf5", personalisation: { OTP: sms_token })
   end
 end
