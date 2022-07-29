@@ -19,21 +19,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
   end
 
   describe "User tries to resume their application" do
-    it "requires a code otherwise shows an error" do
-      new_application = UnaccompaniedMinor.new
-      new_application.phone_number = "07511824127"
-      new_application.save!
-
-      personal_uuid = SecureRandom.uuid
-      new_application_token = ApplicationToken.new(unaccompanied_minor: new_application, magic_link: personal_uuid, token: 456_313, expires_at: (Time.zone.now.utc + 1.hour))
-      new_application_token.save!
-
-      visit "/sponsor-a-child/resume-application?uuid=#{personal_uuid}"
-
-      click_button("Continue")
-      expect(page).to have_content("The code is required")
-    end
-
+   
     it "requires the code to be numeric otherwise shows an error" do
       new_application = UnaccompaniedMinor.new
       new_application.phone_number = "07511824127"

@@ -18,10 +18,26 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       allow(ApplicationToken).to receive(:find_by).and_return(ApplicationToken.new({ token: sms_code, unaccompanied_minor: uam, magic_link: magic_id }))
     end
 
-    it "routes to send_token" do
-      get :display, params: { magic_link: magic_id }
+    it "calls the texter with the correct params" do
+      get :display, params: { uuid: magic_id }
 
       expect(texter).to have_received(:send_sms).with({ personalisation: { OTP: sms_code }, phone_number:, template_id: "b51a151e-f352-473a-b52e-185d2873cbf5" })
     end
   end
+
+  describe "User errors" do
+
+    it "gets error when sms code is not entered" do
+      magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc".freeze
+      parms = {abstract_resume_token: { token: ""}, uuid: magic_id}
+
+      post :submit, params: parms
+
+      expect(response.status).to eq(200)
+      expect(response).to render_template("token-based-resume/session_resume_form")
+      expect(flash[:error]).to eq('Please enter a valid code')
+    end
+
+  end
+
 end
