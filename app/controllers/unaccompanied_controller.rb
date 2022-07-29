@@ -271,7 +271,7 @@ class UnaccompaniedController < ApplicationController
         @application.adults_at_address[params["key"]]["date_of_birth"] = ""
         @application.errors.add(:base, I18n.t(:invalid_date_of_birth, scope: :error))
 
-        render "sponsor-a-child/steps/#{MINOR_DATE_OF_BIRTH}"
+        render "sponsor-a-child/steps/#{ADULT_DATE_OF_BIRTH}"
         return
       end
     end
