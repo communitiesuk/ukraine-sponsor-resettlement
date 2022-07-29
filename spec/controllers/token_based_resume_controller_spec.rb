@@ -3,8 +3,9 @@ require "rails_helper"
 RSpec.describe TokenBasedResumeController, type: :controller do
   describe "User tries to resume their application" do
     phone_number = "07983111111".freeze
-    sms_code = "123456".freeze
+    sms_code = 123_456
     magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc".freeze
+    expiry_time = (Time.zone.now.utc + 1.hour)
 
     uam = UnaccompaniedMinor.new
     uam.phone_number = phone_number
@@ -15,13 +16,23 @@ RSpec.describe TokenBasedResumeController, type: :controller do
     before do
       allow(Notifications::Client).to receive(:new).and_return(texter)
       allow(texter).to receive(:send_sms)
-      allow(ApplicationToken).to receive(:find_by).and_return(ApplicationToken.new({ token: sms_code, unaccompanied_minor: uam, magic_link: magic_id }))
+      allow(ApplicationToken).to receive(:find_by).and_return(ApplicationToken.new({ token: sms_code, unaccompanied_minor: uam, magic_link: magic_id, expires_at: expiry_time }))
     end
 
     it "calls the texter with the correct params" do
       get :display, params: { uuid: magic_id }
 
       expect(texter).to have_received(:send_sms).with({ personalisation: { OTP: sms_code }, phone_number:, template_id: "b51a151e-f352-473a-b52e-185d2873cbf5" })
+    end
+
+    it "load correct application given code" do
+      parms = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
+
+      post :submit, params: parms
+
+      expect(response.status).to eq(200)
+      puts flash[:error]
+      expect(response).to render_template("sponsor-a-child/task_list")
     end
   end
 
@@ -57,8 +68,39 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       post :submit, params: parms
 
       expect(response.status).to eq(302)
-      expect(response).to redirect_to("/sponsor-a-child/resume-application?uuid=e5c4fe58-a8ca-4e6f-aaa6-7e0a391eb3dc")
+      expect(response).to redirect_to("/sponsor-a-child/resume-application?uuid=#{magic_id}")
       expect(flash[:error]).to eq("No application found for this code")
+    end
+  end
+
+  describe "user takes to long to return" do
+    phone_number = "07983111111".freeze
+    sms_code = 123_456
+    magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc".freeze
+    expiry_time = (Time.zone.now.utc - 1.hour)
+
+    uam = UnaccompaniedMinor.new
+    uam.phone_number = phone_number
+
+    let(:texter) { instance_double("Notifications::Client") }
+    let(:application_token) { instance_double("ApplicationToken") }
+
+    before do
+      allow(Notifications::Client).to receive(:new).and_return(texter)
+      allow(texter).to receive(:send_sms)
+      allow(ApplicationToken).to receive(:find_by).and_return(ApplicationToken.new({ token: sms_code, unaccompanied_minor: uam, magic_link: magic_id, expires_at: expiry_time }))
+    end
+
+    it "shows an error when sms code is timed out" do
+      magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc".freeze
+      numeric_code = 123_456
+      parms = { abstract_resume_token: { token: numeric_code }, uuid: magic_id }
+
+      post :submit, params: parms
+
+      expect(response.status).to eq(302)
+      expect(response).to redirect_to("/sponsor-a-child/resume-application?uuid=#{magic_id}")
+      expect(flash[:error]).to eq("This code has timed out, please request a new one")
     end
   end
 end

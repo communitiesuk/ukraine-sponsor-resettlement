@@ -20,8 +20,9 @@ class TokenBasedResumeController < ApplicationController
     @abstractresumetoken.assign_attributes(confirm_params)
 
     if @abstractresumetoken.valid?
+      Rails.logger.debug @abstractresumetoken
       @applicationtoken = ApplicationToken.find_by(magic_link: @abstractresumetoken.magic_link, token: @abstractresumetoken.token)
-
+      Rails.logger.debug @applicationtoken
       if @applicationtoken.present?
         if Time.zone.now.utc <= @applicationtoken.expires_at
           # the application exists, store in the session and let them resume
