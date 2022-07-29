@@ -22,7 +22,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
     it "calls the texter with the correct params" do
       get :display, params: { uuid: magic_id }
 
-      expect(texter).to have_received(:send_sms).with({ personalisation: { OTP: sms_code }, phone_number:, template_id: "b51a151e-f352-473a-b52e-185d2873cbf5" })
+      expect(texter).to have_received(:send_sms).with({ personalisation: { OTP: sms_code.to_s }, phone_number:, template_id: "b51a151e-f352-473a-b52e-185d2873cbf5" })
     end
 
     it "load correct application given code" do
