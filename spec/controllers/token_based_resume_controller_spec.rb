@@ -48,5 +48,17 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       expect(response).to render_template("token-based-resume/session_resume_form")
       expect(flash[:error]).to eq("Please enter a valid code")
     end
+   
+    it "shows an error when sms code is entered but no application exists for the code", :focus do
+      magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a391eb3dc".freeze
+      non_numeric_code = "665312".freeze
+      parms = { abstract_resume_token: { token: non_numeric_code }, uuid: magic_id }
+
+      post :submit, params: parms
+
+      expect(response.status).to eq(302)
+      expect(response).to redirect_to("/sponsor-a-child/resume-application?uuid=e5c4fe58-a8ca-4e6f-aaa6-7e0a391eb3dc")
+      expect(flash[:error]).to eq("No application found for this code")
+    end
   end
 end
