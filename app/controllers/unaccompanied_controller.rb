@@ -255,6 +255,7 @@ class UnaccompaniedController < ApplicationController
     if params["stage"].to_i == ADULT_DATE_OF_BIRTH
       # There must be a better way!
       @adult = @application.adults_at_address[params["key"]]
+      Rails.logger.debug "@adult: #{@adult}"
       begin
         adult_dob = Date.new(params["unaccompanied_minor"]["adult_date_of_birth_year"].to_i, params["unaccompanied_minor"]["adult_date_of_birth_month"].to_i, params["unaccompanied_minor"]["adult_date_of_birth_day"].to_i)
 
