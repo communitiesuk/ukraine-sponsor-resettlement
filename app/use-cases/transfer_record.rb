@@ -52,7 +52,7 @@ class TransferRecord
     UnaccompaniedMinor.transaction do
       application = UnaccompaniedMinor.find(record_id)
       application.transferred_at = Time.zone.now
-      application.save!
+      application.save!(validate: false)
 
       uri = URI(ENV["REMOTE_API_URL"])
       token = ENV["REMOTE_API_TOKEN_UAM"]
