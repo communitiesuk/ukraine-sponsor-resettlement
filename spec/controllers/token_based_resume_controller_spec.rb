@@ -1,16 +1,15 @@
 require "rails_helper"
 
 RSpec.describe TokenBasedResumeController, type: :controller do
-  
   describe "User session times out" do
-    given_name = 'First'.freeze
-    email = 'test@example.com'.freeze
+    given_name = "First".freeze
+    email = "test@example.com".freeze
 
     uam = UnaccompaniedMinor.new
     uam.given_name = given_name
     uam.email = email
 
-    uuid = 'test-uuid'.freeze
+    uuid = "test-uuid".freeze
     magic_link = "http://test.host/sponsor-a-child/resume-application?uuid=#{uuid}".freeze
 
     let(:unaccompanied_minor) { instance_double("UnaccompaniedMinor") }
@@ -26,11 +25,11 @@ RSpec.describe TokenBasedResumeController, type: :controller do
     it "calls the emailer with the correct params" do
       get :session_expired
 
-      expect(GovNotifyMailer).to have_received(:send_save_and_return_email).with( given_name, magic_link, email)      
+      expect(GovNotifyMailer).to have_received(:send_save_and_return_email).with(given_name, magic_link, email)
       expect(response).to render_template("token-based-resume/session_expired")
     end
   end
-  
+
   describe "User tries to resume their application after email sent" do
     phone_number = "07983111111".freeze
     sms_code = 123_456
