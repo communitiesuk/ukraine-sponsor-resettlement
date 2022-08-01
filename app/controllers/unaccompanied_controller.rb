@@ -348,7 +348,6 @@ class UnaccompaniedController < ApplicationController
     @application.final_submission = true
 
     Rails.logger.debug "Submit JSON: #{@application.as_json}"
-
     isvalid = @application.valid?
 
     unless isvalid
@@ -357,6 +356,15 @@ class UnaccompaniedController < ApplicationController
       end
       if @application.errors.include?(:adult_family_name)
         @application.errors.delete(:adult_family_name)
+      end
+      if @application.errors.include?(:adult_date_of_birth_day)
+        @application.errors.delete(:adult_date_of_birth_day)
+      end
+      if @application.errors.include?(:adult_date_of_birth_month)
+        @application.errors.delete(:adult_date_of_birth_month)
+      end
+      if @application.errors.include?(:adult_date_of_birth_year)
+        @application.errors.delete(:adult_date_of_birth_year)
       end
 
       isvalid = @application.errors.empty?
