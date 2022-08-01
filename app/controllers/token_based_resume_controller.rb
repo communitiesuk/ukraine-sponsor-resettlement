@@ -78,7 +78,7 @@ private
     personal_uuid = SecureRandom.uuid
     return_link = generate_magic_link(personal_uuid)
     generate_application_token(@application, personal_uuid)
-    GovNotifyMailer.send_save_and_return_email(@application.email, @application.given_name, return_link).deliver_later
+    GovNotifyMailer.send_save_and_return_email(@application.given_name, return_link, @application.email).deliver_later
   end
 
   def send_token
