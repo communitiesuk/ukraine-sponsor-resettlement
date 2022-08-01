@@ -58,6 +58,7 @@ class TransferRecord
       token = ENV["REMOTE_API_TOKEN_UAM"]
       res = Net::HTTP.post(uri, JSON.generate(application.as_json), "Content-Type" => "application/json", "Authorization" => "Bearer #{token}")
       unless res.code.to_i >= 200 && res.code.to_i < 300
+        Rails.logger.error "Failed to post record: #{record_id} to: #{uri} res.code: #{res.code}"
         raise ActiveRecord::Rollback
       end
     end
