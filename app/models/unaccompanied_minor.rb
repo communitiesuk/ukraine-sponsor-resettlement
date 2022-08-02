@@ -284,32 +284,12 @@ class UnaccompaniedMinor < ApplicationRecord
     end
   end
 
-  def _is_main_address_empty?
-    # function that checks if the mandatory elements for the main address are filled in
-    [@residential_line_1, @residential_town, @residential_postcode].all? { |item| item.to_s.length.zero? }
-  end
-
-  def _is_secondary_address_empty?
-    # function that checks if the mandatory elements for the main address are filled in
-    [@sponsor_address_line_1, @sponsor_address_town, @sponsor_address_postcode].all? { |item| item.to_s.length.zero? }
-  end
-
-  def _is_main_address_complete?
-    # function that checks if the mandatory elements for the main address are filled in
-    [@residential_line_1, @residential_town, @residential_postcode].all? { |item| item.to_s.length.positive? }
-  end
-
-  def _is_secondary_address_complete?
-    # function that checks if the mandatory elements for the main address are filled in
-    [@sponsor_address_line_1, @sponsor_address_town, @sponsor_address_postcode].all? { |item| item.to_s.length.positive? }
-  end
-
   def sponsor_address_details?
     # are they both complete?
-    if _is_main_address_complete? && (different_address == "yes" || (different_address == "no" && _is_secondary_address_complete?))
+    if is_main_address_complete? && (different_address == "yes" || (different_address == "no" && is_secondary_address_complete?))
       TASK_LABEL_COMPLETE
     # are they both empty?
-    elsif _is_main_address_empty? && _is_secondary_address_empty?
+    elsif is_main_address_empty? && is_secondary_address_empty?
       TASK_LABEL_TO_DO
     # is one of the two incomplete?
     else
@@ -461,6 +441,26 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
 private
+
+  def is_main_address_empty?
+    # function that checks if the mandatory elements for the main address are filled in
+    [@residential_line_1, @residential_town, @residential_postcode].all? { |item| item.to_s.length.zero? }
+  end
+
+  def is_secondary_address_empty?
+    # function that checks if the mandatory elements for the main address are filled in
+    [@sponsor_address_line_1, @sponsor_address_town, @sponsor_address_postcode].all? { |item| item.to_s.length.zero? }
+  end
+
+  def is_main_address_complete?
+    # function that checks if the mandatory elements for the main address are filled in
+    [@residential_line_1, @residential_town, @residential_postcode].all? { |item| item.to_s.length.positive? }
+  end
+
+  def is_secondary_address_complete?
+    # function that checks if the mandatory elements for the main address are filled in
+    [@sponsor_address_line_1, @sponsor_address_town, @sponsor_address_postcode].all? { |item| item.to_s.length.positive? }
+  end
 
   def serialize
     self.type = "unaccompanied_minor"
