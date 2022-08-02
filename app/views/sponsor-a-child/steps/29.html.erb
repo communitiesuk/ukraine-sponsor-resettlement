@@ -3,6 +3,9 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
+  <%= form_for @application, url: "/sponsor-a-child/steps/29/#{params["key"]}", method: :post do |f| %>
+    <%= f.govuk_error_summary link_base_errors_to: :adult_date_of_birth_day %>
+
     <h1 class="gem-c-title__text govuk-heading-l">
       Enter this person's date of birth
     </h1>
@@ -11,7 +14,6 @@
       <%= "#{@adult["given_name"]} #{@adult["family_name"]}" %>
     </div>
 
-    <%= form_for @application, url: "/sponsor-a-child/steps/29/#{params["key"]}", method: :post do |f| %>
 
       <%= f.govuk_fieldset legend: { text: t("minor_date_of_birth.full", :name => "#{@adult["given_name"]} #{@adult["family_name"]}", scope: "unaccompanied_minor.questions"), size: "m", hidden: true } do %>
 
@@ -26,8 +28,7 @@
             <%= f.govuk_text_field :adult_date_of_birth_year, label: { text: "Year" }, type: "number", width: 4 %>
           </div>
         </div>
-        <%= f.govuk_error_summary link_base_errors_to: :adult_date_of_birth_day %>
-
+      
       <% end %>
 
       <%= f.govuk_submit t("continue") %>
