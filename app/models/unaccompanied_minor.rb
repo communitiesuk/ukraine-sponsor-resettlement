@@ -390,6 +390,7 @@ class UnaccompaniedMinor < ApplicationRecord
 
   def as_json
     {
+      reference:,
       created_at:,
       type:,
       version:,
