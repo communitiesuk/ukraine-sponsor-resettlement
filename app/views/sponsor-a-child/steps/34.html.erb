@@ -14,7 +14,7 @@
 
     <%= form_for @application, url: "/sponsor-a-child/steps/34", method: :post do |f| %>
 
-      <%= f.govuk_fieldset legend: { text: t('minor_date_of_birth.full', :name => @application.minor_full_name?, scope: "unaccompanied_minor.questions"), size: 'm' }, hint: { text: 'For example, 31 3 2010' }, class: "govuk-date-input" do %>
+      <%= f.govuk_fieldset legend: { text: "", hidden: true }, hint: { text: 'For example, 31 3 2010' }, class: "govuk-date-input" do %>
 
         <div class="govuk-hint" id="unaccompanied-minor-minor-date-of-birth-hint">For example, 31 3 2010</div>
 

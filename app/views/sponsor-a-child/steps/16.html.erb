@@ -5,8 +5,11 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
+    <h1 class="govuk-heading-l"><%= t('identity_documents.full', scope: "unaccompanied_minor.questions")%></h1>
+
+
     <%= form_for @application, url: "/sponsor-a-child/steps/16", method: :post do |f| %>
-      <%= f.govuk_radio_buttons_fieldset :identification_type, legend: { text: t('identity_documents.full', scope: "unaccompanied_minor.questions"), size: "m" } do %>
+      <%= f.govuk_radio_buttons_fieldset :identification_type, legend: { text: "", hidden: true } do %>
 
         <%= f.govuk_radio_button :identification_type, :passport, label: { text: "Passport" } do %>
             <%= f.govuk_text_field :passport_identification_number, label: { text: "Passport number" }, type: "text" %>
