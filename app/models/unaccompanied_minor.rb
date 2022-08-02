@@ -285,19 +285,22 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
   def sponsor_address_details?
-    if other_adults_address.present?
+    # are they both complete?
+    if is_main_address_complete? && (different_address == "yes" || (different_address == "no" && is_secondary_address_complete?))
       TASK_LABEL_COMPLETE
-    elsif residential_line_1.present?
-      TASK_LABEL_IN_PROGRESS
-    else
+    # are they both empty?
+    elsif is_main_address_empty? && is_secondary_address_empty?
       TASK_LABEL_TO_DO
+    # is one of the two incomplete?
+    else
+      TASK_LABEL_IN_PROGRESS
     end
   end
 
   def sponsor_living_there_details?
     if (adults_at_address.present? && adults_at_address.length.positive?) || other_adults_address.present?
       TASK_LABEL_COMPLETE
-    elsif different_address.present?
+    elsif different_address.present? && other_adults_address.present? && other_adults_address == "yes"
       TASK_LABEL_IN_PROGRESS
     else
       TASK_LABEL_TO_DO
@@ -438,6 +441,26 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
 private
+
+  def is_main_address_empty?
+    # function that checks if the mandatory elements for the main address are filled in
+    [@residential_line_1, @residential_town, @residential_postcode].all? { |item| item.to_s.length.zero? }
+  end
+
+  def is_secondary_address_empty?
+    # function that checks if the mandatory elements for the main address are filled in
+    [@sponsor_address_line_1, @sponsor_address_town, @sponsor_address_postcode].all? { |item| item.to_s.length.zero? }
+  end
+
+  def is_main_address_complete?
+    # function that checks if the mandatory elements for the main address are filled in
+    [@residential_line_1, @residential_town, @residential_postcode].all? { |item| item.to_s.length.positive? }
+  end
+
+  def is_secondary_address_complete?
+    # function that checks if the mandatory elements for the main address are filled in
+    [@sponsor_address_line_1, @sponsor_address_town, @sponsor_address_postcode].all? { |item| item.to_s.length.positive? }
+  end
 
   def serialize
     self.type = "unaccompanied_minor"
