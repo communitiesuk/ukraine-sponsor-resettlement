@@ -309,10 +309,10 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_link("Contact details")
       expect(page).to have_content("What is your email address?")
 
-      fill_in("What is your email address?", with: "jane.doe@test.com")
+      fill_in("Email", with: "jane.doe@test.com")
       click_button("Continue")
 
-      fill_in("What is your UK telephone number?", with: "07777 888 999")
+      fill_in("Phone_number", with: "07777 888 999")
       click_button("Continue")
 
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
@@ -374,7 +374,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Email", with: "unaccompanied.minor@test.com")
 
       click_button("Continue")
-      expect(page).to have_content("Enter Jane Doe's date of birth")
+      expect(page).to have_content("Jane Doe")
+      expect(page).to have_content("Enter their date of birth")
 
       fill_in("Day", with: 3)
       fill_in("Month", with: 6)
@@ -691,9 +692,9 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("What is your email address?")
 
       # email address is required for the happy path
-      fill_in("What is your email address?", with: "jane.doe@example.com")
+      fill_in("Email", with: "jane.doe@example.com")
       click_button("Continue")
-      fill_in("What is your UK telephone number?", with: "07777 888 999")
+      fill_in("Phone_number", with: "07777 888 999")
 
       # rubocop:disable RSpec/AnyInstance
       allow_any_instance_of(UnaccompaniedController).to receive(:last_seen_activity_threshold).and_return(- 10.seconds)

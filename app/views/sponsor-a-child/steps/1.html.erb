@@ -12,7 +12,7 @@
                                            @application.eligibility_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
                                            :id,
                                            :name,
-                                           legend: { text: t('sponsored_children_age.full', scope: "unaccompanied_minor.questions"), hidden: true }
+                                           legend: { text: "", hidden: true }
       %>
 
       <%= f.govuk_submit t('continue') %>
