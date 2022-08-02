@@ -3,9 +3,12 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
+    <h1 class="govuk-heading-l"><%= t('fullname.full', scope: "unaccompanied_minor.questions")%></h1>
+
+
     <%= form_for @application, url: "/sponsor-a-child/steps/10", method: :post do |f| %>
 
-      <%= f.govuk_fieldset legend: { text: t('fullname.full', scope: "unaccompanied_minor.questions") },
+      <%= f.govuk_fieldset legend: { text: "", hidden: true },
         hint: { text: t('fullname.hint', scope: "unaccompanied_minor.questions") } do %>
             <details class="govuk-details" data-module="govuk-details">
                 <summary class="govuk-details__summary">

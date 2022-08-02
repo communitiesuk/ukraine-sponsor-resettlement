@@ -4,12 +4,14 @@
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
     <%= form_for @application, url: "/sponsor-a-child/steps/7", method: :post do |f| %>
+    
+    <h1 class="govuk-heading-l"><%= t('sponsor_right_to_live_in_uk.full', scope: "unaccompanied_minor.questions")%></h1>
 
       <%= f.govuk_collection_radio_buttons :is_permitted,
                                            @application.eligibility_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
                                            :id,
                                            :name,
-                                           legend: { text: t('sponsor_right_to_live_in_uk.full', scope: "unaccompanied_minor.questions") }
+                                           legend: { text: "", hidden: true }
       %>
               <details class="govuk-details" data-module="govuk-details">
                 <summary class="govuk-details__summary">

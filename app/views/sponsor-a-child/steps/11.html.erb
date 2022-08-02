@@ -2,11 +2,13 @@
   <div class="govuk-grid-column-two-thirds">
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
+    
+    <h1 class="govuk-heading-l"><%= t('other_names.full', scope: "unaccompanied_minor.questions")%></h1>
 
     <%= form_for @application, url: "/sponsor-a-child/steps/11", method: :post do |f| %>
 
       <%= f.govuk_radio_buttons_fieldset(:has_other_names,
-          legend: { size: 'm', text: t('other_names.full', scope: "unaccompanied_minor.questions") },
+          legend: { size: 'm', text: "", hidden: true },
           hint: { text: t('other_names.hint', scope: "unaccompanied_minor.questions")}) do %>
         <%= f.govuk_radio_button :has_other_names, true, label: { text: t('Yes' ) } %>
         <%= f.govuk_radio_button :has_other_names, false, label: { text: t('No' ) },  link_errors: true  %>

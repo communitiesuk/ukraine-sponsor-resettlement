@@ -3,14 +3,14 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-
+    <h1 class="govuk-heading-l"><%= t('other_adults_address.full', scope: "unaccompanied_minor.questions")%></h1>
 
     <%= form_for @application, url: "/sponsor-a-child/steps/25", method: :post do |f| %>
       <%= f.govuk_collection_radio_buttons :other_adults_address,
           @application.other_adults_address_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
           :id,
           :name,
-          legend: { text: t('other_adults_address.full', scope: "unaccompanied_minor.questions") },
+          legend: { text: "", hidden: true },
           hint: { text: t('different_address.hint_html', :formatted_address => @application.formatted_address?, scope: "unaccompanied_minor.questions") }
       %>
       <details class="govuk-details" data-module="govuk-details">

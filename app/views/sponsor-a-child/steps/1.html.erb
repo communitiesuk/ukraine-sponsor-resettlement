@@ -3,13 +3,16 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
+
+    <h1 class="govuk-heading-l"><%= t('sponsored_children_age.full', scope: "unaccompanied_minor.questions")%></h1>
+
     <%= form_for @application, url: "/sponsor-a-child/steps/1", method: :post do |f| %>
 
       <%= f.govuk_collection_radio_buttons :is_under_18,
                                            @application.eligibility_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
                                            :id,
                                            :name,
-                                           legend: { text: t('sponsored_children_age.full', scope: "unaccompanied_minor.questions") }
+                                           legend: { text: "", hidden: true }
       %>
 
       <%= f.govuk_submit t('continue') %>
