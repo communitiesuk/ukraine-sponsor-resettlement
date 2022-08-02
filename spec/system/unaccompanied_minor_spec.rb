@@ -1241,10 +1241,10 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
   end
 
-  describe "sponsor enters other names" do
+  describe "sponsor enters other names", focus:true do
     task_list_content = "Apply for permission to sponsor a child fleeing Ukraine without a parent".freeze
 
-    it "when no other names are added go to task list" do
+    before do
       application = UnaccompaniedMinor.new
       application.save!
 
@@ -1258,7 +1258,9 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Family name", with: "Family")
       click_button("Continue")
       expect(page).to have_content("Have you ever been known by another name?")
+    end
 
+    it "when no other names are added go to task list" do
       choose("No")
       click_button("Continue")
       expect(page).to have_content(task_list_content)
@@ -1269,20 +1271,6 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       first_other_family_name = "Firstfamily".freeze
       second_other_given_name = "Secondextra".freeze
       second_other_family_name = "Secondfamily".freeze
-
-      application = UnaccompaniedMinor.new
-      application.save!
-
-      page.set_rack_session(app_reference: application.reference)
-
-      visit "/sponsor-a-child/start-application"
-      expect(page).to have_content(task_list_content)
-
-      click_link("Name")
-      fill_in("Given name(s)", with: "Given")
-      fill_in("Family name", with: "Family")
-      click_button("Continue")
-      expect(page).to have_content("Have you ever been known by another name?")
 
       choose("Yes")
       click_button("Continue")
