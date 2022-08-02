@@ -1240,4 +1240,61 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_field("Refugee travel document number", with: "XYZ123987456")
     end
   end
+
+  describe "sponsor enters other names" do
+    task_list_content = "Apply for permission to sponsor a child fleeing Ukraine without a parent".freeze
+
+    it "when no other names are added go to task list" do
+      application = UnaccompaniedMinor.new
+      application.save!
+
+      page.set_rack_session(app_reference: application.reference)
+
+      visit "/sponsor-a-child/start-application"
+      expect(page).to have_content(task_list_content)
+
+      click_link("Name")
+      fill_in("Given name(s)", with: "Given")
+      fill_in("Family name", with: "Family")
+      click_button("Continue")
+      expect(page).to have_content("Have you ever been known by another name?")
+
+      choose("No")
+      click_button("Continue")
+      expect(page).to have_content(task_list_content)
+    end
+
+    it "when other names are entered" do
+      first_other_given_name = "Second".freeze
+      first_other_family_name = "Familyname".freeze
+
+      application = UnaccompaniedMinor.new
+      application.save!
+
+      page.set_rack_session(app_reference: application.reference)
+
+      visit "/sponsor-a-child/start-application"
+      expect(page).to have_content(task_list_content)
+
+      click_link("Name")
+      fill_in("Given name(s)", with: "Given")
+      fill_in("Family name", with: "Family")
+      click_button("Continue")
+      expect(page).to have_content("Have you ever been known by another name?")
+
+      choose("Yes")
+      click_button("Continue")
+      expect(page).to have_content("What is your other name?")
+
+      fill_in("Given name(s)", with: first_other_given_name)
+      fill_in("Family name", with: first_other_family_name)
+      click_button("Continue")
+      expect(page).to have_content("You have added 1 other names")
+      expect(page).to have_content(first_other_given_name)
+      expect(page).to have_content(first_other_family_name)
+
+      expected_remove_url = "/sponsor-a-child/remove_other_name/#{first_other_given_name}/#{first_other_family_name}".freeze
+      expect(page).to have_link("Remove", href: expected_remove_url)
+    end
+  end
 end
