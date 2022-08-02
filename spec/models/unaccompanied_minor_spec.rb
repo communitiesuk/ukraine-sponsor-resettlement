@@ -577,5 +577,17 @@ RSpec.describe UnaccompaniedMinor, type: :model do
 
       expect(app.is_application_ready_to_be_sent?).to be(false)
     end
+
+    it "as_json outputs the application reference" do
+      app = described_class.new
+      app.save!(validate: false)
+
+      populate_min_valid_section_one(app)
+      populate_min_valid_section_two(app)
+      populate_min_valid_section_three(app)
+      populate_min_valid_section_four(app)
+
+      expect(app.as_json[:reference]).to start_with("SPON-")
+    end
   end
 end
