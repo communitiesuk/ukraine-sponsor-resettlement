@@ -17,6 +17,10 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.phone_number = "07777 123 456"
       app.nationality = "nationality"
       expect(app.number_of_completed_sections?).to be(1)
+      app.residential_line_1 = "Address line 1"
+      app.residential_town = "Town"
+      app.residential_postcode = "XX1 2XX"
+      app.different_address = "yes"
       # Where will the child live? section is complete
       app.other_adults_address = "no"
       app.adults_at_address = { "123" => Adult.new }
@@ -342,12 +346,18 @@ RSpec.describe UnaccompaniedMinor, type: :model do
     it "return status for who will be living at address" do
       app = described_class.new
       expect(app.sponsor_living_there_details?).to eq("Not started")
+      app.residential_line_1 = "Address line 1"
+      app.residential_town = "Town"
+      app.residential_postcode = "XX1 2XX"
       app.different_address = "yes"
-      expect(app.sponsor_living_there_details?).to eq("In progress")
+      app.sponsor_address_line_1 = "Address line 1"
+      app.sponsor_address_town = "Town"
+      app.sponsor_address_postcode = "XX1 2XX"
+      expect(app.sponsor_living_there_details?).to eq("Not started")
       app.adults_at_address = {}
       app.other_adults_address = "no"
       expect(app.sponsor_living_there_details?).to eq("Completed")
-      app.other_adults_address = nil
+      app.other_adults_address = "yes"
       app.adults_at_address = { "123" => Adult.new }
       expect(app.sponsor_living_there_details?).to eq("Completed")
     end
@@ -483,6 +493,10 @@ RSpec.describe UnaccompaniedMinor, type: :model do
     end
 
     def populate_min_valid_section_two(uam)
+      uam.residential_line_1 = "Address line 1"
+      uam.residential_town = "Town"
+      uam.residential_postcode = "XX1 2XX"
+      uam.different_address = "yes"
       uam.other_adults_address = "true"
     end
 

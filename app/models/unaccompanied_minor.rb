@@ -320,7 +320,7 @@ class UnaccompaniedMinor < ApplicationRecord
   def sponsor_living_there_details?
     if (adults_at_address.present? && adults_at_address.length.positive?) || other_adults_address.present?
       TASK_LABEL_COMPLETE
-    elsif different_address.present?
+    elsif different_address.present? && other_adults_address.present? && other_adults_address == "yes"
       TASK_LABEL_IN_PROGRESS
     else
       TASK_LABEL_TO_DO
