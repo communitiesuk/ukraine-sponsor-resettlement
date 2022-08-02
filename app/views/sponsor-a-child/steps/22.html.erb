@@ -4,7 +4,7 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
     <table class="govuk-table">
-        <caption class="govuk-table__caption govuk-table__caption--l">You have added <%= @application.other_names.length() %> other nationalities</caption>
+        <caption class="govuk-table__caption govuk-table__caption--l">You have added <%= @application.other_nationalities.length() %> other nationalities</caption>
         <% @application.other_nationalities.each_with_index do |nationality, index| %>
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">

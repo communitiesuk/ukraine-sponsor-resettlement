@@ -255,6 +255,7 @@ class UnaccompaniedController < ApplicationController
     if params["stage"].to_i == ADULT_DATE_OF_BIRTH
       # There must be a better way!
       @adult = @application.adults_at_address[params["key"]]
+      Rails.logger.debug "@adult: #{@adult}"
       begin
         adult_dob = Date.new(params["unaccompanied_minor"]["adult_date_of_birth_year"].to_i, params["unaccompanied_minor"]["adult_date_of_birth_month"].to_i, params["unaccompanied_minor"]["adult_date_of_birth_day"].to_i)
 
@@ -347,7 +348,6 @@ class UnaccompaniedController < ApplicationController
     @application.final_submission = true
 
     Rails.logger.debug "Submit JSON: #{@application.as_json}"
-
     isvalid = @application.valid?
 
     unless isvalid
@@ -356,6 +356,15 @@ class UnaccompaniedController < ApplicationController
       end
       if @application.errors.include?(:adult_family_name)
         @application.errors.delete(:adult_family_name)
+      end
+      if @application.errors.include?(:adult_date_of_birth_day)
+        @application.errors.delete(:adult_date_of_birth_day)
+      end
+      if @application.errors.include?(:adult_date_of_birth_month)
+        @application.errors.delete(:adult_date_of_birth_month)
+      end
+      if @application.errors.include?(:adult_date_of_birth_year)
+        @application.errors.delete(:adult_date_of_birth_year)
       end
 
       isvalid = @application.errors.empty?
