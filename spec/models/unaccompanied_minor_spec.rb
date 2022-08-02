@@ -314,12 +314,28 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.sponsor_details_additional_details?).to eq("Completed")
     end
 
-    it "return status for address" do
+    it "return status for main address" do
       app = described_class.new
       expect(app.sponsor_address_details?).to eq("Not started")
-      app.residential_line_1 = "address line 1"
+      app.residential_line_1 = "Address line 1"
       expect(app.sponsor_address_details?).to eq("In progress")
-      app.other_adults_address = "no"
+      app.residential_town = "Town"
+      app.residential_postcode = "XX1 2XX"
+      app.different_address = "yes"
+      expect(app.sponsor_address_details?).to eq("Completed")
+    end
+
+    it "return status for different address" do
+      app = described_class.new
+      expect(app.sponsor_address_details?).to eq("Not started")
+      app.residential_line_1 = "Address line 1"
+      app.residential_town = "Town"
+      app.residential_postcode = "XX1 2XX"
+      app.different_address = "no"
+      app.sponsor_address_line_1 = "Address line 1"
+      expect(app.sponsor_address_details?).to eq("In progress")
+      app.sponsor_address_town = "Town"
+      app.sponsor_address_postcode = "XX1 2XX"
       expect(app.sponsor_address_details?).to eq("Completed")
     end
 

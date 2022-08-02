@@ -284,13 +284,36 @@ class UnaccompaniedMinor < ApplicationRecord
     end
   end
 
+  def _is_main_address_empty?
+    # function that checks if the mandatory elements for the main address are filled in
+    [@residential_line_1, @residential_town, @residential_postcode].all? { |item| item.to_s.length.zero? }
+  end
+
+  def _is_secondary_address_empty?
+    # function that checks if the mandatory elements for the main address are filled in
+    [@sponsor_address_line_1, @sponsor_address_town, @sponsor_address_postcode].all? { |item| item.to_s.length.zero? }
+  end
+
+  def _is_main_address_complete?
+    # function that checks if the mandatory elements for the main address are filled in
+    [@residential_line_1, @residential_town, @residential_postcode].all? { |item| item.to_s.length.positive? }
+  end
+
+  def _is_secondary_address_complete?
+    # function that checks if the mandatory elements for the main address are filled in
+    [@sponsor_address_line_1, @sponsor_address_town, @sponsor_address_postcode].all? { |item| item.to_s.length.positive? }
+  end
+
   def sponsor_address_details?
-    if other_adults_address.present?
+    # are they both complete?
+    if _is_main_address_complete? && (different_address == "yes" || (different_address == "no" && _is_secondary_address_complete?))
       TASK_LABEL_COMPLETE
-    elsif residential_line_1.present?
-      TASK_LABEL_IN_PROGRESS
-    else
+    # are they both empty?
+    elsif _is_main_address_empty? && _is_secondary_address_empty?
       TASK_LABEL_TO_DO
+    # is one of the two incomplete?
+    else
+      TASK_LABEL_IN_PROGRESS
     end
   end
 
