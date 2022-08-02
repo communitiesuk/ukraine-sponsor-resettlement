@@ -1265,8 +1265,10 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
 
     it "when other names are entered" do
-      first_other_given_name = "Second".freeze
-      first_other_family_name = "Familyname".freeze
+      first_other_given_name = "Firstextra".freeze
+      first_other_family_name = "Firstfamily".freeze
+      second_other_given_name = "Secondextra".freeze
+      second_other_family_name = "Secondfamily".freeze
 
       application = UnaccompaniedMinor.new
       application.save!
@@ -1293,8 +1295,24 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content(first_other_given_name)
       expect(page).to have_content(first_other_family_name)
 
-      expected_remove_url = "/sponsor-a-child/remove_other_name/#{first_other_given_name}/#{first_other_family_name}".freeze
-      expect(page).to have_link("Remove", href: expected_remove_url)
+      expected_first_remove_url = "/sponsor-a-child/remove_other_name/#{first_other_given_name}/#{first_other_family_name}".freeze
+      expect(page).to have_link("Remove", href: expected_first_remove_url)
+
+      click_link("Add another name")
+      expect(page).to have_content("What is your other name?")
+      fill_in("Given name(s)", with: second_other_given_name)
+      fill_in("Family name", with: second_other_family_name)
+      click_button("Continue")
+
+      expect(page).to have_content("You have added 2 other names")
+      expect(page).to have_content(second_other_given_name)
+      expect(page).to have_content(second_other_family_name)
+
+      expected_second_remove_url = "/sponsor-a-child/remove_other_name/#{second_other_given_name}/#{second_other_family_name}".freeze
+      expect(page).to have_link("Remove", href: expected_second_remove_url)
+
+      click_link("Continue")
+      expect(page).to have_content(task_list_content)
     end
   end
 end
