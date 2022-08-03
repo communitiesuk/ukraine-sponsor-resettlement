@@ -3,6 +3,9 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
+     <%= form_for @application, url: "/sponsor-a-child/steps/34", method: :post do |f| %>
+     <%= f.govuk_error_summary link_base_errors_to: :minor_date_of_birth_day %>
+
     <h1 class="gem-c-title__text govuk-heading-l">
       Enter their date of birth
     </h1>
@@ -11,8 +14,6 @@
     <%=@application.minor_full_name?%>
 
     </div>
-
-    <%= form_for @application, url: "/sponsor-a-child/steps/34", method: :post do |f| %>
 
       <%= f.govuk_fieldset legend: { text: "", hidden: true }, hint: { text: 'For example, 31 3 2010' }, class: "govuk-date-input" do %>
 
@@ -29,7 +30,6 @@
             <%= f.govuk_text_field :minor_date_of_birth_year, label: { text: 'Year' }, type: "number", width: 4 %>
           </div>
         </div>
-        <%= f.govuk_error_summary link_base_errors_to: :minor_date_of_birth_day %>
 
       <% end %>
 
