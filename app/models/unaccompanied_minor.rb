@@ -164,7 +164,7 @@ class UnaccompaniedMinor < ApplicationRecord
     statuses = []
 
     adults_at_address.each do |_key, val|
-      statuses << val["id_type_and_number"].to_s.length.positive?
+      statuses << (sponsor_resident_details?(val["given_name"], val["family_name"], val["date_of_birth"], val["nationality"], val["id_type_and_number"]) == TASK_LABEL_COMPLETE)
     end
 
     !statuses.include?(false)
@@ -206,7 +206,10 @@ class UnaccompaniedMinor < ApplicationRecord
       completed_sections += 1
     end
 
-    # TODO: include dynamic section
+    # Dynamic section
+    if adults_at_address.present? && is_section_adults_at_address_complete?
+      completed_sections += 1
+    end
 
     completed_sections
   end
@@ -317,13 +320,14 @@ class UnaccompaniedMinor < ApplicationRecord
     end
   end
 
-  def sponsor_resident_details?(date_of_birth, id)
-    if id.present?
+  def sponsor_resident_details?(given_name = "", family_name = "", date_of_birth = "", nationality = "", id = "")
+    required_vals = [given_name, family_name, date_of_birth, nationality, id]
+    if required_vals.all? { |item| item.to_s.length.positive? }
       TASK_LABEL_COMPLETE
-    elsif date_of_birth.present?
-      TASK_LABEL_IN_PROGRESS
-    else
+    elsif required_vals.all? { |item| item.to_s.length.zero? }
       TASK_LABEL_TO_DO
+    else
+      TASK_LABEL_IN_PROGRESS
     end
   end
 

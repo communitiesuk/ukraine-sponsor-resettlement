@@ -637,7 +637,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("4. Send your application")
 
       new_application.adults_at_address = {}
-      new_application.adults_at_address.store("123", Adult.new("Bob", "Jones"))
+      new_application.adults_at_address.store("123", Adult.new("Bob", "Jones", "dob", "nationality", "id_and_type"))
       new_application.save!
 
       visit "/sponsor-a-child/task-list"
@@ -649,7 +649,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     it "correctly shows the resident details task items" do
       new_application = UnaccompaniedMinor.new
       new_application.adults_at_address = {}
-      new_application.adults_at_address.store("123", Adult.new("Bob", "Jones"))
+      new_application.adults_at_address.store("123", Adult.new("Bob", "Jones", "dob", "nationality", "id_and_type"))
       new_application.save!
 
       page.set_rack_session(app_reference: new_application.reference)
@@ -657,7 +657,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       visit "/sponsor-a-child/task-list"
       expect(page).to have_content("Bob Jones details")
 
-      new_application.adults_at_address.store("456", Adult.new("Jane", "Smith"))
+      new_application.adults_at_address.store("456", Adult.new("Jane", "Smith", "dob", "nationality", "id_and_type"))
       new_application.save!
 
       visit "/sponsor-a-child/task-list"
@@ -668,7 +668,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     it "correctly creates the resident details task item links" do
       new_application = UnaccompaniedMinor.new
       new_application.adults_at_address = {}
-      new_application.adults_at_address.store("123", Adult.new("Bob", "Jones"))
+      new_application.adults_at_address.store("123", Adult.new("Bob", "Jones", "dob", "nationality", "id_and_type"))
       new_application.save!
 
       page.set_rack_session(app_reference: new_application.reference)
@@ -741,7 +741,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   it "answer the nationality question" do
     new_application = UnaccompaniedMinor.new
     new_application.adults_at_address = {}
-    new_application.adults_at_address.store("123", Adult.new("Bob", "Jones", "2001-6-13"))
+    new_application.adults_at_address.store("123", Adult.new("Bob", "Jones", "2001-6-13", "nationality", "id_and_type"))
     new_application.save!
 
     page.set_rack_session(app_reference: new_application.reference)
@@ -768,7 +768,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   it "answer the id type and number question" do
     new_application = UnaccompaniedMinor.new
     new_application.adults_at_address = {}
-    new_application.adults_at_address.store("123", Adult.new("Bob", "Jones", "2001-6-13", "Afghanistan"))
+    new_application.adults_at_address.store("123", Adult.new("Bob", "Jones", "2001-6-13", "Afghanistan", "id_and_type"))
     new_application.save!
 
     page.set_rack_session(app_reference: new_application.reference)
@@ -965,7 +965,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       application.has_other_names = "false"
       application.minor_contact_type = "email"
       application.adults_at_address = {}
-      application.adults_at_address.store("ABC", Adult.new("Other first name", "Other family name"))
+      application.adults_at_address.store("ABC", Adult.new("Other first name", "Other family name", "dob", "nationality", "id-number"))
       application.save!
 
       page.set_rack_session(app_reference: application.reference)
