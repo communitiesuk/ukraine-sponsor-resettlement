@@ -20,6 +20,7 @@ class UnaccompaniedController < ApplicationController
   NATIONALITY_STEPS = [MINOR_NATIONALITY, MINOR_OTHER_NATIONALITY, ADULT_NATIONALITY].freeze
   ADULT_STEPS = [ADULT_DATE_OF_BIRTH, ADULT_NATIONALITY, ADULT_ID_TYPE_AND_NUMBER].freeze
   TASK_LIST_STEP = 999
+  TASK_LIST_URI = "/sponsor-a-child/task-list".freeze
 
   def start
     render "sponsor-a-child/start"
@@ -39,7 +40,7 @@ class UnaccompaniedController < ApplicationController
 
   def start_application
     # Redirect to show the task-list
-    redirect_to "/sponsor-a-child/task-list"
+    redirect_to TASK_LIST_URI
   end
 
   def display
@@ -317,7 +318,7 @@ class UnaccompaniedController < ApplicationController
         redirect_to "/sponsor-a-child/non-eligible"
       elsif next_stage == TASK_LIST_STEP
         # Redirect to show the task-list
-        redirect_to "/sponsor-a-child/task-list"
+        redirect_to TASK_LIST_URI
       elsif next_stage > MAX_STEPS
         redirect_to "/sponsor-a-child/check-answers"
       elsif ADULT_STEPS.include?(next_stage)
@@ -449,7 +450,7 @@ class UnaccompaniedController < ApplicationController
       render "sponsor-a-child/cancel_confirm"
     else
       # Redirect to show the task-list
-      redirect_to "/sponsor-a-child/task-list"
+      redirect_to TASK_LIST_URI
     end
   end
 
@@ -516,7 +517,7 @@ class UnaccompaniedController < ApplicationController
     @application.update!(@application.as_json)
 
     if @application.other_names.length.zero?
-      redirect_to "/sponsor-a-child/task-list"
+      redirect_to TASK_LIST_URI
     else
       redirect_to "/sponsor-a-child/steps/13"
     end
@@ -539,7 +540,7 @@ private
 
     @application.save!
 
-    redirect_to "/sponsor-a-child/task-list"
+    redirect_to TASK_LIST_URI
   end
 
   def save_file(filename, file)

@@ -1241,7 +1241,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
   end
 
-  describe "sponsor enters other names", focus: true do
+  describe "sponsor enters other names" do
     task_list_content = "Apply for permission to sponsor a child fleeing Ukraine without a parent".freeze
 
     before do
