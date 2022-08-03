@@ -317,13 +317,15 @@ class UnaccompaniedMinor < ApplicationRecord
     end
   end
 
-  def sponsor_resident_details?(date_of_birth, id)
-    if id.present?
+  def sponsor_resident_details?(given_name, family_name, date_of_birth, nationality, id)
+    required_vals = [given_name, family_name, date_of_birth, nationality, id]
+    if required_vals.all? { |item| item.to_s.length.positive? }
+      # all info filled in
       TASK_LABEL_COMPLETE
-    elsif date_of_birth.present?
-      TASK_LABEL_IN_PROGRESS
-    else
+    elsif required_vals.all? { |item| item.to_s.length.zero? }
       TASK_LABEL_TO_DO
+    else
+      TASK_LABEL_IN_PROGRESS
     end
   end
 

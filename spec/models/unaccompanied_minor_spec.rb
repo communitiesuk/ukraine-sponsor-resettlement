@@ -375,9 +375,9 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app = described_class.new
       # app.adults_at_address = {}
       # app.adults_at_address.store("123", Adult.new("Bob", "Jones"))
-      expect(app.sponsor_resident_details?("", "")).to eq("Not started")
-      expect(app.sponsor_resident_details?("dob", "")).to eq("In progress")
-      expect(app.sponsor_resident_details?("dob", "id_and_type")).to eq("Completed")
+      expect(app.sponsor_resident_details?("", "", "", "", "")).to eq("Not started")
+      expect(app.sponsor_resident_details?("dob", "", "", "", "")).to eq("In progress")
+      expect(app.sponsor_resident_details?("first", "family", "dob", "nationality", "id_and_type")).to eq("Completed")
     end
 
     it "return status for UK consent form" do
