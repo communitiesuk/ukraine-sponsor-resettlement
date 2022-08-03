@@ -3,6 +3,11 @@
 
    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
+  <%= form_for @application, url: "/sponsor-a-child/steps/39", method: :post do |f| %>
+
+  
+  <%= f.govuk_error_summary link_base_errors_to: :privacy_statement_confirm %>
+
    <h1 class="gem-c-title__text govuk-heading-xl">
      Confirm your eligibility to sponsor a child from Ukraine
    </h1>
@@ -26,8 +31,6 @@
       </li>
     </ul>
 
-
-   <%= form_for @application, url: "/sponsor-a-child/steps/39", method: :post do |f| %>
 
     <%= f.govuk_check_boxes_fieldset :sponsor_declaration,
                                          multiple: false,

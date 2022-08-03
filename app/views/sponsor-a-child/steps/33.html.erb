@@ -5,6 +5,10 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
+     <%= form_for @application, url: "/sponsor-a-child/steps/33", method: :post do |f| %>
+
+     <%= f.govuk_error_summary link_base_errors_to: :minor_email %>
+
      <h1 class="gem-c-title__text govuk-heading-l">
       How can we contact the child?
     </h1>
@@ -22,7 +26,6 @@
 
     </p>
 
-    <%= form_for @application, url: "/sponsor-a-child/steps/33", method: :post do |f| %>
       <%= f.govuk_check_boxes_fieldset :minor_contact_type, multiple: false,
                                        legend: { text: "", hidden: true } do %>
 

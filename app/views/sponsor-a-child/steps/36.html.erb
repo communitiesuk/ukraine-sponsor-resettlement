@@ -2,6 +2,10 @@
   <div class="govuk-grid-column-two-thirds">
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
+    
+    <%= form_for @application, url: "/sponsor-a-child/upload-uk/36", method: :post do |f| %>
+    
+    <%= f.govuk_error_summary link_base_errors_to: :uk_parental_consent %>
 
     <h1 class="gem-c-title__text govuk-heading-xl">
       Upload the UK sponsorship arrangement consent form
@@ -15,7 +19,6 @@
          You will need to upload the 'Ukrainian notarised consent form'on the next page.
     </p>
 
-    <%= form_for @application, url: "/sponsor-a-child/upload-uk/36", method: :post do |f| %>
       <%= f.govuk_file_field :uk_parental_consent,
         label: { text: "Upload a file" }%>
 
