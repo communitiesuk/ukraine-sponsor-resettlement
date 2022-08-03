@@ -2,10 +2,12 @@
   <div class="govuk-grid-column-two-thirds">
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
+    
+    <h1 class="govuk-heading-l"><%= t('sponsor_other_nationality.full', scope: "unaccompanied_minor.questions")%></h1>
 
     <%= form_for @application, url: "/sponsor-a-child/steps/21", method: :post do |f| %>
       <%= f.govuk_collection_select :other_nationality, @nationalities, :val, :name,
-          label: { text: t('sponsor_other_nationality.full', scope: "unaccompanied_minor.questions"), size: "l" },
+          label: { text: "", hidden: true },
           hint: { text: t('sponsor_other_nationality.hint', scope: "unaccompanied_minor.questions")}  %>
       <%= f.govuk_submit t('continue') %>
     <% end %>

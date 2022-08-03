@@ -3,9 +3,11 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
+    <h1 class="govuk-heading-l"><%= t('no_identity_documents.full', scope: "unaccompanied_minor.questions")%></h1>
+
     <%= form_for @application, url: "/sponsor-a-child/steps/17", method: :post do |f| %>
       <%= f.govuk_text_area :no_identification_reason,
-        label: { text: t('no_identity_documents.full', scope: "unaccompanied_minor.questions"), size: 'm' },
+        label: { text: "", hidden: true},
         hint: { text: t('no_identity_documents.hint', scope: "unaccompanied_minor.questions")},
         type: "text",
         rows: 10

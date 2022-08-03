@@ -3,8 +3,10 @@
   <div class="govuk-grid-column-two-thirds">
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
+
+    <h1 class="govuk-heading-l">You have added <%= @application.other_nationalities.length() %> other nationalities</h1>
+
     <table class="govuk-table">
-        <caption class="govuk-table__caption govuk-table__caption--l">You have added <%= @application.other_nationalities.length() %> other nationalities</caption>
         <% @application.other_nationalities.each_with_index do |nationality, index| %>
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
