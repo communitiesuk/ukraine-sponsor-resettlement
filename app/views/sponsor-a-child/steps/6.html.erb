@@ -5,6 +5,8 @@
 
     <%= form_for @application, url: "/sponsor-a-child/steps/6", method: :post do |f| %>
 
+    <%= f.govuk_error_summary link_base_errors_to: :is_committed %>
+
     <h1 class="govuk-heading-l"><%= t('sponsor_commitment.full', scope: "unaccompanied_minor.questions")%></h1>
 
 

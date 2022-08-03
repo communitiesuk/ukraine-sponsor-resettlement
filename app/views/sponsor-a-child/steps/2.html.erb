@@ -3,10 +3,11 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-        <h1 class="govuk-heading-l"><%= t('sponsored_children_living_december.full', scope: "unaccompanied_minor.questions")%></h1>
-
-
     <%= form_for @application, url: "/sponsor-a-child/steps/2", method: :post do |f| %>
+
+    <%= f.govuk_error_summary link_base_errors_to: :is_living_december %>
+
+    <h1 class="govuk-heading-l"><%= t('sponsored_children_living_december.full', scope: "unaccompanied_minor.questions")%></h1>
 
       <%= f.govuk_collection_radio_buttons :is_living_december,
                                            @application.eligibility_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },

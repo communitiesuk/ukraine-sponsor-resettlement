@@ -7,6 +7,8 @@
     
     <h1 class="govuk-heading-l"><%= t('sponsor_right_to_live_in_uk.full', scope: "unaccompanied_minor.questions")%></h1>
 
+    <%= f.govuk_error_summary link_base_errors_to: :is_consent %>
+
       <%= f.govuk_collection_radio_buttons :is_permitted,
                                            @application.eligibility_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
                                            :id,
