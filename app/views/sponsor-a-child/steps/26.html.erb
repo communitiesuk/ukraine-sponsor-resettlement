@@ -3,9 +3,12 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
+     <%= form_for @application, url: "/sponsor-a-child/steps/26", method: :post do |f| %>
+
+     <%= f.govuk_error_summary link_base_errors_to: :sponsor_address_line_1 %>
+
     <h1 class="govuk-heading-l">Enter the address where you will be living in the UK</h1>
 
-    <%= form_for @application, url: "/sponsor-a-child/steps/26", method: :post do |f| %>
       <%= f.govuk_text_field :sponsor_address_line_1,
                              label: { text: t('address_line_1.full', scope: "unaccompanied_minor.questions") },
                              type: "text"
