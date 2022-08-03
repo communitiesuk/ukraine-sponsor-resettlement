@@ -4,19 +4,19 @@
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
     <table class="govuk-table">
         <caption class="govuk-table__caption govuk-table__caption--l">You have added <%= @application.other_names.length() %> other names</caption>
-        <% @application.other_names.each_with_index do |name, index| %>
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-              <th scope="col" class="govuk-table__header">Other names (<%= index+1 %>)</th>
+              <th scope="col" class="govuk-table__header">Other names</th>
               <th scope="col" class="govuk-table__header"></th>
             </tr>
         </thead>
         <tbody class="govuk-table__body">
+            <% @application.other_names.each do |name| %>
             <tr class="govuk-table__row">
-            <td class="govuk-table__cell"><%= name[0] %> <%= name[1] %></td>
-            <td class="govuk-table__cell">
-              <%= link_to("Remove", "/sponsor-a-child/remove-other-name/#{name[0]}/#{name[1]}") %>
-            </td>
+              <td class="govuk-table__cell"><%= name[0] %> <%= name[1] %></td>
+              <td class="govuk-table__cell">
+                <%= link_to("Remove", "/sponsor-a-child/remove-other-name/#{name[0]}/#{name[1]}") %>
+              </td>
             </tr>
         </tbody>
         <% end %>
