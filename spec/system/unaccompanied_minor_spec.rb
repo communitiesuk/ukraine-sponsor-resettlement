@@ -1306,7 +1306,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content(task_list_content)
     end
 
-    it "when other names are entered and the first one is removed" do
+    it "when other names are entered and all removed" do
       first_other_given_name = "Firstextra".freeze
       first_other_family_name = "Firstfamily".freeze
       second_other_given_name = "Secondextra".freeze
@@ -1345,6 +1345,10 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("You have added 1 other names")
       expect(page).not_to have_content(second_other_given_name)
       expect(page).not_to have_content(second_other_family_name)
+
+      click_link(href: expected_first_remove_url)
+      expect(page).to have_content(task_list_content)
+
     end
   end
 end
