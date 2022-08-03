@@ -1241,7 +1241,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
   end
 
-  describe "sponsor enters other names", focus:true do
+  describe "sponsor enters other names", focus: true do
     task_list_content = "Apply for permission to sponsor a child fleeing Ukraine without a parent".freeze
 
     before do
@@ -1263,6 +1263,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     it "when no other names are added go to task list" do
       choose("No")
       click_button("Continue")
+
       expect(page).to have_content(task_list_content)
     end
 
@@ -1274,16 +1275,18 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       choose("Yes")
       click_button("Continue")
+
       expect(page).to have_content("What is your other name?")
 
       fill_in("Given name(s)", with: first_other_given_name)
       fill_in("Family name", with: first_other_family_name)
       click_button("Continue")
+
       expect(page).to have_content("You have added 1 other names")
       expect(page).to have_content(first_other_given_name)
       expect(page).to have_content(first_other_family_name)
 
-      expected_first_remove_url = "/sponsor-a-child/remove_other_name/#{first_other_given_name}/#{first_other_family_name}".freeze
+      expected_first_remove_url = "/sponsor-a-child/remove-other-name/#{first_other_given_name}/#{first_other_family_name}".freeze
       expect(page).to have_link("Remove", href: expected_first_remove_url)
 
       click_link("Add another name")
@@ -1296,11 +1299,53 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content(second_other_given_name)
       expect(page).to have_content(second_other_family_name)
 
-      expected_second_remove_url = "/sponsor-a-child/remove_other_name/#{second_other_given_name}/#{second_other_family_name}".freeze
+      expected_second_remove_url = "/sponsor-a-child/remove-other-name/#{second_other_given_name}/#{second_other_family_name}".freeze
       expect(page).to have_link("Remove", href: expected_second_remove_url)
 
       click_link("Continue")
       expect(page).to have_content(task_list_content)
+    end
+
+    it "when other names are entered and the first one is removed" do
+      first_other_given_name = "Firstextra".freeze
+      first_other_family_name = "Firstfamily".freeze
+      second_other_given_name = "Secondextra".freeze
+      second_other_family_name = "Secondfamily".freeze
+
+      choose("Yes")
+      click_button("Continue")
+
+      expect(page).to have_content("What is your other name?")
+
+      fill_in("Given name(s)", with: first_other_given_name)
+      fill_in("Family name", with: first_other_family_name)
+      click_button("Continue")
+
+      expect(page).to have_content("You have added 1 other names")
+      expect(page).to have_content(first_other_given_name)
+      expect(page).to have_content(first_other_family_name)
+
+      expected_first_remove_url = "/sponsor-a-child/remove-other-name/#{first_other_given_name}/#{first_other_family_name}".freeze
+      expect(page).to have_link("Remove", href: expected_first_remove_url)
+
+      click_link("Add another name")
+      expect(page).to have_content("What is your other name?")
+      fill_in("Given name(s)", with: second_other_given_name)
+      fill_in("Family name", with: second_other_family_name)
+      click_button("Continue")
+
+      expect(page).to have_content("You have added 2 other names")
+      expect(page).to have_content(second_other_given_name)
+      expect(page).to have_content(second_other_family_name)
+
+      expected_second_remove_url = "/sponsor-a-child/remove-other-name/#{second_other_given_name}/#{second_other_family_name}".freeze
+      expect(page).to have_link("Remove", href: expected_second_remove_url)
+
+      click_link(href: expected_second_remove_url)
+      expect(page.status_code).to eq(200)
+      expect(page).to have_content("You have added 1 other names")
+      expect(page).not_to have_content(second_other_given_name)
+      expect(page).not_to have_content(second_other_family_name)
     end
   end
 end
