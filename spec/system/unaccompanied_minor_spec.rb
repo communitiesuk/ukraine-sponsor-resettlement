@@ -1349,7 +1349,6 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       click_link(href: expected_first_remove_url)
       expect(page).to have_content(task_list_content)
-
     end
   end
 end
