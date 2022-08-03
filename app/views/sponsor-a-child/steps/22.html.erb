@@ -7,17 +7,16 @@
     <h1 class="govuk-heading-l">You have added <%= @application.other_nationalities.length() %> other nationalities</h1>
 
     <table class="govuk-table">
-        <% @application.other_nationalities.each_with_index do |nationality, index| %>
         <thead class="govuk-table__head">
-            <tr class="govuk-table__row">
-            <th scope="col" class="govuk-table__header">Other nationalities (<%= index+1 %>)</th>
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Other nationalities</th>
             <th scope="col" class="govuk-table__header"></th>
-            </tr>
+          </tr>
         </thead>
         <tbody class="govuk-table__body">
+            <% @application.other_nationalities.each_with_index do |nationality, index| %>
             <tr class="govuk-table__row">
-            <th scope="row" class="govuk-table__header">Nationality</th>
-            <td class="govuk-table__cell"><%= nationality[0] %></td>
+              <td class="govuk-table__cell"><%= nationality[0] %></td>
             </tr>
         </tbody>
         <% end %>
