@@ -504,7 +504,7 @@ class UnaccompaniedController < ApplicationController
     end
   end
 
-  def remove_other_name
+  def remove_other_sponsor_name
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
     @application.other_names = @application.other_names.excluding([[params["given_name"], params["family_name"]]])
     # must do count and consider updating has other names - then wher to redirect to?

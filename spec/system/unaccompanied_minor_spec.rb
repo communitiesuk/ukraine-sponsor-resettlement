@@ -1342,7 +1342,6 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_link("Remove", href: expected_second_remove_url)
 
       click_link(href: expected_second_remove_url)
-      expect(page.status_code).to eq(200)
       expect(page).to have_content("You have added 1 other names")
       expect(page).not_to have_content(second_other_given_name)
       expect(page).not_to have_content(second_other_family_name)
