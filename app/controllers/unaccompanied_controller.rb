@@ -499,6 +499,8 @@ class UnaccompaniedController < ApplicationController
     @application.update!(@application.as_json)
 
     if @application.adults_at_address.length.zero?
+      @application.other_adults_address = "no"
+      @application.adults_at_address = nil
       redirect_to "/sponsor-a-child/steps/#{ADULTS_AT_ADDRESS}"
     else
       redirect_to "/sponsor-a-child/steps/28"
