@@ -509,7 +509,6 @@ class UnaccompaniedController < ApplicationController
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
     @application.other_names = @application.other_names.excluding([[params["given_name"], params["family_name"]]])
 
-    # must do count and consider updating has other names - then wher to redirect to?
     if @application.other_names.length.zero?
       @application.has_other_names = "false"
       @application.other_names = nil
