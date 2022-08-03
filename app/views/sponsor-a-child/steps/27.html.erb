@@ -3,11 +3,12 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
+    <%= form_for @application, url: "/sponsor-a-child/steps/27", method: :post do |f| %>
+
+    <%= f.govuk_error_summary link_base_errors_to: :adult_given_name %>
+
 
     <h1 class="govuk-heading-l"><%= t('adults_at_address.full', scope: "unaccompanied_minor.questions")%></h1>
-
-
-    <%= form_for @application, url: "/sponsor-a-child/steps/27", method: :post do |f| %>
 
       <%= f.govuk_fieldset legend: { text: "", hidden: true },
                            hint: { text: t('different_address.hint_html', :formatted_address => @application.formatted_address?, scope: "unaccompanied_minor.questions") } do %>

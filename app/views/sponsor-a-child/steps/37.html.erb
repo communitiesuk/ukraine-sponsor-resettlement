@@ -3,6 +3,10 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
+    <%= form_for @application, url: "/sponsor-a-child/upload-ukraine/37", method: :post do |f| %>
+    
+    <%= f.govuk_error_summary link_base_errors_to: :ukraine_parental_consent %>
+    
     <h1 class="gem-c-title__text govuk-heading-xl">
       Upload the Ukraine notarised consent form
    </h1>
@@ -11,8 +15,6 @@
     <%=@application.minor_full_name?%>
    </div>
 
-
-    <%= form_for @application, url: "/sponsor-a-child/upload-ukraine/37", method: :post do |f| %>
       <%= f.govuk_file_field :ukraine_parental_consent,
         label: { text: "Upload a file" }%>
 
