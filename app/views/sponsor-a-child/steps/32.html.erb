@@ -3,12 +3,14 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
+    <%= form_for @application, url: "/sponsor-a-child/steps/32", method: :post do |f| %>
+
+    
+     <%= f.govuk_error_summary link_base_errors_to: :minor_given_name %>
+
      <h1 class="gem-c-title__text govuk-heading-l">
       Enter the name of the child you want to sponsor
     </h1>
-
-
-    <%= form_for @application, url: "/sponsor-a-child/steps/32", method: :post do |f| %>
 
       <%= f.govuk_fieldset legend: { text: "", hidden: true } do %>
             <details class="govuk-details" data-module="govuk-details">

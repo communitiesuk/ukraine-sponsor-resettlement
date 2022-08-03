@@ -2,10 +2,13 @@
   <div class="govuk-grid-column-two-thirds">
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
+    
+    <%= form_for @application, url: "/sponsor-a-child/steps/31/#{params["key"]}", method: :post do |f| %>
+
+    <%= f.govuk_error_summary link_base_errors_to: :adult_identification_type %>
 
     <h1 class="govuk-heading-l"><%= t('resident_identity_documents.full', scope: "unaccompanied_minor.questions")%></h1>
 
-    <%= form_for @application, url: "/sponsor-a-child/steps/31/#{params["key"]}", method: :post do |f| %>
       <%= f.govuk_radio_buttons_fieldset :adult_identification_type, legend: { text: "", hidden: true }, hint: { text: t('resident_identity_documents.hint_html', :name => "#{@adult["given_name"]} #{@adult["family_name"]}", scope: "unaccompanied_minor.questions")} do %>
 
         <%= f.govuk_radio_button :adult_identification_type, :passport, label: { text: "Passport" } do %>
