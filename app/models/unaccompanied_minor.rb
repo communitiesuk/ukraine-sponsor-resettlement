@@ -140,9 +140,9 @@ class UnaccompaniedMinor < ApplicationRecord
 
   def is_section_two_complete?
     other_adults_address_complete = false
-    has_other_adults = other_adults_address === "yes"
+    has_other_adults = other_adults_address == "yes"
     if has_other_adults && !other_adults_address.nil? && !other_adults_address.empty?
-      other_adults_address_checks = other_adults_address.map { |x| sponsor_resident_details?(x.given_name, x.family_name, x.date_of_birth, x.nationality, x.id_type_and_number) === TASK_LABEL_COMPLETE }.compact
+      other_adults_address_checks = other_adults_address.map { |x| sponsor_resident_details?(x.given_name, x.family_name, x.date_of_birth, x.nationality, x.id_type_and_number) == TASK_LABEL_COMPLETE }.compact
       other_adults_address_complete = other_adults_address_checks.all?
     end
     sponsor_address_details? == TASK_LABEL_COMPLETE && \
