@@ -512,11 +512,12 @@ class UnaccompaniedController < ApplicationController
     # must do count and consider updating has other names - then wher to redirect to?
     if @application.other_names.length.zero?
       @application.has_other_names = "false"
+      @application.other_names = nil
     end
 
     @application.update!(@application.as_json)
 
-    if @application.other_names.length.zero?
+    if @application.other_names.blank?
       redirect_to TASK_LIST_URI
     else
       redirect_to "/sponsor-a-child/steps/13"
