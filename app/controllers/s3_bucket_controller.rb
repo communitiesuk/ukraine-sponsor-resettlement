@@ -1,7 +1,7 @@
 class S3BucketController < ApplicationController
   def list_objects
     if Rails.env.production?
-      render :nothing => true, :status => :method_not_allowed
+      render nothing: true, status: :method_not_allowed
     end
 
     @objects = S3Object.new
