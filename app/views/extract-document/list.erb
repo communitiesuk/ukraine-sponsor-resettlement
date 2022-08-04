@@ -1,0 +1,19 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="gem-c-title__text govuk-heading-l">
+      List of objects uploaded
+    </h1>
+
+    <p class="govuk-body">
+      <% @objects.contents.each_with_index do |key, index| %>
+        <%= key %><br />
+      <% end %>
+    </p>
+
+  </div>
+</div>
+
+
+
+
