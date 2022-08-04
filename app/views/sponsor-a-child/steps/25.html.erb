@@ -3,9 +3,12 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
+    <%= form_for @application, url: "/sponsor-a-child/steps/25", method: :post do |f| %>
+
+     <%= f.govuk_error_summary link_base_errors_to: :other_adults_address %>
+    
     <h1 class="govuk-heading-l"><%= t('other_adults_address.full', scope: "unaccompanied_minor.questions")%></h1>
 
-    <%= form_for @application, url: "/sponsor-a-child/steps/25", method: :post do |f| %>
       <%= f.govuk_collection_radio_buttons :other_adults_address,
           @application.other_adults_address_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
           :id,
