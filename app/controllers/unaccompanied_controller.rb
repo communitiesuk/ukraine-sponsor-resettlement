@@ -525,6 +525,24 @@ class UnaccompaniedController < ApplicationController
     end
   end
 
+  def remove_other_nationality
+    @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
+    @application.other_nationalities = @application.other_nationalities.delete_if { |entry| entry[0].split.first == params["country_code"] }
+
+    if @application.other_nationalities.length.zero?
+      @application.has_other_nationalities = "false"
+      @application.other_nationalities = nil
+    end
+
+    @application.update!(@application.as_json)
+
+    if @application.other_nationalities.blank?
+      redirect_to TASK_LIST_URI
+    else
+      redirect_to "/sponsor-a-child/steps/22"
+    end
+  end
+
 private
 
   def check_last_activity
