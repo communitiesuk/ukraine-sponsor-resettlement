@@ -84,5 +84,43 @@ RSpec.describe "Unaccompanied minor sponsor other nationalities", type: :system 
       click_link("Continue")
       expect(page).to have_content(task_list_content)
     end
+
+    it "when other nationalities are added and removed" do
+      task_list_to_other_nationalities_question
+
+      choose("Yes")
+      click_button("Continue")
+
+      expect(page).to have_content("What is your other nationality?")
+
+      select("Albania", from: "unaccompanied-minor-other-nationality-field")
+      click_button("Continue")
+
+      expect(page).to have_content("You have added 1 other nationalit")
+      expect(page).to have_content("ALB - Albania")
+
+      expected_first_remove_url = "/sponsor-a-child/remove-other-nationality/ALB".freeze
+      expect(page).to have_link("Remove", href: expected_first_remove_url)
+
+      click_link("Add another nationality")
+
+      expect(page).to have_content("What is your other nationality?")
+
+      select("Algeria", from: "unaccompanied-minor-other-nationality-field")
+      click_button("Continue")
+
+      expect(page).to have_content("You have added 2 other nationalit")
+      expect(page).to have_content("DZA - Algeria")
+
+      expected_second_remove_url = "/sponsor-a-child/remove-other-nationality/DZA".freeze
+      expect(page).to have_link("Remove", href: expected_second_remove_url)
+
+      click_link(href: expected_second_remove_url)
+      expect(page).to have_content("You have added 1 other nationalit")
+      expect(page).not_to have_content("DZA - Algeria")
+
+      click_link(href: expected_first_remove_url)
+      expect(page).to have_content(task_list_content)
+    end
   end
 end
