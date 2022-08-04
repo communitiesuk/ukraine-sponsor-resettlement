@@ -36,7 +36,7 @@ RSpec.describe "Unaccompanied minor sponsor other nationalities", type: :system 
       expect(page).to have_content(task_list_content)
     end
 
-    it "when other nationalities are added and all removed" do
+    it "when other nationalities are added and all removed, return to the task list" do
       task_list_to_other_nationalities_question
       add_two_extra_nationalities
 
