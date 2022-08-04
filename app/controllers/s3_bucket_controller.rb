@@ -3,6 +3,13 @@ class S3BucketController < ApplicationController
     @objects = S3Object.new
 
     @service = StorageService.new(PaasConfigurationService.new, ENV["INSTANCE_NAME"])
-    @objects.contents = @service.list_objects
+
+    resp = @service.list_objects
+
+    Rails.logger.debug "****************************************************************"
+    Rails.logger.debug "Bucket response: #{resp}"
+    Rails.logger.debug "****************************************************************"
+
+    @objects.contents = resp
   end
 end
