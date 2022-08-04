@@ -335,7 +335,9 @@ class UnaccompaniedController < ApplicationController
 
     Rails.logger.debug "Check answers JSON: #{@application.as_json}"
 
-    @application.sponsor_date_of_birth_as_string = format_date_of_birth(@application.sponsor_date_of_birth["1"], @application.sponsor_date_of_birth["2"], @application.sponsor_date_of_birth["3"])
+    unless @application.sponsor_date_of_birth.nil?
+      @application.sponsor_date_of_birth_as_string = format_date_of_birth(@application.sponsor_date_of_birth["1"], @application.sponsor_date_of_birth["2"], @application.sponsor_date_of_birth["3"])
+    end
     @application.minor_date_of_birth_as_string = format_date_of_birth(@application.minor_date_of_birth_year, @application.minor_date_of_birth_month, @application.minor_date_of_birth_day)
 
     render "sponsor-a-child/check_answers"
