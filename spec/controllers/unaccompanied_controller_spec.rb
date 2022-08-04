@@ -22,9 +22,11 @@ RSpec.describe UnaccompaniedController, type: :controller do
     uam.has_other_names = "false"
     uam.phone_number = "07777 123 456"
     uam.nationality = "nationality"
-    uam.sponsor_date_of_birth_day = 1
-    uam.sponsor_date_of_birth_month = 6
-    uam.sponsor_date_of_birth_year = 1970
+    uam.sponsor_date_of_birth = {
+      '3' => 1,
+      '2' => 6,
+      '1' => Time.zone.now.year - 36,
+    }
     uam.residential_line_1 = "Address line 1"
     uam.residential_line_2 = "Address line 2"
     uam.residential_town = "Address town"

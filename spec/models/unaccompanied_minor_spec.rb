@@ -240,13 +240,19 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   describe "age validations" do
     it "sponsor is greater than 18" do
       app = described_class.new
-      app.sponsor_date_of_birth_day = 0
+      app.sponsor_date_of_birth = {
+        '3': 1,
+        '2': 1,
+        '1': Time.zone.now.year - 5,
+      }
       expect(app.valid?).to be(false)
-      expect(app.errors[:sponsor_date_of_birth_day]).to include("Enter a valid date of birth")
-      expect(app.errors[:sponsor_date_of_birth_day].count).to be(1)
-      app.sponsor_date_of_birth_day = 1
-      app.sponsor_date_of_birth_month = 6
-      app.sponsor_date_of_birth_year = 2002
+      expect(app.errors[:date_of_birth]).to include("Enter a valid date of birth")
+      expect(app.errors[:date_of_birth].count).to be(1)
+      app.sponsor_date_of_birth = {
+        '3': 1,
+        '2': 6,
+        '1': 1970,
+      }
       expect(app.valid?).to be(true)
     end
   end
