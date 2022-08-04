@@ -38,12 +38,27 @@ module UamValidations
     validates :minor_date_of_birth_day, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 31, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :minor_date_of_birth_day }
     validates :minor_date_of_birth_month, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 12, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :minor_date_of_birth_month }
     validates :minor_date_of_birth_year, numericality: { only_integer: true, greater_than_or_equal_to: 1900, less_than_or_equal_to: 2100, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :minor_date_of_birth_year }
+    validate :validate_sponsor_date_of_birth, if: -> { run_validation? :sponsor_date_of_birth }
+
     # validates :sponsor_date_of_birth_day, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 31, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :sponsor_date_of_birth_day }
     # validates :sponsor_date_of_birth_month, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 12, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :sponsor_date_of_birth_month }
     # validates :sponsor_date_of_birth_year, numericality: { only_integer: true, greater_than_or_equal_to: 1900, less_than_or_equal_to: 2100, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :sponsor_date_of_birth_year }
     validates :adult_date_of_birth_day, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 31, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :adult_date_of_birth_day }
     validates :adult_date_of_birth_month, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 12, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :adult_date_of_birth_month }
     validates :adult_date_of_birth_year, numericality: { only_integer: true, greater_than_or_equal_to: 1900, less_than_or_equal_to: 2100, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :adult_date_of_birth_year }
+  end
+
+  def validate_sponsor_date_of_birth
+    sponsor_dob = Date.new(@sponsor_date_of_birth[1].to_i, @sponsor_date_of_birth[2].to_i, @sponsor_date_of_birth[3].to_i)
+    if (sponsor_dob.year < 1900 || sponsor_dob.year > 2100) || \
+        (sponsor_dob.month < 1 || sponsor_dob.month > 12) || \
+        (sponsor_dob.day < 1 || sponsor_dob.day > 31)
+      errors.add(:sponsor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
+    elsif 18.years.ago.to_date < sponsor_dob
+      errors.add(:sponsor_date_of_birth, I18n.t(:too_young_date_of_birth, scope: :error))
+    end
+  rescue Date::Error
+    errors.add(:sponsor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
   end
 
   def validate_is_under_18
