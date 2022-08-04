@@ -1,4 +1,4 @@
-class ExtractDocumentController < ApplicationController
+class S3BucketController < ApplicationController
   def list_objects
     @objects = S3Object.new
 
