@@ -65,6 +65,8 @@ Rails.application.routes.draw do
   post "/sponsor-a-child/resume-application", to: "token_based_resume#submit"
   get "/sponsor-a-child/session-expired", to: "token_based_resume#session_expired"
 
+  get "/sponsor-a-child/list", to: "extract_document#list_objects"
+
   get "/fraud-support", to: "fraud#display"
   post "/fraud-support", to: "fraud#post"
 
