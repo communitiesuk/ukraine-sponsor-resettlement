@@ -23,9 +23,9 @@ RSpec.describe UnaccompaniedController, type: :controller do
     uam.phone_number = "07777 123 456"
     uam.nationality = "nationality"
     uam.sponsor_date_of_birth = {
-      "3" => 1,
-      "2" => 6,
-      "1" => Time.zone.now.year - 36,
+      3 => 1,
+      2 => 6,
+      1 => Time.zone.now.year - 36,
     }
     uam.residential_line_1 = "Address line 1"
     uam.residential_line_2 = "Address line 2"
