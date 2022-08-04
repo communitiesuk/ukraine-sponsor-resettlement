@@ -6,7 +6,7 @@ RSpec.describe "Unaccompanied minor sponsor other nationalities", type: :system 
     driven_by(:rack_test_user_agent)
   end
 
-  describe "sponsor enters other names" do
+  describe "sponsor enters other nationalities" do
     let(:expected_algeria_added_copy) { "DZA - Algeria".freeze }
     let(:expected_second_remove_url) { "/sponsor-a-child/remove-other-nationality/DZA".freeze }
     let(:expected_first_remove_url) { "/sponsor-a-child/remove-other-nationality/ALB".freeze }
