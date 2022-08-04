@@ -5,6 +5,8 @@
 
     <%= form_for @application, url: "/sponsor-a-child/steps/24", method: :post do |f| %>
 
+    <%= f.govuk_error_summary link_base_errors_to: :different_address %>
+
     <h1 class="gem-c-title__text govuk-heading-l">
       Will you (the sponsor) be living at this address?
     </h1>
