@@ -527,7 +527,7 @@ class UnaccompaniedController < ApplicationController
 
   def remove_other_nationality
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
-    @application.other_nationalities = @application.other_nationalities.delete_if{|entry| entry[0].split.first == params["country_code"]}
+    @application.other_nationalities = @application.other_nationalities.delete_if { |entry| entry[0].split.first == params["country_code"] }
 
     if @application.other_nationalities.length.zero?
       @application.has_other_nationalities = "false"
