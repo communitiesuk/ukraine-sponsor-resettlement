@@ -8,7 +8,7 @@ RSpec.describe "Unaccompanied minor sponsor other nationalities", type: :system 
 
   describe "sponsor enters other names" do
     let(:task_list_content) { "Apply for permission to sponsor a child fleeing Ukraine without a parent".freeze }
-    let(:first_nationality) { "Firstextra".freeze }
+    let(:main_nationality) { "Afghanistan".freeze }
 
     before do
       application = UnaccompaniedMinor.new
@@ -37,7 +37,7 @@ RSpec.describe "Unaccompanied minor sponsor other nationalities", type: :system 
 
       expect(page).to have_content("Enter your nationality")
 
-      select("Afghanistan", from: "unaccompanied-minor-nationality-field")
+      select(main_nationality, from: "unaccompanied-minor-nationality-field")
       click_button("Continue")
 
       expect(page).to have_content("Have you ever held any other nationalities?")
@@ -51,18 +51,38 @@ RSpec.describe "Unaccompanied minor sponsor other nationalities", type: :system 
       expect(page).to have_content(task_list_content)
     end
 
-    # it "when other nationalities are added" do
-    #  #task list
-    #  # click additional details
-    #  # docs - passport + "123456789" => continue
-    #  # date of birth 2000-1-1 => continue
-    #  # Nationality Afgan - contiue
-    #  # Others - yes, continue
-    #  # Add one
-    #  # Should show with a remove link
-    # end
+    it "when other nationalities are added" do
+      task_list_to_other_nationalities_question
 
-    # it "when other names are entered and all removed" do
-    # end
+      choose("Yes")
+      click_button("Continue")
+
+      expect(page).to have_content("What is your other nationality?")
+
+      select("Albania", from: "unaccompanied-minor-other-nationality-field")
+      click_button("Continue")
+
+      expect(page).to have_content("You have added 1 other nationalities")
+      expect(page).to have_content("ALB - Albania")
+
+      expected_first_remove_url = "/sponsor-a-child/remove-other-nationality/ALB".freeze
+      expect(page).to have_link("Remove", href: expected_first_remove_url)
+
+      click_link("Add another nationality")
+
+      expect(page).to have_content("What is your other nationality?")
+
+      select("Algeria", from: "unaccompanied-minor-other-nationality-field")
+      click_button("Continue")
+
+      expect(page).to have_content("You have added 2 other nationalities")
+      expect(page).to have_content("DZA - Algeria")
+
+      expected_second_remove_url = "/sponsor-a-child/remove-other-nationality/DZA".freeze
+      expect(page).to have_link("Remove", href: expected_second_remove_url)
+
+      click_link("Continue")
+      expect(page).to have_content(task_list_content)
+    end
   end
 end
