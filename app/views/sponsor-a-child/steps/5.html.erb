@@ -3,9 +3,11 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-    <h1 class="govuk-heading-l"><%= t('sponsored_children_legal_guardian_consent.full', scope: "unaccompanied_minor.questions")%></h1>
-
     <%= form_for @application, url: "/sponsor-a-child/steps/5", method: :post do |f| %>
+    
+    <%= f.govuk_error_summary link_base_errors_to: :is_consent %>
+
+    <h1 class="govuk-heading-l"><%= t('sponsored_children_legal_guardian_consent.full', scope: "unaccompanied_minor.questions")%></h1>
 
       <%= f.govuk_collection_radio_buttons :is_consent,
                                            @application.eligibility_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
