@@ -7,11 +7,14 @@
 
     <%= f.govuk_error_summary link_base_errors_to: :sponsor_date_of_birth %>
 
-    <h1 class="govuk-heading-l"><%= t('sponsor_date_of_birth.full', scope: "unaccompanied_minor.questions")%></h1>
+      <h1 class="govuk-heading-l"><%= t('sponsor_date_of_birth.full', scope: "unaccompanied_minor.questions")%></h1>
+      
       <div class="govuk-hint" id="unaccompanied-minor-sponsor-date-of-birth-hint">For example, 31 3 2010</div>
+      
       <%= f.govuk_date_field :sponsor_date_of_birth,
             date_of_birth: true,
             legend: { text: "", hidden: true } %>
+      
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>
