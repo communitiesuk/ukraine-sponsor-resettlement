@@ -377,7 +377,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.sponsor_child_details?).to eq("Not started")
       app.minor_given_name = "First name"
       expect(app.sponsor_child_details?).to eq("In progress")
-      uam.minor_date_of_birth = {
+      app.minor_date_of_birth = {
         3 => 1,
         2 => 6,
         1 => Time.zone.now.year - 5,
