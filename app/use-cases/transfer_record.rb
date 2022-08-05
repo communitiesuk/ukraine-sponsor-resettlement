@@ -63,4 +63,25 @@ class TransferRecord
       end
     end
   end
+
+  def self.execute_unaccompanied_minor_uk_consent(record_id)
+    Rails.logger.info "Uploading uk consent for record: #{record_id}"
+    # TODO
+    # Get uam record to find s3 object id
+    # download s3 file
+    # upload to foundry and grab rid
+    # update rid in uam model and datetime
+    # call cloudfoundry to associatte the upload with the application!
+  end
+
+  def self.execute_unaccompanied_minor_ukraine_consent(record_id)
+    Rails.logger.info "Uploading ukraine consent for record: #{record_id}"
+
+    # TODO
+    # Get uam record to find s3 object id
+    # download s3 file
+    # upload to foundry and grab rid
+    # update rid in uam model and datetime
+    # call cloudfoundry to associatte the upload with the application!
+  end
 end
