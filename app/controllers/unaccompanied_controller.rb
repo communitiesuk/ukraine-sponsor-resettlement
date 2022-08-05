@@ -208,7 +208,6 @@ class UnaccompaniedController < ApplicationController
     end
 
     if params["stage"].to_i == SPONSOR_DATE_OF_BIRTH
-      # There must be a better way!
       begin
         sponsor_dob = Date.new(params["unaccompanied_minor"]["sponsor_date_of_birth(1i)"].to_i, params["unaccompanied_minor"]["sponsor_date_of_birth(2i)"].to_i, params["unaccompanied_minor"]["sponsor_date_of_birth(3i)"].to_i)
         if 18.years.ago.to_date < sponsor_dob
@@ -236,16 +235,16 @@ class UnaccompaniedController < ApplicationController
     if params["stage"].to_i == MINOR_DATE_OF_BIRTH
       # There must be a better way!
       begin
-        minor_dob = Date.new(params["unaccompanied_minor"]["minor_date_of_birth_year"].to_i, params["unaccompanied_minor"]["minor_date_of_birth_month"].to_i, params["unaccompanied_minor"]["minor_date_of_birth_day"].to_i)
+        minor_dob = Date.new(params["unaccompanied_minor"]["minor_date_of_birth(1i)"].to_i, params["unaccompanied_minor"]["minor_date_of_birth(2i)"].to_i, params["unaccompanied_minor"]["minor_date_of_birth(3i)"].to_i)
 
         if minor_dob < 18.years.ago.to_date
-          @application.errors.add(:base, I18n.t(:too_old_date_of_birth, scope: :error))
+          @application.errors.add(:minor_date_of_birth, I18n.t(:too_old_date_of_birth, scope: :error))
 
           render "sponsor-a-child/steps/#{MINOR_DATE_OF_BIRTH}"
           return
         end
       rescue Date::Error
-        @application.errors.add(:base, I18n.t(:invalid_date_of_birth, scope: :error))
+        @application.errors.add(:minor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
 
         render "sponsor-a-child/steps/#{MINOR_DATE_OF_BIRTH}"
         return
@@ -338,7 +337,7 @@ class UnaccompaniedController < ApplicationController
     unless @application.sponsor_date_of_birth.nil?
       @application.sponsor_date_of_birth_as_string = format_date_of_birth(@application.sponsor_date_of_birth["1"], @application.sponsor_date_of_birth["2"], @application.sponsor_date_of_birth["3"])
     end
-    @application.minor_date_of_birth_as_string = format_date_of_birth(@application.minor_date_of_birth_year, @application.minor_date_of_birth_month, @application.minor_date_of_birth_day)
+    @application.minor_date_of_birth_as_string = format_date_of_birth(@application.minor_date_of_birth["1"], @application.minor_date_of_birth["2"], @application.minor_date_of_birth["3"])
 
     render "sponsor-a-child/check_answers"
   end
@@ -580,9 +579,7 @@ private
           :is_committed,
           :is_permitted,
           :have_parental_consent,
-          :minor_date_of_birth_day,
-          :minor_date_of_birth_month,
-          :minor_date_of_birth_year,
+          :minor_date_of_birth,
           :minor_date_of_birth_as_string,
           :given_name,
           :family_name,
