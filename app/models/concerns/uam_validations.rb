@@ -35,14 +35,9 @@ module UamValidations
     validate :validate_residential_line_2, if: -> { run_validation? :sponsor_address_line_2 }
     validate :validate_residential_town, if: -> { run_validation? :sponsor_address_town }
     validate :validate_residential_postcode, if: -> { run_validation? :sponsor_address_postcode }
-    validates :minor_date_of_birth_day, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 31, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :minor_date_of_birth_day }
-    validates :minor_date_of_birth_month, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 12, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :minor_date_of_birth_month }
-    validates :minor_date_of_birth_year, numericality: { only_integer: true, greater_than_or_equal_to: 1900, less_than_or_equal_to: 2100, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :minor_date_of_birth_year }
     validate :validate_sponsor_date_of_birth, if: -> { run_validation? :sponsor_date_of_birth }
+    validate :validate_minor_date_of_birth, if: -> { run_validation? :minor_date_of_birth }
 
-    # validates :sponsor_date_of_birth_day, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 31, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :sponsor_date_of_birth_day }
-    # validates :sponsor_date_of_birth_month, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 12, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :sponsor_date_of_birth_month }
-    # validates :sponsor_date_of_birth_year, numericality: { only_integer: true, greater_than_or_equal_to: 1900, less_than_or_equal_to: 2100, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :sponsor_date_of_birth_year }
     validates :adult_date_of_birth_day, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 31, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :adult_date_of_birth_day }
     validates :adult_date_of_birth_month, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 12, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :adult_date_of_birth_month }
     validates :adult_date_of_birth_year, numericality: { only_integer: true, greater_than_or_equal_to: 1900, less_than_or_equal_to: 2100, message: I18n.t(:invalid_date_of_birth, scope: :error) }, if: -> { run_validation? :adult_date_of_birth_year }
@@ -65,6 +60,25 @@ module UamValidations
     end
   rescue Date::Error
     errors.add(:sponsor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
+  end
+
+  def validate_minor_date_of_birth
+    dob_day = (@minor_date_of_birth["3"] || @minor_date_of_birth[3] || nil)
+    dob_month = (@minor_date_of_birth["2"] || @minor_date_of_birth[2] || nil)
+    dob_year = (@minor_date_of_birth["1"] || @minor_date_of_birth[1] || nil)
+    if !dob_year.to_i || !dob_month.to_i || !dob_day.to_i
+      errors.add(:required_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
+    end
+    minor_dob = Date.new(dob_year.to_i, dob_month.to_i, dob_day.to_i)
+    if (minor_dob.year < 1900 || minor_dob.year > 2100) || \
+        (minor_dob.month < 1 || minor_dob.month > 12) || \
+        (minor_dob.day < 1 || minor_dob.day > 31)
+      errors.add(:minor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
+    elsif minor_dob <= 18.years.ago.to_date
+      errors.add(:minor_date_of_birth, I18n.t(:too_old_date_of_birth, scope: :error))
+    end
+  rescue Date::Error
+    errors.add(:minor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
   end
 
   def validate_is_under_18
