@@ -2,9 +2,21 @@
   <div class="govuk-grid-column-two-thirds">
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
-
-    <h1 class="gem-c-title__text govuk-heading-l">
-      A list
-    </h1>
+    <table class="govuk-table">
+        <caption class="govuk-table__caption govuk-table__caption--l">Files</caption>
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">Keys</th>
+              <th scope="col" class="govuk-table__header"></th>
+            </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+            <% @entries.each do |obj| %>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell"><%= obj.key %></td>
+            </tr>
+        </tbody>
+        <% end %>
+    </table>
   </div>
 </div>
