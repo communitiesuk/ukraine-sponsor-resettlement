@@ -26,7 +26,11 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.adults_at_address = { "123" => Adult.new }
       expect(app.number_of_completed_sections?).to be(2)
       # Tell use about the child section is complete
-      app.minor_date_of_birth_year = 2020
+      uam.minor_date_of_birth = {
+        3 => 1,
+        2 => 6,
+        1 => Time.zone.now.year - 5,
+      }
       app.uk_parental_consent_filename = "UK consent file name"
       app.ukraine_parental_consent_filename = "Ukraine consent file name"
       expect(app.number_of_completed_sections?).to be(3)
@@ -373,7 +377,11 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.sponsor_child_details?).to eq("Not started")
       app.minor_given_name = "First name"
       expect(app.sponsor_child_details?).to eq("In progress")
-      app.minor_date_of_birth_year = 2020
+      uam.minor_date_of_birth = {
+        3 => 1,
+        2 => 6,
+        1 => Time.zone.now.year - 5,
+      }
       expect(app.sponsor_child_details?).to eq("Completed")
     end
 
@@ -507,7 +515,11 @@ RSpec.describe UnaccompaniedMinor, type: :model do
     end
 
     def populate_min_valid_section_three(uam)
-      uam.minor_date_of_birth_year = "2020"
+      uam.minor_date_of_birth = {
+        3 => 1,
+        2 => 6,
+        1 => Time.zone.now.year - 5,
+      }
       uam.uk_parental_consent_filename = "uk_parental_consent.pdf"
       uam.ukraine_parental_consent_filename = "ukraine_parental_consent.pdf"
     end

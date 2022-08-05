@@ -42,9 +42,11 @@ RSpec.describe UnaccompaniedController, type: :controller do
 
     uam.minor_given_name = "Test"
     uam.minor_family_name = "Familyname"
-    uam.minor_date_of_birth_day = 1
-    uam.minor_date_of_birth_month = 1
-    uam.minor_date_of_birth_year = 2020
+    uam.minor_date_of_birth = {
+      3 => 1,
+      2 => 6,
+      1 => Time.zone.now.year - 5,
+    }
     uam.minor_contact_type = "none"
     uam.minor_email = ""
     uam.minor_phone_number = ""
