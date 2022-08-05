@@ -49,7 +49,13 @@ module UamValidations
   end
 
   def validate_sponsor_date_of_birth
-    sponsor_dob = Date.new(@sponsor_date_of_birth[1].to_i, @sponsor_date_of_birth[2].to_i, @sponsor_date_of_birth[3].to_i)
+    dob_day = (@sponsor_date_of_birth["3"] || @sponsor_date_of_birth[3] || nil)
+    dob_month = (@sponsor_date_of_birth["2"] || @sponsor_date_of_birth[2] || nil)
+    dob_year = (@sponsor_date_of_birth["1"] || @sponsor_date_of_birth[1] || nil)
+    if !dob_year.to_i || !dob_month.to_i || !dob_day.to_i
+      errors.add(:required_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
+    end
+    sponsor_dob = Date.new(dob_year.to_i, dob_month.to_i, dob_day.to_i)
     if (sponsor_dob.year < 1900 || sponsor_dob.year > 2100) || \
         (sponsor_dob.month < 1 || sponsor_dob.month > 12) || \
         (sponsor_dob.day < 1 || sponsor_dob.day > 31)
