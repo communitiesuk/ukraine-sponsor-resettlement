@@ -68,6 +68,12 @@ class TransferRecord
     Rails.logger.info "Uploading uk consent for record: #{record_id}"
     # TODO
     # Get uam record to find s3 object id
+
+    # @application.uk_parental_consent_file_type
+    # @application.uk_parental_consent_filename
+    # @application.uk_parental_consent_saved_filename
+    # @application.uk_parental_consent_file_size
+
     # download s3 file
     # upload to foundry and grab rid
     # update rid in uam model and datetime
@@ -79,6 +85,12 @@ class TransferRecord
 
     # TODO
     # Get uam record to find s3 object id
+
+    # @application.ukraine_parental_consent_file_type
+    # @application.ukraine_parental_consent_filename
+    # @application.ukraine_parental_consent_saved_filename
+    # @application.ukraine_parental_consent_file_size
+
     # download s3 file
     # upload to foundry and grab rid
     # update rid in uam model and datetime
