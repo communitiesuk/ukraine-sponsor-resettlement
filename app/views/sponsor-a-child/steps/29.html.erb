@@ -4,7 +4,7 @@
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
   <%= form_for @application, url: "/sponsor-a-child/steps/29/#{params["key"]}", method: :post do |f| %>
-    <%= f.govuk_error_summary link_base_errors_to: :adult_date_of_birth_day %>
+    <%= f.govuk_error_summary link_base_errors_to: :adult_date_of_birth %>
 
     <h1 class="gem-c-title__text govuk-heading-l">
       Enter this person's date of birth
@@ -14,22 +14,13 @@
       <%= "#{@adult["given_name"]} #{@adult["family_name"]}" %>
     </div>
 
+    <div class="govuk-hint" id="unaccompanied-minor-minor-date-of-birth-hint">For example, 31 3 2010</div>
 
-      <%= f.govuk_fieldset legend: { text: t("minor_date_of_birth.full", :name => "#{@adult["given_name"]} #{@adult["family_name"]}", scope: "unaccompanied_minor.questions"), size: "m", hidden: true } do %>
 
-        <div class="govuk-date-input">
-          <div class="govuk-date-input__item">
-            <%= f.govuk_text_field :adult_date_of_birth_day, label: { text: "Day" }, type: "number", width: 2 %>
-          </div>
-          <div class="govuk-date-input__item">
-            <%= f.govuk_text_field :adult_date_of_birth_month, label: { text: "Month" }, type: "number", width: 2 %>
-          </div>
-          <div class="govuk-date-input__item">
-            <%= f.govuk_text_field :adult_date_of_birth_year, label: { text: "Year" }, type: "number", width: 4 %>
-          </div>
-        </div>
-      
-      <% end %>
+    <%= f.govuk_date_field :adult_date_of_birth,
+        date_of_birth: true,
+        legend: { text: "", hidden: true } %>
+
 
       <%= f.govuk_submit t("continue") %>
     <% end %>
