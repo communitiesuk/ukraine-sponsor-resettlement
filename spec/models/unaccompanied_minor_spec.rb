@@ -26,7 +26,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.adults_at_address = { "123" => Adult.new }
       expect(app.number_of_completed_sections?).to be(2)
       # Tell use about the child section is complete
-      uam.minor_date_of_birth = {
+      app.minor_date_of_birth = {
         3 => 1,
         2 => 6,
         1 => Time.zone.now.year - 5,
