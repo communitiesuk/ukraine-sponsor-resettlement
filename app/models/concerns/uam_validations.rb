@@ -37,7 +37,7 @@ module UamValidations
     validate :validate_residential_postcode, if: -> { run_validation? :sponsor_address_postcode }
     validate :validate_sponsor_date_of_birth, if: -> { run_validation? :sponsor_date_of_birth }
     validate :validate_minor_date_of_birth, if: -> { run_validation? :minor_date_of_birth }
-    validate :validate_adult_date_of_birth, if: -> { run_validation? :adult_date_of_birth }
+    #validate :validate_adult_date_of_birth, if: -> { run_validation? :adult_date_of_birth }
   end
 
   def validate_sponsor_date_of_birth
