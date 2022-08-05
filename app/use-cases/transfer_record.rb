@@ -75,7 +75,7 @@ class TransferRecord
     # @application.uk_parental_consent_file_size
 
     # download s3 file
-    # upload to foundry and grab rid
+    # upload to foundry and grab rid (see ticket)
     # update rid in uam model and datetime
     # call cloudfoundry to associatte the upload with the application!
   end
