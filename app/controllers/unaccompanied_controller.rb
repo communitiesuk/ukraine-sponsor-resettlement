@@ -337,8 +337,9 @@ class UnaccompaniedController < ApplicationController
     unless @application.sponsor_date_of_birth.nil?
       @application.sponsor_date_of_birth_as_string = format_date_of_birth(@application.sponsor_date_of_birth["1"], @application.sponsor_date_of_birth["2"], @application.sponsor_date_of_birth["3"])
     end
-    @application.minor_date_of_birth_as_string = format_date_of_birth(@application.minor_date_of_birth["1"], @application.minor_date_of_birth["2"], @application.minor_date_of_birth["3"])
-
+    unless @application.minor_date_of_birth.nil?
+      @application.minor_date_of_birth_as_string = format_date_of_birth(@application.minor_date_of_birth["1"], @application.minor_date_of_birth["2"], @application.minor_date_of_birth["3"])
+    end
     render "sponsor-a-child/check_answers"
   end
 
