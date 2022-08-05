@@ -11,9 +11,10 @@ class S3BucketController < ApplicationController
     resp = @service.list_objects
 
     Rails.logger.debug "****************************************************************"
-    Rails.logger.debug "Bucket response: #{resp}"
+    Rails.logger.debug "Bucket response: #{resp.to_h}"
     Rails.logger.debug "****************************************************************"
 
-    @objects.contents = resp
+    # @objects.contents = resp
+    @entries = resp.contents
   end
 end
