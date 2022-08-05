@@ -79,7 +79,7 @@ class UnaccompaniedController < ApplicationController
           @application.adult_date_of_birth = {
             3 => Date.parse(adult_dob).day,
             2 => Date.parse(adult_dob).month,
-            1 => Date.parse(adult_dob).year
+            1 => Date.parse(adult_dob).year,
           }
         end
         @application.nationality = adult_nationality if adult_nationality.present? && adult_nationality.length.positive?
