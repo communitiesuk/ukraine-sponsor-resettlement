@@ -72,6 +72,12 @@ class TransferRecord
     rid = upload_service.upload(file_path)
     foundry.assign_uploaded_uk_consent_form(uam.reference, rid)
 
+    uam.uk_parental_consent_file_upload_rid = rid
+    # uam.uk_parental_consent_file_uploaded_timestamp = Time.zone.now.utc
+    # uam.save!(validate: false)
+
+    # update rid in uam model and datetime
+
     # self.execute_unaccompanied_minor_uk_consent(record_id)
     # self.execute_unaccompanied_minor_ukraine_consent(record_id)
   end
@@ -105,8 +111,8 @@ class TransferRecord
 
     # download s3 file
     # upload to foundry and grab rid
-    # update rid in uam model and datetime
     # call cloudfoundry to associatte the upload with the application!
+    # update rid in uam model and datetime
   end
 end
 

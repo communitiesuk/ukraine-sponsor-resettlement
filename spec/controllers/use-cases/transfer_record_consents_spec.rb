@@ -29,6 +29,7 @@ RSpec.describe TransferRecord, type: :feature do
       expect(storage_service).to have_received(:download).with(uam.uk_parental_consent_saved_filename)
       expect(file_upload_service).to have_received(:upload).with(downloaded_file_path)
       expect(foundry_service).to have_received(:assign_uploaded_uk_consent_form).with(uam.reference, rid)
+      expect(uam.uk_parental_consent_file_upload_rid).to eq(rid)
     end
   end
 end
