@@ -71,14 +71,19 @@ class TransferRecord
     upload_service ||= FileUploadService.new
     foundry ||= FoundryService.new
 
-    uam = UnaccompaniedMinor.find(record_id)
-    file_path = storage_service.download(uam.uk_parental_consent_saved_filename)
-    rid = upload_service.upload(file_path)
-    foundry.assign_uploaded_uk_consent_form(uam.reference, rid)
+    begin
+      uam = UnaccompaniedMinor.find(record_id)
+      file_path = storage_service.download(uam.uk_parental_consent_saved_filename)
+      rid = upload_service.upload(file_path)
+      foundry.assign_uploaded_uk_consent_form(uam.reference, rid)
 
-    uam.uk_parental_consent_file_upload_rid = rid
-    uam.uk_parental_consent_file_uploaded_timestamp = Time.zone.now.utc
-    uam.save!(validate: false)
+      uam.uk_parental_consent_file_upload_rid = rid
+      uam.uk_parental_consent_file_uploaded_timestamp = Time.zone.now.utc
+      uam.save!(validate: false)
+    rescue StandardError => e
+      Rails.logger.error "Error uploading consent forms. #{e.message}"
+      raise e
+    end
   end
 
   def self.execute_unaccompanied_minor_uk_consent(record_id)
