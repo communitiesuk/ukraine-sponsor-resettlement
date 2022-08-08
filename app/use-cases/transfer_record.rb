@@ -64,10 +64,13 @@ class TransferRecord
     end
   end
 
-  def self.execute_unaccompanied_minor_consent_forms(record_id)
+  def self.execute_unaccompanied_minor_consent_forms(record_id, storage_service, upload_service, foundry)
     Rails.logger.info "Uploading consent forms for record: #{record_id}"
 
-    UnaccompaniedMinor.find(record_id)
+    uam = UnaccompaniedMinor.find(record_id)
+    file_path = storage_service.download(uam.uk_parental_consent_saved_filename)
+    rid = upload_service.upload(file_path)
+    foundry.assign_uploaded_uk_consent_form(uam.reference, rid)
 
     # self.execute_unaccompanied_minor_uk_consent(record_id)
     # self.execute_unaccompanied_minor_ukraine_consent(record_id)
@@ -104,5 +107,17 @@ class TransferRecord
     # upload to foundry and grab rid
     # update rid in uam model and datetime
     # call cloudfoundry to associatte the upload with the application!
+  end
+end
+
+class FileUploadService
+  def upload(_file_path)
+    raise "Not implemented yet"
+  end
+end
+
+class FoundryService
+  def assign_uploaded_uk_consent_form(_uam_reference, _rid)
+    raise "Not implemented yet"
   end
 end

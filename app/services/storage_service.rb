@@ -32,6 +32,10 @@ class StorageService
     })
   end
 
+  def download(_object_key)
+    raise "Not implemented yet"
+  end
+
 private
 
   def create_configuration
