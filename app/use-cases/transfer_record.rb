@@ -99,15 +99,3 @@ class TransferRecord
     # @application.ukraine_parental_consent_file_size
   end
 end
-
-class FileUploadService
-  def upload(_file_path)
-    raise "Not implemented yet"
-  end
-end
-
-class FoundryService
-  def assign_uploaded_uk_consent_form(_uam_reference, _rid)
-    raise "Not implemented yet"
-  end
-end
