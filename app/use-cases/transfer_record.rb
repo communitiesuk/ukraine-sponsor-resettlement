@@ -67,52 +67,31 @@ class TransferRecord
   def self.execute_unaccompanied_minor_consent_forms(record_id, storage_service, upload_service, foundry)
     Rails.logger.info "Uploading consent forms for record: #{record_id}"
 
+    storage_service ||= StorageService.new(PaasConfigurationService.new, ENV["INSTANCE_NAME"])
+    upload_service ||= FileUploadService.new
+    foundry ||= FoundryService.new
+
     uam = UnaccompaniedMinor.find(record_id)
     file_path = storage_service.download(uam.uk_parental_consent_saved_filename)
     rid = upload_service.upload(file_path)
     foundry.assign_uploaded_uk_consent_form(uam.reference, rid)
 
     uam.uk_parental_consent_file_upload_rid = rid
-    # uam.uk_parental_consent_file_uploaded_timestamp = Time.zone.now.utc
-    # uam.save!(validate: false)
-
-    # update rid in uam model and datetime
-
-    # self.execute_unaccompanied_minor_uk_consent(record_id)
-    # self.execute_unaccompanied_minor_ukraine_consent(record_id)
+    uam.uk_parental_consent_file_uploaded_timestamp = Time.zone.now.utc
+    uam.save!(validate: false)
   end
 
   def self.execute_unaccompanied_minor_uk_consent(record_id)
     Rails.logger.info "Uploading uk consent for record: #{record_id}"
-    # TODO
-    # Get uam record to find s3 object id
-
-    # @application.uk_parental_consent_file_type
-    # @application.uk_parental_consent_filename
-    # @application.uk_parental_consent_saved_filename
-    # @application.uk_parental_consent_file_size
-
-    # download s3 file
-    # upload to foundry and grab rid (see ticket)
-    # update rid in uam model and datetime
-    # call cloudfoundry to associatte the upload with the application!
   end
 
   def self.execute_unaccompanied_minor_ukraine_consent(record_id)
     Rails.logger.info "Uploading ukraine consent for record: #{record_id}"
 
-    # TODO
-    # Get uam record to find s3 object id
-
     # @application.ukraine_parental_consent_file_type
     # @application.ukraine_parental_consent_filename
     # @application.ukraine_parental_consent_saved_filename
     # @application.ukraine_parental_consent_file_size
-
-    # download s3 file
-    # upload to foundry and grab rid
-    # call cloudfoundry to associatte the upload with the application!
-    # update rid in uam model and datetime
   end
 end
 
