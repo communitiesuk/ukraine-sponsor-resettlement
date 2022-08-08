@@ -64,6 +64,15 @@ class TransferRecord
     end
   end
 
+  def self.execute_unaccompanied_minor_consent_forms(record_id)
+    Rails.logger.info "Uploading consent forms for record: #{record_id}"
+
+    UnaccompaniedMinor.find(record_id)
+
+    # self.execute_unaccompanied_minor_uk_consent(record_id)
+    # self.execute_unaccompanied_minor_ukraine_consent(record_id)
+  end
+
   def self.execute_unaccompanied_minor_uk_consent(record_id)
     Rails.logger.info "Uploading uk consent for record: #{record_id}"
     # TODO
