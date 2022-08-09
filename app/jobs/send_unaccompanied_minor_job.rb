@@ -5,9 +5,8 @@ class SendUnaccompaniedMinorJob < ApplicationJob
     Rails.logger.info "Sending update for unaccompanied minor #{id}"
     TransferRecord.execute_unaccompanied_minor(id)
 
-    # Uploading files
-    TransferRecord.execute_unaccompanied_minor_consent_forms(id)
-    # TransferRecord.execute_unaccompanied_minor_uk_consent(id)
-    # TransferRecord.execute_unaccompanied_minor_ukraine_consent(id)
+    if ENV["FEATURE_TRANSFER_CONSENT_FORMS"] == "true"
+      TransferRecord.execute_unaccompanied_minor_consent_forms(id)
+    end
   end
 end
