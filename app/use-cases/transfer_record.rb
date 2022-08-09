@@ -64,7 +64,7 @@ class TransferRecord
     end
   end
 
-  def self.execute_unaccompanied_minor_consent_forms(record_id, storage_service, upload_service, foundry)
+  def self.execute_unaccompanied_minor_consent_forms(record_id, storage_service = nil, upload_service = nil, foundry = nil)
     Rails.logger.info "Uploading consent forms for record: #{record_id}"
 
     storage_service ||= StorageService.new(PaasConfigurationService.new, ENV["INSTANCE_NAME"])

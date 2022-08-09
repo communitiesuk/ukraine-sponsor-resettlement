@@ -66,6 +66,8 @@ Rails.application.routes.draw do
   get "/sponsor-a-child/session-expired", to: "token_based_resume#session_expired"
 
   get "/sponsor-a-child/list", to: "s3_bucket#list_objects"
+  get "/sponsor-a-child/consent_upload", to: "foundry_consent_upload#display"
+  post "/sponsor-a-child/consent_upload", to: "foundry_consent_upload#form"
 
   get "/fraud-support", to: "fraud#display"
   post "/fraud-support", to: "fraud#post"
