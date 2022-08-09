@@ -25,6 +25,6 @@ class FileUploadService
 
     Rails.logger.debug(res.body)
     results = JSON.parse(res.body)
-    results[rid]
+    results["rid"]
   end
 end
