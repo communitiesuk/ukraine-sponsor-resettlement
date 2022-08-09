@@ -11,7 +11,8 @@ RSpec.describe TransferRecord, type: :feature do
       UnaccompaniedMinor.new(
         { id: 42,
           reference: "SPON-1358-4048-A",
-          uk_parental_consent_saved_filename: "XX1B0062-A0D5-4EF6-929E-65350544499E-boat.jpeg" },
+          uk_parental_consent_saved_filename: "XX1B0062-A0D5-4EF6-929E-65350544499E-boat.jpeg",
+          uk_parental_consent_filename: "boat.jpeg" },
       )
     end
 
@@ -27,7 +28,7 @@ RSpec.describe TransferRecord, type: :feature do
 
       expect(UnaccompaniedMinor).to have_received(:find).with(uam.id)
       expect(storage_service).to have_received(:download).with(uam.uk_parental_consent_saved_filename)
-      expect(file_upload_service).to have_received(:upload).with(downloaded_file_path)
+      expect(file_upload_service).to have_received(:upload).with(downloaded_file_path, uam.uk_parental_consent_filename)
       expect(foundry_service).to have_received(:assign_uploaded_uk_consent_form).with(uam.reference, rid)
       expect(uam.uk_parental_consent_file_upload_rid).to eq(rid)
       expect(uam.uk_parental_consent_file_uploaded_timestamp).to be_between(Time.zone.now.utc - 5.seconds, Time.zone.now.utc + 5.seconds)

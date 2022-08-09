@@ -74,7 +74,7 @@ class TransferRecord
     begin
       uam = UnaccompaniedMinor.find(record_id)
       file_path = storage_service.download(uam.uk_parental_consent_saved_filename)
-      rid = upload_service.upload(file_path)
+      rid = upload_service.upload(file_path, uam.uk_parental_consent_filename)
       foundry.assign_uploaded_uk_consent_form(uam.reference, rid)
 
       uam.uk_parental_consent_file_upload_rid = rid
