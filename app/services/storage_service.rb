@@ -32,6 +32,22 @@ class StorageService
     })
   end
 
+  def download(object_key)
+    file_target = "/tmp/#{object_key}"
+
+    resp = @client.get_object(
+      response_target: file_target,
+      bucket: @configuration.bucket_name,
+      key: object_key,
+    )
+
+    Rails.logger.debug "****************************************************************"
+    Rails.logger.debug "Download response: #{resp.to_h}"
+    Rails.logger.debug "****************************************************************"
+
+    file_target
+  end
+
 private
 
   def create_configuration
