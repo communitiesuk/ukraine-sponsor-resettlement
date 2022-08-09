@@ -22,7 +22,6 @@ class FileUploadService
       raise "Failed to post file to foundry"
     end
 
-
     Rails.logger.debug(res.body)
     results = JSON.parse(res.body)
     results["rid"]
