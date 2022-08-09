@@ -4,9 +4,9 @@ class FileUploadService
     # https://levellingup.palantirfoundry.co.uk/workspace/documentation/product/api-gateway/upload-attachment
 
     file_data = File.binread(file_path)
-    token = ENV["REMOTE_FILE_UPLOAD_API_TOKEN_UAM"]
+    token = ENV["UAM_FILE_UPLOAD_API_TOKEN"]
 
-    uri = URI(ENV["REMOTE_FILE_UPLOAD_API_URL"])
+    uri = URI(ENV["UAM_FILE_UPLOAD_API_URL"])
     uri.query = "filename=#{file_name}"
 
     res = Net::HTTP.post(uri,
