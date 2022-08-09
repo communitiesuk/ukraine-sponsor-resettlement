@@ -5,28 +5,16 @@
 
     <%= form_for @application, url: "/sponsor-a-child/steps/18", method: :post do |f| %>
 
-    <%= f.govuk_error_summary link_base_errors_to: :sponsor_date_of_birth_day %>
+    <%= f.govuk_error_summary link_base_errors_to: :sponsor_date_of_birth %>
 
-    <h1 class="govuk-heading-l"><%= t('sponsor_date_of_birth.full', scope: "unaccompanied_minor.questions")%></h1>
-
-      <%= f.govuk_fieldset legend: { text: "", hidden: true }, hint: { text: 'For example, 31 3 2010' }, class: "govuk-date-input" do %>
-
-        <div class="govuk-hint" id="unaccompanied-minor-sponsor-date-of-birth-hint">For example, 31 3 2010</div>
-
-        <div class="govuk-date-input">
-          <div class="govuk-date-input__item">
-            <%= f.govuk_text_field :sponsor_date_of_birth_day, label: { text: 'Day' }, type: "number", width: 2 %>
-          </div>
-          <div class="govuk-date-input__item">
-            <%= f.govuk_text_field :sponsor_date_of_birth_month, label: { text: 'Month' }, type: "number", width: 2 %>
-          </div>
-          <div class="govuk-date-input__item">
-            <%= f.govuk_text_field :sponsor_date_of_birth_year, label: { text: 'Year' }, type: "number", width: 4 %>
-          </div>
-        </div>
-
-      <% end %>
-
+      <h1 class="govuk-heading-l"><%= t('sponsor_date_of_birth.full', scope: "unaccompanied_minor.questions")%></h1>
+      
+      <div class="govuk-hint" id="unaccompanied-minor-sponsor-date-of-birth-hint">For example, 31 3 2010</div>
+      
+      <%= f.govuk_date_field :sponsor_date_of_birth,
+            date_of_birth: true,
+            legend: { text: "", hidden: true } %>
+      
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>

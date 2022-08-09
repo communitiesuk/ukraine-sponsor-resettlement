@@ -76,9 +76,11 @@ class UnaccompaniedController < ApplicationController
         adult_nationality = @adult["nationality"]
         adult_id_type_and_number = @adult["id_type_and_number"]
         if adult_dob.present? && adult_dob.length.positive?
-          @application.adult_date_of_birth_day = Date.parse(adult_dob).day
-          @application.adult_date_of_birth_month = Date.parse(adult_dob).month
-          @application.adult_date_of_birth_year = Date.parse(adult_dob).year
+          @application.adult_date_of_birth = {
+            3 => Date.parse(adult_dob).day,
+            2 => Date.parse(adult_dob).month,
+            1 => Date.parse(adult_dob).year,
+          }
         end
         @application.nationality = adult_nationality if adult_nationality.present? && adult_nationality.length.positive?
         if adult_id_type_and_number.present? && adult_id_type_and_number.length.positive?
@@ -208,18 +210,16 @@ class UnaccompaniedController < ApplicationController
     end
 
     if params["stage"].to_i == SPONSOR_DATE_OF_BIRTH
-      # There must be a better way!
       begin
-        sponsor_dob = Date.new(params["unaccompanied_minor"]["sponsor_date_of_birth_year"].to_i, params["unaccompanied_minor"]["sponsor_date_of_birth_month"].to_i, params["unaccompanied_minor"]["sponsor_date_of_birth_day"].to_i)
-
+        sponsor_dob = Date.new(params["unaccompanied_minor"]["sponsor_date_of_birth(1i)"].to_i, params["unaccompanied_minor"]["sponsor_date_of_birth(2i)"].to_i, params["unaccompanied_minor"]["sponsor_date_of_birth(3i)"].to_i)
         if 18.years.ago.to_date < sponsor_dob
-          @application.errors.add(:base, I18n.t(:too_young_date_of_birth, scope: :error))
+          @application.errors.add(:sponsor_date_of_birth, I18n.t(:too_young_date_of_birth, scope: :error))
 
           render "sponsor-a-child/steps/#{SPONSOR_DATE_OF_BIRTH}"
           return
         end
       rescue Date::Error
-        @application.errors.add(:base, I18n.t(:invalid_date_of_birth, scope: :error))
+        @application.errors.add(:sponsor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
 
         render "sponsor-a-child/steps/#{SPONSOR_DATE_OF_BIRTH}"
         return
@@ -237,16 +237,16 @@ class UnaccompaniedController < ApplicationController
     if params["stage"].to_i == MINOR_DATE_OF_BIRTH
       # There must be a better way!
       begin
-        minor_dob = Date.new(params["unaccompanied_minor"]["minor_date_of_birth_year"].to_i, params["unaccompanied_minor"]["minor_date_of_birth_month"].to_i, params["unaccompanied_minor"]["minor_date_of_birth_day"].to_i)
+        minor_dob = Date.new(params["unaccompanied_minor"]["minor_date_of_birth(1i)"].to_i, params["unaccompanied_minor"]["minor_date_of_birth(2i)"].to_i, params["unaccompanied_minor"]["minor_date_of_birth(3i)"].to_i)
 
         if minor_dob < 18.years.ago.to_date
-          @application.errors.add(:base, I18n.t(:too_old_date_of_birth, scope: :error))
+          @application.errors.add(:minor_date_of_birth, I18n.t(:too_old_date_of_birth, scope: :error))
 
           render "sponsor-a-child/steps/#{MINOR_DATE_OF_BIRTH}"
           return
         end
       rescue Date::Error
-        @application.errors.add(:base, I18n.t(:invalid_date_of_birth, scope: :error))
+        @application.errors.add(:minor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
 
         render "sponsor-a-child/steps/#{MINOR_DATE_OF_BIRTH}"
         return
@@ -254,15 +254,14 @@ class UnaccompaniedController < ApplicationController
     end
 
     if params["stage"].to_i == ADULT_DATE_OF_BIRTH
-      # There must be a better way!
       @adult = @application.adults_at_address[params["key"]]
       Rails.logger.debug "@adult: #{@adult}"
       begin
-        adult_dob = Date.new(params["unaccompanied_minor"]["adult_date_of_birth_year"].to_i, params["unaccompanied_minor"]["adult_date_of_birth_month"].to_i, params["unaccompanied_minor"]["adult_date_of_birth_day"].to_i)
+        adult_dob = Date.new(params["unaccompanied_minor"]["adult_date_of_birth(1i)"].to_i, params["unaccompanied_minor"]["adult_date_of_birth(2i)"].to_i, params["unaccompanied_minor"]["adult_date_of_birth(3i)"].to_i)
 
         if adult_dob > 16.years.ago.to_date
           @application.adults_at_address[params["key"]]["date_of_birth"] = ""
-          @application.errors.add(:base, I18n.t(:not_over_16_years_old, scope: :error))
+          @application.errors.add(:adult_date_of_birth, I18n.t(:not_over_16_years_old, scope: :error))
 
           render "sponsor-a-child/steps/#{ADULT_DATE_OF_BIRTH}"
           return
@@ -271,7 +270,7 @@ class UnaccompaniedController < ApplicationController
         end
       rescue Date::Error
         @application.adults_at_address[params["key"]]["date_of_birth"] = ""
-        @application.errors.add(:base, I18n.t(:invalid_date_of_birth, scope: :error))
+        @application.errors.add(:adult_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
 
         render "sponsor-a-child/steps/#{ADULT_DATE_OF_BIRTH}"
         return
@@ -336,9 +335,12 @@ class UnaccompaniedController < ApplicationController
 
     Rails.logger.debug "Check answers JSON: #{@application.as_json}"
 
-    @application.sponsor_date_of_birth_as_string = format_date_of_birth(@application.sponsor_date_of_birth_year, @application.sponsor_date_of_birth_month, @application.sponsor_date_of_birth_day)
-    @application.minor_date_of_birth_as_string = format_date_of_birth(@application.minor_date_of_birth_year, @application.minor_date_of_birth_month, @application.minor_date_of_birth_day)
-
+    unless @application.sponsor_date_of_birth.nil?
+      @application.sponsor_date_of_birth_as_string = format_date_of_birth(@application.sponsor_date_of_birth["1"], @application.sponsor_date_of_birth["2"], @application.sponsor_date_of_birth["3"])
+    end
+    unless @application.minor_date_of_birth.nil?
+      @application.minor_date_of_birth_as_string = format_date_of_birth(@application.minor_date_of_birth["1"], @application.minor_date_of_birth["2"], @application.minor_date_of_birth["3"])
+    end
     render "sponsor-a-child/check_answers"
   end
 
@@ -358,14 +360,8 @@ class UnaccompaniedController < ApplicationController
       if @application.errors.include?(:adult_family_name)
         @application.errors.delete(:adult_family_name)
       end
-      if @application.errors.include?(:adult_date_of_birth_day)
-        @application.errors.delete(:adult_date_of_birth_day)
-      end
-      if @application.errors.include?(:adult_date_of_birth_month)
-        @application.errors.delete(:adult_date_of_birth_month)
-      end
-      if @application.errors.include?(:adult_date_of_birth_year)
-        @application.errors.delete(:adult_date_of_birth_year)
+      if @application.errors.include?(:adult_date_of_birth)
+        @application.errors.delete(:adult_date_of_birth)
       end
 
       isvalid = @application.errors.empty?
@@ -579,9 +575,7 @@ private
           :is_committed,
           :is_permitted,
           :have_parental_consent,
-          :minor_date_of_birth_day,
-          :minor_date_of_birth_month,
-          :minor_date_of_birth_year,
+          :minor_date_of_birth,
           :minor_date_of_birth_as_string,
           :given_name,
           :family_name,
@@ -609,9 +603,7 @@ private
           :sponsor_address_line_2,
           :sponsor_address_town,
           :sponsor_address_postcode,
-          :sponsor_date_of_birth_day,
-          :sponsor_date_of_birth_month,
-          :sponsor_date_of_birth_year,
+          :sponsor_date_of_birth,
           :agree_privacy_statement,
           :certificate_reference,
           :privacy_statement_confirm,
@@ -627,9 +619,7 @@ private
           :other_adults_address,
           :adult_given_name,
           :adult_family_name,
-          :adult_date_of_birth_day,
-          :adult_date_of_birth_month,
-          :adult_date_of_birth_year,
+          :adult_date_of_birth,
           :adult_nationality,
           :adult_identification_type,
           :adult_passport_identification_number,
