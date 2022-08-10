@@ -211,6 +211,7 @@ jobs:
           UAM_FILE_UPLOAD_API_TOKEN: ${{ secrets.UAM_FILE_UPLOAD_API_TOKEN }}
           UAM_FILE_UPLOAD_API_URL: ${{ secrets.UAM_FILE_UPLOAD_API_URL }}
           UAM_FEATURE_TRANSFER_CONSENT_FORMS: ${{ secrets.UAM_FEATURE_TRANSFER_CONSENT_FORMS }}
+          INSTANCE_NAME: ukraine-sponsor-resettlement-staging-sidekiq
         run: |
           cf api $CF_API_ENDPOINT
           cf auth
@@ -234,6 +235,7 @@ jobs:
           cf set-env $APP_NAME UAM_FILE_UPLOAD_API_TOKEN $UAM_FILE_UPLOAD_API_TOKEN
           cf set-env $APP_NAME UAM_FILE_UPLOAD_API_URL $UAM_FILE_UPLOAD_API_URL
           cf set-env $APP_NAME UAM_FEATURE_TRANSFER_CONSENT_FORMS $UAM_FEATURE_TRANSFER_CONSENT_FORMS
+          cf set-env $APP_NAME INSTANCE_NAME $INSTANCE_NAME
           cf set-env $APP_NAME MALLOC_ARENA_MAX 2
           cf push -f worker-manifest.yml $APP_NAME --strategy rolling --no-wait
 
@@ -331,6 +333,7 @@ jobs:
           UAM_FILE_UPLOAD_API_TOKEN: ${{ secrets.UAM_FILE_UPLOAD_API_TOKEN }}
           UAM_FILE_UPLOAD_API_URL: ${{ secrets.UAM_FILE_UPLOAD_API_URL }}
           UAM_FEATURE_TRANSFER_CONSENT_FORMS: ${{ secrets.UAM_FEATURE_TRANSFER_CONSENT_FORMS }}
+          INSTANCE_NAME: ukraine-sponsor-resettlement-production-sidekiq
         run: |
           cf api $CF_API_ENDPOINT
           cf auth
@@ -352,5 +355,6 @@ jobs:
           cf set-env $APP_NAME UAM_FILE_UPLOAD_API_TOKEN $UAM_FILE_UPLOAD_API_TOKEN
           cf set-env $APP_NAME UAM_FILE_UPLOAD_API_URL $UAM_FILE_UPLOAD_API_URL
           cf set-env $APP_NAME UAM_FEATURE_TRANSFER_CONSENT_FORMS $UAM_FEATURE_TRANSFER_CONSENT_FORMS
+          cf set-env $APP_NAME INSTANCE_NAME $INSTANCE_NAME
           cf set-env $APP_NAME MALLOC_ARENA_MAX 2
           cf push -f worker-manifest.yml $APP_NAME --strategy rolling --no-wait
