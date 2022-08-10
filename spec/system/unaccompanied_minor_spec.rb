@@ -418,7 +418,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
       click_link("Upload parental consent (Ukraine)")
-      expect(page).to have_content("Upload the Ukraine notarised consent form")
+      expect(page).to have_content("Upload the Ukraine certified consent form")
 
       test_file_path = File.join(File.dirname(__FILE__), "..", "ukraine-test-document.pdf")
 
@@ -833,7 +833,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
       click_link("Upload parental consent (Ukraine)")
-      expect(page).to have_content("Upload the Ukraine notarised consent form")
+      expect(page).to have_content("Upload the Ukraine certified consent form")
 
       test_file_path = File.join(File.dirname(__FILE__), "..", "ukraine-test-document.pdf")
 
