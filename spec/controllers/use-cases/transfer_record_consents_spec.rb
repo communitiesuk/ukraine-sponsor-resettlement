@@ -6,7 +6,7 @@ RSpec.describe TransferRecord, type: :feature do
     let(:storage_service) { instance_double("StorageService") }
     let(:file_upload_service) { instance_double("FileUploadService") }
     let(:rid) { "ri.attachments.main.attachment-xyz" }
-    let(:ua_rid) { "ri.attachments.main.attachment-ua" }
+    let(:ukraine_rid) { "ri.attachments.main.attachment-ua" }
     let(:downloaded_file_path) { "/tmp/somefile.pdf" }
     let(:ukraine_downloaded_file_path) { "/tmp/uaconsent.jpeg" }
     let(:uam) do
@@ -42,13 +42,13 @@ RSpec.describe TransferRecord, type: :feature do
 
       allow(file_upload_service).to receive(:upload)
       .with(ukraine_downloaded_file_path, uam.ukraine_parental_consent_filename)
-      .and_return(ua_rid)
+      .and_return(ukraine_rid)
 
       allow(foundry_service).to receive(:assign_uploaded_ukraine_consent_form)
-      .with(uam.reference, ua_rid)
+      .with(uam.reference, ukraine_rid)
     end
 
-    it "uploads the uk consent form" do
+    fit "uploads the uk consent form" do
       described_class.execute_unaccompanied_minor_consent_forms(uam.id, storage_service, file_upload_service, foundry_service)
 
       expect(UnaccompaniedMinor).to have_received(:find).with(uam.id)
@@ -63,8 +63,8 @@ RSpec.describe TransferRecord, type: :feature do
       # UA form
       expect(storage_service).to have_received(:download).with(uam.ukraine_parental_consent_saved_filename)
       expect(file_upload_service).to have_received(:upload).with(ukraine_downloaded_file_path, uam.ukraine_parental_consent_filename)
-      expect(foundry_service).to have_received(:assign_uploaded_ukraine_consent_form).with(uam.reference, ua_rid)
-      expect(uam.ukraine_parental_consent_file_upload_rid).to eq(ua_rid)
+      expect(foundry_service).to have_received(:assign_uploaded_ukraine_consent_form).with(uam.reference, ukraine_rid)
+      expect(uam.ukraine_parental_consent_file_upload_rid).to eq(ukraine_rid)
       expect(uam.ukraine_parental_consent_file_uploaded_timestamp).to be_between(Time.zone.now.utc - 5.seconds, Time.zone.now.utc + 5.seconds)
 
       expect(uam).to be_persisted
