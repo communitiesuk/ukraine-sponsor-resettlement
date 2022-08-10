@@ -43,6 +43,9 @@ RSpec.describe TransferRecord, type: :feature do
       allow(file_upload_service).to receive(:upload)
       .with(ukraine_downloaded_file_path, uam.ukraine_parental_consent_filename)
       .and_return(ua_rid)
+
+      allow(foundry_service).to receive(:assign_uploaded_ukraine_consent_form)
+      .with(uam.reference, ua_rid)
     end
 
     it "uploads the uk consent form" do
@@ -60,6 +63,9 @@ RSpec.describe TransferRecord, type: :feature do
       # UA form
       expect(storage_service).to have_received(:download).with(uam.ukraine_parental_consent_saved_filename)
       expect(file_upload_service).to have_received(:upload).with(ukraine_downloaded_file_path, uam.ukraine_parental_consent_filename)
+      expect(foundry_service).to have_received(:assign_uploaded_ukraine_consent_form).with(uam.reference, ua_rid)
+      expect(uam.ukraine_parental_consent_file_upload_rid).to eq(ua_rid)
+      expect(uam.ukraine_parental_consent_file_uploaded_timestamp).to be_between(Time.zone.now.utc - 5.seconds, Time.zone.now.utc + 5.seconds)
 
       expect(uam).to be_persisted
     end
