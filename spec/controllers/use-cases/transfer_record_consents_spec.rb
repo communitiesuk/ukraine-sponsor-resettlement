@@ -48,7 +48,7 @@ RSpec.describe TransferRecord, type: :feature do
       .with(uam.reference, ukraine_rid)
     end
 
-    fit "uploads the uk consent form" do
+    it "uploads the uk consent form" do
       described_class.execute_unaccompanied_minor_consent_forms(uam.id, storage_service, file_upload_service, foundry_service)
 
       expect(UnaccompaniedMinor).to have_received(:find).with(uam.id)

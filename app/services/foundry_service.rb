@@ -2,46 +2,41 @@ require "net/http"
 require "json"
 
 class FoundryService
+  def initialize(api_uri = nil, api_token = nil)
+    @uri = api_uri || URI(ENV["REMOTE_API_URL"])
+    @token = api_token || ENV["REMOTE_API_TOKEN_UAM"]
+  end
+
   def assign_uploaded_uk_consent_form(uam_reference, rid)
-    uri = URI(ENV["REMOTE_API_URL"])
-    token = ENV["REMOTE_API_TOKEN_UAM"]
-
-    params = {
-      type: "unaccompanied_minor_attachment_uk_consent",
-      created_at: Time.zone.now.utc.strftime("%F %T"),
-      form_reference: uam_reference,
-      rid:,
-    }
-
-    res = Net::HTTP.post(uri, params.to_json,
-                         "Content-Type" => "application/json",
-                         "Authorization" => "Bearer #{token}")
-
-    unless res.code.to_i >= 200 && res.code.to_i < 300
-      message = "Failed to post to assign rid: #{rid} to uam: #{uam_reference} to: #{uri} res.code: #{res.code}"
-
-      Rails.logger.error message
-      raise message
-    end
+    payload = self.class.json_params("uk", uam_reference, rid)
+    assign_uploaded_consent_form(payload)
   end
 
   def assign_uploaded_ukraine_consent_form(uam_reference, rid)
-    uri = URI(ENV["REMOTE_API_URL"])
-    token = ENV["REMOTE_API_TOKEN_UAM"]
+    payload = self.class.json_params("ukraine", uam_reference, rid)
+    assign_uploaded_consent_form(payload)
+  end
 
-    params = {
-      type: "unaccompanied_minor_attachment_ukraine_consent",
-      created_at: Time.zone.now.utc.strftime("%F %T"),
-      form_reference: uam_reference,
-      rid:,
-    }
+  def self.json_params(type, uam_reference, rid)
+    JSON.generate(
+      {
+        type: "unaccompanied_minor_attachment_#{type}_consent",
+        created_at: Time.zone.now.utc.strftime("%F %T"),
+        form_reference: uam_reference,
+        rid:,
+      },
+    )
+  end
 
-    res = Net::HTTP.post(uri, params.to_json,
+private
+
+  def assign_uploaded_consent_form(json)
+    res = Net::HTTP.post(@uri, json,
                          "Content-Type" => "application/json",
-                         "Authorization" => "Bearer #{token}")
+                         "Authorization" => "Bearer #{@token}")
 
     unless res.code.to_i >= 200 && res.code.to_i < 300
-      message = "Failed to post to assign rid: #{rid} to uam: #{uam_reference} to: #{uri} res.code: #{res.code}"
+      message = "Failed post to assign consent form. res.code:#{res.code} JSON:#{json}"
 
       Rails.logger.error message
       raise message
