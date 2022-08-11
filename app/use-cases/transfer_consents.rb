@@ -31,11 +31,4 @@ class TransferConsents
     Rails.logger.error "Error uploading consent forms. #{e.message}"
     raise e
   end
-
-  def self.execute_unaccompanied_minor_consent_forms(record_id, storage_service = nil, upload_service = nil, foundry = nil)
-    Rails.logger.info "Uploading consent forms for record: #{record_id}"
-
-    consent_uploader = TransferConsents.new(storage_service, upload_service, foundry)
-    consent_uploader.send(record_id)
-  end
 end

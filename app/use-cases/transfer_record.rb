@@ -71,6 +71,7 @@ class TransferRecord
     upload_service ||= FileUploadService.new
     foundry ||= FoundryService.new
 
-    TransferConsents.execute_unaccompanied_minor_consent_forms(record_id, storage_service, upload_service, foundry)
+    consent_uploader = TransferConsents.new(storage_service, upload_service, foundry)
+    consent_uploader.send(record_id)
   end
 end
