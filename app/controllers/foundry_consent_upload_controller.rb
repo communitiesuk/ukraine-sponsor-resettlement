@@ -13,7 +13,8 @@ class FoundryConsentUploadController < ApplicationController
     uam = UnaccompaniedMinor.find_by_reference(params["consent"]["reference"])
 
     begin
-      TransferRecord.execute_unaccompanied_minor_consent_forms(uam.id)
+      consent_uploader = TransferConsents.new
+      consent_uploader.send(uam.id)
     rescue StandardError => e
       Rails.logger.debug "****************************************************************"
       Rails.logger.debug "Test upload errors: #{e.message}"

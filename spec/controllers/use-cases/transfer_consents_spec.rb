@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe TransferRecord, type: :feature do
+RSpec.describe TransferConsents, type: :feature do
   describe "transferring consent forms" do
     let(:foundry_service) { instance_double("FoundryService") }
     let(:storage_service) { instance_double("StorageService") }
@@ -48,8 +48,9 @@ RSpec.describe TransferRecord, type: :feature do
       .with(uam.reference, ukraine_rid)
     end
 
-    it "uploads the uk consent form" do
-      described_class.execute_unaccompanied_minor_consent_forms(uam.id, storage_service, file_upload_service, foundry_service)
+    it "uploads the uk and ukraine consent forms" do
+      transfer_consents = described_class.new(storage_service, file_upload_service, foundry_service)
+      transfer_consents.send(uam.id)
 
       expect(UnaccompaniedMinor).to have_received(:find).with(uam.id)
 

@@ -6,7 +6,8 @@ class SendUnaccompaniedMinorJob < ApplicationJob
     TransferRecord.execute_unaccompanied_minor(id)
 
     if ENV["UAM_FEATURE_TRANSFER_CONSENT_FORMS"] == "true"
-      TransferRecord.execute_unaccompanied_minor_consent_forms(id)
+      consent_uploader = TransferConsents.new
+      consent_uploader.send(id)
     end
   end
 end
