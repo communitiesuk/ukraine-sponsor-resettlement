@@ -3,8 +3,8 @@ require "json"
 
 class FoundryService
   def initialize(api_uri = nil, api_token = nil)
-    @uri = api_uri || URI(ENV["REMOTE_API_URL"]) # UAM_FOUNDRY_ATTACHMENT_ASSIGN_API_URL
-    @token = api_token || ENV["REMOTE_API_TOKEN_UAM"] # UAM_FILE_UPLOAD_API_TOKEN
+    @uri = api_uri || URI(ENV["UAM_FOUNDRY_ATTACHMENT_ASSIGN_API_URL"])
+    @token = api_token || ENV["UAM_FILE_UPLOAD_API_TOKEN"]
   end
 
   def assign_uploaded_uk_consent_form(uam_reference, rid)
