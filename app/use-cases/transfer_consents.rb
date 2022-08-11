@@ -32,6 +32,15 @@ private
 
   def transfer(s3_filename, actual_filename)
     file_path = @storage.download(s3_filename)
-    @uploader.upload(file_path, actual_filename)
+    rid = @uploader.upload(file_path, actual_filename)
+
+    begin
+      File.delete(file_path) if File.exist?(file_path)
+    rescue StandardError => e
+      # best effort only
+      Rails.logger.error "Error deleting temp file:#{file_path} Message:#{e.message}"
+    end
+
+    rid
   end
 end
