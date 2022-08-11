@@ -63,11 +63,4 @@ class TransferRecord
       end
     end
   end
-
-  def self.execute_unaccompanied_minor_consent_forms(record_id)
-    Rails.logger.info "Uploading consent forms for record: #{record_id}"
-
-    consent_uploader = TransferConsents.new
-    consent_uploader.send(record_id)
-  end
 end
