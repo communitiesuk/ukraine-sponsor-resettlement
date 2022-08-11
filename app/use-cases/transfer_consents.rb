@@ -11,20 +11,14 @@ class TransferConsents
     uam = UnaccompaniedMinor.find(record_id)
 
     begin
-      # UK
-      file_path = @storage.download(uam.uk_parental_consent_saved_filename)
-      rid = @uploader.upload(file_path, uam.uk_parental_consent_filename)
-      @foundry.assign_uploaded_uk_consent_form(uam.reference, rid)
-
-      uam.uk_parental_consent_file_upload_rid = rid
+      uk_rid = transfer(uam.uk_parental_consent_saved_filename, uam.uk_parental_consent_filename)
+      @foundry.assign_uploaded_uk_consent_form(uam.reference, uk_rid)
+      uam.uk_parental_consent_file_upload_rid = uk_rid
       uam.uk_parental_consent_file_uploaded_timestamp = Time.zone.now.utc
 
-      # UA
-      ua_file_path = @storage.download(uam.ukraine_parental_consent_saved_filename)
-      ua_rid = @uploader.upload(ua_file_path, uam.ukraine_parental_consent_filename)
-      @foundry.assign_uploaded_ukraine_consent_form(uam.reference, ua_rid)
-
-      uam.ukraine_parental_consent_file_upload_rid = ua_rid
+      ukraine_rid = transfer(uam.ukraine_parental_consent_saved_filename, uam.ukraine_parental_consent_filename)
+      @foundry.assign_uploaded_ukraine_consent_form(uam.reference, ukraine_rid)
+      uam.ukraine_parental_consent_file_upload_rid = ukraine_rid
       uam.ukraine_parental_consent_file_uploaded_timestamp = Time.zone.now.utc
 
       uam.save!(validate: false)
@@ -32,5 +26,12 @@ class TransferConsents
       Rails.logger.error "Error uploading consent forms. #{e.message}"
       raise e
     end
+  end
+
+private
+
+  def transfer(s3_filename, actual_filename)
+    file_path = @storage.download(s3_filename)
+    @uploader.upload(file_path, actual_filename)
   end
 end
