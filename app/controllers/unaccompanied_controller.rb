@@ -450,44 +450,6 @@ class UnaccompaniedController < ApplicationController
     end
   end
 
-  def save_return_confirm
-    render "sponsor-a-child/save_return_confirm"
-  end
-
-  def save_return
-    # lnk = params[:lnk]
-
-    redirect_to "/sponsor-a-child/save-and-return-expired"
-  end
-
-  def save_return_expired
-    @application = UnaccompaniedMinor.new
-
-    render "sponsor-a-child/save_return_expired"
-  end
-
-  def resend_link
-    email_address = params["unaccompanied_minor"]["email"]
-
-    if email_address.present?
-      @application = UnaccompaniedMinor.find_by_email(email_address)
-
-      if @application.nil?
-        # No application found
-        @application = UnaccompaniedMinor.new
-        @application.errors.add(:email, I18n.t(:no_application_found, scope: :error))
-
-        render "sponsor-a-child/save_return_expired"
-      end
-
-    else
-      @application = UnaccompaniedMinor.new
-      @application.errors.add(:email, I18n.t(:invalid_email, scope: :error))
-
-      render "sponsor-a-child/save_return_expired"
-    end
-  end
-
   def remove_adult
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
     @application.adults_at_address = @application.adults_at_address.except!(params["key"]) if @application.adults_at_address.key?(params["key"])

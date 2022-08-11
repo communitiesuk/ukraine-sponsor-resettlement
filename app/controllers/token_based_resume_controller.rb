@@ -15,6 +15,50 @@ class TokenBasedResumeController < ApplicationController
     render "token-based-resume/session_resume_form"
   end
 
+  def save_return_confirm
+    render "token-based-resume/save_return_confirm"
+  end
+
+  def save_return
+    @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
+    if @application.given_name.present? && @application.family_name.present? && @application.email.present? && @application.phone_number.present?
+      # if we have all the user's info, an email with the resume link is sent and the user is presented with a confirmation page
+      send_email
+      redirect_to "/sponsor-a-child/save-and-return-confirm"
+    else
+      # not all info are provided, users redirected to fill them in
+      redirect_to "/sponsor-a-child/steps/10"
+    end
+  end
+
+  def save_return_expired
+    @application = UnaccompaniedMinor.new
+
+    render "token-based-resume/save_return_expired"
+  end
+
+  def resend_link
+    email_address = params["unaccompanied_minor"]["email"]
+
+    if email_address.present?
+      @application = UnaccompaniedMinor.find_by_email(email_address)
+
+      if @application.nil?
+        # No application found
+        @application = UnaccompaniedMinor.new
+        @application.errors.add(:email, I18n.t(:no_application_found, scope: :error))
+
+        render "token-based-resume/save_return_expired"
+      end
+
+    else
+      @application = UnaccompaniedMinor.new
+      @application.errors.add(:email, I18n.t(:invalid_email, scope: :error))
+
+      render "sponsor-a-child/save_return_expired"
+    end
+  end
+
   def submit
     @abstractresumetoken = AbstractResumeToken.new(magic_link: params[:uuid])
     @abstractresumetoken.assign_attributes(confirm_params)
@@ -78,6 +122,7 @@ private
     personal_uuid = SecureRandom.uuid
     return_link = generate_magic_link(personal_uuid)
     generate_application_token(@application, personal_uuid)
+
     GovNotifyMailer.send_save_and_return_email(@application.given_name, return_link, @application.email).deliver_later
   end
 
