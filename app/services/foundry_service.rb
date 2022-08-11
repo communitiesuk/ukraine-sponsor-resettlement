@@ -13,7 +13,7 @@ class FoundryService
   end
 
   def assign_uploaded_ukraine_consent_form(uam_reference, rid)
-    payload = self.class.json_params("ukraine", uam_reference, rid)
+    payload = self.class.json_payload("ukraine", uam_reference, rid)
     assign_uploaded_consent_form(payload)
   end
 
