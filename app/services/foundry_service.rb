@@ -8,7 +8,7 @@ class FoundryService
   end
 
   def assign_uploaded_uk_consent_form(uam_reference, rid)
-    payload = self.class.json_params("uk", uam_reference, rid)
+    payload = self.class.json_payload("uk", uam_reference, rid)
     assign_uploaded_consent_form(payload)
   end
 
@@ -17,7 +17,7 @@ class FoundryService
     assign_uploaded_consent_form(payload)
   end
 
-  def self.json_params(type, uam_reference, rid)
+  def self.json_payload(type, uam_reference, rid)
     JSON.generate(
       {
         parameters:
