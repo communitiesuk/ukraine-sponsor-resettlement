@@ -44,10 +44,6 @@ Rails.application.routes.draw do
 
   post "/sponsor-a-child/save_or_cancel", to: "unaccompanied#save_or_cancel_application"
   post "/sponsor-a-child/cancel-application", to: "unaccompanied#cancel_confirm"
-  get "/sponsor-a-child/save-and-return-confirm", to: "unaccompanied#save_return_confirm"
-  get "/sponsor-a-child/save-and-return/:lnk", to: "unaccompanied#save_return"
-  get "/sponsor-a-child/save-and-return-expired", to: "unaccompanied#save_return_expired"
-  post "/sponsor-a-child/resend-link", to: "unaccompanied#resend_link"
 
   get "/sponsor-a-child/check-answers", to: "unaccompanied#check_answers"
   get "/sponsor-a-child/check_answers", to: "unaccompanied#check_answers"
@@ -64,6 +60,10 @@ Rails.application.routes.draw do
   get "/sponsor-a-child/resume-application", to: "token_based_resume#display"
   post "/sponsor-a-child/resume-application", to: "token_based_resume#submit"
   get "/sponsor-a-child/session-expired", to: "token_based_resume#session_expired"
+  get "/sponsor-a-child/save-and-return", to: "token_based_resume#save_return"
+  get "/sponsor-a-child/save-and-return-confirm", to: "token_based_resume#save_return_confirm"
+  get "/sponsor-a-child/save-and-return-expired", to: "token_based_resume#save_return_expired"
+  post "/sponsor-a-child/resend-link", to: "token_based_resume#resend_link"
 
   get "/sponsor-a-child/list", to: "s3_bucket#list_objects"
   get "/sponsor-a-child/consent_upload", to: "foundry_consent_upload#display"
