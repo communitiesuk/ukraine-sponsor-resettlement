@@ -21,13 +21,16 @@ class TokenBasedResumeController < ApplicationController
 
   def save_return
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
-    if @application.given_name.present? && @application.family_name.present? && @application.email.present? && @application.phone_number.present?
+    if @application.given_name.blank? || @application.family_name.blank?
+      # name not provided, redirect to name filling form page
+      redirect_to "/sponsor-a-child/steps/10"
+    elsif @application.email.blank? || @application.phone_number.blank?
+      # phone or email not provided, redirect to phone filling form page
+      redirect_to "/sponsor-a-child/steps/14"
+    else
       # if we have all the user's info, an email with the resume link is sent and the user is presented with a confirmation page
       send_email
       redirect_to "/sponsor-a-child/save-and-return-confirm"
-    else
-      # not all info are provided, users redirected to fill them in
-      redirect_to "/sponsor-a-child/steps/10"
     end
   end
 

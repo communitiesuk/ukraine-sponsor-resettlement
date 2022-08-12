@@ -52,14 +52,25 @@ RSpec.describe TokenBasedResumeController, type: :system do
       expect(page).to have_content("We've sent the link to the email address you have provided.")
     end
 
-    it "redirects the user if contact info are missing" do
+    it "redirects the user to first/last name form if contact info are missing" do
+      uam.given_name = nil
+      uam.save!
+      page.set_rack_session(app_reference: uam.reference)
+
+      visit "/sponsor-a-child/save-and-return"
+
+      expect(page).to have_content(I18n.t("fullname.full", scope: "unaccompanied_minor.questions"))
+    end
+
+    it "redirects the user to additional details form if contact info are missing" do
+      uam.given_name = given_name
       uam.phone_number = nil
       uam.save!
       page.set_rack_session(app_reference: uam.reference)
 
       visit "/sponsor-a-child/save-and-return"
 
-      expect(page).to have_content("What is your name?")
+      expect(page).to have_content(I18n.t("email.full", scope: "unaccompanied_minor.questions"))
     end
 
     it "loads correct application given code" do
