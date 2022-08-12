@@ -7,6 +7,7 @@ class UnaccompaniedController < ApplicationController
 
   MAX_STEPS = 44
   NOT_ELIGIBLE = [-1, 0].freeze
+  SPONSOR_OTHER_NAMES_CHOICE = 11
   MINOR_OTHER_NAMES = 12
   SPONSOR_ID_TYPE = 16
   SPONSOR_DATE_OF_BIRTH = 18
@@ -152,13 +153,23 @@ class UnaccompaniedController < ApplicationController
   end
 
   def handle_step
+    current_step = params["stage"].to_i
+    current_step.freeze
+
     # Pull session data out of session and
     # instantiate new or existing Application ActiveRecord object
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
-    @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
+    @application.started_at = Time.zone.now.utc if current_step == 1
+
+    if current_step == SPONSOR_OTHER_NAMES_CHOICE && (params["unaccompanied_minor"].blank? || params["unaccompanied_minor"]["has_other_names"].blank?)
+      @application.errors.add(:has_other_names, I18n.t(:no_sponsor_other_name_choice_made, scope: :error))
+
+      render_current_step
+      return
+    end
 
     # capture other names
-    if params["stage"].to_i == MINOR_OTHER_NAMES
+    if current_step == MINOR_OTHER_NAMES
       # adds other attributes
       (@application.other_names ||= []) << [params["unaccompanied_minor"]["other_given_name"], params["unaccompanied_minor"]["other_family_name"]]
       # resets the current state
@@ -167,7 +178,7 @@ class UnaccompaniedController < ApplicationController
     end
 
     # capture identification document number
-    if params["stage"].to_i == SPONSOR_ID_TYPE
+    if current_step == SPONSOR_ID_TYPE
       # Really don't like this! Validation logic should be in UAM_Validation class
       @application.identification_type = params["unaccompanied_minor"]["identification_type"]
 
@@ -178,7 +189,7 @@ class UnaccompaniedController < ApplicationController
         if @application.identification_number.strip.length.zero?
           @application.errors.add(:passport_identification_number, I18n.t(:invalid_id_number, scope: :error))
 
-          render "sponsor-a-child/steps/#{SPONSOR_ID_TYPE}"
+          render_current_step
           return
         end
       when "national_identity_card"
@@ -187,7 +198,7 @@ class UnaccompaniedController < ApplicationController
         if @application.identification_number.strip.length.zero?
           @application.errors.add(:id_identification_number, I18n.t(:invalid_id_number, scope: :error))
 
-          render "sponsor-a-child/steps/#{SPONSOR_ID_TYPE}"
+          render_current_step
           return
         end
       when "refugee_travel_document"
@@ -196,7 +207,7 @@ class UnaccompaniedController < ApplicationController
         if @application.identification_number.strip.length.zero?
           @application.errors.add(:refugee_identification_number, I18n.t(:invalid_id_number, scope: :error))
 
-          render "sponsor-a-child/steps/#{SPONSOR_ID_TYPE}"
+          render_current_step
           return
         end
       when "none"
@@ -204,37 +215,37 @@ class UnaccompaniedController < ApplicationController
       else
         @application.errors.add(:identification_type, I18n.t(:invalid_id_type, scope: :error))
 
-        render "sponsor-a-child/steps/#{SPONSOR_ID_TYPE}"
+        render_current_step
         return
       end
     end
 
-    if params["stage"].to_i == SPONSOR_DATE_OF_BIRTH
+    if current_step == SPONSOR_DATE_OF_BIRTH
       begin
         sponsor_dob = Date.new(params["unaccompanied_minor"]["sponsor_date_of_birth(1i)"].to_i, params["unaccompanied_minor"]["sponsor_date_of_birth(2i)"].to_i, params["unaccompanied_minor"]["sponsor_date_of_birth(3i)"].to_i)
         if 18.years.ago.to_date < sponsor_dob
           @application.errors.add(:sponsor_date_of_birth, I18n.t(:too_young_date_of_birth, scope: :error))
 
-          render "sponsor-a-child/steps/#{SPONSOR_DATE_OF_BIRTH}"
+          render_current_step
           return
         end
       rescue Date::Error
         @application.errors.add(:sponsor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
 
-        render "sponsor-a-child/steps/#{SPONSOR_DATE_OF_BIRTH}"
+        render_current_step
         return
       end
     end
 
     # capture other nationalities
-    if params["stage"].to_i == MINOR_OTHER_NATIONALITY
+    if current_step == MINOR_OTHER_NATIONALITY
       # adds other attributes
       (@application.other_nationalities ||= []) << [params["unaccompanied_minor"]["other_nationality"]]
       # resets the current state
       params["unaccompanied_minor"]["other_nationality"] = ""
     end
 
-    if params["stage"].to_i == MINOR_DATE_OF_BIRTH
+    if current_step == MINOR_DATE_OF_BIRTH
       # There must be a better way!
       begin
         minor_dob = Date.new(params["unaccompanied_minor"]["minor_date_of_birth(1i)"].to_i, params["unaccompanied_minor"]["minor_date_of_birth(2i)"].to_i, params["unaccompanied_minor"]["minor_date_of_birth(3i)"].to_i)
@@ -242,18 +253,18 @@ class UnaccompaniedController < ApplicationController
         if minor_dob < 18.years.ago.to_date
           @application.errors.add(:minor_date_of_birth, I18n.t(:too_old_date_of_birth, scope: :error))
 
-          render "sponsor-a-child/steps/#{MINOR_DATE_OF_BIRTH}"
+          render_current_step
           return
         end
       rescue Date::Error
         @application.errors.add(:minor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
 
-        render "sponsor-a-child/steps/#{MINOR_DATE_OF_BIRTH}"
+        render_current_step
         return
       end
     end
 
-    if params["stage"].to_i == ADULT_DATE_OF_BIRTH
+    if current_step == ADULT_DATE_OF_BIRTH
       @adult = @application.adults_at_address[params["key"]]
       Rails.logger.debug "@adult: #{@adult}"
       begin
@@ -263,7 +274,7 @@ class UnaccompaniedController < ApplicationController
           @application.adults_at_address[params["key"]]["date_of_birth"] = ""
           @application.errors.add(:adult_date_of_birth, I18n.t(:not_over_16_years_old, scope: :error))
 
-          render "sponsor-a-child/steps/#{ADULT_DATE_OF_BIRTH}"
+          render_current_step
           return
         else
           @application.adults_at_address[params["key"]]["date_of_birth"] = adult_dob
@@ -272,25 +283,25 @@ class UnaccompaniedController < ApplicationController
         @application.adults_at_address[params["key"]]["date_of_birth"] = ""
         @application.errors.add(:adult_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
 
-        render "sponsor-a-child/steps/#{ADULT_DATE_OF_BIRTH}"
+        render_current_step
         return
       end
     end
 
     # capture the other adults at address
     # only store them if given and family name are not empty ("")
-    if params["stage"].to_i == ADULTS_AT_ADDRESS && !(params["unaccompanied_minor"]["adult_given_name"].empty? && params["unaccompanied_minor"]["adult_family_name"].empty?)
+    if current_step == ADULTS_AT_ADDRESS && !(params["unaccompanied_minor"]["adult_given_name"].empty? && params["unaccompanied_minor"]["adult_family_name"].empty?)
       @application.adults_at_address = {} if @application.adults_at_address.nil?
       @application.adults_at_address.store(SecureRandom.uuid.upcase.to_s, Adult.new(params["unaccompanied_minor"]["adult_given_name"], params["unaccompanied_minor"]["adult_family_name"]))
     end
 
     # capture the over 16 year old at address nationality
-    if params["stage"].to_i == ADULT_NATIONALITY
+    if current_step == ADULT_NATIONALITY
       @application.adults_at_address[params["key"]]["nationality"] = params["unaccompanied_minor"]["adult_nationality"]
     end
 
     # capture the over 16 year old at address id type and number
-    if params["stage"].to_i == ADULT_ID_TYPE_AND_NUMBER
+    if current_step == ADULT_ID_TYPE_AND_NUMBER
       @application.adults_at_address[params["key"]]["id_type_and_number"] = case params["unaccompanied_minor"]["adult_identification_type"]
                                                                             when "passport"
                                                                               "#{params['unaccompanied_minor']['adult_identification_type']} - #{params['unaccompanied_minor']['adult_passport_identification_number']}"
@@ -311,7 +322,7 @@ class UnaccompaniedController < ApplicationController
       @application.update!(@application.as_json)
 
       # Replace with routing engine to get next stage
-      next_stage = RoutingEngine.get_next_unaccompanied_minor_step(@application, params["stage"].to_i)
+      next_stage = RoutingEngine.get_next_unaccompanied_minor_step(@application, current_step)
 
       if NOT_ELIGIBLE.include?(next_stage)
         redirect_to "/sponsor-a-child/non-eligible"
@@ -502,6 +513,13 @@ class UnaccompaniedController < ApplicationController
   end
 
 private
+
+  def render_current_step
+    current_step = params["stage"].to_i
+    current_step.freeze
+
+    render "sponsor-a-child/steps/#{current_step}"
+  end
 
   def check_last_activity
     last_seen = Time.zone.parse(session[:last_seen])
