@@ -87,6 +87,19 @@ RSpec.describe TokenBasedResumeController, type: :system do
       expect(page).to have_content("We've sent the link to the email address you have provided.")
     end
 
+    it "shows an error if the email is invalid" do
+      uam.email = email
+      uam.save!
+      page.set_rack_session(app_reference: uam.reference)
+
+      visit "/sponsor-a-child/save-and-return/resend-link"
+
+      fill_in("What is your email address?", with: "")
+      click_button("Send Link")
+
+      expect(page).to have_content(I18n.t(:invalid_email, scope: :error))
+    end
+
     it "loads correct application given code" do
       params = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
 
