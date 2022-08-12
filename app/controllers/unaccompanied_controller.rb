@@ -157,6 +157,15 @@ class UnaccompaniedController < ApplicationController
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
     @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
 
+    if params["stage"].to_i == 11
+      Rails.logger.debug params
+      if params["unaccompanied_minor"].blank? || params["unaccompanied_minor"]["has_other_names"].blank?
+        @application.errors.add(:has_other_names, I18n.t(:no_sponsor_other_name_choice_made, scope: :error))
+        render "sponsor-a-child/steps/11"
+        return
+      end
+    end
+
     # capture other names
     if params["stage"].to_i == MINOR_OTHER_NAMES
       # adds other attributes
