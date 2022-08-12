@@ -29,12 +29,12 @@ RSpec.describe FoundryService do
     end
 
     it "posts to foundry to link the uk consent form" do
-      x = described_class.new(api_url, api_token)
-      x.assign_uploaded_uk_consent_form(application_reference, upload_rid)
+      consent_transfer = described_class.new(api_url, api_token)
+      consent_transfer.assign_uploaded_uk_consent_form(application_reference, upload_rid)
 
       expect(Net::HTTP).to have_received(:post).with(
         api_url,
-        satisfy { |json| json.include? application_reference and json.include? upload_rid },
+        satisfy { |json| json_payload_contains_ref_and_rid(json) },
         {
           "Authorization" => "Bearer #{api_token}",
           "Content-Type" => "application/json",
@@ -43,17 +43,21 @@ RSpec.describe FoundryService do
     end
 
     it "posts to foundry to link the ukraine consent form" do
-      x = described_class.new(api_url, api_token)
-      x.assign_uploaded_ukraine_consent_form(application_reference, upload_rid)
+      consent_transfer = described_class.new(api_url, api_token)
+      consent_transfer.assign_uploaded_ukraine_consent_form(application_reference, upload_rid)
 
       expect(Net::HTTP).to have_received(:post).with(
         api_url,
-        satisfy { |json| json.include? application_reference and json.include? upload_rid },
+        satisfy { |json| json_payload_contains_ref_and_rid(json) },
         {
           "Authorization" => "Bearer #{api_token}",
           "Content-Type" => "application/json",
         },
       )
+    end
+
+    def json_payload_contains_ref_and_rid(json)
+      json.include? application_reference and json.include? upload_rid
     end
   end
 end
