@@ -108,5 +108,12 @@ RSpec.describe "Unaccompanied minor sponsor other names", type: :system do
       click_link(href: expected_first_remove_url)
       expect(page).to have_content(task_list_content)
     end
+
+    it "returns error message when no radio is clicked" do
+      enter_sponsor_name_and_continue
+      click_button("Continue")
+
+      expect(page).to have_content("You must select an option")
+    end
   end
 end

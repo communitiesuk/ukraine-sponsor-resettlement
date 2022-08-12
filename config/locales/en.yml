@@ -447,6 +447,7 @@ en:
     invalid_eligibility: You must confirm you are eligible
     privacy_statement: You must read and agree to the privacy statement
     choose_option: You must select an option to continue
+    no_sponsor_other_name_choice_made: You must select an option
     invalid_number: Please enter a non-negative whole number
     invalid_room_count: You must enter a number from 0 to 999
     invalid_postcode: Please enter a valid UK postcode(s)
