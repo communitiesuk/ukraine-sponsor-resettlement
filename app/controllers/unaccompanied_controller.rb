@@ -163,7 +163,8 @@ class UnaccompaniedController < ApplicationController
 
     if current_step == SPONSOR_OTHER_NAMES_CHOICE && (params["unaccompanied_minor"].blank? || params["unaccompanied_minor"]["has_other_names"].blank?)
       @application.errors.add(:has_other_names, I18n.t(:no_sponsor_other_name_choice_made, scope: :error))
-      render "sponsor-a-child/steps/#{SPONSOR_OTHER_NAMES_CHOICE}"
+
+      render_current_step
       return
     end
 
@@ -188,7 +189,7 @@ class UnaccompaniedController < ApplicationController
         if @application.identification_number.strip.length.zero?
           @application.errors.add(:passport_identification_number, I18n.t(:invalid_id_number, scope: :error))
 
-          render "sponsor-a-child/steps/#{SPONSOR_ID_TYPE}"
+          render_current_step
           return
         end
       when "national_identity_card"
@@ -197,7 +198,7 @@ class UnaccompaniedController < ApplicationController
         if @application.identification_number.strip.length.zero?
           @application.errors.add(:id_identification_number, I18n.t(:invalid_id_number, scope: :error))
 
-          render "sponsor-a-child/steps/#{SPONSOR_ID_TYPE}"
+          render_current_step
           return
         end
       when "refugee_travel_document"
@@ -206,7 +207,7 @@ class UnaccompaniedController < ApplicationController
         if @application.identification_number.strip.length.zero?
           @application.errors.add(:refugee_identification_number, I18n.t(:invalid_id_number, scope: :error))
 
-          render "sponsor-a-child/steps/#{SPONSOR_ID_TYPE}"
+          render_current_step
           return
         end
       when "none"
@@ -214,7 +215,7 @@ class UnaccompaniedController < ApplicationController
       else
         @application.errors.add(:identification_type, I18n.t(:invalid_id_type, scope: :error))
 
-        render "sponsor-a-child/steps/#{SPONSOR_ID_TYPE}"
+        render_current_step
         return
       end
     end
@@ -225,13 +226,13 @@ class UnaccompaniedController < ApplicationController
         if 18.years.ago.to_date < sponsor_dob
           @application.errors.add(:sponsor_date_of_birth, I18n.t(:too_young_date_of_birth, scope: :error))
 
-          render "sponsor-a-child/steps/#{SPONSOR_DATE_OF_BIRTH}"
+          render_current_step
           return
         end
       rescue Date::Error
         @application.errors.add(:sponsor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
 
-        render "sponsor-a-child/steps/#{SPONSOR_DATE_OF_BIRTH}"
+        render_current_step
         return
       end
     end
@@ -252,13 +253,13 @@ class UnaccompaniedController < ApplicationController
         if minor_dob < 18.years.ago.to_date
           @application.errors.add(:minor_date_of_birth, I18n.t(:too_old_date_of_birth, scope: :error))
 
-          render "sponsor-a-child/steps/#{MINOR_DATE_OF_BIRTH}"
+          render_current_step
           return
         end
       rescue Date::Error
         @application.errors.add(:minor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
 
-        render "sponsor-a-child/steps/#{MINOR_DATE_OF_BIRTH}"
+        render_current_step
         return
       end
     end
@@ -273,7 +274,7 @@ class UnaccompaniedController < ApplicationController
           @application.adults_at_address[params["key"]]["date_of_birth"] = ""
           @application.errors.add(:adult_date_of_birth, I18n.t(:not_over_16_years_old, scope: :error))
 
-          render "sponsor-a-child/steps/#{ADULT_DATE_OF_BIRTH}"
+          render_current_step
           return
         else
           @application.adults_at_address[params["key"]]["date_of_birth"] = adult_dob
@@ -282,7 +283,7 @@ class UnaccompaniedController < ApplicationController
         @application.adults_at_address[params["key"]]["date_of_birth"] = ""
         @application.errors.add(:adult_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
 
-        render "sponsor-a-child/steps/#{ADULT_DATE_OF_BIRTH}"
+        render_current_step
         return
       end
     end
@@ -550,6 +551,13 @@ class UnaccompaniedController < ApplicationController
   end
 
 private
+
+  def render_current_step
+    current_step = params["stage"].to_i
+    current_step.freeze
+
+    render "sponsor-a-child/steps/#{current_step}"
+  end
 
   def check_last_activity
     last_seen = Time.zone.parse(session[:last_seen])
