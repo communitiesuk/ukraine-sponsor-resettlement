@@ -52,12 +52,22 @@ RSpec.describe TokenBasedResumeController, type: :system do
       expect(page).to have_content("We've sent the link to the email address you have provided.")
     end
 
+    it "redirects the user if contact info are missing" do
+      uam.phone_number = nil
+      uam.save!
+      page.set_rack_session(app_reference: uam.reference)
+
+      visit "/sponsor-a-child/save-and-return"
+
+      expect(page).to have_content("What is your name?")
+    end
+
     it "loads correct application given code" do
       params = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
 
-      post "/sponsor-a-child/resume-application", params:
+      page.driver.post "/sponsor-a-child/resume-application", params
 
-      # expect(request.body).to have_content(task_list_content)
+      expect(page).to have_content(task_list_content)
     end
   end
 end
