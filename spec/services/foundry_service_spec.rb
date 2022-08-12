@@ -14,7 +14,7 @@ RSpec.describe FoundryService do
       allow(Net::HTTP).to receive(:post).and_return(response)
     end
 
-    it "generates the correct json parameters" do
+    it "generates the correct json payload" do
       expected_json = {
         parameters: {
           type: "unaccompanied_minor_attachment_uk_consent",
@@ -34,7 +34,7 @@ RSpec.describe FoundryService do
 
       expect(Net::HTTP).to have_received(:post).with(
         api_url,
-        anything,
+        satisfy { |json| json.include? application_reference and json.include? upload_rid },
         {
           "Authorization" => "Bearer #{api_token}",
           "Content-Type" => "application/json",
@@ -48,7 +48,7 @@ RSpec.describe FoundryService do
 
       expect(Net::HTTP).to have_received(:post).with(
         api_url,
-        anything,
+        satisfy { |json| json.include? application_reference and json.include? upload_rid },
         {
           "Authorization" => "Bearer #{api_token}",
           "Content-Type" => "application/json",
