@@ -7,6 +7,7 @@ class UnaccompaniedController < ApplicationController
 
   MAX_STEPS = 44
   NOT_ELIGIBLE = [-1, 0].freeze
+  SPONSOR_OTHER_NAMES_CHOICE = 11
   MINOR_OTHER_NAMES = 12
   SPONSOR_ID_TYPE = 16
   SPONSOR_DATE_OF_BIRTH = 18
@@ -157,13 +158,10 @@ class UnaccompaniedController < ApplicationController
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
     @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
 
-    if params["stage"].to_i == 11
-      Rails.logger.debug params
-      if params["unaccompanied_minor"].blank? || params["unaccompanied_minor"]["has_other_names"].blank?
-        @application.errors.add(:has_other_names, I18n.t(:no_sponsor_other_name_choice_made, scope: :error))
-        render "sponsor-a-child/steps/11"
-        return
-      end
+    if params["stage"].to_i == SPONSOR_OTHER_NAMES_CHOICE && (params["unaccompanied_minor"].blank? || params["unaccompanied_minor"]["has_other_names"].blank?)
+      @application.errors.add(:has_other_names, I18n.t(:no_sponsor_other_name_choice_made, scope: :error))
+      render "sponsor-a-child/steps/#{SPONSOR_OTHER_NAMES_CHOICE}"
+      return
     end
 
     # capture other names
