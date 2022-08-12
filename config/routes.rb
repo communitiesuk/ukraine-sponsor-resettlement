@@ -60,9 +60,9 @@ Rails.application.routes.draw do
   get "/sponsor-a-child/resume-application", to: "token_based_resume#display"
   post "/sponsor-a-child/resume-application", to: "token_based_resume#submit"
   get "/sponsor-a-child/session-expired", to: "token_based_resume#session_expired"
+  get "/sponsor-a-child/save-and-return/confirm", to: "token_based_resume#save_return_confirm"
+  get "/sponsor-a-child/save-and-return/resend-link", to: "token_based_resume#save_return_resend_link_form"
   get "/sponsor-a-child/save-and-return", to: "token_based_resume#save_return"
-  get "/sponsor-a-child/save-and-return-confirm", to: "token_based_resume#save_return_confirm"
-  get "/sponsor-a-child/save-and-return-expired", to: "token_based_resume#save_return_expired"
   post "/sponsor-a-child/resend-link", to: "token_based_resume#resend_link"
 
   get "/sponsor-a-child/list", to: "s3_bucket#list_objects"

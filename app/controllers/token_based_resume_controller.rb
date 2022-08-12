@@ -30,14 +30,14 @@ class TokenBasedResumeController < ApplicationController
     else
       # if we have all the user's info, an email with the resume link is sent and the user is presented with a confirmation page
       send_email
-      redirect_to "/sponsor-a-child/save-and-return-confirm"
+      redirect_to "/sponsor-a-child/save-and-return/confirm"
     end
   end
 
-  def save_return_expired
+  def save_return_resend_link_form
     @application = UnaccompaniedMinor.new
 
-    render "token-based-resume/save_return_expired"
+    render "token-based-resume/save_return_resend_link"
   end
 
   def resend_link
@@ -51,14 +51,18 @@ class TokenBasedResumeController < ApplicationController
         @application = UnaccompaniedMinor.new
         @application.errors.add(:email, I18n.t(:no_application_found, scope: :error))
 
-        render "token-based-resume/save_return_expired"
+        render "token-based-resume/save_return_resend_link"
+      else
+        # Happy path
+        session[:app_reference] = @application.reference
+        send_email
+        redirect_to "/sponsor-a-child/save-and-return/confirm"
       end
-
     else
       @application = UnaccompaniedMinor.new
       @application.errors.add(:email, I18n.t(:invalid_email, scope: :error))
 
-      render "sponsor-a-child/save_return_expired"
+      render "token-based-resume/save_return_resend_link"
     end
   end
 

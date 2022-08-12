@@ -427,7 +427,7 @@ class UnaccompaniedController < ApplicationController
       # save and return later
       GovNotifyMailer.send_save_and_return_email(@application.given_name, "link", @application.email).deliver_later
 
-      redirect_to "/sponsor-a-child/save-and-return-confirm"
+      redirect_to "/sponsor-a-child/save-and-return/confirm"
     end
   end
 

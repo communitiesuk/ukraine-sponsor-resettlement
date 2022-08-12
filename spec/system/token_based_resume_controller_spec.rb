@@ -42,6 +42,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
     before do
       allow(Notifications::Client).to receive(:new).and_return(texter)
       allow(texter).to receive(:send_sms)
+      allow(UnaccompaniedMinor).to receive(:find_by_email).and_return(uam)
       allow(ApplicationToken).to receive(:find_by).and_return(ApplicationToken.new({ token: sms_code, unaccompanied_minor: uam, magic_link: magic_id, expires_at: expiry_time }))
     end
 
@@ -71,6 +72,19 @@ RSpec.describe TokenBasedResumeController, type: :system do
       visit "/sponsor-a-child/save-and-return"
 
       expect(page).to have_content(I18n.t("email.full", scope: "unaccompanied_minor.questions"))
+    end
+
+    it "allows the user to resume an application if the correct email is provided" do
+      uam.email = email
+      uam.save!
+      page.set_rack_session(app_reference: uam.reference)
+
+      visit "/sponsor-a-child/save-and-return/resend-link"
+
+      fill_in("What is your email address?", with: email)
+      click_button("Send Link")
+
+      expect(page).to have_content("We've sent the link to the email address you have provided.")
     end
 
     it "loads correct application given code" do
