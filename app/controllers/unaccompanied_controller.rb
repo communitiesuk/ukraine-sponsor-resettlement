@@ -171,14 +171,19 @@ class UnaccompaniedController < ApplicationController
 
     # capture other names
     if current_step == SPONSOR_OTHER_NAMES
-      if params["unaccompanied_minor"]["other_given_name"].blank?
-        @application.errors.add(:other_given_name, I18n.t(:invalid_given_name, scope: :error))
-        render_current_step
-        return
-      end
+      if params["unaccompanied_minor"]["other_given_name"].blank? || params["unaccompanied_minor"]["other_family_name"].blank?
+        if params["unaccompanied_minor"]["other_given_name"].blank?
+          @application.errors.add(:other_given_name, I18n.t(:invalid_given_name, scope: :error))
+        else
+          @previously_entered_other_given_name = params["unaccompanied_minor"]["other_given_name"]
+        end
 
-      if params["unaccompanied_minor"]["other_family_name"].blank?
-        @application.errors.add(:other_family_name, I18n.t(:invalid_family_name, scope: :error))
+        if params["unaccompanied_minor"]["other_family_name"].blank?
+          @application.errors.add(:other_family_name, I18n.t(:invalid_family_name, scope: :error))
+        else
+          @previously_entered_other_family_name = params["unaccompanied_minor"]["other_family_name"]
+        end
+
         render_current_step
         return
       end

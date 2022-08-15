@@ -87,6 +87,20 @@ RSpec.describe "Unaccompanied minor sponsor other names", type: :system do
       expect(page).to have_content("B")
     end
 
+    it "on validation error it maintains valid name entries across requests" do
+      enter_sponsor_name_and_continue
+      choose("Yes")
+      click_button("Continue")
+
+      enter_name_and_continue(first_other_given_name, "")
+      expect(page).to have_content("You must enter a valid family name")
+      expect(page).to have_field("Given name(s)", with: first_other_given_name)
+
+      enter_name_and_continue("", first_other_family_name)
+      expect(page).to have_content("You must enter a valid given name")
+      expect(page).to have_field("Family name", with: first_other_family_name)
+    end
+
     it "when other names are entered" do
       enter_sponsor_name_and_continue
       choose("Yes")
