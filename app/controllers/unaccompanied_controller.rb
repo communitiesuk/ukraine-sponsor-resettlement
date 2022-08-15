@@ -171,17 +171,20 @@ class UnaccompaniedController < ApplicationController
 
     # capture other names
     if current_step == SPONSOR_OTHER_NAMES
-      if params["unaccompanied_minor"]["other_given_name"].blank? || params["unaccompanied_minor"]["other_family_name"].blank?
-        if params["unaccompanied_minor"]["other_given_name"].blank?
+      param_other_given_name = params["unaccompanied_minor"]["other_given_name"]
+      param_other_family_name = params["unaccompanied_minor"]["other_family_name"]
+
+      if param_other_given_name.blank? || param_other_family_name.blank?
+        if param_other_given_name.blank?
           @application.errors.add(:other_given_name, I18n.t(:invalid_given_name, scope: :error))
         else
-          @previously_entered_other_given_name = params["unaccompanied_minor"]["other_given_name"]
+          @previously_entered_other_given_name = param_other_given_name
         end
 
-        if params["unaccompanied_minor"]["other_family_name"].blank?
+        if param_other_family_name.blank?
           @application.errors.add(:other_family_name, I18n.t(:invalid_family_name, scope: :error))
         else
-          @previously_entered_other_family_name = params["unaccompanied_minor"]["other_family_name"]
+          @previously_entered_other_family_name = param_other_family_name
         end
 
         render_current_step
@@ -189,7 +192,7 @@ class UnaccompaniedController < ApplicationController
       end
 
       # adds other attributes
-      (@application.other_names ||= []) << [params["unaccompanied_minor"]["other_given_name"], params["unaccompanied_minor"]["other_family_name"]]
+      (@application.other_names ||= []) << [param_other_given_name.strip, param_other_family_name.strip]
       # resets the current state
       params["unaccompanied_minor"]["other_given_name"] = ""
       params["unaccompanied_minor"]["other_family_name"] = ""
