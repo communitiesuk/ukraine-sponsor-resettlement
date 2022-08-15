@@ -20,7 +20,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
 
   describe "User intentionally resumes their application" do
     phone_number = "07983111111".freeze
-    email = "test@email.com".freeze
+    email = "test@example.com".freeze
     given_name = "First".freeze
     family_name = "Given".freeze
 
