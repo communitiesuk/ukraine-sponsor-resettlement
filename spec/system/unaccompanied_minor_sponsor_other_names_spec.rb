@@ -101,6 +101,16 @@ RSpec.describe "Unaccompanied minor sponsor other names", type: :system do
       expect(page).to have_field("Family name", with: first_other_family_name)
     end
 
+    it "shows both errors for family and given name together" do
+      enter_sponsor_name_and_continue
+      choose("Yes")
+      click_button("Continue")
+
+      enter_name_and_continue("", "")
+      expect(page).to have_content("You must enter a valid family name")
+      expect(page).to have_content("You must enter a valid given name")
+    end
+
     it "when other names are entered" do
       enter_sponsor_name_and_continue
       choose("Yes")
