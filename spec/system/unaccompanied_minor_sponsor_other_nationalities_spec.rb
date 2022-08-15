@@ -20,6 +20,13 @@ RSpec.describe "Unaccompanied minor sponsor other nationalities", type: :system 
       page.set_rack_session(app_reference: application.reference)
     end
 
+    it "when asked for extra nationalities - shows an error when yes or no is not selected" do
+      task_list_to_other_nationalities_question
+      click_button("Continue")
+
+      expect(page).to have_content("You must select an option")
+    end
+
     it "when no other nationalities are added go to task list" do
       task_list_to_other_nationalities_question
 
