@@ -43,6 +43,16 @@ RSpec.describe "Unaccompanied minor sponsor other names", type: :system do
       expect(page).to have_content(task_list_content)
     end
 
+    it "when sponsor other given names is empty" do
+      enter_sponsor_name_and_continue
+      choose("Yes")
+      click_button("Continue")
+
+      enter_name_and_continue("", first_other_family_name)
+
+      expect(page).to have_content("You must enter a valid given name")
+    end
+
     it "when other names are entered" do
       enter_sponsor_name_and_continue
       choose("Yes")

@@ -8,7 +8,7 @@ class UnaccompaniedController < ApplicationController
   MAX_STEPS = 44
   NOT_ELIGIBLE = [-1, 0].freeze
   SPONSOR_OTHER_NAMES_CHOICE = 11
-  MINOR_OTHER_NAMES = 12
+  SPONSOR_OTHER_NAMES = 12
   SPONSOR_ID_TYPE = 16
   SPONSOR_DATE_OF_BIRTH = 18
   MINOR_NATIONALITY = 19
@@ -170,7 +170,13 @@ class UnaccompaniedController < ApplicationController
     end
 
     # capture other names
-    if current_step == MINOR_OTHER_NAMES
+    if current_step == SPONSOR_OTHER_NAMES
+      if params["unaccompanied_minor"]["other_given_name"].blank?
+        @application.errors.add(:other_names, I18n.t(:invalid_given_name, scope: :error))
+        render_current_step
+        return
+      end
+
       # adds other attributes
       (@application.other_names ||= []) << [params["unaccompanied_minor"]["other_given_name"], params["unaccompanied_minor"]["other_family_name"]]
       # resets the current state
