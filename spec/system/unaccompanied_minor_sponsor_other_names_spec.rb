@@ -77,6 +77,16 @@ RSpec.describe "Unaccompanied minor sponsor other names", type: :system do
       expect(page).to have_content("You must enter a valid family name")
     end
 
+    it "permits sponsor other given family of single character" do
+      enter_sponsor_name_and_continue
+      choose("Yes")
+      click_button("Continue")
+
+      enter_name_and_continue(first_other_given_name, "B")
+      expect(page).to have_content("You have added 1 other names")
+      expect(page).to have_content("B")
+    end
+
     it "when other names are entered" do
       enter_sponsor_name_and_continue
       choose("Yes")
