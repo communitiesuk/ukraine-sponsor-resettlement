@@ -12,6 +12,7 @@ class UnaccompaniedController < ApplicationController
   SPONSOR_ID_TYPE = 16
   SPONSOR_DATE_OF_BIRTH = 18
   MINOR_NATIONALITY = 19
+  SPONSOR_OTHER_NATIONALITIES_CHOICE = 20
   MINOR_OTHER_NATIONALITY = 21
   ADULTS_AT_ADDRESS = 27
   ADULT_DATE_OF_BIRTH = 29
@@ -235,6 +236,13 @@ class UnaccompaniedController < ApplicationController
         render_current_step
         return
       end
+    end
+
+    if current_step == SPONSOR_OTHER_NATIONALITIES_CHOICE && (params["unaccompanied_minor"].blank? || params["unaccompanied_minor"]["has_other_nationalities"].blank?)
+      @application.errors.add(:has_other_nationalities, I18n.t(:no_sponsor_other_nationalities_choice_made, scope: :error))
+
+      render_current_step
+      return
     end
 
     # capture other nationalities
