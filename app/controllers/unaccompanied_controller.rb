@@ -466,7 +466,7 @@ class UnaccompaniedController < ApplicationController
       # save and return later
       GovNotifyMailer.send_save_and_return_email(@application.given_name, "link", @application.email).deliver_later
 
-      redirect_to "/sponsor-a-child/save-and-return-confirm"
+      redirect_to "/sponsor-a-child/save-and-return/confirm"
     end
   end
 
@@ -486,44 +486,6 @@ class UnaccompaniedController < ApplicationController
     else
       # Redirect to show the task-list
       redirect_to TASK_LIST_URI
-    end
-  end
-
-  def save_return_confirm
-    render "sponsor-a-child/save_return_confirm"
-  end
-
-  def save_return
-    # lnk = params[:lnk]
-
-    redirect_to "/sponsor-a-child/save-and-return-expired"
-  end
-
-  def save_return_expired
-    @application = UnaccompaniedMinor.new
-
-    render "sponsor-a-child/save_return_expired"
-  end
-
-  def resend_link
-    email_address = params["unaccompanied_minor"]["email"]
-
-    if email_address.present?
-      @application = UnaccompaniedMinor.find_by_email(email_address)
-
-      if @application.nil?
-        # No application found
-        @application = UnaccompaniedMinor.new
-        @application.errors.add(:email, I18n.t(:no_application_found, scope: :error))
-
-        render "sponsor-a-child/save_return_expired"
-      end
-
-    else
-      @application = UnaccompaniedMinor.new
-      @application.errors.add(:email, I18n.t(:invalid_email, scope: :error))
-
-      render "sponsor-a-child/save_return_expired"
     end
   end
 

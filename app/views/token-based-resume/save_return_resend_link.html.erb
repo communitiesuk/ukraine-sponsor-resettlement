@@ -1,7 +1,11 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
 
-    <h1 class="govuk-heading-l">This link has expired</h1>
+    <% if flash[:error] == "expired" %>
+      <h1 class="govuk-heading-l">This link has expired</h1>
+    <% else %>
+      <h1 class="govuk-heading-l">Request a secure link to your application</h1>
+    <% end %>
 
     <p class="govuk-body">
         Confirm your email address and we will send you a new one so you can continue your application.

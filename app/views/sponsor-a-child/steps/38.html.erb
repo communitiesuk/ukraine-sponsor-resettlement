@@ -16,6 +16,7 @@
         <%= f.govuk_check_box :privacy_statement_confirm, "true", "false", multiple: false, link_errors: true, label: { text: t('agree_privacy_statement.hint_html', scope: "unaccompanied_minor.questions") } %><% end %>
 
         <%= f.govuk_submit t('continue') %>
+      <a class="govuk-link govuk-!-font-size-19" href="/sponsor-a-child/save-and-return">Save and return later</a>
     <% end %>
   </div>
 </div>
