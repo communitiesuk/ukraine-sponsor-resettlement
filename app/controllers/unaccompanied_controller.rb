@@ -177,6 +177,12 @@ class UnaccompaniedController < ApplicationController
         return
       end
 
+      if params["unaccompanied_minor"]["other_family_name"].blank?
+        @application.errors.add(:other_names, I18n.t(:invalid_family_name, scope: :error))
+        render_current_step
+        return
+      end
+
       # adds other attributes
       (@application.other_names ||= []) << [params["unaccompanied_minor"]["other_given_name"], params["unaccompanied_minor"]["other_family_name"]]
       # resets the current state
