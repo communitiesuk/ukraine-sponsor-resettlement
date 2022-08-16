@@ -11,15 +11,15 @@ class UnaccompaniedController < ApplicationController
   SPONSOR_OTHER_NAMES = 12
   SPONSOR_ID_TYPE = 16
   SPONSOR_DATE_OF_BIRTH = 18
-  MINOR_NATIONALITY = 19
+  SPONSOR_NATIONALITY = 19
   SPONSOR_OTHER_NATIONALITIES_CHOICE = 20
-  MINOR_OTHER_NATIONALITY = 21
+  SPONSOR_OTHER_NATIONALITY = 21
   ADULTS_AT_ADDRESS = 27
   ADULT_DATE_OF_BIRTH = 29
   ADULT_NATIONALITY = 30
   ADULT_ID_TYPE_AND_NUMBER = 31
   MINOR_DATE_OF_BIRTH = 34
-  NATIONALITY_STEPS = [MINOR_NATIONALITY, MINOR_OTHER_NATIONALITY, ADULT_NATIONALITY].freeze
+  NATIONALITY_STEPS = [SPONSOR_NATIONALITY, SPONSOR_OTHER_NATIONALITY, ADULT_NATIONALITY].freeze
   ADULT_STEPS = [ADULT_DATE_OF_BIRTH, ADULT_NATIONALITY, ADULT_ID_TYPE_AND_NUMBER].freeze
   TASK_LIST_STEP = 999
   TASK_LIST_URI = "/sponsor-a-child/task-list".freeze
@@ -258,7 +258,7 @@ class UnaccompaniedController < ApplicationController
       end
     end
 
-    if current_step == MINOR_NATIONALITY && params["unaccompanied_minor"]["nationality"].present? && params["unaccompanied_minor"]["nationality"] == "---"
+    if current_step == SPONSOR_NATIONALITY && params["unaccompanied_minor"]["nationality"].present? && params["unaccompanied_minor"]["nationality"] == "---"
       @application.errors.add(:nationality, I18n.t(:invalid_nationality, scope: :error))
       @nationalities = get_nationalities_as_list
       render_current_step
@@ -273,7 +273,7 @@ class UnaccompaniedController < ApplicationController
     end
 
     # capture other nationalities
-    if current_step == MINOR_OTHER_NATIONALITY
+    if current_step == SPONSOR_OTHER_NATIONALITY
       if params["unaccompanied_minor"]["other_nationality"].present? && params["unaccompanied_minor"]["other_nationality"] == "---"
         @application.errors.add(:other_nationality, I18n.t(:invalid_nationality, scope: :error))
         @nationalities = get_nationalities_as_list
