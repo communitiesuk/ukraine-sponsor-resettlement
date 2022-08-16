@@ -21,8 +21,9 @@ RSpec.describe TokenBasedResumeController, type: :system do
   describe "User intentionally resumes their application" do
     phone_number = "07983111111".freeze
     email = "test@example.com".freeze
-    given_name = "First".freeze
-    family_name = "Given".freeze
+    email_scrambled = "t***@example.com".freeze
+    given_name = "Given".freeze
+    family_name = "Family".freeze
 
     sms_code = 123_456
     magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc".freeze
@@ -46,11 +47,13 @@ RSpec.describe TokenBasedResumeController, type: :system do
       allow(ApplicationToken).to receive(:find_by).and_return(ApplicationToken.new({ token: sms_code, unaccompanied_minor: uam, magic_link: magic_id, expires_at: expiry_time }))
     end
 
-    it "shows the confirm page if all info are entered" do
+    it "shows the confirm page if required data is present" do
+      uam.email = email
+      uam.save!
       page.set_rack_session(app_reference: uam.reference)
       visit "/sponsor-a-child/save-and-return"
 
-      expect(page).to have_content("We've sent the link to the email address you have provided.")
+      expect(page).to have_content("We've sent the link to #{email_scrambled}")
     end
 
     it "redirects the user to first/last name form if contact info are missing" do
@@ -84,7 +87,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
       fill_in("What is your email address?", with: email)
       click_button("Send Link")
 
-      expect(page).to have_content("We've sent the link to the email address you have provided.")
+      expect(page).to have_content("We've sent the link to #{email_scrambled}")
     end
 
     it "shows an error if the email is invalid" do

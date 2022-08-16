@@ -28,7 +28,7 @@ class TokenBasedResumeController < ApplicationController
       # phone or email not provided, redirect to phone filling form page
       redirect_to "/sponsor-a-child/steps/14"
     else
-      # if we have all the user's info, an email with the resume link is sent and the user is presented with a confirmation page
+      session[:sent_to_email] = scramble_email(@application.email)
       send_email
       redirect_to "/sponsor-a-child/save-and-return/confirm"
     end
@@ -55,6 +55,7 @@ class TokenBasedResumeController < ApplicationController
       else
         # Happy path
         session[:app_reference] = @application.reference
+        session[:sent_to_email] = scramble_email(email_address)
         send_email
         redirect_to "/sponsor-a-child/save-and-return/confirm"
       end
@@ -142,5 +143,11 @@ private
     sms_token = @application_reference.token
     number = @application_reference.unaccompanied_minor.phone_number
     @texter.send_sms(phone_number: number, template_id: "b51a151e-f352-473a-b52e-185d2873cbf5", personalisation: { OTP: sms_token })
+  end
+
+  def scramble_email(email)
+    email_parts = email.split("@")
+    email_scrambled = (email_parts[0][0]).to_s + "*" * (email_parts[0].length - 1)
+    "#{email_scrambled}@#{email_parts[1]}"
   end
 end
