@@ -146,7 +146,6 @@ private
   end
 
   def scramble_email(email)
-    # turns email@example.com into e****@example.com
     email_parts = email.split("@")
     email_scrambled = (email_parts[0][0]).to_s + "*" * (email_parts[0].length - 1)
     "#{email_scrambled}@#{email_parts[1]}"
