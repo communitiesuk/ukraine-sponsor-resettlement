@@ -485,7 +485,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Enter the address where you will be living in the UK")
 
       fill_in("Address line 1", with: "Sponsor address line 1")
-      fill_in("Address line 1", with: "Sponsor address line 2")
+      fill_in("Address line 2 (optional)", with: "Sponsor address line 2")
       fill_in("Town", with: "Sponsor address town")
       fill_in("Postcode", with: "XX1 1XX")
 
