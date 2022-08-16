@@ -22,7 +22,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
     phone_number = "07983111111".freeze
     email = "test@example.com".freeze
     email_scrambled = "t***@example.com".freeze
-    given_name = "First".freeze
+    given_name = "Given".freeze
     family_name = "Given".freeze
 
     sms_code = 123_456
