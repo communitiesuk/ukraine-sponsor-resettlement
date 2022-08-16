@@ -32,7 +32,9 @@ RSpec.describe UnaccompaniedController, type: :controller do
     uam.residential_town = "Address town"
     uam.residential_postcode = "BS2 0AX"
     uam.other_adults_address = "no"
-    uam.different_address = "no"
+    # DANGER: uam.different_address actually means the user answered "yes" when asked
+    # "Will you (the sponsor) be living at this address?"
+    uam.different_address = "yes"
 
     uam.identification_type = "passport"
     uam.identification_number = "ABC123"
