@@ -259,7 +259,7 @@ class UnaccompaniedController < ApplicationController
     end
 
     if current_step == SPONSOR_NATIONALITY && params["unaccompanied_minor"]["nationality"].present? && \
-        get_nationalities_as_list.include?(params["unaccompanied_minor"]["nationality"]) && params["unaccompanied_minor"]["nationality"] == "---"
+        (!get_nationalities_as_list.include?(params["unaccompanied_minor"]["nationality"]) || params["unaccompanied_minor"]["nationality"] == "---")
       @application.errors.add(:nationality, I18n.t(:invalid_nationality, scope: :error))
       @nationalities = get_nationalities_as_list
       render_current_step
@@ -276,7 +276,7 @@ class UnaccompaniedController < ApplicationController
     # capture other nationalities
     if current_step == SPONSOR_OTHER_NATIONALITY
       if params["unaccompanied_minor"]["other_nationality"].present? && \
-          get_nationalities_as_list.include?(params["unaccompanied_minor"]["other_nationality"]) && params["unaccompanied_minor"]["other_nationality"] == "---"
+          (!get_nationalities_as_list.include?(params["unaccompanied_minor"]["other_nationality"]) || params["unaccompanied_minor"]["other_nationality"] == "---")
         @application.errors.add(:other_nationality, I18n.t(:invalid_nationality, scope: :error))
         @nationalities = get_nationalities_as_list
         render_current_step
@@ -341,7 +341,7 @@ class UnaccompaniedController < ApplicationController
     # capture the over 16 year old at address nationality
     if current_step == ADULT_NATIONALITY
       if params["unaccompanied_minor"]["adult_nationality"].present? && \
-          get_nationalities_as_list.include?(params["unaccompanied_minor"]["adult_nationality"]) && params["unaccompanied_minor"]["adult_nationality"] == "---"
+          (!get_nationalities_as_list.include?(params["unaccompanied_minor"]["adult_nationality"]) || params["unaccompanied_minor"]["adult_nationality"] == "---")
         @application.errors.add(:adult_nationality, I18n.t(:invalid_nationality, scope: :error))
         @nationalities = get_nationalities_as_list
         render_current_step
