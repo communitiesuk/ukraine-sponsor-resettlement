@@ -258,6 +258,13 @@ class UnaccompaniedController < ApplicationController
       end
     end
 
+    if current_step == MINOR_NATIONALITY && params["unaccompanied_minor"]["nationality"].present? && params["unaccompanied_minor"]["nationality"] == "---"
+      @application.errors.add(:nationality, I18n.t(:invalid_nationality, scope: :error))
+      @nationalities = get_nationalities_as_list
+      render_current_step
+      return
+    end
+
     if current_step == SPONSOR_OTHER_NATIONALITIES_CHOICE && (params["unaccompanied_minor"].blank? || params["unaccompanied_minor"]["has_other_nationalities"].blank?)
       @application.errors.add(:has_other_nationalities, I18n.t(:no_sponsor_other_nationalities_choice_made, scope: :error))
 
@@ -267,6 +274,12 @@ class UnaccompaniedController < ApplicationController
 
     # capture other nationalities
     if current_step == MINOR_OTHER_NATIONALITY
+      if params["unaccompanied_minor"]["other_nationality"].present? && params["unaccompanied_minor"]["other_nationality"] == "---"
+        @application.errors.add(:other_nationality, I18n.t(:invalid_nationality, scope: :error))
+        @nationalities = get_nationalities_as_list
+        render_current_step
+        return
+      end
       # adds other attributes
       (@application.other_nationalities ||= []) << [params["unaccompanied_minor"]["other_nationality"]]
       # resets the current state
@@ -325,6 +338,12 @@ class UnaccompaniedController < ApplicationController
 
     # capture the over 16 year old at address nationality
     if current_step == ADULT_NATIONALITY
+      if params["unaccompanied_minor"]["adult_nationality"].present? && params["unaccompanied_minor"]["adult_nationality"] == "---"
+        @application.errors.add(:adult_nationality, I18n.t(:invalid_nationality, scope: :error))
+        @nationalities = get_nationalities_as_list
+        render_current_step
+        return
+      end
       @application.adults_at_address[params["key"]]["nationality"] = params["unaccompanied_minor"]["adult_nationality"]
     end
 
