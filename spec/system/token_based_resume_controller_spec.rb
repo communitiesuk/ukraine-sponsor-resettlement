@@ -47,7 +47,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
       allow(ApplicationToken).to receive(:find_by).and_return(ApplicationToken.new({ token: sms_code, unaccompanied_minor: uam, magic_link: magic_id, expires_at: expiry_time }))
     end
 
-    it "shows the confirm page if all info are entered" do
+    it "shows the confirm page if required data is present" do
       uam.email = email
       uam.save!
       page.set_rack_session(app_reference: uam.reference)
