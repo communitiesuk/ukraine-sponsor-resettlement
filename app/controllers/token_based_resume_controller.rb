@@ -28,7 +28,6 @@ class TokenBasedResumeController < ApplicationController
       # phone or email not provided, redirect to phone filling form page
       redirect_to "/sponsor-a-child/steps/14"
     else
-      # if we have all the user's info, an email with the resume link is sent and the user is presented with a confirmation page
       session[:sent_to_email] = scramble_email(@application.email)
       send_email
       redirect_to "/sponsor-a-child/save-and-return/confirm"
