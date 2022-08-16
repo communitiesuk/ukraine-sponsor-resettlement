@@ -53,8 +53,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
       page.set_rack_session(app_reference: uam.reference)
       visit "/sponsor-a-child/save-and-return"
 
-      expect(page).to have_content("We've sent the link to")
-      expect(page).to have_content(email_scrambled)
+      expect(page).to have_content("We've sent the link to #{email_scrambled}")
     end
 
     it "redirects the user to first/last name form if contact info are missing" do
@@ -88,8 +87,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
       fill_in("What is your email address?", with: email)
       click_button("Send Link")
 
-      expect(page).to have_content("We've sent the link to")
-      expect(page).to have_content(email_scrambled)
+      expect(page).to have_content("We've sent the link to #{email_scrambled}")
     end
 
     it "shows an error if the email is invalid" do
