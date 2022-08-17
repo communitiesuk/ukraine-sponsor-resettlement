@@ -88,17 +88,20 @@ RSpec.describe ContactDetailsValidations, type: :model do
       expect(app.valid?).to be(true)
     end
 
-    it "address line 2 does not exceed 128 characters if supplied" do
+    it "address line 2 is valid" do
+      [nil, "", " ", "House name"].each do |value|
+        app = AdditionalInfo.new
+        app.property_one_line_2 = value
+
+        expect(app.valid?).to be(true)
+      end
+    end
+
+    it "address line 2 is invalid over 128 characters" do
       app = AdditionalInfo.new
       app.property_one_line_2 = "X" * 129
       expect(app.valid?).to be(false)
       expect(app.errors[:property_one_line_2]).to include("You must enter less than 128 characters")
-      app.property_one_line_2 = ""
-      expect(app.valid?).to be(true)
-      app.property_one_line_2 = " "
-      expect(app.valid?).to be(true)
-      app.property_one_line_2 = "House name"
-      expect(app.valid?).to be(true)
     end
 
     it "address town or city is valid" do
