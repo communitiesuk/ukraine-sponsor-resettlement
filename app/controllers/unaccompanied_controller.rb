@@ -11,15 +11,15 @@ class UnaccompaniedController < ApplicationController
   SPONSOR_OTHER_NAMES = 12
   SPONSOR_ID_TYPE = 16
   SPONSOR_DATE_OF_BIRTH = 18
-  MINOR_NATIONALITY = 19
+  SPONSOR_NATIONALITY = 19
   SPONSOR_OTHER_NATIONALITIES_CHOICE = 20
-  MINOR_OTHER_NATIONALITY = 21
+  SPONSOR_OTHER_NATIONALITY = 21
   ADULTS_AT_ADDRESS = 27
   ADULT_DATE_OF_BIRTH = 29
   ADULT_NATIONALITY = 30
   ADULT_ID_TYPE_AND_NUMBER = 31
   MINOR_DATE_OF_BIRTH = 34
-  NATIONALITY_STEPS = [MINOR_NATIONALITY, MINOR_OTHER_NATIONALITY, ADULT_NATIONALITY].freeze
+  NATIONALITY_STEPS = [SPONSOR_NATIONALITY, SPONSOR_OTHER_NATIONALITY, ADULT_NATIONALITY].freeze
   ADULT_STEPS = [ADULT_DATE_OF_BIRTH, ADULT_NATIONALITY, ADULT_ID_TYPE_AND_NUMBER].freeze
   TASK_LIST_STEP = 999
   TASK_LIST_URI = "/sponsor-a-child/task-list".freeze
@@ -258,6 +258,13 @@ class UnaccompaniedController < ApplicationController
       end
     end
 
+    if current_step == SPONSOR_NATIONALITY && params["unaccompanied_minor"]["nationality"].present? && !check_nationality_validity(params["unaccompanied_minor"]["nationality"])
+      @application.errors.add(:nationality, I18n.t(:invalid_nationality, scope: :error))
+      @nationalities = get_nationalities_as_list
+      render_current_step
+      return
+    end
+
     if current_step == SPONSOR_OTHER_NATIONALITIES_CHOICE && (params["unaccompanied_minor"].blank? || params["unaccompanied_minor"]["has_other_nationalities"].blank?)
       @application.errors.add(:has_other_nationalities, I18n.t(:no_sponsor_other_nationalities_choice_made, scope: :error))
 
@@ -266,11 +273,18 @@ class UnaccompaniedController < ApplicationController
     end
 
     # capture other nationalities
-    if current_step == MINOR_OTHER_NATIONALITY
-      # adds other attributes
-      (@application.other_nationalities ||= []) << [params["unaccompanied_minor"]["other_nationality"]]
-      # resets the current state
-      params["unaccompanied_minor"]["other_nationality"] = ""
+    if current_step == SPONSOR_OTHER_NATIONALITY && params["unaccompanied_minor"]["other_nationality"].present?
+      if !check_nationality_validity(params["unaccompanied_minor"]["other_nationality"])
+        @application.errors.add(:other_nationality, I18n.t(:invalid_nationality, scope: :error))
+        @nationalities = get_nationalities_as_list
+        render_current_step
+        return
+      else
+        # adds other attributes
+        (@application.other_nationalities ||= []) << [params["unaccompanied_minor"]["other_nationality"]]
+        # resets the current state
+        params["unaccompanied_minor"]["other_nationality"] = ""
+      end
     end
 
     if current_step == MINOR_DATE_OF_BIRTH
@@ -324,8 +338,16 @@ class UnaccompaniedController < ApplicationController
     end
 
     # capture the over 16 year old at address nationality
-    if current_step == ADULT_NATIONALITY
-      @application.adults_at_address[params["key"]]["nationality"] = params["unaccompanied_minor"]["adult_nationality"]
+    if current_step == ADULT_NATIONALITY && params["unaccompanied_minor"]["adult_nationality"].present?
+      if !check_nationality_validity(params["unaccompanied_minor"]["adult_nationality"])
+        @application.errors.add(:adult_nationality, I18n.t(:invalid_nationality, scope: :error))
+        @nationalities = get_nationalities_as_list
+        @adult = @application.adults_at_address[params["key"]]
+        render_current_step
+        return
+      else
+        @application.adults_at_address[params["key"]]["nationality"] = params["unaccompanied_minor"]["adult_nationality"]
+      end
     end
 
     # capture the over 16 year old at address id type and number
@@ -569,6 +591,16 @@ private
   def save_file(filename, file)
     @service = StorageService.new(PaasConfigurationService.new, ENV["INSTANCE_NAME"])
     @service.write_file(filename, file)
+  end
+
+  def check_nationality_validity(nationality)
+    nationality_name = nationality.split(" - ")[1]
+    nationality_struct = OpenStruct.new(val: nationality, name: nationality_name)
+    if !get_nationalities_as_list.include?(nationality_struct) || nationality == "---"
+      false
+    else
+      true
+    end
   end
 
   def application_params
