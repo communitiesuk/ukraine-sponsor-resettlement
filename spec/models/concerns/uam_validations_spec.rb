@@ -26,6 +26,18 @@ RSpec.describe UamValidations, type: :model do
       end
     end
 
+    it "raises an error message when postcode is nil or empty" do
+      empty_lines = [nil, "", " "]
+
+      empty_lines.each do |line|
+        uam = new_uam
+        uam.sponsor_address_postcode = line
+
+        expect(uam.valid?).to be(false)
+        expect(uam.errors[:sponsor_address_postcode]).to include("You must enter a valid UK postcode")
+      end
+    end
+
     def new_uam
       uam = UnaccompaniedMinor.new
       # DANGER: uam.different_address actually means the user answered "yes" or "no" when asked
