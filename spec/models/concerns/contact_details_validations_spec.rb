@@ -70,19 +70,22 @@ RSpec.describe ContactDetailsValidations, type: :model do
     end
   end
 
-  describe "host property address validations" do
+  describe "host property validations" do
+    
+   it "address line 1 is not valid" do
+      ["", " ", "X" * 129].each do |value|
+        app = AdditionalInfo.new
+        app.property_one_line_1 = value
+
+        expect(app.valid?).to be(false)
+        expect(app.errors[:property_one_line_1]).to include("You must enter an address")
+      end
+    end
+
     it "address line 1 is valid" do
       app = AdditionalInfo.new
-      app.property_one_line_1 = ""
-      expect(app.valid?).to be(false)
-      expect(app.errors[:property_one_line_1]).to include("You must enter an address")
-      app.property_one_line_1 = " "
-      expect(app.valid?).to be(false)
-      expect(app.errors[:property_one_line_1]).to include("You must enter an address")
-      app.property_one_line_1 = "X" * 129
-      expect(app.valid?).to be(false)
-      expect(app.errors[:property_one_line_1]).to include("You must enter an address")
       app.property_one_line_1 = "House number & Street name"
+
       expect(app.valid?).to be(true)
     end
 
