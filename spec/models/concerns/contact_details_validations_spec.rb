@@ -121,21 +121,20 @@ RSpec.describe ContactDetailsValidations, type: :model do
       expect(app.valid?).to be(true)
     end
 
+    it "contact phone is invalid" do
+      ["", " ", "X", "01234 567 89"].each do |value|
+        app = AdditionalInfo.new
+        app.phone_number = value
+
+        expect(app.valid?).to be(false)
+        expect(app.errors[:phone_number]).to include("You must enter a valid phone number")
+      end
+    end
+
     it "contact phone is valid" do
       app = AdditionalInfo.new
-      app.phone_number = ""
-      expect(app.valid?).to be(false)
-      expect(app.errors[:phone_number]).to include("You must enter a valid phone number")
-      app.phone_number = " "
-      expect(app.valid?).to be(false)
-      expect(app.errors[:phone_number]).to include("You must enter a valid phone number")
-      app.phone_number = "X" * 14
-      expect(app.valid?).to be(false)
-      expect(app.errors[:phone_number]).to include("You must enter a valid phone number")
-      app.phone_number = "01234 567 89"
-      expect(app.valid?).to be(false)
-      expect(app.errors[:phone_number]).to include("You must enter a valid phone number")
       app.phone_number = "01234 567 890"
+
       expect(app.valid?).to be(true)
     end
   end
