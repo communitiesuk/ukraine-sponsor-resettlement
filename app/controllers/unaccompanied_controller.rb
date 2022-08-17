@@ -258,17 +258,11 @@ class UnaccompaniedController < ApplicationController
       end
     end
 
-    if current_step == SPONSOR_NATIONALITY && params["unaccompanied_minor"]["nationality"].present?
-      nationality = params["unaccompanied_minor"]["nationality"]
-      nationality_name = nationality.split(" - ")[1]
-      nationality_struct = OpenStruct.new(val: nationality, name: nationality_name)
-
-      if !get_nationalities_as_list.include?(nationality_struct) || nationality == "---"
-        @application.errors.add(:nationality, I18n.t(:invalid_nationality, scope: :error))
-        @nationalities = get_nationalities_as_list
-        render_current_step
-        return
-      end
+    if current_step == SPONSOR_NATIONALITY && params["unaccompanied_minor"]["nationality"].present? && !check_nationality_validity(params["unaccompanied_minor"]["nationality"])
+      @application.errors.add(:nationality, I18n.t(:invalid_nationality, scope: :error))
+      @nationalities = get_nationalities_as_list
+      render_current_step
+      return
     end
 
     if current_step == SPONSOR_OTHER_NATIONALITIES_CHOICE && (params["unaccompanied_minor"].blank? || params["unaccompanied_minor"]["has_other_nationalities"].blank?)
@@ -280,11 +274,7 @@ class UnaccompaniedController < ApplicationController
 
     # capture other nationalities
     if current_step == SPONSOR_OTHER_NATIONALITY && params["unaccompanied_minor"]["other_nationality"].present?
-      other_nationality = params["unaccompanied_minor"]["other_nationality"]
-      other_nationality_name = other_nationality.split(" - ")[1]
-      other_nationality_struct = OpenStruct.new(val: other_nationality, name: other_nationality_name)
-
-      if !get_nationalities_as_list.include?(other_nationality_struct) || other_nationality == "---"
+      if !check_nationality_validity(params["unaccompanied_minor"]["other_nationality"])
         @application.errors.add(:other_nationality, I18n.t(:invalid_nationality, scope: :error))
         @nationalities = get_nationalities_as_list
         render_current_step
@@ -349,11 +339,7 @@ class UnaccompaniedController < ApplicationController
 
     # capture the over 16 year old at address nationality
     if current_step == ADULT_NATIONALITY && params["unaccompanied_minor"]["adult_nationality"].present?
-      adult_nationality = params["unaccompanied_minor"]["adult_nationality"]
-      adult_nationality_name = adult_nationality.split(" - ")[1]
-      adult_nationality_struct = OpenStruct.new(val: adult_nationality, name: adult_nationality_name)
-
-      if !get_nationalities_as_list.include?(adult_nationality_struct) || adult_nationality == "---"
+      if !check_nationality_validity(params["unaccompanied_minor"]["adult_nationality"])
         @application.errors.add(:adult_nationality, I18n.t(:invalid_nationality, scope: :error))
         @nationalities = get_nationalities_as_list
         @adult = @application.adults_at_address[params["key"]]
@@ -605,6 +591,16 @@ private
   def save_file(filename, file)
     @service = StorageService.new(PaasConfigurationService.new, ENV["INSTANCE_NAME"])
     @service.write_file(filename, file)
+  end
+
+  def check_nationality_validity(nationality)
+    nationality_name = nationality.split(" - ")[1]
+    nationality_struct = OpenStruct.new(val: nationality, name: nationality_name)
+    if !get_nationalities_as_list.include?(nationality_struct) || nationality == "---"
+      false
+    else
+      true
+    end
   end
 
   def application_params
