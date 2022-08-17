@@ -30,7 +30,7 @@ RSpec.describe ContactDetailsValidations, type: :model do
     it "address line 2 does not exceed 128 characters if supplied" do
       app = AdditionalInfo.new
       app.residential_line_2 = "X" * 129
-      
+
       expect(app.valid?).to be(false)
       expect(app.errors[:residential_line_2]).to include("You must enter less than 128 characters")
     end
