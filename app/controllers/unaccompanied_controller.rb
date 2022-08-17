@@ -258,12 +258,15 @@ class UnaccompaniedController < ApplicationController
       end
     end
 
-    if current_step == SPONSOR_NATIONALITY && params["unaccompanied_minor"]["nationality"].present? && \
-        (!get_nationalities_as_list.include?(params["unaccompanied_minor"]["nationality"]) || params["unaccompanied_minor"]["nationality"] == "---")
-      @application.errors.add(:nationality, I18n.t(:invalid_nationality, scope: :error))
-      @nationalities = get_nationalities_as_list
-      render_current_step
-      return
+    if current_step == SPONSOR_NATIONALITY && params["unaccompanied_minor"]["nationality"].present?
+      nationality = params["unaccompanied_minor"]["nationality"]
+      nationality_full = nationality.split(" - ")[1]
+      if !get_nationalities_as_list.include?(nationality_full) || nationality == "---"
+        @application.errors.add(:nationality, I18n.t(:invalid_nationality, scope: :error))
+        @nationalities = get_nationalities_as_list
+        render_current_step
+        return
+      end
     end
 
     if current_step == SPONSOR_OTHER_NATIONALITIES_CHOICE && (params["unaccompanied_minor"].blank? || params["unaccompanied_minor"]["has_other_nationalities"].blank?)
@@ -274,18 +277,20 @@ class UnaccompaniedController < ApplicationController
     end
 
     # capture other nationalities
-    if current_step == SPONSOR_OTHER_NATIONALITY
-      if params["unaccompanied_minor"]["other_nationality"].present? && \
-          (!get_nationalities_as_list.include?(params["unaccompanied_minor"]["other_nationality"]) || params["unaccompanied_minor"]["other_nationality"] == "---")
+    if current_step == SPONSOR_OTHER_NATIONALITY && params["unaccompanied_minor"]["other_nationality"].present?
+      other_nationality = params["unaccompanied_minor"]["other_nationality"]
+      other_nationality_full = other_nationality.split(" - ")[1]
+      if !get_nationalities_as_list.include?(other_nationality_full) || other_nationality == "---"
         @application.errors.add(:other_nationality, I18n.t(:invalid_nationality, scope: :error))
         @nationalities = get_nationalities_as_list
         render_current_step
         return
+      else
+        # adds other attributes
+        (@application.other_nationalities ||= []) << [params["unaccompanied_minor"]["other_nationality"]]
+        # resets the current state
+        params["unaccompanied_minor"]["other_nationality"] = ""
       end
-      # adds other attributes
-      (@application.other_nationalities ||= []) << [params["unaccompanied_minor"]["other_nationality"]]
-      # resets the current state
-      params["unaccompanied_minor"]["other_nationality"] = ""
     end
 
     if current_step == MINOR_DATE_OF_BIRTH
@@ -339,15 +344,18 @@ class UnaccompaniedController < ApplicationController
     end
 
     # capture the over 16 year old at address nationality
-    if current_step == ADULT_NATIONALITY
-      if params["unaccompanied_minor"]["adult_nationality"].present? && \
-          (!get_nationalities_as_list.include?(params["unaccompanied_minor"]["adult_nationality"]) || params["unaccompanied_minor"]["adult_nationality"] == "---")
+    if current_step == ADULT_NATIONALITY && params["unaccompanied_minor"]["adult_nationality"].present?
+      adult_nationality = params["unaccompanied_minor"]["adult_nationality"]
+      adult_nationality_full = adult_nationality.split(" - ")[1]
+      if !get_nationalities_as_list.include?(adult_nationality_full) || adult_nationality == "---"
         @application.errors.add(:adult_nationality, I18n.t(:invalid_nationality, scope: :error))
         @nationalities = get_nationalities_as_list
+        @adult = @application.adults_at_address[params["key"]]
         render_current_step
         return
+      else
+        @application.adults_at_address[params["key"]]["nationality"] = params["unaccompanied_minor"]["adult_nationality"]
       end
-      @application.adults_at_address[params["key"]]["nationality"] = params["unaccompanied_minor"]["adult_nationality"]
     end
 
     # capture the over 16 year old at address id type and number
