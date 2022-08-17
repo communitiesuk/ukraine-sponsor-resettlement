@@ -104,18 +104,20 @@ RSpec.describe ContactDetailsValidations, type: :model do
       expect(app.errors[:property_one_line_2]).to include("You must enter less than 128 characters")
     end
 
+    it "address town or city is not valid" do
+      ["", " ", "X" * 129].each do |value|
+        app = AdditionalInfo.new
+        app.property_one_town = value
+
+        expect(app.valid?).to be(false)
+        expect(app.errors[:property_one_town]).to include("You must enter a town or city")
+      end
+    end
+
     it "address town or city is valid" do
       app = AdditionalInfo.new
-      app.property_one_town = ""
-      expect(app.valid?).to be(false)
-      expect(app.errors[:property_one_town]).to include("You must enter a town or city")
-      app.property_one_town = " "
-      expect(app.valid?).to be(false)
-      expect(app.errors[:property_one_town]).to include("You must enter a town or city")
-      app.property_one_town = "X" * 129
-      expect(app.valid?).to be(false)
-      expect(app.errors[:property_one_town]).to include("You must enter a town or city")
       app.property_one_town = "Town or city"
+
       expect(app.valid?).to be(true)
     end
 
