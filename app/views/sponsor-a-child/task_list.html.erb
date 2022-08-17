@@ -218,7 +218,9 @@
     
 
     <%= form_for @application, url: "/sponsor-a-child/save_or_cancel", method: :post do |f| %>
-      <%= govuk_button_link_to 'Save and return later', "/sponsor-a-child/save-and-return", class: "govuk-button--secondary" %>
+      <% if @feature_save_and_return_active == true %>
+        <%= govuk_button_link_to 'Save and return later', "/sponsor-a-child/save-and-return", class: "govuk-button--secondary" %>
+      <% end %>
       <%= f.govuk_submit t('cancel_application.cancel', scope: "unaccompanied_minor"),
                          name: "cancel_application",
                          class: "govuk-button--warning"%>
