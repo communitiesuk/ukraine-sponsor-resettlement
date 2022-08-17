@@ -45,9 +45,24 @@ RSpec.describe UamValidations, type: :model do
         uam = new_uam
         uam.sponsor_address_line_2 = line
 
+        # Will not be valid because other validations currently fail.
         expect(uam.valid?).to be(false)
-        expect(uam.errors[:sponsor_address_line_2]).not_to include("You must enter less than 128 characters")
+
+        expect(uam.errors).not_to include(:sponsor_address_line_2)
       end
+    end
+
+    it "does not raise an error message when mandatory fields are complete" do
+      uam = new_uam
+      uam.sponsor_address_line_1 = "1 Some Street"
+      uam.sponsor_address_town = "Town"
+      uam.sponsor_address_postcode = "ST1 1LX"
+
+      # Will not be valid because other validations currently fail.
+      expect(uam.valid?).to be(false)
+      expect(uam.errors).not_to include(:sponsor_address_line_1)
+      expect(uam.errors).not_to include(:sponsor_address_town)
+      expect(uam.errors).not_to include(:sponsor_address_postcode)
     end
 
     def new_uam
