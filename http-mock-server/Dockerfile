@@ -1,4 +1,4 @@
-FROM ruby:3.1.1-alpine
+FROM ruby:3.1.2-alpine
 
 
 RUN gem install sinatra webrick

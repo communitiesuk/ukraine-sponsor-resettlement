@@ -45,7 +45,7 @@ jobs:
       RAILS_ENV: test
       INSTANCE_NAME: ukraine-sponsor-resettlement-test
       VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-test-redis","credentials":{"uri":"redis://redis"}}],"aws-s3-bucket":[{"instance_name":"ukraine-sponsor-resettlement-test-s3","credentials":{"aws_access_key_id":"access-key-id","aws_secret_access_key":"secret-access-key","aws_region":"eu-west-2","bucket_name":"test-bucket"}}]}'
-      GEMFILE_RUBY_VERSION: 3.1.1
+      GEMFILE_RUBY_VERSION: 3.1.2
       DB_HOST: localhost
       DB_DATABASE: ukraine
       DB_USERNAME: ukraine

@@ -1,5 +1,5 @@
 # Build compilation image
-FROM ruby:3.1.1-alpine
+FROM ruby:3.1.2-alpine
 
 # The application runs from /app
 WORKDIR /app
@@ -12,7 +12,7 @@ RUN apk add --no-cache build-base yarn postgresql-dev git bash gcompat
 ADD Gemfile /app/Gemfile
 ADD Gemfile.lock /app/Gemfile.lock
 
-RUN gem install bundler:2.3.7 --no-document && \
+RUN gem install bundler:2.3.20 --no-document && \
   bundle install && \
   yarn install
 
