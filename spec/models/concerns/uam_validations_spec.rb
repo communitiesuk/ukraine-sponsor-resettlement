@@ -10,7 +10,7 @@ RSpec.describe UamValidations, type: :model do
         uam.sponsor_address_line_1 = line
 
         expect(uam.valid?).to be(false)
-        expect(uam.errors[:sponsor_address_line_1]).to include("You must enter an address")
+        expect(uam.errors).to include(:sponsor_address_line_1)
       end
     end
 
@@ -22,7 +22,7 @@ RSpec.describe UamValidations, type: :model do
         uam.sponsor_address_town = line
 
         expect(uam.valid?).to be(false)
-        expect(uam.errors[:sponsor_address_town]).to include("You must enter a town or city")
+        expect(uam.errors).to include(:sponsor_address_town)
       end
     end
 
@@ -34,7 +34,7 @@ RSpec.describe UamValidations, type: :model do
         uam.sponsor_address_postcode = line
 
         expect(uam.valid?).to be(false)
-        expect(uam.errors[:sponsor_address_postcode]).to include("You must enter a valid UK postcode")
+        expect(uam.errors).to include(:sponsor_address_postcode)
       end
     end
 
