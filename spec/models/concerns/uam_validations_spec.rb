@@ -14,6 +14,18 @@ RSpec.describe UamValidations, type: :model do
       end
     end
 
+    it "raises an error message when address town is nil or empty" do
+      empty_lines = [nil, "", " "]
+
+      empty_lines.each do |line|
+        uam = new_uam
+        uam.sponsor_address_town = line
+
+        expect(uam.valid?).to be(false)
+        expect(uam.errors[:sponsor_address_town]).to include("You must enter a town or city")
+      end
+    end
+
     def new_uam
       uam = UnaccompaniedMinor.new
       # DANGER: uam.different_address actually means the user answered "yes" or "no" when asked
