@@ -10,7 +10,7 @@ RSpec.describe UamValidations, type: :model do
         uam.sponsor_address_line_1 = line
 
         expect(uam.valid?).to be(false)
-        expect(uam.errors).to include(:sponsor_address_line_1)
+        expect(uam.errors).to include(:sponsor_address_line_1), "Failed value:#{line}"
       end
     end
 
@@ -22,7 +22,7 @@ RSpec.describe UamValidations, type: :model do
         uam.sponsor_address_town = line
 
         expect(uam.valid?).to be(false)
-        expect(uam.errors).to include(:sponsor_address_town)
+        expect(uam.errors).to include(:sponsor_address_town), "Failed value:#{line}"
       end
     end
 
@@ -34,7 +34,19 @@ RSpec.describe UamValidations, type: :model do
         uam.sponsor_address_postcode = line
 
         expect(uam.valid?).to be(false)
-        expect(uam.errors).to include(:sponsor_address_postcode)
+        expect(uam.errors).to include(:sponsor_address_postcode), "Failed value:#{line}"
+      end
+    end
+
+    it "raises an error message when postcode is invalid" do
+      invalid_postcodes = ["W1", "HEllo World", "blah"]
+
+      invalid_postcodes.each do |postcode|
+        uam = new_uam
+        uam.sponsor_address_postcode = postcode
+
+        expect(uam.valid?).to be(false)
+        expect(uam.errors).to include(:sponsor_address_postcode), "Failed value:#{postcode}"
       end
     end
 
