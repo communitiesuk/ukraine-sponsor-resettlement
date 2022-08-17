@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe ContactDetailsValidations, type: :model do
   describe "residential address validations" do
-    it "address line 1 is invalid" do
+    it "address line 1 is not valid" do
       ["", " ", "X" * 129].each do |value|
         app = AdditionalInfo.new
         app.residential_line_1 = value
@@ -35,18 +35,20 @@ RSpec.describe ContactDetailsValidations, type: :model do
       expect(app.errors[:residential_line_2]).to include("You must enter less than 128 characters")
     end
 
+    it "address town or city is not valid" do
+      ["", " ", "X" * 129].each do |value|
+        app = AdditionalInfo.new
+        app.residential_town = value
+
+        expect(app.valid?).to be(false)
+        expect(app.errors[:residential_town]).to include("You must enter a town or city")
+      end
+    end
+
     it "address town or city is valid" do
       app = AdditionalInfo.new
-      app.residential_town = ""
-      expect(app.valid?).to be(false)
-      expect(app.errors[:residential_town]).to include("You must enter a town or city")
-      app.residential_town = " "
-      expect(app.valid?).to be(false)
-      expect(app.errors[:residential_town]).to include("You must enter a town or city")
-      app.residential_town = "X" * 129
-      expect(app.valid?).to be(false)
-      expect(app.errors[:residential_town]).to include("You must enter a town or city")
       app.residential_town = "Town or city"
+
       expect(app.valid?).to be(true)
     end
 
