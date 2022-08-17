@@ -340,6 +340,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
 
       expect(page).to have_content("Enter your nationality")
+      select("Denmark", from: "unaccompanied-minor-nationality-field")
       click_button("Continue")
 
       expect(page).to have_content("Have you ever held any other nationalities?")
@@ -347,6 +348,33 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
 
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+    end
+
+    it "does not allow for empty nationality to be selected" do
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
+
+      page.set_rack_session(app_reference: new_application.reference)
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Additional details")
+      expect(page).to have_content("Do you have any of these identity documents?")
+
+      choose("Passport")
+      fill_in("Passport number", with: "123456789")
+      click_button("Continue")
+
+      fill_in("Day", with: "6")
+      fill_in("Month", with: "11")
+      fill_in("Year", with: "1987")
+      click_button("Continue")
+
+      expect(page).to have_content("Enter your nationality")
+      click_button("Continue")
+
+      expect(page).to have_content("You must select a valid nationality")
     end
   end
 
@@ -757,8 +785,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     expect(page).to have_field("Year", with: 2001)
 
     click_button("Continue")
-    expect(page).to have_content("Enter their nationality")
 
+    expect(page).to have_content("Enter their nationality")
     select("Denmark", from: "unaccompanied-minor-adult-nationality-field")
 
     click_button("Continue")
@@ -785,7 +813,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
     click_button("Continue")
     expect(page).to have_content("Enter their nationality")
-
+    select("Denmark", from: "unaccompanied-minor-adult-nationality-field")
     click_button("Continue")
     expect(page).to have_content("Do they have any of these identity documents?")
 
