@@ -71,8 +71,7 @@ RSpec.describe ContactDetailsValidations, type: :model do
   end
 
   describe "host property validations" do
-    
-   it "address line 1 is not valid" do
+    it "address line 1 is not valid" do
       ["", " ", "X" * 129].each do |value|
         app = AdditionalInfo.new
         app.property_one_line_1 = value
