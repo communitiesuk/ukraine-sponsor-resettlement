@@ -30,7 +30,11 @@
 
     <p>
       <%= link_to("Continue", "/sponsor-a-child/task-list", class: "govuk-button") %>
-      <a class="govuk-link govuk-!-font-size-19" href="/sponsor-a-child/save-and-return">Save and return later</a>
+      
+      <% if @feature_save_and_return_active == true %>
+        <a class="govuk-link govuk-!-font-size-19" href="/sponsor-a-child/save-and-return">Save and return later</a>
+      <% end %>
+    
     </p>
 
   </div>
