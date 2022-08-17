@@ -52,6 +52,8 @@ class UnaccompaniedController < ApplicationController
 
     step = params["stage"].to_i
 
+    @feature_save_and_return_active = (ENV["UAM_FEATURE_SAVE_AND_RETURN_ACTIVE"] == "true")
+
     if step.positive? && step <= MAX_STEPS
       if NATIONALITY_STEPS.include?(step)
         @nationalities = get_nationalities_as_list
