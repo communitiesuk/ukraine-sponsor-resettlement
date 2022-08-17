@@ -2,9 +2,9 @@ require "rails_helper"
 
 RSpec.describe UamValidations, type: :model do
   describe "sponsor residential address validations" do
-    it "raises an error message when address line 1 is nil or empty" do
-      empty_lines = [nil, "", " "]
+    let(:empty_lines) { [nil, "", " "].freeze }
 
+    it "raises an error message when address line 1 is nil or empty" do
       empty_lines.each do |line|
         uam = new_uam
         uam.sponsor_address_line_1 = line
@@ -15,8 +15,6 @@ RSpec.describe UamValidations, type: :model do
     end
 
     it "raises an error message when address town is nil or empty" do
-      empty_lines = [nil, "", " "]
-
       empty_lines.each do |line|
         uam = new_uam
         uam.sponsor_address_town = line
@@ -27,8 +25,6 @@ RSpec.describe UamValidations, type: :model do
     end
 
     it "raises an error message when postcode is nil or empty" do
-      empty_lines = [nil, "", " "]
-
       empty_lines.each do |line|
         uam = new_uam
         uam.sponsor_address_postcode = line
@@ -39,7 +35,7 @@ RSpec.describe UamValidations, type: :model do
     end
 
     it "raises an error message when postcode is invalid" do
-      invalid_postcodes = ["W1", "HEllo World", "blah"]
+      invalid_postcodes = ["W1", "HEllo World", "blah"].freeze
 
       invalid_postcodes.each do |postcode|
         uam = new_uam
@@ -51,8 +47,6 @@ RSpec.describe UamValidations, type: :model do
     end
 
     it "does not raise an error message when address line 2 is nil or empty" do
-      empty_lines = [nil, "", " "]
-
       empty_lines.each do |line|
         uam = new_uam
         uam.sponsor_address_line_2 = line
