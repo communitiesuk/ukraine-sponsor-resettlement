@@ -38,6 +38,18 @@ RSpec.describe UamValidations, type: :model do
       end
     end
 
+    it "does not raise an error message when address line 2 is nil or empty" do
+      empty_lines = [nil, "", " "]
+
+      empty_lines.each do |line|
+        uam = new_uam
+        uam.sponsor_address_line_2 = line
+
+        expect(uam.valid?).to be(false)
+        expect(uam.errors[:sponsor_address_line_2]).not_to include("You must enter less than 128 characters")
+      end
+    end
+
     def new_uam
       uam = UnaccompaniedMinor.new
       # DANGER: uam.different_address actually means the user answered "yes" or "no" when asked
