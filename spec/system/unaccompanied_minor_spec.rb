@@ -793,36 +793,6 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     expect(page).to have_content("Do they have any of these identity documents?")
   end
 
-  it " shows an error when the id type is not answered" do
-    new_application = UnaccompaniedMinor.new
-    new_application.adults_at_address = {}
-    new_application.adults_at_address.store("123", Adult.new("Bob", "Jones", "2001-6-13", "Afghanistan", "id_and_type"))
-    new_application.save!
-
-    page.set_rack_session(app_reference: new_application.reference)
-
-    visit "/sponsor-a-child/task-list"
-    expect(page).to have_content("Bob Jones details")
-
-    click_link("Bob Jones details")
-    expect(page).to have_content("Enter this person's date of birth")
-
-    expect(page).to have_field("Day", with: 13)
-    expect(page).to have_field("Month", with: 6)
-    expect(page).to have_field("Year", with: 2001)
-
-    click_button("Continue")
-    expect(page).to have_content("Enter their nationality")
-    select("Denmark", from: "unaccompanied-minor-adult-nationality-field")
-    click_button("Continue")
-    expect(page).to have_content("Do they have any of these identity documents?")
-
-    click_button("Continue")
-
-    expect(page).to have_content("Select an identity document you have, or select ‘I don't have any of these’")
-    # expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
-  end
-
   describe "ensure valid properties are saved and retrieved" do
     it "UK parental consent form" do
       new_application = UnaccompaniedMinor.new

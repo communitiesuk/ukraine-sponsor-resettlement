@@ -11,63 +11,48 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
 
     before do
       application = UnaccompaniedMinor.new
+      application.adults_at_address = {}
+      application.adults_at_address.store("123", Adult.new("Bob", "Jones", "2001-6-13", "Afghanistan", "id_and_type"))
       application.save!
 
       page.set_rack_session(app_reference: application.reference)
     end
 
-    it "when no document option is selected shows an error" do
-      task_list_to_identity_documents_question
+    it " shows an error when the id type is not answered" do
+      navigate_to_id_document_entry
+
       click_button("Continue")
 
       expect(page).to have_content("Select an identity document you have, or select ‘I don't have any of these’")
+      # expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
     end
 
-    def task_list_to_identity_documents_question
+    it "returns to the task list when 'I don't have any of these' is selected" do
+      navigate_to_id_document_entry
+
+      choose("I don't have any of these")
+      click_button("Continue")
+
+      expect(page).to have_content(task_list_content)
+    end
+
+    def navigate_to_id_document_entry
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content(task_list_content)
+      expect(page).to have_content("Bob Jones details")
 
-      click_link("Address")
-
-      fill_in("Address line 1", with: "Property 1 House number and Street name")
-      fill_in("Town", with: "Property 1 Some Town or City")
-      fill_in("Postcode", with: "AA1 1AA")
-      click_button("Continue")
-
-      expect(page).to have_content("Will you (the sponsor) be living at this address?")
-      choose("Yes")
-      click_button("Continue")
-
-      expect(page).to have_content("Will anyone else over the age of 16 be living at this address?")
-      choose("Yes")
-      click_button("Continue")
-
-      expect(page).to have_content("Enter the name of the person over 16 who will live with the child")
-
-      fill_in("Given name(s)", with: "Other")
-      fill_in("Family name", with: "Resident")
-      click_button("Continue")
-
-      expect(page).to have_content("You have added 1 person over 16 who will live with the child")
-      click_link("Continue")
-
-      expect(page).to have_content(task_list_content)
-
-      click_link("Other Resident details")
-
+      click_link("Bob Jones details")
       expect(page).to have_content("Enter this person's date of birth")
 
-      fill_in("Day", with: "1")
-      fill_in("Month", with: "1")
-      fill_in("Year", with: "2000")
+      expect(page).to have_field("Day", with: 13)
+      expect(page).to have_field("Month", with: 6)
+      expect(page).to have_field("Year", with: 2001)
+
       click_button("Continue")
 
       expect(page).to have_content("Enter their nationality")
+      select("Denmark", from: "unaccompanied-minor-adult-nationality-field")
 
-      # let(:main_nationality) { "Afghanistan".freeze }
-      select("Afghanistan", from: "unaccompanied-minor-adult-nationality-field")
       click_button("Continue")
-
       expect(page).to have_content("Do they have any of these identity documents?")
     end
   end
