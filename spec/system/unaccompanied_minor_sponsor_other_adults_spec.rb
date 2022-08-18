@@ -24,7 +24,6 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
       click_button("Continue")
 
       expect(page).to have_content("Select an identity document you have, or select ‘I don't have any of these’")
-      # expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
     end
 
     it "returns to the task list when 'I don't have any of these' is selected" do
@@ -51,8 +50,8 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
 
       expect(page).to have_content("Enter their nationality")
       select("Denmark", from: "unaccompanied-minor-adult-nationality-field")
-
       click_button("Continue")
+
       expect(page).to have_content("Do they have any of these identity documents?")
     end
   end
