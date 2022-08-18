@@ -97,5 +97,3 @@ You will need the Conduit plug-in installed\
 
 5. Disconnect:\
     `exit`
-    
- 
