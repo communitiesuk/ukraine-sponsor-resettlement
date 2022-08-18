@@ -127,10 +127,16 @@ private
 
   def send_email
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
-    personal_uuid = SecureRandom.uuid
-    return_link = generate_magic_link(personal_uuid)
-    generate_application_token(@application, personal_uuid)
+    @application_token = ApplicationToken.find_by(unaccompanied_minor: @application)
 
+    if @application_token.present? && Time.zone.now.utc >= (@application_token.created_at + 1.day)
+      # only resend the same link if the application_token has been requested less than a day ago
+      return_link = @application_token.magic_link
+    else
+      personal_uuid = SecureRandom.uuid
+      return_link = generate_magic_link(personal_uuid)
+      generate_application_token(@application, personal_uuid)
+    end
     GovNotifyMailer.send_save_and_return_email(@application.given_name, return_link, @application.email).deliver_later
   end
 

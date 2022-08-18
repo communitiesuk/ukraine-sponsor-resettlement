@@ -28,6 +28,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
     sms_code = 123_456
     magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc".freeze
     expiry_time = (Time.zone.now.utc + 1.hour)
+    created_at = Time.zone.now.utc
 
     uam = UnaccompaniedMinor.new
     uam.phone_number = phone_number
@@ -44,7 +45,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
       allow(Notifications::Client).to receive(:new).and_return(texter)
       allow(texter).to receive(:send_sms)
       allow(UnaccompaniedMinor).to receive(:find_by_email).and_return(uam)
-      allow(ApplicationToken).to receive(:find_by).and_return(ApplicationToken.new({ token: sms_code, unaccompanied_minor: uam, magic_link: magic_id, expires_at: expiry_time }))
+      allow(ApplicationToken).to receive(:find_by).and_return(ApplicationToken.new({ token: sms_code, unaccompanied_minor: uam, magic_link: magic_id, expires_at: expiry_time, created_at: }))
     end
 
     it "shows the confirm page if required data is present" do
