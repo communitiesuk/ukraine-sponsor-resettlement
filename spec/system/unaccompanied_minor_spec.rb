@@ -793,7 +793,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     expect(page).to have_content("Do they have any of these identity documents?")
   end
 
-  it "answer the id type and number question" do
+  it " shows an error when the id type is not answered" do
     new_application = UnaccompaniedMinor.new
     new_application.adults_at_address = {}
     new_application.adults_at_address.store("123", Adult.new("Bob", "Jones", "2001-6-13", "Afghanistan", "id_and_type"))
@@ -818,7 +818,9 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     expect(page).to have_content("Do they have any of these identity documents?")
 
     click_button("Continue")
-    expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+    expect(page).to have_content("Select an identity document you have, or select ‘I don't have any of these’")
+    # expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
   end
 
   describe "ensure valid properties are saved and retrieved" do

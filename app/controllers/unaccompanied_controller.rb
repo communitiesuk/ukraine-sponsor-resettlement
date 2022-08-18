@@ -354,6 +354,15 @@ class UnaccompaniedController < ApplicationController
 
     # capture the over 16 year old at address id type and number
     if current_step == ADULT_ID_TYPE_AND_NUMBER
+      id_type = params["unaccompanied_minor"]["adult_identification_type"]
+
+      if id_type.blank?
+        @application.errors.add(:adult_identification_type, I18n.t(:invalid_id_type, scope: :error))
+        @adult = @application.adults_at_address[params["key"]]
+        render_current_step
+        return
+      end
+
       @application.adults_at_address[params["key"]]["id_type_and_number"] = case params["unaccompanied_minor"]["adult_identification_type"]
                                                                             when "passport"
                                                                               "#{params['unaccompanied_minor']['adult_identification_type']} - #{params['unaccompanied_minor']['adult_passport_identification_number']}"
