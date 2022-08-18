@@ -44,7 +44,7 @@ class TokenBasedResumeController < ApplicationController
     email_address = params["unaccompanied_minor"]["email"]
 
     if email_address.present?
-      @application = UnaccompaniedMinor.find_by_email(email_address)
+      @application = UnaccompaniedMinor.where("answers ->> 'email' = '#{email_address}'").first
 
       if @application.nil?
         # No application found
