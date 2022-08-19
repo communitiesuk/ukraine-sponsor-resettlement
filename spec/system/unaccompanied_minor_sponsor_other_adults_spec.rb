@@ -9,6 +9,7 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
   describe "other adults identification documents" do
     let(:task_list_content) { "Apply for permission to sponsor a child fleeing Ukraine without a parent".freeze }
     let(:min_chars_digits_message) { "You must enter at least 6 characters (numbers or letters)" }
+    let(:invalid_id_entries) { ["", " ", "-", "*test", "12345", "AbCdE"].freeze }
 
     before do
       application = UnaccompaniedMinor.new
@@ -30,11 +31,13 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
     it " shows an error when the passport entry is invalid" do
       navigate_to_id_document_entry
 
-      choose("Passport")
-      # fill_in("Passport number", with: "123456789")
-      click_button("Continue")
+      invalid_id_entries.each do |line|
+        choose("Passport")
+        fill_in("Passport number", with: line)
+        click_button("Continue")
 
-      expect(page).to have_content(min_chars_digits_message)
+        expect(page).to have_content(min_chars_digits_message), "Failed value:#{line.inspect}"
+      end
     end
 
     it " shows an error when the national id card entry is invalid" do

@@ -354,8 +354,10 @@ class UnaccompaniedController < ApplicationController
 
     # capture the over 16 year old at address id type and number
     if current_step == ADULT_ID_TYPE_AND_NUMBER
-      id_type = params["unaccompanied_minor"]["adult_identification_type"]
+      min_six_letters_or_digits = /^[0-9a-zA-Z]{6,}$/
+
       @adult = @application.adults_at_address[params["key"]]
+      id_type = params["unaccompanied_minor"]["adult_identification_type"]
       document_id = nil
 
       if id_type.blank?
@@ -363,7 +365,7 @@ class UnaccompaniedController < ApplicationController
       elsif id_type == "passport"
         document_id = params["unaccompanied_minor"]["adult_passport_identification_number"]
 
-        if document_id.blank?
+        if document_id.blank? || document_id !~ min_six_letters_or_digits
           @application.errors.add(:adult_passport_identification_number, I18n.t(:min_chars_digits, scope: :error))
         end
       elsif id_type == "national_identity_card"
