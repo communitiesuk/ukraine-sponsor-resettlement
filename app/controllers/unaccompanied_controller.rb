@@ -356,47 +356,36 @@ class UnaccompaniedController < ApplicationController
     if current_step == ADULT_ID_TYPE_AND_NUMBER
       id_type = params["unaccompanied_minor"]["adult_identification_type"]
       @adult = @application.adults_at_address[params["key"]]
+      document_id = nil
 
       if id_type.blank?
         @application.errors.add(:adult_identification_type, I18n.t(:invalid_id_type, scope: :error))
-        render_current_step
-        return
       elsif id_type == "passport"
         document_id = params["unaccompanied_minor"]["adult_passport_identification_number"]
 
         if document_id.blank?
           @application.errors.add(:adult_passport_identification_number, I18n.t(:invalid_id_number, scope: :error))
-          render_current_step
-          return
         end
       elsif id_type == "national_identity_card"
         document_id = params["unaccompanied_minor"]["national_identity_card"]
 
         if document_id.blank?
           @application.errors.add(:adult_id_identification_number, I18n.t(:invalid_id_number, scope: :error))
-          render_current_step
-          return
         end
       elsif id_type == "refugee_travel_document"
         document_id = params["unaccompanied_minor"]["refugee_travel_document"]
 
         if document_id.blank?
           @application.errors.add(:adult_refugee_identification_number, I18n.t(:invalid_id_number, scope: :error))
-          render_current_step
-          return
         end
       end
 
-      @adult["id_type_and_number"] = case params["unaccompanied_minor"]["adult_identification_type"]
-                                     when "passport"
-                                       "#{params['unaccompanied_minor']['adult_identification_type']} - #{params['unaccompanied_minor']['adult_passport_identification_number']}"
-                                     when "national_identity_card"
-                                       "#{params['unaccompanied_minor']['adult_identification_type']} - #{params['unaccompanied_minor']['adult_id_identification_number']}"
-                                     when "refugee_travel_document"
-                                       "#{params['unaccompanied_minor']['adult_identification_type']} - #{params['unaccompanied_minor']['adult_refugee_identification_number']}"
-                                     else
-                                       "#{params['unaccompanied_minor']['adult_identification_type']} - 123456789"
-                                     end
+      if !@application.errors.empty?
+        render_current_step
+        return
+      end
+
+      @adult["id_type_and_number"] = "#{id_type} - #{document_id || '123456789'}"
     end
 
     # Update Application object with new attributes
