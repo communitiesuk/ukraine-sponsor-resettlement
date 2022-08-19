@@ -355,10 +355,10 @@ class UnaccompaniedController < ApplicationController
     # capture the over 16 year old at address id type and number
     if current_step == ADULT_ID_TYPE_AND_NUMBER
       id_type = params["unaccompanied_minor"]["adult_identification_type"]
+      @adult = @application.adults_at_address[params["key"]]
 
       if id_type.blank?
         @application.errors.add(:adult_identification_type, I18n.t(:invalid_id_type, scope: :error))
-        @adult = @application.adults_at_address[params["key"]]
         render_current_step
         return
       elsif id_type == "passport"
@@ -366,7 +366,6 @@ class UnaccompaniedController < ApplicationController
 
         if document_id.blank?
           @application.errors.add(:adult_passport_identification_number, I18n.t(:invalid_id_number, scope: :error))
-          @adult = @application.adults_at_address[params["key"]]
           render_current_step
           return
         end
@@ -375,7 +374,6 @@ class UnaccompaniedController < ApplicationController
 
         if document_id.blank?
           @application.errors.add(:adult_id_identification_number, I18n.t(:invalid_id_number, scope: :error))
-          @adult = @application.adults_at_address[params["key"]]
           render_current_step
           return
         end
@@ -384,22 +382,21 @@ class UnaccompaniedController < ApplicationController
 
         if document_id.blank?
           @application.errors.add(:adult_refugee_identification_number, I18n.t(:invalid_id_number, scope: :error))
-          @adult = @application.adults_at_address[params["key"]]
           render_current_step
           return
         end
       end
 
-      @application.adults_at_address[params["key"]]["id_type_and_number"] = case params["unaccompanied_minor"]["adult_identification_type"]
-                                                                            when "passport"
-                                                                              "#{params['unaccompanied_minor']['adult_identification_type']} - #{params['unaccompanied_minor']['adult_passport_identification_number']}"
-                                                                            when "national_identity_card"
-                                                                              "#{params['unaccompanied_minor']['adult_identification_type']} - #{params['unaccompanied_minor']['adult_id_identification_number']}"
-                                                                            when "refugee_travel_document"
-                                                                              "#{params['unaccompanied_minor']['adult_identification_type']} - #{params['unaccompanied_minor']['adult_refugee_identification_number']}"
-                                                                            else
-                                                                              "#{params['unaccompanied_minor']['adult_identification_type']} - 123456789"
-                                                                            end
+      @adult["id_type_and_number"] = case params["unaccompanied_minor"]["adult_identification_type"]
+                                     when "passport"
+                                       "#{params['unaccompanied_minor']['adult_identification_type']} - #{params['unaccompanied_minor']['adult_passport_identification_number']}"
+                                     when "national_identity_card"
+                                       "#{params['unaccompanied_minor']['adult_identification_type']} - #{params['unaccompanied_minor']['adult_id_identification_number']}"
+                                     when "refugee_travel_document"
+                                       "#{params['unaccompanied_minor']['adult_identification_type']} - #{params['unaccompanied_minor']['adult_refugee_identification_number']}"
+                                     else
+                                       "#{params['unaccompanied_minor']['adult_identification_type']} - 123456789"
+                                     end
     end
 
     # Update Application object with new attributes
