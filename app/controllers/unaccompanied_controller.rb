@@ -364,19 +364,19 @@ class UnaccompaniedController < ApplicationController
         document_id = params["unaccompanied_minor"]["adult_passport_identification_number"]
 
         if document_id.blank?
-          @application.errors.add(:adult_passport_identification_number, I18n.t(:invalid_id_number, scope: :error))
+          @application.errors.add(:adult_passport_identification_number, I18n.t(:min_chars_digits, scope: :error))
         end
       elsif id_type == "national_identity_card"
         document_id = params["unaccompanied_minor"]["national_identity_card"]
 
         if document_id.blank?
-          @application.errors.add(:adult_id_identification_number, I18n.t(:invalid_id_number, scope: :error))
+          @application.errors.add(:adult_id_identification_number, I18n.t(:min_chars_digits, scope: :error))
         end
       elsif id_type == "refugee_travel_document"
         document_id = params["unaccompanied_minor"]["refugee_travel_document"]
 
         if document_id.blank?
-          @application.errors.add(:adult_refugee_identification_number, I18n.t(:invalid_id_number, scope: :error))
+          @application.errors.add(:adult_refugee_identification_number, I18n.t(:min_chars_digits, scope: :error))
         end
       end
 

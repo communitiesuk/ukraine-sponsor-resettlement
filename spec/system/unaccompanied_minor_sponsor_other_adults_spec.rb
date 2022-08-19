@@ -8,6 +8,7 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
 
   describe "other adults identification documents" do
     let(:task_list_content) { "Apply for permission to sponsor a child fleeing Ukraine without a parent".freeze }
+    let(:min_chars_digits_message) { "You must enter at least 6 characters (numbers or letters)" }
 
     before do
       application = UnaccompaniedMinor.new
@@ -33,7 +34,7 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
       # fill_in("Passport number", with: "123456789")
       click_button("Continue")
 
-      expect(page).to have_content("You must enter a valid identity document number")
+      expect(page).to have_content(min_chars_digits_message)
     end
 
     it " shows an error when the national id card entry is invalid" do
@@ -43,7 +44,7 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
       # fill_in("National Identity card", with: "123456789")
       click_button("Continue")
 
-      expect(page).to have_content("You must enter a valid identity document number")
+      expect(page).to have_content(min_chars_digits_message)
     end
 
     it " shows an error when the Refugee travel document entry is invalid" do
@@ -53,7 +54,7 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
       # fill_in("National Identity card", with: "123456789")
       click_button("Continue")
 
-      expect(page).to have_content("You must enter a valid identity document number")
+      expect(page).to have_content(min_chars_digits_message)
     end
 
     it "returns to the task list when 'I don't have any of these' is selected" do

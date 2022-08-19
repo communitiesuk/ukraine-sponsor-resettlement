@@ -482,3 +482,4 @@ en:
     invalid_id_type: Select an identity document you have, or select ‘I don't have any of these’
     invalid_id_number: You must enter a valid identity document number
     invalid_nationality: You must select a valid nationality
+    min_chars_digits: You must enter at least 6 characters (numbers or letters)
