@@ -11,7 +11,7 @@
 
       <%= f.govuk_radio_buttons_fieldset :adult_identification_type, legend: { text: "", hidden: true }, hint: { text: t('resident_identity_documents.hint_html', :name => "#{@adult["given_name"]} #{@adult["family_name"]}", scope: "unaccompanied_minor.questions")} do %>
 
-        <%= f.govuk_radio_button :adult_identification_type, :passport, label: { text: "Passport" } do %>
+        <%= f.govuk_radio_button :adult_identification_type, :passport, label: { text: "Passport" }, link_errors: true do %>
           <%= f.govuk_text_field :adult_passport_identification_number, label: { text: "Passport number" }, type: "text" %>
         <% end %>
         <%= f.govuk_radio_button :adult_identification_type, :national_identity_card, label: { text: "National Identity card" } do %>
