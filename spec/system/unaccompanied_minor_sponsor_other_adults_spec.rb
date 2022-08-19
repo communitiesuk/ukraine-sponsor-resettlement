@@ -55,11 +55,13 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
     it " shows an error when the Refugee travel document entry is invalid" do
       navigate_to_id_document_entry
 
-      choose("Refugee travel document")
-      # fill_in("National Identity card", with: "123456789")
-      click_button("Continue")
+      invalid_id_entries.each do |line|
+        choose("Refugee travel document")
+        fill_in("National Identity card", with: line)
+        click_button("Continue")
 
-      expect(page).to have_content(min_chars_digits_message)
+        expect(page).to have_content(min_chars_digits_message), "Failed value:#{line.inspect}"
+      end
     end
 
     it "returns to the task list when 'I don't have any of these' is selected" do
