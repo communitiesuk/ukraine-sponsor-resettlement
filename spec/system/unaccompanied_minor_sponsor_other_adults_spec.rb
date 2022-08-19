@@ -43,11 +43,13 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
     it " shows an error when the national id card entry is invalid" do
       navigate_to_id_document_entry
 
-      choose("National Identity card")
-      # fill_in("National Identity card", with: "123456789")
-      click_button("Continue")
+      invalid_id_entries.each do |line|
+        choose("National Identity card")
+        fill_in("National Identity card", with: line)
+        click_button("Continue")
 
-      expect(page).to have_content(min_chars_digits_message)
+        expect(page).to have_content(min_chars_digits_message), "Failed value:#{line.inspect}"
+      end
     end
 
     it " shows an error when the Refugee travel document entry is invalid" do

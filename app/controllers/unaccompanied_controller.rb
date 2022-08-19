@@ -371,7 +371,7 @@ class UnaccompaniedController < ApplicationController
       elsif id_type == "national_identity_card"
         document_id = params["unaccompanied_minor"]["national_identity_card"]
 
-        if document_id.blank?
+        if document_id.blank? || document_id !~ min_six_letters_or_digits
           @application.errors.add(:adult_id_identification_number, I18n.t(:min_chars_digits, scope: :error))
         end
       elsif id_type == "refugee_travel_document"
