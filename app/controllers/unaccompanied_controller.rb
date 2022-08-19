@@ -370,7 +370,15 @@ class UnaccompaniedController < ApplicationController
           render_current_step
           return
         end
-        # .strip.length.zero?
+      elsif id_type == "national_identity_card"
+        document_id = params["unaccompanied_minor"]["national_identity_card"]
+
+        if document_id.blank?
+          @application.errors.add(:adult_id_identification_number, I18n.t(:invalid_id_number, scope: :error))
+          @adult = @application.adults_at_address[params["key"]]
+          render_current_step
+          return
+        end
       end
 
       @application.adults_at_address[params["key"]]["id_type_and_number"] = case params["unaccompanied_minor"]["adult_identification_type"]
