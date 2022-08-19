@@ -28,7 +28,7 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
       expect(page).to have_content("You must select an option to continue")
     end
 
-    it " shows an error when the passport entry is invalid" do
+    it "shows an error when the passport entry is not valid" do
       navigate_to_id_document_entry
 
       invalid_id_entries.each do |line|
@@ -40,7 +40,17 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
       end
     end
 
-    it " shows an error when the national id card entry is invalid" do
+    it "goes to task list when the passport entry is valid" do
+      navigate_to_id_document_entry
+
+      choose("Passport")
+      fill_in("Passport number", with: "SomeValidId123456")
+      click_button("Continue")
+
+      expect(page).to have_content(task_list_content)
+    end
+
+    it " shows an error when the national id card entry is not valid" do
       navigate_to_id_document_entry
 
       invalid_id_entries.each do |line|

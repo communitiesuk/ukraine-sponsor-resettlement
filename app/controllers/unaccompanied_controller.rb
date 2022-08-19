@@ -369,25 +369,29 @@ class UnaccompaniedController < ApplicationController
           @application.errors.add(:adult_passport_identification_number, I18n.t(:min_chars_digits, scope: :error))
         end
       elsif id_type == "national_identity_card"
-        document_id = params["unaccompanied_minor"]["national_identity_card"]
+        document_id = params["unaccompanied_minor"]["adult_id_identification_number"]
 
         if document_id.blank? || document_id !~ min_six_letters_or_digits
           @application.errors.add(:adult_id_identification_number, I18n.t(:min_chars_digits, scope: :error))
         end
       elsif id_type == "refugee_travel_document"
-        document_id = params["unaccompanied_minor"]["refugee_travel_document"]
+        document_id = params["unaccompanied_minor"]["adult_refugee_identification_number"]
 
         if document_id.blank? || document_id !~ min_six_letters_or_digits
           @application.errors.add(:adult_refugee_identification_number, I18n.t(:min_chars_digits, scope: :error))
         end
       end
 
+      # Have to force the data in (even with errors)
+      # Allows the FE to display the correct error without loosing data
+      @adult["id_type_and_number"] = "#{id_type} - #{document_id || '123456789'}"
+
       unless @application.errors.empty?
+        # have to assign here so the errors display correctly
+        @application.assign_attributes(application_params)
         render_current_step
         return
       end
-
-      @adult["id_type_and_number"] = "#{id_type} - #{document_id || '123456789'}"
     end
 
     # Update Application object with new attributes
