@@ -23,7 +23,7 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
 
       click_button("Continue")
 
-      expect(page).to have_content("Select an identity document you have, or select ‘I don't have any of these’")
+      expect(page).to have_content("You must select an option to continue")
     end
 
     it " shows an error when the passport entry is invalid" do

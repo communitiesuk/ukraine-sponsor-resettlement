@@ -359,7 +359,7 @@ class UnaccompaniedController < ApplicationController
       document_id = nil
 
       if id_type.blank?
-        @application.errors.add(:adult_identification_type, I18n.t(:invalid_id_type, scope: :error))
+        @application.errors.add(:adult_identification_type, I18n.t(:choose_option, scope: :error))
       elsif id_type == "passport"
         document_id = params["unaccompanied_minor"]["adult_passport_identification_number"]
 
@@ -380,7 +380,7 @@ class UnaccompaniedController < ApplicationController
         end
       end
 
-      if !@application.errors.empty?
+      unless @application.errors.empty?
         render_current_step
         return
       end
