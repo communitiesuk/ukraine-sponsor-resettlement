@@ -85,6 +85,16 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
       end
     end
 
+    it "goes to task list when the Refugee travel document entry is valid" do
+      navigate_to_id_document_entry
+
+      choose("Refugee travel document")
+      fill_in("Refugee travel document", with: valid_document_id)
+      click_button("Continue")
+
+      expect(page).to have_content(task_list_content)
+    end
+
     it "returns to the task list when 'I don't have any of these' is selected" do
       navigate_to_id_document_entry
 
