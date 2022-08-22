@@ -341,14 +341,15 @@ class UnaccompaniedController < ApplicationController
 
     # capture the over 16 year old at address nationality
     if current_step == ADULT_NATIONALITY && params["unaccompanied_minor"]["adult_nationality"].present?
+      @adult = @application.adults_at_address[params["key"]]
+
       if !check_nationality_validity(params["unaccompanied_minor"]["adult_nationality"])
         @application.errors.add(:adult_nationality, I18n.t(:invalid_nationality, scope: :error))
         @nationalities = get_nationalities_as_list
-        @adult = @application.adults_at_address[params["key"]]
         render_current_step
         return
       else
-        @application.adults_at_address[params["key"]]["nationality"] = params["unaccompanied_minor"]["adult_nationality"]
+        @adult["nationality"] = params["unaccompanied_minor"]["adult_nationality"]
       end
     end
 
