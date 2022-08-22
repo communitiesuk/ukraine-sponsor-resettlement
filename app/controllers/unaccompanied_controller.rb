@@ -86,7 +86,7 @@ class UnaccompaniedController < ApplicationController
             1 => Date.parse(adult_dob).year,
           }
         end
-        @application.nationality = adult_nationality if adult_nationality.present? && adult_nationality.length.positive?
+        @application.adult_nationality = adult_nationality if adult_nationality.present? && adult_nationality.length.positive?
         if adult_id_type_and_number.present? && adult_id_type_and_number.length.positive?
           id_type_and_number = adult_id_type_and_number.split(" - ")
           @application.adult_identification_type = id_type_and_number[0].to_s
@@ -341,14 +341,15 @@ class UnaccompaniedController < ApplicationController
 
     # capture the over 16 year old at address nationality
     if current_step == ADULT_NATIONALITY && params["unaccompanied_minor"]["adult_nationality"].present?
+      @adult = @application.adults_at_address[params["key"]]
+
       if !check_nationality_validity(params["unaccompanied_minor"]["adult_nationality"])
         @application.errors.add(:adult_nationality, I18n.t(:invalid_nationality, scope: :error))
         @nationalities = get_nationalities_as_list
-        @adult = @application.adults_at_address[params["key"]]
         render_current_step
         return
       else
-        @application.adults_at_address[params["key"]]["nationality"] = params["unaccompanied_minor"]["adult_nationality"]
+        @adult["nationality"] = params["unaccompanied_minor"]["adult_nationality"]
       end
     end
 
