@@ -1,6 +1,3 @@
-require "rails_helper"
-require "securerandom"
-
 RSpec.describe "Unaccompanied minor other adults", type: :system do
   before do
     driven_by(:rack_test_user_agent)
