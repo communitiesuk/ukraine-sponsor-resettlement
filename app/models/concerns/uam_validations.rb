@@ -1,6 +1,8 @@
 module UamValidations
   extend ActiveSupport::Concern
 
+  include CommonValidations
+
   MIN_ENTRY_DIGITS    = 3
   MAX_ENTRY_DIGITS    = 128
   SPECIAL_CHARACTERS  = /[!"£$%{}<>|&@\/()=?^;]/
@@ -177,13 +179,13 @@ module UamValidations
   end
 
   def validate_given_name
-    if @given_name.nil? || @given_name.strip.length < MIN_ENTRY_DIGITS || @given_name.strip.length > MAX_ENTRY_DIGITS || @given_name.match(SPECIAL_CHARACTERS)
+    unless is_valid_name?(@given_name)
       errors.add(:given_name, I18n.t(:invalid_given_name, scope: :error))
     end
   end
 
   def validate_family_name
-    if @family_name.nil? || @family_name.strip.length < MIN_ENTRY_DIGITS || @family_name.strip.length > MAX_ENTRY_DIGITS || @family_name.match(SPECIAL_CHARACTERS)
+    unless is_valid_name?(@family_name)
       errors.add(:family_name, I18n.t(:invalid_family_name, scope: :error))
     end
   end
@@ -195,13 +197,13 @@ module UamValidations
   end
 
   def validate_minor_given_name
-    if @minor_given_name.nil? || @minor_given_name.strip.length < MIN_ENTRY_DIGITS || @minor_given_name.strip.length > MAX_ENTRY_DIGITS || @minor_given_name.match(SPECIAL_CHARACTERS)
+    unless is_valid_name?(@minor_given_name)
       errors.add(:minor_given_name, I18n.t(:invalid_given_name, scope: :error))
     end
   end
 
   def validate_minor_family_name
-    if @minor_family_name.nil? || @minor_family_name.strip.length < MIN_ENTRY_DIGITS || @minor_family_name.strip.length > MAX_ENTRY_DIGITS || @minor_family_name.match(SPECIAL_CHARACTERS)
+    unless is_valid_name?(@minor_family_name)
       errors.add(:minor_family_name, I18n.t(:invalid_family_name, scope: :error))
     end
   end
@@ -215,13 +217,13 @@ module UamValidations
   end
 
   def validate_adult_given_name
-    if @adult_given_name.nil? || @adult_given_name.strip.length < MIN_ENTRY_DIGITS || @adult_given_name.strip.length > MAX_ENTRY_DIGITS || @adult_given_name.match(SPECIAL_CHARACTERS)
+    unless is_valid_name?(@adult_given_name)
       errors.add(:adult_given_name, I18n.t(:invalid_given_name, scope: :error))
     end
   end
 
   def validate_adult_family_name
-    if @adult_family_name.nil? || @adult_family_name.strip.length < MIN_ENTRY_DIGITS || @adult_family_name.strip.length > MAX_ENTRY_DIGITS || @adult_family_name.match(SPECIAL_CHARACTERS)
+    unless is_valid_name?(@adult_family_name)
       errors.add(:adult_family_name, I18n.t(:invalid_family_name, scope: :error))
     end
   end

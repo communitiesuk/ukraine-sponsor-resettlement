@@ -1,6 +1,10 @@
 module CommonValidations
   extend ActiveSupport::Concern
 
+  MIN_ENTRY_DIGITS    = 3
+  MAX_ENTRY_DIGITS    = 128
+  SPECIAL_CHARACTERS  = /[!"£$%{}<>|&@\/()=?^;]/
+
   def validate_number_adults
     @is_residential_property    = different_address.present? && different_address.casecmp("NO").zero?
     @is_number_adults_integer   = is_integer?(@number_adults)
@@ -41,5 +45,16 @@ module CommonValidations
     unless value && enum.include?(value.to_sym)
       errors.add(attribute, I18n.t(:choose_option, scope: :error))
     end
+  end
+
+  def is_valid_name?(value)
+    if value.nil? ||
+        value.match(SPECIAL_CHARACTERS) ||
+        value.strip.length < MIN_ENTRY_DIGITS ||
+        value.strip.length > MAX_ENTRY_DIGITS
+      return false
+    end
+
+    true
   end
 end
