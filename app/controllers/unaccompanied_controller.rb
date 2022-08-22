@@ -86,7 +86,7 @@ class UnaccompaniedController < ApplicationController
             1 => Date.parse(adult_dob).year,
           }
         end
-        @application.nationality = adult_nationality if adult_nationality.present? && adult_nationality.length.positive?
+        @application.adult_nationality = adult_nationality if adult_nationality.present? && adult_nationality.length.positive?
         if adult_id_type_and_number.present? && adult_id_type_and_number.length.positive?
           id_type_and_number = adult_id_type_and_number.split(" - ")
           @application.adult_identification_type = id_type_and_number[0].to_s
