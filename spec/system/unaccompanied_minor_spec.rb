@@ -819,19 +819,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     click_button("Continue")
     expect(page).to have_content("Do they have any of these identity documents?")
 
-    visit "/sponsor-a-child/task-list"
-    expect(page).to have_content("Bob Jones details")
-
-    click_link("Bob Jones details")
-    expect(page).to have_content("Enter this person's date of birth")
-
-    expect(page).to have_field("Day", with: 13)
-    expect(page).to have_field("Month", with: 6)
-    expect(page).to have_field("Year", with: 2001)
-
-    click_button("Continue")
-
-    # select("Denmark", from: "unaccompanied-minor-adult-nationality-field")
+    visit "/sponsor-a-child/steps/30/123"
 
     expect(page).to have_select(
       "unaccompanied-minor-adult-nationality-field",
