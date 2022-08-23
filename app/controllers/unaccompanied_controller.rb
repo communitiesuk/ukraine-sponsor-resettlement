@@ -88,7 +88,7 @@ class UnaccompaniedController < ApplicationController
             1 => Date.parse(adult_dob).year,
           }
         end
-        @application.nationality = adult_nationality if adult_nationality.present? && adult_nationality.length.positive?
+        @application.adult_nationality = adult_nationality if adult_nationality.present? && adult_nationality.length.positive?
         if adult_id_type_and_number.present? && adult_id_type_and_number.length.positive?
           id_type_and_number = adult_id_type_and_number.split(" - ")
           @application.adult_identification_type = id_type_and_number[0].to_s
@@ -343,29 +343,58 @@ class UnaccompaniedController < ApplicationController
 
     # capture the over 16 year old at address nationality
     if current_step == ADULT_NATIONALITY && params["unaccompanied_minor"]["adult_nationality"].present?
+      @adult = @application.adults_at_address[params["key"]]
+
       if !check_nationality_validity(params["unaccompanied_minor"]["adult_nationality"])
         @application.errors.add(:adult_nationality, I18n.t(:invalid_nationality, scope: :error))
         @nationalities = get_nationalities_as_list
-        @adult = @application.adults_at_address[params["key"]]
         render_current_step
         return
       else
-        @application.adults_at_address[params["key"]]["nationality"] = params["unaccompanied_minor"]["adult_nationality"]
+        @adult["nationality"] = params["unaccompanied_minor"]["adult_nationality"]
       end
     end
 
     # capture the over 16 year old at address id type and number
     if current_step == ADULT_ID_TYPE_AND_NUMBER
-      @application.adults_at_address[params["key"]]["id_type_and_number"] = case params["unaccompanied_minor"]["adult_identification_type"]
-                                                                            when "passport"
-                                                                              "#{params['unaccompanied_minor']['adult_identification_type']} - #{params['unaccompanied_minor']['adult_passport_identification_number']}"
-                                                                            when "national_identity_card"
-                                                                              "#{params['unaccompanied_minor']['adult_identification_type']} - #{params['unaccompanied_minor']['adult_id_identification_number']}"
-                                                                            when "refugee_travel_document"
-                                                                              "#{params['unaccompanied_minor']['adult_identification_type']} - #{params['unaccompanied_minor']['adult_refugee_identification_number']}"
-                                                                            else
-                                                                              "#{params['unaccompanied_minor']['adult_identification_type']} - 123456789"
-                                                                            end
+      min_six_letters_or_digits = /^[0-9a-zA-Z]{6,}$/
+
+      @adult = @application.adults_at_address[params["key"]]
+      id_type = params["unaccompanied_minor"]["adult_identification_type"]
+      document_id = nil
+
+      if id_type.blank?
+        @application.errors.add(:adult_identification_type, I18n.t(:choose_option, scope: :error))
+      elsif id_type == "passport"
+        document_id = params["unaccompanied_minor"]["adult_passport_identification_number"]
+
+        if document_id.blank? || document_id !~ min_six_letters_or_digits
+          @application.errors.add(:adult_passport_identification_number, I18n.t(:min_chars_digits, scope: :error))
+        end
+      elsif id_type == "national_identity_card"
+        document_id = params["unaccompanied_minor"]["adult_id_identification_number"]
+
+        if document_id.blank? || document_id !~ min_six_letters_or_digits
+          @application.errors.add(:adult_id_identification_number, I18n.t(:min_chars_digits, scope: :error))
+        end
+      elsif id_type == "refugee_travel_document"
+        document_id = params["unaccompanied_minor"]["adult_refugee_identification_number"]
+
+        if document_id.blank? || document_id !~ min_six_letters_or_digits
+          @application.errors.add(:adult_refugee_identification_number, I18n.t(:min_chars_digits, scope: :error))
+        end
+      end
+
+      # Have to force the data in (even with errors)
+      # Allows the FE to display the correct error without loosing data
+      @adult["id_type_and_number"] = "#{id_type} - #{document_id || '123456789'}"
+
+      unless @application.errors.empty?
+        # have to assign here so the errors display correctly
+        @application.assign_attributes(application_params)
+        render_current_step
+        return
+      end
     end
 
     # Update Application object with new attributes
