@@ -42,4 +42,12 @@ module CommonValidations
       errors.add(attribute, I18n.t(:choose_option, scope: :error))
     end
   end
+
+  def is_valid_name?(value)
+    min_name_length = 1
+    max_name_length = 128
+    validator = /^[-'a-zA-Z\s]{#{min_name_length},#{max_name_length}}$/
+
+    value.present? && !!(value =~ validator)
+  end
 end
