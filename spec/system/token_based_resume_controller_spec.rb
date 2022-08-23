@@ -85,7 +85,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
 
       visit "/sponsor-a-child/save-and-return/resend-link"
 
-      fill_in("What is your email address?", with: email)
+      fill_in("Enter your email address", with: email)
       click_button("Send Link")
 
       expect(page).to have_content("We've sent the link to #{email_scrambled}")
@@ -98,7 +98,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
 
       visit "/sponsor-a-child/save-and-return/resend-link"
 
-      fill_in("What is your email address?", with: "")
+      fill_in("Enter your email address", with: "")
       click_button("Send Link")
 
       expect(page).to have_content(I18n.t(:invalid_email, scope: :error))
