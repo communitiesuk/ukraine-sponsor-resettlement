@@ -48,13 +48,8 @@ module CommonValidations
   end
 
   def is_valid_name?(value)
-    if value.nil? ||
-        value.match(SPECIAL_CHARACTERS) ||
-        value.strip.length < MIN_ENTRY_DIGITS ||
-        value.strip.length > MAX_ENTRY_DIGITS
-      return false
-    end
+    validator = /^[-'a-zA-Z\s]{1,128}$/
 
-    true
+    value.present? && !!(value =~ validator)
   end
 end
