@@ -2,6 +2,7 @@ require "securerandom"
 
 class UnaccompaniedController < ApplicationController
   include ApplicationHelper
+  include CommonValidations
 
   before_action :check_last_activity, only: %i[handle_step display]
 
@@ -176,19 +177,17 @@ class UnaccompaniedController < ApplicationController
       param_other_given_name = params["unaccompanied_minor"]["other_given_name"]
       param_other_family_name = params["unaccompanied_minor"]["other_family_name"]
 
-      if param_other_given_name.blank? || param_other_family_name.blank?
-        if param_other_given_name.blank?
-          @application.errors.add(:other_given_name, I18n.t(:invalid_given_name, scope: :error))
-        else
-          @previously_entered_other_given_name = param_other_given_name
-        end
+      unless is_valid_name?(param_other_given_name)
+        @application.errors.add(:other_given_name, I18n.t(:invalid_given_name, scope: :error))
+      end
 
-        if param_other_family_name.blank?
-          @application.errors.add(:other_family_name, I18n.t(:invalid_family_name, scope: :error))
-        else
-          @previously_entered_other_family_name = param_other_family_name
-        end
+      unless is_valid_name?(param_other_family_name)
+        @application.errors.add(:other_family_name, I18n.t(:invalid_family_name, scope: :error))
+      end
 
+      unless @application.errors.empty?
+        @previously_entered_other_given_name = param_other_given_name
+        @previously_entered_other_family_name = param_other_family_name
         render_current_step
         return
       end
