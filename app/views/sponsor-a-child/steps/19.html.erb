@@ -10,11 +10,13 @@
       <%= f.govuk_collection_select :nationality, @nationalities, :val, :name,
           label: { text: "", hidden: true },
           hint: { text: t('sponsor_nationality.hint_html', scope: "unaccompanied_minor.questions")} %>
-      <%= f.govuk_submit t('continue') %>
-      
-      <% if @feature_save_and_return_active == true %>
-        <a class="govuk-link govuk-!-font-size-19" href="/sponsor-a-child/save-and-return">Save and return later</a>
-      <% end %>
+      <div class="govuk-button-group">
+        <%= f.govuk_submit t('continue') %>
+        
+        <% if @feature_save_and_return_active == true %>
+          <a class="govuk-link" href="/sponsor-a-child/save-and-return">Save and return later</a>
+        <% end %>
+      </div>
     
     <% end %>
   </div>

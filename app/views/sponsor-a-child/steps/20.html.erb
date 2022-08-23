@@ -17,11 +17,13 @@
         <%= f.govuk_radio_button :has_other_nationalities, false, label: { text: t('No' ) },  link_errors: true  %>
       <% end %>
 
-      <%= f.govuk_submit t('continue') %>
-      
-      <% if @feature_save_and_return_active == true %>
-        <a class="govuk-link govuk-!-font-size-19" href="/sponsor-a-child/save-and-return">Save and return later</a>
-      <% end %>
+      <div class="govuk-button-group">
+        <%= f.govuk_submit t('continue') %>
+        
+        <% if @feature_save_and_return_active == true %>
+          <a class="govuk-link" href="/sponsor-a-child/save-and-return">Save and return later</a>
+        <% end %>
+      </div>
     
     <% end %>
   </div>

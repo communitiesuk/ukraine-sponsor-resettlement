@@ -28,15 +28,12 @@
     <div>
         <%= govuk_button_link_to 'Add another nationality', "/sponsor-a-child/steps/21", class: "govuk-button--secondary"  %>
     </div>
-
-    <div>
+    <div class="govuk-button-group">
       <%= govuk_button_link_to 'Continue', "/sponsor-a-child/task-list"  %>
       
       <% if @feature_save_and_return_active == true %>
-        <a class="govuk-link govuk-!-font-size-19" href="/sponsor-a-child/save-and-return">Save and return later</a>
+        <a class="govuk-link" href="/sponsor-a-child/save-and-return">Save and return later</a>
       <% end %>
-    
     </div>
-
   </div>
 </div>
