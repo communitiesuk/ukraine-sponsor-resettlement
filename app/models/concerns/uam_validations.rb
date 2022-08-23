@@ -5,7 +5,6 @@ module UamValidations
 
   MIN_ENTRY_DIGITS    = 3
   MAX_ENTRY_DIGITS    = 128
-  SPECIAL_CHARACTERS  = /[!"£$%{}<>|&@\/()=?^;]/
   ALLOWED_FILE_TYPES = ["application/pdf", "image/png", "image/jpeg", "image/jpg"].freeze
   POSTCODE_REGEX = /([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})/
 

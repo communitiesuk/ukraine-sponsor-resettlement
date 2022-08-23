@@ -3,7 +3,6 @@ module CommonValidations
 
   MIN_ENTRY_DIGITS    = 3
   MAX_ENTRY_DIGITS    = 128
-  SPECIAL_CHARACTERS  = /[!"£$%{}<>|&@\/()=?^;]/
 
   def validate_number_adults
     @is_residential_property    = different_address.present? && different_address.casecmp("NO").zero?
