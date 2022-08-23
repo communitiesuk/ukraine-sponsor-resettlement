@@ -70,7 +70,7 @@ RSpec.describe UnaccompaniedController, type: :controller do
       allow(SendUnaccompaniedMinorJob).to receive(:perform_later)
     end
 
-    it "strips uneeded errors and submits. Lord forgive us" do
+    it "queues the json to be sent and sends the user to the confirmation page" do
       post :submit
 
       expect(uam.errors.empty?).to be(true)
