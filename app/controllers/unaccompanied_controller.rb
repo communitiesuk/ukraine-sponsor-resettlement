@@ -444,23 +444,8 @@ class UnaccompaniedController < ApplicationController
     @application.final_submission = true
 
     Rails.logger.debug "Submit JSON: #{@application.as_json}"
-    isvalid = @application.valid?
 
-    unless isvalid
-      if @application.errors.include?(:adult_given_name)
-        @application.errors.delete(:adult_given_name)
-      end
-      if @application.errors.include?(:adult_family_name)
-        @application.errors.delete(:adult_family_name)
-      end
-      if @application.errors.include?(:adult_date_of_birth)
-        @application.errors.delete(:adult_date_of_birth)
-      end
-
-      isvalid = @application.errors.empty?
-    end
-
-    if isvalid
+    if @application.valid?
       @application.save!(validate: false)
       session[:app_reference] = @application.reference
       session[:unaccompanied_minor] = {}
