@@ -2,15 +2,22 @@ require "rails_helper"
 
 RSpec.describe TokenBasedResumeController, type: :controller do
   describe "User session times out" do
+    # clean all the existing applications
+    UnaccompaniedMinor.destroy_all
+
     given_name = "First".freeze
     email = "test@example.com".freeze
     phone_number = "07983111111".freeze
 
-    uam = UnaccompaniedMinor.new
-    uam.given_name = given_name
-    uam.email = email
-    uam.phone_number = phone_number
-    uam.save!(validate: false)
+    uam = UnaccompaniedMinor.new(
+      given_name: given_name,
+      email: email,
+      phone_number: phone_number
+    )
+    #uam.given_name = given_name
+    #uam.email = email
+    #uam.phone_number = phone_number
+    uam.save!
 
     uuid = "test-uuid".freeze
     magic_link = "http://test.host/sponsor-a-child/resume-application?uuid=#{uuid}".freeze
@@ -68,15 +75,16 @@ RSpec.describe TokenBasedResumeController, type: :controller do
     end
 
     it "shows application select page if user has more than one", :focus do
-      given_name = "First2".freeze
+      given_name = "First Name".freeze
       email = "test@example.com".freeze
       phone_number = "07983111111".freeze
   
-      uam = UnaccompaniedMinor.new
-      uam.given_name = given_name
-      uam.email = email
-      uam.phone_number = phone_number
-      uam.save!(validate: false)
+      uam = UnaccompaniedMinor.new(
+        given_name: given_name,
+        email: email,
+        phone_number: phone_number
+      )
+      uam.save!
 
       parms = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
 
