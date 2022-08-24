@@ -2,20 +2,22 @@ require "rails_helper"
 require "securerandom"
 
 RSpec.describe "Unaccompanied minor minors details", type: :system do
+  let(:task_list_path) { "/sponsor-a-child/task-list" }
+
   before do
     driven_by(:rack_test_user_agent)
+    new_application = UnaccompaniedMinor.new
+    new_application.save!
+
+    page.set_rack_session(app_reference: new_application.reference)
   end
 
   describe "completing the minors details with valid input" do
     it "saves all the minors data and shows completed status" do
-      new_application = UnaccompaniedMinor.new
-      new_application.save!
-      page.set_rack_session(app_reference: new_application.reference)
-
       minor_dob_under_18_year = Time.zone.now.year - 4
       task_list_content = "Apply for permission to sponsor a child fleeing Ukraine without a parent".freeze
 
-      visit "/sponsor-a-child/task-list"
+      visit task_list_path
       expect(page).to have_content(task_list_content)
 
       click_link("Child's personal details")
@@ -46,11 +48,7 @@ RSpec.describe "Unaccompanied minor minors details", type: :system do
 
   describe "prompting the user for valid input" do
     it "prompts the user to select a contact type" do
-      new_application = UnaccompaniedMinor.new
-      new_application.save!
-      page.set_rack_session(app_reference: new_application.reference)
-
-      visit "/sponsor-a-child/task-list"
+      visit task_list_path
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
       click_link("Child's personal details")
@@ -67,11 +65,7 @@ RSpec.describe "Unaccompanied minor minors details", type: :system do
     end
 
     it "prompts the user to enter a valid email address" do
-      new_application = UnaccompaniedMinor.new
-      new_application.save!
-      page.set_rack_session(app_reference: new_application.reference)
-
-      visit "/sponsor-a-child/task-list"
+      visit task_list_path
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
       click_link("Child's personal details")
@@ -91,12 +85,7 @@ RSpec.describe "Unaccompanied minor minors details", type: :system do
     end
 
     it "enters blank DoB" do
-      new_application = UnaccompaniedMinor.new
-      new_application.save!
-
-      page.set_rack_session(app_reference: new_application.reference)
-
-      visit "/sponsor-a-child/task-list"
+      visit task_list_path
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
       click_link("Child's personal details")
