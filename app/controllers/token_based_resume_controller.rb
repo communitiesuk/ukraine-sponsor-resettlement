@@ -76,27 +76,25 @@ class TokenBasedResumeController < ApplicationController
       if @applicationtoken.present?
         if Time.zone.now.utc <= @applicationtoken.expires_at
 
-          Rails.logger.debug @applicationtoken.unaccompanied_minor.as_json
+          puts @applicationtoken.unaccompanied_minor.as_json
           # check if user has more than one application
           mail = @applicationtoken.unaccompanied_minor.email
           num = @applicationtoken.unaccompanied_minor.phone_number
-          Rails.logger.debug mail
-          Rails.logger.debug num
+          p mail
+          p num
 
           applications = UnaccompaniedMinor.where(
-            # email: mail,
-            # "email = '#{mail}'",
+            # email: mail
+            #"email = '#{mail}'",
+
             # "answers ->> 'email' = '#{@applicationtoken.unaccompanied_minor.email}'",
             "answers ->> 'phone_number' = '#{num}'",
           )
 
-          Rails.logger.debug @applicationtoken.unaccompanied_minor.answers
-          Rails.logger.debug @applicationtoken.unaccompanied_minor.email
-          Rails.logger.debug @applicationtoken.unaccompanied_minor.phone_number
-          Rails.logger.debug applications.size
+          p applications.size
 
           applications.each do |app|
-            Rails.logger.debug app.as_json
+            puts app.as_json
           end
 
           if applications.size > 1

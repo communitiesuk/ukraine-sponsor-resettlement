@@ -50,6 +50,10 @@ RSpec.describe TokenBasedResumeController, type: :controller do
     uam = UnaccompaniedMinor.new
     uam.phone_number = phone_number
 
+    # Need this in the token to be returned from the mock.
+    # Pretty sure it's a scoping thing
+    uam.email = "test@example.com"
+
     let(:texter) { instance_double("Notifications::Client") }
     let(:application_token) { instance_double("ApplicationToken") }
 
@@ -74,7 +78,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
     #  expect(response).to render_template("sponsor-a-child/task_list")
     # end
 
-    it "shows application select page if user has more than one" do
+    fit "shows application select page if user has more than one" do
       # given_name = "First Name".freeze
       email = "test@example.com".freeze
       phone_number = "07983111111".freeze
