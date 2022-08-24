@@ -29,7 +29,7 @@
       <%= f.govuk_check_boxes_fieldset :minor_contact_type, multiple: false,
                                        legend: { text: "", hidden: true } do %>
 
-        <%= f.govuk_check_box :minor_contact_type, :email, multiple: false, label: { text: "Email" } do %>
+        <%= f.govuk_check_box :minor_contact_type, :email, multiple: false, label: { text: "Email" }, link_errors: true do %>
             <%= f.govuk_text_field :minor_email, label: { text: "Email" }, type: "text" %>
         <% end %>
         <%= f.govuk_check_box :minor_contact_type, :telephone, multiple: false, label: { text: "Phone" } do %>
