@@ -10,13 +10,13 @@ RSpec.describe TokenBasedResumeController, type: :controller do
     phone_number = "07983111111".freeze
 
     uam = UnaccompaniedMinor.new(
-      given_name: given_name,
-      email: email,
-      phone_number: phone_number
+      given_name:,
+      email:,
+      phone_number:,
     )
-    #uam.given_name = given_name
-    #uam.email = email
-    #uam.phone_number = phone_number
+    # uam.given_name = given_name
+    # uam.email = email
+    # uam.phone_number = phone_number
     uam.save!
 
     uuid = "test-uuid".freeze
@@ -65,27 +65,38 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       expect(texter).to have_received(:send_sms).with({ personalisation: { OTP: sms_code.to_s }, phone_number:, template_id: "b51a151e-f352-473a-b52e-185d2873cbf5" })
     end
 
-    it "load correct application given code", :focus do
-      parms = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
+    # fit "load correct application given code", :focus do
+    #  parms = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
+    #
+    #  post :submit, params: parms
+    #
+    #  expect(response.status).to eq(200)
+    #  expect(response).to render_template("sponsor-a-child/task_list")
+    # end
 
-      post :submit, params: parms
-
-      expect(response.status).to eq(200)
-      expect(response).to render_template("sponsor-a-child/task_list")
-    end
-
-    it "shows application select page if user has more than one", :focus do
-      given_name = "First Name".freeze
+    it "shows application select page if user has more than one" do
+      # given_name = "First Name".freeze
       email = "test@example.com".freeze
       phone_number = "07983111111".freeze
-  
+
       uam = UnaccompaniedMinor.new(
-        given_name: given_name,
-        email: email,
-        phone_number: phone_number
+        given_name: "neilone",
+        minor_given_name: "Minorone",
+        adult_given_name: "adultgiven",
+        email:,
+        phone_number:,
       )
       uam.save!
 
+      uam2 = UnaccompaniedMinor.new(
+        given_name: "neiltwo",
+        minor_given_name: "Minortwo",
+        adult_given_name: "adultgiven",
+        email:,
+        phone_number:,
+      )
+      uam2.save!
+
       parms = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
 
       post :submit, params: parms
@@ -94,12 +105,12 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       expect(response).to render_template("token-based-resume/select_multiple_applications")
     end
 
-    it "shows a message if user accesses select multiple page without using token flow", :focus do
-      get :select_multiple_applications
-
-      expect(response.status).to eq(200)
-      expect(response).to render_template("token-based-resume/select_multiple_applications")
-    end
+    # fit "shows a message if user accesses select multiple page without using token flow", :focus do
+    #  get :select_multiple_applications
+    #
+    #  expect(response.status).to eq(200)
+    #  expect(response).to render_template("token-based-resume/select_multiple_applications")
+    # end
   end
 
   describe "User errors" do

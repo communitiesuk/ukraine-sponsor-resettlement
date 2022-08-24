@@ -75,22 +75,34 @@ class TokenBasedResumeController < ApplicationController
       @applicationtoken = ApplicationToken.find_by(magic_link: @abstractresumetoken.magic_link, token: @abstractresumetoken.token)
       if @applicationtoken.present?
         if Time.zone.now.utc <= @applicationtoken.expires_at
+
+          Rails.logger.debug @applicationtoken.unaccompanied_minor.as_json
           # check if user has more than one application
+          mail = @applicationtoken.unaccompanied_minor.email
+          num = @applicationtoken.unaccompanied_minor.phone_number
+          Rails.logger.debug mail
+          Rails.logger.debug num
+
           applications = UnaccompaniedMinor.where(
-            #"answers ->> 'email' = '#{@applicationtoken.unaccompanied_minor.email}'",
-            "answers ->> 'phone_number' = '#{@applicationtoken.unaccompanied_minor.phone_number}'"
+            # email: mail,
+            # "email = '#{mail}'",
+            # "answers ->> 'email' = '#{@applicationtoken.unaccompanied_minor.email}'",
+            "answers ->> 'phone_number' = '#{num}'",
           )
 
-          p @applicationtoken.unaccompanied_minor.answers
-          p @applicationtoken.unaccompanied_minor.as_json
-          p @applicationtoken.unaccompanied_minor.email
-          p @applicationtoken.unaccompanied_minor.phone_number
-          p applications.size
+          Rails.logger.debug @applicationtoken.unaccompanied_minor.answers
+          Rails.logger.debug @applicationtoken.unaccompanied_minor.email
+          Rails.logger.debug @applicationtoken.unaccompanied_minor.phone_number
+          Rails.logger.debug applications.size
+
+          applications.each do |app|
+            Rails.logger.debug app.as_json
+          end
 
           if applications.size > 1
             @applications = applications
             render "token-based-resume/select_multiple_applications"
-          elsif applications.size == 1 
+          elsif applications.size == 1
             @application = @applicationtoken.unaccompanied_minor
             session[:app_reference] = @application.reference
             session[:unaccompanied_minor] = @application.as_json
