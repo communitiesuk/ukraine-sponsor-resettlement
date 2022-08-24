@@ -76,13 +76,18 @@ class TokenBasedResumeController < ApplicationController
       @applicationtoken = ApplicationToken.find_by(magic_link: @abstractresumetoken.magic_link, token: @abstractresumetoken.token)
       Rails.logger.debug @applicationtoken
       if @applicationtoken.present?
-        if Time.zone.now.utc <= @applicationtoken.expires_at
-          # the application exists, store in the session and let them resume
+        # check if user has more than one application
+        applications = UnaccompaniedMinor.where
+        if applications.length > 1
+          @applications = applications
+          render "token-based-resume/select_multiple_applications"
+        elsif Time.zone.now.utc <= @applicationtoken.expires_at
           @application = @applicationtoken.unaccompanied_minor
           session[:app_reference] = @application.reference
           session[:unaccompanied_minor] = @application.as_json
 
           render "sponsor-a-child/task_list"
+        # the application exists, store in the session and let them resume
         else
           # token has timed out
           flash[:error] = "This code has timed out, please request a new one"
@@ -97,6 +102,19 @@ class TokenBasedResumeController < ApplicationController
       # the token is invalid
       flash[:error] = "Please enter a valid code"
       render "token-based-resume/session_resume_form"
+    end
+  end
+
+  def select_multiple_applications
+    selected_application = nil
+    if selected_application
+      @application = UnaccompaniedMinor.find_by(reference: selected_application)
+      session[:app_reference] = selected_application
+      session[:unaccompanied_minor] = @application.as_json
+
+      render "sponsor-a-child/task_list"
+    else
+      render "token-based-resume/select_multiple_applications"
     end
   end
 
