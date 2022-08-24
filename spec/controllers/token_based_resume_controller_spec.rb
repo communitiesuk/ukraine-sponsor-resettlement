@@ -61,8 +61,23 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       post :submit, params: parms
 
       expect(response.status).to eq(200)
-      puts flash[:error]
       expect(response).to render_template("sponsor-a-child/task_list")
+    end
+
+    it "shows application select page if user has more than one" do
+      parms = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
+
+      post :submit, params: parms
+
+      expect(response.status).to eq(200)
+      expect(response).to render_template("token-based-resume/select_multiple_applications")
+    end
+
+    it "shows a message if user accesses select multiple page without using token flow" do
+      get :select_multiple_applications
+
+      expect(response.status).to eq(200)
+      expect(response).to render_template("token-based-resume/select_multiple_applications")
     end
   end
 
