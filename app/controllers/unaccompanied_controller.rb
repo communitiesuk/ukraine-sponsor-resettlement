@@ -296,6 +296,11 @@ class UnaccompaniedController < ApplicationController
         render_current_step
         return
       end
+
+      # if params["unaccompanied_minor"]["minor_contact_type"] == "email"
+      #  email_address = params["unaccompanied_minor"]["minor_contact_type"]
+      #
+      # end
     end
 
     if current_step == MINOR_DATE_OF_BIRTH

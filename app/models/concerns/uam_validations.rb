@@ -44,6 +44,8 @@ module UamValidations
     validate :validate_sponsor_address_line_2, if: -> { run_validation? :sponsor_address_line_2 }
     validate :validate_sponsor_address_town, if: -> { run_validation? :sponsor_address_town }
     validate :validate_sponsor_address_postcode, if: -> { run_validation? :sponsor_address_postcode }
+
+    validate :validate_minor_email, if: -> { run_validation? :minor_email }
   end
 
   def validate_sponsor_date_of_birth
@@ -263,7 +265,21 @@ module UamValidations
     end
   end
 
+  def validate_minor_email
+    if @minor_contact_type == "email" && !email_address_valid?(@minor_email)
+      errors.add(:minor_email, I18n.t(:invalid_email, scope: :error))
+    end
+  end
+
   def run_validation?(attribute)
     @final_submission || send(attribute)
+  end
+
+  def email_address_valid?(value)
+    min_length = 2
+    max_length = 128
+    validator = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{#{min_length},#{max_length}})\z/i
+
+    value.present? && !!(value =~ validator)
   end
 end
