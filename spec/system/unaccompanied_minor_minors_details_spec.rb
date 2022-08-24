@@ -44,7 +44,28 @@ RSpec.describe "Unaccompanied minor minors details", type: :system do
     end
   end
 
-  describe "Goes through child flow and enters DoB" do
+  describe "prompting the user for valid input" do
+    it "prompts the user to select a contact type" do
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
+      page.set_rack_session(app_reference: new_application.reference)
+
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+
+      click_link("Child's personal details")
+      expect(page).to have_content("Enter the name of the child you want to sponsor")
+
+      fill_in("Given name(s)", with: "Jane")
+      fill_in("Family name", with: "Doe")
+
+      click_button("Continue")
+      expect(page).to have_content("How can we contact the child?")
+
+      click_button("Continue")
+      expect(page).to have_content("Please choose one or more of the options")
+    end
+
     it "enters blank DoB" do
       new_application = UnaccompaniedMinor.new
       new_application.save!
