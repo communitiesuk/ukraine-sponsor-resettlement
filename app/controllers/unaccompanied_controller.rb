@@ -288,6 +288,18 @@ class UnaccompaniedController < ApplicationController
       end
     end
 
+    # minor_contact_details = 33
+    # if current_step == minor_contact_details
+    #  puts "STEP 33 FOUND *********"
+    #  p params
+    #  unless params["unaccompanied_minor"]["minor_contact_type"].present?
+    #    @application.errors.add(:minor_contact_type, "BANG!")
+    #
+    #    render_current_step
+    #    return
+    #  end
+    # end
+
     if current_step == MINOR_DATE_OF_BIRTH
       # There must be a better way!
       begin
