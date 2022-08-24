@@ -274,12 +274,4 @@ module UamValidations
   def run_validation?(attribute)
     @final_submission || send(attribute)
   end
-
-  def email_address_valid?(value)
-    min_length = 2
-    max_length = 128
-    validator = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{#{min_length},#{max_length}})\z/i
-
-    value.present? && !!(value =~ validator)
-  end
 end
