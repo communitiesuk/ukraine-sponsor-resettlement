@@ -4,7 +4,7 @@ RSpec.describe CommonValidations, type: :helper do
       test_values = [nil, "", " ", "!", "$", "£", "A" * 129].freeze
 
       test_values.each do |val|
-        expect(is_valid_name?(val)).to be(false), "Failed value:#{val.inspect}"
+        expect(name_valid?(val)).to be(false), "Failed value:#{val.inspect}"
       end
     end
 
@@ -12,7 +12,7 @@ RSpec.describe CommonValidations, type: :helper do
       test_values = ["a", "AB", "apos'ok", "Spaces OK", "Hypens-OK"].freeze
 
       test_values.each do |val|
-        expect(is_valid_name?(val)).to be(true), "Failed value:#{val.inspect}"
+        expect(name_valid?(val)).to be(true), "Failed value:#{val.inspect}"
       end
     end
   end

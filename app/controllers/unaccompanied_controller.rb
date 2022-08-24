@@ -178,11 +178,11 @@ class UnaccompaniedController < ApplicationController
       param_other_given_name = params["unaccompanied_minor"]["other_given_name"]
       param_other_family_name = params["unaccompanied_minor"]["other_family_name"]
 
-      unless is_valid_name?(param_other_given_name)
+      unless name_valid?(param_other_given_name)
         @application.errors.add(:other_given_name, I18n.t(:invalid_given_name, scope: :error))
       end
 
-      unless is_valid_name?(param_other_family_name)
+      unless name_valid?(param_other_family_name)
         @application.errors.add(:other_family_name, I18n.t(:invalid_family_name, scope: :error))
       end
 

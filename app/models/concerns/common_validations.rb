@@ -43,7 +43,7 @@ module CommonValidations
     end
   end
 
-  def is_valid_name?(value)
+  def name_valid?(value)
     min_name_length = 1
     max_name_length = 128
     validator = /^[-'a-zA-Z\s]{#{min_name_length},#{max_name_length}}$/

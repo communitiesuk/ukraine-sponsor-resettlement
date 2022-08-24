@@ -180,13 +180,13 @@ module UamValidations
   end
 
   def validate_given_name
-    unless is_valid_name?(@given_name)
+    unless name_valid?(@given_name)
       errors.add(:given_name, I18n.t(:invalid_given_name, scope: :error))
     end
   end
 
   def validate_family_name
-    unless is_valid_name?(@family_name)
+    unless name_valid?(@family_name)
       errors.add(:family_name, I18n.t(:invalid_family_name, scope: :error))
     end
   end
@@ -198,13 +198,13 @@ module UamValidations
   end
 
   def validate_minor_given_name
-    unless is_valid_name?(@minor_given_name)
+    unless name_valid?(@minor_given_name)
       errors.add(:minor_given_name, I18n.t(:invalid_given_name, scope: :error))
     end
   end
 
   def validate_minor_family_name
-    unless is_valid_name?(@minor_family_name)
+    unless name_valid?(@minor_family_name)
       errors.add(:minor_family_name, I18n.t(:invalid_family_name, scope: :error))
     end
   end
@@ -218,13 +218,13 @@ module UamValidations
   end
 
   def validate_adult_given_name
-    if !@final_submission && !is_valid_name?(@adult_given_name)
+    if !@final_submission && !name_valid?(@adult_given_name)
       errors.add(:adult_given_name, I18n.t(:invalid_given_name, scope: :error))
     end
   end
 
   def validate_adult_family_name
-    if !@final_submission && !is_valid_name?(@adult_family_name)
+    if !@final_submission && !name_valid?(@adult_family_name)
       errors.add(:adult_family_name, I18n.t(:invalid_family_name, scope: :error))
     end
   end
