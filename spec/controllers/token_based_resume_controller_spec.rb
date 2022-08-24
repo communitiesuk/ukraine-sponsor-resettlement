@@ -4,10 +4,13 @@ RSpec.describe TokenBasedResumeController, type: :controller do
   describe "User session times out" do
     given_name = "First".freeze
     email = "test@example.com".freeze
+    phone_number = "07983111111".freeze
 
     uam = UnaccompaniedMinor.new
     uam.given_name = given_name
     uam.email = email
+    uam.phone_number = phone_number
+    uam.save!(validate: false)
 
     uuid = "test-uuid".freeze
     magic_link = "http://test.host/sponsor-a-child/resume-application?uuid=#{uuid}".freeze
@@ -55,7 +58,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       expect(texter).to have_received(:send_sms).with({ personalisation: { OTP: sms_code.to_s }, phone_number:, template_id: "b51a151e-f352-473a-b52e-185d2873cbf5" })
     end
 
-    it "load correct application given code" do
+    it "load correct application given code", :focus do
       parms = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
 
       post :submit, params: parms
@@ -64,7 +67,17 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       expect(response).to render_template("sponsor-a-child/task_list")
     end
 
-    it "shows application select page if user has more than one" do
+    it "shows application select page if user has more than one", :focus do
+      given_name = "First2".freeze
+      email = "test@example.com".freeze
+      phone_number = "07983111111".freeze
+  
+      uam = UnaccompaniedMinor.new
+      uam.given_name = given_name
+      uam.email = email
+      uam.phone_number = phone_number
+      uam.save!(validate: false)
+
       parms = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
 
       post :submit, params: parms
@@ -73,7 +86,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       expect(response).to render_template("token-based-resume/select_multiple_applications")
     end
 
-    it "shows a message if user accesses select multiple page without using token flow" do
+    it "shows a message if user accesses select multiple page without using token flow", :focus do
       get :select_multiple_applications
 
       expect(response.status).to eq(200)

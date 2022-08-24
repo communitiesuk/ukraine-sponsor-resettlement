@@ -72,22 +72,36 @@ class TokenBasedResumeController < ApplicationController
     @abstractresumetoken.assign_attributes(confirm_params)
 
     if @abstractresumetoken.valid?
-      Rails.logger.debug @abstractresumetoken
       @applicationtoken = ApplicationToken.find_by(magic_link: @abstractresumetoken.magic_link, token: @abstractresumetoken.token)
-      Rails.logger.debug @applicationtoken
       if @applicationtoken.present?
-        # check if user has more than one application
-        applications = UnaccompaniedMinor.where
-        if applications.length > 1
-          @applications = applications
-          render "token-based-resume/select_multiple_applications"
-        elsif Time.zone.now.utc <= @applicationtoken.expires_at
-          @application = @applicationtoken.unaccompanied_minor
-          session[:app_reference] = @application.reference
-          session[:unaccompanied_minor] = @application.as_json
+        if Time.zone.now.utc <= @applicationtoken.expires_at
+          # check if user has more than one application
+          applications = UnaccompaniedMinor.where(
+            #"answers ->> 'email' = '#{@applicationtoken.unaccompanied_minor.email}'",
+            "answers ->> 'phone_number' = '#{@applicationtoken.unaccompanied_minor.phone_number}'"
+          )
 
-          render "sponsor-a-child/task_list"
-        # the application exists, store in the session and let them resume
+          p @applicationtoken.unaccompanied_minor.answers
+          p @applicationtoken.unaccompanied_minor.as_json
+          p @applicationtoken.unaccompanied_minor.email
+          p @applicationtoken.unaccompanied_minor.phone_number
+          p applications.size
+
+          if applications.size > 1
+            @applications = applications
+            render "token-based-resume/select_multiple_applications"
+          elsif applications.size == 1 
+            @application = @applicationtoken.unaccompanied_minor
+            session[:app_reference] = @application.reference
+            session[:unaccompanied_minor] = @application.as_json
+
+            render "sponsor-a-child/task_list"
+            # the application exists, store in the session and let them resume
+          else
+            # no application was found with this token
+            flash[:error] = "No application found for this code"
+            redirect_to "/sponsor-a-child/resume-application?uuid=#{params[:uuid]}"
+          end
         else
           # token has timed out
           flash[:error] = "This code has timed out, please request a new one"
