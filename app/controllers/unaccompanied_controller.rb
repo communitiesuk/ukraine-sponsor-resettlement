@@ -19,6 +19,7 @@ class UnaccompaniedController < ApplicationController
   ADULT_DATE_OF_BIRTH = 29
   ADULT_NATIONALITY = 30
   ADULT_ID_TYPE_AND_NUMBER = 31
+  MINOR_CONTACT_DETAILS = 33
   MINOR_DATE_OF_BIRTH = 34
   NATIONALITY_STEPS = [SPONSOR_NATIONALITY, SPONSOR_OTHER_NATIONALITY, ADULT_NATIONALITY].freeze
   ADULT_STEPS = [ADULT_DATE_OF_BIRTH, ADULT_NATIONALITY, ADULT_ID_TYPE_AND_NUMBER].freeze
@@ -288,9 +289,7 @@ class UnaccompaniedController < ApplicationController
       end
     end
 
-    minor_contact_details = 33
-    if current_step == minor_contact_details
-      Rails.logger.debug "STEP 33 FOUND *********"
+    if current_step == MINOR_CONTACT_DETAILS
       Rails.logger.debug params
       if params["unaccompanied_minor"]["minor_contact_type"].blank?
         @application.errors.add(:minor_contact_type, I18n.t(:choose_one_or_more_options, scope: :error))
