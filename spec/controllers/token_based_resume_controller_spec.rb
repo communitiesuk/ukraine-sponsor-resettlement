@@ -38,8 +38,6 @@ RSpec.describe TokenBasedResumeController, type: :controller do
   end
 
   describe "User tries to resume their application after email sent" do
-    # clean all the existing applications
-    # UnaccompaniedMinor.destroy_all
 
     given_name = "First".freeze
     email = "test@example.com".freeze
