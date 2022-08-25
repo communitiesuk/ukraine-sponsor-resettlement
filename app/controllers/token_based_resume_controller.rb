@@ -78,8 +78,8 @@ class TokenBasedResumeController < ApplicationController
 
           # check if user has more than one application
           mail = @applicationtoken.unaccompanied_minor.email
-          num = @applicationtoken.unaccompanied_minor.phone_number
-          applications = UnaccompaniedMinor.where("answers ->> 'email' = ?", mail).where("answers ->> 'phone_number' = ?", num)
+          phone_number = @applicationtoken.unaccompanied_minor.phone_number
+          applications = UnaccompaniedMinor.where("answers ->> 'email' = ?", mail).where("answers ->> 'phone_number' = ?", phone_number)
 
           if applications.count > 1
             # the user has more than one applicaation
