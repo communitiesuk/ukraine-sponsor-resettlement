@@ -80,8 +80,6 @@ RSpec.describe TokenBasedResumeController, type: :system do
     end
 
     it "allows the user to resume an application if the correct email is provided" do
-      uam.email = email
-      uam.save!
       page.set_rack_session(app_reference: uam.reference)
 
       visit "/sponsor-a-child/save-and-return/resend-link"
@@ -93,8 +91,6 @@ RSpec.describe TokenBasedResumeController, type: :system do
     end
 
     it "shows an error if the email is invalid" do
-      uam.email = email
-      uam.save!
       page.set_rack_session(app_reference: uam.reference)
 
       visit "/sponsor-a-child/save-and-return/resend-link"
@@ -106,11 +102,17 @@ RSpec.describe TokenBasedResumeController, type: :system do
     end
 
     it "loads correct application given code" do
+      uam.given_name = given_name
+      uam.phone_number = phone_number
+      uam.email = email
+      uam.save!
+
       UnaccompaniedMinor.where.not(reference: uam.reference).destroy_all
       params = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
 
       page.driver.post "/sponsor-a-child/resume-application", params
 
+      p page.body
       expect(page).to have_content(task_list_content)
     end
   end
