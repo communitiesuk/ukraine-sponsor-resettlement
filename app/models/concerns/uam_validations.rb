@@ -46,6 +46,7 @@ module UamValidations
     validate :validate_sponsor_address_postcode, if: -> { run_validation? :sponsor_address_postcode }
 
     validate :validate_minor_email, if: -> { run_validation? :minor_email }
+    validate :validate_minor_phone_number, if: -> { run_validation? :minor_phone_number }
   end
 
   def validate_sponsor_date_of_birth
@@ -268,6 +269,12 @@ module UamValidations
   def validate_minor_email
     if @minor_contact_type == "email" && !email_address_valid?(@minor_email)
       errors.add(:minor_email, I18n.t(:invalid_email, scope: :error))
+    end
+  end
+
+  def validate_minor_phone_number
+    if @minor_contact_type == "telephone" && !phone_number_valid?(@minor_phone_number)
+      errors.add(:minor_phone_number, I18n.t(:invalid_phone_number, scope: :error))
     end
   end
 

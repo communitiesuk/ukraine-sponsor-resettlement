@@ -898,7 +898,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
 
     it "when minor can be contacted by telephone" do
-      telephone_number = "0777123456"
+      telephone_number = "07983111111"
 
       application = UnaccompaniedMinor.new
       application.has_other_names = "false"

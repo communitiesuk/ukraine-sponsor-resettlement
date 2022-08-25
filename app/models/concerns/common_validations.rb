@@ -58,4 +58,8 @@ module CommonValidations
 
     value.present? && !!(value =~ validator)
   end
+
+  def phone_number_valid?(value)
+    value.present? && value.scan(/\d/).join.length > 10 && value.scan(/\d/).join.length < 14 && value.match(/[0-9 -+]+$/)
+  end
 end
