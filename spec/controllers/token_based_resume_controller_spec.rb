@@ -68,7 +68,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       expect(texter).to have_received(:send_sms).with({ personalisation: { OTP: sms_code.to_s }, phone_number:, template_id: "b51a151e-f352-473a-b52e-185d2873cbf5" })
     end
 
-    it "load correct application given code" do
+    it "loads a single application given matching token" do
       UnaccompaniedMinor.where.not(reference: uam.reference).destroy_all
 
       parms = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
