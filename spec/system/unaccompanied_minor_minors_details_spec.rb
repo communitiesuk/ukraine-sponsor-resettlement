@@ -15,7 +15,6 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
 
   describe "entering the minors personal details" do
     it "shows completed on the task list with valid inputs" do
-      navigate_to_task_list
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
       enter_email_and_continue
@@ -28,7 +27,6 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
 
   describe "prompting the user for valid input" do
     it "prompts the user to select a contact type" do
-      navigate_to_task_list
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
 
@@ -38,7 +36,6 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
     end
 
     it "prompts the user to enter a valid email address" do
-      navigate_to_task_list
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
 
@@ -50,7 +47,6 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
     end
 
     it "prompts the user to enter a valid date of birth when no entry is made" do
-      navigate_to_task_list
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
       enter_email_and_continue
@@ -67,6 +63,8 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
   end
 
   def navigate_to_child_personal_details_name_entry
+    navigate_to_task_list
+
     click_link("Child's personal details")
 
     expect(page).to have_content("Enter the name of the child you want to sponsor")
