@@ -1,8 +1,9 @@
 require "rails_helper"
 require "securerandom"
 
-RSpec.describe "Unaccompanied minor minors details", type: :system do
+RSpec.describe "Unaccompanied minor - minors details", type: :system do
   let(:task_list_path) { "/sponsor-a-child/task-list" }
+  let(:task_list_content) { "Apply for permission to sponsor a child fleeing Ukraine without a parent" }
 
   before do
     driven_by(:rack_test_user_agent)
@@ -12,35 +13,14 @@ RSpec.describe "Unaccompanied minor minors details", type: :system do
     page.set_rack_session(app_reference: new_application.reference)
   end
 
-  describe "completing the minors details with valid input" do
-    it "saves all the minors data and shows completed status" do
-      minor_dob_under_18_year = Time.zone.now.year - 4
-      task_list_content = "Apply for permission to sponsor a child fleeing Ukraine without a parent".freeze
+  describe "entering the minors personal details" do
+    it "shows completed on the task list with valid inputs" do
+      navigate_to_task_list
+      navigate_to_child_personal_details_name_entry
+      enter_name_and_continue
+      enter_email_and_continue
+      enter_date_of_birth_and_continue
 
-      visit task_list_path
-      expect(page).to have_content(task_list_content)
-
-      click_link("Child's personal details")
-      expect(page).to have_content("Enter the name of the child you want to sponsor")
-
-      fill_in("Given name(s)", with: "Child")
-      fill_in("Family name", with: "Minor")
-
-      click_button("Continue")
-      expect(page).to have_content("How can we contact the child?")
-
-      check("Email")
-      fill_in("Email", with: "minor@example.com")
-
-      click_button("Continue")
-      expect(page).to have_content("Child Minor")
-      expect(page).to have_content("Enter their date of birth")
-
-      fill_in("Day", with: 1)
-      fill_in("Month", with: 1)
-      fill_in("Year", with: minor_dob_under_18_year)
-
-      click_button("Continue")
       expect(page).to have_content(task_list_content)
       expect(page).to have_content("completed").once
     end
@@ -48,63 +28,77 @@ RSpec.describe "Unaccompanied minor minors details", type: :system do
 
   describe "prompting the user for valid input" do
     it "prompts the user to select a contact type" do
-      visit task_list_path
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
-
-      click_link("Child's personal details")
-      expect(page).to have_content("Enter the name of the child you want to sponsor")
-
-      fill_in("Given name(s)", with: "Jane")
-      fill_in("Family name", with: "Doe")
+      navigate_to_task_list
+      navigate_to_child_personal_details_name_entry
+      enter_name_and_continue
 
       click_button("Continue")
-      expect(page).to have_content("How can we contact the child?")
 
-      click_button("Continue")
-      expect(page).to have_content("Please choose one or more of the options")
+      expect(page).to have_content("Error: Please choose one or more of the options")
     end
 
     it "prompts the user to enter a valid email address" do
-      visit task_list_path
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
-
-      click_link("Child's personal details")
-      expect(page).to have_content("Enter the name of the child you want to sponsor")
-
-      fill_in("Given name(s)", with: "Jane")
-      fill_in("Family name", with: "Doe")
-
-      click_button("Continue")
-      expect(page).to have_content("How can we contact the child?")
+      navigate_to_task_list
+      navigate_to_child_personal_details_name_entry
+      enter_name_and_continue
 
       check("Email")
       fill_in("Email", with: "not an email address")
-
       click_button("Continue")
-      expect(page).to have_content("You must enter a valid email address")
+
+      expect(page).to have_content("Error: You must enter a valid email address")
     end
 
-    it "enters blank DoB" do
-      visit task_list_path
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
-
-      click_link("Child's personal details")
-      expect(page).to have_content("Enter the name of the child you want to sponsor")
-
-      fill_in("Given name(s)", with: "Jane")
-      fill_in("Family name", with: "Doe")
+    it "prompts the user to enter a valid date of birth when no entry is made" do
+      navigate_to_task_list
+      navigate_to_child_personal_details_name_entry
+      enter_name_and_continue
+      enter_email_and_continue
 
       click_button("Continue")
-      expect(page).to have_content("How can we contact")
 
-      check("Email")
-      fill_in("Email", with: "unaccompanied.minor@test.com")
-
-      click_button("Continue")
-      expect(page).to have_content("date of birth")
-
-      click_button("Continue")
-      expect(page).to have_content("Enter a valid date of birth")
+      expect(page).to have_content("Error: Enter a valid date of birth")
     end
+  end
+
+  def navigate_to_task_list
+    visit task_list_path
+    expect(page).to have_content(task_list_content)
+  end
+
+  def navigate_to_child_personal_details_name_entry
+    click_link("Child's personal details")
+
+    expect(page).to have_content("Enter the name of the child you want to sponsor")
+  end
+
+  def enter_name_and_continue
+    given_name = "Child"
+    family_name = "Minor"
+
+    fill_in("Given name(s)", with: given_name)
+    fill_in("Family name", with: family_name)
+    click_button("Continue")
+
+    expect(page).to have_content("How can we contact the child?")
+    expect(page).to have_content("#{given_name} #{family_name}")
+  end
+
+  def enter_email_and_continue
+    check("Email")
+    fill_in("Email", with: "unaccompanied.minor@test.com")
+    click_button("Continue")
+
+    expect(page).to have_content("Enter their date of birth")
+  end
+
+  def enter_date_of_birth_and_continue
+    minor_dob_under_18_year = Time.zone.now.year - 4
+
+    fill_in("Day", with: 1)
+    fill_in("Month", with: 1)
+    fill_in("Year", with: minor_dob_under_18_year)
+
+    click_button("Continue")
   end
 end
