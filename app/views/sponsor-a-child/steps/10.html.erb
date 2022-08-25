@@ -31,10 +31,13 @@
             <%= f.govuk_text_field :family_name, label: { text: 'Family name' }, type: "text" %>
       <% end %>
 
-      <%= f.govuk_submit t('continue') %>
-      <% if @feature_save_and_return_active == true %>
-        <a class="govuk-link govuk-!-font-size-19" href="/sponsor-a-child/save-and-return">Save and return later</a>
-      <% end %>
+      <div class="govuk-button-group">
+        <%= f.govuk_submit t('continue') %>
+        
+        <% if @feature_save_and_return_active == true %>
+          <a class="govuk-link" href="/sponsor-a-child/save-and-return">Save and return later</a>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>

@@ -17,10 +17,12 @@
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
-        <%= govuk_button_link_to 'Start now', "/sponsor-a-child/check" %>
-        <% if @feature_save_and_return_active %>
-          <a class="govuk-link" href="/sponsor-a-child/save-and-return/resend-link">Continue a saved application</a>
-        <% end %>
+        <div class="govuk-button-group">
+          <%= govuk_button_link_to 'Start now', "/sponsor-a-child/check" %>
+          <% if @feature_save_and_return_active %>
+            <a class="govuk-link" href="/sponsor-a-child/save-and-return/resend-link">Continue a saved application</a>
+          <% end %>
+        </div>
       </div>
 
     </div>

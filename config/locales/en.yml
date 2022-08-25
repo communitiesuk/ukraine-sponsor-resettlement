@@ -334,12 +334,12 @@ en:
       other_name:
         short: Other names
       email:
-        short: Email
-        full: What is your email address?
+        short: Enter your email address
+        full: Enter an email address that you have access to, so you can save and continue your application later.
         hint: Email address
       phone_number:
-        short: Telephone number
-        full: What is your UK telephone number?
+        short: Enter your UK phone number
+        full: Enter a phone number that you have access to, so you can save and continue your application later.
         hint: UK telephone number
       identity_documents:
         short: Sponsor identity documents

@@ -44,7 +44,7 @@ class TokenBasedResumeController < ApplicationController
     email_address = params["unaccompanied_minor"]["email"]
 
     if email_address.present?
-      @application = UnaccompaniedMinor.find_by_email(email_address)
+      @application = UnaccompaniedMinor.where("answers ->> 'email' = '#{email_address}'").first
 
       if @application.nil?
         # No application found
@@ -72,17 +72,30 @@ class TokenBasedResumeController < ApplicationController
     @abstractresumetoken.assign_attributes(confirm_params)
 
     if @abstractresumetoken.valid?
-      Rails.logger.debug @abstractresumetoken
       @applicationtoken = ApplicationToken.find_by(magic_link: @abstractresumetoken.magic_link, token: @abstractresumetoken.token)
-      Rails.logger.debug @applicationtoken
       if @applicationtoken.present?
         if Time.zone.now.utc <= @applicationtoken.expires_at
-          # the application exists, store in the session and let them resume
-          @application = @applicationtoken.unaccompanied_minor
-          session[:app_reference] = @application.reference
-          session[:unaccompanied_minor] = @application.as_json
 
-          render "sponsor-a-child/task_list"
+          # check if user has more than one application
+          mail = @applicationtoken.unaccompanied_minor.email
+          phone_number = @applicationtoken.unaccompanied_minor.phone_number
+          applications = UnaccompaniedMinor.where("answers ->> 'email' = ?", mail).where("answers ->> 'phone_number' = ?", phone_number)
+
+          if applications.count > 1
+            # the user has more than one applicaation
+            @applications = applications
+            render "token-based-resume/select_multiple_applications"
+          elsif applications.count == 1
+            # the application exists, store in the session and let them resume
+            @application = @applicationtoken.unaccompanied_minor
+            session[:app_reference] = @application.reference
+            session[:unaccompanied_minor] = @application.as_json
+            render "sponsor-a-child/task_list"
+          else
+            # no application was found with this token
+            flash[:error] = "No application found for this code"
+            redirect_to "/sponsor-a-child/resume-application?uuid=#{params[:uuid]}"
+          end
         else
           # token has timed out
           flash[:error] = "This code has timed out, please request a new one"
@@ -97,6 +110,20 @@ class TokenBasedResumeController < ApplicationController
       # the token is invalid
       flash[:error] = "Please enter a valid code"
       render "token-based-resume/session_resume_form"
+    end
+  end
+
+  def select_multiple_applications
+    selected_application = request.query_parameters["ref"]
+    if selected_application
+      @application = UnaccompaniedMinor.find_by(reference: selected_application)
+      session[:app_reference] = selected_application
+      session[:unaccompanied_minor] = @application.as_json
+
+      render "sponsor-a-child/task_list"
+    else
+      flash[:error] = "No applications found"
+      render "token-based-resume/select_multiple_applications"
     end
   end
 
@@ -127,10 +154,16 @@ private
 
   def send_email
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
-    personal_uuid = SecureRandom.uuid
-    return_link = generate_magic_link(personal_uuid)
-    generate_application_token(@application, personal_uuid)
+    @application_token = ApplicationToken.find_by(unaccompanied_minor: @application)
 
+    if @application_token.present? && Time.zone.now.utc >= (@application_token.created_at + 1.day)
+      # only resend the same link if the application_token has been requested less than a day ago
+      return_link = @application_token.magic_link
+    else
+      personal_uuid = SecureRandom.uuid
+      return_link = generate_magic_link(personal_uuid)
+      generate_application_token(@application, personal_uuid)
+    end
     GovNotifyMailer.send_save_and_return_email(@application.given_name, return_link, @application.email).deliver_later
   end
 

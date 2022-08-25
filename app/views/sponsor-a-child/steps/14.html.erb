@@ -7,18 +7,21 @@
 
     <%= f.govuk_error_summary link_base_errors_to: :email %>
 
-    <h1 class="govuk-heading-l"><%= t('email.full', scope: "unaccompanied_minor.questions")%></h1>
+    <h1 class="govuk-heading-l"><%= t('email.short', scope: "unaccompanied_minor.questions")%></h1>
+    <p class="govuk-body"><%= t('email.full', scope: "unaccompanied_minor.questions")%></p>
     
       <%= f.govuk_text_field :email,
                              label: { text: "", hidden: true },
                              hint: { text: t('email.hint', scope: "unaccompanied_minor.questions")},
                              type: "email"
       %>
-      <%= f.govuk_submit t('continue') %>
-      
-      <% if @feature_save_and_return_active == true %>
-        <a class="govuk-link govuk-!-font-size-19" href="/sponsor-a-child/save-and-return">Save and return later</a>
-      <% end %>
+      <div class="govuk-button-group">
+        <%= f.govuk_submit t('continue') %>
+        
+        <% if @feature_save_and_return_active == true %>
+          <a class="govuk-link" href="/sponsor-a-child/save-and-return">Save and return later</a>
+        <% end %>
+      </div>
     
     <% end %>
   </div>
