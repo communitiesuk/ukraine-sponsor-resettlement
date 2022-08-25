@@ -122,6 +122,7 @@ class TokenBasedResumeController < ApplicationController
 
       render "sponsor-a-child/task_list"
     else
+      flash[:error] = "No applications found"
       render "token-based-resume/select_multiple_applications"
     end
   end

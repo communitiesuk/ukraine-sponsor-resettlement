@@ -38,7 +38,6 @@ RSpec.describe TokenBasedResumeController, type: :controller do
   end
 
   describe "User tries to resume their application after email sent" do
-
     given_name = "First".freeze
     email = "test@example.com".freeze
     phone_number = "07983111111".freeze
@@ -85,18 +84,18 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       phone_number = "07983111111".freeze
 
       uam = UnaccompaniedMinor.new(
-        given_name: "neilone",
-        minor_given_name: "Minorone",
-        adult_given_name: "adultgiven",
+        given_name: "SponsorOne",
+        minor_given_name: "MinorOne",
+        adult_given_name: "AdultGiven",
         email:,
         phone_number:,
       )
       uam.save!
 
       uam2 = UnaccompaniedMinor.new(
-        given_name: "neiltwo",
-        minor_given_name: "Minortwo",
-        adult_given_name: "adultgiven",
+        given_name: "SponsorOne",
+        minor_given_name: "MinorTwo",
+        adult_given_name: "AdultGiven",
         email:,
         phone_number:,
       )
@@ -115,6 +114,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
 
       expect(response.status).to eq(200)
       expect(response).to render_template("token-based-resume/select_multiple_applications")
+      expect(flash[:error]).to eq("No applications found")
     end
   end
 

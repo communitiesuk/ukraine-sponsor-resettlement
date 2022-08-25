@@ -36,7 +36,7 @@
             </tbody>
         </table>
     <% else %>
-        <p class="govuk-body">No applications found</p>
+        <p class="govuk-body"><%= flash[:error] %></p>
     <% end %>
   </div>
 </div>
