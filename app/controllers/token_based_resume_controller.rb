@@ -76,34 +76,21 @@ class TokenBasedResumeController < ApplicationController
       if @applicationtoken.present?
         if Time.zone.now.utc <= @applicationtoken.expires_at
 
-          puts @applicationtoken.unaccompanied_minor.as_json
           # check if user has more than one application
           mail = @applicationtoken.unaccompanied_minor.email
           num = @applicationtoken.unaccompanied_minor.phone_number
-          p mail
-          p num
-
-          query = UnaccompaniedMinor.where("answers ->> 'email' = ?", mail).where("answers ->> 'phone_number' = ?", num).explain
-          p query
-
           applications = UnaccompaniedMinor.where("answers ->> 'email' = ?", mail).where("answers ->> 'phone_number' = ?", num)
 
-          p applications.size
-
-          applications.each do |app|
-            p app
-          end
-
-          if applications.size > 1
+          if applications.count > 1
+            # the user has more than one applicaation
             @applications = applications
             render "token-based-resume/select_multiple_applications"
-          elsif applications.size == 1
+          elsif applications.count == 1
+            # the application exists, store in the session and let them resume
             @application = @applicationtoken.unaccompanied_minor
             session[:app_reference] = @application.reference
             session[:unaccompanied_minor] = @application.as_json
-
             render "sponsor-a-child/task_list"
-            # the application exists, store in the session and let them resume
           else
             # no application was found with this token
             flash[:error] = "No application found for this code"
