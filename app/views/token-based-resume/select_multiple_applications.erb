@@ -1,0 +1,46 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
+    <% if @applications.present? %>
+        <table class="govuk-table">
+        <caption class="govuk-table__caption govuk-table__caption--m">Active applications</caption>
+        
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Reference</th>
+                <th scope="col" class="govuk-table__header govuk-table__header--numeric">Last updated</th>
+                <th scope="col" class="govuk-table__header govuk-table__header--numeric">Status</th>
+                </tr>
+            </thead>
+
+            <tbody class="govuk-table__body">
+                <% @applications.each do |application| %>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell govuk-table__cell--numeric">
+                        <% if application.is_submitted? || application.is_cancelled? %>
+                            <%= application.reference %>
+                        <% else %>
+                            <a href="/sponsor-a-child/resume-application/select?ref=<%= application.reference %>"><%= application.reference %></a>
+                        <% end %>
+                    </td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric"><%= application.updated_at.in_time_zone("London").strftime("%d-%m-%Y at %I:%M%p") %></td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric">
+                        <% if application.is_submitted? %>
+                            Sent
+                        <% else %>
+                            <% if application.is_cancelled? %>
+                                Cancelled
+                            <% else %>
+                                In progress
+                            <% end %>
+                        <% end %>
+                    </td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+    <% else %>
+        <p class="govuk-body"><%= flash[:error] %></p>
+    <% end %>
+  </div>
+</div>
