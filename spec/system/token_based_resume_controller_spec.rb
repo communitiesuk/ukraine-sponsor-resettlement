@@ -112,7 +112,6 @@ RSpec.describe TokenBasedResumeController, type: :system do
 
       page.driver.post "/sponsor-a-child/resume-application", params
 
-      p page.body
       expect(page).to have_content(task_list_content)
     end
   end
