@@ -83,18 +83,15 @@ class TokenBasedResumeController < ApplicationController
           p mail
           p num
 
-          applications = UnaccompaniedMinor.where(
-            # email: mail
-            #"email = '#{mail}'",
+          query = UnaccompaniedMinor.where("answers ->> 'email' = ?", mail).where("answers ->> 'phone_number' = ?", num).explain
+          p query
 
-            # "answers ->> 'email' = '#{@applicationtoken.unaccompanied_minor.email}'",
-            "answers ->> 'phone_number' = '#{num}'",
-          )
+          applications = UnaccompaniedMinor.where("answers ->> 'email' = ?", mail).where("answers ->> 'phone_number' = ?", num)
 
           p applications.size
 
           applications.each do |app|
-            puts app.as_json
+            p app
           end
 
           if applications.size > 1
