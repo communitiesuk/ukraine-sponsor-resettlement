@@ -14,9 +14,6 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       email:,
       phone_number:,
     )
-    # uam.given_name = given_name
-    # uam.email = email
-    # uam.phone_number = phone_number
     uam.save!
 
     uuid = "test-uuid".freeze
@@ -41,18 +38,23 @@ RSpec.describe TokenBasedResumeController, type: :controller do
   end
 
   describe "User tries to resume their application after email sent" do
+    # clean all the existing applications
+    # UnaccompaniedMinor.destroy_all
+
+    given_name = "First".freeze
+    email = "test@example.com".freeze
     phone_number = "07983111111".freeze
     sms_code = 123_456
     magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc".freeze
     expiry_time = (Time.zone.now.utc + 1.hour)
     created_at = Time.zone.now.utc
 
-    uam = UnaccompaniedMinor.new
-    uam.phone_number = phone_number
-
-    # Need this in the token to be returned from the mock.
-    # Pretty sure it's a scoping thing
-    uam.email = "test@example.com"
+    uam = UnaccompaniedMinor.new(
+      given_name:,
+      email:,
+      phone_number:,
+    )
+    uam.save!
 
     let(:texter) { instance_double("Notifications::Client") }
     let(:application_token) { instance_double("ApplicationToken") }
@@ -69,17 +71,18 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       expect(texter).to have_received(:send_sms).with({ personalisation: { OTP: sms_code.to_s }, phone_number:, template_id: "b51a151e-f352-473a-b52e-185d2873cbf5" })
     end
 
-    # fit "load correct application given code", :focus do
-    #  parms = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
-    #
-    #  post :submit, params: parms
-    #
-    #  expect(response.status).to eq(200)
-    #  expect(response).to render_template("sponsor-a-child/task_list")
-    # end
+    it "load correct application given code" do
+      UnaccompaniedMinor.where.not(reference: uam.reference).destroy_all
 
-    fit "shows application select page if user has more than one" do
-      # given_name = "First Name".freeze
+      parms = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
+
+      post :submit, params: parms
+
+      expect(response.status).to eq(200)
+      expect(response).to render_template("sponsor-a-child/task_list")
+    end
+
+    it "shows application select page if user has more than one" do
       email = "test@example.com".freeze
       phone_number = "07983111111".freeze
 
@@ -109,12 +112,12 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       expect(response).to render_template("token-based-resume/select_multiple_applications")
     end
 
-    # fit "shows a message if user accesses select multiple page without using token flow", :focus do
-    #  get :select_multiple_applications
-    #
-    #  expect(response.status).to eq(200)
-    #  expect(response).to render_template("token-based-resume/select_multiple_applications")
-    # end
+    it "shows a message if user accesses select multiple page without using token flow" do
+      get :select_multiple_applications
+
+      expect(response.status).to eq(200)
+      expect(response).to render_template("token-based-resume/select_multiple_applications")
+    end
   end
 
   describe "User errors" do
