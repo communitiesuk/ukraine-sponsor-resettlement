@@ -80,7 +80,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       expect(response).to render_template("sponsor-a-child/task_list")
     end
 
-    it "shows application select page if user has more than one" do
+    it "shows the selection page if user has more than one application" do
       email = "test@example.com".freeze
       phone_number = "07983111111".freeze
 
