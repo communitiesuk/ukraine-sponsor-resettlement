@@ -30,11 +30,12 @@ RSpec.describe TokenBasedResumeController, type: :system do
     expiry_time = (Time.zone.now.utc + 1.hour)
     created_at = Time.zone.now.utc
 
-    uam = UnaccompaniedMinor.new
-    uam.phone_number = phone_number
-    uam.email = email
-    uam.given_name = given_name
-    uam.family_name = family_name
+    uam = UnaccompaniedMinor.new(
+      given_name:,
+      family_name:,
+      email:,
+      phone_number:,
+    )
     uam.save!
 
     let(:texter) { instance_double("Notifications::Client") }
@@ -105,6 +106,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
     end
 
     it "loads correct application given code" do
+      UnaccompaniedMinor.where.not(reference: uam.reference).destroy_all
       params = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
 
       page.driver.post "/sponsor-a-child/resume-application", params
