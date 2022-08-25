@@ -18,9 +18,9 @@
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell govuk-table__cell--numeric">
                         <% if application.is_submitted? %>
-                            <a href=""><%= application.reference %></a>
-                        <% else %>
                             <%= application.reference %>
+                        <% else %>
+                            <a href="/sponsor-a-child/resume-application/select?ref=<%= application.reference %>"><%= application.reference %></a>
                         <% end %>
                     </td>
                     <td class="govuk-table__cell govuk-table__cell--numeric"><%= application.updated_at %></td>

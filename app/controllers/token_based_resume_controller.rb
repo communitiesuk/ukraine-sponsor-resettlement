@@ -114,7 +114,7 @@ class TokenBasedResumeController < ApplicationController
   end
 
   def select_multiple_applications
-    selected_application = nil
+    selected_application = request.query_parameters["ref"]
     if selected_application
       @application = UnaccompaniedMinor.find_by(reference: selected_application)
       session[:app_reference] = selected_application
