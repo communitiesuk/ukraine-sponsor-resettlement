@@ -7,7 +7,8 @@
 
      <%= f.govuk_error_summary link_base_errors_to: :phone_number %>
 
-     <h1 class="govuk-heading-l"><%= t('phone_number.full', scope: "unaccompanied_minor.questions")%></h1>
+    <h1 class="govuk-heading-l"><%= t('phone_number.short', scope: "unaccompanied_minor.questions")%></h1>
+    <p class="govuk-body"><%= t('phone_number.full', scope: "unaccompanied_minor.questions")%></p>
 
 
       <%= f.govuk_text_field :phone_number,
@@ -15,11 +16,14 @@
         hint: { text: t('phone_number.hint', scope: "unaccompanied_minor.questions")},
         type: "tel"
       %>
-      <%= f.govuk_submit t('continue') %>
-      
-      <% if @feature_save_and_return_active == true %>
-        <a class="govuk-link govuk-!-font-size-19" href="/sponsor-a-child/save-and-return">Save and return later</a>
-      <% end %>
+
+      <div class="govuk-button-group">
+        <%= f.govuk_submit t('continue') %>
+        
+        <% if @feature_save_and_return_active == true %>
+          <a class="govuk-link" href="/sponsor-a-child/save-and-return">Save and return later</a>
+        <% end %>
+      </div>
     
     <% end %>
   </div>

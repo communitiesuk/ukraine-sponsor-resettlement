@@ -27,6 +27,7 @@ class UnaccompaniedController < ApplicationController
   TASK_LIST_URI = "/sponsor-a-child/task-list".freeze
 
   def start
+    @feature_save_and_return_active = (ENV["UAM_FEATURE_SAVE_AND_RETURN_ACTIVE"] == "true")
     render "sponsor-a-child/start"
   end
 
@@ -43,6 +44,7 @@ class UnaccompaniedController < ApplicationController
   end
 
   def start_application
+    @feature_save_and_return_active = (ENV["UAM_FEATURE_SAVE_AND_RETURN_ACTIVE"] == "true")
     # Redirect to show the task-list
     redirect_to TASK_LIST_URI
   end

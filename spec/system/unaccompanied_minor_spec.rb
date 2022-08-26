@@ -307,7 +307,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
       click_link("Contact details")
-      expect(page).to have_content("What is your email address?")
+      expect(page).to have_content("Enter your email address")
 
       fill_in("Email", with: "jane.doe@test.com")
       click_button("Continue")
@@ -653,7 +653,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
 
       click_link("Contact details")
-      expect(page).to have_content("What is your email address?")
+      expect(page).to have_content("Enter your email address")
 
       # email address is required for the happy path
       fill_in("Email", with: "jane.doe@example.com")

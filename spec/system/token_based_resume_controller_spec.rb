@@ -28,12 +28,14 @@ RSpec.describe TokenBasedResumeController, type: :system do
     sms_code = 123_456
     magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc".freeze
     expiry_time = (Time.zone.now.utc + 1.hour)
+    created_at = Time.zone.now.utc
 
-    uam = UnaccompaniedMinor.new
-    uam.phone_number = phone_number
-    uam.email = email
-    uam.given_name = given_name
-    uam.family_name = family_name
+    uam = UnaccompaniedMinor.new(
+      given_name:,
+      family_name:,
+      email:,
+      phone_number:,
+    )
     uam.save!
 
     let(:texter) { instance_double("Notifications::Client") }
@@ -44,7 +46,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
       allow(Notifications::Client).to receive(:new).and_return(texter)
       allow(texter).to receive(:send_sms)
       allow(UnaccompaniedMinor).to receive(:find_by_email).and_return(uam)
-      allow(ApplicationToken).to receive(:find_by).and_return(ApplicationToken.new({ token: sms_code, unaccompanied_minor: uam, magic_link: magic_id, expires_at: expiry_time }))
+      allow(ApplicationToken).to receive(:find_by).and_return(ApplicationToken.new({ token: sms_code, unaccompanied_minor: uam, magic_link: magic_id, expires_at: expiry_time, created_at: }))
     end
 
     it "shows the confirm page if required data is present" do
@@ -78,32 +80,34 @@ RSpec.describe TokenBasedResumeController, type: :system do
     end
 
     it "allows the user to resume an application if the correct email is provided" do
-      uam.email = email
-      uam.save!
       page.set_rack_session(app_reference: uam.reference)
 
       visit "/sponsor-a-child/save-and-return/resend-link"
 
-      fill_in("What is your email address?", with: email)
+      fill_in("Enter an email address that you have access to, so you can save and continue your application later.", with: email)
       click_button("Send Link")
 
       expect(page).to have_content("We've sent the link to #{email_scrambled}")
     end
 
     it "shows an error if the email is invalid" do
-      uam.email = email
-      uam.save!
       page.set_rack_session(app_reference: uam.reference)
 
       visit "/sponsor-a-child/save-and-return/resend-link"
 
-      fill_in("What is your email address?", with: "")
+      fill_in("Enter an email address that you have access to, so you can save and continue your application later.", with: "")
       click_button("Send Link")
 
       expect(page).to have_content(I18n.t(:invalid_email, scope: :error))
     end
 
     it "loads correct application given code" do
+      uam.given_name = given_name
+      uam.phone_number = phone_number
+      uam.email = email
+      uam.save!
+
+      UnaccompaniedMinor.where.not(reference: uam.reference).destroy_all
       params = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
 
       page.driver.post "/sponsor-a-child/resume-application", params
