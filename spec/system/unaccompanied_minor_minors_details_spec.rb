@@ -23,6 +23,34 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
       expect(page).to have_content(task_list_content)
       expect(page).to have_content("completed").once
     end
+
+    it "clears email and phone number when none is chosen" do
+      navigate_to_child_personal_details_name_entry
+      enter_name_and_continue
+      check("Phone")
+      fill_in("Phone number", with: "07983111111")
+      check("Email")
+      fill_in("Email", with: "test@example.com")
+      check("They cannot be contacted")
+      click_button("Continue")
+      expect(page).to have_content("Enter their date of birth")
+
+      enter_date_of_birth_and_continue
+
+      expect(page).to have_content(task_list_content)
+
+      visit "sponsor-a-child/steps/33"
+
+      expect(page).to have_checked_field("They cannot be contacted")
+      expect(page).to have_unchecked_field("Phone")
+      expect(page).to have_unchecked_field("Email")
+
+      email = find_field("unaccompanied-minor-minor-email-field").value
+      expect(email).to eq("")
+
+      phone_number = find_field("unaccompanied-minor-minor-phone-number-field").value
+      expect(phone_number).to eq("")
+    end
   end
 
   describe "entering invalid input" do
@@ -63,7 +91,6 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
 
       check("Phone")
       fill_in("Phone", with: "ABCDEFG")
-
       check("Email")
       fill_in("Email", with: "not an email address")
 
