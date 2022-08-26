@@ -71,9 +71,9 @@ RSpec.describe TokenBasedResumeController, type: :controller do
     it "loads a single application given matching token" do
       UnaccompaniedMinor.where.not(reference: uam.reference).destroy_all
 
-      parms = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
+      params = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
 
-      post :submit, params: parms
+      post :submit, params: params
 
       expect(response.status).to eq(200)
       expect(response).to render_template("sponsor-a-child/task_list")
@@ -101,9 +101,9 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       )
       uam2.save!
 
-      parms = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
+      params = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
 
-      post :submit, params: parms
+      post :submit, params: params
 
       expect(response.status).to eq(200)
       expect(response).to render_template("token-based-resume/select_multiple_applications")
@@ -116,14 +116,22 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       expect(response).to render_template("token-based-resume/select_multiple_applications")
       expect(flash[:error]).to eq("No applications found")
     end
+
+    it "shows the task list after an application has been selected" do
+      params = { reference: uam.reference }
+      post :select_multiple_applications, params: params
+
+      expect(response.status).to eq(200)
+      expect(response).to render_template("sponsor-a-child/task_list")
+    end
   end
 
   describe "User errors" do
     it "gets error when sms code is not entered" do
       magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc".freeze
-      parms = { abstract_resume_token: { token: "" }, uuid: magic_id }
+      params = { abstract_resume_token: { token: "" }, uuid: magic_id }
 
-      post :submit, params: parms
+      post :submit, params: params
 
       expect(response.status).to eq(200)
       expect(response).to render_template("token-based-resume/session_resume_form")
@@ -133,9 +141,9 @@ RSpec.describe TokenBasedResumeController, type: :controller do
     it "shows an error when sms code is not numeric" do
       magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc".freeze
       non_numeric_code = "ABCDEF".freeze
-      parms = { abstract_resume_token: { token: non_numeric_code }, uuid: magic_id }
+      params = { abstract_resume_token: { token: non_numeric_code }, uuid: magic_id }
 
-      post :submit, params: parms
+      post :submit, params: params
 
       expect(response.status).to eq(200)
       expect(response).to render_template("token-based-resume/session_resume_form")
@@ -145,9 +153,9 @@ RSpec.describe TokenBasedResumeController, type: :controller do
     it "shows an error when sms code is entered but no application exists for the code" do
       magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a391eb3dc".freeze
       non_numeric_code = "665312".freeze
-      parms = { abstract_resume_token: { token: non_numeric_code }, uuid: magic_id }
+      params = { abstract_resume_token: { token: non_numeric_code }, uuid: magic_id }
 
-      post :submit, params: parms
+      post :submit, params: params
 
       expect(response.status).to eq(302)
       expect(response).to redirect_to("/sponsor-a-child/resume-application?uuid=#{magic_id}")
@@ -177,9 +185,9 @@ RSpec.describe TokenBasedResumeController, type: :controller do
     it "shows an error when sms code is timed out" do
       magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc".freeze
       numeric_code = 123_456
-      parms = { abstract_resume_token: { token: numeric_code }, uuid: magic_id }
+      params = { abstract_resume_token: { token: numeric_code }, uuid: magic_id }
 
-      post :submit, params: parms
+      post :submit, params: params
 
       expect(response.status).to eq(302)
       expect(response).to redirect_to("/sponsor-a-child/resume-application?uuid=#{magic_id}")
