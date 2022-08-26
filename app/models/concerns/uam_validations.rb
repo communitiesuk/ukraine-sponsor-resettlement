@@ -265,13 +265,13 @@ module UamValidations
   end
 
   def validate_minor_email
-    if @minor_contact_type == "email" && !email_address_valid?(@minor_email)
+    if !@minor_contact_type.nil? && @minor_contact_type.include?("email") && !email_address_valid?(@minor_email)
       errors.add(:minor_email, I18n.t(:invalid_email, scope: :error))
     end
   end
 
   def validate_minor_phone_number
-    if @minor_contact_type == "telephone" && !phone_number_valid?(@minor_phone_number)
+    if !@minor_contact_type.nil? && @minor_contact_type.include?("telephone") && !phone_number_valid?(@minor_phone_number)
       errors.add(:minor_phone_number, I18n.t(:invalid_phone_number, scope: :error))
     end
   end

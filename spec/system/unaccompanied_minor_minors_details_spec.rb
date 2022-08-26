@@ -13,7 +13,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
     page.set_rack_session(app_reference: new_application.reference)
   end
 
-  describe "entering the minors personal details" do
+  describe "entering personal details" do
     it "shows completed on the task list with valid inputs" do
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
@@ -25,7 +25,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
     end
   end
 
-  describe "prompting the user for valid input" do
+  describe "entering invalid input" do
     it "prompts the user to select a contact type" do
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue

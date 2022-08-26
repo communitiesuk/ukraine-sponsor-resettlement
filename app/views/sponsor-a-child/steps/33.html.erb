@@ -26,17 +26,17 @@
 
     </p>
 
-      <%= f.govuk_check_boxes_fieldset :minor_contact_type, multiple: false,
+    <%= f.govuk_check_boxes_fieldset :minor_contact_type, multiple: true,
                                        legend: { text: "", hidden: true } do %>
 
-        <%= f.govuk_check_box :minor_contact_type, :email, multiple: false, label: { text: "Email" }, link_errors: true do %>
+        <%= f.govuk_check_box :minor_contact_type, 'email', label: { text: "Email" }, link_errors: true do %>
             <%= f.govuk_text_field :minor_email, label: { text: "Email" }, type: "text" %>
         <% end %>
-        <%= f.govuk_check_box :minor_contact_type, :telephone, multiple: false, label: { text: "Phone" } do %>
+        <%= f.govuk_check_box :minor_contact_type, 'telephone',  label: { text: "Phone" } do %>
             <%= f.govuk_text_field :minor_phone_number, label: { text: "Phone number"  }, type: "text", hint: { text: "Include country code" } %>
         <% end %>
         <%= f.govuk_check_box_divider %>
-        <%= f.govuk_check_box :minor_contact_type, :none, exclusive: true, multiple: false, label: { text: "They cannot be contacted" } %>
+        <%= f.govuk_check_box :minor_contact_type, 'none', exclusive: true, label: { text: "They cannot be contacted" } %>
 
       <% end %>
       <%= f.govuk_submit t('continue') %>
