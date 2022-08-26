@@ -57,6 +57,22 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
       expect(page).to have_content("Error: You must enter a valid phone number")
     end
 
+    it "prompts the user to enter a valid phone number AND valid email" do
+      navigate_to_child_personal_details_name_entry
+      enter_name_and_continue
+
+      check("Phone")
+      fill_in("Phone", with: "ABCDEFG")
+
+      check("Email")
+      fill_in("Email", with: "not an email address")
+
+      click_button("Continue")
+
+      expect(page).to have_content("Error: You must enter a valid phone number")
+      expect(page).to have_content("Error: You must enter a valid email address")
+    end
+
     it "prompts the user to enter a valid date of birth when no entry is made" do
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
