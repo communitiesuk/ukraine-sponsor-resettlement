@@ -43,11 +43,23 @@ module CommonValidations
     end
   end
 
-  def is_valid_name?(value)
+  def name_valid?(value)
     min_name_length = 1
     max_name_length = 128
     validator = /^[-'a-zA-Z\s]{#{min_name_length},#{max_name_length}}$/
 
     value.present? && !!(value =~ validator)
+  end
+
+  def email_address_valid?(value)
+    min_length = 2
+    max_length = 128
+    validator = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{#{min_length},#{max_length}})\z/i
+
+    value.present? && !!(value =~ validator)
+  end
+
+  def phone_number_valid?(value)
+    value.present? && value.scan(/\d/).join.length > 10 && value.scan(/\d/).join.length < 14 && value.match(/[0-9 -+]+$/)
   end
 end

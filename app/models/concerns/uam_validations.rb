@@ -9,41 +9,42 @@ module UamValidations
   POSTCODE_REGEX = /([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})/
 
   included do
-    validate :validate_is_under_18, if: -> { run_validation? :is_under_18 }
-    validate :validate_is_living_december, if: -> { run_validation? :is_living_december }
-    validate :validate_is_born_after_december, if: -> { run_validation? :is_born_after_december }
-    validate :validate_is_unaccompanied, if: -> { run_validation? :is_unaccompanied }
-    validate :validate_is_consent, if: -> { run_validation? :is_consent }
-    validate :validate_is_committed, if: -> { run_validation? :is_committed }
-    validate :validate_is_permitted, if: -> { run_validation? :is_permitted }
-    validate :validate_have_parental_consent, if: -> { run_validation? :have_parental_consent }
-    validate :validate_uk_parent_consent_file_type, if: -> { run_validation? :uk_parental_consent_file_type }
-    validate :validate_uk_parent_consent_filename, if: -> { run_validation? :uk_parental_consent_filename }
-    validate :validate_uk_parent_consent_file_size, if: -> { run_validation? :uk_parental_consent_file_size }
-    validate :validate_ukraine_parent_consent_file_type, if: -> { run_validation? :ukraine_parental_consent_file_type }
-    validate :validate_ukraine_parent_consent_filename, if: -> { run_validation? :ukraine_parental_consent_filename }
-    validate :validate_ukraine_parent_consent_file_size, if: -> { run_validation? :ukraine_parental_consent_file_size }
-    validate :validate_given_name, if: -> { run_validation? :given_name }
-    validate :validate_family_name, if: -> { run_validation? :family_name }
-    validate :validate_privacy_statement_confirm, if: -> { run_validation? :privacy_statement_confirm }
-    validate :validate_sponsor_declaration, if: -> { run_validation? :sponsor_declaration }
-    validate :validate_minor_given_name, if: -> { run_validation? :minor_given_name }
-    validate :validate_minor_family_name, if: -> { run_validation? :minor_family_name }
-    validate :validate_different_sponsor_address, if: -> { run_validation? :different_address }
-    validate :validate_other_adults_address, if: -> { run_validation? :other_adults_address }
-    validate :validate_adult_given_name, if: -> { run_validation? :adult_given_name }
     validate :validate_adult_family_name, if: -> { run_validation? :adult_family_name }
+    validate :validate_adult_given_name, if: -> { run_validation? :adult_given_name }
+    validate :validate_different_sponsor_address, if: -> { run_validation? :different_address }
+    validate :validate_family_name, if: -> { run_validation? :family_name }
+    validate :validate_given_name, if: -> { run_validation? :given_name }
+    validate :validate_have_parental_consent, if: -> { run_validation? :have_parental_consent }
+    validate :validate_is_born_after_december, if: -> { run_validation? :is_born_after_december }
+    validate :validate_is_committed, if: -> { run_validation? :is_committed }
+    validate :validate_is_consent, if: -> { run_validation? :is_consent }
+    validate :validate_is_living_december, if: -> { run_validation? :is_living_december }
+    validate :validate_is_permitted, if: -> { run_validation? :is_permitted }
+    validate :validate_is_unaccompanied, if: -> { run_validation? :is_unaccompanied }
+    validate :validate_is_under_18, if: -> { run_validation? :is_under_18 }
+    validate :validate_minor_date_of_birth, if: -> { run_validation? :minor_date_of_birth }
+    validate :validate_minor_email, if: -> { run_validation? :minor_email }
+    validate :validate_minor_family_name, if: -> { run_validation? :minor_family_name }
+    validate :validate_minor_given_name, if: -> { run_validation? :minor_given_name }
+    validate :validate_minor_phone_number, if: -> { run_validation? :minor_phone_number }
+    validate :validate_other_adults_address, if: -> { run_validation? :other_adults_address }
+    validate :validate_privacy_statement_confirm, if: -> { run_validation? :privacy_statement_confirm }
     validate :validate_residential_line_1, if: -> { run_validation? :sponsor_address_line_1 }
     validate :validate_residential_line_2, if: -> { run_validation? :sponsor_address_line_2 }
-    validate :validate_residential_town, if: -> { run_validation? :sponsor_address_town }
     validate :validate_residential_postcode, if: -> { run_validation? :sponsor_address_postcode }
-    validate :validate_sponsor_date_of_birth, if: -> { run_validation? :sponsor_date_of_birth }
-    validate :validate_minor_date_of_birth, if: -> { run_validation? :minor_date_of_birth }
-
+    validate :validate_residential_town, if: -> { run_validation? :sponsor_address_town }
     validate :validate_sponsor_address_line_1, if: -> { run_validation? :sponsor_address_line_1 }
     validate :validate_sponsor_address_line_2, if: -> { run_validation? :sponsor_address_line_2 }
-    validate :validate_sponsor_address_town, if: -> { run_validation? :sponsor_address_town }
     validate :validate_sponsor_address_postcode, if: -> { run_validation? :sponsor_address_postcode }
+    validate :validate_sponsor_address_town, if: -> { run_validation? :sponsor_address_town }
+    validate :validate_sponsor_date_of_birth, if: -> { run_validation? :sponsor_date_of_birth }
+    validate :validate_sponsor_declaration, if: -> { run_validation? :sponsor_declaration }
+    validate :validate_uk_parent_consent_filename, if: -> { run_validation? :uk_parental_consent_filename }
+    validate :validate_uk_parent_consent_file_size, if: -> { run_validation? :uk_parental_consent_file_size }
+    validate :validate_uk_parent_consent_file_type, if: -> { run_validation? :uk_parental_consent_file_type }
+    validate :validate_ukraine_parent_consent_filename, if: -> { run_validation? :ukraine_parental_consent_filename }
+    validate :validate_ukraine_parent_consent_file_size, if: -> { run_validation? :ukraine_parental_consent_file_size }
+    validate :validate_ukraine_parent_consent_file_type, if: -> { run_validation? :ukraine_parental_consent_file_type }
   end
 
   def validate_sponsor_date_of_birth
@@ -178,13 +179,13 @@ module UamValidations
   end
 
   def validate_given_name
-    unless is_valid_name?(@given_name)
+    unless name_valid?(@given_name)
       errors.add(:given_name, I18n.t(:invalid_given_name, scope: :error))
     end
   end
 
   def validate_family_name
-    unless is_valid_name?(@family_name)
+    unless name_valid?(@family_name)
       errors.add(:family_name, I18n.t(:invalid_family_name, scope: :error))
     end
   end
@@ -196,13 +197,13 @@ module UamValidations
   end
 
   def validate_minor_given_name
-    unless is_valid_name?(@minor_given_name)
+    unless name_valid?(@minor_given_name)
       errors.add(:minor_given_name, I18n.t(:invalid_given_name, scope: :error))
     end
   end
 
   def validate_minor_family_name
-    unless is_valid_name?(@minor_family_name)
+    unless name_valid?(@minor_family_name)
       errors.add(:minor_family_name, I18n.t(:invalid_family_name, scope: :error))
     end
   end
@@ -216,13 +217,13 @@ module UamValidations
   end
 
   def validate_adult_given_name
-    if !@final_submission && !is_valid_name?(@adult_given_name)
+    if !@final_submission && !name_valid?(@adult_given_name)
       errors.add(:adult_given_name, I18n.t(:invalid_given_name, scope: :error))
     end
   end
 
   def validate_adult_family_name
-    if !@final_submission && !is_valid_name?(@adult_family_name)
+    if !@final_submission && !name_valid?(@adult_family_name)
       errors.add(:adult_family_name, I18n.t(:invalid_family_name, scope: :error))
     end
   end
@@ -260,6 +261,18 @@ module UamValidations
   def validate_sponsor_address_postcode
     if @different_address == "no" && (@sponsor_address_postcode.nil? || @sponsor_address_postcode.strip.length < MIN_ENTRY_DIGITS || @sponsor_address_postcode.strip.length > MAX_ENTRY_DIGITS || !@sponsor_address_postcode.match(POSTCODE_REGEX))
       errors.add(:sponsor_address_postcode, I18n.t(:address_postcode, scope: :error))
+    end
+  end
+
+  def validate_minor_email
+    if !@minor_contact_type.nil? && @minor_contact_type.include?("email") && !email_address_valid?(@minor_email)
+      errors.add(:minor_email, I18n.t(:invalid_email, scope: :error))
+    end
+  end
+
+  def validate_minor_phone_number
+    if !@minor_contact_type.nil? && @minor_contact_type.include?("telephone") && !phone_number_valid?(@minor_phone_number)
+      errors.add(:minor_phone_number, I18n.t(:invalid_phone_number, scope: :error))
     end
   end
 

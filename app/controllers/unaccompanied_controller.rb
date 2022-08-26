@@ -19,6 +19,7 @@ class UnaccompaniedController < ApplicationController
   ADULT_DATE_OF_BIRTH = 29
   ADULT_NATIONALITY = 30
   ADULT_ID_TYPE_AND_NUMBER = 31
+  MINOR_CONTACT_DETAILS = 33
   MINOR_DATE_OF_BIRTH = 34
   NATIONALITY_STEPS = [SPONSOR_NATIONALITY, SPONSOR_OTHER_NATIONALITY, ADULT_NATIONALITY].freeze
   ADULT_STEPS = [ADULT_DATE_OF_BIRTH, ADULT_NATIONALITY, ADULT_ID_TYPE_AND_NUMBER].freeze
@@ -179,11 +180,11 @@ class UnaccompaniedController < ApplicationController
       param_other_given_name = params["unaccompanied_minor"]["other_given_name"]
       param_other_family_name = params["unaccompanied_minor"]["other_family_name"]
 
-      unless is_valid_name?(param_other_given_name)
+      unless name_valid?(param_other_given_name)
         @application.errors.add(:other_given_name, I18n.t(:invalid_given_name, scope: :error))
       end
 
-      unless is_valid_name?(param_other_family_name)
+      unless name_valid?(param_other_family_name)
         @application.errors.add(:other_family_name, I18n.t(:invalid_family_name, scope: :error))
       end
 
@@ -287,6 +288,19 @@ class UnaccompaniedController < ApplicationController
         (@application.other_nationalities ||= []) << [params["unaccompanied_minor"]["other_nationality"]]
         # resets the current state
         params["unaccompanied_minor"]["other_nationality"] = ""
+      end
+    end
+
+    if current_step == MINOR_CONTACT_DETAILS
+      if params["unaccompanied_minor"]["minor_contact_type"].none? { |w| w.length > 1 } # minor_contact_type"=>["", "none"],
+        @application.errors.add(:minor_contact_type, I18n.t(:choose_one_or_more_options, scope: :error))
+        render_current_step
+        return
+      elsif params["unaccompanied_minor"]["minor_contact_type"].include?("none")
+        # Clear all entries and continue
+        params["unaccompanied_minor"]["minor_contact_type"] = ["", "none"]
+        params["unaccompanied_minor"]["minor_email"] = ""
+        params["unaccompanied_minor"]["minor_phone_number"] = ""
       end
     end
 
@@ -669,7 +683,6 @@ private
           :adult_number,
           :minor_given_name,
           :minor_family_name,
-          :minor_contact_type,
           :minor_email,
           :minor_phone_number,
           :different_address,
@@ -682,6 +695,7 @@ private
           :adult_passport_identification_number,
           :adult_id_identification_number,
           :adult_refugee_identification_number,
+          minor_contact_type: [],
         )
   end
 end
