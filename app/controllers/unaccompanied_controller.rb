@@ -289,13 +289,11 @@ class UnaccompaniedController < ApplicationController
       end
     end
 
-    if current_step == MINOR_CONTACT_DETAILS
-      # Rails.logger.debug params
-      if params["unaccompanied_minor"]["minor_contact_type"].none? { |w| w.length > 1 } # minor_contact_type"=>["", "none"],
-        @application.errors.add(:minor_contact_type, I18n.t(:choose_one_or_more_options, scope: :error))
-        render_current_step
-        return
-      end
+    # Rails.logger.debug params
+    if current_step == MINOR_CONTACT_DETAILS && params["unaccompanied_minor"]["minor_contact_type"].none? { |w| w.length > 1 } # minor_contact_type"=>["", "none"],
+      @application.errors.add(:minor_contact_type, I18n.t(:choose_one_or_more_options, scope: :error))
+      render_current_step
+      return
     end
 
     if current_step == MINOR_DATE_OF_BIRTH
