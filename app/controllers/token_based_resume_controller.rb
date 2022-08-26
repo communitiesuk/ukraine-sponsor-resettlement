@@ -114,12 +114,11 @@ class TokenBasedResumeController < ApplicationController
   end
 
   def select_multiple_applications
-    selected_application = request.query_parameters["ref"]
-    if selected_application
+    if request.post?
+      selected_application = request.POST["reference"]
       @application = UnaccompaniedMinor.find_by(reference: selected_application)
       session[:app_reference] = selected_application
       session[:unaccompanied_minor] = @application.as_json
-
       render "sponsor-a-child/task_list"
     else
       flash[:error] = "No applications found"

@@ -116,6 +116,14 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       expect(response).to render_template("token-based-resume/select_multiple_applications")
       expect(flash[:error]).to eq("No applications found")
     end
+
+    it "shows the task list after an application has been selected" do
+      parms = { reference: uam.reference }
+      post :select_multiple_applications, params: parms
+
+      expect(response.status).to eq(200)
+      expect(response).to render_template("sponsor-a-child/task_list")
+    end
   end
 
   describe "User errors" do
