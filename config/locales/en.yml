@@ -479,7 +479,7 @@ en:
     too_young_date_of_birth: You must be over 18 to sponsor a child
     no_application_found: There is no application associated with that email address
     not_over_16_years_old: They must be over 16
-    invalid_id_type: Select an identity document you have, or select ‘I don't have any of these’
+    invalid_id_type: You must select an option to continue 
     invalid_id_number: You must enter a valid identity document number
     invalid_nationality: You must select a valid nationality
     min_chars_digits: You must enter at least 6 characters (numbers or letters)
