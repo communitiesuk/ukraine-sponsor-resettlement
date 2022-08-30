@@ -490,6 +490,7 @@ class UnaccompaniedController < ApplicationController
   end
 
   def task_list
+    @feature_save_and_return_active = (ENV["UAM_FEATURE_SAVE_AND_RETURN_ACTIVE"] == "true")
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
 
     if @application.is_cancelled?
