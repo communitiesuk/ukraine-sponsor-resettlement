@@ -109,6 +109,23 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
 
       expect(page).to have_content("Error: Enter a valid date of birth")
     end
+
+    fit "prompts the user to enter a valid date of birth when future date is chosen" do
+      tomorrow = Date.current.tomorrow
+
+
+      navigate_to_child_personal_details_name_entry
+      enter_name_and_continue
+      enter_email_and_continue
+
+      fill_in("Day", with: tomorrow.day)
+      fill_in("Month", with: tomorrow.month)
+      fill_in("Year", with: tomorrow.year)
+
+      click_button("Continue")
+
+      expect(page).to have_content("Error: The date must not be in the future")
+    end
   end
 
   def navigate_to_task_list
