@@ -311,7 +311,7 @@ class UnaccompaniedController < ApplicationController
 
         if minor_dob < 18.years.ago.to_date
           @application.errors.add(:minor_date_of_birth, I18n.t(:too_old_date_of_birth, scope: :error))
-  
+
           render_current_step
           return
         end
