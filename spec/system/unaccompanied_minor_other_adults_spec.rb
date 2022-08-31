@@ -59,6 +59,18 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
         selected: "Denmark",
       )
     end
+
+    it "retains entered DoB on round trip" do
+      dob_year = Time.zone.now.year - 20
+
+      add_date_of_birth
+      visit "/sponsor-a-child/task-list"
+      click_link("Bob Jones details")
+
+      expect(page).to have_field("Day", with: "1")
+      expect(page).to have_field("Month", with: "2")
+      expect(page).to have_field("Year", with: dob_year)
+    end
   end
 
   def add_date_of_birth(day = 1, month = 2, year = Time.zone.now.year - 20)
