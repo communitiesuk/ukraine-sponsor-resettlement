@@ -1031,7 +1031,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Do you have any of these identity documents?")
 
       click_button("Continue")
-      expect(page).to have_content("Select an identity document you have, or select ‘I don't have any of these’")
+      expect(page).to have_content("You must select an option to continue")
     end
 
     it "when passport number is displayed when going through id question" do
