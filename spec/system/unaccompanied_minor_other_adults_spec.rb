@@ -61,15 +61,15 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
     end
 
     it "retains entered DoB on round trip" do
-      dob_year = Time.zone.now.year - 20
+      dob = Time.zone.now - 20.years
 
-      add_date_of_birth
+      add_date_of_birth(dob.day, dob.month, dob.year)
       visit "/sponsor-a-child/task-list"
       click_link("Bob Jones details")
 
-      expect(page).to have_field("Day", with: "1")
-      expect(page).to have_field("Month", with: "2")
-      expect(page).to have_field("Year", with: dob_year)
+      expect(page).to have_field("Day", with: dob.day)
+      expect(page).to have_field("Month", with: dob.month)
+      expect(page).to have_field("Year", with: dob.year)
     end
   end
 
