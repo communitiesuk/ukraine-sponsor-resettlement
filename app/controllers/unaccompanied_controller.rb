@@ -8,8 +8,11 @@ class UnaccompaniedController < ApplicationController
 
   MAX_STEPS = 44
   NOT_ELIGIBLE = [-1, 0].freeze
+  SPONSOR_NAME = 10
   SPONSOR_OTHER_NAMES_CHOICE = 11
   SPONSOR_OTHER_NAMES = 12
+  SPONSOR_EMAIL = 14
+  SPONSOR_PHONE_NUMBER = 15
   SPONSOR_ID_TYPE = 16
   SPONSOR_DATE_OF_BIRTH = 18
   SPONSOR_NATIONALITY = 19
@@ -22,6 +25,7 @@ class UnaccompaniedController < ApplicationController
   MINOR_CONTACT_DETAILS = 33
   MINOR_DATE_OF_BIRTH = 34
   NATIONALITY_STEPS = [SPONSOR_NATIONALITY, SPONSOR_OTHER_NATIONALITY, ADULT_NATIONALITY].freeze
+  SAVE_AND_RETURN_STEPS = [SPONSOR_NAME, SPONSOR_EMAIL, SPONSOR_PHONE_NUMBER].freeze
   ADULT_STEPS = [ADULT_DATE_OF_BIRTH, ADULT_NATIONALITY, ADULT_ID_TYPE_AND_NUMBER].freeze
   TASK_LIST_STEP = 999
   TASK_LIST_URI = "/sponsor-a-child/task-list".freeze
@@ -61,6 +65,15 @@ class UnaccompaniedController < ApplicationController
     if step.positive? && step <= MAX_STEPS
       if NATIONALITY_STEPS.include?(step)
         @nationalities = get_nationalities_as_list
+      end
+
+      if SAVE_AND_RETURN_STEPS.include?(step)
+        if request.GET["save"]
+          @save_and_return_message = "Some message to tell the user they are save and return-ing"
+          @save = "?save=1"
+        else
+          @save = ""
+        end
       end
 
       if step == SPONSOR_ID_TYPE
@@ -417,20 +430,32 @@ class UnaccompaniedController < ApplicationController
       # Update the database
       @application.update!(@application.as_json)
 
-      # Replace with routing engine to get next stage
-      next_stage = RoutingEngine.get_next_unaccompanied_minor_step(@application, current_step)
-
-      if NOT_ELIGIBLE.include?(next_stage)
-        redirect_to "/sponsor-a-child/non-eligible"
-      elsif next_stage == TASK_LIST_STEP
-        # Redirect to show the task-list
-        redirect_to TASK_LIST_URI
-      elsif next_stage > MAX_STEPS
-        redirect_to "/sponsor-a-child/check-answers"
-      elsif ADULT_STEPS.include?(next_stage)
-        redirect_to "/sponsor-a-child/steps/#{next_stage}/#{params['key']}"
+      # Special steps if we are in save_and_return territory
+      # warning: this overrides the routing engine for steps 10-14-15
+      if request.GET["save"]
+        case current_step
+        when 10
+          redirect_to "/sponsor-a-child/steps/14?save=1"
+        when 14
+          redirect_to "/sponsor-a-child/steps/15?save=1"
+        when 15
+          redirect_to "/sponsor-a-child/save-and-return/"
+        end
       else
-        redirect_to "/sponsor-a-child/steps/#{next_stage}"
+        # Replace with routing engine to get next stage
+        next_stage = RoutingEngine.get_next_unaccompanied_minor_step(@application, current_step)
+        if NOT_ELIGIBLE.include?(next_stage)
+          redirect_to "/sponsor-a-child/non-eligible"
+        elsif next_stage == TASK_LIST_STEP
+          # Redirect to show the task-list
+          redirect_to TASK_LIST_URI
+        elsif next_stage > MAX_STEPS
+          redirect_to "/sponsor-a-child/check-answers"
+        elsif ADULT_STEPS.include?(next_stage)
+          redirect_to "/sponsor-a-child/steps/#{next_stage}/#{params['key']}"
+        else
+          redirect_to "/sponsor-a-child/steps/#{next_stage}"
+        end
       end
     else
       render "sponsor-a-child/steps/#{params['stage']}"

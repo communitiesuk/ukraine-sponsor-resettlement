@@ -22,11 +22,14 @@ class TokenBasedResumeController < ApplicationController
   def save_return
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
     if @application.given_name.blank? || @application.family_name.blank?
-      # name not provided, redirect to name filling form page
-      redirect_to "/sponsor-a-child/steps/10"
-    elsif @application.email.blank? || @application.phone_number.blank?
-      # phone or email not provided, redirect to phone filling form page
-      redirect_to "/sponsor-a-child/steps/14"
+      # name not provided
+      redirect_to "/sponsor-a-child/steps/10?save=1"
+    elsif @application.email.blank?
+      # email not provided
+      redirect_to "/sponsor-a-child/steps/14?save=1"
+    elsif @application.phone_number.blank?
+      # phone not provided
+      redirect_to "/sponsor-a-child/steps/15?save=1"
     else
       session[:sent_to_email] = scramble_email(@application.email)
       send_email
