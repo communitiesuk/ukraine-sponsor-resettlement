@@ -123,7 +123,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
 
       click_button("Continue")
 
-      expect(page).to have_content("Error: The date must not be in the future")
+      expect(page).to have_content("Error: This date cannot be in the future. Enter a valid date of birth.")
     end
   end
 
