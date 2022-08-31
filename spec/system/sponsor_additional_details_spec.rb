@@ -16,28 +16,38 @@ RSpec.describe "Sponsor additional details", type: :system do
     end
 
     it "retains date of birth when page is reloaded" do
-      visit "/sponsor-a-child/task-list"
-      click_link("Additional details")
-      expect(page).to have_content("Do you have any of these identity documents?")
+      dob = Time.zone.now - 20.years
+
+      navigate_to_additional_details
 
       choose("Passport")
       fill_in("Passport number", with: valid_document_id)
       click_button("Continue")
 
       expect(page).to have_content("Enter your date of birth")
-      fill_in("Day", with: "1")
-      fill_in("Month", with: "1")
-      fill_in("Year", with: "2000")
+
+      fill_in("Day", with: dob.day)
+      fill_in("Month", with: dob.month)
+      fill_in("Year", with: dob.year)
+
       click_button("Continue")
 
-      visit "/sponsor-a-child/task-list"
-      click_link("Additional details")
-      expect(page).to have_content("Do you have any of these identity documents?")
+      navigate_to_additional_details
+
+      passport_value = find_field("unaccompanied_minor[passport_identification_number]").value
+      expect(passport_value).to eq(valid_document_id)
+
       click_button("Continue")
 
-      expect(page).to have_field("Day", with: "1")
-      expect(page).to have_field("Month", with: "1")
-      expect(page).to have_field("Year", with: "2000")
+      expect(page).to have_field("Day", with: dob.day)
+      expect(page).to have_field("Month", with: dob.month)
+      expect(page).to have_field("Year", with: dob.year)
     end
+  end
+
+  def navigate_to_additional_details
+    visit "/sponsor-a-child/task-list"
+    click_link("Additional details")
+    expect(page).to have_content("Do you have any of these identity documents?")
   end
 end
