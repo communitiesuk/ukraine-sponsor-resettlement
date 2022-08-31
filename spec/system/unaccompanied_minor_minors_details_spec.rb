@@ -58,10 +58,11 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
       enter_email_and_continue
       enter_date_of_birth_and_continue
 
+      visit "sponsor-a-child/steps/34"
+
       expect(page).to have_field("Day", with: "1")
       expect(page).to have_field("Month", with: "1")
       expect(page).to have_field("Year", with: Time.zone.now.year - 4)
-    
     end
   end
 
