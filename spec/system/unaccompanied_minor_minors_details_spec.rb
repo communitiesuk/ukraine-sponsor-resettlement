@@ -51,6 +51,19 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
       phone_number = find_field("unaccompanied-minor-minor-phone-number-field").value
       expect(phone_number).to eq("")
     end
+
+    it "retains DoB when page is reloaded" do
+      navigate_to_child_personal_details_name_entry
+      enter_name_and_continue
+      enter_email_and_continue
+      enter_date_of_birth_and_continue
+
+      visit "sponsor-a-child/steps/34"
+
+      expect(page).to have_field("Day", with: "1")
+      expect(page).to have_field("Month", with: "1")
+      expect(page).to have_field("Year", with: Time.zone.now.year - 4)
+    end
   end
 
   describe "entering invalid input" do
