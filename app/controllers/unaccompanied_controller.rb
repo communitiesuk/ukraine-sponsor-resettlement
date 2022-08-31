@@ -312,7 +312,7 @@ class UnaccompaniedController < ApplicationController
         if minor_dob < 18.years.ago.to_date
           @application.errors.add(:minor_date_of_birth, I18n.t(:too_old_date_of_birth, scope: :error))
         elsif minor_dob > Date.current
-          @application.errors.add(:minor_date_of_birth, I18n.t(:date_in_future, scope: :error))
+          @application.errors.add(:minor_date_of_birth, I18n.t(:date_of_birth_future, scope: :error))
         end
       rescue Date::Error
         @application.errors.add(:minor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))

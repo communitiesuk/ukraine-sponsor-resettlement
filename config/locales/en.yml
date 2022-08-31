@@ -475,7 +475,7 @@ en:
     no_file_chosen: You must choose a file
     file_too_large: Your file must be smaller than 20MB
     invalid_date_of_birth: Enter a valid date of birth
-    date_in_future: The date must not be in the future
+    date_of_birth_future: This date cannot be in the future. Enter a valid date of birth.
     too_old_date_of_birth: They must be under 18 to be considered a child in the UK
     too_young_date_of_birth: You must be over 18 to sponsor a child
     no_application_found: There is no application associated with that email address
