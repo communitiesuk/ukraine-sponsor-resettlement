@@ -811,8 +811,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     it "when collections are empty" do
       # Create application with minimum expected values
       application = UnaccompaniedMinor.new
-      application.has_other_names = "false"
-      application.minor_contact_type = "email"
+
       application.save!
 
       page.set_rack_session(app_reference: application.reference)
@@ -825,7 +824,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       # Create application with minimum expected values
       application = UnaccompaniedMinor.new
       application.has_other_names = "true"
-      application.minor_contact_type = "email"
+
       application.other_names = ["Other given name", "Other family name"]
       application.save!
 
@@ -839,8 +838,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     it "when other adults collection is NOT empty" do
       # Create application with minimum expected values
       application = UnaccompaniedMinor.new
-      application.has_other_names = "false"
-      application.minor_contact_type = "email"
+
       application.adults_at_address = {}
       application.adults_at_address.store("ABC", Adult.new("Other first name", "Other family name", "dob", "nationality", "id-number"))
       application.save!
@@ -855,8 +853,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     it "when other nationalities collection is NOT empty" do
       # Create application with minimum expected values
       application = UnaccompaniedMinor.new
-      application.has_other_names = "false"
-      application.minor_contact_type = "email"
+
       application.other_nationalities = ["AFG - Afghanistan", "AUS - Australia", "CHF - Switzerland"]
       application.save!
 
@@ -867,50 +864,6 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("AFG - Afghanistan")
       expect(page).to have_content("AUS - Australia")
       expect(page).to have_content("CHF - Switzerland")
-    end
-
-    it "when minor cannot be contacted" do
-      application = UnaccompaniedMinor.new
-      application.has_other_names = "false"
-      application.save!
-
-      page.set_rack_session(app_reference: application.reference)
-
-      visit "/sponsor-a-child/check-answers"
-      expect(page).to have_content("Check your answers before sending your application")
-      expect(page).to have_content("They cannot be contacted")
-    end
-
-    it "when minor can be contacted by email" do
-      email_address = "minor@example.com"
-
-      application = UnaccompaniedMinor.new
-      application.has_other_names = "false"
-      application.minor_contact_type = "email"
-      application.minor_email = email_address
-      application.save!
-
-      page.set_rack_session(app_reference: application.reference)
-
-      visit "/sponsor-a-child/check-answers"
-      expect(page).to have_content("Check your answers before sending your application")
-      expect(page).to have_content(email_address)
-    end
-
-    it "when minor can be contacted by telephone" do
-      telephone_number = "07983111111"
-
-      application = UnaccompaniedMinor.new
-      application.has_other_names = "false"
-      application.minor_contact_type = "telephone"
-      application.minor_phone_number = telephone_number
-      application.save!
-
-      page.set_rack_session(app_reference: application.reference)
-
-      visit "/sponsor-a-child/check-answers"
-      expect(page).to have_content("Check your answers before sending your application")
-      expect(page).to have_content(telephone_number)
     end
   end
 
