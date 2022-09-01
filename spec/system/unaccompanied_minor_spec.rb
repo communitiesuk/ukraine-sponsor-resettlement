@@ -812,7 +812,6 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       # Create application with minimum expected values
       application = UnaccompaniedMinor.new
 
-      application.minor_contact_type = "email"
       application.save!
 
       page.set_rack_session(app_reference: application.reference)
@@ -825,7 +824,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       # Create application with minimum expected values
       application = UnaccompaniedMinor.new
       application.has_other_names = "true"
-      application.minor_contact_type = "email"
+
       application.other_names = ["Other given name", "Other family name"]
       application.save!
 
@@ -840,7 +839,6 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       # Create application with minimum expected values
       application = UnaccompaniedMinor.new
 
-      application.minor_contact_type = "email"
       application.adults_at_address = {}
       application.adults_at_address.store("ABC", Adult.new("Other first name", "Other family name", "dob", "nationality", "id-number"))
       application.save!
@@ -856,7 +854,6 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       # Create application with minimum expected values
       application = UnaccompaniedMinor.new
 
-      application.minor_contact_type = "email"
       application.other_nationalities = ["AFG - Afghanistan", "AUS - Australia", "CHF - Switzerland"]
       application.save!
 
