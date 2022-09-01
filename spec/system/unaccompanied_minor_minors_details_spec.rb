@@ -105,9 +105,9 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
       enter_contact_details_and_continue(email: "unaccompanied.minor@test.com")
-      
+
       expect(page).to have_content("Enter their date of birth")
-      
+
       click_button("Continue")
 
       expect(page).to have_content("Error: Enter a valid date of birth")
