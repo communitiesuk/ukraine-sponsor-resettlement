@@ -868,50 +868,6 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("AUS - Australia")
       expect(page).to have_content("CHF - Switzerland")
     end
-
-    it "when minor cannot be contacted" do
-      application = UnaccompaniedMinor.new
-      application.has_other_names = "false"
-      application.save!
-
-      page.set_rack_session(app_reference: application.reference)
-
-      visit "/sponsor-a-child/check-answers"
-      expect(page).to have_content("Check your answers before sending your application")
-      expect(page).to have_content("They cannot be contacted")
-    end
-
-    it "when minor can be contacted by email" do
-      email_address = "minor@example.com"
-
-      application = UnaccompaniedMinor.new
-      application.has_other_names = "false"
-      application.minor_contact_type = "email"
-      application.minor_email = email_address
-      application.save!
-
-      page.set_rack_session(app_reference: application.reference)
-
-      visit "/sponsor-a-child/check-answers"
-      expect(page).to have_content("Check your answers before sending your application")
-      expect(page).to have_content(email_address)
-    end
-
-    it "when minor can be contacted by telephone" do
-      telephone_number = "07983111111"
-
-      application = UnaccompaniedMinor.new
-      application.has_other_names = "false"
-      application.minor_contact_type = "telephone"
-      application.minor_phone_number = telephone_number
-      application.save!
-
-      page.set_rack_session(app_reference: application.reference)
-
-      visit "/sponsor-a-child/check-answers"
-      expect(page).to have_content("Check your answers before sending your application")
-      expect(page).to have_content(telephone_number)
-    end
   end
 
   describe "sponsor id type and number is saved" do
