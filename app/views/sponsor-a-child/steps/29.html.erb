@@ -14,16 +14,7 @@
       <%= "#{@adult["given_name"]} #{@adult["family_name"]}" %>
     </div>
 
-    <% 
-      adult = @application.adults_at_address[params["key"]]
-      if adult.present? && adult[:date_of_birth].present?
-        date_parts = adult[:date_of_birth].split('-')
 
-        @application.adult_date_of_birth[1] = date_parts[0]
-        @application.adult_date_of_birth[2] = date_parts[1]
-        @application.adult_date_of_birth[3] = date_parts[2]
-      end
-    %>
 
     <div class="govuk-hint" id="unaccompanied-minor-minor-date-of-birth-hint">For example, 31 3 2010</div>
 
