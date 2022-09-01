@@ -8,7 +8,6 @@
      <%= f.govuk_error_summary link_base_errors_to: :given_name %>
 
     <h1 class="govuk-heading-l"><%= t('fullname.full', scope: "unaccompanied_minor.questions")%></h1>
-
       <%= f.govuk_fieldset legend: { text: "", hidden: true },
         hint: { text: t('fullname.hint', scope: "unaccompanied_minor.questions") } do %>
             <details class="govuk-details" data-module="govuk-details">

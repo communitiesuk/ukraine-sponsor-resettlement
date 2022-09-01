@@ -14,8 +14,15 @@
           <%=@application.minor_full_name?%>
         </div>
 
-        <div class="govuk-hint" id="unaccompanied-minor-minor-date-of-birth-hint">For example, 31 3 2010</div>
+        <% if @application.minor_date_of_birth.present?
+            @application.minor_date_of_birth[1] = @application.minor_date_of_birth["1"]
+            @application.minor_date_of_birth[2] = @application.minor_date_of_birth["2"]
+            @application.minor_date_of_birth[3] = @application.minor_date_of_birth["3"]
+            end
+         %>
 
+        <div class="govuk-hint" id="unaccompanied-minor-minor-date-of-birth-hint">For example, 31 3 2010</div>
+        
         <%= f.govuk_date_field :minor_date_of_birth,
             date_of_birth: true,
             legend: { text: "", hidden: true } %>
