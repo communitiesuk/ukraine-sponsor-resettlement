@@ -251,7 +251,7 @@ class UnaccompaniedController < ApplicationController
       when "none"
         @application.identification_number = ""
       else
-        @application.errors.add(:identification_type, I18n.t(:invalid_id_type, scope: :error))
+        @application.errors.add(:identification_type, I18n.t(:choose_option, scope: :error))
 
         render_current_step
         return
@@ -324,13 +324,14 @@ class UnaccompaniedController < ApplicationController
 
         if minor_dob < 18.years.ago.to_date
           @application.errors.add(:minor_date_of_birth, I18n.t(:too_old_date_of_birth, scope: :error))
-
-          render_current_step
-          return
+        elsif minor_dob > Date.current
+          @application.errors.add(:minor_date_of_birth, I18n.t(:date_of_birth_future, scope: :error))
         end
       rescue Date::Error
         @application.errors.add(:minor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
+      end
 
+      unless @application.errors.empty?
         render_current_step
         return
       end

@@ -17,7 +17,7 @@ Sentry.init do |config|
     when /request/
       # for Rails applications, transaction_name would be the request's path (env["PATH_INFO"]) instead of "Controller#action"
       case transaction_name
-      when /health_check/
+      when /health/
         0.0
       else
         0.1
