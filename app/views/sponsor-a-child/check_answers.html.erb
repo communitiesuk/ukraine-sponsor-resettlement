@@ -20,7 +20,7 @@
         </dd>
       </div>
 
-    <% if @application.has_other_names.casecmp("true").zero? %>
+    <% if @application.has_other_names.present? && @application.has_other_names.casecmp("true").zero? %>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
             <%= t('other_name.short', scope: "unaccompanied_minor.questions") %>
