@@ -185,25 +185,52 @@
         </dd>
       </div>
 
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Contact
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <% if @application.minor_email.present? %>
-            <%= @application.minor_email %>
-          <% elsif @application.minor_phone_number.present? %>
-            <%= @application.minor_phone_number %>
-          <% else %>
-            They cannot be contacted
-          <% end %>
-        </dd>
-        <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/sponsor-a-child/steps/33">
-            Change<span class="govuk-visually-hidden"> contact</span>
-          </a>
-        </dd>
-      </div>
+      <% if @application.minor_contact_type.blank? || @application.minor_contact_type.include?("none") %>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Contact
+            </dt>
+            <dd class="govuk-summary-list__value">
+              They cannot be contacted
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="/sponsor-a-child/steps/33">
+                Change<span class="govuk-visually-hidden"> contact</span>
+              </a>
+            </dd>
+          </div>
+      <% else %>
+        <% if @application.minor_email.present? %>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Contact email
+            </dt>
+            <dd class="govuk-summary-list__value">
+                <%= @application.minor_email %>
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="/sponsor-a-child/steps/33">
+                Change<span class="govuk-visually-hidden"> contact</span>
+              </a>
+            </dd>
+          </div>
+        <% end %>
+        <% if @application.minor_phone_number.present? %>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Contact telephone
+            </dt>
+            <dd class="govuk-summary-list__value">
+                <%= @application.minor_phone_number %>
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="/sponsor-a-child/steps/33">
+                Change<span class="govuk-visually-hidden"> contact</span>
+              </a>
+            </dd>
+          </div>
+        <% end %> 
+      <% end %>
 
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
