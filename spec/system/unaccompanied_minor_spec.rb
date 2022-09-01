@@ -811,7 +811,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     it "when collections are empty" do
       # Create application with minimum expected values
       application = UnaccompaniedMinor.new
-      application.has_other_names = "false"
+
       application.minor_contact_type = "email"
       application.save!
 
@@ -839,7 +839,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     it "when other adults collection is NOT empty" do
       # Create application with minimum expected values
       application = UnaccompaniedMinor.new
-      application.has_other_names = "false"
+
       application.minor_contact_type = "email"
       application.adults_at_address = {}
       application.adults_at_address.store("ABC", Adult.new("Other first name", "Other family name", "dob", "nationality", "id-number"))
@@ -855,7 +855,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     it "when other nationalities collection is NOT empty" do
       # Create application with minimum expected values
       application = UnaccompaniedMinor.new
-      application.has_other_names = "false"
+
       application.minor_contact_type = "email"
       application.other_nationalities = ["AFG - Afghanistan", "AUS - Australia", "CHF - Switzerland"]
       application.save!
