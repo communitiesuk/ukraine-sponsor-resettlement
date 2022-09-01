@@ -1,9 +1,9 @@
-require "rails_helper"
-require "securerandom"
-
 RSpec.describe "Unaccompanied minor - minors details", type: :system do
   let(:task_list_path) { "/sponsor-a-child/task-list" }
   let(:task_list_content) { "Apply for permission to sponsor a child fleeing Ukraine without a parent" }
+  let(:minors_email) { "unaccompanied.minor@test.com" }
+  let(:minors_phone) { "07983111111" }
+  let(:minors_dob) { Time.zone.now - 4.years }
 
   before do
     driven_by(:rack_test_user_agent)
@@ -17,7 +17,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
     it "shows completed on the task list with valid inputs" do
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
-      enter_contact_details_and_continue(email: "unaccompanied.minor@test.com")
+      enter_contact_details_and_continue(email: minors_email)
       enter_date_of_birth_and_continue
 
       expect(page).to have_content(task_list_content)
@@ -28,7 +28,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
 
-      enter_contact_details_and_continue(email: "test@example.com", telephone: "07983111111", select_none: true)
+      enter_contact_details_and_continue(email: minors_email, telephone: minors_phone, select_none: true)
 
       expect(page).to have_content("Enter their date of birth")
 
@@ -52,14 +52,14 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
     it "retains DoB when page is reloaded" do
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
-      enter_contact_details_and_continue(email: "unaccompanied.minor@test.com")
+      enter_contact_details_and_continue(email: minors_email)
       enter_date_of_birth_and_continue
 
       visit "sponsor-a-child/steps/34"
 
-      expect(page).to have_field("Day", with: "1")
-      expect(page).to have_field("Month", with: "1")
-      expect(page).to have_field("Year", with: Time.zone.now.year - 4)
+      expect(page).to have_field("Day", with: minors_dob.day)
+      expect(page).to have_field("Month", with: minors_dob.month)
+      expect(page).to have_field("Year", with: minors_dob.year)
     end
   end
 
@@ -104,7 +104,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
     it "prompts the user to enter a valid date of birth when no entry is made" do
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
-      enter_contact_details_and_continue(email: "unaccompanied.minor@test.com")
+      enter_contact_details_and_continue(email: minors_email)
 
       expect(page).to have_content("Enter their date of birth")
 
@@ -118,7 +118,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
 
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
-      enter_contact_details_and_continue(email: "unaccompanied.minor@test.com")
+      enter_contact_details_and_continue(email: minors_email)
 
       fill_in("Day", with: tomorrow.day)
       fill_in("Month", with: tomorrow.month)
@@ -132,20 +132,17 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
 
   describe "checking answers" do
     it "displays the entered telephone and email contact details" do
-      valid_telephone_number = "07983111111".freeze
-      valid_email_address = "minor@example.com".freeze
-
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
-      enter_contact_details_and_continue(email: valid_email_address, telephone: valid_telephone_number)
+      enter_contact_details_and_continue(email: minors_email, telephone: minors_phone)
       enter_date_of_birth_and_continue
 
       expect(page).to have_content(task_list_content)
 
       visit "/sponsor-a-child/check-answers"
       expect(page).to have_content("Check your answers before sending your application")
-      expect(page).to have_content(valid_telephone_number)
-      expect(page).to have_content(valid_email_address)
+      expect(page).to have_content(minors_phone)
+      expect(page).to have_content(minors_email)
     end
 
     it "displays none on check answers" do
@@ -206,11 +203,9 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
   end
 
   def enter_date_of_birth_and_continue
-    minor_dob_under_18_year = Time.zone.now.year - 4
-
-    fill_in("Day", with: 1)
-    fill_in("Month", with: 1)
-    fill_in("Year", with: minor_dob_under_18_year)
+    fill_in("Day", with: minors_dob.day)
+    fill_in("Month", with: minors_dob.month)
+    fill_in("Year", with: minors_dob.year)
 
     click_button("Continue")
   end
