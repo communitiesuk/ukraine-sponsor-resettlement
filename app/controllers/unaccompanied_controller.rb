@@ -25,7 +25,7 @@ class UnaccompaniedController < ApplicationController
   MINOR_CONTACT_DETAILS = 33
   MINOR_DATE_OF_BIRTH = 34
   NATIONALITY_STEPS = [SPONSOR_NATIONALITY, SPONSOR_OTHER_NATIONALITY, ADULT_NATIONALITY].freeze
-  SAVE_AND_RETURN_STEPS = [SPONSOR_NAME, SPONSOR_EMAIL, SPONSOR_PHONE_NUMBER].freeze
+  SAVE_AND_RETURN_STEPS = [SPONSOR_EMAIL, SPONSOR_PHONE_NUMBER].freeze
   ADULT_STEPS = [ADULT_DATE_OF_BIRTH, ADULT_NATIONALITY, ADULT_ID_TYPE_AND_NUMBER].freeze
   TASK_LIST_STEP = 999
   TASK_LIST_URI = "/sponsor-a-child/task-list".freeze
@@ -69,7 +69,7 @@ class UnaccompaniedController < ApplicationController
 
       if SAVE_AND_RETURN_STEPS.include?(step)
         if request.GET["save"]
-          @save_and_return_message = "Some message to tell the user they are save and return-ing"
+          @save_and_return_message = true
           @save = "?save=1"
         else
           @save = ""
@@ -434,8 +434,6 @@ class UnaccompaniedController < ApplicationController
       # warning: this overrides the routing engine for steps 10-14-15
       if request.GET["save"]
         case current_step
-        when 10
-          redirect_to "/sponsor-a-child/steps/14?save=1"
         when 14
           redirect_to "/sponsor-a-child/steps/15?save=1"
         when 15

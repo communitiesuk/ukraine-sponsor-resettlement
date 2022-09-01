@@ -21,10 +21,7 @@ class TokenBasedResumeController < ApplicationController
 
   def save_return
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
-    if @application.given_name.blank? || @application.family_name.blank?
-      # name not provided
-      redirect_to "/sponsor-a-child/steps/10?save=1"
-    elsif @application.email.blank?
+    if @application.email.blank?
       # email not provided
       redirect_to "/sponsor-a-child/steps/14?save=1"
     elsif @application.phone_number.blank?
