@@ -17,7 +17,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
     it "shows completed on the task list with valid inputs" do
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
-      enter_email_and_continue
+      enter_contact_details_and_continue(email: "unaccompanied.minor@test.com")
       enter_date_of_birth_and_continue
 
       expect(page).to have_content(task_list_content)
@@ -27,12 +27,9 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
     it "clears email and phone number when none is chosen" do
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
-      check("Phone")
-      fill_in("Phone number", with: "07983111111")
-      check("Email")
-      fill_in("Email", with: "test@example.com")
-      check("They cannot be contacted")
-      click_button("Continue")
+
+      enter_contact_details_and_continue(email: "test@example.com", telephone: "07983111111", select_none: true)
+
       expect(page).to have_content("Enter their date of birth")
 
       enter_date_of_birth_and_continue
@@ -55,7 +52,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
     it "retains DoB when page is reloaded" do
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
-      enter_email_and_continue
+      enter_contact_details_and_continue(email: "unaccompanied.minor@test.com")
       enter_date_of_birth_and_continue
 
       visit "sponsor-a-child/steps/34"
@@ -80,9 +77,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
 
-      check("Email")
-      fill_in("Email", with: "not an email address")
-      click_button("Continue")
+      enter_contact_details_and_continue(email: "not an email address")
 
       expect(page).to have_content("Error: You must enter a valid email address")
     end
@@ -91,9 +86,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
 
-      check("Phone")
-      fill_in("Phone", with: "ABCDEFG")
-      click_button("Continue")
+      enter_contact_details_and_continue(telephone: "ABCDEFG")
 
       expect(page).to have_content("Error: You must enter a valid phone number")
     end
@@ -102,12 +95,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
 
-      check("Phone")
-      fill_in("Phone", with: "ABCDEFG")
-      check("Email")
-      fill_in("Email", with: "not an email address")
-
-      click_button("Continue")
+      enter_contact_details_and_continue(email: "not an email address", telephone: "ABCDEFG")
 
       expect(page).to have_content("Error: You must enter a valid phone number")
       expect(page).to have_content("Error: You must enter a valid email address")
@@ -116,8 +104,10 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
     it "prompts the user to enter a valid date of birth when no entry is made" do
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
-      enter_email_and_continue
-
+      enter_contact_details_and_continue(email: "unaccompanied.minor@test.com")
+      
+      expect(page).to have_content("Enter their date of birth")
+      
       click_button("Continue")
 
       expect(page).to have_content("Error: Enter a valid date of birth")
@@ -128,7 +118,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
 
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
-      enter_email_and_continue
+      enter_contact_details_and_continue(email: "unaccompanied.minor@test.com")
 
       fill_in("Day", with: tomorrow.day)
       fill_in("Month", with: tomorrow.month)
@@ -147,7 +137,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
 
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
-      enter_contact_details_and_continue(valid_email_address, valid_telephone_number)
+      enter_contact_details_and_continue(email: valid_email_address, telephone: valid_telephone_number)
       enter_date_of_birth_and_continue
 
       expect(page).to have_content(task_list_content)
@@ -197,15 +187,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
     expect(page).to have_content("#{given_name} #{family_name}")
   end
 
-  def enter_email_and_continue
-    check("Email")
-    fill_in("Email", with: "unaccompanied.minor@test.com")
-    click_button("Continue")
-
-    expect(page).to have_content("Enter their date of birth")
-  end
-
-  def enter_contact_details_and_continue(email = nil, telephone = nil, select_none: false)
+  def enter_contact_details_and_continue(email: nil, telephone: nil, select_none: false)
     if email.present?
       check("Email")
       fill_in("Email", with: email)
