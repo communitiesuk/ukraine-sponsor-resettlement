@@ -305,7 +305,7 @@ en:
       sponsored_children_legal_guardian_consent:
         short: Sponsored children legal guardian consent
         full: Can you upload both consent forms?
-        hint_html: You must be able to upload both completed and signed consent forms from at least one of the child's parents or their legal guardian.<br /><br /><a href="https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians#parent-or-legal-guardian-consent">Read guidance about what consent forms are required</a>
+        hint_html: You must be able to upload both completed and signed consent forms from at least one of the child's parents or their legal guardian.<br /><br /><a href="https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians#parent-or-legal-guardian-consent">Read guidance about which consent forms are required</a>
       sponsor_british_citizenship:
         short: Sponsor british citizenship
         full: Are you a British citizen?
