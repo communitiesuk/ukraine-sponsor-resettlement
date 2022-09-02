@@ -11,7 +11,7 @@ RSpec.describe "Unaccompanied minor sponsor other nationalities", type: :system 
     let(:expected_second_remove_url) { "/sponsor-a-child/remove-other-nationality/DZA".freeze }
     let(:expected_first_remove_url) { "/sponsor-a-child/remove-other-nationality/ALB".freeze }
     let(:main_nationality) { "Afghanistan".freeze }
-    let(:task_list_content) { "Apply for permission to sponsor a child fleeing Ukraine without a parent".freeze }
+    let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine".freeze }
 
     before do
       application = UnaccompaniedMinor.new

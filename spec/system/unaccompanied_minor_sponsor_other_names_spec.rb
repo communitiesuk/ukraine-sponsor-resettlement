@@ -7,7 +7,7 @@ RSpec.describe "Unaccompanied minor sponsor other names", type: :system do
   end
 
   describe "sponsor enters other names" do
-    let(:task_list_content) { "Apply for permission to sponsor a child fleeing Ukraine without a parent".freeze }
+    let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine".freeze }
     let(:first_other_given_name) { "Firstextra".freeze }
     let(:first_other_family_name) { "Firstfamily".freeze }
     let(:second_other_given_name) { "Secondextra".freeze }

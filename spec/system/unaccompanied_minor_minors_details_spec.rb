@@ -3,7 +3,7 @@ require "securerandom"
 
 RSpec.describe "Unaccompanied minor - minors details", type: :system do
   let(:task_list_path) { "/sponsor-a-child/task-list" }
-  let(:task_list_content) { "Apply for permission to sponsor a child fleeing Ukraine without a parent" }
+  let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine" }
 
   before do
     driven_by(:rack_test_user_agent)

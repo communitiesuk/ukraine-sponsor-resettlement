@@ -445,6 +445,7 @@ en:
       save: Save and return later
     apply_to_sponsor:
       short: Apply to provide a safe home for a child from Ukraine
+      full: Apply for approval to provide a safe home for a child from Ukraine
   error:
     invalid_eligibility: You must confirm you are eligible
     privacy_statement: You must read and agree to the privacy statement

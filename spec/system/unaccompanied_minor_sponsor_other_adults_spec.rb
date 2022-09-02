@@ -7,7 +7,7 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
   end
 
   describe "other adults identification documents" do
-    let(:task_list_content) { "Apply for permission to sponsor a child fleeing Ukraine without a parent".freeze }
+    let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine".freeze }
     let(:min_chars_digits_message) { "You must enter at least 6 characters (numbers or letters)" }
     let(:invalid_id_entries) { ["", " ", "-", "*test", "12345", "AbCdE"].freeze }
     let(:valid_document_id) { "SomeValidId123456".freeze }

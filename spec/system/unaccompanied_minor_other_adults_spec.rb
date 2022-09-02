@@ -11,7 +11,7 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
   end
 
   describe "complete over 16 year old flow" do
-    let(:task_list_content) { "Apply for permission to sponsor a child fleeing Ukraine without a parent".freeze }
+    let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine".freeze }
 
     it "prompts for DoB, nationality and id documents and returns to task list" do
       add_date_of_birth

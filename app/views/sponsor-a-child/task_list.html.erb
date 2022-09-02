@@ -2,7 +2,7 @@
   <div class="govuk-grid-column-two-thirds">
 
     <h1 class="govuk-heading-l">
-      Apply for permission to sponsor a child fleeing Ukraine without a parent
+    <%= t('apply_to_sponsor.full', scope: "unaccompanied_minor") %>
     </h1>
 
     <p>
@@ -18,7 +18,7 @@
     <ol class="app-task-list">
       <li>
         <h2 class="app-task-list__section">
-          <span class="app-task-list__section-number">1. </span> Who are you?
+          <span class="app-task-list__section-number">1. </span> Your details
         </h2>
         <ul class="app-task-list__items">
           <li class="app-task-list__item">
@@ -56,7 +56,7 @@
 
       <li>
         <h2 class="app-task-list__section">
-          <span class="app-task-list__section-number">2. </span> Where will the child live?
+          <span class="app-task-list__section-number">2. </span> Child’s accommodation
         </h2>
         <ul class="app-task-list__items">
           <li class="app-task-list__item">
@@ -114,7 +114,7 @@
 
       <li>
         <h2 class="app-task-list__section">
-          <span class="app-task-list__section-number"><%= @application.heading_number?(3) %> </span> Tell us about the child
+          <span class="app-task-list__section-number"><%= @application.heading_number?(3) %> </span> Child's details
         </h2>
         <ul class="app-task-list__items">
           <li class="app-task-list__item">
@@ -130,7 +130,7 @@
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
                 <a href="/sponsor-a-child/steps/35" aria-describedby="upload-parental-consent-British">
-                  Upload parental consent (British)
+                  Upload UK consent form
                 </a>
               </span>
             <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.uk_consent_form?) %>">
@@ -140,7 +140,7 @@
           <li class="app-task-list__item">
               <span class="app-task-list__task-name">
                 <a href="/sponsor-a-child/steps/37" aria-describedby="upload-parental-consent-Ukraine">
-                  Upload parental consent (Ukraine)
+                  Upload Ukrainian consent form
                 </a>
               </span>
             <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.ukraine_consent_form?) %>">
@@ -158,7 +158,7 @@
           <ul class="app-task-list__items">
             <li class="app-task-list__item">
               <a href="/sponsor-a-child/steps/38" aria-describedby="consent-to-share-your-data">
-                Consent to sharing your data
+                Confirm we can use your data
               </a>
               <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.privacy_consent?) %>">
                 <%= @application.privacy_consent? %>
@@ -166,7 +166,7 @@
             </li>
             <li class="app-task-list__item">
               <a href="/sponsor-a-child/steps/39" aria-describedby="sponsor-declaration">
-                Sponsor declaration
+                Confirm your eligibility
               </a>
               <strong class="govuk-tag app-task-list__tag <%= @application.status_styles?(@application.sponsor_declaration?) %>">
                 <%= @application.sponsor_declaration? %>
@@ -194,13 +194,13 @@
           <ul class="app-task-list__items">
             <li class="app-task-list__item">
               <span class="app-task-list__task-name">
-                Consent to sharing your data
+                Confirm we can use your data
               </span>
               <strong class="govuk-tag app-task-list__tag govuk-tag--grey">Cannot start yet</strong>
             </li>
             <li class="app-task-list__item">
               <span class="app-task-list__task-name">
-                Sponsor declaration
+                Confirm your eligibility
               </span>
               <strong class="govuk-tag app-task-list__tag govuk-tag--grey">Cannot start yet</strong>
             </li>

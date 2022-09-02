@@ -40,7 +40,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
 
     let(:texter) { instance_double("Notifications::Client") }
     let(:application_token) { instance_double("ApplicationToken") }
-    let(:task_list_content) { "Apply for permission to sponsor a child fleeing Ukraine without a parent".freeze }
+    let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine".freeze }
 
     before do
       allow(Notifications::Client).to receive(:new).and_return(texter)
