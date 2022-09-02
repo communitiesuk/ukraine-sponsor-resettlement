@@ -88,7 +88,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       visit "/sponsor-a-child/"
       expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
 
-      click_link("Apply for permission to sponsor an unaccompanied child fleeing Ukraine")
+      click_link("Apply to provide a safe home for a child from Ukraine")
 
       expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
     end
