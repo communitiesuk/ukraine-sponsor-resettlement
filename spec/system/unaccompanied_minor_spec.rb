@@ -377,7 +377,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Enter your nationality")
       click_button("Continue")
 
-      expect(page).to have_content("You must select a valid nationality")
+      expect(page).to have_content("Error: You must select a valid nationality")
     end
   end
 
@@ -957,12 +957,12 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_link("Additional details")
       expect(page).to have_content("Do you have any of these identity documents?")
 
-      choose("National Identity card")
+      choose("National identity card")
       click_button("Continue")
 
       expect(page).to have_content("You must enter a valid identity document number")
 
-      fill_in("National Identity card number", with: "ABC123456789")
+      fill_in("National identity card number", with: "ABC123456789")
 
       click_button("Continue")
       expect(page).to have_content("Enter your date of birth")
@@ -1077,8 +1077,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_link("Additional details")
       expect(page).to have_content("Do you have any of these identity documents?")
 
-      choose("National Identity card")
-      fill_in("National Identity card number", with: "ABC123987456")
+      choose("National identity card")
+      fill_in("National identity card number", with: "ABC123987456")
 
       click_button("Continue")
       expect(page).to have_content("Enter your date of birth")
@@ -1089,8 +1089,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_link("Additional details")
       expect(page).to have_content("Do you have any of these identity documents?")
 
-      choose("National Identity card")
-      expect(page).to have_field("National Identity card number", with: "ABC123987456")
+      choose("National identity card")
+      expect(page).to have_field("National identity card number", with: "ABC123987456")
     end
 
     it "when Refugee travel document is displayed when going through id question" do

@@ -14,6 +14,7 @@ RSpec.describe "Unaccompanied minor sponsor other names", type: :system do
     let(:second_other_family_name) { "Secondfamily".freeze }
     let(:name_page_content) { "Enter your name".freeze }
     let(:other_name_page_content) { "Add your other name".freeze }
+    let(:one_other_name_message) { "You have added 1 other name" }
 
     before do
       application = UnaccompaniedMinor.new
@@ -63,7 +64,7 @@ RSpec.describe "Unaccompanied minor sponsor other names", type: :system do
       click_button("Continue")
 
       enter_name_and_continue("A", first_other_family_name)
-      expect(page).to have_content("You have added 1 other names")
+      expect(page).to have_content(one_other_name_message)
       expect(page).to have_content("A")
     end
 
@@ -85,7 +86,7 @@ RSpec.describe "Unaccompanied minor sponsor other names", type: :system do
       click_button("Continue")
 
       enter_name_and_continue(first_other_given_name, "B")
-      expect(page).to have_content("You have added 1 other names")
+      expect(page).to have_content(one_other_name_message)
       expect(page).to have_content("B")
     end
 
@@ -121,7 +122,7 @@ RSpec.describe "Unaccompanied minor sponsor other names", type: :system do
       expect(page).to have_content(other_name_page_content)
 
       enter_name_and_continue(first_other_given_name, first_other_family_name)
-      expect(page).to have_content("You have added 1 other names")
+      expect(page).to have_content(one_other_name_message)
       expect(page).to have_content(first_other_given_name)
       expect(page).to have_content(first_other_family_name)
 
@@ -152,7 +153,7 @@ RSpec.describe "Unaccompanied minor sponsor other names", type: :system do
 
       enter_name_and_continue(first_other_given_name, first_other_family_name)
 
-      expect(page).to have_content("You have added 1 other names")
+      expect(page).to have_content(one_other_name_message)
       expect(page).to have_content(first_other_given_name)
       expect(page).to have_content(first_other_family_name)
 
@@ -171,7 +172,7 @@ RSpec.describe "Unaccompanied minor sponsor other names", type: :system do
       expect(page).to have_link("Remove", href: expected_second_remove_url)
 
       click_link(href: expected_second_remove_url)
-      expect(page).to have_content("You have added 1 other names")
+      expect(page).to have_content(one_other_name_message)
       expect(page).not_to have_content(second_other_given_name)
       expect(page).not_to have_content(second_other_family_name)
 
