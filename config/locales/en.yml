@@ -326,10 +326,10 @@ en:
       other_names:
         short: Sponsor other names
         full: Have you ever been known by another name?
-        hint: For example, if you changed your name after marriage
+        hint: For example, if you changed your name after marriage.
       other_fullname:
         short: Sponsor name
-        full: What is your other name?
+        full: Add your other name
         hint: You will have the chance to add more than one previous name on the next page.
       other_name:
         short: Other names

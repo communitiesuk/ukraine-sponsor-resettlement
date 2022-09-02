@@ -5,7 +5,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   before do
     driven_by(:rack_test_user_agent)
   end
-  
+
   let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine".freeze }
   let(:name_page_content) { "Enter your name".freeze }
 
@@ -288,7 +288,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_link("Name")
       expect(page).to have_content(name_page_content)
 
-      fill_in("Given name(s)", with: "Jane")
+      fill_in("Given names", with: "Jane")
       fill_in("Family name", with: "Doe")
 
       click_button("Continue")
