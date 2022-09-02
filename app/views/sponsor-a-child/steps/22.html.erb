@@ -4,7 +4,7 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-    <h1 class="govuk-heading-l">You have added <%= @application.other_nationalities.length() %> other nationalities</h1>
+    <h1 class="govuk-heading-l">You have added <%= pluralize(@application.other_nationalities.length(), "other nationality") %></h1>
 
     <table class="govuk-table">
         <thead class="govuk-table__head">
