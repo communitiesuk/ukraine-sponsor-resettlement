@@ -355,15 +355,15 @@ en:
       sponsor_nationality:
         short: Sponsor nationality
         full: Enter your nationality
-        hint_html: You will be able to add other nationalities on the next page. <br/> <br/> Select your country of nationality.
+        hint_html: You will be able to add other nationalities on the next page. <br/> <br/> Select your country of nationality
       sponsor_has_other_nationality:
         short: Sponsor has other nationality
         full: Have you ever held any other nationalities?
         hint: Select 'Yes' if you have ever held any other nationalities, even if you don't hold them any more.
       sponsor_other_nationality:
         short: Sponsor other nationality
-        full: What is your other nationality?
-        hint: You will be able to add other nationalities on the next page
+        full: Enter your other nationality
+        hint: Select your country of nationality
       resident_nationality:
         short: Resident nationality
         full: Enter their nationality
