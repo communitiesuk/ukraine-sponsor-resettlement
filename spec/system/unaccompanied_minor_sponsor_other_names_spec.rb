@@ -12,6 +12,7 @@ RSpec.describe "Unaccompanied minor sponsor other names", type: :system do
     let(:first_other_family_name) { "Firstfamily".freeze }
     let(:second_other_given_name) { "Secondextra".freeze }
     let(:second_other_family_name) { "Secondfamily".freeze }
+    let(:name_page_content) { "Enter your name".freeze }
 
     before do
       application = UnaccompaniedMinor.new
@@ -30,7 +31,7 @@ RSpec.describe "Unaccompanied minor sponsor other names", type: :system do
     end
 
     def enter_name_and_continue(given_name, family_name)
-      fill_in("Given name(s)", with: given_name)
+      fill_in("Given name", with: given_name)
       fill_in("Family name", with: family_name)
       click_button("Continue")
     end
@@ -94,7 +95,7 @@ RSpec.describe "Unaccompanied minor sponsor other names", type: :system do
 
       enter_name_and_continue(first_other_given_name, "")
       expect(page).to have_content("You must enter a valid family name")
-      expect(page).to have_field("Given name(s)", with: first_other_given_name)
+      expect(page).to have_field("Given name", with: first_other_given_name)
 
       enter_name_and_continue("", first_other_family_name)
       expect(page).to have_content("You must enter a valid given name")

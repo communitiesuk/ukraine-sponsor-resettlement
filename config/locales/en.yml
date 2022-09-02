@@ -321,7 +321,7 @@ en:
         short: Eligibility checks completed
       fullname:
         short: Sponsor name
-        full: What is your name?
+        full: Enter your name
         hint: Full name
       other_names:
         short: Sponsor other names
