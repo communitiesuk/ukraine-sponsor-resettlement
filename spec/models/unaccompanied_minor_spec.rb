@@ -280,10 +280,10 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app = described_class.new
       app.sponsor_declaration = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:sponsor_declaration]).to include("You must confirm you are eligible")
+      expect(app.errors[:sponsor_declaration]).to include("You must check the box to continue")
       app.sponsor_declaration = "false"
       expect(app.valid?).to be(false)
-      expect(app.errors[:sponsor_declaration]).to include("You must confirm you are eligible")
+      expect(app.errors[:sponsor_declaration]).to include("You must check the box to continue")
       app.sponsor_declaration = "true"
       expect(app.valid?).to be(true)
     end
