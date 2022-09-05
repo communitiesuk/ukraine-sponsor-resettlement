@@ -424,7 +424,7 @@ en:
           <div class="govuk-inset-text">%{formatted_address}</div>
       adults_at_address:
         short: Adults at address
-        full: Enter the name of the person over 16 who will live with the child
+        full: Enter the name of a person over 16 who will live with the child
         hint_html: |
           <div class="govuk-inset-text">%{formatted_address}</div>
       agree_privacy_statement:

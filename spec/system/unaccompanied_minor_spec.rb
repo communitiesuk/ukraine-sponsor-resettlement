@@ -8,6 +8,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
   let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine".freeze }
   let(:name_page_content) { "Enter your name".freeze }
+  let(:other_adults_address_content) { "Enter the name of a person over 16 who will live with the child".freeze }
 
   describe "start page" do
     it "sponsor url shows page" do
@@ -487,9 +488,9 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Postcode", with: "XX1 1XX")
 
       click_button("Continue")
-      expect(page).to have_content("Enter the name of the person over 16 who will live with the child")
+      expect(page).to have_content(other_adults_address_content)
 
-      fill_in("Given name(s)", with: "Another")
+      fill_in("Given names", with: "Another")
       fill_in("Family name", with: "Adult")
 
       click_button("Continue")
@@ -527,9 +528,9 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Postcode", with: "XX1 1XX")
 
       click_button("Continue")
-      expect(page).to have_content("Enter the name of the person over 16 who will live with the child")
+      expect(page).to have_content(other_adults_address_content)
 
-      fill_in("Given name(s)", with: "First")
+      fill_in("Given names", with: "First")
       fill_in("Family name", with: "Adult")
 
       click_button("Continue")
@@ -537,9 +538,9 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("First Adult")
 
       click_link("Add another person")
-      expect(page).to have_content("Enter the name of the person over 16 who will live with the child")
+      expect(page).to have_content(other_adults_address_content)
 
-      fill_in("Given name(s)", with: "Second")
+      fill_in("Given names", with: "Second")
       fill_in("Family name", with: "Adult")
 
       click_button("Continue")
@@ -577,9 +578,9 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Postcode", with: "XX1 1XX")
 
       click_button("Continue")
-      expect(page).to have_content("Enter the name of the person over 16 who will live with the child")
+      expect(page).to have_content(other_adults_address_content)
 
-      fill_in("Given name(s)", with: "First")
+      fill_in("Given names", with: "First")
       fill_in("Family name", with: "Adult")
 
       click_button("Continue")
@@ -587,7 +588,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("First Adult")
 
       click_link("Remove")
-      expect(page).to have_content("Enter the name of the person over 16 who will live with the child")
+      expect(page).to have_content(other_adults_address_content)
     end
   end
 
