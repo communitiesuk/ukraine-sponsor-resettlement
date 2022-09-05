@@ -189,7 +189,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app = described_class.new
       app.uk_parental_consent_file_type = "invalid"
       expect(app.valid?).to be(false)
-      expect(app.errors[:uk_parental_consent]).to include("You can only upload PDF, JPEG or PNG files")
+      expect(app.errors[:uk_parental_consent]).to include("You can only upload pdf, jpeg or png files")
       app.uk_parental_consent_file_type = "application/pdf"
       expect(app.valid?).to be(true)
       app.uk_parental_consent_file_type = "image/png"
