@@ -147,7 +147,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
     given_name = "Child"
     family_name = "Minor"
 
-    fill_in("Given name(s)", with: given_name)
+    fill_in("Given names", with: given_name)
     fill_in("Family name", with: family_name)
     click_button("Continue")
 
