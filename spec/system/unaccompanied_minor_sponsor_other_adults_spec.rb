@@ -55,8 +55,8 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
       navigate_to_id_document_entry
 
       invalid_id_entries.each do |line|
-        choose("National Identity card")
-        fill_in("National Identity card", with: line)
+        choose("National identity card")
+        fill_in("National identity card", with: line)
         click_button("Continue")
 
         expect(page).to have_content(min_chars_digits_message), "Failed value:#{line.inspect}"
@@ -66,8 +66,8 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
     it "goes to task list when the national id card entry is valid" do
       navigate_to_id_document_entry
 
-      choose("National Identity card")
-      fill_in("National Identity card", with: valid_document_id)
+      choose("National identity card")
+      fill_in("National identity card", with: valid_document_id)
       click_button("Continue")
 
       expect(page).to have_content(task_list_content)
@@ -78,7 +78,7 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
 
       invalid_id_entries.each do |line|
         choose("Refugee travel document")
-        fill_in("National Identity card", with: line)
+        fill_in("National identity card", with: line)
         click_button("Continue")
 
         expect(page).to have_content(min_chars_digits_message), "Failed value:#{line.inspect}"
