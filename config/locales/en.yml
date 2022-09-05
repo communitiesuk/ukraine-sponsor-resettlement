@@ -429,7 +429,7 @@ en:
           <div class="govuk-inset-text">%{formatted_address}</div>
       agree_privacy_statement:
         short: Privacy statement
-        full: Confirm you have read the privacy statement and all people involved agree that the information you have provided can be used for the Homes for Ukraine scheme.
+        full: Confirm you have read the privacy statement and all people involved agree that the information you have provided can be used for the Homes for Ukraine scheme
         hint_html: |
           Yes, I have read the <a href="https://www.gov.uk/guidance/homes-for-ukraine-visa-sponsorship-scheme-privacy-notice" target="_blank">privacy statement</a> and confirm that I (the sponsor), the named residents, the child and the child's parents or legal guardian all understand and agree that the information I have provided in this form can be used for the Homes for Ukraine scheme.
     no_received_consent:
