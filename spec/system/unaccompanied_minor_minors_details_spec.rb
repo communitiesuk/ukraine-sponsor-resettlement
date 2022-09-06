@@ -1,6 +1,6 @@
 RSpec.describe "Unaccompanied minor - minors details", type: :system do
   let(:task_list_path) { "/sponsor-a-child/task-list" }
-  let(:task_list_content) { "Apply for permission to sponsor a child fleeing Ukraine without a parent" }
+  let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine" }
   let(:minors_email) { "unaccompanied.minor@test.com" }
   let(:minors_phone) { "07983111111" }
   let(:minors_dob) { Time.zone.now - 4.years }
