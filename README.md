@@ -87,7 +87,7 @@ You will need the Conduit plug-in installed\
 2. Install Cloud Foundry CLI (https://docs.cloudfoundry.org/cf-cli/install-go-cli.html)
 
 3. Login:\
-   `cf login -a api.london.cloud.service.gov.uk -u dluhc-ulss-deploy@madetech.com`
+   `cf login --sso`
    
 4. Connect to database:\
     `cf conduit ukraine-sponsor-resettlement-<target environment>-postgres -c '{"read_only": true}' -- psql`

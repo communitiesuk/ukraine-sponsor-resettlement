@@ -3,7 +3,7 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-    <%= form_for @application, url: "/sponsor-a-child/steps/14", method: :post do |f| %>
+    <%= form_for @application, url: "/sponsor-a-child/steps/14#{@save}", method: :post do |f| %>
 
     <%= f.govuk_error_summary link_base_errors_to: :email %>
 
@@ -22,7 +22,10 @@
           <a class="govuk-link" href="/sponsor-a-child/save-and-return">Save and return later</a>
         <% end %>
       </div>
-    
+    <% end %>
+    <% if @save_and_return_message %>
+      <p class="govuk-body">Confirm your email address and phone number and we will send you a link so you can access your saved application later.</p>
+      <p>We will send a one-time code to your phone each time you access your application.</p>
     <% end %>
   </div>
 </div>
