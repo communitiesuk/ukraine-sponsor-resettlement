@@ -1,6 +1,15 @@
 require "rails_helper"
 
 RSpec.describe UnaccompaniedMinor, type: :model do
+  let(:given_name_error) { "You must enter a valid given name" }
+  let(:family_name_error) { "You must enter a valid family name" }
+  let(:email_address_error) { "You must enter a valid email address" }
+  let(:phone_numbers_error) { "You must enter a valid phone number" }
+  let(:empty_address_error) { "You must enter an address" }
+  let(:empty_town_city_error) { "You must enter a town or city" }
+  let(:postcode_error) { "You must enter a valid UK postcode" }
+  let(:no_choice_error) { "You must select an option to continue" }
+
   describe "dynamic task list requirements" do
     it "calculates the number of sections to be completed" do
       app = described_class.new
@@ -46,21 +55,21 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app = described_class.new
       app.given_name = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:given_name]).to include("You must enter a valid given name")
+      expect(app.errors[:given_name]).to include(given_name_error)
       expect(app.errors[:given_name].count).to be(1)
       app.family_name = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:family_name]).to include("You must enter a valid family name")
+      expect(app.errors[:family_name]).to include(family_name_error)
       expect(app.errors[:family_name].count).to be(1)
       app.given_name = ""
       app.family_name = "Smith"
       expect(app.valid?).to be(false)
-      expect(app.errors[:given_name]).to include("You must enter a valid given name")
+      expect(app.errors[:given_name]).to include(given_name_error)
       expect(app.errors[:given_name].count).to be(1)
       app.given_name = "John"
       app.family_name = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:family_name]).to include("You must enter a valid family name")
+      expect(app.errors[:family_name]).to include(family_name_error)
       expect(app.errors[:family_name].count).to be(1)
       app.given_name = "John"
       app.family_name = "Smith"
@@ -71,11 +80,11 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app = described_class.new
       app.email = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:email]).to include("You must enter a valid email address")
+      expect(app.errors[:email]).to include(email_address_error)
       expect(app.errors[:email].count).to be(1)
       app.email = "John.Smith@"
       expect(app.valid?).to be(false)
-      expect(app.errors[:email]).to include("You must enter a valid email address")
+      expect(app.errors[:email]).to include(email_address_error)
       expect(app.errors[:email].count).to be(1)
       app.email = "John.Smith@test.com"
       expect(app.valid?).to be(true)
@@ -85,15 +94,15 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app = described_class.new
       app.phone_number = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:phone_number]).to include("You must enter a valid phone number")
+      expect(app.errors[:phone_number]).to include(phone_numbers_error)
       expect(app.errors[:phone_number].count).to be(1)
       app.phone_number = "07777 888 99"
       expect(app.valid?).to be(false)
-      expect(app.errors[:phone_number]).to include("You must enter a valid phone number")
+      expect(app.errors[:phone_number]).to include(phone_numbers_error)
       expect(app.errors[:phone_number].count).to be(1)
       app.phone_number = "123456789012345"
       expect(app.valid?).to be(false)
-      expect(app.errors[:phone_number]).to include("You must enter a valid phone number")
+      expect(app.errors[:phone_number]).to include(phone_numbers_error)
       expect(app.errors[:phone_number].count).to be(1)
       app.phone_number = "07777 888 999"
       expect(app.valid?).to be(true)
@@ -103,15 +112,15 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app = described_class.new
       app.residential_line_1 = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:residential_line_1]).to include("You must enter an address")
+      expect(app.errors[:residential_line_1]).to include(empty_address_error)
       expect(app.errors[:residential_line_1].count).to be(1)
       app.residential_line_1 = "A"
       expect(app.valid?).to be(false)
-      expect(app.errors[:residential_line_1]).to include("You must enter an address")
+      expect(app.errors[:residential_line_1]).to include(empty_address_error)
       expect(app.errors[:residential_line_1].count).to be(1)
       app.residential_line_1 = ("X" * 129).to_s
       expect(app.valid?).to be(false)
-      expect(app.errors[:residential_line_1]).to include("You must enter an address")
+      expect(app.errors[:residential_line_1]).to include(empty_address_error)
       expect(app.errors[:residential_line_1].count).to be(1)
       app.residential_line_1 = "Address line 1"
       expect(app.valid?).to be(true)
@@ -135,15 +144,15 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app = described_class.new
       app.residential_town = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:residential_town]).to include("You must enter a town or city")
+      expect(app.errors[:residential_town]).to include(empty_town_city_error)
       expect(app.errors[:residential_town].count).to be(1)
       app.residential_town = "A"
       expect(app.valid?).to be(false)
-      expect(app.errors[:residential_town]).to include("You must enter a town or city")
+      expect(app.errors[:residential_town]).to include(empty_town_city_error)
       expect(app.errors[:residential_town].count).to be(1)
       app.residential_town = ("X" * 129).to_s
       expect(app.valid?).to be(false)
-      expect(app.errors[:residential_town]).to include("You must enter a town or city")
+      expect(app.errors[:residential_town]).to include(empty_town_city_error)
       expect(app.errors[:residential_town].count).to be(1)
       app.residential_town = "Address town"
       expect(app.valid?).to be(true)
@@ -153,19 +162,19 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app = described_class.new
       app.residential_postcode = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:residential_postcode]).to include("You must enter a valid UK postcode")
+      expect(app.errors[:residential_postcode]).to include(postcode_error)
       app.residential_postcode = " "
       expect(app.valid?).to be(false)
-      expect(app.errors[:residential_postcode]).to include("You must enter a valid UK postcode")
+      expect(app.errors[:residential_postcode]).to include(postcode_error)
       app.residential_postcode = ("X" * 129).to_s
       expect(app.valid?).to be(false)
-      expect(app.errors[:residential_postcode]).to include("You must enter a valid UK postcode")
+      expect(app.errors[:residential_postcode]).to include(postcode_error)
       app.residential_postcode = "XX1 XX"
       expect(app.valid?).to be(false)
-      expect(app.errors[:residential_postcode]).to include("You must enter a valid UK postcode")
+      expect(app.errors[:residential_postcode]).to include(postcode_error)
       app.residential_postcode = "XX 1XX"
       expect(app.valid?).to be(false)
-      expect(app.errors[:residential_postcode]).to include("You must enter a valid UK postcode")
+      expect(app.errors[:residential_postcode]).to include(postcode_error)
       app.residential_postcode = "XX1 1XX"
       expect(app.valid?).to be(true)
     end
@@ -175,10 +184,10 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.other_adults_address = ""
       app.different_address = "yes"
       expect(app.valid?).to be(false)
-      expect(app.errors[:other_adults_address]).to include("You must select an option to continue")
+      expect(app.errors[:other_adults_address]).to include(no_choice_error)
       app.different_address = "yes"
       expect(app.valid?).to be(false)
-      expect(app.errors[:other_adults_address]).to include("You must select an option to continue")
+      expect(app.errors[:other_adults_address]).to include(no_choice_error)
       app.different_address = "no"
       expect(app.valid?).to be(true)
     end
@@ -189,7 +198,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app = described_class.new
       app.uk_parental_consent_file_type = "invalid"
       expect(app.valid?).to be(false)
-      expect(app.errors[:uk_parental_consent]).to include("You can only upload PDF, JPEG or PNG files")
+      expect(app.errors[:uk_parental_consent]).to include("You can only upload pdf, jpeg or png files")
       app.uk_parental_consent_file_type = "application/pdf"
       expect(app.valid?).to be(true)
       app.uk_parental_consent_file_type = "image/png"
@@ -235,7 +244,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app = described_class.new
       app.have_parental_consent = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:have_parental_consent]).to include("You must select an option to continue")
+      expect(app.errors[:have_parental_consent]).to include(no_choice_error)
       app.have_parental_consent = "yes"
       expect(app.valid?).to be(true)
     end
@@ -280,10 +289,10 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app = described_class.new
       app.sponsor_declaration = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:sponsor_declaration]).to include("You must confirm you are eligible")
+      expect(app.errors[:sponsor_declaration]).to include("You must check the box to continue")
       app.sponsor_declaration = "false"
       expect(app.valid?).to be(false)
-      expect(app.errors[:sponsor_declaration]).to include("You must confirm you are eligible")
+      expect(app.errors[:sponsor_declaration]).to include("You must check the box to continue")
       app.sponsor_declaration = "true"
       expect(app.valid?).to be(true)
     end
@@ -439,21 +448,21 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app = described_class.new
       app.minor_given_name = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:minor_given_name]).to include("You must enter a valid given name")
+      expect(app.errors[:minor_given_name]).to include(given_name_error)
       expect(app.errors[:minor_given_name].count).to be(1)
       app.minor_family_name = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:minor_family_name]).to include("You must enter a valid family name")
+      expect(app.errors[:minor_family_name]).to include(family_name_error)
       expect(app.errors[:minor_family_name].count).to be(1)
       app.minor_given_name = ""
       app.minor_family_name = "Smith"
       expect(app.valid?).to be(false)
-      expect(app.errors[:minor_given_name]).to include("You must enter a valid given name")
+      expect(app.errors[:minor_given_name]).to include(given_name_error)
       expect(app.errors[:minor_given_name].count).to be(1)
       app.minor_given_name = "John"
       app.minor_family_name = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:minor_family_name]).to include("You must enter a valid family name")
+      expect(app.errors[:minor_family_name]).to include(family_name_error)
       expect(app.errors[:minor_family_name].count).to be(1)
       app.minor_given_name = "John"
       app.minor_family_name = "Smith"
@@ -491,7 +500,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.is_living_december = "no"
       app.is_born_after_december = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:is_born_after_december]).to include("You must select an option to continue")
+      expect(app.errors[:is_born_after_december]).to include(no_choice_error)
       expect(app.errors[:is_born_after_december].count).to be(1)
       app.is_living_december = "no"
       app.is_born_after_december = "yes"

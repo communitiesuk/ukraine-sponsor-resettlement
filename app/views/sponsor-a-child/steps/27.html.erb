@@ -30,12 +30,14 @@
                 <li> a suffix (for example, Jr) </li>
                 <li> a patronymic name (common in Ukraine) </li>
                 </ul>
-                <br/>
-
-                'Family name': enter their last name (surname).</div>
+                <div>
+                'Family name': enter their last name (surname).
+                </div>
+                </div>
+            
             </details>
 
-            <%= f.govuk_text_field :adult_given_name, label: { text: 'Given name(s)' }, type: "text" %>
+            <%= f.govuk_text_field :adult_given_name, label: { text: 'Given names' }, type: "text" %>
             <%= f.govuk_text_field :adult_family_name, label: { text: 'Family name' }, type: "text" %>
       <% end %>
 

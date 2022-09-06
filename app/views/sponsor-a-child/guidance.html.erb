@@ -4,7 +4,7 @@
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
     <h1 class="gem-c-title__text govuk-heading-l">
-      Apply to provide a safe home for a child from Ukraine
+     <%= t('apply_to_sponsor.short', scope: "unaccompanied_minor") %>
     </h1>
 
     <p class="govuk-body">Use this service to apply for approval to sponsor a child fleeing Ukraine, who is not travelling with or joining their parent or legal guardian in the UK.</p>
@@ -81,7 +81,7 @@
 
             <ol class="app-step-nav__list " data-length="1">
               <li class="app-step-nav__list-item js-list-item ">
-                <a data-position="2.1" class="app-step-nav__link js-link" href="/sponsor-a-child/start">Apply for permission to sponsor an unaccompanied child fleeing Ukraine</a>
+                <a data-position="2.1" class="app-step-nav__link js-link" href="/sponsor-a-child/start"><%= t('apply_to_sponsor.short', scope: "unaccompanied_minor")%></a>
               </li>
             </ol>
           </div>
