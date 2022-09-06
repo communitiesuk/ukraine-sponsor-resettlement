@@ -170,11 +170,6 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.13.8-aarch64-linux)
       racc (~> 1.4)
-<<<<<<< HEAD
-=======
-    nokogiri (1.13.8-arm64-darwin)
-      racc (~> 1.4)
->>>>>>> master
     nokogiri (1.13.8-x86_64-linux)
       racc (~> 1.4)
     notifications-ruby-client (5.3.0)
@@ -347,10 +342,6 @@ GEM
 
 PLATFORMS
   aarch64-linux-musl
-<<<<<<< HEAD
-=======
-  arm64-darwin-21
->>>>>>> master
   x86_64-linux
 
 DEPENDENCIES
