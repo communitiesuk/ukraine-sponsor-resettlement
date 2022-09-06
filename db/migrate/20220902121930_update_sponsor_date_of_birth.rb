@@ -5,7 +5,7 @@ class UpdateSponsorDateOfBirth < ActiveRecord::Migration[7.0]
         SELECT
             um.id
           , jsonb_pretty((um.answers::jsonb - 'sponsor_date_of_birth_day' - 'sponsor_date_of_birth_month' - 'sponsor_date_of_birth_year')
-            || CONCAT('{"sponsor_date_of_birth":{"3":',answers->>'sponsor_date_of_birth_day', ', "2":', answers->>'sponsor_date_of_birth_month', ', "1":', answers->>'sponsor_date_of_birth_year', '}}')::jsonb ) AS fixed
+            || CONCAT('{"sponsor_date_of_birth":{"3":',(answers->>'sponsor_date_of_birth_day')::INT, ', "2":',(answers->>'sponsor_date_of_birth_month')::INT, ', "1":',(answers->>'sponsor_date_of_birth_year')::INT, '}}')::jsonb ) AS fixed
         FROM
           unaccompanied_minors um
         WHERE

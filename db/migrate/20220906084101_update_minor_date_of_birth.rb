@@ -5,7 +5,7 @@ class UpdateMinorDateOfBirth < ActiveRecord::Migration[7.0]
         SELECT
             um.id
           , jsonb_pretty((um.answers::jsonb - 'minor_date_of_birth_day' - 'minor_date_of_birth_month' - 'minor_date_of_birth_year')
-            || CONCAT('{"minor_date_of_birth":{"3":',answers->>'minor_date_of_birth_day', ', "2":', answers->>'minor_date_of_birth_month', ', "1":', answers->>'minor_date_of_birth_year', '}}')::jsonb ) AS fixed
+            || CONCAT('{"minor_date_of_birth":{"3":',(answers->>'minor_date_of_birth_day')::INT, ', "2":',(answers->>'minor_date_of_birth_month')::INT, ', "1":',(answers->>'minor_date_of_birth_year')::INT, '}}')::jsonb ) AS fixed
         FROM
           unaccompanied_minors um
         WHERE
