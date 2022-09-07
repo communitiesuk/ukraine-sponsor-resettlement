@@ -176,7 +176,7 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       expect(page).to have_content("SPON-")
       page.set_rack_session(app_reference: nil)
       visit '/sponsor-a-child/confirm'
-      expect(page).to_not have_content("SPON-")
+      expect(page).to have_content("Use this service to apply for approval to sponsor a child fleeing Ukraine, who is not travelling with or joining their parent or legal guardian in the UK.")
     end
 
     def choose_option_and_continue(choice)

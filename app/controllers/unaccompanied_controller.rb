@@ -504,8 +504,12 @@ class UnaccompaniedController < ApplicationController
 
   def confirm
     @app_reference = session[:app_reference]
-
-    render "sponsor-a-child/confirm"
+    
+    if @app_reference.nil?
+      render "sponsor-a-child/guidance"
+    else
+      render "sponsor-a-child/confirm"
+    end
   end
 
   def guidance
