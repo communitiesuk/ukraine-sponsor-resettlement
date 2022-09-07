@@ -163,7 +163,8 @@ private
       return_link = generate_magic_link(personal_uuid)
       generate_application_token(@application, personal_uuid)
     end
-    GovNotifyMailer.send_save_and_return_email(@application.given_name, return_link, @application.email).deliver_later
+    given_name = @application.given_name || ""
+    GovNotifyMailer.send_save_and_return_email(given_name, return_link, @application.email).deliver_later
   end
 
   def send_token

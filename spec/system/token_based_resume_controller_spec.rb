@@ -92,6 +92,21 @@ RSpec.describe TokenBasedResumeController, type: :system do
       expect(page).to have_content("We've sent the link to #{email_scrambled}")
     end
 
+    it "allows the user to resume an application if given_name is not provided" do
+      uam.given_name = nil
+      uam.email = email
+      uam.phone_number = phone_number
+      uam.save!
+      page.set_rack_session(app_reference: uam.reference)
+
+      visit "/sponsor-a-child/save-and-return/resend-link"
+
+      fill_in("Enter an email address that you have access to, so you can save and continue your application later.", with: email)
+      click_button("Send Link")
+
+      expect(page).to have_content("We've sent the link to #{email_scrambled}")
+    end
+
     it "shows an error if the email is invalid" do
       page.set_rack_session(app_reference: uam.reference)
 
