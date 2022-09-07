@@ -268,6 +268,8 @@ jobs:
 
       - name: Deploy App
         env:
+          BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
+          BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
           CF_USERNAME: ${{ secrets.CF_USERNAME }}
           CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
           CF_API_ENDPOINT: ${{ secrets.CF_API_ENDPOINT }}
@@ -298,6 +300,8 @@ jobs:
           cf api $CF_API_ENDPOINT
           cf auth
           cf target -o $CF_ORG -s $CF_SPACE
+          cf set-env $APP_NAME BASIC_AUTH_USER $BASIC_AUTH_USER
+          cf set-env $APP_NAME BASIC_AUTH_PASS $BASIC_AUTH_PASS
           cf set-env $APP_NAME RAILS_MASTER_KEY $RAILS_MASTER_KEY
           cf set-env $APP_NAME REMOTE_API_URL $REMOTE_API_URL
           cf set-env $APP_NAME REMOTE_API_TOKEN $REMOTE_API_TOKEN
