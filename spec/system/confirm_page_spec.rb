@@ -2,38 +2,30 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
   let(:completed_task_list_content) { "You have completed 4 of 4 sections." }
   let(:minors_dob) { Time.zone.now - 4.years }
   let(:sponsor_dob) { Time.zone.now - 20.years }
-  let(:app_reference) { "BIG-REFERENCE" }
   let(:task_list_path) { "/sponsor-a-child/task-list" }
   let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine" }
-  let(:minors_email) { "unaccompanied.minor@test.com" }
-  let(:minors_phone) { "07983111111" }
-  let(:minors_dob) { Time.zone.now - 4.years }
 
-  fdescribe "user completes their application" do
+  describe "user completes their application" do
     before do
       driven_by(:rack_test_user_agent)
-      
-      @new_application = UnaccompaniedMinor.new
-      @new_application.reference = app_reference
-      @new_application.save!
+
+      new_application = UnaccompaniedMinor.new
+      new_application.reference = app_reference
+      new_application.save!
 
       page.set_rack_session(app_reference: "BIG-REFERENCE")
     end
 
-
     it "shows reference number on confirm page" do
       visit "/sponsor-a-child/start"
-      expect(@new_application.reference).to eq("BIG-REFERENCE")
 
       expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
       click_link("Start now")
-      expect(@new_application.reference).to eq("BIG-REFERENCE")
 
       visit "/sponsor-a-child/steps/1"
 
       expect(page).to have_content("Is the child you want to sponsor under 18?")
       choose_option_and_continue("Yes")
-      expect(@new_application.reference).to eq("BIG-REFERENCE")
 
       expect(page).to have_content("Was the child living in Ukraine on or before 31 December 2021?")
       choose_option_and_continue("Yes")
@@ -54,7 +46,6 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       click_link("Start application")
 
       expect(page).to have_content(task_list_content)
-      expect(@new_application.reference).to eq("BIG-REFERENCE")
 
       click_link("Name")
 
@@ -79,7 +70,6 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
 
       expect(page).to have_content(task_list_content)
       check_sections_complete(0)
-      expect(@new_application.reference).to eq("BIG-REFERENCE")
 
       click_link("Additional details")
 
@@ -144,7 +134,7 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       click_button("Continue")
 
       click_link("Upload Ukrainian consent form")
-      
+
       expect(page).to have_content("Upload the Ukraine certified consent form")
       test_file_path = File.join(File.dirname(__FILE__), "..", "ukraine-test-document.pdf")
       attach_file("unaccompanied-minor-ukraine-parental-consent-field", test_file_path)
@@ -175,30 +165,30 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
 
       expect(page).to have_content("SPON-")
       page.set_rack_session(app_reference: nil)
-      visit '/sponsor-a-child/confirm'
+      visit "/sponsor-a-child/confirm"
       expect(page).to have_content("Use this service to apply for approval to sponsor a child fleeing Ukraine, who is not travelling with or joining their parent or legal guardian in the UK.")
     end
 
     def choose_option_and_continue(choice)
-        choose(choice)
-        click_button("Continue")
+      choose(choice)
+      click_button("Continue")
     end
 
     def fill_in_name_and_continue(given, family)
-        fill_in("Given names", with: given)
-        fill_in("Family name", with: family)
-        click_button("Continue")
+      fill_in("Given names", with: given)
+      fill_in("Family name", with: family)
+      click_button("Continue")
     end
 
     def fill_in_dob_and_continue(date)
-        fill_in("Day", with: date.day)
-        fill_in("Month", with: date.month)
-        fill_in("Year", with: date.year)
-        click_button("Continue")
+      fill_in("Day", with: date.day)
+      fill_in("Month", with: date.month)
+      fill_in("Year", with: date.year)
+      click_button("Continue")
     end
 
     def check_sections_complete(complete_sections)
-        expect(page).to have_content("You have completed #{complete_sections} of 4 sections.")
+      expect(page).to have_content("You have completed #{complete_sections} of 4 sections.")
     end
   end
 end
