@@ -69,7 +69,7 @@ FULL_ATTRIBUTES_LIST = %i[
   adults_at_address
 ].sort
 RSpec.describe UnaccompaniedMinor, type: :model do
-  describe "completed application" do
+  describe "Transferring an application" do
     it "as_json outputs the expected attributes" do
       app = described_class.new
       app.save!
