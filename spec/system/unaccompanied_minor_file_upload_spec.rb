@@ -1,20 +1,18 @@
 RSpec.describe "Unaccompanied minor expression of interest", type: :system do
-   
-    let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine".freeze }
-    
-    before do
-      driven_by(:rack_test_user_agent)
-      new_application = UnaccompaniedMinor.new
-      new_application.save!
+  let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine".freeze }
 
-      page.set_rack_session(app_reference: new_application.reference)
-      visit "/sponsor-a-child/task-list"
-      expect(page).to have_content(task_list_content)
-    end
-    
-    describe "submitting the form for child's flow" do
+  before do
+    driven_by(:rack_test_user_agent)
+    new_application = UnaccompaniedMinor.new
+    new_application.save!
+
+    page.set_rack_session(app_reference: new_application.reference)
+    visit "/sponsor-a-child/task-list"
+  end
+
+  describe "submitting the form for child's flow" do
     it "saves all the UK parent consent form to the database" do
-
+      expect(page).to have_content(task_list_content)
       click_link("Upload UK consent form")
       expect(page).to have_content("You must upload 2 completed parental consent forms")
       click_button("Continue")
@@ -29,7 +27,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
 
     it "saves all the Ukraine parent consent form to the database" do
-
+      expect(page).to have_content(task_list_content)
       click_link("Upload Ukrainian consent form")
       expect(page).to have_content("Upload the Ukraine certified consent form")
 
@@ -41,7 +39,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
 
     it "gets rejected trying to upload a file that's too large UK" do
-
+      expect(page).to have_content(task_list_content)
       click_link("Upload UK consent form")
       expect(page).to have_content("You must upload 2 completed parental consent forms")
       click_button("Continue")
@@ -56,7 +54,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
 
     it "gets rejected trying to upload a file that's too large Ukraine" do
-
+      expect(page).to have_content(task_list_content)
       click_link("Upload Ukrainian consent form")
 
       expect(page).to have_content("Upload the Ukraine certified consent form")
