@@ -340,7 +340,7 @@ en:
       phone_number:
         short: Enter your UK phone number
         full: Enter a phone number that you have access to, so you can save and continue your application later.
-        hint: UK telephone number
+        hint: UK phone number
       identity_documents:
         short: Sponsor identity documents
         full: Do you have any of these identity documents?

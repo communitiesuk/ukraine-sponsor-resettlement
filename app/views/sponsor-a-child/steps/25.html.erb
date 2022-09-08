@@ -8,6 +8,10 @@
      <%= f.govuk_error_summary link_base_errors_to: :other_adults_address %>
     
     <h1 class="govuk-heading-l"><%= t('other_adults_address.full', scope: "unaccompanied_minor.questions")%></h1>
+        
+      <div>
+          <%=t('different_address.hint_html', :formatted_address => @application.formatted_address?, scope: "unaccompanied_minor.questions")%>
+      </div>
 
       <details class="govuk-details" data-module="govuk-details">
                 <summary class="govuk-details__summary">
@@ -29,8 +33,7 @@
           @application.other_adults_address_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
           :id,
           :name,
-          legend: { text: "", hidden: true },
-          hint: { text: t('different_address.hint_html', :formatted_address => @application.formatted_address?, scope: "unaccompanied_minor.questions") }
+          legend: { text: "", hidden: true }
       %>
 
       <div class="govuk-button-group">
