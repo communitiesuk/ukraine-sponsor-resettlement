@@ -5,15 +5,14 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
   let(:task_list_path) { "/sponsor-a-child/task-list" }
   let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine" }
 
-  describe "user completes their application" do
+  fdescribe "user completes their application" do
     before do
       driven_by(:rack_test_user_agent)
 
       new_application = UnaccompaniedMinor.new
-      new_application.reference = app_reference
       new_application.save!
 
-      page.set_rack_session(app_reference: "BIG-REFERENCE")
+      page.set_rack_session(app_reference: new_application.reference)
     end
 
     it "shows reference number on confirm page" do
@@ -164,6 +163,9 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       find("button[type=submit]").click
 
       expect(page).to have_content("SPON-")
+      visit "/sponsor-a-child/confirm"
+      expect(page).to have_content("SPON-")
+
       page.set_rack_session(app_reference: nil)
       visit "/sponsor-a-child/confirm"
       expect(page).to have_content("Use this service to apply for approval to sponsor a child fleeing Ukraine, who is not travelling with or joining their parent or legal guardian in the UK.")
