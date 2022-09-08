@@ -1,15 +1,15 @@
 class FoundryConsentUploadController < ApplicationController
   add_flash_types :error
 
+  unless Rails.env.test?
+    http_basic_authenticate_with name: ENV.fetch("CONSENT_UPLOAD_USER"), password: ENV.fetch("CONSENT_UPLOAD_PASS")
+  end
+
   def display
     render "foundry_consent_upload/form"
   end
 
   def form
-    if Rails.env.production?
-      render nothing: true, status: :method_not_allowed
-    end
-
     begin
       uam = UnaccompaniedMinor.find_by_reference(params["consent"]["reference"])
       consent_uploader = TransferConsents.new
