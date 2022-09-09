@@ -44,6 +44,15 @@ RSpec.describe "Unaccompanied minor sponsor other nationalities", type: :system 
       expect(page).to have_content(task_list_content)
     end
 
+    it "when the same nationality is added twice, render the page and show an error" do
+      task_list_to_other_nationalities_question
+      add_same_nationality_twice
+
+      click_button("Continue")
+
+      expect(page).to have_content(I18n.t(:invalid_nationality_duplicate, scope: :error))
+    end
+
     it "when other nationalities are added and all removed, return to the task list" do
       task_list_to_other_nationalities_question
       add_two_extra_nationalities
@@ -106,6 +115,26 @@ RSpec.describe "Unaccompanied minor sponsor other nationalities", type: :system 
       expect(page).to have_content("You have added 2 other nationalit")
       expect(page).to have_content(expected_algeria_added_copy)
       expect(page).to have_link("Remove", href: expected_second_remove_url)
+    end
+
+    def add_same_nationality_twice
+      choose("Yes")
+      click_button("Continue")
+
+      expect(page).to have_content(other_nationality_content)
+
+      select("Albania", from: "unaccompanied-minor-other-nationality-field")
+      click_button("Continue")
+
+      expect(page).to have_content("You have added 1 other nationalit")
+      expect(page).to have_content("ALB - Albania")
+      expect(page).to have_link("Remove", href: expected_first_remove_url)
+
+      click_link("Add another nationality")
+
+      expect(page).to have_content(other_nationality_content)
+
+      select("Albania", from: "unaccompanied-minor-other-nationality-field")
     end
   end
 end

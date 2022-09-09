@@ -296,6 +296,12 @@ class UnaccompaniedController < ApplicationController
         @nationalities = get_nationalities_as_list
         render_current_step
         return
+      elsif (!@application.other_nationalities.nil? && @application.other_nationalities.include?([params["unaccompanied_minor"]["other_nationality"]])) ||
+             @application.nationality == params["unaccompanied_minor"]["other_nationality"]
+        @application.errors.add(:other_nationality, I18n.t(:invalid_nationality_duplicate, scope: :error))
+        @nationalities = get_nationalities_as_list
+        render_current_step
+        return
       else
         # adds other attributes
         (@application.other_nationalities ||= []) << [params["unaccompanied_minor"]["other_nationality"]]
