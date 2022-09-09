@@ -64,7 +64,7 @@ class UnaccompaniedController < ApplicationController
 
     if step.positive? && step <= MAX_STEPS
       if NATIONALITY_STEPS.include?(step)
-        @nationalities = get_nationalities_as_list
+        @nationalities = get_nationalities_as_list(@application.saved_nationalities_as_list)
       end
 
       if SAVE_AND_RETURN_STEPS.include?(step)
@@ -277,7 +277,7 @@ class UnaccompaniedController < ApplicationController
 
     if current_step == SPONSOR_NATIONALITY && params["unaccompanied_minor"]["nationality"].present? && !check_nationality_validity(params["unaccompanied_minor"]["nationality"])
       @application.errors.add(:nationality, I18n.t(:invalid_nationality, scope: :error))
-      @nationalities = get_nationalities_as_list
+      @nationalities = get_nationalities_as_list(@application.saved_nationalities_as_list)
       render_current_step
       return
     end
@@ -293,13 +293,13 @@ class UnaccompaniedController < ApplicationController
     if current_step == SPONSOR_OTHER_NATIONALITY && params["unaccompanied_minor"]["other_nationality"].present?
       if !check_nationality_validity(params["unaccompanied_minor"]["other_nationality"])
         @application.errors.add(:other_nationality, I18n.t(:invalid_nationality, scope: :error))
-        @nationalities = get_nationalities_as_list
+        @nationalities = get_nationalities_as_list(@application.saved_nationalities_as_list)
         render_current_step
         return
       elsif (!@application.other_nationalities.nil? && @application.other_nationalities.include?([params["unaccompanied_minor"]["other_nationality"]])) ||
-             @application.nationality == params["unaccompanied_minor"]["other_nationality"]
+          @application.nationality == params["unaccompanied_minor"]["other_nationality"]
         @application.errors.add(:other_nationality, I18n.t(:invalid_nationality_duplicate, scope: :error))
-        @nationalities = get_nationalities_as_list
+        @nationalities = get_nationalities_as_list(@application.saved_nationalities_as_list)
         render_current_step
         return
       else
@@ -380,7 +380,7 @@ class UnaccompaniedController < ApplicationController
 
       if !check_nationality_validity(params["unaccompanied_minor"]["adult_nationality"])
         @application.errors.add(:adult_nationality, I18n.t(:invalid_nationality, scope: :error))
-        @nationalities = get_nationalities_as_list
+        @nationalities = get_nationalities_as_list(@application.saved_nationalities_as_list)
         render_current_step
         return
       else
