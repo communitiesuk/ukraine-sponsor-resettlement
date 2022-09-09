@@ -64,7 +64,7 @@ class UnaccompaniedController < ApplicationController
 
     if step.positive? && step <= MAX_STEPS
       if NATIONALITY_STEPS.include?(step)
-        @nationalities = get_nationalities_as_list
+        @nationalities = get_nationalities_as_list(@application.saved_nationalities_as_list)
       end
 
       if SAVE_AND_RETURN_STEPS.include?(step)
@@ -275,9 +275,9 @@ class UnaccompaniedController < ApplicationController
       end
     end
 
-    if current_step == SPONSOR_NATIONALITY && params["unaccompanied_minor"]["nationality"].present? && !check_nationality_validity(params["unaccompanied_minor"]["nationality"])
+    if current_step == SPONSOR_NATIONALITY && params["unaccompanied_minor"]["nationality"].present? && !nationality_permitted_value(params["unaccompanied_minor"]["nationality"])
       @application.errors.add(:nationality, I18n.t(:invalid_nationality, scope: :error))
-      @nationalities = get_nationalities_as_list
+      @nationalities = get_nationalities_as_list(@application.saved_nationalities_as_list)
       render_current_step
       return
     end
@@ -291,9 +291,15 @@ class UnaccompaniedController < ApplicationController
 
     # capture other nationalities
     if current_step == SPONSOR_OTHER_NATIONALITY && params["unaccompanied_minor"]["other_nationality"].present?
-      if !check_nationality_validity(params["unaccompanied_minor"]["other_nationality"])
+      if !nationality_permitted_value(params["unaccompanied_minor"]["other_nationality"])
         @application.errors.add(:other_nationality, I18n.t(:invalid_nationality, scope: :error))
-        @nationalities = get_nationalities_as_list
+        @nationalities = get_nationalities_as_list(@application.saved_nationalities_as_list)
+        render_current_step
+        return
+      elsif (@application.other_nationalities.present? && @application.other_nationalities.include?([params["unaccompanied_minor"]["other_nationality"]])) ||
+          @application.nationality == params["unaccompanied_minor"]["other_nationality"]
+        @application.errors.add(:other_nationality, I18n.t(:invalid_nationality_duplicate, scope: :error))
+        @nationalities = get_nationalities_as_list(@application.saved_nationalities_as_list)
         render_current_step
         return
       else
@@ -372,9 +378,9 @@ class UnaccompaniedController < ApplicationController
     if current_step == ADULT_NATIONALITY && params["unaccompanied_minor"]["adult_nationality"].present?
       @adult = @application.adults_at_address[params["key"]]
 
-      if !check_nationality_validity(params["unaccompanied_minor"]["adult_nationality"])
+      if !nationality_permitted_value(params["unaccompanied_minor"]["adult_nationality"])
         @application.errors.add(:adult_nationality, I18n.t(:invalid_nationality, scope: :error))
-        @nationalities = get_nationalities_as_list
+        @nationalities = get_nationalities_as_list(@application.saved_nationalities_as_list)
         render_current_step
         return
       else
@@ -652,7 +658,7 @@ private
     @service.write_file(filename, file)
   end
 
-  def check_nationality_validity(nationality)
+  def nationality_permitted_value(nationality)
     nationality_name = nationality.split(" - ")[1]
     nationality_struct = OpenStruct.new(val: nationality, name: nationality_name)
     if !get_nationalities_as_list.include?(nationality_struct) || nationality == "---"
