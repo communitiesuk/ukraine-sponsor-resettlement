@@ -62,7 +62,6 @@ class UnaccompaniedController < ApplicationController
       redirect_to "/sponsor-a-child" and return
     end
 
-    Rails.logger.debug "Step:#{step} App:#{@application.as_json}"
 
     if NATIONALITY_STEPS.include?(step)
       @nationalities = get_nationalities_as_list
