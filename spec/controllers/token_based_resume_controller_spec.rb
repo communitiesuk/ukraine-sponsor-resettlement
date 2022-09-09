@@ -12,6 +12,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
     uam = UnaccompaniedMinor.new(
       given_name:,
       email:,
+      email_confirm: email,
       phone_number:,
     )
     uam.save!
@@ -49,6 +50,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
     uam = UnaccompaniedMinor.new(
       given_name:,
       email:,
+      email_confirm: email,
       phone_number:,
     )
     uam.save!
@@ -88,6 +90,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
         minor_given_name: "MinorOne",
         adult_given_name: "AdultGiven",
         email:,
+        email_confirm: email,
         phone_number:,
       )
       uam.save!
@@ -97,6 +100,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
         minor_given_name: "MinorTwo",
         adult_given_name: "AdultGiven",
         email:,
+        email_confirm: email,
         phone_number:,
       )
       uam2.save!

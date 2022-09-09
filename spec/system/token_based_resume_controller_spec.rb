@@ -34,6 +34,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
       given_name:,
       family_name:,
       email:,
+      email_confirm: email,
       phone_number:,
     )
     uam.save!

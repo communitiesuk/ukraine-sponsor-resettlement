@@ -97,7 +97,8 @@ class UnaccompaniedMinor < ApplicationRecord
                 :adult_passport_identification_number,
                 :adult_id_identification_number,
                 :adult_refugee_identification_number,
-                :minor_email_confirm
+                :minor_email_confirm,
+                :email_confirm
 
   after_initialize :after_initialize
   before_save :serialize
@@ -441,6 +442,7 @@ class UnaccompaniedMinor < ApplicationRecord
       minor_contact_details:,
       other_adults_address:,
       adults_at_address:,
+      email_confirm:,
     }.compact
   end
 

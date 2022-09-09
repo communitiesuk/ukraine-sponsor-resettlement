@@ -45,6 +45,7 @@ module UamValidations
     validate :validate_ukraine_parent_consent_filename, if: -> { run_validation? :ukraine_parental_consent_filename }
     validate :validate_ukraine_parent_consent_file_size, if: -> { run_validation? :ukraine_parental_consent_file_size }
     validate :validate_ukraine_parent_consent_file_type, if: -> { run_validation? :ukraine_parental_consent_file_type }
+    validate :validate_sponsor_email, if: -> { run_validation? :email }
   end
 
   def validate_sponsor_date_of_birth
@@ -261,6 +262,15 @@ module UamValidations
   def validate_sponsor_address_postcode
     if @different_address == "no" && (@sponsor_address_postcode.nil? || @sponsor_address_postcode.strip.length < MIN_ENTRY_DIGITS || @sponsor_address_postcode.strip.length > MAX_ENTRY_DIGITS || !@sponsor_address_postcode.match(POSTCODE_REGEX))
       errors.add(:sponsor_address_postcode, I18n.t(:address_postcode, scope: :error))
+    end
+  end
+
+  def validate_sponsor_email
+    unless email_address_valid?(@email)
+      errors.add(:email, I18n.t(:invalid_email, scope: :error))
+    end
+    if @email != @email_confirm
+      errors.add(:email, I18n.t(:emails_different, scope: :error))
     end
   end
 

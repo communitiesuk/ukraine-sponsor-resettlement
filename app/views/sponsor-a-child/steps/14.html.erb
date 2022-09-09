@@ -15,6 +15,11 @@
                              hint: { text: t('email.hint', scope: "unaccompanied_minor.questions")},
                              type: "email"
       %>
+      <%= f.govuk_text_field :email_confirm,
+                             label: { text: "", hidden: true },
+                             hint: { text: t('email.confirm', scope: "unaccompanied_minor.questions")},
+                             type: "email"
+      %>
       <div class="govuk-button-group">
         <%= f.govuk_submit t('continue') %>
         

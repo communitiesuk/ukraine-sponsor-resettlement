@@ -79,14 +79,17 @@ RSpec.describe UnaccompaniedMinor, type: :model do
     it "sponsor email is valid" do
       app = described_class.new
       app.email = ""
+      app.email_confirm = ""
       expect(app.valid?).to be(false)
       expect(app.errors[:email]).to include(email_address_error)
-      expect(app.errors[:email].count).to be(1)
+      expect(app.errors[:email].count).to be(2)
       app.email = "John.Smith@"
+      app.email_confirm = "John.Smith@"
       expect(app.valid?).to be(false)
       expect(app.errors[:email]).to include(email_address_error)
-      expect(app.errors[:email].count).to be(1)
+      expect(app.errors[:email].count).to be(2)
       app.email = "John.Smith@test.com"
+      app.email_confirm = "John.Smith@test.com"
       expect(app.valid?).to be(true)
     end
 

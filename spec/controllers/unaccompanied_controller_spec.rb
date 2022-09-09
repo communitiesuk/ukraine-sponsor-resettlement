@@ -19,6 +19,7 @@ RSpec.describe UnaccompaniedController, type: :controller do
     uam.family_name = "Familyname"
     uam.phone_number = "07777 123 456"
     uam.email = "test@test.com"
+    uam.email_confirm = "test@test.com"
     uam.has_other_names = "false"
     uam.phone_number = "07777 123 456"
     uam.nationality = "nationality"
@@ -51,6 +52,7 @@ RSpec.describe UnaccompaniedController, type: :controller do
     }
     uam.minor_contact_type = "none"
     uam.minor_email = ""
+    uam.minor_email_confirm = ""
     uam.minor_phone_number = ""
 
     uam.uk_parental_consent_filename = "uk_consent.jpg"

@@ -61,6 +61,7 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
 
       expect(page).to have_content("Enter your email address")
       fill_in("Email", with: "Tim@mail.com")
+      fill_in("unaccompanied-minor-email-confirm-field", with: "Tim@mail.com")
       click_button("Continue")
 
       expect(page).to have_content("Enter your UK phone number")
