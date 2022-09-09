@@ -19,7 +19,7 @@ module ApplicationHelper
     csv ||= CSV.parse(csv_file_path, col_sep: ",", row_sep: :auto, skip_blanks: true)
 
     nationalities ||= [OpenStruct.new(val: "---", name: "---")]
-    csv.each_with_index do |row, index|
+    csv.sort_by { |nationality| nationality[1] }.each_with_index do |row, index|
       next if index.zero? # skip headers
 
       nationalities << OpenStruct.new(val: "#{row[0]} - #{row[1]}", name: (row[1]).to_s)
