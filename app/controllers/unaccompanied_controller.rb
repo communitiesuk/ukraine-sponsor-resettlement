@@ -90,7 +90,6 @@ class UnaccompaniedController < ApplicationController
       # Set properties based on values from hash of adults
       @adult = @application.adults_at_address[params["key"]]
 
-
       adult_dob = @adult["date_of_birth"]
       adult_nationality = @adult["nationality"]
       adult_id_type_and_number = @adult["id_type_and_number"]
