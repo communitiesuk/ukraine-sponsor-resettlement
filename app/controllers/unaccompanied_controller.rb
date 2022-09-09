@@ -91,7 +91,6 @@ class UnaccompaniedController < ApplicationController
       # Set properties based on values from hash of adults
       @adult = @application.adults_at_address[params["key"]]
 
-      Rails.logger.debug "Adult: #{@adult}"
 
       adult_dob = @adult["date_of_birth"]
       adult_nationality = @adult["nationality"]
