@@ -55,73 +55,67 @@ class UnaccompaniedController < ApplicationController
 
   def display
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
-
-    Rails.logger.debug "App JSON: #{@application.as_json}"
-
     step = params["stage"].to_i
-
     @feature_save_and_return_active = (ENV["UAM_FEATURE_SAVE_AND_RETURN_ACTIVE"] == "true")
 
-    if step.positive? && step <= MAX_STEPS
-      if NATIONALITY_STEPS.include?(step)
-        @nationalities = get_nationalities_as_list
-      end
-
-      if SAVE_AND_RETURN_STEPS.include?(step)
-        if request.GET["save"]
-          @save_and_return_message = true
-          @save = "?save=1"
-        else
-          @save = ""
-        end
-      end
-
-      if step == SPONSOR_ID_TYPE
-        case @application.identification_type
-        when "passport"
-          @application.passport_identification_number = @application.identification_number
-        when "national_identity_card"
-          @application.id_identification_number = @application.identification_number
-        when "refugee_travel_document"
-          @application.refugee_identification_number = @application.identification_number
-        end
-      elsif ADULT_STEPS.include?(step)
-        Rails.logger.debug "Adult page!"
-
-        # Set properties based on values from hash of adults
-        @adult = @application.adults_at_address[params["key"]]
-
-        Rails.logger.debug "Adult: #{@adult}"
-
-        adult_dob = @adult["date_of_birth"]
-        adult_nationality = @adult["nationality"]
-        adult_id_type_and_number = @adult["id_type_and_number"]
-        if adult_dob.present? && adult_dob.length.positive?
-          @application.adult_date_of_birth = {
-            3 => Date.parse(adult_dob).day,
-            2 => Date.parse(adult_dob).month,
-            1 => Date.parse(adult_dob).year,
-          }
-        end
-        @application.adult_nationality = adult_nationality if adult_nationality.present? && adult_nationality.length.positive?
-        if adult_id_type_and_number.present? && adult_id_type_and_number.length.positive?
-          id_type_and_number = adult_id_type_and_number.split(" - ")
-          @application.adult_identification_type = id_type_and_number[0].to_s
-          case id_type_and_number[0].to_s
-          when "passport"
-            @application.adult_passport_identification_number = id_type_and_number[1].to_s
-          when "national_identity_card"
-            @application.adult_id_identification_number = id_type_and_number[1].to_s
-          when "refugee_travel_document"
-            @application.adult_refugee_identification_number = id_type_and_number[1].to_s
-          end
-        end
-      end
-
-      render "sponsor-a-child/steps/#{step}"
-    else
-      redirect_to "/sponsor-a-child"
+    if @application.nil? || (1..MAX_STEPS).exclude?(step)
+      redirect_to "/sponsor-a-child" and return
     end
+
+    if NATIONALITY_STEPS.include?(step)
+      @nationalities = get_nationalities_as_list(@application.saved_nationalities_as_list)
+    end
+
+    if SAVE_AND_RETURN_STEPS.include?(step)
+      if request.GET["save"]
+        @save_and_return_message = true
+        @save = "?save=1"
+      else
+        @save = ""
+      end
+    end
+
+    if step == SPONSOR_ID_TYPE
+      case @application.identification_type
+      when "passport"
+        @application.passport_identification_number = @application.identification_number
+      when "national_identity_card"
+        @application.id_identification_number = @application.identification_number
+      when "refugee_travel_document"
+        @application.refugee_identification_number = @application.identification_number
+      end
+    elsif ADULT_STEPS.include?(step)
+      Rails.logger.debug "Adult page!"
+
+      # Set properties based on values from hash of adults
+      @adult = @application.adults_at_address[params["key"]]
+
+      adult_dob = @adult["date_of_birth"]
+      adult_nationality = @adult["nationality"]
+      adult_id_type_and_number = @adult["id_type_and_number"]
+      if adult_dob.present? && adult_dob.length.positive?
+        @application.adult_date_of_birth = {
+          3 => Date.parse(adult_dob).day,
+          2 => Date.parse(adult_dob).month,
+          1 => Date.parse(adult_dob).year,
+        }
+      end
+      @application.adult_nationality = adult_nationality if adult_nationality.present? && adult_nationality.length.positive?
+      if adult_id_type_and_number.present? && adult_id_type_and_number.length.positive?
+        id_type_and_number = adult_id_type_and_number.split(" - ")
+        @application.adult_identification_type = id_type_and_number[0].to_s
+        case id_type_and_number[0].to_s
+        when "passport"
+          @application.adult_passport_identification_number = id_type_and_number[1].to_s
+        when "national_identity_card"
+          @application.adult_id_identification_number = id_type_and_number[1].to_s
+        when "refugee_travel_document"
+          @application.adult_refugee_identification_number = id_type_and_number[1].to_s
+        end
+      end
+    end
+
+    render "sponsor-a-child/steps/#{step}"
   end
 
   def handle_upload_uk
@@ -275,9 +269,9 @@ class UnaccompaniedController < ApplicationController
       end
     end
 
-    if current_step == SPONSOR_NATIONALITY && params["unaccompanied_minor"]["nationality"].present? && !check_nationality_validity(params["unaccompanied_minor"]["nationality"])
+    if current_step == SPONSOR_NATIONALITY && params["unaccompanied_minor"]["nationality"].present? && !nationality_permitted_value(params["unaccompanied_minor"]["nationality"])
       @application.errors.add(:nationality, I18n.t(:invalid_nationality, scope: :error))
-      @nationalities = get_nationalities_as_list
+      @nationalities = get_nationalities_as_list(@application.saved_nationalities_as_list)
       render_current_step
       return
     end
@@ -291,9 +285,15 @@ class UnaccompaniedController < ApplicationController
 
     # capture other nationalities
     if current_step == SPONSOR_OTHER_NATIONALITY && params["unaccompanied_minor"]["other_nationality"].present?
-      if !check_nationality_validity(params["unaccompanied_minor"]["other_nationality"])
+      if !nationality_permitted_value(params["unaccompanied_minor"]["other_nationality"])
         @application.errors.add(:other_nationality, I18n.t(:invalid_nationality, scope: :error))
-        @nationalities = get_nationalities_as_list
+        @nationalities = get_nationalities_as_list(@application.saved_nationalities_as_list)
+        render_current_step
+        return
+      elsif (@application.other_nationalities.present? && @application.other_nationalities.include?([params["unaccompanied_minor"]["other_nationality"]])) ||
+          @application.nationality == params["unaccompanied_minor"]["other_nationality"]
+        @application.errors.add(:other_nationality, I18n.t(:invalid_nationality_duplicate, scope: :error))
+        @nationalities = get_nationalities_as_list(@application.saved_nationalities_as_list)
         render_current_step
         return
       else
@@ -372,9 +372,9 @@ class UnaccompaniedController < ApplicationController
     if current_step == ADULT_NATIONALITY && params["unaccompanied_minor"]["adult_nationality"].present?
       @adult = @application.adults_at_address[params["key"]]
 
-      if !check_nationality_validity(params["unaccompanied_minor"]["adult_nationality"])
+      if !nationality_permitted_value(params["unaccompanied_minor"]["adult_nationality"])
         @application.errors.add(:adult_nationality, I18n.t(:invalid_nationality, scope: :error))
-        @nationalities = get_nationalities_as_list
+        @nationalities = get_nationalities_as_list(@application.saved_nationalities_as_list)
         render_current_step
         return
       else
@@ -652,7 +652,7 @@ private
     @service.write_file(filename, file)
   end
 
-  def check_nationality_validity(nationality)
+  def nationality_permitted_value(nationality)
     nationality_name = nationality.split(" - ")[1]
     nationality_struct = OpenStruct.new(val: nationality, name: nationality_name)
     if !get_nationalities_as_list.include?(nationality_struct) || nationality == "---"

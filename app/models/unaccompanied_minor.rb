@@ -116,6 +116,17 @@ class UnaccompaniedMinor < ApplicationRecord
     [@residential_line_1, @residential_line_2, @residential_town, @residential_postcode].reject(&:blank?).join(", ")
   end
 
+  def saved_nationalities_as_list
+    res = []
+    if @nationality.present?
+      res << [@nationality]
+    end
+    if @other_nationalities.present?
+      res |= @other_nationalities
+    end
+    res
+  end
+
   def number_of_adults?
     if @adults_at_address.length > 1
       "#{@adults_at_address.length} people"
