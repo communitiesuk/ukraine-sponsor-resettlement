@@ -1,6 +1,24 @@
 require "rails_helper"
 
 RSpec.describe UnaccompaniedController, type: :controller do
+  describe "display errors" do
+    let(:start_page) { "/sponsor-a-child" }
+
+    it "redirects back to the start when an application is not found" do
+      (1..5).each do |step|
+        get :display, params: { stage: step }
+
+        expect(response).to redirect_to(start_page)
+      end
+    end
+
+    it "redirects back to the start when the step is unknown" do
+      get :display, params: { stage: 999 }
+
+      expect(response).to redirect_to(start_page)
+    end
+  end
+
   describe "Submits" do
     uam = UnaccompaniedMinor.new
     uam.ip_address = "127.0.0.1".freeze
