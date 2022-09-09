@@ -456,6 +456,7 @@ en:
     invalid_room_count: You must enter a number from 0 to 999
     invalid_postcode: Please enter a valid UK postcode(s)
     invalid_email: You must enter a valid email address
+    emails_different: Emails must match
     invalid_organisation_name: Please enter a valid organisation name
     invalid_phone_number: You must enter a valid phone number
     invalid_minor_fullname: You must enter the child's full name

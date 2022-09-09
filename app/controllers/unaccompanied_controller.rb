@@ -723,6 +723,7 @@ private
           :adult_passport_identification_number,
           :adult_id_identification_number,
           :adult_refugee_identification_number,
+          :minor_email_confirm,
           minor_contact_type: [],
         )
   end

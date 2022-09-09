@@ -268,6 +268,9 @@ module UamValidations
     if !@minor_contact_type.nil? && @minor_contact_type.include?("email") && !email_address_valid?(@minor_email)
       errors.add(:minor_email, I18n.t(:invalid_email, scope: :error))
     end
+    if !@minor_contact_type.nil? && @minor_contact_type.include?("email") && @minor_email != @minor_email_confirm
+      errors.add(:minor_email, I18n.t(:emails_different, scope: :error))
+    end
   end
 
   def validate_minor_phone_number
