@@ -4,6 +4,10 @@
 
 This is the codebase for the Ruby on Rails app that will handle the submission of sponsorship requests.
 
+## Context Diagram
+
+![C4 Context diagram](./docs/img/system-context.svg)
+
 ## Required setup
 
 Pre-requisites:
