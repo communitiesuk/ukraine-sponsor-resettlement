@@ -84,5 +84,4 @@ yarn-debug.log*
 /.idea
 
 # Ignore Vscode Settings
-/.vscode*
 data/startup_info.json
