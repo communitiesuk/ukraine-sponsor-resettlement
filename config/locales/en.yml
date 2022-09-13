@@ -340,7 +340,7 @@ en:
       phone_number:
         short: Enter your UK phone number
         full: Enter a phone number that you have access to, so you can save and continue your application later.
-        hint: UK telephone number
+        hint: UK phone number
       identity_documents:
         short: Sponsor identity documents
         full: Do you have any of these identity documents?
@@ -485,4 +485,5 @@ en:
     not_over_16_years_old: They must be over 16
     invalid_id_number: You must enter a valid identity document number
     invalid_nationality: You must select a valid nationality
+    invalid_nationality_duplicate: You already added this nationality
     min_chars_digits: You must enter at least 6 characters (numbers or letters)

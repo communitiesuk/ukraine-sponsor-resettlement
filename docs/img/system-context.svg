@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="710px" preserveAspectRatio="none" style="width:735px;height:710px;background:#FFFFFF;" version="1.1" viewBox="0 0 735 710" width="735px" zoomAndPan="magnify"><defs/><g><rect fill="none" height="26.2969" id="_title" style="stroke:none;stroke-width:1.0;" width="399" x="161.3581" y="5"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="389" x="166.3581" y="22.9951">Ukraine Sponsor Resettlement Context Diagram</text><!--MD5=[8ae77ada6169822435c3d3bcb01b6727]
+cluster system--><g id="cluster_system"><rect fill="none" height="333" rx="2.5" ry="2.5" style="stroke:#444444;stroke-width:1.0;stroke-dasharray:7.0,7.0;" width="363" x="189.2163" y="44.2969"/><text fill="#444444" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="281" x="230.2162" y="61.1484">Ukraine Sponsor Resettlement</text><text fill="#444444" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="64" x="338.7162" y="76.0605">[System]</text></g><!--MD5=[3f79e32dd89b0a92374e5f5da47e4e12]
+entity resettlement_fe--><g id="elem_resettlement_fe"><rect fill="#1168BD" height="106.1406" rx="2.5" ry="2.5" style="stroke:#3C7FC0;stroke-width:0.5;" width="198" x="205.2163" y="95.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="172" x="215.2163" y="120.1484">Resettlement Web</text><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="102" x="253.2163" y="138.7734">Application</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="302.2163" y="155.542"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="101" x="253.7163" y="171.8389">Front door for</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="93" x="257.7163" y="188.1357">applications.</text></g><!--MD5=[75aa7fe7c9526b1bca987f08e8c898a4]
+entity foundry--><g id="elem_foundry"><rect fill="#999999" height="71.2188" rx="2.5" ry="2.5" style="stroke:#8A8A8A;stroke-width:0.5;" width="146" x="390.2163" y="290.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="73" x="426.7163" y="315.1484">Foundry</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="461.2163" y="331.917"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="122" x="404.2163" y="348.2139">(Palintir) Foundry</text></g><!--MD5=[e11908a737cbc4ca7a66c9b08fe116b9]
+entity gov_notify--><g id="elem_gov_notify"><rect fill="#999999" height="71.2188" rx="2.5" ry="2.5" style="stroke:#8A8A8A;stroke-width:0.5;" width="149" x="205.7163" y="290.2969"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="129" x="215.7163" y="315.1484">Gov.UK Notify</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="278.2163" y="331.917"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="88" x="238.2163" y="348.2139">Email &amp; SMS</text></g><!--MD5=[dfbf819d9d69d2045b820354e09e8c32]
+entity applicant--><g id="elem_applicant"><ellipse cx="98.2163" cy="476.0736" fill="#08427B" rx="23.7768" ry="23.7768" style="stroke:#073B6F;stroke-width:0.5;"/><rect fill="#08427B" height="71.2188" rx="23.7768" ry="23.7768" style="stroke:#073B6F;stroke-width:0.5;" width="180" x="8.2163" y="499.8504"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="85" x="55.7163" y="524.702">Applicant</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="96.2163" y="541.4705"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="156" x="22.2163" y="557.7674">Private &amp; Commercial</text></g><!--MD5=[c97817f8fa7df4ad36cd53ae3168619e]
+entity las--><g id="elem_las"><ellipse cx="649.2163" cy="128.8571" fill="#686868" rx="16.5602" ry="16.5602" style="stroke:#8A8A8A;stroke-width:0.5;"/><rect fill="#686868" height="38.625" rx="16.5602" ry="16.5602" style="stroke:#8A8A8A;stroke-width:0.5;" width="161" x="568.7163" y="145.4173"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="141" x="578.7163" y="170.2689">Local Authority</text></g><!--MD5=[0033640d13c7e13ab4ec1624f2d9ea7c]
+link applicant to resettlement_fe--><g id="link_applicant_resettlement_fe"><path d="M57.6343,452.1299 C30.9284,405.6139 6,340.3369 36.2163,290.2969 C71.1975,232.3649 138.7573,197.0429 197.2893,176.2409 " fill="none" id="applicant-to-resettlement_fe" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="205.1153,173.5259,196.5739,173.3133,198.5402,178.982,205.1153,173.5259" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="146" x="37.2163" y="323.4355">Register expression</text><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="80" x="72.2163" y="337.4043">of interest</text></g><!--MD5=[97143bdf8da31b49c51f9aa3435ea820]
+link resettlement_fe to gov_notify--><g id="link_resettlement_fe_gov_notify"><path d="M253.0473,201.6249 C246.5693,210.8839 240.9213,220.9069 237.2163,231.2969 C231.0753,248.5179 236.7143,266.9109 245.6963,282.7869 " fill="none" id="resettlement_fe-to-gov_notify" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="250.0283,289.8909,248.4238,281.4989,243.3014,284.6231,250.0283,289.8909" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="123" x="238.2163" y="250.4355">User notification</text></g><!--MD5=[3c580f4d53f1a2d4d8d4409871177f2f]
+link resettlement_fe to foundry--><g id="link_resettlement_fe_foundry"><path d="M351.4913,201.4779 C375.4573,227.9309 404.1273,259.5759 426.4243,284.1859 " fill="none" id="resettlement_fe-to-foundry" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="431.9483,290.2839,428.8011,282.3406,424.3541,286.3686,431.9483,290.2839" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="125" x="404.2163" y="243.4355">Transfer on user</text><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="55" x="441.2163" y="257.4043">'submit'</text></g><!--MD5=[feb1ac47712cc259b474305153ddae36]
+link las to foundry--><g id="link_las_foundry"><path d="M617.4522,184.3439 C596.6803,206.7269 568.6003,236.0009 542.2163,260.2969 C533.2412,268.5619 523.3743,277.0499 513.7462,285.0429 " fill="none" id="las-to-foundry" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="507.4643,290.2169,515.5462,287.4451,511.7308,282.8144,507.4643,290.2169" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="126" x="570.2163" y="250.4355">View applications</text></g><!--MD5=[f43ad270a8100e475cb449b6f84eaa3e]
+link gov_notify to applicant--><g id="link_gov_notify_applicant"><path d="M245.9833,361.4059 C222.4313,385.2169 190.4313,417.5689 162.2323,446.0769 " fill="none" id="gov_notify-to-applicant" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="156.2773,452.0979,164.0361,448.5202,159.7705,444.3006,156.2773,452.0979" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="142" x="212.2163" y="405.4355">Confirmation &amp; sms</text><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacing" textLength="144" x="213.2163" y="419.4043">for save and return</text></g><rect fill="none" height="97.4844" id="_legend" rx="7.5" ry="7.5" style="stroke:none;stroke-width:1.0;" width="159" x="554.7163" y="584.0692"/><rect height="16.2969" style="stroke:none;stroke-width:1.0;fill:none;" width="147" x="560.7163" y="592.0692"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="57" x="560.7163" y="605.0643">Legend</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="617.7163" y="605.0643"> </text><rect fill="#08427B" height="16.2969" style="stroke:none;stroke-width:1.0;" width="147" x="560.7163" y="608.366"/><text fill="#073B6F" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="8" x="564.7163" y="621.3611">▯</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="572.7163" y="621.3611"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="50" x="580.7163" y="621.3611">person</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="634.7163" y="621.3611"> </text><rect fill="#1168BD" height="16.2969" style="stroke:none;stroke-width:1.0;" width="147" x="560.7163" y="624.6629"/><text fill="#3C7FC0" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="8" x="564.7163" y="637.658">▯</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="572.7163" y="637.658"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="52" x="580.7163" y="637.658">system</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="636.7163" y="637.658"> </text><rect fill="#686868" height="16.2969" style="stroke:none;stroke-width:1.0;" width="147" x="560.7163" y="640.9598"/><text fill="#8A8A8A" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="8" x="564.7163" y="653.9549">▯</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="572.7163" y="653.9549"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="117" x="580.7163" y="653.9549">external_person</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="701.7163" y="653.9549"> </text><rect fill="#999999" height="16.2969" style="stroke:none;stroke-width:1.0;" width="147" x="560.7163" y="657.2567"/><text fill="#8A8A8A" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="8" x="564.7163" y="670.2518">▯</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="572.7163" y="670.2518"> </text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="119" x="580.7163" y="670.2518">external_system</text><text fill="#FFFFFF" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="703.7163" y="670.2518"> </text><line style="stroke:#00000000;stroke-width:1.0;" x1="560.7163" x2="707.7163" y1="592.0692" y2="592.0692"/><line style="stroke:#00000000;stroke-width:1.0;" x1="560.7163" x2="707.7163" y1="608.366" y2="608.366"/><line style="stroke:#00000000;stroke-width:1.0;" x1="560.7163" x2="707.7163" y1="624.6629" y2="624.6629"/><line style="stroke:#00000000;stroke-width:1.0;" x1="560.7163" x2="707.7163" y1="640.9598" y2="640.9598"/><line style="stroke:#00000000;stroke-width:1.0;" x1="560.7163" x2="707.7163" y1="657.2567" y2="657.2567"/><line style="stroke:#00000000;stroke-width:1.0;" x1="560.7163" x2="707.7163" y1="673.5535" y2="673.5535"/><line style="stroke:#00000000;stroke-width:1.0;" x1="560.7163" x2="560.7163" y1="592.0692" y2="673.5535"/><line style="stroke:#00000000;stroke-width:1.0;" x1="707.7163" x2="707.7163" y1="592.0692" y2="673.5535"/><rect fill="none" height="11.6406" style="stroke:none;stroke-width:1.0;" width="111" x="305.3581" y="690.5535"/><a href="https://c4model.com/#CoreDiagrams" target="_top" title="https://c4model.com/#CoreDiagrams" xlink:actuate="onRequest" xlink:href="https://c4model.com/#CoreDiagrams" xlink:show="new" xlink:title="https://c4model.com/#CoreDiagrams" xlink:type="simple"><text fill="#0000FF" font-family="sans-serif" font-size="10" lengthAdjust="spacing" text-decoration="underline" textLength="111" x="305.3581" y="699.8358">C4 Context Diagram</text></a><!--MD5=[0a320edbe4509b59779a811b1d986ab6]
+@startuml
+'ref http://plantuml.com/stdlib
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/v2.4.0/C4_Context.puml
+!include <office/Users/user.puml>
+
+LAYOUT_TOP_DOWN()
+SHOW_PERSON_OUTLINE()
+' LAYOUT_AS_SKETCH()
+
+title Ukraine Sponsor Resettlement Context Diagram
+
+Person(applicant, Applicant, "Private & Commercial")
+Person_Ext(las, Local Authority)
+
+System_Boundary(system, "Ukraine Sponsor Resettlement") {
+  System(resettlement_fe, "Resettlement Web Application", "Front door for applications.")
+  System_Ext(foundry, "Foundry", "(Palintir) Foundry")
+  System_Ext(gov_notify, "Gov.UK Notify", "Email & SMS")
+}
+
+Rel(applicant, resettlement_fe, "Register expression of interest")
+Rel(resettlement_fe, gov_notify, "User notification")
+Rel(resettlement_fe, foundry, "Transfer on user 'submit'")
+Rel(las, foundry, "View applications")
+Rel(gov_notify, applicant, "Confirmation & sms for save and return")
+
+SHOW_DYNAMIC_LEGEND()
+
+center footer  [[https://c4model.com/#CoreDiagrams C4 Context Diagram]]
+@enduml
+
+@startuml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+skinparam defaultTextAlignment center
+
+skinparam wrapWidth 200
+skinparam maxMessageSize 150
+
+skinparam LegendBorderColor transparent
+skinparam LegendBackgroundColor transparent
+skinparam LegendFontColor #FFFFFF
+
+skinparam shadowing<<legendArea>> false
+skinparam rectangle<<legendArea>> {
+    backgroundcolor #00000000
+    bordercolor #00000000
+}
+
+skinparam rectangle {
+    StereotypeFontSize 12
+    shadowing false
+}
+
+skinparam database {
+    StereotypeFontSize 12
+    shadowing false
+}
+
+skinparam queue {
+    StereotypeFontSize 12
+    shadowing false
+}
+
+skinparam arrow {
+    Color #666666
+    FontColor #666666
+    FontSize 12
+}
+
+skinparam actor {
+    StereotypeFontSize 12
+    shadowing false
+    style awesome
+}
+
+skinparam person {
+    StereotypeFontSize 12
+    shadowing false
+}
+
+skinparam rectangle<<boundary>> {
+    Shadowing false
+    StereotypeFontSize 6
+    StereotypeFontColor transparent
+    BorderStyle dashed
+}
+
+skinparam package {
+    StereotypeFontSize 6
+    StereotypeFontColor transparent
+    FontStyle plain
+    BackgroundColor transparent
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+skinparam rectangle<<boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam database<<boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam queue<<boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam actor<<boundary>> {
+    FontColor transparent
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam person<<boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam package<<boundary>>StereotypeFontColor transparent
+skinparam rectangle<<boundary>>StereotypeFontColor transparent
+
+
+skinparam rectangle<<enterprise_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam database<<enterprise_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam queue<<enterprise_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam actor<<enterprise_boundary>> {
+    FontColor transparent
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam person<<enterprise_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam package<<enterprise_boundary>>StereotypeFontColor transparent
+skinparam rectangle<<enterprise_boundary>>StereotypeFontColor transparent
+
+
+
+skinparam rectangle<<system_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam database<<system_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam queue<<system_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam actor<<system_boundary>> {
+    FontColor transparent
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam person<<system_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam package<<system_boundary>>StereotypeFontColor transparent
+skinparam rectangle<<system_boundary>>StereotypeFontColor transparent
+
+
+
+skinparam rectangle<<container_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam database<<container_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam queue<<container_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam actor<<container_boundary>> {
+    FontColor transparent
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam person<<container_boundary>> {
+    FontColor #444444
+    BackgroundColor transparent
+    BorderColor #444444
+}
+skinparam package<<container_boundary>>StereotypeFontColor transparent
+skinparam rectangle<<container_boundary>>StereotypeFontColor transparent
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+skinparam rectangle<<person>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #08427B
+    BorderColor #073B6F
+}
+skinparam database<<person>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #08427B
+    BorderColor #073B6F
+}
+skinparam queue<<person>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #08427B
+    BorderColor #073B6F
+}
+skinparam actor<<person>> {
+    StereotypeFontColor #08427B
+    FontColor #08427B
+    BackgroundColor #08427B
+    BorderColor #073B6F
+}
+skinparam person<<person>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #08427B
+    BorderColor #073B6F
+}
+
+
+skinparam rectangle<<external_person>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #686868
+    BorderColor #8A8A8A
+}
+skinparam database<<external_person>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #686868
+    BorderColor #8A8A8A
+}
+skinparam queue<<external_person>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #686868
+    BorderColor #8A8A8A
+}
+skinparam actor<<external_person>> {
+    StereotypeFontColor #686868
+    FontColor #686868
+    BackgroundColor #686868
+    BorderColor #8A8A8A
+}
+skinparam person<<external_person>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #686868
+    BorderColor #8A8A8A
+}
+
+
+skinparam rectangle<<system>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #1168BD
+    BorderColor #3C7FC0
+}
+skinparam database<<system>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #1168BD
+    BorderColor #3C7FC0
+}
+skinparam queue<<system>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #1168BD
+    BorderColor #3C7FC0
+}
+skinparam actor<<system>> {
+    StereotypeFontColor #1168BD
+    FontColor #1168BD
+    BackgroundColor #1168BD
+    BorderColor #3C7FC0
+}
+skinparam person<<system>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #1168BD
+    BorderColor #3C7FC0
+}
+
+
+skinparam rectangle<<external_system>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #999999
+    BorderColor #8A8A8A
+}
+skinparam database<<external_system>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #999999
+    BorderColor #8A8A8A
+}
+skinparam queue<<external_system>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #999999
+    BorderColor #8A8A8A
+}
+skinparam actor<<external_system>> {
+    StereotypeFontColor #999999
+    FontColor #999999
+    BackgroundColor #999999
+    BorderColor #8A8A8A
+}
+skinparam person<<external_system>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #999999
+    BorderColor #8A8A8A
+}
+
+
+
+
+
+sprite $person [48x48/16] {
+000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000
+0000000000000000000049BCCA7200000000000000000000
+0000000000000000006EFFFFFFFFB3000000000000000000
+00000000000000001CFFFFFFFFFFFF700000000000000000
+0000000000000001EFFFFFFFFFFFFFF80000000000000000
+000000000000000CFFFFFFFFFFFFFFFF6000000000000000
+000000000000007FFFFFFFFFFFFFFFFFF100000000000000
+00000000000001FFFFFFFFFFFFFFFFFFF900000000000000
+00000000000006FFFFFFFFFFFFFFFFFFFF00000000000000
+0000000000000BFFFFFFFFFFFFFFFFFFFF40000000000000
+0000000000000EFFFFFFFFFFFFFFFFFFFF70000000000000
+0000000000000FFFFFFFFFFFFFFFFFFFFF80000000000000
+0000000000000FFFFFFFFFFFFFFFFFFFFF80000000000000
+0000000000000DFFFFFFFFFFFFFFFFFFFF60000000000000
+0000000000000AFFFFFFFFFFFFFFFFFFFF40000000000000
+00000000000006FFFFFFFFFFFFFFFFFFFE00000000000000
+00000000000000EFFFFFFFFFFFFFFFFFF800000000000000
+000000000000007FFFFFFFFFFFFFFFFFF100000000000000
+000000000000000BFFFFFFFFFFFFFFFF5000000000000000
+0000000000000001DFFFFFFFFFFFFFF70000000000000000
+00000000000000000BFFFFFFFFFFFF500000000000000000
+0000000000000000005DFFFFFFFFA1000000000000000000
+0000000000000000000037ABB96100000000000000000000
+000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000
+000000000000025788300000000005886410000000000000
+000000000007DFFFFFFD9643347BFFFFFFFB400000000000
+0000000004EFFFFFFFFFFFFFFFFFFFFFFFFFFB1000000000
+000000007FFFFFFFFFFFFFFFFFFFFFFFFFFFFFD200000000
+00000006FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE10000000
+0000003FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB0000000
+000000BFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5000000
+000003FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD000000
+000009FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF200000
+00000DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF600000
+00000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF800000
+00001FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA00000
+00001FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB00000
+00001FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB00000
+00001FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB00000
+00001FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA00000
+00000EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF700000
+000006FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE100000
+0000008FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD3000000
+000000014555555555555555555555555555555300000000
+000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000
+}
+
+sprite $person2 [48x48/16] {
+0000000000000000000049BCCA7200000000000000000000
+0000000000000000006EFFFFFFFFB3000000000000000000
+00000000000000001CFFFFFFFFFFFF700000000000000000
+0000000000000001EFFFFFFFFFFFFFF80000000000000000
+000000000000000CFFFFFFFFFFFFFFFF6000000000000000
+000000000000007FFFFFFFFFFFFFFFFFF100000000000000
+00000000000001FFFFFFFFFFFFFFFFFFF900000000000000
+00000000000006FFFFFFFFFFFFFFFFFFFF00000000000000
+0000000000000BFFFFFFFFFFFFFFFFFFFF40000000000000
+0000000000000EFFFFFFFFFFFFFFFFFFFF70000000000000
+0000000000000FFFFFFFFFFFFFFFFFFFFF80000000000000
+0000000000000FFFFFFFFFFFFFFFFFFFFF80000000000000
+0000000000000DFFFFFFFFFFFFFFFFFFFF60000000000000
+0000000000000AFFFFFFFFFFFFFFFFFFFF40000000000000
+00000000000006FFFFFFFFFFFFFFFFFFFE00000000000000
+00000000000000EFFFFFFFFFFFFFFFFFF800000000000000
+000000000000007FFFFFFFFFFFFFFFFFF100000000000000
+000000000000000BFFFFFFFFFFFFFFFF5000000000000000
+0000000000000001DFFFFFFFFFFFFFF70000000000000000
+00000000000000000BFFFFFFFFFFFF500000000000000000
+0000000000000000005DFFFFFFFFA1000000000000000000
+0000000000000000000037ABB96100000000000000000000
+000000000002578888300000000005888864100000000000
+0000000007DFFFFFFFFD9643347BFFFFFFFFFB4000000000
+00000004EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB10000000
+0000007FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD2000000
+000006FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE100000
+00003FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB00000
+0000BFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF50000
+0003FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD0000
+0009FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF2000
+000DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF6000
+000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8000
+001FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB000
+001FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB000
+001FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB000
+001FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA000
+000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8000
+000DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF6000
+0009FFFFFFFF8FFFFFFFFFFFFFFFFFFFFFF8FFFFFFFF2000
+0003FFFFFFFF8FFFFFFFFFFFFFFFFFFFFFF8FFFFFFFD0000
+0000BFFFFFFF8FFFFFFFFFFFFFFFFFFFFFF8FFFFFFF50000
+00003FFFFFFF8FFFFFFFFFFFFFFFFFFFFFF8FFFFFFB00000
+000006FFFFFF8FFFFFFFFFFFFFFFFFFFFFF8FFFFFE100000
+0000007FFFFF8FFFFFFFFFFFFFFFFFFFFFF8FFFFD2000000
+00000004EFFF8FFFFFFFFFFFFFFFFFFFFFF8FFFB10000000
+0000000007DF8FFFFFFFFFFFFFFFFFFFFFF8FB4000000000
+000000000002578888888888888888888864100000000000
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+sprite $user [44x48/16] {
+00000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000
+000000000000000000048AA851000000000000000000
+0000000000000000059AAAAAAA710000000000000000
+00000000000000008AAAAAAAAAAA2000000000000000
+0000000000000008AAAAAAAAAAAA9100000000000000
+000000000000006AAAAAAAAAAAAAA900000000000000
+00000000000001AAAAAAAAAAAAAAAA50000000000000
+00000000000007AAAAAAAAAAAAAAAA80000000000000
+0000000000001AAAAAAAAAAAAAAAAAA2000000000000
+0000000000003AAAAAAAAAAAAAAAAAA5000000000000
+0000000000005AAAAAAAAAAAAAAAAAA8000000000000
+0000000000006AAAAAAAAAAAAAAAAAAA000000000000
+0000000000006AAAAAAAAAAAAAAAAAAA000000000000
+0000000000005AAAAAAAAAAAAAAAAAA9000000000000
+0000000000004AAAAAAAAAAAAAAAAAA6000000000000
+0000000000001AAAAAAAAAAAAAAAAAA2000000000000
+00000000000008AAAAAAAAAAAAAAAA90000000000000
+00000000000002AAAAAAAAAAAAAAAA60000000000000
+000000000000007AAAAAAAAAAAAAAA10000000000000
+0000000000000019AAAAAAAAAAAAA300000000000000
+00000000000000019AAAAAAAAAAA3000000000000000
+000000000000000017AAAAAAAA830000000000000000
+00000000000000000017AAAA83000000000000000000
+00000000000021000000011000000001000000000000
+000000000029AA30000000000000007AA40000000000
+0000000026AAAAA610000000000038AAAA8300000000
+00000005AAAAAAAAA40000000028AAAAAAAA70000000
+0000007AAAAAAAAAAAA8666679AAAAAAAAAAA9200000
+000006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA900000
+000019AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA50000
+00004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA80000
+00008AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1000
+0000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA3000
+0002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA6000
+0004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8000
+0006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA000
+0007AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA100
+0008AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA300
+0009AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA400
+0009AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA600
+000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA700
+001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA800
+002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA800
+004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA900
+005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA900
+00000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000
+}
+
+
+top to bottom direction
+
+title Ukraine Sponsor Resettlement Context Diagram
+
+person "==Applicant\n\n Private & Commercial" <<person>> as applicant 
+person "==Local Authority" <<external_person>> as las 
+
+rectangle "==Ukraine Sponsor Resettlement\n<size:12>[System]</size>" <<boundary>> as system  {
+  rectangle "==Resettlement Web Application\n\n Front door for applications." <<system>> as resettlement_fe 
+  rectangle "==Foundry\n\n (Palintir) Foundry" <<external_system>> as foundry 
+  rectangle "==Gov.UK Notify\n\n Email & SMS" <<external_system>> as gov_notify 
+}
+
+applicant - ->> resettlement_fe : **Register expression of interest**
+resettlement_fe - ->> gov_notify : **User notification**
+resettlement_fe - ->> foundry : **Transfer on user 'submit'**
+las - ->> foundry : **View applications**
+gov_notify - ->> applicant : **Confirmation & sms for save and return**
+
+hide stereotype
+legend right
+<#00000000,#00000000>|<color:#000000>**Legend**</color> |
+|<#08427B><color:#073B6F> <U+25AF></color> <color:#FFFFFF> person </color> |
+|<#1168BD><color:#3C7FC0> <U+25AF></color> <color:#FFFFFF> system </color> |
+|<#686868><color:#8A8A8A> <U+25AF></color> <color:#FFFFFF> external_person </color> |
+|<#999999><color:#8A8A8A> <U+25AF></color> <color:#FFFFFF> external_system </color> |
+endlegend
+
+center footer  [[https://c4model.com/#CoreDiagrams C4 Context Diagram]]
+@enduml
+
+PlantUML version 1.2022.8beta2(Unknown compile time)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
