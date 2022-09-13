@@ -7,6 +7,5 @@ class SendUnaccompaniedMinorJob < ApplicationJob
 
     consent_uploader = TransferConsents.new
     consent_uploader.send(id)
-    
   end
 end
