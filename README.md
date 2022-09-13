@@ -4,6 +4,12 @@
 
 This is the codebase for the Ruby on Rails app that will handle the submission of sponsorship requests.
 
+## Context Diagram
+
+The, [C4 system context diagram](https://c4model.com/#SystemContextDiagram) is intended to show, at the highest level, the key users and interactions in the system.
+
+![C4 Context diagram](./docs/img/system-context.svg)
+
 ## Required setup
 
 Pre-requisites:
