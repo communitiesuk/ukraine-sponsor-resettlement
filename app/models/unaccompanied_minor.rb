@@ -413,6 +413,7 @@ class UnaccompaniedMinor < ApplicationRecord
       given_name:,
       family_name:,
       email:,
+      email_confirm:,
       has_other_names:,
       other_given_name:,
       other_family_name:,

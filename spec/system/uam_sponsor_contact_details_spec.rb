@@ -33,6 +33,21 @@ RSpec.describe "Sponsor contact details", type: :system do
 
       expect(page).to have_content("Enter your UK phone number")
     end
+
+    it "persists both email fields on round trip" do
+      navigate_to_contact_details
+      fill_in("Email", with: "test@email.com")
+      fill_in("unaccompanied_minor[email_confirm]", with: "test@email.com")
+
+      click_button("Continue")
+
+      expect(page).to have_content("Enter your UK phone number")
+
+      navigate_to_contact_details
+
+      expect(page).to have_field("Email", with: "test@email.com")
+      expect(page).to have_field("unaccompanied_minor[email_confirm]", with: "test@email.com")
+    end
   end
 
   def navigate_to_contact_details
