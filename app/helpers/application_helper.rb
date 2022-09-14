@@ -11,7 +11,7 @@ module ApplicationHelper
     "CERT-#{generate_alpha_code(4)}-#{generate_digit_code(4)}-#{generate_alpha_code(1)}"
   end
 
-  def get_nationalities_as_list
+  def get_nationalities_as_list(excludes = [])
     csv_file_path ||= File.read(
       File.join(File.dirname(__FILE__), "nationalities_list.csv"),
     )
@@ -19,8 +19,9 @@ module ApplicationHelper
     csv ||= CSV.parse(csv_file_path, col_sep: ",", row_sep: :auto, skip_blanks: true)
 
     nationalities ||= [OpenStruct.new(val: "---", name: "---")]
-    csv.each_with_index do |row, index|
+    csv.sort_by { |nationality| nationality[1] }.each_with_index do |row, index|
       next if index.zero? # skip headers
+      next if excludes.include?(["#{row[0]} - #{row[1]}"])
 
       nationalities << OpenStruct.new(val: "#{row[0]} - #{row[1]}", name: (row[1]).to_s)
     end

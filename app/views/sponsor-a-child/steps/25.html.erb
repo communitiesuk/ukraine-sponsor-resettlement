@@ -8,14 +8,11 @@
      <%= f.govuk_error_summary link_base_errors_to: :other_adults_address %>
     
     <h1 class="govuk-heading-l"><%= t('other_adults_address.full', scope: "unaccompanied_minor.questions")%></h1>
+        
+      <div>
+          <%=t('different_address.hint_html', :formatted_address => @application.formatted_address?, scope: "unaccompanied_minor.questions")%>
+      </div>
 
-      <%= f.govuk_collection_radio_buttons :other_adults_address,
-          @application.other_adults_address_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
-          :id,
-          :name,
-          legend: { text: "", hidden: true },
-          hint: { text: t('different_address.hint_html', :formatted_address => @application.formatted_address?, scope: "unaccompanied_minor.questions") }
-      %>
       <details class="govuk-details" data-module="govuk-details">
                 <summary class="govuk-details__summary">
                     <span class="govuk-details__summary-text">
@@ -23,15 +20,22 @@
                     </span>
                 </summary>
                 <div class="govuk-details__text">
-                
                   You must count everyone who will be living at this address while the child is living there, whether those people are living there now or not.<br/>
                   <br/>
                   You must include people who will live there temporarily or occasionally, for example, students or seasonal workers.
                   <br/>
+                  <br/>
                   You should not include people who will stay for very short periods, for example, family members who may visit for a few days.
                 </div>
-
             </details>
+
+      <%= f.govuk_collection_radio_buttons :other_adults_address,
+          @application.other_adults_address_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
+          :id,
+          :name,
+          legend: { text: "", hidden: true }
+      %>
+
       <div class="govuk-button-group">
         <%= f.govuk_submit t('continue') %>
         

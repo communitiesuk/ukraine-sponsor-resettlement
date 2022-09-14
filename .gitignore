@@ -16,6 +16,7 @@ pickle-email-*.html
 .DS_Store
 **/.idea/
 .idea/*
+.vscode/*
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -84,5 +85,4 @@ yarn-debug.log*
 /.idea
 
 # Ignore Vscode Settings
-/.vscode*
 data/startup_info.json

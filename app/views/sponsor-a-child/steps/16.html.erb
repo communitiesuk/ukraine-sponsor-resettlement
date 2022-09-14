@@ -16,8 +16,8 @@
         <%= f.govuk_radio_button :identification_type, :passport, label: { text: "Passport" } do %>
             <%= f.govuk_text_field :passport_identification_number, label: { text: "Passport number" }, type: "text" %>
         <% end %>
-        <%= f.govuk_radio_button :identification_type, :national_identity_card, label: { text: "National Identity card" } do %>
-            <%= f.govuk_text_field :id_identification_number, label: { text: "National Identity card number"  }, type: "text"  %>
+        <%= f.govuk_radio_button :identification_type, :national_identity_card, label: { text: "National identity card" } do %>
+            <%= f.govuk_text_field :id_identification_number, label: { text: "National identity card number"  }, type: "text"  %>
         <% end %>
         <%= f.govuk_radio_button :identification_type, :refugee_travel_document, label: { text: "Refugee travel document" } do %>
             <%= f.govuk_text_field :refugee_identification_number, label: { text: "Refugee travel document number"  }, type: "text"  %>

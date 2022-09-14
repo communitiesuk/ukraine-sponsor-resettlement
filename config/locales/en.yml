@@ -305,7 +305,7 @@ en:
       sponsored_children_legal_guardian_consent:
         short: Sponsored children legal guardian consent
         full: Can you upload both consent forms?
-        hint_html: You must be able to upload both completed and signed consent forms from at least one of the child's parents or their legal guardian.<br /><br /><a href="https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians#parent-or-legal-guardian-consent">Read guidance about what consent forms are required</a>
+        hint_html: You must be able to upload both completed and signed consent forms from at least one of the child's parents or their legal guardian.<br /><br /><a href="https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians#parent-or-legal-guardian-consent">Read guidance about which consent forms are required</a>
       sponsor_british_citizenship:
         short: Sponsor british citizenship
         full: Are you a British citizen?
@@ -321,15 +321,15 @@ en:
         short: Eligibility checks completed
       fullname:
         short: Sponsor name
-        full: What is your name?
+        full: Enter your name
         hint: Full name
       other_names:
         short: Sponsor other names
         full: Have you ever been known by another name?
-        hint: For example, if you changed your name after marriage
+        hint: For example, if you changed your name after marriage.
       other_fullname:
         short: Sponsor name
-        full: What is your other name?
+        full: Add your other name
         hint: You will have the chance to add more than one previous name on the next page.
       other_name:
         short: Other names
@@ -340,7 +340,7 @@ en:
       phone_number:
         short: Enter your UK phone number
         full: Enter a phone number that you have access to, so you can save and continue your application later.
-        hint: UK telephone number
+        hint: UK phone number
       identity_documents:
         short: Sponsor identity documents
         full: Do you have any of these identity documents?
@@ -355,15 +355,15 @@ en:
       sponsor_nationality:
         short: Sponsor nationality
         full: Enter your nationality
-        hint_html: You will be able to add other nationalities on the next page. <br/> <br/> Select your country of nationality.
+        hint_html: You will be able to add other nationalities on the next page. <br/> <br/> Select your country of nationality
       sponsor_has_other_nationality:
         short: Sponsor has other nationality
         full: Have you ever held any other nationalities?
         hint: Select 'Yes' if you have ever held any other nationalities, even if you don't hold them any more.
       sponsor_other_nationality:
         short: Sponsor other nationality
-        full: What is your other nationality?
-        hint: You will be able to add other nationalities on the next page
+        full: Enter your other nationality
+        hint: Select your country of nationality
       resident_nationality:
         short: Resident nationality
         full: Enter their nationality
@@ -424,12 +424,12 @@ en:
           <div class="govuk-inset-text">%{formatted_address}</div>
       adults_at_address:
         short: Adults at address
-        full: Enter the name of the person over 16 who will live with the child
+        full: Enter the name of a person over 16 who will live with the child
         hint_html: |
           <div class="govuk-inset-text">%{formatted_address}</div>
       agree_privacy_statement:
         short: Privacy statement
-        full: Confirm you have read the privacy statement and all people involved agree that the information you have provided can be used for the Homes for Ukraine scheme.
+        full: Confirm you have read the privacy statement and all people involved agree that the information you have provided can be used for the Homes for Ukraine scheme
         hint_html: |
           Yes, I have read the <a href="https://www.gov.uk/guidance/homes-for-ukraine-visa-sponsorship-scheme-privacy-notice" target="_blank">privacy statement</a> and confirm that I (the sponsor), the named residents, the child and the child's parents or legal guardian all understand and agree that the information I have provided in this form can be used for the Homes for Ukraine scheme.
     no_received_consent:
@@ -443,8 +443,11 @@ en:
       continue: Continue application
     save_application:
       save: Save and return later
+    apply_to_sponsor:
+      short: Apply to provide a safe home for a child from Ukraine
+      full: Apply for approval to provide a safe home for a child from Ukraine
   error:
-    invalid_eligibility: You must confirm you are eligible
+    invalid_eligibility: You must check the box to continue
     privacy_statement: You must read and agree to the privacy statement
     choose_option: You must select an option to continue
     no_sponsor_other_name_choice_made: You must select an option
@@ -471,7 +474,7 @@ en:
     number_children: You must enter a number from 0-9
     child_without_adult: There must be at least 1 adult living with children
     number_adults_residential: There must be at least 1 adult living at your residential address
-    invalid_file_type_chosen: You can only upload PDF, JPEG or PNG files
+    invalid_file_type_chosen: You can only upload pdf, jpeg or png files
     no_file_chosen: You must choose a file
     file_too_large: Your file must be smaller than 20MB
     invalid_date_of_birth: Enter a valid date of birth
@@ -482,4 +485,5 @@ en:
     not_over_16_years_old: They must be over 16
     invalid_id_number: You must enter a valid identity document number
     invalid_nationality: You must select a valid nationality
+    invalid_nationality_duplicate: You already added this nationality
     min_chars_digits: You must enter at least 6 characters (numbers or letters)

@@ -4,6 +4,12 @@
 
 This is the codebase for the Ruby on Rails app that will handle the submission of sponsorship requests.
 
+## Context Diagram
+
+The, [C4 system context diagram](https://c4model.com/#SystemContextDiagram) is intended to show, at the highest level, the key users and interactions in the system.
+
+![C4 Context diagram](./docs/img/system-context.svg)
+
 ## Required setup
 
 Pre-requisites:
@@ -87,7 +93,7 @@ You will need the Conduit plug-in installed\
 2. Install Cloud Foundry CLI (https://docs.cloudfoundry.org/cf-cli/install-go-cli.html)
 
 3. Login:\
-   `cf login -a api.london.cloud.service.gov.uk -u dluhc-ulss-deploy@madetech.com`
+   `cf login --sso`
    
 4. Connect to database:\
     `cf conduit ukraine-sponsor-resettlement-<target environment>-postgres -c '{"read_only": true}' -- psql`

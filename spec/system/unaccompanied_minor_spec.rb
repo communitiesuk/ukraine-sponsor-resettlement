@@ -6,6 +6,10 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     driven_by(:rack_test_user_agent)
   end
 
+  let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine".freeze }
+  let(:name_page_content) { "Enter your name".freeze }
+  let(:other_adults_address_content) { "Enter the name of a person over 16 who will live with the child".freeze }
+
   describe "start page" do
     it "sponsor url shows page" do
       visit "/sponsor-a-child"
@@ -23,7 +27,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: new_application.reference)
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       click_button("Cancel application")
       expect(page).to have_content("Are you sure you want to cancel your application?")
@@ -70,13 +74,13 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: new_application.reference)
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       click_button("Cancel application")
       expect(page).to have_content("Are you sure you want to cancel your application?")
 
       click_button("Continue application")
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       continued_application = UnaccompaniedMinor.find_by_reference(new_application.reference)
       expect(continued_application.is_cancelled).to eq(false)
@@ -88,7 +92,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       visit "/sponsor-a-child/"
       expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
 
-      click_link("Apply for permission to sponsor an unaccompanied child fleeing Ukraine")
+      click_link("Apply to provide a safe home for a child from Ukraine")
 
       expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
     end
@@ -280,12 +284,12 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: new_application.reference)
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       click_link("Name")
-      expect(page).to have_content("What is your name?")
+      expect(page).to have_content(name_page_content)
 
-      fill_in("Given name(s)", with: "Jane")
+      fill_in("Given names", with: "Jane")
       fill_in("Family name", with: "Doe")
 
       click_button("Continue")
@@ -294,7 +298,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       choose("No")
       click_button("Continue")
 
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
     end
 
     it "complete child flow contact details section and save answers to the db" do
@@ -304,7 +308,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: new_application.reference)
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       click_link("Contact details")
       expect(page).to have_content("Enter your email address")
@@ -315,7 +319,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Phone_number", with: "07777 888 999")
       click_button("Continue")
 
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
     end
 
     it "complete child flow additional details section and save answers to the db" do
@@ -325,7 +329,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: new_application.reference)
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       click_link("Additional details")
       expect(page).to have_content("Do you have any of these identity documents?")
@@ -347,7 +351,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       choose("No")
       click_button("Continue")
 
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
     end
 
     it "does not allow for empty nationality to be selected" do
@@ -357,7 +361,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: new_application.reference)
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       click_link("Additional details")
       expect(page).to have_content("Do you have any of these identity documents?")
@@ -374,52 +378,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Enter your nationality")
       click_button("Continue")
 
-      expect(page).to have_content("You must select a valid nationality")
-    end
-  end
-
-  describe "submitting the form for child's flow" do
-    it "saves all the UK parent consent form to the database" do
-      new_application = UnaccompaniedMinor.new
-      new_application.save!
-
-      page.set_rack_session(app_reference: new_application.reference)
-
-      visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
-
-      click_link("Upload parental consent (British)")
-      expect(page).to have_content("You must upload 2 completed parental consent forms")
-
-      click_button("Continue")
-      expect(page).to have_content("Upload the UK sponsorship arrangement consent form")
-
-      test_file_path = File.join(File.dirname(__FILE__), "..", "uk-test-document.pdf")
-
-      attach_file("unaccompanied-minor-uk-parental-consent-field", test_file_path)
-      click_button("Continue")
-
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
-    end
-
-    it "saves all the Ukraine parent consent form to the database" do
-      new_application = UnaccompaniedMinor.new
-      new_application.save!
-
-      page.set_rack_session(app_reference: new_application.reference)
-
-      visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
-
-      click_link("Upload parental consent (Ukraine)")
-      expect(page).to have_content("Upload the Ukraine certified consent form")
-
-      test_file_path = File.join(File.dirname(__FILE__), "..", "ukraine-test-document.pdf")
-
-      attach_file("unaccompanied-minor-ukraine-parental-consent-field", test_file_path)
-      click_button("Continue")
-
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content("Error: You must select a valid nationality")
     end
   end
 
@@ -431,7 +390,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: new_application.reference)
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       click_link("Address")
       expect(page).to have_content("Enter the address where the child will be living in the UK")
@@ -451,7 +410,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       choose("No")
       click_button("Continue")
 
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
     end
 
     it "submit the form when address is where the child is NOT staying with the sponsor" do
@@ -461,7 +420,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: new_application.reference)
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       click_link("Address")
       expect(page).to have_content("Enter the address where the child will be living in the UK")
@@ -484,9 +443,9 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Postcode", with: "XX1 1XX")
 
       click_button("Continue")
-      expect(page).to have_content("Enter the name of the person over 16 who will live with the child")
+      expect(page).to have_content(other_adults_address_content)
 
-      fill_in("Given name(s)", with: "Another")
+      fill_in("Given names", with: "Another")
       fill_in("Family name", with: "Adult")
 
       click_button("Continue")
@@ -501,7 +460,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: new_application.reference)
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       click_link("Address")
       expect(page).to have_content("Enter the address where the child will be living in the UK")
@@ -524,9 +483,9 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Postcode", with: "XX1 1XX")
 
       click_button("Continue")
-      expect(page).to have_content("Enter the name of the person over 16 who will live with the child")
+      expect(page).to have_content(other_adults_address_content)
 
-      fill_in("Given name(s)", with: "First")
+      fill_in("Given names", with: "First")
       fill_in("Family name", with: "Adult")
 
       click_button("Continue")
@@ -534,9 +493,9 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("First Adult")
 
       click_link("Add another person")
-      expect(page).to have_content("Enter the name of the person over 16 who will live with the child")
+      expect(page).to have_content(other_adults_address_content)
 
-      fill_in("Given name(s)", with: "Second")
+      fill_in("Given names", with: "Second")
       fill_in("Family name", with: "Adult")
 
       click_button("Continue")
@@ -551,7 +510,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: new_application.reference)
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       click_link("Address")
       expect(page).to have_content("Enter the address where the child will be living in the UK")
@@ -574,9 +533,9 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("Postcode", with: "XX1 1XX")
 
       click_button("Continue")
-      expect(page).to have_content("Enter the name of the person over 16 who will live with the child")
+      expect(page).to have_content(other_adults_address_content)
 
-      fill_in("Given name(s)", with: "First")
+      fill_in("Given names", with: "First")
       fill_in("Family name", with: "Adult")
 
       click_button("Continue")
@@ -584,7 +543,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("First Adult")
 
       click_link("Remove")
-      expect(page).to have_content("Enter the name of the person over 16 who will live with the child")
+      expect(page).to have_content(other_adults_address_content)
     end
   end
 
@@ -597,7 +556,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       visit "/sponsor-a-child/task-list"
       expect(page).not_to have_content("3. Residents' details")
-      expect(page).to have_content("3. Tell us about the child")
+      expect(page).to have_content("3. Child's details")
       expect(page).to have_content("4. Send your application")
 
       new_application.adults_at_address = {}
@@ -606,7 +565,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       visit "/sponsor-a-child/task-list"
       expect(page).to have_content("3. Residents' details")
-      expect(page).to have_content("4. Tell us about the child")
+      expect(page).to have_content("4. Child's details")
       expect(page).to have_content("5. Send your application")
     end
 
@@ -650,7 +609,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: new_application.reference)
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       click_link("Contact details")
       expect(page).to have_content("Enter your email address")
@@ -678,9 +637,9 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: new_application.reference)
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
-      click_link("Upload parental consent (British)")
+      click_link("Upload UK consent form")
       expect(page).to have_content("You must upload 2 completed parental consent forms")
 
       click_button("Continue")
@@ -691,7 +650,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       attach_file("unaccompanied-minor-uk-parental-consent-field", test_file_path)
       click_button("Continue")
 
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       saved_application = UnaccompaniedMinor.find_by_reference(new_application.reference)
       expect(saved_application.uk_parental_consent_filename).to eq("uk-test-document.pdf")
@@ -707,9 +666,9 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: new_application.reference)
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
-      click_link("Upload parental consent (Ukraine)")
+      click_link("Upload Ukrainian consent form")
       expect(page).to have_content("Upload the Ukraine certified consent form")
 
       test_file_path = File.join(File.dirname(__FILE__), "..", "ukraine-test-document.pdf")
@@ -717,7 +676,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       attach_file("unaccompanied-minor-ukraine-parental-consent-field", test_file_path)
       click_button("Continue")
 
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       saved_application = UnaccompaniedMinor.find_by_reference(new_application.reference)
       expect(saved_application.ukraine_parental_consent_filename).to eq("ukraine-test-document.pdf")
@@ -733,9 +692,9 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: new_application.reference)
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
-      click_link("Upload parental consent (British)")
+      click_link("Upload UK consent form")
       expect(page).to have_content("You must upload 2 completed parental consent forms")
 
       click_button("Continue")
@@ -752,7 +711,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: new_application.reference)
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       click_link("Address")
       expect(page).to have_content("Enter the address where the child will be living in the UK")
@@ -780,7 +739,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: new_application.reference)
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       click_link("Address")
       expect(page).to have_content("Enter the address where the child will be living in the UK")
@@ -800,7 +759,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       choose("No")
 
       click_button("Continue")
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       saved_application = UnaccompaniedMinor.find_by_reference(new_application.reference)
       expect(saved_application.other_adults_address).to eq("no")
@@ -811,8 +770,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     it "when collections are empty" do
       # Create application with minimum expected values
       application = UnaccompaniedMinor.new
-      application.has_other_names = "false"
-      application.minor_contact_type = "email"
+
       application.save!
 
       page.set_rack_session(app_reference: application.reference)
@@ -825,7 +783,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       # Create application with minimum expected values
       application = UnaccompaniedMinor.new
       application.has_other_names = "true"
-      application.minor_contact_type = "email"
+
       application.other_names = ["Other given name", "Other family name"]
       application.save!
 
@@ -839,8 +797,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     it "when other adults collection is NOT empty" do
       # Create application with minimum expected values
       application = UnaccompaniedMinor.new
-      application.has_other_names = "false"
-      application.minor_contact_type = "email"
+
       application.adults_at_address = {}
       application.adults_at_address.store("ABC", Adult.new("Other first name", "Other family name", "dob", "nationality", "id-number"))
       application.save!
@@ -855,8 +812,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     it "when other nationalities collection is NOT empty" do
       # Create application with minimum expected values
       application = UnaccompaniedMinor.new
-      application.has_other_names = "false"
-      application.minor_contact_type = "email"
+
       application.other_nationalities = ["AFG - Afghanistan", "AUS - Australia", "CHF - Switzerland"]
       application.save!
 
@@ -868,50 +824,6 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("AUS - Australia")
       expect(page).to have_content("CHF - Switzerland")
     end
-
-    it "when minor cannot be contacted" do
-      application = UnaccompaniedMinor.new
-      application.has_other_names = "false"
-      application.save!
-
-      page.set_rack_session(app_reference: application.reference)
-
-      visit "/sponsor-a-child/check-answers"
-      expect(page).to have_content("Check your answers before sending your application")
-      expect(page).to have_content("They cannot be contacted")
-    end
-
-    it "when minor can be contacted by email" do
-      email_address = "minor@example.com"
-
-      application = UnaccompaniedMinor.new
-      application.has_other_names = "false"
-      application.minor_contact_type = "email"
-      application.minor_email = email_address
-      application.save!
-
-      page.set_rack_session(app_reference: application.reference)
-
-      visit "/sponsor-a-child/check-answers"
-      expect(page).to have_content("Check your answers before sending your application")
-      expect(page).to have_content(email_address)
-    end
-
-    it "when minor can be contacted by telephone" do
-      telephone_number = "07983111111"
-
-      application = UnaccompaniedMinor.new
-      application.has_other_names = "false"
-      application.minor_contact_type = "telephone"
-      application.minor_phone_number = telephone_number
-      application.save!
-
-      page.set_rack_session(app_reference: application.reference)
-
-      visit "/sponsor-a-child/check-answers"
-      expect(page).to have_content("Check your answers before sending your application")
-      expect(page).to have_content(telephone_number)
-    end
   end
 
   describe "sponsor id type and number is saved" do
@@ -922,7 +834,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: application.reference)
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       click_link("Additional details")
       expect(page).to have_content("Do you have any of these identity documents?")
@@ -949,17 +861,17 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: application.reference)
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       click_link("Additional details")
       expect(page).to have_content("Do you have any of these identity documents?")
 
-      choose("National Identity card")
+      choose("National identity card")
       click_button("Continue")
 
       expect(page).to have_content("You must enter a valid identity document number")
 
-      fill_in("National Identity card number", with: "ABC123456789")
+      fill_in("National identity card number", with: "ABC123456789")
 
       click_button("Continue")
       expect(page).to have_content("Enter your date of birth")
@@ -976,7 +888,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: application.reference)
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       click_link("Additional details")
       expect(page).to have_content("Do you have any of these identity documents?")
@@ -1003,7 +915,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: application.reference)
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       click_link("Additional details")
       expect(page).to have_content("Do you have any of these identity documents?")
@@ -1025,7 +937,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: application.reference)
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       click_link("Additional details")
       expect(page).to have_content("Do you have any of these identity documents?")
@@ -1041,7 +953,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: application.reference)
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       click_link("Additional details")
       expect(page).to have_content("Do you have any of these identity documents?")
@@ -1053,7 +965,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Enter your date of birth")
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       click_link("Additional details")
       expect(page).to have_content("Do you have any of these identity documents?")
@@ -1069,25 +981,25 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: application.reference)
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       click_link("Additional details")
       expect(page).to have_content("Do you have any of these identity documents?")
 
-      choose("National Identity card")
-      fill_in("National Identity card number", with: "ABC123987456")
+      choose("National identity card")
+      fill_in("National identity card number", with: "ABC123987456")
 
       click_button("Continue")
       expect(page).to have_content("Enter your date of birth")
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       click_link("Additional details")
       expect(page).to have_content("Do you have any of these identity documents?")
 
-      choose("National Identity card")
-      expect(page).to have_field("National Identity card number", with: "ABC123987456")
+      choose("National identity card")
+      expect(page).to have_field("National identity card number", with: "ABC123987456")
     end
 
     it "when Refugee travel document is displayed when going through id question" do
@@ -1097,7 +1009,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       page.set_rack_session(app_reference: application.reference)
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       click_link("Additional details")
       expect(page).to have_content("Do you have any of these identity documents?")
@@ -1109,7 +1021,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Enter your date of birth")
 
       visit "/sponsor-a-child/task-list"
-      expect(page).to have_content("Apply for permission to sponsor a child fleeing Ukraine without a parent")
+      expect(page).to have_content(task_list_content)
 
       click_link("Additional details")
       expect(page).to have_content("Do you have any of these identity documents?")

@@ -5,9 +5,7 @@ class SendUnaccompaniedMinorJob < ApplicationJob
     Rails.logger.info "Sending update for unaccompanied minor #{id}"
     TransferRecord.execute_unaccompanied_minor(id)
 
-    if ENV["UAM_FEATURE_TRANSFER_CONSENT_FORMS"] == "true"
-      consent_uploader = TransferConsents.new
-      consent_uploader.send(id)
-    end
+    consent_uploader = TransferConsents.new
+    consent_uploader.send(id)
   end
 end

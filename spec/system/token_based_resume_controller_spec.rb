@@ -40,7 +40,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
 
     let(:texter) { instance_double("Notifications::Client") }
     let(:application_token) { instance_double("ApplicationToken") }
-    let(:task_list_content) { "Apply for permission to sponsor a child fleeing Ukraine without a parent".freeze }
+    let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine".freeze }
 
     before do
       allow(Notifications::Client).to receive(:new).and_return(texter)
@@ -82,6 +82,21 @@ RSpec.describe TokenBasedResumeController, type: :system do
     end
 
     it "allows the user to resume an application if the correct email is provided" do
+      page.set_rack_session(app_reference: uam.reference)
+
+      visit "/sponsor-a-child/save-and-return/resend-link"
+
+      fill_in("Enter an email address that you have access to, so you can save and continue your application later.", with: email)
+      click_button("Send Link")
+
+      expect(page).to have_content("We've sent the link to #{email_scrambled}")
+    end
+
+    it "allows the user to resume an application if given_name is not provided" do
+      uam.given_name = nil
+      uam.email = email
+      uam.phone_number = phone_number
+      uam.save!
       page.set_rack_session(app_reference: uam.reference)
 
       visit "/sponsor-a-child/save-and-return/resend-link"
