@@ -101,17 +101,6 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
       expect(page).to have_content("Error: You must enter a valid email address")
     end
 
-    it "prompts the user to enter the same email" do
-      navigate_to_child_personal_details_name_entry
-      enter_name_and_continue
-
-      check("Email")
-      fill_in("Email", with: minors_email)
-      fill_in("Confirm Email", with: "email@email.co.uk")
-      click_button("Continue")
-      expect(page).to have_content("Error: Emails must match")
-    end
-
     it "prompts the user to enter a valid date of birth when no entry is made" do
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
@@ -199,7 +188,6 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
     if email.present?
       check("Email")
       fill_in("Email", with: email)
-      fill_in("Confirm Email", with: email)
     end
 
     if telephone.present?
