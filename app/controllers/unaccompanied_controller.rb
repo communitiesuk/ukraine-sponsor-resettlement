@@ -209,12 +209,12 @@ class UnaccompaniedController < ApplicationController
       params["unaccompanied_minor"]["other_family_name"] = ""
     end
 
-    if current_step == SPONSOR_EMAIL
-      if params["unaccompanied_minor"]["email"] != params["unaccompanied_minor"]["confirm_email"]
-        @application.errors.add(:email, I18n.t(:emails_different, scope: :error))
-        render_current_step
-        return
-      end
+    if current_step == SPONSOR_EMAIL && (params["unaccompanied_minor"]["email"] != params["unaccompanied_minor"]["email_confirm"])
+      @application.errors.add(:email, I18n.t(:emails_different, scope: :error))
+      @application.email = params["unaccompanied_minor"]["email"]
+      @application.email_confirm = params["unaccompanied_minor"]["email_confirm"]
+      render_current_step
+      return
     end
 
     # capture identification document number

@@ -14,8 +14,12 @@ RSpec.describe "Sponsor contact details", type: :system do
       navigate_to_contact_details
       fill_in("Email", with: "sponsor@email.com")
       fill_in("unaccompanied-minor-email-confirm-field", with: "sponsor@email.co.uk")
+
       click_button("Continue")
+
       expect(page).to have_content("Error: Emails must match")
+      expect(page).to have_field("Email", with: "sponsor@email.com")
+      expect(page).to have_field("unaccompanied-minor-email-confirm-field", with: "sponsor@email.co.uk")
     end
   end
 
