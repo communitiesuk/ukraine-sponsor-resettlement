@@ -209,6 +209,14 @@ class UnaccompaniedController < ApplicationController
       params["unaccompanied_minor"]["other_family_name"] = ""
     end
 
+    if current_step == SPONSOR_EMAIL
+      if params["unaccompanied_minor"]["email"] != params["unaccompanied_minor"]["confirm_email"]
+        @application.errors.add(:email, I18n.t(:emails_different, scope: :error))
+        render_current_step
+        return
+      end
+    end
+
     # capture identification document number
     if current_step == SPONSOR_ID_TYPE
       # Really don't like this! Validation logic should be in UAM_Validation class
@@ -683,6 +691,7 @@ private
           :other_family_name,
           :other_names,
           :email,
+          :email_confirm,
           :phone_number,
           :identification_type,
           :identification_number,

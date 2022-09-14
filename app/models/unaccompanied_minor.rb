@@ -47,6 +47,7 @@ class UnaccompaniedMinor < ApplicationRecord
                 :other_family_name,
                 :other_names,
                 :email,
+                :email_confirm,
                 :phone_number,
                 :identification_type,
                 :identification_number,
