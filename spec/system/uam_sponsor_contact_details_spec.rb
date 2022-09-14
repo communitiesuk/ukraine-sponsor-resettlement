@@ -13,13 +13,25 @@ RSpec.describe "Sponsor contact details", type: :system do
     it "shows error message for not matching email addresses" do
       navigate_to_contact_details
       fill_in("Email", with: "sponsor@email.com")
-      fill_in("unaccompanied-minor-email-confirm-field", with: "sponsor@email.co.uk")
+      fill_in("unaccompanied_minor[email_confirm]", with: "sponsor@email.co.uk")
 
       click_button("Continue")
 
       expect(page).to have_content("Error: Emails must match")
       expect(page).to have_field("Email", with: "sponsor@email.com")
-      expect(page).to have_field("unaccompanied-minor-email-confirm-field", with: "sponsor@email.co.uk")
+      expect(page).to have_field("unaccompanied_minor[email_confirm]", with: "sponsor@email.co.uk")
+    end
+  end
+
+  describe "Sponsors email addresses valid" do
+    it "continues to next stage" do
+      navigate_to_contact_details
+      fill_in("Email", with: "test@email.com")
+      fill_in("unaccompanied_minor[email_confirm]", with: "test@email.com")
+
+      click_button("Continue")
+
+      expect(page).to have_content("Enter your UK phone number")
     end
   end
 
