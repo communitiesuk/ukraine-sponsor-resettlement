@@ -337,6 +337,7 @@ en:
         short: Enter your email address
         full: Enter an email address that you have access to, so you can save and continue your application later.
         hint: Email address
+        confirm: Confirm email
       phone_number:
         short: Enter your UK phone number
         full: Enter a phone number that you have access to, so you can save and continue your application later.
@@ -487,3 +488,4 @@ en:
     invalid_nationality: You must select a valid nationality
     invalid_nationality_duplicate: You already added this nationality
     min_chars_digits: You must enter at least 6 characters (numbers or letters)
+    emails_different: Emails must match

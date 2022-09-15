@@ -314,6 +314,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Enter your email address")
 
       fill_in("Email", with: "jane.doe@test.com")
+      fill_in("unaccompanied_minor[email_confirm]", with: "jane.doe@test.com")
       click_button("Continue")
 
       fill_in("Phone_number", with: "07777 888 999")
@@ -616,7 +617,10 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       # email address is required for the happy path
       fill_in("Email", with: "jane.doe@example.com")
+      fill_in("unaccompanied_minor[email_confirm]", with: "jane.doe@example.com")
+
       click_button("Continue")
+
       fill_in("Phone_number", with: "07777 888 999")
 
       # rubocop:disable RSpec/AnyInstance
