@@ -329,7 +329,21 @@ class UnaccompaniedController < ApplicationController
         # Clear all entries and continue
         params["unaccompanied_minor"]["minor_contact_type"] = ["", "none"]
         params["unaccompanied_minor"]["minor_email"] = ""
+        params["unaccompanied_minor"]["minor_email_confirm"] = ""
         params["unaccompanied_minor"]["minor_phone_number"] = ""
+      elsif params["unaccompanied_minor"]["minor_contact_type"].include?("email")
+
+        @application.minor_email = params["unaccompanied_minor"]["minor_email"]
+        @application.minor_email_confirm = params["unaccompanied_minor"]["minor_email_confirm"]
+
+        if @application.minor_email != @application.minor_email_confirm
+          @application.errors.add(:minor_email_confirm, I18n.t(:emails_different, scope: :error))
+        end
+      end
+
+      unless @application.errors.empty?
+        render_current_step
+        return
       end
     end
 
@@ -729,6 +743,7 @@ private
           :minor_given_name,
           :minor_family_name,
           :minor_email,
+          :minor_email_confirm,
           :minor_phone_number,
           :different_address,
           :other_adults_address,

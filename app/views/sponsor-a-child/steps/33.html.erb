@@ -31,6 +31,7 @@
 
         <%= f.govuk_check_box :minor_contact_type, 'email', label: { text: "Email" }, link_errors: true do %>
             <%= f.govuk_text_field :minor_email, label: { text: "Email" }, type: "text" %>
+            <%= f.govuk_text_field :minor_email_confirm, label: { text: "Confirm email" }, type: "text" %>
         <% end %>
         <%= f.govuk_check_box :minor_contact_type, 'telephone',  label: { text: "Phone" } do %>
             <%= f.govuk_text_field :minor_phone_number, label: { text: "Phone number"  }, type: "text", hint: { text: "Include country code" } %>
