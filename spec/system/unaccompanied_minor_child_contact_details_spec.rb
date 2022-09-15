@@ -93,6 +93,16 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
       expect(page).to have_content("Error: You must enter a valid email address")
     end
 
+    it "prompts for valid email address ignores confirmation entry " do
+      navigate_to_child_personal_details_name_entry
+      enter_name_and_continue
+
+      enter_contact_details_and_continue(email: "not an email address", confirm_email: "valid@example.com")
+
+      expect(page).to have_checked_field("Email")
+      expect(page).to have_content("Error: You must enter a valid email address")
+    end
+
     it "prompts the user to enter a valid phone number" do
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue

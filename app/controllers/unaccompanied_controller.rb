@@ -331,14 +331,26 @@ class UnaccompaniedController < ApplicationController
         params["unaccompanied_minor"]["minor_email"] = ""
         params["unaccompanied_minor"]["minor_email_confirm"] = ""
         params["unaccompanied_minor"]["minor_phone_number"] = ""
-      elsif params["unaccompanied_minor"]["minor_contact_type"].include?("email")
-
+      elsif params["unaccompanied_minor"]["minor_contact_type"].include?("email") || params["unaccompanied_minor"]["minor_contact_type"].include?("phone")
         @application.minor_contact_type = params["unaccompanied_minor"]["minor_contact_type"]
-        @application.minor_email = params["unaccompanied_minor"]["minor_email"]
-        @application.minor_email_confirm = params["unaccompanied_minor"]["minor_email_confirm"]
 
-        if @application.minor_email != @application.minor_email_confirm
+        if @application.minor_contact_type.include?("email")
+          @application.minor_email = params["unaccompanied_minor"]["minor_email"]
+          @application.minor_email_confirm = params["unaccompanied_minor"]["minor_email_confirm"]
+        end
+
+        if @application.minor_contact_type.include?("telephone")
+          @application.minor_phone_number = params["unaccompanied_minor"]["minor_phone_number"]
+        end
+
+        if !email_address_valid?(@application.minor_email)
+          @application.errors.add(:minor_email, I18n.t(:invalid_email, scope: :error))
+        elsif @application.minor_email != @application.minor_email_confirm
           @application.errors.add(:minor_email_confirm, I18n.t(:emails_different, scope: :error))
+        end
+
+        if @application.minor_phone_number.present? && !phone_number_valid?(@application.minor_phone_number)
+          @application.errors.add(:minor_phone_number, I18n.t(:invalid_phone_number, scope: :error))
         end
       end
 
