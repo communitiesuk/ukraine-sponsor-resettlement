@@ -191,7 +191,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
 
       expect(response.status).to eq(302)
       expect(response).to redirect_to("/sponsor-a-child/resume-application?uuid=#{magic_id}")
-      expect(flash[:error]).to eq("This code has timed out, please request a new one")
+      expect(flash[:error]).to eq("This code has expired, please request a new one")
     end
 
     it "resends sms token and resets expires_at" do
