@@ -14,7 +14,7 @@ class TokenBasedResumeController < ApplicationController
     @application_reference = ApplicationToken.find_by(magic_link: params[:uuid])
 
     if Time.zone.now.utc > @application_reference.expires_at
-      flash[:error] = "This code has timed out, please request a new one"
+      flash[:error] = "This code has expired, please request a new one"
     else
       send_token
     end
