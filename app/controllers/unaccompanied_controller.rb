@@ -333,6 +333,7 @@ class UnaccompaniedController < ApplicationController
         params["unaccompanied_minor"]["minor_phone_number"] = ""
       elsif params["unaccompanied_minor"]["minor_contact_type"].include?("email")
 
+        @application.minor_contact_type = params["unaccompanied_minor"]["minor_contact_type"]
         @application.minor_email = params["unaccompanied_minor"]["minor_email"]
         @application.minor_email_confirm = params["unaccompanied_minor"]["minor_email_confirm"]
 

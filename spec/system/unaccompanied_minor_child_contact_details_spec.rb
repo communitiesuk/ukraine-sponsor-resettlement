@@ -79,6 +79,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
 
       enter_contact_details_and_continue(email: minors_email, confirm_email: "notmatchingemail@test.com")
 
+      expect(page).to have_checked_field("Email")
       expect(page).to have_content("Error: Emails must match")
     end
 
@@ -88,6 +89,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
 
       enter_contact_details_and_continue(email: "not an email address", confirm_email: "not an email address")
 
+      expect(page).to have_checked_field("Email")
       expect(page).to have_content("Error: You must enter a valid email address")
     end
 

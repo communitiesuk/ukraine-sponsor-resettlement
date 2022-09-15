@@ -209,7 +209,6 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
     click_button("Continue")
   end
 
-
   def enter_date_of_birth_and_continue
     fill_in("Day", with: minors_dob.day)
     fill_in("Month", with: minors_dob.month)
