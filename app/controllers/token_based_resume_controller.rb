@@ -110,7 +110,7 @@ class TokenBasedResumeController < ApplicationController
           end
         else
           # token has timed out
-          flash[:error] = "This code has timed out, please request a new one"
+          flash[:error] = "This code has expired, please request a new one"
           redirect_to "/sponsor-a-child/resume-application?uuid=#{params[:uuid]}"
         end
       else
