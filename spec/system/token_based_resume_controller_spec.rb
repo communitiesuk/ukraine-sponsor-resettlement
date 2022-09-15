@@ -52,7 +52,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
       visit "/sponsor-a-child/resume-application?uuid=#{magic_id}"
 
       expect(page).to have_content("This code has expired")
-      expect(page).to have_content("This code has timed out, please request a new one")
+      expect(page).to have_content("This code has expired, please request a new one")
     end
 
     it "allows the user to request a new token" do
