@@ -3,9 +3,9 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-    <% if flash[:error] == "expired" %>
+    <% if flash[:error] %>
       <h1 class="govuk-heading-l">This code has expired</h1>
-      <p class="govuk-body">Please request a new code</p>
+      <p class="govuk-error-message"><%= flash[:error] %></p>
     <% else %>
       <h1 class="gem-c-title__text govuk-heading-l">
         We've sent a 6-digit code to your phone
@@ -21,12 +21,6 @@
                              inputmode: "numeric",
                              required: true
       %>
-
-      <% if flash[:error] %>
-        <p class="govuk-error-message">
-            <%= flash[:error] %>
-        </p>
-      <% end %>
       
       <p class="govuk-body">
         <a href='/sponsor-a-child/save-and-return/resend-token?uuid=<%= params["uuid"] %>' class="govuk-button govuk-button--secondary">
