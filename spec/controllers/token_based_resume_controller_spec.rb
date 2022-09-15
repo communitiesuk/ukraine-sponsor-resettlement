@@ -193,5 +193,19 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       expect(response).to redirect_to("/sponsor-a-child/resume-application?uuid=#{magic_id}")
       expect(flash[:error]).to eq("This code has timed out, please request a new one")
     end
+
+    it "resends sms token and resets expires_at" do
+      magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc".freeze
+      numeric_code = 123_456
+      params = { abstract_resume_token: { token: numeric_code }, uuid: magic_id }
+
+      post :submit, params: params
+
+      expect(texter).to have_received(:send_sms).with({ personalisation: { OTP: sms_code.to_s }, phone_number:, template_id: "b51a151e-f352-473a-b52e-185d2873cbf5" })
+
+      expect(response.status).to eq(302)
+      expect(response).to redirect_to("/sponsor-a-child/resume-application?uuid=#{magic_id}")
+      expect(flash[:error]).to eq("This code has timed out, please request a new one")
+    end
   end
 end

@@ -118,6 +118,17 @@ RSpec.describe TokenBasedResumeController, type: :system do
       expect(page).to have_content(I18n.t(:invalid_email, scope: :error))
     end
 
+    it "resends a new sms token if old one has expired" do
+      page.set_rack_session(app_reference: uam.reference)
+
+      visit "/sponsor-a-child/save-and-return/resend-link"
+
+      fill_in("Enter an email address that you have access to, so you can save and continue your application later.", with: "")
+      click_button("Send Link")
+
+      expect(page).to have_content(I18n.t(:invalid_email, scope: :error))
+    end
+
     it "loads correct application given code" do
       uam.given_name = given_name
       uam.phone_number = phone_number

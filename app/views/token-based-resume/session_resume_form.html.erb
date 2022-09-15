@@ -3,11 +3,15 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-    <h1 class="gem-c-title__text govuk-heading-l">
-      We've sent a 6-digit code to your phone
-    </h1>
-
-    <p class="govuk-body">We've sent a secure one time time code to your phone. Enter the code to access your application.</p>
+    <% if flash[:error] == "expired" %>
+      <h1 class="govuk-heading-l">This code has expired</h1>
+      <p class="govuk-body">Please request a new code</p>
+    <% else %>
+      <h1 class="gem-c-title__text govuk-heading-l">
+        We've sent a 6-digit code to your phone
+      </h1>
+      <p class="govuk-body">We've sent a secure one time time code to your phone. Enter the code to access your application.</p>
+    <% end %>
 
     <%= form_for @abstractresumetoken, url: "/sponsor-a-child/resume-application?uuid=#{params["uuid"]}", method: :post do |f| %>
       <%= f.govuk_text_field :token, 
@@ -23,8 +27,14 @@
             <%= flash[:error] %>
         </p>
       <% end %>
-      <%= f.govuk_submit t('Continue') %>
+      
+      <p class="govuk-body">
+        <a href='/sponsor-a-child/save-and-return/resend-token?uuid=<%= params["uuid"] %>' class="govuk-button govuk-button--secondary">
+          Request another code
+        </a>
+      </p>
 
+      <%= f.govuk_submit t('Continue') %>
       <a href="/sponsor-a-child/start" class="govuk-link">Start a new application</a>
     <% end %>
 
