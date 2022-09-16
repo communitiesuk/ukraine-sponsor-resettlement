@@ -18,6 +18,53 @@ RSpec.describe TokenBasedResumeController, type: :system do
     end
   end
 
+  describe "User token is expired" do
+    phone_number = "07983111111".freeze
+    email = "test@example.com".freeze
+    given_name = "Given".freeze
+    family_name = "Family".freeze
+
+    sms_code = 123_456
+    magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc".freeze
+    expiry_time = (Time.zone.now.utc - 1.hour)
+    created_at = Time.zone.now.utc
+
+    uam = UnaccompaniedMinor.new(
+      given_name:,
+      family_name:,
+      email:,
+      phone_number:,
+    )
+    uam.save!
+
+    let(:texter) { instance_double("Notifications::Client") }
+    let(:application_token) { instance_double("ApplicationToken") }
+    let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine".freeze }
+
+    before do
+      allow(Notifications::Client).to receive(:new).and_return(texter)
+      allow(texter).to receive(:send_sms)
+      allow(UnaccompaniedMinor).to receive(:find_by_email).and_return(uam)
+      allow(ApplicationToken).to receive(:find_by).and_return(ApplicationToken.new({ token: sms_code, unaccompanied_minor: uam, magic_link: magic_id, expires_at: expiry_time, created_at: }))
+    end
+
+    it "shows an error to the user" do
+      visit "/sponsor-a-child/resume-application?uuid=#{magic_id}"
+
+      expect(page).to have_content("This code has expired")
+      expect(page).to have_content("This code has expired, please request a new one")
+    end
+
+    it "allows the user to request a new token" do
+      visit "/sponsor-a-child/save-and-return/resend-token?uuid=#{magic_id}"
+
+      expect(page).to have_content("We've sent a 6-digit code to your phone")
+      application_token = ApplicationToken.find_by(magic_link: magic_id)
+      expect(application_token.expires_at).not_to eq(expiry_time)
+      expect(application_token.token).not_to eq(sms_code)
+    end
+  end
+
   describe "User intentionally resumes their application" do
     phone_number = "07983111111".freeze
     email = "test@example.com".freeze

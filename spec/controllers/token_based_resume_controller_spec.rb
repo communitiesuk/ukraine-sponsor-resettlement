@@ -163,7 +163,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
     end
   end
 
-  describe "user takes too long to return" do
+  describe "User takes too long to return" do
     phone_number = "07983111111".freeze
     sms_code = 123_456
     magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc".freeze
@@ -191,7 +191,19 @@ RSpec.describe TokenBasedResumeController, type: :controller do
 
       expect(response.status).to eq(302)
       expect(response).to redirect_to("/sponsor-a-child/resume-application?uuid=#{magic_id}")
-      expect(flash[:error]).to eq("This code has timed out, please request a new one")
+      expect(flash[:error]).to eq("This code has expired, please request a new one")
+    end
+
+    it "resends sms token and resets expires_at" do
+      magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc".freeze
+      params = { uuid: magic_id }
+
+      get :request_new_token, params: params
+
+      expect(response.status).to eq(200)
+      application_token = ApplicationToken.find_by(magic_link: magic_id)
+      expect(application_token.expires_at).not_to eq(expiry_time)
+      expect(application_token.token).not_to eq(sms_code)
     end
   end
 end
