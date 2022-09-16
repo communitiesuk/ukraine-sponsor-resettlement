@@ -341,6 +341,9 @@ class UnaccompaniedController < ApplicationController
 
         if @application.minor_contact_type.include?("telephone")
           @application.minor_phone_number = params["unaccompanied_minor"]["minor_phone_number"]
+        else
+          params["unaccompanied_minor"]["minor_phone_number"] = ""
+          @application.minor_phone_number = ""
         end
 
         if !email_address_valid?(@application.minor_email)
