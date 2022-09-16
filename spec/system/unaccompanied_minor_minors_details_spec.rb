@@ -134,7 +134,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
     it "displays the entered telephone and email contact details" do
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
-      enter_contact_details_and_continue(email: minors_email, confirm_email: minors_email, telephone: minors_phone)
+      enter_contact_details_and_continue(email: minors_email, confirm_email: minors_email, telephone: minors_phone, confirm_telephone: minors_phone)
       enter_date_of_birth_and_continue
 
       expect(page).to have_content(task_list_content)
@@ -184,7 +184,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
     expect(page).to have_content("#{given_name} #{family_name}")
   end
 
-  def enter_contact_details_and_continue(email: nil, confirm_email: nil, telephone: nil, select_none: false)
+  def enter_contact_details_and_continue(email: nil, confirm_email: nil, telephone: nil, confirm_telephone: nil, select_none: false)
     if email.present? || confirm_email.present?
       check("Email")
     end
@@ -200,6 +200,10 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
     if telephone.present?
       check("Phone")
       fill_in("Phone number", with: telephone)
+    end
+
+    if confirm_telephone.present?
+      fill_in("unaccompanied_minor[minor_phone_number_confirm]", with: telephone)
     end
 
     if select_none

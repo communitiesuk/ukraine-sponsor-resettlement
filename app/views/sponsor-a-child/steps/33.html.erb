@@ -35,6 +35,7 @@
         <% end %>
         <%= f.govuk_check_box :minor_contact_type, 'telephone',  label: { text: "Phone" } do %>
             <%= f.govuk_text_field :minor_phone_number, label: { text: "Phone number"  }, type: "text", hint: { text: "Include country code" } %>
+            <%= f.govuk_text_field :minor_phone_number_confirm, label: { text: "Confirm phone number"  }, type: "text" %>
         <% end %>
         <%= f.govuk_check_box_divider %>
         <%= f.govuk_check_box :minor_contact_type, 'none', exclusive: true, label: { text: "They cannot be contacted" } %>
