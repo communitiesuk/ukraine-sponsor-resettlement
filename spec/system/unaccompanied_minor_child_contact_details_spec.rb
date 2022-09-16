@@ -182,6 +182,27 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
       expect(page).to have_field("Phone number", with: "")
     end
 
+    it "won't save email if box is unchecked" do
+      navigate_to_child_personal_details_name_entry
+      enter_name_and_continue
+
+      check("Email")
+      fill_in("Email", with: minors_email)
+      fill_in("unaccompanied_minor[minor_email_confirm]", with: minors_email)
+      check("Phone")
+      fill_in("Phone number", with: "07123123123")
+      uncheck("Email")
+      click_button("Continue")
+
+      expect(page).to have_content("Enter their date of birth")
+
+      visit "/sponsor-a-child/steps/33"
+
+      expect(page).to have_unchecked_field("Email")
+      check("Email")
+      expect(page).to have_field("Email", with: "")
+    end
+
     it "prompts the user to enter a valid date of birth when future date is entered" do
       tomorrow = Date.current.tomorrow
 
