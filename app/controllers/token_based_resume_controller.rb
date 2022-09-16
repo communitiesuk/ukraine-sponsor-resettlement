@@ -11,7 +11,13 @@ class TokenBasedResumeController < ApplicationController
 
   def display
     @abstractresumetoken = AbstractResumeToken.new(magic_link: params[:uuid])
-    send_token
+    @application_reference = ApplicationToken.find_by(magic_link: params[:uuid])
+
+    if Time.zone.now.utc > @application_reference.expires_at
+      flash[:error] = "This code has expired, please request a new one"
+    else
+      send_token
+    end
     render "token-based-resume/session_resume_form"
   end
 
@@ -67,6 +73,12 @@ class TokenBasedResumeController < ApplicationController
     end
   end
 
+  def request_new_token
+    @abstractresumetoken = AbstractResumeToken.new(magic_link: params[:uuid])
+    resend_token
+    render "token-based-resume/session_resume_form"
+  end
+
   def submit
     @abstractresumetoken = AbstractResumeToken.new(magic_link: params[:uuid])
     @abstractresumetoken.assign_attributes(confirm_params)
@@ -98,7 +110,7 @@ class TokenBasedResumeController < ApplicationController
           end
         else
           # token has timed out
-          flash[:error] = "This code has timed out, please request a new one"
+          flash[:error] = "This code has expired, please request a new one"
           redirect_to "/sponsor-a-child/resume-application?uuid=#{params[:uuid]}"
         end
       else
@@ -173,6 +185,21 @@ private
     @texter = Notifications::Client.new(sms_api)
 
     @application_reference = ApplicationToken.find_by(magic_link: params[:uuid])
+    sms_token = @application_reference.token
+    number = @application_reference.unaccompanied_minor.phone_number
+    @texter.send_sms(phone_number: number, template_id: "b51a151e-f352-473a-b52e-185d2873cbf5", personalisation: { OTP: sms_token })
+  end
+
+  def resend_token
+    sms_api = ENV["GOVUK_NOTIFY_SMS_API_KEY"]
+
+    @texter = Notifications::Client.new(sms_api)
+
+    @application_reference = ApplicationToken.find_by(magic_link: params[:uuid])
+    @application_reference.token = generate_token
+    @application_reference.expires_at = Time.zone.now.utc + 20.minutes
+    @application_reference.save!
+
     sms_token = @application_reference.token
     number = @application_reference.unaccompanied_minor.phone_number
     @texter.send_sms(phone_number: number, template_id: "b51a151e-f352-473a-b52e-185d2873cbf5", personalisation: { OTP: sms_token })

@@ -64,6 +64,7 @@ Rails.application.routes.draw do
   get "/sponsor-a-child/session-expired", to: "token_based_resume#session_expired"
   get "/sponsor-a-child/save-and-return/confirm", to: "token_based_resume#save_return_confirm"
   get "/sponsor-a-child/save-and-return/resend-link", to: "token_based_resume#save_return_resend_link_form"
+  get "/sponsor-a-child/save-and-return/resend-token", to: "token_based_resume#request_new_token"
   get "/sponsor-a-child/save-and-return", to: "token_based_resume#save_return"
   post "/sponsor-a-child/resend-link", to: "token_based_resume#resend_link"
 
