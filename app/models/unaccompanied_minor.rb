@@ -444,6 +444,7 @@ class UnaccompaniedMinor < ApplicationRecord
       minor_family_name:,
       minor_contact_type:,
       minor_email:,
+      minor_email_confirm:,
       minor_phone_number:,
       ip_address:,
       user_agent:,
