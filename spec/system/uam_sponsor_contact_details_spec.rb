@@ -51,6 +51,8 @@ RSpec.describe "Sponsor contact details", type: :system do
       click_button("Continue")
 
       expect(page).to have_content("Error: Phone numbers must match")
+      expect(page).to have_field("unaccompanied-minor-phone-number-field", with: "07123123123")
+      expect(page).to have_field("Confirm phone number", with: "07123999999")
     end
   end
 

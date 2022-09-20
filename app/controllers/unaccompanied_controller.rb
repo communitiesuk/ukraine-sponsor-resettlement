@@ -226,7 +226,10 @@ class UnaccompaniedController < ApplicationController
     end
 
     if current_step == SPONSOR_PHONE_NUMBER
-      if params["unaccompanied_minor"]["phone_number"] != params["unaccompanied_minor"]["phone_number_confirm"]
+      @application.phone_number = params["unaccompanied_minor"]["phone_number"]
+      @application.phone_number_confirm = params["unaccompanied_minor"]["phone_number_confirm"]
+
+      if @application.phone_number != @application.phone_number_confirm
         @application.errors.add(:phone_number_confirm, I18n.t(:phone_numbers_different, scope: :error))
       end
 
