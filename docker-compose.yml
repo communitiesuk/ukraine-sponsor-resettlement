@@ -15,13 +15,14 @@ services:
     build:
       dockerfile: Dockerfile-dev
       context: .
+      target: devbuild
     depends_on:
       - pg
       - redis
       - sidekiq
       - s3
     volumes:
-      - .:/app:cached
+      - .:/app:cached  # For development, the app dir is a bind mount to the dir on the host
     environment:
       RAILS_ENV: development
       INSTANCE_NAME: ukraine-sponsor-resettlement-development
@@ -38,12 +39,11 @@ services:
     build:
       dockerfile: Dockerfile-dev
       context: .
+      target: testingbuild  # For running the tests the app files are copied into the container because running them from a bind mount is too slow
     depends_on:
       - pg
       - redis
       - s3
-    volumes:
-      - .:/app
     environment:
       RAILS_ENV: test
       INSTANCE_NAME: ukraine-sponsor-resettlement-test
@@ -60,6 +60,7 @@ services:
     build:
       dockerfile: Dockerfile-dev
       context: .
+      target: devbuild
     depends_on:
       - pg
       - redis

@@ -1,5 +1,5 @@
 # Build compilation image
-FROM ruby:3.1.2-alpine
+FROM ruby:3.1.2-alpine AS devbuild
 
 # The application runs from /app
 WORKDIR /app
@@ -21,3 +21,8 @@ ENV PORT=8080
 CMD RAILS_ENV=${RAILS_ENV} rm -f /app/tmp/pids/server.pid && bundle exec rake db:migrate && bundle exec rails s -e ${RAILS_ENV} -p ${PORT} --binding=0.0.0.0
 
 EXPOSE ${PORT}
+
+# For running the tests, copy the app into the container because they run too slowly from a bind mount
+FROM devbuild AS testingbuild
+COPY . /app
+
