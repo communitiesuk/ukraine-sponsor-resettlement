@@ -47,7 +47,7 @@ private
   end
 
   def validate_phone_number
-    if !phone_number_valid?(@phone_number)
+    unless phone_number_valid?(@phone_number)
       errors.add(:phone_number, I18n.t(:invalid_phone_number, scope: :error))
     end
   end
