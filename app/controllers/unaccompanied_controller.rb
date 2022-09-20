@@ -329,7 +329,47 @@ class UnaccompaniedController < ApplicationController
         # Clear all entries and continue
         params["unaccompanied_minor"]["minor_contact_type"] = ["", "none"]
         params["unaccompanied_minor"]["minor_email"] = ""
+        params["unaccompanied_minor"]["minor_email_confirm"] = ""
         params["unaccompanied_minor"]["minor_phone_number"] = ""
+      else
+        @application.minor_contact_type = params["unaccompanied_minor"]["minor_contact_type"]
+
+        if params["unaccompanied_minor"]["minor_contact_type"].include?("email")
+          @application.minor_email = params["unaccompanied_minor"]["minor_email"]
+          @application.minor_email_confirm = params["unaccompanied_minor"]["minor_email_confirm"]
+
+          if !email_address_valid?(@application.minor_email)
+            @application.errors.add(:minor_email, I18n.t(:invalid_email, scope: :error))
+          elsif @application.minor_email != @application.minor_email_confirm
+            @application.errors.add(:minor_email_confirm, I18n.t(:emails_different, scope: :error))
+          end
+        else
+          params["unaccompanied_minor"]["minor_email"] = ""
+          params["unaccompanied_minor"]["minor_email_confirm"] = ""
+          @application.minor_email = ""
+          @application.minor_email_confirm = ""
+        end
+
+        if @application.minor_contact_type.include?("telephone")
+          @application.minor_phone_number = params["unaccompanied_minor"]["minor_phone_number"]
+          @application.minor_phone_number_confirm = params["unaccompanied_minor"]["minor_phone_number_confirm"]
+
+          if !phone_number_valid?(@application.minor_phone_number)
+            @application.errors.add(:minor_phone_number, I18n.t(:invalid_phone_number, scope: :error))
+          elsif @application.minor_phone_number != @application.minor_phone_number_confirm
+            @application.errors.add(:minor_phone_number_confirm, I18n.t(:phone_numbers_different, scope: :error))
+          end
+        else
+          params["unaccompanied_minor"]["minor_phone_number"] = ""
+          params["unaccompanied_minor"]["minor_phone_number_confirm"] = ""
+          @application.minor_phone_number = ""
+          @application.minor_phone_number_confirm = ""
+        end
+      end
+
+      unless @application.errors.empty?
+        render_current_step
+        return
       end
     end
 
@@ -729,7 +769,9 @@ private
           :minor_given_name,
           :minor_family_name,
           :minor_email,
+          :minor_email_confirm,
           :minor_phone_number,
+          :minor_phone_number_confirm,
           :different_address,
           :other_adults_address,
           :adult_given_name,

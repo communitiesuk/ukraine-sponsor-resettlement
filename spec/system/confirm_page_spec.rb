@@ -115,7 +115,8 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
 
       expect(page).to have_content("How can we contact the child?")
       check("Email")
-      fill_in("Email", with: "child@email.com")
+      fill_in("Email", with: "child@example.com")
+      fill_in("unaccompanied_minor[minor_email_confirm]", with: "child@example.com")
       click_button("Continue")
 
       expect(page).to have_content("Enter their date of birth")

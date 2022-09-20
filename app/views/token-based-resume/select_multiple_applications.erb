@@ -16,11 +16,11 @@
             <tbody class="govuk-table__body">
                 <% @applications.each do |application| %>
                 <tr class="govuk-table__row">
-                    <td class="govuk-table__cell govuk-table__cell--numeric">
+                    <td class="govuk-table__cell govuk-table__cell--numeric govuk-!-text-align-left">
                         <% if application.is_submitted? || application.is_cancelled? %>
                             <%= application.reference %>
                         <% else %>
-                            <form action="/sponsor-a-child/resume-application/select" method="post" class="govuk-!-text-align-left">
+                            <form action="/sponsor-a-child/resume-application/select" method="post">
                                 <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" />
                                 <input type="hidden" name="reference" value="<%= application.reference %>" />
                                 <a href="" onclick="this.closest('form').submit();return false;" class="govuk-link">
