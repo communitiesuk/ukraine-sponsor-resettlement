@@ -489,3 +489,4 @@ en:
     invalid_nationality_duplicate: You already added this nationality
     min_chars_digits: You must enter at least 6 characters (numbers or letters)
     emails_different: Emails must match
+    phone_numbers_different: Phone numbers must match
