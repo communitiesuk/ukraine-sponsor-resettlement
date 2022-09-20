@@ -4,7 +4,7 @@ defaults: &defaults
     - https://github.com/cloudfoundry/ruby-buildpack.git
   command: bundle exec sidekiq
   instances: 2
-  memory: 512M
+  memory: 1G
   health-check-type: process
   no-route: true
 
