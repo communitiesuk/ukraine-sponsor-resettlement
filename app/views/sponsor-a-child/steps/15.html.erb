@@ -17,6 +17,11 @@
         type: "tel"
       %>
 
+      <%= f.govuk_text_field :phone_number_confirm,
+        label: { text: "Confirm phone number"  },
+        type: "tel"
+      %>
+
       <div class="govuk-button-group">
         <%= f.govuk_submit t('continue') %>
         

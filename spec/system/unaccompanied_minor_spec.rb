@@ -318,6 +318,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
 
       fill_in("Phone_number", with: "07777 888 999")
+      fill_in("Confirm phone number", with: "07777 888 999")
       click_button("Continue")
 
       expect(page).to have_content(task_list_content)
