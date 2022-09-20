@@ -41,28 +41,24 @@ RSpec.describe "Sponsor contact details", type: :system do
   end
 
   describe "Sponsors phone number" do
+    let(:valid_phone_number) { "07123123123" }
+
     it "shows an error when the phone number confirmation does not match" do
+      non_matching_number = "07123999999"
+
       fill_in_email_and_continue
-
       expect(page).to have_content(phone_page_content)
-
-      fill_in("unaccompanied-minor-phone-number-field", with: "07123123123")
-      fill_in("Confirm phone number", with: "07123999999")
-      click_button("Continue")
+      fill_in_phone_numbers_and_continue(phone_number_confirm: non_matching_number)
 
       expect(page).to have_content("Error: Phone numbers must match")
-      expect(page).to have_field("unaccompanied-minor-phone-number-field", with: "07123123123")
-      expect(page).to have_field("Confirm phone number", with: "07123999999")
+      expect(page).to have_field("unaccompanied-minor-phone-number-field", with: valid_phone_number)
+      expect(page).to have_field("Confirm phone number", with: non_matching_number)
     end
 
-    it "Does not error for confirmation mismatch when number is invalid" do
+    it "does not error for confirmation mismatch when number is invalid" do
       fill_in_email_and_continue
-
       expect(page).to have_content(phone_page_content)
-
-      fill_in("unaccompanied-minor-phone-number-field", with: "Hello")
-      fill_in("Confirm phone number", with: "07123999999")
-      click_button("Continue")
+      fill_in_phone_numbers_and_continue(phone_number: "Hello", phone_number_confirm: "07123999999")
 
       expect(page).to have_content("Error: You must enter a valid phone number")
       expect(page).not_to have_content("Error: Phone numbers must match")
@@ -71,16 +67,20 @@ RSpec.describe "Sponsor contact details", type: :system do
     it "persists both phone number fields on round trip" do
       fill_in_email_and_continue
       expect(page).to have_content(phone_page_content)
-
-      fill_in("unaccompanied-minor-phone-number-field", with: "07123123123")
-      fill_in("Confirm phone number", with: "07123123123")
-      click_button("Continue")
+      fill_in_phone_numbers_and_continue
       navigate_to_contact_details
       click_button("Continue")
 
       expect(page).to have_content(phone_page_content)
-      expect(page).to have_field("unaccompanied-minor-phone-number-field", with: "07123123123")
-      expect(page).to have_field("Confirm phone number", with: "07123123123")
+      expect(page).to have_field("unaccompanied-minor-phone-number-field", with: valid_phone_number)
+      expect(page).to have_field("Confirm phone number", with: valid_phone_number)
+    end
+
+    def fill_in_phone_numbers_and_continue(phone_number: valid_phone_number, phone_number_confirm: valid_phone_number)
+      fill_in("unaccompanied-minor-phone-number-field", with: phone_number)
+      fill_in("Confirm phone number", with: phone_number_confirm)
+
+      click_button("Continue")
     end
   end
 
