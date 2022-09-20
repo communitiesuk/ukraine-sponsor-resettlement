@@ -67,6 +67,21 @@ RSpec.describe "Sponsor contact details", type: :system do
       expect(page).to have_content("Error: You must enter a valid phone number")
       expect(page).not_to have_content("Error: Phone numbers must match")
     end
+
+    it "persists both phone number fields on round trip" do
+      fill_in_email_and_continue
+      expect(page).to have_content(phone_page_content)
+
+      fill_in("unaccompanied-minor-phone-number-field", with: "07123123123")
+      fill_in("Confirm phone number", with: "07123123123")
+      click_button("Continue")
+      navigate_to_contact_details
+      click_button("Continue")
+
+      expect(page).to have_content(phone_page_content)
+      expect(page).to have_field("unaccompanied-minor-phone-number-field", with: "07123123123")
+      expect(page).to have_field("Confirm phone number", with: "07123123123")
+    end
   end
 
   def navigate_to_contact_details
