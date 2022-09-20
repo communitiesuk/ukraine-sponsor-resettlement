@@ -225,6 +225,17 @@ class UnaccompaniedController < ApplicationController
       end
     end
 
+    if current_step == SPONSOR_PHONE_NUMBER
+      if params["unaccompanied_minor"]["phone_number"] != params["unaccompanied_minor"]["phone_number_confirm"]
+        @application.errors.add(:phone_number_confirm, I18n.t(:phone_numbers_different, scope: :error))
+      end
+
+      unless @application.errors.empty?
+        render_current_step
+        return
+      end
+    end
+
     # capture identification document number
     if current_step == SPONSOR_ID_TYPE
       # Really don't like this! Validation logic should be in UAM_Validation class
