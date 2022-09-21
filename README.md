@@ -1,8 +1,8 @@
-# README
+![Deployment Pipeline](https://github.com/communitiesuk/ukraine-sponsor-resettlement/actions/workflows/deploy-pipeline.yml/badge.svg?branch=master)
 
 # Ukraine Sponsor Resettlement
 
-This is the codebase for the Ruby on Rails app that will handle the submission of sponsorship requests.
+This is the codebase for the [Ruby on Rails app](https://apply-to-offer-homes-for-ukraine.service.gov.uk/) that will handles the submission of sponsorship requests.
 
 ## Context Diagram
 
@@ -10,9 +10,9 @@ The, [C4 system context diagram](https://c4model.com/#SystemContextDiagram) is i
 
 ![C4 Context diagram](./docs/img/system-context.svg)
 
-## Required setup
+## Development
 
-Pre-requisites:
+### Pre-requisites
 
 - Docker
 
