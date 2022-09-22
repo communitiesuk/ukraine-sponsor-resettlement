@@ -336,8 +336,8 @@ en:
       email:
         short: Enter your email address
         full: Enter an email address that you have access to, so you can save and continue your application later.
-        hint: Email address
-        confirm: Confirm email
+        label_email: Email address
+        label_confirm_email: Confirm email address
       phone_number:
         short: Enter your UK phone number
         full: Enter a phone number that you have access to, so you can save and continue your application later.

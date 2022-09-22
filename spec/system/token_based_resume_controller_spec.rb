@@ -113,7 +113,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
 
       visit "/sponsor-a-child/save-and-return"
 
-      expect(page).to have_content(I18n.t("email.full", scope: "unaccompanied_minor.questions"))
+      expect(page).to have_content(I18n.t("email.short", scope: "unaccompanied_minor.questions"))
     end
 
     it "redirects the user to additional details form if phone number info are missing" do

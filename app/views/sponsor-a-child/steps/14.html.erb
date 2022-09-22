@@ -11,14 +11,12 @@
     <p class="govuk-body"><%= t('email.full', scope: "unaccompanied_minor.questions")%></p>
     
       <%= f.govuk_text_field :email,
-                             label: { text: "", hidden: true },
-                             hint: { text: t('email.hint', scope: "unaccompanied_minor.questions")},
+                             label: { text:  t('email.label_email', scope: "unaccompanied_minor.questions")},
                              type: "email"
       %>
 
       <%= f.govuk_text_field :email_confirm,
-                             label: { text: "", hidden: true },
-                             hint: { text: t('email.confirm', scope: "unaccompanied_minor.questions")},
+                             label: { text: t('email.label_confirm_email', scope: "unaccompanied_minor.questions") },
                              type: "email"
       %>
       
