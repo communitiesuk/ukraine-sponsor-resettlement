@@ -85,32 +85,34 @@ class UnaccompaniedController < ApplicationController
         @application.refugee_identification_number = @application.identification_number
       end
     elsif ADULT_STEPS.include?(step)
-      Rails.logger.debug "Adult page!"
+      if @application.adults_at_address.present?
+        Rails.logger.debug "Adult page!"
 
-      # Set properties based on values from hash of adults
-      @adult = @application.adults_at_address[params["key"]]
+        # Set properties based on values from hash of adults
+        @adult = @application.adults_at_address[params["key"]]
 
-      adult_dob = @adult["date_of_birth"]
-      adult_nationality = @adult["nationality"]
-      adult_id_type_and_number = @adult["id_type_and_number"]
-      if adult_dob.present? && adult_dob.length.positive?
-        @application.adult_date_of_birth = {
-          3 => Date.parse(adult_dob).day,
-          2 => Date.parse(adult_dob).month,
-          1 => Date.parse(adult_dob).year,
-        }
-      end
-      @application.adult_nationality = adult_nationality if adult_nationality.present? && adult_nationality.length.positive?
-      if adult_id_type_and_number.present? && adult_id_type_and_number.length.positive?
-        id_type_and_number = adult_id_type_and_number.split(" - ")
-        @application.adult_identification_type = id_type_and_number[0].to_s
-        case id_type_and_number[0].to_s
-        when "passport"
-          @application.adult_passport_identification_number = id_type_and_number[1].to_s
-        when "national_identity_card"
-          @application.adult_id_identification_number = id_type_and_number[1].to_s
-        when "refugee_travel_document"
-          @application.adult_refugee_identification_number = id_type_and_number[1].to_s
+        adult_dob = @adult["date_of_birth"]
+        adult_nationality = @adult["nationality"]
+        adult_id_type_and_number = @adult["id_type_and_number"]
+        if adult_dob.present? && adult_dob.length.positive?
+          @application.adult_date_of_birth = {
+            3 => Date.parse(adult_dob).day,
+            2 => Date.parse(adult_dob).month,
+            1 => Date.parse(adult_dob).year,
+          }
+        end
+        @application.adult_nationality = adult_nationality if adult_nationality.present? && adult_nationality.length.positive?
+        if adult_id_type_and_number.present? && adult_id_type_and_number.length.positive?
+          id_type_and_number = adult_id_type_and_number.split(" - ")
+          @application.adult_identification_type = id_type_and_number[0].to_s
+          case id_type_and_number[0].to_s
+          when "passport"
+            @application.adult_passport_identification_number = id_type_and_number[1].to_s
+          when "national_identity_card"
+            @application.adult_id_identification_number = id_type_and_number[1].to_s
+          when "refugee_travel_document"
+            @application.adult_refugee_identification_number = id_type_and_number[1].to_s
+          end
         end
       end
     end
