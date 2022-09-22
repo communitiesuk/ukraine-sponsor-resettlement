@@ -12,6 +12,7 @@ The, [C4 system context diagram](https://c4model.com/#SystemContextDiagram) is i
 
 ## Monitoring
 
+- [sentry.io](https://sentry.io/organizations/dluhc-ulss/projects/dluhc-ulss/?project=6260319)
 - [logit.io Dashboard](https://dashboard.logit.io/a/6b6785a5-cb7f-4d9b-a456-456949f5aa07)
 - [Graphana Dashboard](https://ukraine-sponsor-resettlement-monitoring-grafana.london.cloudapps.digital/d/0it5-vEnk/production) (Production only)
 - [Prometheus Exporter](https://github.com/communitiesuk/ukraine-sponsor-resettlement-monitoring) Github repository
