@@ -15,7 +15,6 @@ The, [C4 system context diagram](https://c4model.com/#SystemContextDiagram) is i
 - [sentry.io](https://sentry.io/organizations/dluhc-ulss/projects/dluhc-ulss/?project=6260319)
 - [logit.io Dashboard](https://dashboard.logit.io/a/6b6785a5-cb7f-4d9b-a456-456949f5aa07)
 - [Graphana Production Dashboard](https://ukraine-sponsor-resettlement-monitoring-grafana.london.cloudapps.digital/d/0it5-vEnk/production)
-- [Prometheus Exporter](https://github.com/communitiesuk/ukraine-sponsor-resettlement-monitoring) Github repository
 
 ### Alerting
 
@@ -24,6 +23,11 @@ Alerts are configured in [Grafana](https://ukraine-sponsor-resettlement-monitori
 - __#homes-for-ukraine-alerts__, [DLUHC](https://www.gov.uk/government/organisations/department-for-levelling-up-housing-and-communities) managed Slack channel
 - [PagerDuty](https://madetech.eu.pagerduty.com/), MadeTech managed instance.
 - Email to the team. (Find the email address defined in the grafana alerts)
+
+### Related Repositories
+
+- [Prometheus Exporter](https://github.com/communitiesuk/ukraine-sponsor-resettlement-monitoring) repository
+- [Gov PAAS Prometheus Exporter](https://github.com/alphagov/paas-prometheus-exporter), documents the [metrics](https://github.com/alphagov/paas-prometheus-exporter#available-application-metrics) available in Grafana.
 
 ## Development
 
