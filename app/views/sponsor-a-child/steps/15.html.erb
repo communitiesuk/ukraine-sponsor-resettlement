@@ -12,8 +12,7 @@
 
 
       <%= f.govuk_text_field :phone_number,
-        label: { text: "", hidden: true },
-        hint: { text: t('phone_number.hint', scope: "unaccompanied_minor.questions")},
+        label: { text: t('phone_number.label', scope: "unaccompanied_minor.questions") },
         type: "tel"
       %>
 
