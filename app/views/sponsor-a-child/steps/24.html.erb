@@ -19,7 +19,7 @@
           :name,
           inline: true,
           legend: { text: t('different_address.full', scope: "unaccompanied_minor.questions"), hidden: true },
-          hint: { text: "There must be at least one an adult living with the child, but it doesn't have to be you. If you select 'No', we will ask you for this adult's details."}%>
+          hint: { text: t('different_address.hint', scope: "unaccompanied_minor.questions")}%>
 
       <div class="govuk-button-group">
         <%= f.govuk_submit t('continue') %>
