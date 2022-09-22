@@ -65,7 +65,7 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       click_button("Continue")
 
       expect(page).to have_content("Enter your UK phone number")
-      fill_in("Phone_number", with: "07123123123")
+      fill_in("UK phone number", with: "07123123123")
       fill_in("Confirm phone number", with: "07123123123")
       click_button("Continue")
 

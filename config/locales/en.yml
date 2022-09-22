@@ -336,12 +336,12 @@ en:
       email:
         short: Enter your email address
         full: Enter an email address that you have access to, so you can save and continue your application later.
-        hint: Email address
-        confirm: Confirm email
+        label_email: Email address
+        label_confirm_email: Confirm email address
       phone_number:
         short: Enter your UK phone number
         full: Enter a phone number that you have access to, so you can save and continue your application later.
-        hint: UK phone number
+        label: UK phone number
       identity_documents:
         short: Sponsor identity documents
         full: Do you have any of these identity documents?
@@ -418,6 +418,7 @@ en:
         full: Will you be living at this address?
         hint_html: |
           <div class="govuk-inset-text">%{formatted_address}</div>
+        hint: There must be at least one an adult living with the child, but it doesn't have to be you. If you select 'No', we will ask you for this adult's details.
       other_adults_address:
         short: Over 16s
         full: Will anyone else over the age of 16 be living at this address?
