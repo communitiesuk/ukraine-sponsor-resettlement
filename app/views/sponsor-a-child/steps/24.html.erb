@@ -13,13 +13,13 @@
 
     <div class="govuk-inset-text"><%= @application.formatted_address? %></div>
 
-    <p class="govuk-body">There must be at least one an adult living with the child, but it doesn't have to be you. If you select 'No', we will ask you for this adult's details.</p>
       <%= f.govuk_collection_radio_buttons :different_address,
           @application.different_address_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
           :id,
           :name,
           inline: true,
-          legend: { text: t('different_address.full', scope: "unaccompanied_minor.questions"), hidden: true }%>
+          legend: { text: t('different_address.full', scope: "unaccompanied_minor.questions"), hidden: true },
+          hint: { text: t('different_address.hint', scope: "unaccompanied_minor.questions")}%>
 
       <div class="govuk-button-group">
         <%= f.govuk_submit t('continue') %>
