@@ -317,7 +317,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("unaccompanied_minor[email_confirm]", with: "jane.doe@test.com")
       click_button("Continue")
 
-      fill_in("Phone_number", with: "07777 888 999")
+      fill_in("UK phone number", with: "07777 888 999")
       fill_in("Confirm phone number", with: "07777 888 999")
       click_button("Continue")
 
@@ -622,7 +622,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       click_button("Continue")
 
-      fill_in("Phone_number", with: "07777 888 999")
+      fill_in("UK phone number", with: "07777 888 999")
 
       # rubocop:disable RSpec/AnyInstance
       allow_any_instance_of(UnaccompaniedController).to receive(:last_seen_activity_threshold).and_return(- 10.seconds)
