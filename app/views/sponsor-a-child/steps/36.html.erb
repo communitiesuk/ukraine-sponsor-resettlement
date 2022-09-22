@@ -15,9 +15,11 @@
     <%=@application.minor_full_name?%>
    </div>
 
-    <p class="govuk-body">
+    <p class="govuk-hint">
          You will need to upload the 'Ukrainian certified consent form' on the next page.
     </p>
+
+    
 
       <%= f.govuk_file_field :uk_parental_consent,
         label: { text: "Upload a file" }%>
