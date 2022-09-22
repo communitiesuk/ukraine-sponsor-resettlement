@@ -418,6 +418,7 @@ en:
         full: Will you be living at this address?
         hint_html: |
           <div class="govuk-inset-text">%{formatted_address}</div>
+        hint: There must be at least one an adult living with the child, but it doesn't have to be you. If you select 'No', we will ask you for this adult's details.
       other_adults_address:
         short: Over 16s
         full: Will anyone else over the age of 16 be living at this address?
