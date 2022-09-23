@@ -68,7 +68,6 @@ Rails.application.routes.draw do
   get "/sponsor-a-child/save-and-return", to: "token_based_resume#save_return"
   post "/sponsor-a-child/resend-link", to: "token_based_resume#resend_link"
 
-  get "/sponsor-a-child/list", to: "s3_bucket#list_objects"
   get "/sponsor-a-child/consent_upload", to: "foundry_consent_upload#display"
   post "/sponsor-a-child/consent_upload", to: "foundry_consent_upload#form"
 
