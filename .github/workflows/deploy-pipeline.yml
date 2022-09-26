@@ -132,7 +132,7 @@ jobs:
       - name: Scan
         #continue-on-error: true
         run: |
-          brakeman --color -o /dev/stdout -o brakeman.json
+          brakeman --color -o /dev/stdout
 
   deploy-staging:
     name: Deploy Staging
