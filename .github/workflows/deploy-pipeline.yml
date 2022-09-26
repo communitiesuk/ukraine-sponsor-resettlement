@@ -129,9 +129,9 @@ jobs:
       BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
       CF_API_ENDPOINT: ${{ secrets.CF_API_ENDPOINT }}
       CF_ORG: ${{ secrets.CF_ORG }}
-      CF_PASSWORD: ${{ secrets.CF_PASSWORD }} # Appears an orphan?
+      CF_PASSWORD: ${{ secrets.CF_PASSWORD }} # Used by cf auth (https://cli.cloudfoundry.org/en-US/v6/auth.html)
       CF_SPACE: ${{ secrets.CF_SPACE }}
-      CF_USERNAME: ${{ secrets.CF_USERNAME }} # Appears an orphan?
+      CF_USERNAME: ${{ secrets.CF_USERNAME }} # Used by cf auth (https://cli.cloudfoundry.org/en-US/v6/auth.html)
       CONSENT_UPLOAD_PASS: ${{ secrets.CONSENT_UPLOAD_PASS }}
       CONSENT_UPLOAD_USER: ${{ secrets.CONSENT_UPLOAD_USER }}
       GOVUK_NOTIFY_API_KEY: ${{ secrets.GOVUK_NOTIFY_API_KEY }}
@@ -244,9 +244,9 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       CF_API_ENDPOINT: ${{ secrets.CF_API_ENDPOINT }}
       CF_ORG: ${{ secrets.CF_ORG }}
-      CF_PASSWORD: ${{ secrets.CF_PASSWORD }} # Appears an orphan?
+      CF_PASSWORD: ${{ secrets.CF_PASSWORD }} # Used by cf auth (https://cli.cloudfoundry.org/en-US/v6/auth.html)
       CF_SPACE: ${{ secrets.CF_SPACE }}
-      CF_USERNAME: ${{ secrets.CF_USERNAME }} # Appears an orphan?
+      CF_USERNAME: ${{ secrets.CF_USERNAME }} # Used by cf auth (https://cli.cloudfoundry.org/en-US/v6/auth.html)
       CONSENT_UPLOAD_PASS: ${{ secrets.CONSENT_UPLOAD_PASS }}
       CONSENT_UPLOAD_USER: ${{ secrets.CONSENT_UPLOAD_USER }}
       GOVUK_NOTIFY_API_KEY: ${{ secrets.GOVUK_NOTIFY_API_KEY }}
