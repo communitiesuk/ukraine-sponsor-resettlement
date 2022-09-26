@@ -15,111 +15,13 @@
       especially the requirement that you should know the child's parents, unless there are exceptional circumstances.
     </p>
 
-    <div id="step-by-step-navigation" class="app-step-nav app-step-nav--large app-step-nav--active" data-show-text="Show" data-hide-text="Hide" data-show-all-text="Show all" data-hide-all-text="Hide all">
-      <ol class="app-step-nav__steps">
-        <li class="app-step-nav__step js-step" id="get-parental-consent">
-          <div class="app-step-nav__header js-toggle-panel" data-position="1">
-            <h2 class="app-step-nav__title">
-              <span class="app-step-nav__circle app-step-nav__circle--number">
-                <span class="app-step-nav__circle-inner">
-                  <span class="app-step-nav__circle-background">
-                    <span class="govuk-visually-hidden">Step</span> 1
-                  </span>
-                </span>
-              </span>
+    <%= govuk_accordion do |accordion|
+      accordion.section(heading_text: "1. Get parental consent") { tag.p(t('parental_consent_text.long_html', scope: "unaccompanied_minor")) }
 
-              <span class="js-step-title"><button class="app-step-nav__button app-step-nav__button--title js-step-title-button" aria-expanded="false" aria-controls="step-panel-get-parental-consent-1"><span class="js-step-title-text">
-                Get parental consent
-              </span><span class="app-step-nav__toggle-link js-toggle-link" aria-hidden="true" hidden="">Show</span></button></span>
-            </h2>
-          </div>
+      accordion.section(heading_text: "2. Apply for approval from your local council") { tag.p(t('local_council_approval.long_html', scope: "unaccompanied_minor")) }
 
-          <div class="app-step-nav__panel js-panel js-hidden" id="step-panel-get-parental-consent-1">
-            <p class="app-step-nav__paragraph">At least one parent or legal guardian must consent to their child being hosted in the UK. There are 2 forms they must complete and send to you:</p>
-
-            <ol class="govuk-list govuk-list--bullet" data-length="2">
-              <li class="app-step-nav__list-item js-list-item ">
-                Ukraine certified consent form
-              </li>
-              <li class="app-step-nav__list-item js-list-item ">
-                <a data-position="1.1" class="app-step-nav__link js-link" href="https://www.gov.uk/government/publications/homes-for-ukraine-uk-sponsorship-arrangement-consent-form" target="_blank">UK sponsorship arrangement consent form</a>
-              </li>
-            </ol>
-
-            <p class="app-step-nav__paragraph">Both forms need to be downloaded, completed and signed. The Ukrainian form also needs to be certified (this is explained in the guidance).</p>
-
-            <p class="app-step-nav__paragraph">
-                <a data-position="1.2" class="app-step-nav__link js-link" href="https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians#parent-or-legal-guardian-consent" target="_blank">Find out how to complete the consent forms</a>
-            </p>
-          </div>
-
-        </li>
-
-        <li class="app-step-nav__step js-step" id="get-permission-from-local-council">
-          <div class="app-step-nav__header js-toggle-panel" data-position="2">
-            <h2 class="app-step-nav__title">
-              <span class="app-step-nav__circle app-step-nav__circle--number">
-                <span class="app-step-nav__circle-inner">
-                  <span class="app-step-nav__circle-background">
-                    <span class="govuk-visually-hidden">Step</span> 2
-                  </span>
-                </span>
-              </span>
-
-              <span class="js-step-title"><button class="app-step-nav__button app-step-nav__button--title js-step-title-button" aria-expanded="false" aria-controls="step-panel-get-permission-from-local-council-2"><span class="js-step-title-text">
-                Apply for approval from your local council
-              </span><span class="app-step-nav__toggle-link js-toggle-link" aria-hidden="true" hidden="">Show</span></button></span>
-            </h2>
-          </div>
-
-          <div class="app-step-nav__panel js-panel js-hidden" id="step-panel-get-permission-from-local-council-2">
-            <p class="app-step-nav__paragraph">You (the sponsor) will need to get permission from your local council to host the child, before they can submit their visa application to come to the UK.</p>
-
-            <p class="app-step-nav__paragraph">You can apply for this approval online. Your local council will then perform a series of security checks, which include contacting you and the child's parents or guardian.</p>
-
-            <p class="app-step-nav__paragraph">You will need to upload both parental consent forms described in step 1.</p>
-
-            <ol class="app-step-nav__list " data-length="1">
-              <li class="app-step-nav__list-item js-list-item ">
-                <a data-position="2.1" class="app-step-nav__link js-link" href="/sponsor-a-child/start"><%= t('apply_to_sponsor.short', scope: "unaccompanied_minor")%></a>
-              </li>
-            </ol>
-          </div>
-
-        </li>
-
-        <li class="app-step-nav__step js-step" id="apply-for-a-visa">
-          <div class="app-step-nav__header js-toggle-panel" data-position="3">
-            <h2 class="app-step-nav__title">
-              <span class="app-step-nav__circle app-step-nav__circle--number">
-                <span class="app-step-nav__circle-inner">
-                  <span class="app-step-nav__circle-background">
-                    <span class="govuk-visually-hidden">Step</span> 3
-                  </span>
-                </span>
-              </span>
-
-              <span class="js-step-title"><button class="app-step-nav__button app-step-nav__button--title js-step-title-button" aria-expanded="false" aria-controls="step-panel-apply-for-a-visa-3"><span class="js-step-title-text">
-                The child applies for a visa
-              </span><span class="app-step-nav__toggle-link js-toggle-link" aria-hidden="true" hidden="">Show</span></button></span>
-            </h2>
-          </div>
-
-          <div class="app-step-nav__panel js-panel js-hidden" id="step-panel-apply-for-a-visa-3">
-            <p class="app-step-nav__paragraph">Children from Ukraine can apply for a visa to come to the UK without their parents or legal guardian.</p>
-
-            <p class="app-step-nav__paragraph">You must have received your ‘child sponsorship approval number’ before you can complete your sponsor’s section of their visa application.</p>
-
-            <p class="app-step-nav__paragraph">
-              <a data-position="3.1" class="app-step-nav__link js-link" href="https://www.gov.uk/guidance/apply-for-a-visa-under-the-ukraine-sponsorship-scheme#applicants-aged-under-18" target="_blank">
-                Read the guidance for children applying for a visa without a parent or legal guardian
-              </a>
-            </p>
-          </div>
-
-        </li>
-      </ol>
-    </div>
+      accordion.section(heading_text: "3. The child applies for a visa") { tag.p(t('child_visa_applies.long_html', scope: "unaccompanied_minor")) }
+      end %>
 
   </div>
 </div>
