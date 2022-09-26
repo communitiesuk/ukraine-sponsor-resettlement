@@ -448,6 +448,42 @@ en:
     apply_to_sponsor:
       short: Apply to provide a safe home for a child from Ukraine
       full: Apply for approval to provide a safe home for a child from Ukraine
+    parental_consent_text:
+      long_html: |
+        
+        At least one parent or legal guardian must consent to their child being hosted in the UK. There are 2 forms they must complete and send to you:
+        <ul class="govuk-list govuk-list--bullet">
+          <li>Ukraine certified consent form </li>
+          <li><a href="https://www.gov.uk/government/publications/homes-for-ukraine-uk-sponsorship-arrangement-consent-form" target="_blank"> UK sponsorship arrangement consent form </a></li>
+        </ul>
+
+        <p class="govuk-body">
+        Both forms need to be downloaded, completed and signed. The Ukrainian form also needs to be certified (this is explained in the guidance). 
+        <br/>
+        <br/>
+        <a href="https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians#parent-or-legal-guardian-consent" target="_blank">Find out how to complete the consent forms.</a>
+    local_council_approval:
+      long_html: |
+        <p class="govuk-body">You (the sponsor) will need to get permission from your local council to host the child, before they can submit their visa application to come to the UK.</p>
+
+        <p class="govuk-body">You can apply for this approval online. Your local council will then perform a series of security checks, which include contacting you and the child's parents or guardian.</p>
+
+        <p class="govuk-body">You will need to upload both parental consent forms described in step 1.</p>
+
+        <a class="govuk-body" href="/sponsor-a-child/start">Apply to provide a safe home for a child from Ukraine</a>
+    
+    child_visa_applies:
+      long_html: |
+        <p class="govuk-body">Children from Ukraine can apply for a visa to come to the UK without their parents or legal guardian.</p>
+
+        <p class="govuk-body">You must have received your ‘child sponsorship approval number’ before you can complete your sponsor’s section of their visa application.</p>
+
+        <p class="govuk-body">
+          <a class="govuk-body" href="https://www.gov.uk/guidance/apply-for-a-visa-under-the-ukraine-sponsorship-scheme#applicants-aged-under-18" target="_blank">
+              Read the guidance for children applying for a visa without a parent or legal guardian
+          </a>
+        </p>
+
   error:
     invalid_eligibility: You must check the box to continue
     privacy_statement: You must read and agree to the privacy statement
