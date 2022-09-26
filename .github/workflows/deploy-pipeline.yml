@@ -3,8 +3,6 @@ name: "Deploy Pipeline"
 on:
   pull_request:
   push:
-    branches:
-      - master
   workflow_dispatch:
 
 defaults:
