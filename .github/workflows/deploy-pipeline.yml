@@ -258,6 +258,7 @@ jobs:
       REMOTE_API_URL: ${{ secrets.REMOTE_API_URL }}
       SAVE_AND_RETURN_TEMPLATE_ID: ${{ secrets.SAVE_AND_RETURN_TEMPLATE_ID }}
       SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+      SPONSOR_CONFIRMATION_TEMPLATE_ID: ${{ secrets.SPONSOR_CONFIRMATION_TEMPLATE_ID }}
       UAM_FEATURE_SAVE_AND_RETURN_ACTIVE: ${{ secrets.UAM_FEATURE_SAVE_AND_RETURN_ACTIVE }}
       UAM_FILE_UPLOAD_API_TOKEN: ${{ secrets.UAM_FILE_UPLOAD_API_TOKEN }}
       UAM_FILE_UPLOAD_API_URL: ${{ secrets.UAM_FILE_UPLOAD_API_URL }}
@@ -278,7 +279,6 @@ jobs:
         env:
           APP_NAME: ukraine-sponsor-resettlement-production
           GOVUK_NOTIFY_SMS_API_KEY: ${{ secrets.GOVUK_NOTIFY_SMS_API_KEY }}
-          SPONSOR_CONFIRMATION_TEMPLATE_ID: ${{ secrets.SPONSOR_CONFIRMATION_TEMPLATE_ID }}
 
         run: |
           cf api $CF_API_ENDPOINT
