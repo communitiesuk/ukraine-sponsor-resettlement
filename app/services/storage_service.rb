@@ -26,12 +26,6 @@ class StorageService
     # rubocop:enable Style/RescueStandardError
   end
 
-  def list_objects
-    @client.list_objects_v2({
-      bucket: @configuration.bucket_name,
-    })
-  end
-
   def download(object_key)
     file_target = "/tmp/#{object_key}"
 
