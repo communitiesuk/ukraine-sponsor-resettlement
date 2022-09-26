@@ -10,17 +10,15 @@
     <h1 class="govuk-heading-l"><%= t('sponsor_commitment.full', scope: "unaccompanied_minor.questions")%></h1>
 
     <details class="govuk-details" data-module="govuk-details">
-                <<summary class="govuk-details__summary">
-                    <span class="govuk-details__summary-text">
-                    What is the minimum period?  
-                    </span>
-                    </summary>
-                <div class="govuk-details__text">
-                  
-                  <%= t('sponsor_commitment.hint_html', scope: "unaccompanied_minor.questions") %>
-                
-                </div>
-               </details>
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            What is the minimum period?
+          </span>
+        </summary>
+        <div class="govuk-details__text">          
+          <%= t('sponsor_commitment.hint_html', scope: "unaccompanied_minor.questions") %>      
+        </div>
+    </details>
 
       <%= f.govuk_collection_radio_buttons :is_committed,
                                            @application.eligibility_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
