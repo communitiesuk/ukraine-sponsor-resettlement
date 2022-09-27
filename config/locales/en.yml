@@ -347,8 +347,8 @@ en:
         full: Do you have any of these identity documents?
       no_identity_documents:
         short: Sponsor no official identity documents
-        full: What can you use to prove your identity?
-        hint: Tell us if you have another document that can prove your identity, for example, a drivers license or birth certificate.
+        full: Can you prove your identity?
+        hint: Tell us if you have a document that can prove your identity, for example, a drivers license or birth certificate. If you don’t have any proof of identity, please explain your situation in detail.
       sponsor_date_of_birth:
         short: Date of birth
         full: Enter your date of birth
@@ -528,3 +528,4 @@ en:
     min_chars_digits: You must enter at least 6 characters (numbers or letters)
     emails_different: Emails must match
     phone_numbers_different: Phone numbers must match
+    no_identity_error: Tell us how you can prove your identity, or why you cannot.
