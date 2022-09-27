@@ -29,8 +29,8 @@ class AdditionalController < ApplicationController
 
     step = params["stage"].to_i
 
-    if step.positive? && step <= MAX_STEPS
-      render "/additional-info/steps/#{step}"
+    if (1..MAX_STEPS).cover?(step)
+      render path_for_step
     else
       redirect_to "/additional-info"
     end
@@ -55,10 +55,10 @@ class AdditionalController < ApplicationController
       if next_stage > MAX_STEPS
         redirect_to "/additional-info/check-answers"
       else
-        redirect_to "/additional-info/steps/#{next_stage}"
+        redirect_to path_for_step next_stage
       end
     else
-      render "additional-info/steps/#{current_stage}"
+      render path_for_step
     end
   end
 
@@ -102,6 +102,11 @@ class AdditionalController < ApplicationController
   end
 
 private
+
+  def path_for_step(to_step = nil)
+    step = to_step || params["stage"].to_i
+    "/additional-info/steps/#{step}"
+  end
 
   def application_params
     params.require(:additional_info)
