@@ -533,7 +533,7 @@ class UnaccompaniedController < ApplicationController
         end
       end
     else
-      render "sponsor-a-child/steps/#{params['stage']}"
+      render "sponsor-a-child/steps/#{current_step}"
     end
   end
 
