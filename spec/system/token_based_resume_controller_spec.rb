@@ -165,6 +165,17 @@ RSpec.describe TokenBasedResumeController, type: :system do
       expect(page).to have_content(I18n.t(:invalid_email, scope: :error))
     end
 
+    it "shows an error box if the email is invalid" do
+      page.set_rack_session(app_reference: uam.reference)
+
+      visit "/sponsor-a-child/save-and-return/resend-link"
+
+      fill_in("Email address", with: "")
+      click_button("Send Link")
+
+      expect(page).to have_content("There is a problem")
+    end
+
     it "loads correct application given code" do
       uam.given_name = given_name
       uam.phone_number = phone_number

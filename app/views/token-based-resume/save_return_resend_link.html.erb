@@ -7,15 +7,12 @@
       <h1 class="govuk-heading-l">Request a secure link to your application</h1>
     <% end %>
    <%= form_for @application, url: "/sponsor-a-child/resend-link", method: :post do |f| %>
-
     <%= f.govuk_error_summary link_base_errors_to: :email %>
-    <% end %>
 
     <p class="govuk-body">
         Confirm your email address and we will send you a new one so you can continue your application.
     </p>
 
-    <%= form_for @application, url: "/sponsor-a-child/resend-link", method: :post do |f| %>
       <%= f.govuk_text_field :email,
                              label: { text: t('email.label_email', scope: "unaccompanied_minor.questions") },
                              type: "email"
