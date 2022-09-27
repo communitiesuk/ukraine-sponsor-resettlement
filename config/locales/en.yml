@@ -496,6 +496,7 @@ en:
     invalid_email: You must enter a valid email address
     invalid_organisation_name: Please enter a valid organisation name
     invalid_phone_number: You must enter a valid phone number
+    non_uk_number: You must enter a UK mobile number
     invalid_minor_fullname: You must enter the child's full name
     invalid_fullname: You must enter your full name
     invalid_family_name: You must enter a valid family name
