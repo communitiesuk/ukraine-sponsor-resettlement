@@ -14,24 +14,25 @@ class OrganisationController < ApplicationController
   end
 
   def handle_step
+    current_stage = params["stage"].to_i
     # Pull session data out of session and
     # instantiate new Application ActiveRecord object
     @application = OrganisationExpressionOfInterest.new(session[:organisation_expression_of_interest])
-    @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
+    @application.started_at = Time.zone.now.utc if current_stage == 1
     # Update Application object with new attributes
     @application.assign_attributes(application_params)
 
     if @application.valid?
       # Update the session
       session[:organisation_expression_of_interest] = @application.as_json
-      next_stage = params["stage"].to_i + 1
+      next_stage = current_stage + 1
       if next_stage > MAX_STEPS
         redirect_to "/organisation/check_answers"
       else
         redirect_to "/organisation/steps/#{next_stage}"
       end
     else
-      render "organisation/steps/#{params['stage']}"
+      render "organisation/steps/#{current_stage}"
     end
   end
 
