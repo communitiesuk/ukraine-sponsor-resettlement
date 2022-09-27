@@ -14,10 +14,11 @@ class IndividualController < ApplicationController
   end
 
   def handle_step
+    current_stage = params["stage"].to_i
     # Pull session data out of session and
     # instantiate new Application ActiveRecord object
     @application = IndividualExpressionOfInterest.new(session[:individual_expression_of_interest])
-    @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
+    @application.started_at = Time.zone.now.utc if current_stage == 1
     # Update Application object with new attributes
     @application.assign_attributes(application_params)
 
@@ -26,7 +27,7 @@ class IndividualController < ApplicationController
       session[:individual_expression_of_interest] = @application.as_json
 
       # Replace with routing engine to get next stage
-      next_stage = RoutingEngine.get_next_individual_step(@application, params["stage"].to_i)
+      next_stage = RoutingEngine.get_next_individual_step(@application, current_stage)
 
       if next_stage > MAX_STEPS
         redirect_to "/individual/check_answers"
@@ -34,7 +35,7 @@ class IndividualController < ApplicationController
         redirect_to "/individual/steps/#{next_stage}"
       end
     else
-      render "individual/steps/#{params['stage']}"
+      render "individual/steps/#{current_stage}"
     end
   end
 
