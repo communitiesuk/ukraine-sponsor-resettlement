@@ -130,7 +130,6 @@ jobs:
 
       # Execute Brakeman CLI and generate a SARIF output with the security issues identified during the analysis
       - name: Scan
-        #continue-on-error: true
         run: |
           brakeman --color -o /dev/stdout
 
