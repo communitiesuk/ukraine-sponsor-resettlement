@@ -117,12 +117,13 @@ class UnaccompaniedController < ApplicationController
       end
     end
 
-    render "sponsor-a-child/steps/#{step}"
+    render_current_step
   end
 
   def handle_upload_uk
+    current_stage = params["stage"].to_i
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
-    @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
+    @application.started_at = Time.zone.now.utc if current_stage == 1
     @application.uk_parental_consent_filename = ""
 
     begin
@@ -140,13 +141,14 @@ class UnaccompaniedController < ApplicationController
     if @application.valid?
       save_and_redirect(@application.uk_parental_consent_saved_filename, upload_params.tempfile)
     else
-      render "sponsor-a-child/steps/#{params['stage']}"
+      render_current_step
     end
   end
 
   def handle_upload_ukraine
+    current_stage = params["stage"].to_i
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
-    @application.started_at = Time.zone.now.utc if params["stage"].to_i == 1
+    @application.started_at = Time.zone.now.utc if current_stage == 1
     @application.ukraine_parental_consent_filename = ""
 
     begin
@@ -164,7 +166,7 @@ class UnaccompaniedController < ApplicationController
     if @application.valid?
       save_and_redirect(@application.ukraine_parental_consent_saved_filename, upload_params.tempfile)
     else
-      render "sponsor-a-child/steps/#{params['stage']}"
+      render_current_step
     end
   end
 
@@ -531,7 +533,7 @@ class UnaccompaniedController < ApplicationController
         end
       end
     else
-      render "sponsor-a-child/steps/#{params['stage']}"
+      render_current_step
     end
   end
 
@@ -697,11 +699,13 @@ class UnaccompaniedController < ApplicationController
 
 private
 
-  def render_current_step
-    current_step = params["stage"].to_i
-    current_step.freeze
+  def path_for_step(to_step = nil)
+    step = to_step || params["stage"].to_i
+    "sponsor-a-child/steps/#{step}"
+  end
 
-    render "sponsor-a-child/steps/#{current_step}"
+  def render_current_step
+    render path_for_step
   end
 
   def check_last_activity
