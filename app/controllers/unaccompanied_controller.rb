@@ -117,7 +117,7 @@ class UnaccompaniedController < ApplicationController
       end
     end
 
-    render "sponsor-a-child/steps/#{step}"
+    render_current_step
   end
 
   def handle_upload_uk
@@ -141,7 +141,7 @@ class UnaccompaniedController < ApplicationController
     if @application.valid?
       save_and_redirect(@application.uk_parental_consent_saved_filename, upload_params.tempfile)
     else
-      render "sponsor-a-child/steps/#{current_stage}"
+      render_current_step
     end
   end
 
@@ -166,7 +166,7 @@ class UnaccompaniedController < ApplicationController
     if @application.valid?
       save_and_redirect(@application.ukraine_parental_consent_saved_filename, upload_params.tempfile)
     else
-      render "sponsor-a-child/steps/#{current_stage}"
+      render_current_step
     end
   end
 
@@ -533,7 +533,7 @@ class UnaccompaniedController < ApplicationController
         end
       end
     else
-      render "sponsor-a-child/steps/#{current_step}"
+      render_current_step
     end
   end
 
@@ -699,10 +699,13 @@ class UnaccompaniedController < ApplicationController
 
 private
 
-  def render_current_step
-    current_step = params["stage"].to_i
+  def path_for_step(to_step = nil)
+    step = to_step || params["stage"].to_i
+    "sponsor-a-child/steps/#{step}"
+  end
 
-    render "sponsor-a-child/steps/#{current_step}"
+  def render_current_step
+    render path_for_step
   end
 
   def check_last_activity
