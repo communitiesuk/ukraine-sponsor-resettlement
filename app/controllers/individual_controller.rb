@@ -6,8 +6,8 @@ class IndividualController < ApplicationController
 
     step = params["stage"].to_i
 
-    if step.positive? && step <= MAX_STEPS
-      render "individual/steps/#{step}"
+    if (1..MAX_STEPS).cover?(step)
+      render path_for_step
     else
       redirect_to "/individual"
     end
@@ -35,7 +35,7 @@ class IndividualController < ApplicationController
         redirect_to "/individual/steps/#{next_stage}"
       end
     else
-      render "individual/steps/#{current_stage}"
+      render path_for_step
     end
   end
 
@@ -73,6 +73,11 @@ class IndividualController < ApplicationController
   end
 
 private
+
+  def path_for_step(to_step = nil)
+    step = to_step || params["stage"].to_i
+    "individual/steps/#{step}"
+  end
 
   def application_params
     params.require(:individual_expression_of_interest)
