@@ -5,9 +5,20 @@
 
     <%= form_for @application, url: "/sponsor-a-child/steps/7", method: :post do |f| %>
     
+    <%= f.govuk_error_summary link_base_errors_to: :is_consent %>
+    
     <h1 class="govuk-heading-l"><%= t('sponsor_right_to_live_in_uk.full', scope: "unaccompanied_minor.questions")%></h1>
 
-    <%= f.govuk_error_summary link_base_errors_to: :is_consent %>
+    <details class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            What is the minimum period?
+          </span>
+        </summary>
+        <div class="govuk-details__text">          
+          <%= t('sponsor_commitment.hint_html', scope: "unaccompanied_minor.questions") %>      
+        </div>
+    </details>
 
       <%= f.govuk_collection_radio_buttons :is_permitted,
                                            @application.eligibility_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
@@ -15,26 +26,7 @@
                                            :name,
                                            legend: { text: "", hidden: true }
       %>
-              <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary">
-                    <span class="govuk-details__summary-text">
-                    What is the minimum period?  
-                    </span>
-                    </summary>
-                <div class="govuk-details__text">
-                  You will need permission to live in the UK for at least 
-                  <ul>
-                  <li>3 years</li>
-                  </ul> 
-                  
-                  OR 
-                  
-                  <ul>
-                  <li>Until the child turns 18 and you have hosted them for at least 6 months</li>
-                  </ul> 
-                
-                </div>
-               </details>
+              
 
       <%= f.govuk_submit t('continue') %>
     <% end %>
