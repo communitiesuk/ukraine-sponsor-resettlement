@@ -6,8 +6,8 @@ class OrganisationController < ApplicationController
 
     step = params["stage"].to_i
 
-    if step.positive? && step <= MAX_STEPS
-      render "organisation/steps/#{step}"
+    if (1..MAX_STEPS).cover?(step)
+      render path_for_step
     else
       redirect_to "/organisation"
     end
@@ -32,7 +32,7 @@ class OrganisationController < ApplicationController
         redirect_to "/organisation/steps/#{next_stage}"
       end
     else
-      render "organisation/steps/#{current_stage}"
+      render path_for_step
     end
   end
 
@@ -65,6 +65,11 @@ class OrganisationController < ApplicationController
   end
 
 private
+
+  def path_for_step(to_step = nil)
+    step = to_step || params["stage"].to_i
+    "organisation/steps/#{step}"
+  end
 
   def application_params
     params.require(:organisation_expression_of_interest).permit(:family_type, :step_free, :property_count, :single_room_count, :double_room_count, :postcode, :organisation_name, :organisation_type, :agree_future_contact, :fullname, :email, :phone_number, :agree_privacy_statement, :organisation_type_business_information, :organisation_type_other_information, living_space: [])
