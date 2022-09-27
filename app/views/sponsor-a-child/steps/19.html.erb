@@ -8,8 +8,8 @@
 
     <%= form_for @application, url: "/sponsor-a-child/steps/19", method: :post do |f| %>
       <%= f.govuk_collection_select :nationality, @nationalities, :val, :name,
-          label: { text: "", hidden: true },
-          hint: { text: t('sponsor_nationality.hint_html', scope: "unaccompanied_minor.questions")} %>
+          label: {  text: t('sponsor_nationality.hint_html', scope: "unaccompanied_minor.questions")}
+           %>
       <div class="govuk-button-group">
         <%= f.govuk_submit t('continue') %>
         
