@@ -133,7 +133,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
 
       visit "/sponsor-a-child/save-and-return/resend-link"
 
-      fill_in("Enter an email address that you have access to, so you can save and continue your application later.", with: email)
+      fill_in("Email address", with: email)
       click_button("Send Link")
 
       expect(page).to have_content("We've sent the link to #{email_scrambled}")
@@ -148,7 +148,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
 
       visit "/sponsor-a-child/save-and-return/resend-link"
 
-      fill_in("Enter an email address that you have access to, so you can save and continue your application later.", with: email)
+      fill_in("Email address", with: email)
       click_button("Send Link")
 
       expect(page).to have_content("We've sent the link to #{email_scrambled}")
@@ -159,7 +159,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
 
       visit "/sponsor-a-child/save-and-return/resend-link"
 
-      fill_in("Enter an email address that you have access to, so you can save and continue your application later.", with: "")
+      fill_in("Email address", with: "")
       click_button("Send Link")
 
       expect(page).to have_content(I18n.t(:invalid_email, scope: :error))
