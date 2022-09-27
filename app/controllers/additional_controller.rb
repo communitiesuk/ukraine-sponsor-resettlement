@@ -47,9 +47,10 @@ class AdditionalController < ApplicationController
     if @application.valid?
       # Update the session
       session[:additional_info] = @application.as_json
+      current_stage = params["stage"].to_i
 
       # Replace with routing engine to get next stage
-      next_stage = RoutingEngine.get_next_additional_info_step(@application, params["stage"].to_i)
+      next_stage = RoutingEngine.get_next_additional_info_step(@application, current_stage)
 
       if next_stage > MAX_STEPS
         redirect_to "/additional-info/check-answers"
@@ -57,7 +58,7 @@ class AdditionalController < ApplicationController
         redirect_to "/additional-info/steps/#{next_stage}"
       end
     else
-      render "additional-info/steps/#{params['stage']}"
+      render "additional-info/steps/#{current_stage}"
     end
   end
 
