@@ -84,6 +84,14 @@ RSpec.describe "Sponsor contact details", type: :system do
       expect(page).to have_content("Error: You must enter a UK mobile number")
     end
 
+    it "recognises UK mobile number with 447 rather than 07" do 
+      fill_in_email_and_continue
+      expect(page).to have_content(phone_page_content)
+      
+      fill_in_phone_numbers_and_continue(phone_number: "447312312312", phone_number_confirm: "447312312312")
+      expect(page).to have_content("Apply for approval to provide a safe home for a child from Ukraine")
+    end
+
     def fill_in_phone_numbers_and_continue(phone_number: valid_phone_number, phone_number_confirm: valid_phone_number)
       fill_in("unaccompanied-minor-phone-number-field", with: phone_number)
       fill_in("Confirm phone number", with: phone_number_confirm)
