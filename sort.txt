@@ -1,0 +1,16 @@
+gem "brakeman"
+gem "json-schema"
+# Check gems for known vulnerabilities
+gem "bundler-audit"
+# Call 'byebug' anywhere in the code to stop execution and get a debugger console
+gem "byebug", platforms: %i[mri mingw x64_mingw]
+gem "dotenv-rails"
+gem "pry-byebug"
+gem "rspec-rails"
+gem "rubocop-govuk", require: false
+gem "rubocop-performance", require: false
+gem "rubocop-rails", require: false
+gem "scss_lint-govuk"
+# Session middleware for testing
+gem "rack_session_access"
+gem "rails-controller-testing"

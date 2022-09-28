@@ -35,22 +35,22 @@ gem "aws-sdk-s3"
 gem "ratonvirus"
 
 group :development, :test do
-  gem "json-schema"
   gem "brakeman"
   # Check gems for known vulnerabilities
   gem "bundler-audit"
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: %i[mri mingw x64_mingw]
   gem "dotenv-rails"
+  gem "json-schema"
   gem "pry-byebug"
+  # Session middleware for testing
+  gem "rack_session_access"
+  gem "rails-controller-testing"
   gem "rspec-rails"
   gem "rubocop-govuk", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "scss_lint-govuk"
-  # Session middleware for testing
-  gem "rack_session_access"
-  gem "rails-controller-testing"
 end
 
 group :development do
