@@ -35,6 +35,7 @@ gem "aws-sdk-s3"
 gem "ratonvirus"
 
 group :development, :test do
+  gem "json-schema"
   gem "brakeman"
   # Check gems for known vulnerabilities
   gem "bundler-audit"
