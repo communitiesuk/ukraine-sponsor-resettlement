@@ -1,4 +1,5 @@
 class TokenBasedResumeController < ApplicationController
+  include CommonValidations
   require "notifications/client"
 
   add_flash_types :error
@@ -49,8 +50,8 @@ class TokenBasedResumeController < ApplicationController
   def resend_link
     email_address = params["unaccompanied_minor"]["email"]
 
-    if email_address.present?
-      @application = UnaccompaniedMinor.where("answers ->> 'email' = '#{email_address}'").first
+    if email_address_valid?(email_address)
+      @application = UnaccompaniedMinor.where("answers ->> 'email' = ?", email_address).first
 
       if @application.nil?
         # No application found

@@ -79,6 +79,7 @@ jobs:
       - name: Run tests
         run: |
           bundle exec rake
+
   lint:
     name: Lint
     runs-on: ubuntu-latest
@@ -95,6 +96,7 @@ jobs:
       - name: Rubocop
         run: |
           bundle exec rubocop
+
   audit:
     name: Audit dependencies
     runs-on: ubuntu-latest
@@ -112,13 +114,34 @@ jobs:
         run: |
           bundle exec bundler-audit
 
+  brakeman-scan:
+    name: Brakeman Scan
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Customize the ruby version depending on your needs
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+
+      - name: Setup Brakeman
+        run: |
+          gem install brakeman
+
+      # Execute Brakeman CLI and generate a SARIF output with the security issues identified during the analysis
+      - name: Scan
+        run: |
+          brakeman --color -o /dev/stdout
+
   deploy-staging:
     name: Deploy Staging
     concurrency: "staging"
     runs-on: ubuntu-latest
     environment: "staging"
     if: github.ref == 'refs/heads/master'
-    needs: [lint, test, audit]
+    needs: [lint, test, audit, brakeman-scan]
 
     env:
       ADDITIONAL_INFO_CONFIRMATION_TEMPLATE_ID: ${{ secrets.ADDITIONAL_INFO_CONFIRMATION_TEMPLATE_ID }}

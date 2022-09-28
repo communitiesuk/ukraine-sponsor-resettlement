@@ -29,8 +29,8 @@ class AdditionalController < ApplicationController
 
     step = params["stage"].to_i
 
-    if step.positive? && step <= MAX_STEPS
-      render "/additional-info/steps/#{step}"
+    if (1..MAX_STEPS).cover?(step)
+      render path_for_step
     else
       redirect_to "/additional-info"
     end
@@ -47,17 +47,18 @@ class AdditionalController < ApplicationController
     if @application.valid?
       # Update the session
       session[:additional_info] = @application.as_json
+      current_stage = params["stage"].to_i
 
       # Replace with routing engine to get next stage
-      next_stage = RoutingEngine.get_next_additional_info_step(@application, params["stage"].to_i)
+      next_stage = RoutingEngine.get_next_additional_info_step(@application, current_stage)
 
       if next_stage > MAX_STEPS
         redirect_to "/additional-info/check-answers"
       else
-        redirect_to "/additional-info/steps/#{next_stage}"
+        redirect_to path_for_step next_stage
       end
     else
-      render "additional-info/steps/#{params['stage']}"
+      render path_for_step
     end
   end
 
@@ -101,6 +102,11 @@ class AdditionalController < ApplicationController
   end
 
 private
+
+  def path_for_step(to_step = nil)
+    step = to_step || params["stage"].to_i
+    "/additional-info/steps/#{step}"
+  end
 
   def application_params
     params.require(:additional_info)

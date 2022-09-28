@@ -35,6 +35,7 @@ gem "aws-sdk-s3"
 gem "ratonvirus"
 
 group :development, :test do
+  gem "brakeman"
   # Check gems for known vulnerabilities
   gem "bundler-audit"
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
