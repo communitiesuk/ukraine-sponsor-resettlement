@@ -14,7 +14,7 @@ class UnaccompaniedController < ApplicationController
   SPONSOR_EMAIL = 14
   SPONSOR_PHONE_NUMBER = 15
   SPONSOR_ID_TYPE = 16
-  SPONSOR_ID_EXPLAIN = 17
+  SPONSOR_ID_MISSING_EXPLANATION = 17
   SPONSOR_DATE_OF_BIRTH = 18
   SPONSOR_NATIONALITY = 19
   SPONSOR_OTHER_NATIONALITIES_CHOICE = 20
@@ -289,11 +289,15 @@ class UnaccompaniedController < ApplicationController
       end
     end
 
-    if current_step == SPONSOR_ID_EXPLAIN && @no_identification_reason.blank?
-      @application.errors.add(:no_identification_reason, I18n.t(:no_identity_error, scope: :error))
+    if current_step == SPONSOR_ID_MISSING_EXPLANATION
 
-      render_current_step
-      return
+      explanation = params["unaccompanied_minor"]["no_identification_reason"]
+      if explanation.blank?
+        @application.errors.add(:no_identification_reason, I18n.t(:no_identity_error, scope: :error))
+
+        render_current_step
+        return
+      end
     end
 
     if current_step == SPONSOR_DATE_OF_BIRTH

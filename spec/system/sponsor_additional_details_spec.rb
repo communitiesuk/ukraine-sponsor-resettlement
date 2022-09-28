@@ -44,7 +44,7 @@ RSpec.describe "Sponsor additional details", type: :system do
       expect(page).to have_field("Year", with: dob.year)
     end
 
-    it "validates step 17 on blank submission" do
+    it "validates other identity documents field on blank submission" do
       navigate_to_additional_details
       choose("I don't have any of these")
       click_button("Continue")
@@ -54,6 +54,20 @@ RSpec.describe "Sponsor additional details", type: :system do
       click_button("Continue")
 
       expect(page).to have_content("Error: Tell us how you can prove your identity, or why you cannot.")
+    end
+
+    it "validates other identity documents field on any submission" do
+      navigate_to_additional_details
+      choose("I don't have any of these")
+      click_button("Continue")
+
+      expect(page).to have_content("Can you prove your identity?")
+
+      fill_in("unaccompanied-minor-no-identification-reason-field", with: "Hello")
+
+      click_button("Continue")
+
+      expect(page).to have_content("Enter your date of birth")
     end
   end
 
