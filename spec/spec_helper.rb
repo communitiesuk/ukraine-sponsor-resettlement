@@ -97,6 +97,15 @@ RSpec.configure do |config|
   #   Kernel.srand config.seed
 end
 
+RSpec::Matchers.define :match_response_schema do |schema|
+  match do |raw_json|
+    schema_directory = "spec/support/json_schema"
+    schema_path = "#{schema_directory}/#{schema}.json"
+
+    JSON::Validator.validate!(schema_path, raw_json, strict: true)
+  end
+end
+
 Capybara.register_driver :rack_test_user_agent do |app|
   Capybara::RackTest::Driver.new(app, headers: { "HTTP_USER_AGENT" => "DummyBrowser" })
 end

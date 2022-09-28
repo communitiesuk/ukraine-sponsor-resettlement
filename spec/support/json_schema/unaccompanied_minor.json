@@ -1,0 +1,11 @@
+{
+    "type": "object",
+    "required": [
+        "certificate_reference"
+    ],
+    "certificate_reference": {
+        "properties": {
+            "type": "string"
+        }
+    }
+}
