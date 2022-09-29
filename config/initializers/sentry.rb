@@ -2,6 +2,11 @@ Sentry.init do |config|
   config.breadcrumbs_logger = %i[active_support_logger http_logger]
   config.enabled_environments = %w[production staging]
 
+  # release versioning
+  app_name = ENV.fetch('APP_NAME') || 'hfu'
+  app_latest_version = %x( git rev-parse HEAD )
+  config.release = "#{app_name}@#{app_latest_version}"
+
   config.traces_sampler = lambda do |sampling_context|
     # if this is the continuation of a trace, just use that decision (rate controlled by the caller)
     unless sampling_context[:parent_sampled].nil?
