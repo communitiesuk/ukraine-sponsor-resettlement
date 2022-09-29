@@ -97,12 +97,12 @@ RSpec.configure do |config|
   #   Kernel.srand config.seed
 end
 
-RSpec::Matchers.define :match_response_schema do |schema|
+RSpec::Matchers.define :match_schema do |schema|
   match do |raw_json|
     schema_directory = "spec/support/json_schema"
     schema_path = "#{schema_directory}/#{schema}.json"
 
-    JSON::Validator.validate!(schema_path, raw_json, strict: true)
+    JSON::Validator.validate!(schema_path, raw_json, json: true)
   end
 end
 

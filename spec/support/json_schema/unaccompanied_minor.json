@@ -1,11 +1,29 @@
 {
+    "additionalProperties": false,
     "type": "object",
     "required": [
-        "certificate_reference"
+        "certificate_reference",
+        "reference",
+        "created_at",
+        "type",
+        "version"
     ],
-    "certificate_reference": {
-        "properties": {
-            "type": "string"
+    "properties": {
+        "certificate_reference": {
+                "type": "string"
+            },
+        "reference": {
+                "type": "string"
+        },
+        "created_at": {
+                "type": "string"
+        },
+        "version": {
+                "type": "number"
+        },
+        "type": {
+            "type": "string",
+            "pattern": "^unaccompanied_minor$"
         }
     }
 }
