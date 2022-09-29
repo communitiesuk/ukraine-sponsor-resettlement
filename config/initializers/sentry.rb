@@ -3,9 +3,9 @@ Sentry.init do |config|
   config.enabled_environments = %w[production staging]
 
   # release versioning
-  app_name = ENV.fetch('APP_NAME') || 'hfu'
-  app_latest_version = %x( git rev-parse HEAD )
-  config.release = "#{app_name}@#{app_latest_version}"
+  instance_name = ENV.fetch("INSTANCE_NAME")
+  app_latest_version = `git rev-parse HEAD`.chomp! "\n"
+  config.release = "#{instance_name}@#{app_latest_version}"
 
   config.traces_sampler = lambda do |sampling_context|
     # if this is the continuation of a trace, just use that decision (rate controlled by the caller)
