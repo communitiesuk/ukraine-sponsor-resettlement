@@ -6,7 +6,17 @@
         "reference",
         "created_at",
         "type",
-        "version"
+        "version",
+        "ip_address",
+        "user_agent",
+        "started_at",
+        "is_living_december",
+        "is_under_18",
+        "is_unaccompanied",
+        "is_consent",
+        "is_committed",
+        "have_parental_consent",
+        "is_permitted"        
     ],
     "properties": {
         "certificate_reference": {
@@ -24,6 +34,36 @@
         "type": {
             "type": "string",
             "pattern": "^unaccompanied_minor$"
+        },
+        "ip_address": {
+                "type": "ipv4"
+        },
+        "user_agent": {
+                "type": "string"
+        },
+        "started_at": {
+                "type": "date-time"
+        },
+        "is_living_december": {
+            "enum": ["yes", "no"]
+        },
+        "is_under_18": {
+            "enum": ["yes", "no"]
+        },
+        "is_unaccompanied": {
+            "enum": ["yes", "no"]
+        },
+        "is_consent": {
+            "enum": ["yes", "no"]
+        },
+        "is_committed": {
+            "enum": ["yes", "no"]
+        },
+        "have_parental_consent": {
+            "enum": ["yes", "no"]
+        },
+        "is_permitted": {
+            "enum": ["yes", "no"]
         }
     }
 }
