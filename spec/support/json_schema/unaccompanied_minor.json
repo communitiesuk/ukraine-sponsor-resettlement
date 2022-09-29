@@ -224,13 +224,7 @@
       "minor_email": {
         "type": "email"
       },
-      "minor_email_confirm": {
-        "type": "email"
-      },
       "minor_phone_number": {
-        "type": "string"
-      },
-      "minor_phone_number_confirm": {
         "type": "string"
       }
     }

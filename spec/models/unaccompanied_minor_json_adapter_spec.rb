@@ -10,12 +10,20 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       populate_sponsor_info(app)
       populate_minor_details(app)
 
-      json = JSON.pretty_generate(app.as_json)
+      json = adapt_it_to_json(app)
 
       puts json
 
       expect(json).to match_schema("unaccompanied_minor")
     end
+  end
+
+  def adapt_it_to_json(uam)
+    compacted_hash = uam.as_json
+    compacted_hash.except!(:minor_email_confirm)
+    compacted_hash.except!(:minor_phone_number_confirm)
+
+    JSON.pretty_generate(compacted_hash)
   end
 
   def populate_eligibility_and_extras(uam)
