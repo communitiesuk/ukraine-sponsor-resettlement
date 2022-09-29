@@ -2,13 +2,14 @@ require "rails_helper"
 
 RSpec.describe UnaccompaniedMinor, type: :model do
   describe "converting an unaccompanied minor to json" do
-    it "validates against the schema" do
+    fit "validates against the schema" do
       app = described_class.new
       app.save!
 
       populate_eligibility_and_extras(app)
       populate_sponsor_info(app)
       populate_minor_details(app)
+      populate_documents(app)
 
       json = adapt_it_to_json(app)
 
@@ -22,6 +23,11 @@ RSpec.describe UnaccompaniedMinor, type: :model do
     compacted_hash = uam.as_json
     compacted_hash.except!(:minor_email_confirm)
     compacted_hash.except!(:minor_phone_number_confirm)
+    compacted_hash.except!(:uk_parental_consent_file_upload_rid)
+    compacted_hash.except!(:uk_parental_consent_file_uploaded_timestamp)
+    compacted_hash.except!(:ukraine_parental_consent_file_upload_rid)
+    compacted_hash.except!(:ukraine_parental_consent_file_uploaded_timestamp)
+
 
     JSON.pretty_generate(compacted_hash)
   end
@@ -81,5 +87,20 @@ RSpec.describe UnaccompaniedMinor, type: :model do
     uam.minor_email_confirm = ""
     uam.minor_phone_number = ""
     uam.minor_phone_number_confirm = ""
+  end
+
+  def populate_documents(uam)
+    uam.uk_parental_consent_file_upload_rid = "123"
+    uam.uk_parental_consent_file_uploaded_timestamp = Time.zone.now
+    uam.uk_parental_consent_filename = "uk_consent.jpg"
+    uam.uk_parental_consent_saved_filename = "ACCB3CE3-A49A-4589-BEC1-7FAC3B45F234-neil-avatar.jpg"
+    uam.uk_parental_consent_file_type = "image/jpeg"
+    uam.uk_parental_consent_file_size = 35_552
+    uam.ukraine_parental_consent_file_upload_rid = "123"
+    uam.ukraine_parental_consent_file_uploaded_timestamp = Time.zone.now
+    uam.ukraine_parental_consent_filename = "ukraine_consent.jpg"
+    uam.ukraine_parental_consent_saved_filename = "ACCB3CE3-A49A-4589-BEC1-7FAC3B45F234-neil-avatar.jpg"
+    uam.ukraine_parental_consent_file_type = "image/jpeg"
+    uam.ukraine_parental_consent_file_size = 35_552
   end
 end
