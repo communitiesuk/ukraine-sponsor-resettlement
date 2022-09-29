@@ -4,8 +4,8 @@ Sentry.init do |config|
 
   # release versioning
   instance_name = ENV.fetch("INSTANCE_NAME")
-  app_latest_version = `git rev-parse HEAD`.chomp! "\n"
-  config.release = "#{instance_name}@#{app_latest_version}"
+  date_time_version = Time.zone.now.utc.strftime('%Y%m%d%H%M%S')
+  config.release = "#{instance_name}@#{date_time_version}"
 
   config.traces_sampler = lambda do |sampling_context|
     # if this is the continuation of a trace, just use that decision (rate controlled by the caller)
