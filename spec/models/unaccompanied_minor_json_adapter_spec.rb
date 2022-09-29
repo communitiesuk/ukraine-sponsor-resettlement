@@ -2,10 +2,9 @@ require "rails_helper"
 
 RSpec.describe UnaccompaniedMinor, type: :model do
   describe "converting an unaccompanied minor to json" do
-    fit "validates against the schema" do
+    it "validates against the schema" do
       app = described_class.new
       app.save!
-
 
       json = JSON.generate(app.as_json)
 
