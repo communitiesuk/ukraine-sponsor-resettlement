@@ -45,7 +45,9 @@
       "ukraine_parental_consent_filename",
       "ukraine_parental_consent_saved_filename",
       "ukraine_parental_consent_file_type",
-      "ukraine_parental_consent_file_size"
+      "ukraine_parental_consent_file_size",
+      "privacy_statement_confirm",
+      "sponsor_declaration" 
     ],
     "properties": {
       "certificate_reference": {
@@ -258,6 +260,18 @@
       },
       "ukraine_parental_consent_file_size": {
         "type": "integer"
+      },
+      "privacy_statement_confirm": {
+        "enum": [
+          "true",
+          "false"
+        ]
+      },
+      "sponsor_declaration": {
+        "enum": [
+          "true",
+          "false"
+        ]
       }
     }
   }

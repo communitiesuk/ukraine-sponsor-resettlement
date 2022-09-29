@@ -10,6 +10,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       populate_sponsor_info(app)
       populate_minor_details(app)
       populate_documents(app)
+      populate_confirmation(app)
 
       json = adapt_it_to_json(app)
 
@@ -101,5 +102,10 @@ RSpec.describe UnaccompaniedMinor, type: :model do
     uam.ukraine_parental_consent_saved_filename = "ACCB3CE3-A49A-4589-BEC1-7FAC3B45F234-neil-avatar.jpg"
     uam.ukraine_parental_consent_file_type = "image/jpeg"
     uam.ukraine_parental_consent_file_size = 35_552
+  end
+
+  def populate_confirmation(uam)
+    uam.privacy_statement_confirm = "true"
+    uam.sponsor_declaration = "true"
   end
 end
