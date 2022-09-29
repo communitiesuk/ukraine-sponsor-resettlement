@@ -51,7 +51,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
     uam.other_adults_address = "no"
     # DANGER: uam.different_address actually means the user answered "yes" when asked
     # "Will you (the sponsor) be living at this address?"
-    # uam.different_address = "yes"
+    uam.different_address = "yes"
     uam.identification_type = "passport"
     uam.identification_number = "ABC123"
   end
