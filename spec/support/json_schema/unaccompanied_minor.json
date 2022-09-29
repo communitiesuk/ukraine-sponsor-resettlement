@@ -2,68 +2,164 @@
     "additionalProperties": false,
     "type": "object",
     "required": [
-        "certificate_reference",
-        "reference",
-        "created_at",
-        "type",
-        "version",
-        "ip_address",
-        "user_agent",
-        "started_at",
-        "is_living_december",
-        "is_under_18",
-        "is_unaccompanied",
-        "is_consent",
-        "is_committed",
-        "have_parental_consent",
-        "is_permitted"        
+      "certificate_reference",
+      "reference",
+      "created_at",
+      "type",
+      "version",
+      "ip_address",
+      "user_agent",
+      "started_at",
+      "is_living_december",
+      "is_under_18",
+      "is_unaccompanied",
+      "is_consent",
+      "is_committed",
+      "have_parental_consent",
+      "is_permitted",
+      "given_name",
+      "family_name",
+      "phone_number",
+      "email",
+      "has_other_names",
+      "nationality",
+      "sponsor_date_of_birth",
+      "has_other_nationalities",
+      "residential_line_1",
+      "residential_town",
+      "residential_postcode",
+      "other_adults_address",
+      "different_address",
+      "identification_type",
+      "identification_number"
     ],
     "properties": {
-        "certificate_reference": {
-                "type": "string"
-            },
-        "reference": {
-                "type": "string"
-        },
-        "created_at": {
-                "type": "string"
-        },
-        "version": {
-                "type": "number"
-        },
-        "type": {
-            "type": "string",
-            "pattern": "^unaccompanied_minor$"
-        },
-        "ip_address": {
-                "type": "ipv4"
-        },
-        "user_agent": {
-                "type": "string"
-        },
-        "started_at": {
-                "type": "date-time"
-        },
-        "is_living_december": {
-            "enum": ["yes", "no"]
-        },
-        "is_under_18": {
-            "enum": ["yes", "no"]
-        },
-        "is_unaccompanied": {
-            "enum": ["yes", "no"]
-        },
-        "is_consent": {
-            "enum": ["yes", "no"]
-        },
-        "is_committed": {
-            "enum": ["yes", "no"]
-        },
-        "have_parental_consent": {
-            "enum": ["yes", "no"]
-        },
-        "is_permitted": {
-            "enum": ["yes", "no"]
-        }
+      "certificate_reference": {
+        "type": "string"
+      },
+      "reference": {
+        "type": "string"
+      },
+      "created_at": {
+        "type": "string"
+      },
+      "version": {
+        "type": "number"
+      },
+      "type": {
+        "type": "string",
+        "pattern": "^unaccompanied_minor$"
+      },
+      "ip_address": {
+        "type": "ipv4"
+      },
+      "user_agent": {
+        "type": "string"
+      },
+      "started_at": {
+        "type": "date-time"
+      },
+      "is_living_december": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "is_under_18": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "is_unaccompanied": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "is_consent": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "is_committed": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "have_parental_consent": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "is_permitted": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "given_name": {
+        "type": "string"
+      },
+      "family_name": {
+        "type": "string"
+      },
+      "email": {
+        "type": "email"
+      },
+      "has_other_names": {
+        "enum": [
+          "true",
+          "false"
+        ]
+      },
+      "phone_number": {
+        "type": "string"
+      },
+      "nationality": {
+        "type": "string"
+      },
+      "sponsor_date_of_birth": {
+        "type": "object"
+      },
+      "has_other_nationalities": {
+        "enum": [
+          "true",
+          "false"
+        ]
+      },
+      "residential_line_1": {
+        "type": "string"
+      },
+      "residential_line_2": {
+        "type": "string"
+      },
+      "residential_town": {
+        "type": "string"
+      },
+      "residential_postcode": {
+        "type": "string"
+      },
+      "other_adults_address": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "different_address": {
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "identification_type": {
+        "type": "string"
+      },
+      "identification_number": {
+        "type": "string"
+      }
     }
-}
+  }
