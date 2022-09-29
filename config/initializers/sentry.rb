@@ -4,7 +4,7 @@ Sentry.init do |config|
 
   # release versioning
   instance_name = ENV.fetch("INSTANCE_NAME")
-  date_time_version = Time.zone.now.utc.strftime('%Y%m%d%H%M%S')
+  date_time_version = Time.zone.now.utc.strftime("%Y%m%d%H%M%S")
   config.release = "#{instance_name}@#{date_time_version}"
 
   config.traces_sampler = lambda do |sampling_context|
