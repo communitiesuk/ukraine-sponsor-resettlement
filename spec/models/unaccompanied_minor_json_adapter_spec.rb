@@ -8,6 +8,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
 
       populate_eligibility_and_extras(app)
       populate_sponsor_info(app)
+      populate_minor_details(app)
 
       json = JSON.pretty_generate(app.as_json)
 
@@ -54,5 +55,23 @@ RSpec.describe UnaccompaniedMinor, type: :model do
     uam.different_address = "yes"
     uam.identification_type = "passport"
     uam.identification_number = "ABC123"
+  end
+
+  def populate_minor_details(uam)
+    uam.minor_given_name = "MinorGivenName"
+    uam.minor_family_name = "MinorFamilyName"
+    uam.minor_date_of_birth = {
+      3 => 1,
+      2 => 6,
+      1 => Time.zone.now.year - 5,
+    }
+    uam.minor_contact_type = [
+      "",
+      "none",
+    ]
+    uam.minor_email = ""
+    uam.minor_email_confirm = ""
+    uam.minor_phone_number = ""
+    uam.minor_phone_number_confirm = ""
   end
 end

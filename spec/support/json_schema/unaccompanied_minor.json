@@ -31,7 +31,13 @@
       "other_adults_address",
       "different_address",
       "identification_type",
-      "identification_number"
+      "identification_number",
+      "minor_given_name", 
+      "minor_family_name",
+      "minor_date_of_birth",
+      "minor_contact_type",
+      "minor_email",
+      "minor_phone_number"
     ],
     "properties": {
       "certificate_reference": {
@@ -124,6 +130,9 @@
       },
       "sponsor_date_of_birth": {
         "type": "object",
+        "required": [
+          "3","2","1"
+        ],
         "properties": {
           "1": {
             "type": "integer",
@@ -176,6 +185,52 @@
         "type": "string"
       },
       "identification_number": {
+        "type": "string"
+      },
+      "minor_given_name": {
+        "type": "string"
+      },
+      "minor_family_name": {
+        "type": "string"
+      },
+      "minor_date_of_birth": {
+        "type": "object",
+        "required": [
+          "3","2","1"
+        ],
+        "properties": {
+          "1": {
+            "type": "integer",
+            "minimum": 1900,
+            "maximum": 2200
+          },
+          "2": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 12
+          },
+          "3": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 31
+          }
+        }
+      },
+      "minor_contact_type": {
+        "type": "array",
+        "minItems": 2,
+        "uniqueItems": true
+      },
+      "minor_email": {
+        "type": "email"
+      },
+      "minor_email_confirm": {
+        "type": "email"
+      },
+      "minor_phone_number": {
+        "type": "string"
+      },
+      "minor_phone_number_confirm": {
         "type": "string"
       }
     }
