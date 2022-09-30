@@ -206,12 +206,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       fill_in_name("Jane", "Doe")
 
-      expect(page).to have_content("Have you ever been known by another name?")
-
-      choose("No")
-      click_button("Continue")
-
-      expect(page).to have_content(task_list_content)
+      uam_sponsor_known_by_another_name
     end
 
     it "complete child flow contact details section and save answers to the db" do

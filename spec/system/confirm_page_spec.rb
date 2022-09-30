@@ -24,22 +24,22 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       visit "/sponsor-a-child/steps/1"
 
       expect(page).to have_content("Is the child you want to sponsor under 18?")
-      choose_option_and_continue("Yes")
+      uam_choose_option("Yes")
 
       expect(page).to have_content("Was the child living in Ukraine on or before 31 December 2021?")
-      choose_option_and_continue("Yes")
+      uam_choose_option("Yes")
 
       expect(page).to have_content("Are they travelling to the UK with a parent or legal guardian?")
-      choose_option_and_continue("No")
+      uam_choose_option("No")
 
       expect(page).to have_content("Can you upload both consent forms?")
-      choose_option_and_continue("Yes")
+      uam_choose_option("Yes")
 
       expect(page).to have_content("Can you commit to hosting the child for the minimum period?")
-      choose_option_and_continue("Yes")
+      uam_choose_option("Yes")
 
       expect(page).to have_content("Do you have permission to live in the UK for the minimum period?")
-      choose_option_and_continue("Yes")
+      uam_choose_option("Yes")
 
       expect(page).to have_content("You are eligible to use this service")
       click_link("Start application")
@@ -52,7 +52,7 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       fill_in_name("Tim", "Marsh")
 
       expect(page).to have_content("Have you ever been known by another name?")
-      choose_option_and_continue("No")
+      uam_choose_option("No")
 
       expect(page).to have_content(task_list_content)
       check_sections_complete(0)
@@ -80,14 +80,14 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       click_button("Continue")
 
       expect(page).to have_content("Enter your date of birth")
-      fill_in_dob_and_continue(sponsor_dob)
+      uam_fill_in_date_of_birth(sponsor_dob)
 
       expect(page).to have_content("Enter your nationality")
       select("Denmark", from: "unaccompanied-minor-nationality-field")
       click_button("Continue")
 
       expect(page).to have_content("Have you ever held any other nationalities?")
-      choose_option_and_continue("No")
+      uam_choose_option("No")
 
       expect(page).to have_content(task_list_content)
       check_sections_complete(1)
@@ -101,10 +101,10 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       click_button("Continue")
 
       expect(page).to have_content("Will you be living at this address?")
-      choose_option_and_continue("Yes")
+      uam_choose_option("Yes")
 
       expect(page).to have_content("Will anyone else over the age of 16 be living at this address?")
-      choose_option_and_continue("No")
+      uam_choose_option("No")
 
       expect(page).to have_content(task_list_content)
       check_sections_complete(2)
@@ -121,7 +121,7 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       click_button("Continue")
 
       expect(page).to have_content("Enter their date of birth")
-      fill_in_dob_and_continue(minors_dob)
+      uam_fill_in_date_of_birth(minors_dob)
 
       expect(page).to have_content(task_list_content)
       check_sections_complete(2)
@@ -172,18 +172,6 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       page.set_rack_session(app_reference: nil)
       visit "/sponsor-a-child/confirm"
       expect(page).to have_content("Use this service to apply for approval to sponsor a child fleeing Ukraine, who is not travelling with or joining their parent or legal guardian in the UK.")
-    end
-
-    def choose_option_and_continue(choice)
-      choose(choice)
-      click_button("Continue")
-    end
-
-    def fill_in_dob_and_continue(date)
-      fill_in("Day", with: date.day)
-      fill_in("Month", with: date.month)
-      fill_in("Year", with: date.year)
-      click_button("Continue")
     end
 
     def check_sections_complete(complete_sections)
