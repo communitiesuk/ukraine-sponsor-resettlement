@@ -55,10 +55,7 @@
       "type": "string"
     },
     "different_address": {
-      "enum": [
-        "yes",
-        "no"
-      ]
+      "$ref": "#/$defs/yes_or_no"
     },
     "email": {
       "type": "email"
@@ -70,22 +67,13 @@
       "type": "string"
     },
     "has_other_names": {
-      "enum": [
-        "true",
-        "false"
-      ]
+      "$ref": "#/$defs/true_or_false"
     },
     "has_other_nationalities": {
-      "enum": [
-        "true",
-        "false"
-      ]
+      "$ref": "#/$defs/true_or_false"
     },
     "have_parental_consent": {
-      "enum": [
-        "yes",
-        "no"
-      ]
+      "$ref": "#/$defs/yes_or_no"
     },
     "identification_number": {
       "type": "string"
@@ -97,40 +85,22 @@
       "type": "ipv4"
     },
     "is_committed": {
-      "enum": [
-        "yes",
-        "no"
-      ]
+      "$ref": "#/$defs/yes_or_no"
     },
     "is_consent": {
-      "enum": [
-        "yes",
-        "no"
-      ]
+      "$ref": "#/$defs/yes_or_no"
     },
     "is_living_december": {
-      "enum": [
-        "yes",
-        "no"
-      ]
+      "$ref": "#/$defs/yes_or_no"
     },
     "is_permitted": {
-      "enum": [
-        "yes",
-        "no"
-      ]
+      "$ref": "#/$defs/yes_or_no"
     },
     "is_unaccompanied": {
-      "enum": [
-        "yes",
-        "no"
-      ]
+      "$ref": "#/$defs/yes_or_no"
     },
     "is_under_18": {
-      "enum": [
-        "yes",
-        "no"
-      ]
+      "$ref": "#/$defs/yes_or_no"
     },
     "minor_contact_type": {
       "type": "array",
@@ -156,19 +126,13 @@
       "type": "string"
     },
     "other_adults_address": {
-      "enum": [
-        "yes",
-        "no"
-      ]
+      "$ref": "#/$defs/yes_or_no"
     },
     "phone_number": {
       "type": "string"
     },
     "privacy_statement_confirm": {
-      "enum": [
-        "true",
-        "false"
-      ]
+      "$ref": "#/$defs/true_or_false"
     },
     "reference": {
       "type": "string"
@@ -189,10 +153,7 @@
       "$ref": "#/$defs/date_of_birth"
     },
     "sponsor_declaration": {
-      "enum": [
-        "true",
-        "false"
-      ]
+      "$ref": "#/$defs/true_or_false"
     },
     "started_at": {
       "type": "date-time"
@@ -227,6 +188,18 @@
     }
   },
   "$defs": {
+    "yes_or_no": {
+      "enum": [
+        "yes",
+        "no"
+      ]
+    },
+    "true_or_false": {
+      "enum": [
+        "true",
+        "false"
+      ]
+    },
     "date_of_birth": {
       "type": "object",
       "required": [
@@ -253,5 +226,4 @@
       }
     }
   }
-
 }
