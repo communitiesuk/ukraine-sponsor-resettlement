@@ -138,29 +138,7 @@
       "uniqueItems": true
     },
     "minor_date_of_birth": {
-      "type": "object",
-      "required": [
-        "3",
-        "2",
-        "1"
-      ],
-      "properties": {
-        "1": {
-          "type": "integer",
-          "minimum": 1900,
-          "maximum": 2200
-        },
-        "2": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 12
-        },
-        "3": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 31
-        }
-      }
+      "$ref": "#/$defs/date_of_birth"
     },
     "minor_email": {
       "type": "email"
@@ -208,29 +186,7 @@
       "type": "string"
     },
     "sponsor_date_of_birth": {
-      "type": "object",
-      "required": [
-        "3",
-        "2",
-        "1"
-      ],
-      "properties": {
-        "1": {
-          "type": "integer",
-          "minimum": 1900,
-          "maximum": 2200
-        },
-        "2": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 12
-        },
-        "3": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 31
-        }
-      }
+      "$ref": "#/$defs/date_of_birth"
     },
     "sponsor_declaration": {
       "enum": [
@@ -269,5 +225,33 @@
     "version": {
       "type": "number"
     }
+  },
+  "$defs": {
+    "date_of_birth": {
+      "type": "object",
+      "required": [
+        "3",
+        "2",
+        "1"
+      ],
+      "properties": {
+        "1": {
+          "type": "integer",
+          "minimum": 1900,
+          "maximum": 2200
+        },
+        "2": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 12
+        },
+        "3": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 31
+        }
+      }
+    }
   }
+
 }

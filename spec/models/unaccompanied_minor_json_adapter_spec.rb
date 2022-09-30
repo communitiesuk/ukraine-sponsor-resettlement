@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe UnaccompaniedMinor, type: :model do
   describe "converting an unaccompanied minor to json" do
-    it "validates against the schema" do
+    fit "validates against the schema" do
       app = described_class.new
       app.save!
 
@@ -58,7 +58,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
     uam.sponsor_date_of_birth = {
       3 => 1,
       2 => 6,
-      1 => Time.zone.now.year - 36,
+      1 => Time.zone.now.year - 36
     }
     uam.has_other_nationalities = "false"
     uam.residential_line_1 = "Address line 1"
