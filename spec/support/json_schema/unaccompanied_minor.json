@@ -41,11 +41,9 @@
     "uk_parental_consent_filename",
     "uk_parental_consent_file_size",
     "uk_parental_consent_file_type",
-    "uk_parental_consent_saved_filename",
     "ukraine_parental_consent_filename",
     "ukraine_parental_consent_file_size",
     "ukraine_parental_consent_file_type",
-    "ukraine_parental_consent_saved_filename",
     "user_agent",
     "version"
   ],
@@ -256,9 +254,6 @@
     "uk_parental_consent_file_type": {
       "type": "string"
     },
-    "uk_parental_consent_saved_filename": {
-      "type": "string"
-    },
     "ukraine_parental_consent_filename": {
       "type": "string"
     },
@@ -266,9 +261,6 @@
       "type": "integer"
     },
     "ukraine_parental_consent_file_type": {
-      "type": "string"
-    },
-    "ukraine_parental_consent_saved_filename": {
       "type": "string"
     },
     "user_agent": {

@@ -26,8 +26,10 @@ RSpec.describe UnaccompaniedMinor, type: :model do
     compacted_hash.except!(:minor_phone_number_confirm)
     compacted_hash.except!(:uk_parental_consent_file_upload_rid)
     compacted_hash.except!(:uk_parental_consent_file_uploaded_timestamp)
+    compacted_hash.except!(:uk_parental_consent_saved_filename)
     compacted_hash.except!(:ukraine_parental_consent_file_upload_rid)
     compacted_hash.except!(:ukraine_parental_consent_file_uploaded_timestamp)
+    compacted_hash.except!(:ukraine_parental_consent_saved_filename)
 
     JSON.pretty_generate(compacted_hash)
   end
