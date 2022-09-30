@@ -291,9 +291,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
     given_name = "Child"
     family_name = "Minor"
 
-    fill_in("Given names", with: given_name)
-    fill_in("Family name", with: family_name)
-    click_button("Continue")
+    fill_in_name(given_name, family_name)
 
     expect(page).to have_content("How can we contact the child?")
     expect(page).to have_content("#{given_name} #{family_name}")

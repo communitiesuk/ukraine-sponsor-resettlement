@@ -49,7 +49,7 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       click_link("Name")
 
       expect(page).to have_content("Enter your name")
-      fill_in_name_and_continue("Tim", "Marsh")
+      fill_in_name("Tim", "Marsh")
 
       expect(page).to have_content("Have you ever been known by another name?")
       choose_option_and_continue("No")
@@ -112,7 +112,7 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       click_link("Child's personal details")
 
       expect(page).to have_content("Enter the name of the child you want to sponsor")
-      fill_in_name_and_continue("Minor", "Child")
+      fill_in_name("Minor", "Child")
 
       expect(page).to have_content("How can we contact the child?")
       check("Email")
@@ -176,12 +176,6 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
 
     def choose_option_and_continue(choice)
       choose(choice)
-      click_button("Continue")
-    end
-
-    def fill_in_name_and_continue(given, family)
-      fill_in("Given names", with: given)
-      fill_in("Family name", with: family)
       click_button("Continue")
     end
 
