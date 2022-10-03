@@ -77,6 +77,28 @@ module UnaccompaniedMinorHelpers
     expect(page).to have_content(TASK_LIST_CONTENT)
   end
 
+  def uam_enter_sponsor_additional_details
+    expect(page).to have_content("Do you have any of these identity documents?")
+
+    choose("Passport")
+    fill_in("Passport number", with: "123123123")
+    click_button("Continue")
+
+    expect(page).to have_content("Enter your date of birth")
+
+    uam_fill_in_date_of_birth(Time.zone.now - 21.years)
+
+    expect(page).to have_content("Enter your nationality")
+
+    select("Denmark", from: "unaccompanied-minor-nationality-field")
+    click_button("Continue")
+
+    expect(page).to have_content("Have you ever held any other nationalities?")
+    uam_choose_option("No")
+
+    expect(page).to have_content(TASK_LIST_CONTENT)
+  end
+
   def uam_click_task_list_link(link_text)
     expect(page).to have_content(TASK_LIST_CONTENT)
     click_link(link_text)

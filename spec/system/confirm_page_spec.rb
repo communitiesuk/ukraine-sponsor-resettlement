@@ -28,27 +28,12 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       uam_enter_sponsor_contact_details
       check_sections_complete(0)
 
-      click_link("Additional details")
+      uam_click_task_list_link("Additional details")
 
-      expect(page).to have_content("Do you have any of these identity documents?")
-      choose("Passport")
-      fill_in("Passport number", with: "123123123")
-      click_button("Continue")
-
-      expect(page).to have_content("Enter your date of birth")
-      uam_fill_in_date_of_birth(sponsor_dob)
-
-      expect(page).to have_content("Enter your nationality")
-      select("Denmark", from: "unaccompanied-minor-nationality-field")
-      click_button("Continue")
-
-      expect(page).to have_content("Have you ever held any other nationalities?")
-      uam_choose_option("No")
-
-      expect(page).to have_content(task_list_content)
+      uam_enter_sponsor_additional_details
       check_sections_complete(1)
 
-      click_link("Address")
+      uam_click_task_list_link("Address")
 
       expect(page).to have_content("Enter the address where the child will be living in the UK")
       fill_in("Address line 1", with: "Address line 1")
