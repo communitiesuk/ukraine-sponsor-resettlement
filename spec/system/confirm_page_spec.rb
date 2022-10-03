@@ -34,20 +34,7 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       check_sections_complete(1)
 
       uam_click_task_list_link("Address")
-
-      expect(page).to have_content("Enter the address where the child will be living in the UK")
-      fill_in("Address line 1", with: "Address line 1")
-      fill_in("Town", with: "Address town")
-      fill_in("Postcode", with: "XX1 1XX")
-      click_button("Continue")
-
-      expect(page).to have_content("Will you be living at this address?")
-      uam_choose_option("Yes")
-
-      expect(page).to have_content("Will anyone else over the age of 16 be living at this address?")
-      uam_choose_option("No")
-
-      expect(page).to have_content(task_list_content)
+      uam_enter_residential_address
       check_sections_complete(2)
 
       click_link("Child's personal details")

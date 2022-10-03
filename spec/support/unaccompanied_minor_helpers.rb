@@ -99,6 +99,22 @@ module UnaccompaniedMinorHelpers
     expect(page).to have_content(TASK_LIST_CONTENT)
   end
 
+  def uam_enter_residential_address
+    expect(page).to have_content("Enter the address where the child will be living in the UK")
+    fill_in("Address line 1", with: "Address line 1")
+    fill_in("Town", with: "Address town")
+    fill_in("Postcode", with: "XX1 1XX")
+    click_button("Continue")
+
+    expect(page).to have_content("Will you be living at this address?")
+    uam_choose_option("Yes")
+
+    expect(page).to have_content("Will anyone else over the age of 16 be living at this address?")
+    uam_choose_option("No")
+
+    expect(page).to have_content(TASK_LIST_CONTENT)
+  end
+
   def uam_click_task_list_link(link_text)
     expect(page).to have_content(TASK_LIST_CONTENT)
     click_link(link_text)
