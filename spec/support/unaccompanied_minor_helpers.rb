@@ -48,7 +48,7 @@ module UnaccompaniedMinorHelpers
     expect(page).to have_content(TASK_LIST_CONTENT)
   end
 
-  def uam_enter_sponsor_name(given: "Jane", family: "Sponsor", click_continue: true)
+  def uam_enter_sponsor_name(given: "Spencer", family: "Sponsor", click_continue: true)
     # click_link("Name") #### DONT LIKE THIS HERE NEIL
     expect(page).to have_content("Enter your name")
 
@@ -67,6 +67,22 @@ module UnaccompaniedMinorHelpers
     if click_continue && option == "No"
       expect(page).to have_content(TASK_LIST_CONTENT)
     end
+  end
+
+  def uam_enter_sponsor_contact_details
+    expect(page).to have_content("Enter your email address")
+
+    fill_in("Email", with: "spencer.sponsor@example.com")
+    fill_in("unaccompanied_minor[email_confirm]", with: "spencer.sponsor@example.com")
+    click_button("Continue")
+
+    expect(page).to have_content("Enter your UK phone number")
+
+    fill_in("UK phone number", with: "07123123123")
+    fill_in("Confirm phone number", with: "07123123123")
+    click_button("Continue")
+
+    expect(page).to have_content(TASK_LIST_CONTENT)
   end
 
   def uam_click_task_list_link(link_text)

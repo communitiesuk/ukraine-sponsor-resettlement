@@ -57,19 +57,8 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       expect(page).to have_content(task_list_content)
       check_sections_complete(0)
 
-      click_link("Contact details")
-
-      expect(page).to have_content("Enter your email address")
-      fill_in("Email", with: "test@mail.com")
-      fill_in("unaccompanied_minor[email_confirm]", with: "test@mail.com")
-      click_button("Continue")
-
-      expect(page).to have_content("Enter your UK phone number")
-      fill_in("UK phone number", with: "07123123123")
-      fill_in("Confirm phone number", with: "07123123123")
-      click_button("Continue")
-
-      expect(page).to have_content(task_list_content)
+      uam_click_task_list_link("Contact details")
+      uam_enter_sponsor_contact_details
       check_sections_complete(0)
 
       click_link("Additional details")
