@@ -94,16 +94,57 @@ RSpec.describe "Unaccompanied minor full journey", type: :system do
       uam_fill_in_date_of_birth(minors_dob)
 
       expect(page).to have_content(task_list_content)
+
+      ###############################################
+
+      click_link("Upload UK consent form")
+      expect(page).to have_content("You must upload 2 completed parental consent forms")
+      click_button("Continue")
+
+      expect(page).to have_content("Upload the UK sponsorship arrangement consent form")
+      test_file_path = File.join(File.dirname(__FILE__), "..", "uk-test-document.pdf")
+      attach_file("unaccompanied-minor-uk-parental-consent-field", test_file_path)
+      click_button("Continue")
+
+      click_link("Upload Ukrainian consent form")
+      expect(page).to have_content("Upload the Ukraine certified consent form")
+      test_file_path = File.join(File.dirname(__FILE__), "..", "ukraine-test-document.pdf")
+      attach_file("unaccompanied-minor-ukraine-parental-consent-field", test_file_path)
+      click_button("Continue")
+
+      expect(page).to have_content(task_list_content)
+      # check_sections_complete(3)
+
+      ##################################################
+      click_link("Confirm we can use your data")
+
+      expect(page).to have_content("Confirm you have read the privacy statement and all people involved agree that the information you have provided can be used for the Homes for Ukraine scheme")
+      check("unaccompanied_minor[privacy_statement_confirm]")
+      click_button("Continue")
+
+      expect(page).to have_content(task_list_content)
+
+      click_link("Confirm your eligibility")
+      expect(page).to have_content("Confirm your eligibility to sponsor a child from Ukraine")
+      check("unaccompanied_minor[sponsor_declaration]")
+      click_button("Continue")
+
+      expect(page).to have_content(task_list_content)
+      # check_sections_complete(4)
+
+      click_link("Check your answers and send")
+      expect(page).to have_content("Check your answers before sending your application")
+      ##################################################
+      # app_ref = page.get_rack_session_key("app_reference")
+      # application = UnaccompaniedMinor.find_by_reference(app_ref)
+      # puts JSON.pretty_generate(application.as_json)
+
       ## check_sections_complete(2)
       # navigate_to_child_personal_details_name_entry
       # enter_name_and_continue
       # enter_contact_details_and_continue(email: minors_email, confirm_email: minors_email)
       # enter_date_of_birth_and_continue
       # expect(page).to have_content("completed").once
-
-      # app_ref = page.get_rack_session_key("app_reference")
-      # application = UnaccompaniedMinor.find_by_reference(app_ref)
-      # puts JSON.pretty_generate(application.as_json)
     end
   end
 

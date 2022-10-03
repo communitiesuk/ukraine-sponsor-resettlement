@@ -160,6 +160,7 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
 
       click_link("Check your answers and send")
       expect(page).to have_content("Check your answers before sending your application")
+
       find("button[type=submit]").click
 
       expect(page).to have_content("SPON-")
