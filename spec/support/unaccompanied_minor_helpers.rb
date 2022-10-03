@@ -95,4 +95,37 @@ module UnaccompaniedMinorHelpers
       click_button("Continue")
     end
   end
+
+  def uam_enter_minors_contact_details(email: nil, confirm_email: nil, telephone: nil, confirm_telephone: nil, select_none: false, click_continue: true)
+    expect(page).to have_content("How can we contact the child?")
+
+    if email.present? || confirm_email.present?
+      check("Email")
+    end
+
+    if email.present?
+      fill_in("Email", with: email)
+    end
+
+    if confirm_email.present?
+      fill_in("unaccompanied_minor[minor_email_confirm]", with: confirm_email)
+    end
+
+    if telephone.present?
+      check("Phone")
+      fill_in("Phone number", with: telephone)
+    end
+
+    if confirm_telephone.present?
+      fill_in("unaccompanied_minor[minor_phone_number_confirm]", with: confirm_telephone)
+    end
+
+    if select_none
+      check("They cannot be contacted")
+    end
+
+    if click_continue
+      click_button("Continue")
+    end
+  end
 end
