@@ -385,6 +385,13 @@ class UnaccompaniedMinor < ApplicationRecord
     self.certificate_reference ||= get_formatted_certificate_number
   end
 
+  def prepare_transfer
+    @transferred_at = Time.zone.now
+    save!(validate: false)
+
+    UnaccompaniedMinorTransferAdapter.to_json(as_json)
+  end
+
   def as_json
     {
       reference:,

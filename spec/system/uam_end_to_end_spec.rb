@@ -78,10 +78,6 @@ RSpec.describe "Unaccompanied minor full journey", type: :system do
 
       expect(page).to have_content("How can we contact the child?")
       uam_enter_minors_contact_details(select_none: true)
-      # check("Email")
-      # fill_in("Email", with: "child@example.com")
-      # fill_in("unaccompanied_minor[minor_email_confirm]", with: "child@example.com")
-      # click_button("Continue")
 
       expect(page).to have_content("Enter their date of birth")
       uam_fill_in_date_of_birth(minors_dob)
@@ -127,17 +123,15 @@ RSpec.describe "Unaccompanied minor full journey", type: :system do
 
       click_link("Check your answers and send")
       expect(page).to have_content("Check your answers before sending your application")
+      find("button[type=submit]").click
       ##################################################
-      # app_ref = page.get_rack_session_key("app_reference")
-      # application = UnaccompaniedMinor.find_by_reference(app_ref)
-      # puts JSON.pretty_generate(application.as_json)
+      app_ref = page.get_rack_session_key("app_reference")
+      application = UnaccompaniedMinor.find_by_reference(app_ref)
+      json = application.prepare_transfer
 
-      ## check_sections_complete(2)
-      # navigate_to_child_personal_details_name_entry
-      # enter_name_and_continue
-      # enter_contact_details_and_continue(email: minors_email, confirm_email: minors_email)
-      # enter_date_of_birth_and_continue
-      # expect(page).to have_content("completed").once
+      # puts json
+
+      expect(json).to match_schema("unaccompanied_minor")
     end
   end
 end
