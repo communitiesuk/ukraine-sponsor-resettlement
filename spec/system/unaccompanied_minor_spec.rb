@@ -17,6 +17,22 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
   end
 
+  describe "app_reference is checked in middleware" do
+    it "can view the task list when app_reference is present" do
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
+      page.set_rack_session(app_reference: new_application.reference)
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_current_path("/sponsor-a-child/task-list")
+      expect(page).to have_content(task_list_content)
+    end
+
+    it "redirected to sponsor-a-child when app_reference is not present" do
+      visit "/sponsor-a-child/task-list"
+      expect(page).to have_current_path("/sponsor-a-child")
+    end
+  end
+
   describe "cancelling the application" do
     it "updates the application as cancelled" do
       new_application = UnaccompaniedMinor.new
@@ -828,7 +844,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       choose("I don't have any of these")
 
       click_button("Continue")
-      expect(page).to have_content("What can you use to prove your identity?")
+      expect(page).to have_content("Can you prove your identity?")
 
       saved_application = UnaccompaniedMinor.find_by_reference(application.reference)
       expect(saved_application.identification_type).to eq("none")
