@@ -35,7 +35,7 @@ RSpec.describe "Unaccompanied minor full journey", type: :system do
       # check_sections_complete(2)
       #####################################
 
-      click_link("Child's personal details")
+      uam_click_task_list_link("Child's personal details")
 
       expect(page).to have_content("Enter the name of the child you want to sponsor")
       fill_in_name("Minor", "Child")

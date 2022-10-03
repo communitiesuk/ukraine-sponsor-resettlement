@@ -37,18 +37,8 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       uam_enter_residential_address
       check_sections_complete(2)
 
-      click_link("Child's personal details")
-
-      expect(page).to have_content("Enter the name of the child you want to sponsor")
-      fill_in_name("Minor", "Child")
-
-      expect(page).to have_content("How can we contact the child?")
-      uam_enter_minors_contact_details(email: "child@example.com", confirm_email: "child@example.com")
-
-      expect(page).to have_content("Enter their date of birth")
-      uam_fill_in_date_of_birth(minors_dob)
-
-      expect(page).to have_content(task_list_content)
+      uam_click_task_list_link("Child's personal details")
+      uam_enter_childs_personal_details
       check_sections_complete(2)
 
       click_link("Upload UK consent form")

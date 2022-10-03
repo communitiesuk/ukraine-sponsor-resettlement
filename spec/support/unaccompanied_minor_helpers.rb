@@ -115,6 +115,19 @@ module UnaccompaniedMinorHelpers
     expect(page).to have_content(TASK_LIST_CONTENT)
   end
 
+  def uam_enter_childs_personal_details
+    expect(page).to have_content("Enter the name of the child you want to sponsor")
+    fill_in_name("Milly", "Minor")
+
+    expect(page).to have_content("How can we contact the child?")
+    uam_enter_minors_contact_details(select_none: true)
+
+    expect(page).to have_content("Enter their date of birth")
+    uam_fill_in_date_of_birth(Time.zone.now - 4.years)
+
+    expect(page).to have_content(TASK_LIST_CONTENT)
+  end
+
   def uam_click_task_list_link(link_text)
     expect(page).to have_content(TASK_LIST_CONTENT)
     click_link(link_text)
