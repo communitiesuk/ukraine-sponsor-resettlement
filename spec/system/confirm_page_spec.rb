@@ -16,45 +16,12 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
     end
 
     it "shows reference number on confirm page" do
-      visit "/sponsor-a-child/start"
+      uam_enter_valid_complete_eligibity_section
+      uam_start_page_to_task_list
+      uam_click_task_list_link("Name")
+      uam_enter_sponsor_name
+      uam_sponsor_known_by_another_name
 
-      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
-      click_link("Start now")
-
-      visit "/sponsor-a-child/steps/1"
-
-      expect(page).to have_content("Is the child you want to sponsor under 18?")
-      uam_choose_option("Yes")
-
-      expect(page).to have_content("Was the child living in Ukraine on or before 31 December 2021?")
-      uam_choose_option("Yes")
-
-      expect(page).to have_content("Are they travelling to the UK with a parent or legal guardian?")
-      uam_choose_option("No")
-
-      expect(page).to have_content("Can you upload both consent forms?")
-      uam_choose_option("Yes")
-
-      expect(page).to have_content("Can you commit to hosting the child for the minimum period?")
-      uam_choose_option("Yes")
-
-      expect(page).to have_content("Do you have permission to live in the UK for the minimum period?")
-      uam_choose_option("Yes")
-
-      expect(page).to have_content("You are eligible to use this service")
-      click_link("Start application")
-
-      expect(page).to have_content(task_list_content)
-
-      click_link("Name")
-
-      expect(page).to have_content("Enter your name")
-      fill_in_name("Tim", "Marsh")
-
-      expect(page).to have_content("Have you ever been known by another name?")
-      uam_choose_option("No")
-
-      expect(page).to have_content(task_list_content)
       check_sections_complete(0)
 
       uam_click_task_list_link("Contact details")

@@ -140,7 +140,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
 
     it "takes the user to the end of eligibility path" do
-      uam_complete_eligibity_section
+      uam_enter_valid_complete_eligibity_section
     end
 
     it "shows eligibility question 3 if 2 is answered NO" do

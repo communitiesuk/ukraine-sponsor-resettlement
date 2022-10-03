@@ -3,7 +3,7 @@ module UnaccompaniedMinorHelpers
   TASK_LIST_CONTENT = "Apply for approval to provide a safe home for a child from Ukraine".freeze
   SPONSOR_OTHER_NAME_CONTENT = "Have you ever been known by another name?".freeze
 
-  def uam_complete_eligibity_section
+  def uam_enter_valid_complete_eligibity_section
     visit "/sponsor-a-child/start"
     expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
 
@@ -13,29 +13,21 @@ module UnaccompaniedMinorHelpers
 
     click_link("Continue")
 
-    # step 1
     expect(page).to have_content("Is the child you want to sponsor under 18?")
     uam_choose_option("Yes")
 
-    # step 2
     expect(page).to have_content("Was the child living in Ukraine on or before 31 December 2021?")
     uam_choose_option("Yes")
 
-    # step 3 is skipped in this instance
-
-    # step 4
     expect(page).to have_content("Are they travelling to the UK with a parent or legal guardian?")
     uam_choose_option("No")
 
-    # step 5
     expect(page).to have_content("Can you upload both consent forms?")
     uam_choose_option("Yes")
 
-    # step 6
     expect(page).to have_content("Can you commit to hosting the child for the minimum period?")
     uam_choose_option("Yes")
 
-    # step 7
     expect(page).to have_content("Do you have permission to live in the UK for the minimum period?")
     uam_choose_option("Yes")
 
@@ -86,6 +78,7 @@ module UnaccompaniedMinorHelpers
   end
 
   def uam_click_task_list_link(link_text)
+    expect(page).to have_content(TASK_LIST_CONTENT)
     click_link(link_text)
   end
 

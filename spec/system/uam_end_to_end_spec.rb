@@ -8,7 +8,7 @@ RSpec.describe "Unaccompanied minor full journey", type: :system do
 
   describe "entering minimum valid details" do
     it "creates valid JSON to transfer to foundry" do
-      uam_complete_eligibity_section
+      uam_enter_valid_complete_eligibity_section
       uam_start_page_to_task_list
       uam_click_task_list_link("Name")
       uam_enter_sponsor_name
@@ -16,18 +16,8 @@ RSpec.describe "Unaccompanied minor full journey", type: :system do
 
       ## SEE confirm_page_spec for duplication!
       #### Contact details
-      click_link("Contact details")
-
-      expect(page).to have_content("Enter your email address")
-      fill_in("Email", with: "sponsor@example.com")
-      fill_in("unaccompanied_minor[email_confirm]", with: "sponsor@example.com")
-      click_button("Continue")
-
-      expect(page).to have_content("Enter your UK phone number")
-      fill_in("UK phone number", with: "07123123123")
-      fill_in("Confirm phone number", with: "07123123123")
-      click_button("Continue")
-      expect(page).to have_content(task_list_content)
+      uam_click_task_list_link("Contact details")
+      uam_enter_sponsor_contact_details
       # check_sections_complete(0)
       ###########################
 
