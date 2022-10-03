@@ -10,6 +10,7 @@ RSpec.describe "Unaccompanied minor full journey", type: :system do
     it "creates valid JSON to transfer to foundry" do
       uam_complete_eligibity_section
       uam_start_page_to_task_list
+      uam_click_task_list_link("Name")
       uam_enter_sponsor_name
       uam_sponsor_known_by_another_name
 
