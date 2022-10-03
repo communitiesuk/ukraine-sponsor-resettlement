@@ -14,7 +14,7 @@ require "action_view/railtie"
 # require "action_cable/engine"
 # require "sprockets/railtie"
 # require "rails/test_unit/railtie"
-
+require_relative "../lib/session_check"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -31,5 +31,6 @@ module UkraineSponsorResettlement
     config.exceptions_app = self.routes
 
     config.active_job.queue_adapter = :sidekiq
+    config.middleware.use SessionCheck
   end
 end

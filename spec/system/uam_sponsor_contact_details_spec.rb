@@ -10,6 +10,7 @@ RSpec.describe "Sponsor contact details", type: :system do
   let(:sponsor_email) { "sponsor@example.com" }
   let(:nonmatching_sponsor_email) { "notmatching@example.com" }
   let(:phone_page_content) { "Enter your UK phone number" }
+  let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine" }
 
   describe "Sponsors contact details don't match" do
     it "shows error message for not matching email addresses" do
