@@ -4,13 +4,17 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
-require "rspec/rails"
-# Add additional requires below this line. Rails is not loaded until this point!
 if ENV["RAILS_ENV"] == "test"
   require "simplecov"
   SimpleCov.start "rails"
+  # NB the lib and app/services files must be loaded explicitly in order for
+  # coverage of these files to work correctly.
+  Dir[Rails.root.join("lib/*.rb")].each { |file| load file }
+  Dir[Rails.root.join("app/services/*.rb")].each { |file| load file }
   puts "Code coverage enabled"
 end
+require "rspec/rails"
+# Add additional requires below this line. Rails is not loaded until this point!
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
