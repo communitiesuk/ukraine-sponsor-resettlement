@@ -46,7 +46,6 @@ module UnaccompaniedMinorHelpers
   end
 
   def uam_enter_sponsor_name(given: "Spencer", family: "Sponsor", click_continue: true)
-    # click_link("Name") #### DONT LIKE THIS HERE NEIL
     expect(page).to have_content("Enter your name")
 
     fill_in_name(given, family, click_continue:)
@@ -64,6 +63,16 @@ module UnaccompaniedMinorHelpers
     if click_continue && option == "No"
       expect(page).to have_content(TASK_LIST_CONTENT)
     end
+  end
+
+  def uam_sponsor_known_by_another_name_2(option = "No", click_continue: true)
+    expect(page).to have_content(SPONSOR_OTHER_NAME_CONTENT)
+
+    uam_choose_option(option, click_continue:)
+    fill_in_name("Another", "Sponsor")
+    click_link("Continue")
+
+    expect(page).to have_content(TASK_LIST_CONTENT)
   end
 
   def uam_enter_sponsor_contact_details

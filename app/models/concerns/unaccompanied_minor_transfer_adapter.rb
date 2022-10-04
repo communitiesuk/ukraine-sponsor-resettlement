@@ -46,7 +46,16 @@ class UnaccompaniedMinorTransferAdapter
     version
   ].freeze
 
+  OPTIONAL_KEYS = %i[
+    other_names
+  ].freeze
+
   def self.to_json(uam_hash)
-    JSON.generate(uam_hash.slice(*REQUIRED_KEYS))
+    all_keys = REQUIRED_KEYS + OPTIONAL_KEYS
+    Rails.logger.debug JSON.pretty_generate(uam_hash)
+    Rails.logger.debug "***************************************************"
+    Rails.logger.debug JSON.pretty_generate(uam_hash.slice(*all_keys))
+
+    JSON.generate(uam_hash.slice(*all_keys))
   end
 end
