@@ -1,0 +1,229 @@
+{
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "certificate_reference",
+    "created_at",
+    "different_address",
+    "email",
+    "family_name",
+    "given_name",
+    "has_other_names",
+    "has_other_nationalities",
+    "have_parental_consent",
+    "identification_number",
+    "identification_type",
+    "ip_address",
+    "is_committed",
+    "is_consent",
+    "is_living_december",
+    "is_permitted",
+    "is_unaccompanied",
+    "is_under_18",
+    "minor_contact_type",
+    "minor_date_of_birth",
+    "minor_email",
+    "minor_family_name",
+    "minor_given_name",
+    "minor_phone_number",
+    "nationality",
+    "other_adults_address",
+    "phone_number",
+    "privacy_statement_confirm",
+    "reference",
+    "residential_line_1",
+    "residential_postcode",
+    "residential_town",
+    "sponsor_date_of_birth",
+    "sponsor_declaration",
+    "started_at",
+    "type",
+    "uk_parental_consent_filename",
+    "uk_parental_consent_file_size",
+    "uk_parental_consent_file_type",
+    "ukraine_parental_consent_filename",
+    "ukraine_parental_consent_file_size",
+    "ukraine_parental_consent_file_type",
+    "user_agent",
+    "version"
+  ],
+  "properties": {
+    "certificate_reference": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "different_address": {
+      "$ref": "#/$defs/yes_or_no"
+    },
+    "email": {
+      "type": "email"
+    },
+    "family_name": {
+      "type": "string"
+    },
+    "given_name": {
+      "type": "string"
+    },
+    "has_other_names": {
+      "$ref": "#/$defs/true_or_false"
+    },
+    "has_other_nationalities": {
+      "$ref": "#/$defs/true_or_false"
+    },
+    "have_parental_consent": {
+      "$ref": "#/$defs/yes_or_no"
+    },
+    "identification_number": {
+      "type": "string"
+    },
+    "identification_type": {
+      "type": "string"
+    },
+    "ip_address": {
+      "type": "ipv4"
+    },
+    "is_committed": {
+      "$ref": "#/$defs/yes_or_no"
+    },
+    "is_consent": {
+      "$ref": "#/$defs/yes_or_no"
+    },
+    "is_living_december": {
+      "$ref": "#/$defs/yes_or_no"
+    },
+    "is_permitted": {
+      "$ref": "#/$defs/yes_or_no"
+    },
+    "is_unaccompanied": {
+      "$ref": "#/$defs/yes_or_no"
+    },
+    "is_under_18": {
+      "$ref": "#/$defs/yes_or_no"
+    },
+    "minor_contact_type": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true
+    },
+    "minor_date_of_birth": {
+      "$ref": "#/$defs/date_of_birth"
+    },
+    "minor_email": {
+      "type": "email"
+    },
+    "minor_family_name": {
+      "type": "string"
+    },
+    "minor_given_name": {
+      "type": "string"
+    },
+    "minor_phone_number": {
+      "type": "string"
+    },
+    "nationality": {
+      "type": "string"
+    },
+    "other_adults_address": {
+      "$ref": "#/$defs/yes_or_no"
+    },
+    "phone_number": {
+      "type": "string"
+    },
+    "privacy_statement_confirm": {
+      "$ref": "#/$defs/true_or_false"
+    },
+    "reference": {
+      "type": "string"
+    },
+    "residential_line_1": {
+      "type": "string"
+    },
+    "residential_line_2": {
+      "type": "string"
+    },
+    "residential_postcode": {
+      "type": "string"
+    },
+    "residential_town": {
+      "type": "string"
+    },
+    "sponsor_date_of_birth": {
+      "$ref": "#/$defs/date_of_birth"
+    },
+    "sponsor_declaration": {
+      "$ref": "#/$defs/true_or_false"
+    },
+    "started_at": {
+      "type": "date-time"
+    },
+    "type": {
+      "type": "string",
+      "pattern": "^unaccompanied_minor$"
+    },
+    "uk_parental_consent_filename": {
+      "type": "string"
+    },
+    "uk_parental_consent_file_size": {
+      "type": "integer"
+    },
+    "uk_parental_consent_file_type": {
+      "type": "string"
+    },
+    "ukraine_parental_consent_filename": {
+      "type": "string"
+    },
+    "ukraine_parental_consent_file_size": {
+      "type": "integer"
+    },
+    "ukraine_parental_consent_file_type": {
+      "type": "string"
+    },
+    "user_agent": {
+      "type": "string"
+    },
+    "version": {
+      "type": "number"
+    }
+  },
+  "$defs": {
+    "yes_or_no": {
+      "enum": [
+        "yes",
+        "no"
+      ]
+    },
+    "true_or_false": {
+      "enum": [
+        "true",
+        "false"
+      ]
+    },
+    "date_of_birth": {
+      "type": "object",
+      "required": [
+        "3",
+        "2",
+        "1"
+      ],
+      "properties": {
+        "1": {
+          "type": "integer",
+          "minimum": 1900,
+          "maximum": 2200
+        },
+        "2": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 12
+        },
+        "3": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 31
+        }
+      }
+    }
+  }
+}
