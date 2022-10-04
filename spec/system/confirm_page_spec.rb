@@ -42,22 +42,7 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       check_sections_complete(2)
 
       uam_click_task_list_link("Upload UK consent form")
-      expect(page).to have_content("You must upload 2 completed parental consent forms")
-      click_button("Continue")
-
-      expect(page).to have_content("Upload the UK sponsorship arrangement consent form")
-      test_file_path = File.join(File.dirname(__FILE__), "..", "uk-test-document.pdf")
-      attach_file("unaccompanied-minor-uk-parental-consent-field", test_file_path)
-      click_button("Continue")
-
-      click_link("Upload Ukrainian consent form")
-
-      expect(page).to have_content("Upload the Ukraine certified consent form")
-      test_file_path = File.join(File.dirname(__FILE__), "..", "ukraine-test-document.pdf")
-      attach_file("unaccompanied-minor-ukraine-parental-consent-field", test_file_path)
-      click_button("Continue")
-
-      expect(page).to have_content(task_list_content)
+      uam_upload_consent_forms
       check_sections_complete(3)
 
       click_link("Confirm we can use your data")
