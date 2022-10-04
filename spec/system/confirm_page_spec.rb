@@ -128,8 +128,11 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       app_ref = page.get_rack_session_key("app_reference")
       application = UnaccompaniedMinor.find_by_reference(app_ref)
       json = application.prepare_transfer
+      json_object = JSON.parse(json)
+      puts json_object.keys
 
       expect(json).to match_schema("unaccompanied_minor")
+      expect(json_object.keys).to include("other_names")
     end
   end
 end
