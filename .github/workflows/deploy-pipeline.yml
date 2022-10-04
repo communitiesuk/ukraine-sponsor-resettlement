@@ -80,7 +80,7 @@ jobs:
         run: |
           bundle exec rake
       - name: Test coverage
-      - uses: joshmfrankel/simplecov-check-action@main
+        uses: joshmfrankel/simplecov-check-action@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           minimum_suite_coverage: 83
