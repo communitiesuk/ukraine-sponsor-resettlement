@@ -41,7 +41,7 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       uam_enter_childs_personal_details
       check_sections_complete(2)
 
-      click_link("Upload UK consent form")
+      uam_click_task_list_link("Upload UK consent form")
       expect(page).to have_content("You must upload 2 completed parental consent forms")
       click_button("Continue")
 
