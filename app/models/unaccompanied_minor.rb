@@ -130,11 +130,9 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
   def number_of_adults?
-    if @adults_at_address.length > 1
-      "#{@adults_at_address.length} people"
-    else
-      "1 person"
-    end
+    count = @adults_at_address.nil? ? 0 : @adults_at_address.length
+
+    "#{count} #{'person'.pluralize(count)}"
   end
 
   def number_of_sections?
