@@ -79,6 +79,9 @@ jobs:
       - name: Run tests
         run: |
           bundle exec rake
+      - uses: joshmfrankel/simplecov-check-action@main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
   lint:
     name: Lint
@@ -187,7 +190,7 @@ jobs:
         env:
           APP_NAME: ukraine-sponsor-resettlement-staging
           GOVUK_NOTIFY_SMS_API_KEY: ${{ secrets.GOVUK_NOTIFY_SMS_API_KEY }}
-        
+
         run: |
           cf api $CF_API_ENDPOINT
           cf auth
