@@ -3,7 +3,7 @@ module UnaccompaniedMinorHelpers
   TASK_LIST_CONTENT = "Apply for approval to provide a safe home for a child from Ukraine".freeze
   SPONSOR_OTHER_NAME_CONTENT = "Have you ever been known by another name?".freeze
 
-  def uam_enter_valid_complete_eligibity_section
+  def uam_enter_valid_complete_eligibility_section
     visit "/sponsor-a-child/start"
     expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
 

@@ -5,7 +5,7 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
     end
 
     it "shows reference number on confirm page" do
-      uam_enter_valid_complete_eligibity_section
+      uam_enter_valid_complete_eligibility_section
       uam_start_page_to_task_list
 
       uam_click_task_list_link("Name")
