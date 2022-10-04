@@ -113,6 +113,30 @@ module UnaccompaniedMinorHelpers
     expect(page).to have_content(TASK_LIST_CONTENT)
   end
 
+  def uam_enter_sponsor_additional_details_no_ID_doc
+    expect(page).to have_content("Do you have any of these identity documents?")
+
+    choose("I don't have any of these")
+    click_button("Continue")
+
+    fill_in("unaccompanied_minor[no_identification_reason]", with: "Dog ate them all")
+    click_button("Continue")
+
+    expect(page).to have_content("Enter your date of birth")
+
+    uam_fill_in_date_of_birth(Time.zone.now - 21.years)
+
+    expect(page).to have_content("Enter your nationality")
+
+    select("Denmark", from: "unaccompanied-minor-nationality-field")
+    click_button("Continue")
+
+    expect(page).to have_content("Have you ever held any other nationalities?")
+    uam_choose_option("No")
+
+    expect(page).to have_content(TASK_LIST_CONTENT)
+  end
+
   def uam_enter_residential_address
     expect(page).to have_content("Enter the address where the child will be living in the UK")
     fill_in("Address line 1", with: "Address line 1")

@@ -85,7 +85,7 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       check_sections_complete(0)
 
       uam_click_task_list_link("Additional details")
-      uam_enter_sponsor_additional_details
+      uam_enter_sponsor_additional_details_no_ID_doc
       check_sections_complete(1)
 
       uam_click_task_list_link("Address")
@@ -129,9 +129,12 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       application = UnaccompaniedMinor.find_by_reference(app_ref)
       json = application.prepare_transfer
       json_object = JSON.parse(json)
+      puts json_object
 
       expect(json).to match_schema("unaccompanied_minor")
-      expect(json_object.keys).to include("other_names")
+      expect(json_object.keys).to include("other_names", "no_identification_reason")
     end
   end
+
+  
 end
