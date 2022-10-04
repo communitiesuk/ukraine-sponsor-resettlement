@@ -56,14 +56,6 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
     def check_sections_complete(complete_sections)
       expect(page).to have_content("You have completed #{complete_sections} of 4 sections.")
     end
-
-    def assert_transfer_json_is_valid
-      app_ref = page.get_rack_session_key("app_reference")
-      application = UnaccompaniedMinor.find_by_reference(app_ref)
-      json = application.prepare_transfer
-
-      expect(json).to match_schema("unaccompanied_minor")
-    end
   end
 
   describe "user completes their application with MAX valid details" do
@@ -72,6 +64,8 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
     end
 
     it "whole end to end journey" do
+      optional_keys = %w[other_names no_identification_reason]
+
       uam_enter_valid_complete_eligibility_section
       uam_start_page_to_task_list
 
@@ -110,7 +104,7 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       uam_click_task_list_link("Check your answers and send")
       uam_check_answers_and_submit
 
-      assert_transfer_json_is_valid
+      assert_transfer_json_is_valid(optional_keys)
 
       visit "/sponsor-a-child/confirm"
       expect(page).to have_content("SPON-")
@@ -123,16 +117,19 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
     def check_sections_complete(complete_sections)
       expect(page).to have_content("You have completed #{complete_sections} of 4 sections.")
     end
+  end
 
-    def assert_transfer_json_is_valid
-      app_ref = page.get_rack_session_key("app_reference")
-      application = UnaccompaniedMinor.find_by_reference(app_ref)
-      json = application.prepare_transfer
+  def assert_transfer_json_is_valid(optional_keys = [])
+    app_ref = page.get_rack_session_key("app_reference")
+    application = UnaccompaniedMinor.find_by_reference(app_ref)
+    json = application.prepare_transfer
+
+    expect(json).to match_schema("unaccompanied_minor")
+
+    unless optional_keys.empty?
       json_object = JSON.parse(json)
-      puts json_object
-
-      expect(json).to match_schema("unaccompanied_minor")
-      expect(json_object.keys).to include("other_names", "no_identification_reason")
+      # puts json_object
+      expect(json_object.keys).to include(*optional_keys)
     end
   end
 end
