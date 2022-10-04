@@ -34,6 +34,11 @@ module UnaccompaniedMinorHelpers
     expect(page).to have_content(START_PAGE_CONTENT)
   end
 
+  def uam_click_task_list_link(link_text)
+    expect(page).to have_content(TASK_LIST_CONTENT)
+    click_link(link_text)
+  end
+
   def uam_start_page_to_task_list
     expect(page).to have_content(START_PAGE_CONTENT)
     click_link("Start application")
@@ -146,9 +151,30 @@ module UnaccompaniedMinorHelpers
     expect(page).to have_content(TASK_LIST_CONTENT)
   end
 
-  def uam_click_task_list_link(link_text)
+  def uam_confirm_privacy_statement
+    expect(page).to have_content("Confirm you have read the privacy statement and all people involved agree that the information you have provided can be used for the Homes for Ukraine scheme")
+
+    check("unaccompanied_minor[privacy_statement_confirm]")
+    click_button("Continue")
+
     expect(page).to have_content(TASK_LIST_CONTENT)
-    click_link(link_text)
+  end
+
+  def uam_confirm_eligibilty
+    expect(page).to have_content("Confirm your eligibility to sponsor a child from Ukraine")
+
+    check("unaccompanied_minor[sponsor_declaration]")
+    click_button("Continue")
+
+    expect(page).to have_content(TASK_LIST_CONTENT)
+  end
+
+  def uam_check_answers_and_submit
+    expect(page).to have_content("Check your answers before sending your application")
+
+    find("button[type=submit]").click
+
+    expect(page).to have_content("SPON-")
   end
 
   def fill_in_name(given, family, click_continue: true)
