@@ -10,7 +10,7 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
 
       uam_click_task_list_link("Name")
       uam_enter_sponsor_name
-      uam_sponsor_known_by_another_name
+      uam_enter_sponsor_not_known_by_another_name
       check_sections_complete(0)
 
       uam_click_task_list_link("Contact details")
@@ -77,7 +77,7 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
 
       uam_click_task_list_link("Name")
       uam_enter_sponsor_name
-      uam_sponsor_known_by_another_name_2("Yes")
+      uam_enter_sponsor_other_name
       check_sections_complete(0)
 
       uam_click_task_list_link("Contact details")
@@ -129,7 +129,6 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       application = UnaccompaniedMinor.find_by_reference(app_ref)
       json = application.prepare_transfer
       json_object = JSON.parse(json)
-      puts json_object.keys
 
       expect(json).to match_schema("unaccompanied_minor")
       expect(json_object.keys).to include("other_names")

@@ -55,21 +55,21 @@ module UnaccompaniedMinorHelpers
     end
   end
 
-  def uam_sponsor_known_by_another_name(option = "No", click_continue: true)
+  def uam_enter_sponsor_not_known_by_another_name(click_continue: true)
     expect(page).to have_content(SPONSOR_OTHER_NAME_CONTENT)
 
-    uam_choose_option(option, click_continue:)
+    uam_choose_option("No", click_continue:)
 
-    if click_continue && option == "No"
+    if click_continue
       expect(page).to have_content(TASK_LIST_CONTENT)
     end
   end
 
-  def uam_sponsor_known_by_another_name_2(option = "No", click_continue: true)
+  def uam_enter_sponsor_other_name
     expect(page).to have_content(SPONSOR_OTHER_NAME_CONTENT)
 
-    uam_choose_option(option, click_continue:)
-    fill_in_name("Another", "Sponsor")
+    uam_choose_option("Yes")
+    fill_in_name("Another", "Sponsor", click_continue: true)
     click_link("Continue")
 
     expect(page).to have_content(TASK_LIST_CONTENT)
