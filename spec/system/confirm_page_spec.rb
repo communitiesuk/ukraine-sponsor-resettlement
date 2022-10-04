@@ -85,7 +85,7 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       check_sections_complete(0)
 
       uam_click_task_list_link("Additional details")
-      uam_enter_sponsor_additional_details_no_ID_doc
+      uam_enter_sponsor_additional_details("I don't have any of these")
       check_sections_complete(1)
 
       uam_click_task_list_link("Address")
@@ -135,6 +135,4 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       expect(json_object.keys).to include("other_names", "no_identification_reason")
     end
   end
-
-  
 end

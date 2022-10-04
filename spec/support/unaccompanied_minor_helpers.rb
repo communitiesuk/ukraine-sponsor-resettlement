@@ -91,36 +91,26 @@ module UnaccompaniedMinorHelpers
     expect(page).to have_content(TASK_LIST_CONTENT)
   end
 
-  def uam_enter_sponsor_additional_details
-    expect(page).to have_content("Do you have any of these identity documents?")
+  def uam_sponsor_id_documents(option)
+    choose(option)
 
-    choose("Passport")
-    fill_in("Passport number", with: "123123123")
+    if option != "I don't have any of these"
+      fill_in("#{option} number", with: "123123123")
+    end
+
     click_button("Continue")
 
-    expect(page).to have_content("Enter your date of birth")
-
-    uam_fill_in_date_of_birth(Time.zone.now - 21.years)
-
-    expect(page).to have_content("Enter your nationality")
-
-    select("Denmark", from: "unaccompanied-minor-nationality-field")
-    click_button("Continue")
-
-    expect(page).to have_content("Have you ever held any other nationalities?")
-    uam_choose_option("No")
-
-    expect(page).to have_content(TASK_LIST_CONTENT)
+    if option == "I don't have any of these"
+      expect(page).to have_content("Can you prove your identity?")
+      fill_in("unaccompanied_minor[no_identification_reason]", with: "Dog ate them all")
+      click_button("Continue")
+    end
   end
 
-  def uam_enter_sponsor_additional_details_no_ID_doc
+  def uam_enter_sponsor_additional_details(option = "Passport")
     expect(page).to have_content("Do you have any of these identity documents?")
 
-    choose("I don't have any of these")
-    click_button("Continue")
-
-    fill_in("unaccompanied_minor[no_identification_reason]", with: "Dog ate them all")
-    click_button("Continue")
+    uam_sponsor_id_documents(option)
 
     expect(page).to have_content("Enter your date of birth")
 
