@@ -89,7 +89,7 @@
       </div>
     </dl>
 
-    <% if @application.property_one_line_1.present? && @application.different_address.upcase == "YES" %>
+    <% if @application.property_one_line_1.present? && @application.different_address.present? && @application.different_address.upcase == "YES" %>
       <h2 class="govuk-heading-m">Host property details</h2>
 
       <dl class="govuk-summary-list govuk-!-margin-bottom-9">
