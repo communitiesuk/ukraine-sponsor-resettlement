@@ -46,7 +46,6 @@ module UnaccompaniedMinorHelpers
   end
 
   def uam_enter_sponsor_name(given: "Spencer", family: "Sponsor", click_continue: true)
-    # click_link("Name") #### DONT LIKE THIS HERE NEIL
     expect(page).to have_content("Enter your name")
 
     fill_in_name(given, family, click_continue:)
@@ -56,14 +55,24 @@ module UnaccompaniedMinorHelpers
     end
   end
 
-  def uam_sponsor_known_by_another_name(option = "No", click_continue: true)
+  def uam_enter_sponsor_not_known_by_another_name(click_continue: true)
     expect(page).to have_content(SPONSOR_OTHER_NAME_CONTENT)
 
-    uam_choose_option(option, click_continue:)
+    uam_choose_option("No", click_continue:)
 
-    if click_continue && option == "No"
+    if click_continue
       expect(page).to have_content(TASK_LIST_CONTENT)
     end
+  end
+
+  def uam_enter_sponsor_other_name
+    expect(page).to have_content(SPONSOR_OTHER_NAME_CONTENT)
+
+    uam_choose_option("Yes")
+    fill_in_name("Another", "Sponsor", click_continue: true)
+    click_link("Continue")
+
+    expect(page).to have_content(TASK_LIST_CONTENT)
   end
 
   def uam_enter_sponsor_contact_details
@@ -82,26 +91,63 @@ module UnaccompaniedMinorHelpers
     expect(page).to have_content(TASK_LIST_CONTENT)
   end
 
-  def uam_enter_sponsor_additional_details
+  def uam_enter_sponsor_identity_documents(option)
     expect(page).to have_content("Do you have any of these identity documents?")
 
-    choose("Passport")
-    fill_in("Passport number", with: "123123123")
+    choose(option)
+
+    if option == "I don't have any of these"
+      click_button("Continue")
+      expect(page).to have_content("Can you prove your identity?")
+      fill_in("unaccompanied_minor[no_identification_reason]", with: "Dog ate them all")
+      click_button("Continue")
+    else
+      fill_in("#{option} number", with: "123123123")
+    end
+
     click_button("Continue")
+  end
+
+  def uam_enter_sponsor_additional_details(
+    id_option: "Passport",
+    nationality: "Denmark", other_nationalities: []
+  )
+    uam_enter_sponsor_identity_documents(id_option)
 
     expect(page).to have_content("Enter your date of birth")
-
     uam_fill_in_date_of_birth(Time.zone.now - 21.years)
 
+    uam_enter_sponsor_nationalities(nationality:, other_nationalities:)
+
+    expect(page).to have_content(TASK_LIST_CONTENT)
+  end
+
+  def uam_enter_sponsor_nationalities(nationality: "Denmark", other_nationalities: nil)
     expect(page).to have_content("Enter your nationality")
 
-    select("Denmark", from: "unaccompanied-minor-nationality-field")
+    select(nationality, from: "unaccompanied-minor-nationality-field")
     click_button("Continue")
 
     expect(page).to have_content("Have you ever held any other nationalities?")
-    uam_choose_option("No")
 
-    expect(page).to have_content(TASK_LIST_CONTENT)
+    if other_nationalities.blank?
+      uam_choose_option("No")
+    else
+      uam_choose_option("Yes")
+
+      other_nationalities.each_with_index do |element, index|
+        expect(page).to have_content("Enter your other nationality")
+        select(element, from: "unaccompanied-minor-other-nationality-field")
+        click_button("Continue")
+        expect(page).to have_content("Other nationalities")
+
+        if (index + 1) < other_nationalities.length
+          click_link("Add another nationality")
+        else
+          click_link("Continue")
+        end
+      end
+    end
   end
 
   def uam_enter_residential_address

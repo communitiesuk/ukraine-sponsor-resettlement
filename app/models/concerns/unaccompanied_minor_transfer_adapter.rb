@@ -46,7 +46,18 @@ class UnaccompaniedMinorTransferAdapter
     version
   ].freeze
 
+  OPTIONAL_KEYS = %i[
+    other_names
+    no_identification_reason
+    other_nationalities
+  ].freeze
+
   def self.to_json(uam_hash)
-    JSON.generate(uam_hash.slice(*REQUIRED_KEYS))
+    all_keys = REQUIRED_KEYS + OPTIONAL_KEYS
+    # puts JSON.pretty_generate(uam_hash)
+    # puts "***************************************************"
+    # puts JSON.pretty_generate(uam_hash.slice(*all_keys))
+
+    JSON.generate(uam_hash.slice(*all_keys))
   end
 end
