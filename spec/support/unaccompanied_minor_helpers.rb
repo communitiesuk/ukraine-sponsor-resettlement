@@ -142,7 +142,7 @@ module UnaccompaniedMinorHelpers
         expect(page).to have_content("Other nationalities")
 
         if (index + 1) < other_nationalities.length
-          click_button("Add another nationality")
+          click_link("Add another nationality")
         else
           click_link("Continue")
         end

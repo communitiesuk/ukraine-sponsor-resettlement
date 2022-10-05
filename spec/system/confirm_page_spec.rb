@@ -81,7 +81,7 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       check_sections_complete(0)
 
       uam_click_task_list_link("Additional details")
-      uam_enter_sponsor_additional_details(id_option: "I don't have any of these", other_nationalities: %w[Albania])
+      uam_enter_sponsor_additional_details(id_option: "I don't have any of these", other_nationalities: %w[Albania Aruba])
       check_sections_complete(1)
 
       uam_click_task_list_link("Address")
