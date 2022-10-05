@@ -91,7 +91,9 @@ module UnaccompaniedMinorHelpers
     expect(page).to have_content(TASK_LIST_CONTENT)
   end
 
-  def uam_sponsor_id_documents(option)
+  def uam_sponsor_identity_documents(option)
+    expect(page).to have_content("Do you have any of these identity documents?")
+
     choose(option)
 
     if option != "I don't have any of these"
@@ -107,24 +109,46 @@ module UnaccompaniedMinorHelpers
     end
   end
 
-  def uam_enter_sponsor_additional_details(option = "Passport")
-    expect(page).to have_content("Do you have any of these identity documents?")
-
-    uam_sponsor_id_documents(option)
+  def uam_enter_sponsor_additional_details(
+    id_option: "Passport",
+    nationality: "Denmark", other_nationalities: []
+  )
+    uam_sponsor_identity_documents(id_option)
 
     expect(page).to have_content("Enter your date of birth")
-
     uam_fill_in_date_of_birth(Time.zone.now - 21.years)
 
+    uam_enter_sponsor_nationalities(nationality:, other_nationalities:)
+
+    expect(page).to have_content(TASK_LIST_CONTENT)
+  end
+
+  def uam_enter_sponsor_nationalities(nationality: "Denmark", other_nationalities: nil)
     expect(page).to have_content("Enter your nationality")
 
-    select("Denmark", from: "unaccompanied-minor-nationality-field")
+    select(nationality, from: "unaccompanied-minor-nationality-field")
     click_button("Continue")
 
     expect(page).to have_content("Have you ever held any other nationalities?")
-    uam_choose_option("No")
 
-    expect(page).to have_content(TASK_LIST_CONTENT)
+    if other_nationalities.blank?
+      uam_choose_option("No")
+    else
+      uam_choose_option("Yes")
+
+      other_nationalities.each_with_index do |element, index|
+        expect(page).to have_content("Enter your other nationality")
+        select(element, from: "unaccompanied-minor-other-nationality-field")
+        click_button("Continue")
+        expect(page).to have_content("Other nationalities")
+
+        if (index + 1) < other_nationalities.length
+          click_button("Add another nationality")
+        else
+          click_link("Continue")
+        end
+      end
+    end
   end
 
   def uam_enter_residential_address

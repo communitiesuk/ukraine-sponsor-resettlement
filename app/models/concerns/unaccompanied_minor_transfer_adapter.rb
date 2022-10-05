@@ -49,6 +49,7 @@ class UnaccompaniedMinorTransferAdapter
   OPTIONAL_KEYS = %i[
     other_names
     no_identification_reason
+    other_nationalities
   ].freeze
 
   def self.to_json(uam_hash)

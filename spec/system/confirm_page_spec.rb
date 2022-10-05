@@ -64,7 +64,9 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
     end
 
     it "whole end to end journey" do
-      optional_keys = %w[other_names no_identification_reason]
+      optional_keys = %w[other_names
+                         no_identification_reason
+                         other_nationalities]
 
       uam_enter_valid_complete_eligibility_section
       uam_start_page_to_task_list
@@ -79,7 +81,7 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       check_sections_complete(0)
 
       uam_click_task_list_link("Additional details")
-      uam_enter_sponsor_additional_details("I don't have any of these")
+      uam_enter_sponsor_additional_details(id_option: "I don't have any of these", other_nationalities: %w[Albania])
       check_sections_complete(1)
 
       uam_click_task_list_link("Address")
@@ -128,7 +130,7 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
 
     unless optional_keys.empty?
       json_object = JSON.parse(json)
-      # puts json_object
+      puts json_object
       expect(json_object.keys).to include(*optional_keys)
     end
   end

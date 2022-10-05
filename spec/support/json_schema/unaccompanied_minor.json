@@ -195,7 +195,14 @@
      },
     "no_identification_reason": {
       "type": "string"
-    }
+    },
+    "other_nationalities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+                "type": "array"
+               }
+     }
   },
   "$defs": {
     "yes_or_no": {
