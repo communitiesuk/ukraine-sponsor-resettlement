@@ -91,29 +91,28 @@ module UnaccompaniedMinorHelpers
     expect(page).to have_content(TASK_LIST_CONTENT)
   end
 
-  def uam_sponsor_identity_documents(option)
+  def uam_enter_sponsor_identity_documents(option)
     expect(page).to have_content("Do you have any of these identity documents?")
 
     choose(option)
 
-    if option != "I don't have any of these"
+    if option == "I don't have any of these"
+      click_button("Continue")
+      expect(page).to have_content("Can you prove your identity?")
+      fill_in("unaccompanied_minor[no_identification_reason]", with: "Dog ate them all")
+      click_button("Continue")
+    else
       fill_in("#{option} number", with: "123123123")
     end
 
     click_button("Continue")
-
-    if option == "I don't have any of these"
-      expect(page).to have_content("Can you prove your identity?")
-      fill_in("unaccompanied_minor[no_identification_reason]", with: "Dog ate them all")
-      click_button("Continue")
-    end
   end
 
   def uam_enter_sponsor_additional_details(
     id_option: "Passport",
     nationality: "Denmark", other_nationalities: []
   )
-    uam_sponsor_identity_documents(id_option)
+    uam_enter_sponsor_identity_documents(id_option)
 
     expect(page).to have_content("Enter your date of birth")
     uam_fill_in_date_of_birth(Time.zone.now - 21.years)

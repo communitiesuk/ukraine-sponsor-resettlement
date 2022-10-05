@@ -130,7 +130,7 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
 
     unless optional_keys.empty?
       json_object = JSON.parse(json)
-      puts json_object
+      # puts json_object
       expect(json_object.keys).to include(*optional_keys)
     end
   end
