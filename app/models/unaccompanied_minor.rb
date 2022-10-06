@@ -130,11 +130,9 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
   def number_of_adults?
-    if @adults_at_address.length > 1
-      "#{@adults_at_address.length} people"
-    else
-      "1 person"
-    end
+    count = @adults_at_address.nil? ? 0 : @adults_at_address.length
+
+    "#{count} #{'person'.pluralize(count)}"
   end
 
   def number_of_sections?
@@ -383,6 +381,13 @@ class UnaccompaniedMinor < ApplicationRecord
     @different_address_types = %i[yes no]
     @other_adults_address_types = %i[yes no]
     self.certificate_reference ||= get_formatted_certificate_number
+  end
+
+  def prepare_transfer
+    @transferred_at = Time.zone.now
+    save!(validate: false)
+
+    UnaccompaniedMinorTransferAdapter.to_json(as_json)
   end
 
   def as_json

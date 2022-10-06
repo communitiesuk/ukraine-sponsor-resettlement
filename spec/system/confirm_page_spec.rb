@@ -1,171 +1,50 @@
 RSpec.describe "Unaccompanied minor other adults", type: :system do
-  let(:completed_task_list_content) { "You have completed 4 of 4 sections." }
-  let(:minors_dob) { Time.zone.now - 4.years }
-  let(:sponsor_dob) { Time.zone.now - 20.years }
-  let(:task_list_path) { "/sponsor-a-child/task-list" }
-  let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine" }
-
-  describe "user completes their application" do
+  describe "user completes their application with minimum valid details" do
     before do
       driven_by(:rack_test_user_agent)
-
-      new_application = UnaccompaniedMinor.new
-      new_application.save!
-
-      page.set_rack_session(app_reference: new_application.reference)
     end
 
     it "shows reference number on confirm page" do
-      visit "/sponsor-a-child/start"
+      uam_enter_valid_complete_eligibility_section
+      uam_start_page_to_task_list
 
-      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
-      click_link("Start now")
-
-      visit "/sponsor-a-child/steps/1"
-
-      expect(page).to have_content("Is the child you want to sponsor under 18?")
-      choose_option_and_continue("Yes")
-
-      expect(page).to have_content("Was the child living in Ukraine on or before 31 December 2021?")
-      choose_option_and_continue("Yes")
-
-      expect(page).to have_content("Are they travelling to the UK with a parent or legal guardian?")
-      choose_option_and_continue("No")
-
-      expect(page).to have_content("Can you upload both consent forms?")
-      choose_option_and_continue("Yes")
-
-      expect(page).to have_content("Can you commit to hosting the child for the minimum period?")
-      choose_option_and_continue("Yes")
-
-      expect(page).to have_content("Do you have permission to live in the UK for the minimum period?")
-      choose_option_and_continue("Yes")
-
-      expect(page).to have_content("You are eligible to use this service")
-      click_link("Start application")
-
-      expect(page).to have_content(task_list_content)
-
-      click_link("Name")
-
-      expect(page).to have_content("Enter your name")
-      fill_in_name_and_continue("Tim", "Marsh")
-
-      expect(page).to have_content("Have you ever been known by another name?")
-      choose_option_and_continue("No")
-
-      expect(page).to have_content(task_list_content)
+      uam_click_task_list_link("Name")
+      uam_enter_sponsor_name
+      uam_enter_sponsor_not_known_by_another_name
       check_sections_complete(0)
 
-      click_link("Contact details")
-
-      expect(page).to have_content("Enter your email address")
-      fill_in("Email", with: "test@mail.com")
-      fill_in("unaccompanied_minor[email_confirm]", with: "test@mail.com")
-      click_button("Continue")
-
-      expect(page).to have_content("Enter your UK phone number")
-      fill_in("UK phone number", with: "07123123123")
-      fill_in("Confirm phone number", with: "07123123123")
-      click_button("Continue")
-
-      expect(page).to have_content(task_list_content)
+      uam_click_task_list_link("Contact details")
+      uam_enter_sponsor_contact_details
       check_sections_complete(0)
 
-      click_link("Additional details")
-
-      expect(page).to have_content("Do you have any of these identity documents?")
-      choose("Passport")
-      fill_in("Passport number", with: "123123123")
-      click_button("Continue")
-
-      expect(page).to have_content("Enter your date of birth")
-      fill_in_dob_and_continue(sponsor_dob)
-
-      expect(page).to have_content("Enter your nationality")
-      select("Denmark", from: "unaccompanied-minor-nationality-field")
-      click_button("Continue")
-
-      expect(page).to have_content("Have you ever held any other nationalities?")
-      choose_option_and_continue("No")
-
-      expect(page).to have_content(task_list_content)
+      uam_click_task_list_link("Additional details")
+      uam_enter_sponsor_additional_details
       check_sections_complete(1)
 
-      click_link("Address")
-
-      expect(page).to have_content("Enter the address where the child will be living in the UK")
-      fill_in("Address line 1", with: "Address line 1")
-      fill_in("Town", with: "Address town")
-      fill_in("Postcode", with: "XX1 1XX")
-      click_button("Continue")
-
-      expect(page).to have_content("Will you be living at this address?")
-      choose_option_and_continue("Yes")
-
-      expect(page).to have_content("Will anyone else over the age of 16 be living at this address?")
-      choose_option_and_continue("No")
-
-      expect(page).to have_content(task_list_content)
+      uam_click_task_list_link("Address")
+      uam_enter_residential_address
       check_sections_complete(2)
 
-      click_link("Child's personal details")
-
-      expect(page).to have_content("Enter the name of the child you want to sponsor")
-      fill_in_name_and_continue("Minor", "Child")
-
-      expect(page).to have_content("How can we contact the child?")
-      check("Email")
-      fill_in("Email", with: "child@example.com")
-      fill_in("unaccompanied_minor[minor_email_confirm]", with: "child@example.com")
-      click_button("Continue")
-
-      expect(page).to have_content("Enter their date of birth")
-      fill_in_dob_and_continue(minors_dob)
-
-      expect(page).to have_content(task_list_content)
+      uam_click_task_list_link("Child's personal details")
+      uam_enter_childs_personal_details
       check_sections_complete(2)
 
-      click_link("Upload UK consent form")
-      expect(page).to have_content("You must upload 2 completed parental consent forms")
-      click_button("Continue")
-
-      expect(page).to have_content("Upload the UK sponsorship arrangement consent form")
-      test_file_path = File.join(File.dirname(__FILE__), "..", "uk-test-document.pdf")
-      attach_file("unaccompanied-minor-uk-parental-consent-field", test_file_path)
-      click_button("Continue")
-
-      click_link("Upload Ukrainian consent form")
-
-      expect(page).to have_content("Upload the Ukraine certified consent form")
-      test_file_path = File.join(File.dirname(__FILE__), "..", "ukraine-test-document.pdf")
-      attach_file("unaccompanied-minor-ukraine-parental-consent-field", test_file_path)
-      click_button("Continue")
-
-      expect(page).to have_content(task_list_content)
+      uam_click_task_list_link("Upload UK consent form")
+      uam_upload_consent_forms
       check_sections_complete(3)
 
-      click_link("Confirm we can use your data")
+      uam_click_task_list_link("Confirm we can use your data")
+      uam_confirm_privacy_statement
 
-      expect(page).to have_content("Confirm you have read the privacy statement and all people involved agree that the information you have provided can be used for the Homes for Ukraine scheme")
-      check("unaccompanied_minor[privacy_statement_confirm]")
-      click_button("Continue")
-
-      expect(page).to have_content(task_list_content)
-
-      click_link("Confirm your eligibility")
-      expect(page).to have_content("Confirm your eligibility to sponsor a child from Ukraine")
-      check("unaccompanied_minor[sponsor_declaration]")
-      click_button("Continue")
-
-      expect(page).to have_content(task_list_content)
+      uam_click_task_list_link("Confirm your eligibility")
+      uam_confirm_eligibilty
       check_sections_complete(4)
 
-      click_link("Check your answers and send")
-      expect(page).to have_content("Check your answers before sending your application")
-      find("button[type=submit]").click
+      uam_click_task_list_link("Check your answers and send")
+      uam_check_answers_and_submit
 
-      expect(page).to have_content("SPON-")
+      assert_transfer_json_is_valid
+
       visit "/sponsor-a-child/confirm"
       expect(page).to have_content("SPON-")
 
@@ -174,26 +53,85 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       expect(page).to have_content("Use this service to apply for approval to sponsor a child fleeing Ukraine, who is not travelling with or joining their parent or legal guardian in the UK.")
     end
 
-    def choose_option_and_continue(choice)
-      choose(choice)
-      click_button("Continue")
+    def check_sections_complete(complete_sections)
+      expect(page).to have_content("You have completed #{complete_sections} of 4 sections.")
+    end
+  end
+
+  describe "user completes their application with MAX valid details" do
+    before do
+      driven_by(:rack_test_user_agent)
     end
 
-    def fill_in_name_and_continue(given, family)
-      fill_in("Given names", with: given)
-      fill_in("Family name", with: family)
-      click_button("Continue")
-    end
+    it "whole end to end journey" do
+      optional_keys = %w[other_names
+                         no_identification_reason
+                         other_nationalities]
 
-    def fill_in_dob_and_continue(date)
-      fill_in("Day", with: date.day)
-      fill_in("Month", with: date.month)
-      fill_in("Year", with: date.year)
-      click_button("Continue")
+      uam_enter_valid_complete_eligibility_section
+      uam_start_page_to_task_list
+
+      uam_click_task_list_link("Name")
+      uam_enter_sponsor_name
+      uam_enter_sponsor_other_name
+      check_sections_complete(0)
+
+      uam_click_task_list_link("Contact details")
+      uam_enter_sponsor_contact_details
+      check_sections_complete(0)
+
+      uam_click_task_list_link("Additional details")
+      uam_enter_sponsor_additional_details(id_option: "I don't have any of these", other_nationalities: %w[Albania Aruba])
+      check_sections_complete(1)
+
+      uam_click_task_list_link("Address")
+      uam_enter_residential_address
+      check_sections_complete(2)
+
+      uam_click_task_list_link("Child's personal details")
+      uam_enter_childs_personal_details
+      check_sections_complete(2)
+
+      uam_click_task_list_link("Upload UK consent form")
+      uam_upload_consent_forms
+      check_sections_complete(3)
+
+      uam_click_task_list_link("Confirm we can use your data")
+      uam_confirm_privacy_statement
+
+      uam_click_task_list_link("Confirm your eligibility")
+      uam_confirm_eligibilty
+      check_sections_complete(4)
+
+      uam_click_task_list_link("Check your answers and send")
+      uam_check_answers_and_submit
+
+      assert_transfer_json_is_valid(optional_keys)
+
+      visit "/sponsor-a-child/confirm"
+      expect(page).to have_content("SPON-")
+
+      page.set_rack_session(app_reference: nil)
+      visit "/sponsor-a-child/confirm"
+      expect(page).to have_content("Use this service to apply for approval to sponsor a child fleeing Ukraine, who is not travelling with or joining their parent or legal guardian in the UK.")
     end
 
     def check_sections_complete(complete_sections)
       expect(page).to have_content("You have completed #{complete_sections} of 4 sections.")
+    end
+  end
+
+  def assert_transfer_json_is_valid(optional_keys = [])
+    app_ref = page.get_rack_session_key("app_reference")
+    application = UnaccompaniedMinor.find_by_reference(app_ref)
+    json = application.prepare_transfer
+
+    expect(json).to match_schema("unaccompanied_minor")
+
+    unless optional_keys.empty?
+      json_object = JSON.parse(json)
+      # puts json_object
+      expect(json_object.keys).to include(*optional_keys)
     end
   end
 end

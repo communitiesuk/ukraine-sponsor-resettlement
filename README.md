@@ -45,6 +45,29 @@ Alternatively, to run the rails app in the foreground so that you can see its ou
 
 The Rails server should start on <http://localhost:8080>
 
+### Running tests
+Run: `make test`
+
+NB: The container will be destroyed when the tests complete, which means that the coverage report will be lost.
+
+If you want the coverage report, you can keep the container alive by editing
+/bin/test.sh to do
+
+`RAILS_ENV=test rake db:prepare && rake db:migrate && rake && tail -f /dev/null`
+
+instead of terminating when the rake task which runs the tests has finished. (`tail -f /dev/null` is a benign way of keeping the container active).
+
+When the tests have completed you can copy the coverage report to your
+docker host's local filesystem by doing
+
+`docker cp <container ID or name>:/app/coverage <destination path on host>`
+
+on the host.
+For example, to copy to the coverage report to the current working directory on the host:
+
+`docker cp ukraine-sponsor-resettlement-test-1:/app/coverage .`
+
+You can then terminate the testing container with ctrl-c.
 ## Database migrations
 
 Database migrations are required to make changes to the database
@@ -113,10 +136,10 @@ You will need the Conduit plug-in installed\
 
 3. Login:\
    `cf login --sso`
-   
+
 4. Connect to database:\
     `cf conduit ukraine-sponsor-resettlement-<target environment>-postgres -c '{"read_only": true}' -- psql`
-    
+
     You will now be able to run SQL queries that require a ";" at the end to execute the query - for example:\
     `select count(*) from additional_info;`
 
