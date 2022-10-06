@@ -47,6 +47,32 @@
     "version"
   ],
   "properties": {
+    "adults_at_address": {
+      "additionalProperties": false,
+      "patternProperties": {
+        "^*$": {
+          "properties": {
+            "date_of_birth": {
+              "type": "date"
+            },
+            "family_name": {
+              "type": "string"
+            },
+            "given_name": {
+              "type": "string"
+            },
+            "id_type_and_number": {
+              "type": "string"
+            },
+            "nationality": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
     "certificate_reference": {
       "type": "string"
     },
@@ -102,8 +128,8 @@
       "$ref": "#/$defs/yes_or_no"
     },
     "minor_contact_type": {
-      "type": "array",
       "minItems": 2,
+      "type": "array",
       "uniqueItems": true
     },
     "minor_date_of_birth": {
@@ -124,8 +150,25 @@
     "nationality": {
       "type": "string"
     },
+    "no_identification_reason": {
+      "type": "string"
+    },
     "other_adults_address": {
       "$ref": "#/$defs/yes_or_no"
+    },
+    "other_names": {
+      "items": {
+        "type": "array"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "other_nationalities": {
+      "items": {
+        "type": "array"
+      },
+      "minItems": 1,
+      "type": "array"
     },
     "phone_number": {
       "type": "string"
@@ -148,6 +191,18 @@
     "residential_town": {
       "type": "string"
     },
+    "sponsor_address_line_1": {
+      "type": "string"
+    },
+    "sponsor_address_line_2": {
+      "type": "string"
+    },
+    "sponsor_address_postcode": {
+      "type": "string"
+    },
+    "sponsor_address_town": {
+      "type": "string"
+    },
     "sponsor_date_of_birth": {
       "$ref": "#/$defs/date_of_birth"
     },
@@ -158,10 +213,7 @@
       "type": "date-time"
     },
     "type": {
-      "type": "string",
-      "pattern": "^unaccompanied_minor$"
-    },
-    "uk_parental_consent_filename": {
+      "pattern": "^unaccompanied_minor$",
       "type": "string"
     },
     "uk_parental_consent_file_size": {
@@ -170,7 +222,7 @@
     "uk_parental_consent_file_type": {
       "type": "string"
     },
-    "ukraine_parental_consent_filename": {
+    "uk_parental_consent_filename": {
       "type": "string"
     },
     "ukraine_parental_consent_file_size": {
@@ -179,69 +231,14 @@
     "ukraine_parental_consent_file_type": {
       "type": "string"
     },
+    "ukraine_parental_consent_filename": {
+      "type": "string"
+    },
     "user_agent": {
       "type": "string"
     },
     "version": {
       "type": "number"
-    },
-    "other_names": {
-      "type": "array",
-      "minItems": 1,
-      "items": {
-                "type": "array"
-               }
-     },
-    "no_identification_reason": {
-      "type": "string"
-    },
-    "other_nationalities": {
-      "type": "array",
-      "minItems": 1,
-      "items": {
-                "type": "array"
-               }
-     },
-    "sponsor_address_line_1": {
-      "type": "string"
-    },
-    "sponsor_address_line_2": {
-      "type": "string"
-    },
-    "sponsor_address_town": {
-      "type": "string"
-    },
-    "sponsor_address_postcode": {
-      "type": "string"
-    },
-    "adults_at_address": {
-      "type": "object",
-      "patternProperties": 
-      {
-        "^*$":
-        {
-          "type": "object",
-          "properties":
-          {
-            "given_name": {
-              "type": "string"
-            },
-            "family_name": {
-              "type": "string"
-            },
-            "date_of_birth": {
-              "type": "date"
-            },
-            "nationality": {
-              "type": "string"
-            },
-            "id_type_and_number": {
-              "type": "string"
-            }
-          }           
-        }
-      },
-    "additionalProperties": false
     }
   },
   "$defs": {

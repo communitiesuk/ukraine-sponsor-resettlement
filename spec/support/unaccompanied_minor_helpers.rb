@@ -7,11 +7,11 @@ module UnaccompaniedMinorHelpers
     visit "/sponsor-a-child/start"
     expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
 
-    click_link("Start now")
+    click_on("Start now")
 
     expect(page).to have_content("Check if you are eligible to use this service")
 
-    click_link("Continue")
+    click_on("Continue")
 
     expect(page).to have_content("Is the child you want to sponsor under 18?")
     uam_choose_option("Yes")
@@ -36,12 +36,12 @@ module UnaccompaniedMinorHelpers
 
   def uam_click_task_list_link(link_text)
     expect(page).to have_content(TASK_LIST_CONTENT)
-    click_link(link_text)
+    click_on(link_text)
   end
 
   def uam_start_page_to_task_list
     expect(page).to have_content(START_PAGE_CONTENT)
-    click_link("Start application")
+    click_on("Start application")
     expect(page).to have_content(TASK_LIST_CONTENT)
   end
 
@@ -70,7 +70,7 @@ module UnaccompaniedMinorHelpers
 
     uam_choose_option("Yes")
     fill_in_name("Another", "Sponsor", click_continue: true)
-    click_link("Continue")
+    click_on("Continue")
 
     expect(page).to have_content(TASK_LIST_CONTENT)
   end
@@ -80,13 +80,13 @@ module UnaccompaniedMinorHelpers
 
     fill_in("Email", with: "spencer.sponsor@example.com")
     fill_in("unaccompanied_minor[email_confirm]", with: "spencer.sponsor@example.com")
-    click_button("Continue")
+    click_on("Continue")
 
     expect(page).to have_content("Enter your UK phone number")
 
     fill_in("UK phone number", with: "07123123123")
     fill_in("Confirm phone number", with: "07123123123")
-    click_button("Continue")
+    click_on("Continue")
 
     expect(page).to have_content(TASK_LIST_CONTENT)
   end
@@ -97,15 +97,15 @@ module UnaccompaniedMinorHelpers
     choose(option)
 
     if option == "I don't have any of these"
-      click_button("Continue")
+      click_on("Continue")
       expect(page).to have_content("Can you prove your identity?")
       fill_in("unaccompanied_minor[no_identification_reason]", with: "Dog ate them all")
-      click_button("Continue")
+      click_on("Continue")
     else
       fill_in("#{option} number", with: "123123123")
     end
 
-    click_button("Continue")
+    click_on("Continue")
   end
 
   def uam_enter_sponsor_additional_details(
@@ -126,7 +126,7 @@ module UnaccompaniedMinorHelpers
     expect(page).to have_content("Enter your nationality")
 
     select(nationality, from: "unaccompanied-minor-nationality-field")
-    click_button("Continue")
+    click_on("Continue")
 
     expect(page).to have_content("Have you ever held any other nationalities?")
 
@@ -138,13 +138,13 @@ module UnaccompaniedMinorHelpers
       other_nationalities.each_with_index do |element, index|
         expect(page).to have_content("Enter your other nationality")
         select(element, from: "unaccompanied-minor-other-nationality-field")
-        click_button("Continue")
+        click_on("Continue")
         expect(page).to have_content("Other nationalities")
 
         if (index + 1) < other_nationalities.length
-          click_link("Add another nationality")
+          click_on("Add another nationality")
         else
-          click_link("Continue")
+          click_on("Continue")
         end
       end
     end
@@ -217,18 +217,18 @@ module UnaccompaniedMinorHelpers
 
   def uam_upload_consent_forms
     expect(page).to have_content("You must upload 2 completed parental consent forms")
-    click_button("Continue")
+    click_on("Continue")
 
     expect(page).to have_content("Upload the UK sponsorship arrangement consent form")
     test_file_path = File.join(File.dirname(__FILE__), "..", "uk-test-document.pdf")
     attach_file("unaccompanied-minor-uk-parental-consent-field", test_file_path)
-    click_button("Continue")
+    click_on("Continue")
 
-    click_link("Upload Ukrainian consent form")
+    click_on("Upload Ukrainian consent form")
     expect(page).to have_content("Upload the Ukraine certified consent form")
     test_file_path = File.join(File.dirname(__FILE__), "..", "ukraine-test-document.pdf")
     attach_file("unaccompanied-minor-ukraine-parental-consent-field", test_file_path)
-    click_button("Continue")
+    click_on("Continue")
 
     expect(page).to have_content(TASK_LIST_CONTENT)
   end
@@ -237,7 +237,7 @@ module UnaccompaniedMinorHelpers
     expect(page).to have_content("Confirm you have read the privacy statement and all people involved agree that the information you have provided can be used for the Homes for Ukraine scheme")
 
     check("unaccompanied_minor[privacy_statement_confirm]")
-    click_button("Continue")
+    click_on("Continue")
 
     expect(page).to have_content(TASK_LIST_CONTENT)
   end
@@ -246,7 +246,7 @@ module UnaccompaniedMinorHelpers
     expect(page).to have_content("Confirm your eligibility to sponsor a child from Ukraine")
 
     check("unaccompanied_minor[sponsor_declaration]")
-    click_button("Continue")
+    click_on("Continue")
 
     expect(page).to have_content(TASK_LIST_CONTENT)
   end
@@ -264,7 +264,7 @@ module UnaccompaniedMinorHelpers
     fill_in("Family name", with: family)
 
     if click_continue
-      click_button("Continue")
+      click_on("Continue")
     end
   end
 
@@ -274,7 +274,7 @@ module UnaccompaniedMinorHelpers
     fill_in("Year", with: date.year)
 
     if click_continue
-      click_button("Continue")
+      click_on("Continue")
     end
   end
 
@@ -282,7 +282,7 @@ module UnaccompaniedMinorHelpers
     choose(choice)
 
     if click_continue
-      click_button("Continue")
+      click_on("Continue")
     end
   end
 
@@ -315,7 +315,7 @@ module UnaccompaniedMinorHelpers
     end
 
     if click_continue
-      click_button("Continue")
+      click_on("Continue")
     end
   end
 end

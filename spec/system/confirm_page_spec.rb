@@ -64,14 +64,14 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
     end
 
     it "whole end to end journey" do
-      optional_keys = %w[other_names
-                         no_identification_reason
-                         other_nationalities
-                         sponsor_address_line_1
-                         sponsor_address_line_2
-                         sponsor_address_town
-                         sponsor_address_postcode
-                         adults_at_address]
+      expected_optional_keys = %w[adults_at_address
+                                  other_names
+                                  no_identification_reason
+                                  other_nationalities
+                                  sponsor_address_line_1
+                                  sponsor_address_line_2
+                                  sponsor_address_town
+                                  sponsor_address_postcode]
 
       uam_enter_valid_complete_eligibility_section
       uam_start_page_to_task_list
@@ -111,7 +111,7 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       uam_click_task_list_link("Check your answers and send")
       uam_check_answers_and_submit
 
-      assert_transfer_json_is_valid(optional_keys)
+      assert_transfer_json_is_valid(expected_optional_keys)
 
       visit "/sponsor-a-child/confirm"
       expect(page).to have_content("SPON-")
