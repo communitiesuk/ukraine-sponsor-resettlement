@@ -152,10 +152,7 @@ module UnaccompaniedMinorHelpers
 
   def uam_enter_residential_address(different_address: false)
     expect(page).to have_content("Enter the address where the child will be living in the UK")
-    fill_in("Address line 1", with: "Address line 1")
-    fill_in("Town", with: "Address town")
-    fill_in("Postcode", with: "XX1 1XX")
-    click_on("Continue")
+    uam_enter_address
 
     expect(page).to have_content("Will you be living at this address?")
 
@@ -163,12 +160,7 @@ module UnaccompaniedMinorHelpers
       uam_choose_option("No")
 
       expect(page).to have_content("Enter the address where you will be living in the UK")
-
-      fill_in("Address line 1", with: "Other address line 1")
-      fill_in("Address line 2", with: "Other address line 2")
-      fill_in("Town", with: "Other town")
-      fill_in("Postcode", with: "RM18 1JP")
-      click_on("Continue")
+      uam_enter_address(line1: "Other address line 1", line2: "Other address line 2", town: "Other town", postcode: "RM18 1JP")
 
       expect(page).to have_content("Enter the name of a person over 16 who will live with the child")
       fill_in_name("Other", "Person")
@@ -177,8 +169,6 @@ module UnaccompaniedMinorHelpers
       click_on("Continue")
       expect(page).to have_content(TASK_LIST_CONTENT)
 
-      # ADD OTHER RESIDENTS DETAILS
-      # DOB + Nationality + id_docs
       uam_click_task_list_link("Other Person details")
       expect(page).to have_content("Enter this person's date of birth")
       uam_fill_in_date_of_birth(Time.zone.now - 17.years)
@@ -187,10 +177,8 @@ module UnaccompaniedMinorHelpers
       select("Bermuda")
       click_on("Continue")
 
-      # documents to do!
       expect(page).to have_content("Do they have any of these identity documents?")
       uam_choose_option("I don't have any of these")
-
     else
       uam_choose_option("Yes")
 
@@ -199,6 +187,19 @@ module UnaccompaniedMinorHelpers
     end
 
     expect(page).to have_content(TASK_LIST_CONTENT)
+  end
+
+  def uam_enter_address(line1: "Address line 1", line2: nil, town: "Town", postcode: "XX1 1XX")
+    fill_in("Address line 1", with: line1)
+
+    if line2.present?
+      fill_in("Address line 2", with: line2)
+    end
+
+    fill_in("Town", with: town)
+    fill_in("Postcode", with: postcode)
+
+    click_on("Continue")
   end
 
   def uam_enter_childs_personal_details
