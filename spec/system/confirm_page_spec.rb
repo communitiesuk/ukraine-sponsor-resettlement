@@ -1,9 +1,9 @@
 RSpec.describe "Unaccompanied minor other adults", type: :system do
-  describe "user completes their application with minimum valid details" do
-    before do
-      driven_by(:rack_test_user_agent)
-    end
+  before do
+    driven_by(:rack_test_user_agent)
+  end
 
+  describe "user completes their application with minimum valid details" do
     it "shows reference number on confirm page" do
       uam_enter_valid_complete_eligibility_section
       uam_start_page_to_task_list
@@ -52,17 +52,9 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       visit "/sponsor-a-child/confirm"
       expect(page).to have_content("Use this service to apply for approval to sponsor a child fleeing Ukraine, who is not travelling with or joining their parent or legal guardian in the UK.")
     end
-
-    def check_sections_complete(complete_sections)
-      expect(page).to have_content("You have completed #{complete_sections} of 4 sections.")
-    end
   end
 
   describe "user completes their application with MAX valid details" do
-    before do
-      driven_by(:rack_test_user_agent)
-    end
-
     it "whole end to end journey" do
       expected_optional_keys = %w[adults_at_address
                                   other_names
@@ -120,10 +112,10 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       visit "/sponsor-a-child/confirm"
       expect(page).to have_content("Use this service to apply for approval to sponsor a child fleeing Ukraine, who is not travelling with or joining their parent or legal guardian in the UK.")
     end
+  end
 
-    def check_sections_complete(completed_sections, sections: 4)
-      expect(page).to have_content("You have completed #{completed_sections} of #{sections} sections.")
-    end
+  def check_sections_complete(completed_sections, sections: 4)
+    expect(page).to have_content("You have completed #{completed_sections} of #{sections} sections.")
   end
 
   def assert_transfer_json_is_valid(optional_keys = [])
