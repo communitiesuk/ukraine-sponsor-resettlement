@@ -1,10 +1,10 @@
-RSpec.describe "Unaccompanied minor other adults", type: :system do
+RSpec.describe "Unaccompanied minor end to end", type: :system do
   before do
     driven_by(:rack_test_user_agent)
   end
 
-  describe "user completes their application with minimum valid details" do
-    it "shows reference number on confirm page" do
+  describe "user successfully completes their application" do
+    it "entering minimum valid details" do
       uam_enter_valid_complete_eligibility_section
       uam_start_page_to_task_list
 
@@ -52,10 +52,8 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
       visit "/sponsor-a-child/confirm"
       expect(page).to have_content("Use this service to apply for approval to sponsor a child fleeing Ukraine, who is not travelling with or joining their parent or legal guardian in the UK.")
     end
-  end
 
-  describe "user completes their application with MAX valid details" do
-    it "whole end to end journey" do
+    it "entering all optional fields" do
       expected_optional_keys = %w[adults_at_address
                                   other_names
                                   no_identification_reason
