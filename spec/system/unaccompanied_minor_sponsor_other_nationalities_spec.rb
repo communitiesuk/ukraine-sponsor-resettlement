@@ -75,18 +75,8 @@ RSpec.describe "Unaccompanied minor sponsor other nationalities", type: :system 
 
         click_button("Continue")
 
-        expect(page).to have_content("Error: You must select a valid nationality")
-      end
-
-      it "shows an error box when no nationality is selected " do
-        task_list_to_other_nationalities_question
-
-        choose("Yes")
-        click_button("Continue")
-
-        click_button("Continue")
-
         expect(page).to have_content("There is a problem")
+        expect(page).to have_content("Error: You must select a valid nationality")
       end
     end
 
@@ -102,11 +92,7 @@ RSpec.describe "Unaccompanied minor sponsor other nationalities", type: :system 
       click_button("Continue")
 
       expect(page).to have_content("Enter your date of birth")
-
-      fill_in("Day", with: "1")
-      fill_in("Month", with: "1")
-      fill_in("Year", with: "2000")
-      click_button("Continue")
+      uam_fill_in_date_of_birth(Time.zone.now - 21.years)
 
       expect(page).to have_content("Enter your nationality")
 
