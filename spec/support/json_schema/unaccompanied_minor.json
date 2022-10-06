@@ -215,7 +215,33 @@
       "type": "string"
     },
     "adults_at_address": {
-      "type": "object"
+      "type": "object",
+      "patternProperties": 
+      {
+        "^*$":
+        {
+          "type": "object",
+          "properties":
+          {
+            "given_name": {
+              "type": "string"
+            },
+            "family_name": {
+              "type": "string"
+            },
+            "date_of_birth": {
+              "type": "date"
+            },
+            "nationality": {
+              "type": "string"
+            },
+            "id_type_and_number": {
+              "type": "string"
+            }
+          }           
+        }
+      },
+    "additionalProperties": false
     }
   },
   "$defs": {

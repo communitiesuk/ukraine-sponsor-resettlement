@@ -73,16 +73,6 @@ RSpec.describe "Unaccompanied minor other adults", type: :system do
                          sponsor_address_postcode
                          adults_at_address]
 
-      # "adults_at_address": {
-      #   "A374541F-CC09-41D4-9BA3-D02BCF0A5255": {
-      #     "given_name": "Other",
-      #     "family_name": "Person",
-      #     "date_of_birth": "2005-10-05",
-      #     "nationality": "BMU - Bermuda",
-      #     "id_type_and_number": "none - 123456789"
-      #   }
-      # }
-
       uam_enter_valid_complete_eligibility_section
       uam_start_page_to_task_list
 

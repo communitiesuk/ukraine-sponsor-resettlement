@@ -59,9 +59,9 @@ class UnaccompaniedMinorTransferAdapter
 
   def self.to_json(uam_hash)
     all_keys = REQUIRED_KEYS + OPTIONAL_KEYS
-    Rails.logger.debug JSON.pretty_generate(uam_hash)
-    Rails.logger.debug "***************************************************"
-    Rails.logger.debug JSON.pretty_generate(uam_hash.slice(*all_keys))
+    # puts JSON.pretty_generate(uam_hash)
+    # puts "***************************************************"
+    # puts JSON.pretty_generate(uam_hash.slice(*all_keys))
 
     JSON.generate(uam_hash.slice(*all_keys))
   end
