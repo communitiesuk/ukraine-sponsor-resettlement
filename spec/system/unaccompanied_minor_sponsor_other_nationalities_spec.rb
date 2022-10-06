@@ -66,6 +66,30 @@ RSpec.describe "Unaccompanied minor sponsor other nationalities", type: :system 
       expect(page).to have_content(task_list_content)
     end
 
+    describe "UAM other nationailties select other nationality form" do
+      it "does not allow for empty other nationality to be selected " do
+        task_list_to_other_nationalities_question
+
+        choose("Yes")
+        click_button("Continue")
+
+        click_button("Continue")
+
+        expect(page).to have_content("Error: You must select a valid nationality")
+      end
+
+      it "shows an error box when no nationality is selected " do
+        task_list_to_other_nationalities_question
+
+        choose("Yes")
+        click_button("Continue")
+
+        click_button("Continue")
+
+        expect(page).to have_content("There is a problem")
+      end
+    end
+
     def task_list_to_other_nationalities_question
       visit "/sponsor-a-child/task-list"
       expect(page).to have_content(task_list_content)
