@@ -150,18 +150,53 @@ module UnaccompaniedMinorHelpers
     end
   end
 
-  def uam_enter_residential_address
+  def uam_enter_residential_address(different_address: false)
     expect(page).to have_content("Enter the address where the child will be living in the UK")
     fill_in("Address line 1", with: "Address line 1")
     fill_in("Town", with: "Address town")
     fill_in("Postcode", with: "XX1 1XX")
-    click_button("Continue")
+    click_on("Continue")
 
     expect(page).to have_content("Will you be living at this address?")
-    uam_choose_option("Yes")
 
-    expect(page).to have_content("Will anyone else over the age of 16 be living at this address?")
-    uam_choose_option("No")
+    if different_address
+      uam_choose_option("No")
+
+      expect(page).to have_content("Enter the address where you will be living in the UK")
+
+      fill_in("Address line 1", with: "Other address line 1")
+      fill_in("Address line 2", with: "Other address line 2")
+      fill_in("Town", with: "Other town")
+      fill_in("Postcode", with: "RM18 1JP")
+      click_on("Continue")
+
+      expect(page).to have_content("Enter the name of a person over 16 who will live with the child")
+      fill_in_name("Other", "Person")
+
+      expect(page).to have_content("You have added")
+      click_on("Continue")
+      expect(page).to have_content(TASK_LIST_CONTENT)
+
+      # ADD OTHER RESIDENTS DETAILS
+      # DOB + Nationality + id_docs
+      uam_click_task_list_link("Other Person details")
+      expect(page).to have_content("Enter this person's date of birth")
+      uam_fill_in_date_of_birth(Time.zone.now - 17.years)
+
+      expect(page).to have_content("Enter their nationality")
+      select("Bermuda")
+      click_on("Continue")
+
+      # documents to do!
+      expect(page).to have_content("Do they have any of these identity documents?")
+      uam_choose_option("I don't have any of these")
+
+    else
+      uam_choose_option("Yes")
+
+      expect(page).to have_content("Will anyone else over the age of 16 be living at this address?")
+      uam_choose_option("No")
+    end
 
     expect(page).to have_content(TASK_LIST_CONTENT)
   end

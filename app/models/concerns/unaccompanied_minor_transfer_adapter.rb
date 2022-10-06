@@ -44,19 +44,24 @@ class UnaccompaniedMinorTransferAdapter
     user_agent
     version
   ].freeze
-  
+
   OPTIONAL_KEYS = %i[
     other_adults_address
     other_names
     no_identification_reason
     other_nationalities
+    sponsor_address_line_1
+    sponsor_address_line_2
+    sponsor_address_town
+    sponsor_address_postcode
+    adults_at_address
   ].freeze
 
   def self.to_json(uam_hash)
     all_keys = REQUIRED_KEYS + OPTIONAL_KEYS
-    puts JSON.pretty_generate(uam_hash)
-    puts "***************************************************"
-    puts JSON.pretty_generate(uam_hash.slice(*all_keys))
+    Rails.logger.debug JSON.pretty_generate(uam_hash)
+    Rails.logger.debug "***************************************************"
+    Rails.logger.debug JSON.pretty_generate(uam_hash.slice(*all_keys))
 
     JSON.generate(uam_hash.slice(*all_keys))
   end

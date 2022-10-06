@@ -201,7 +201,22 @@
       "items": {
                 "type": "array"
                }
-     }
+     },
+    "sponsor_address_line_1": {
+      "type": "string"
+    },
+    "sponsor_address_line_2": {
+      "type": "string"
+    },
+    "sponsor_address_town": {
+      "type": "string"
+    },
+    "sponsor_address_postcode": {
+      "type": "string"
+    },
+    "adults_at_address": {
+      "type": "object"
+    }
   },
   "$defs": {
     "yes_or_no": {
