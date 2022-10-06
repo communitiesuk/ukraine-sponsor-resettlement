@@ -25,7 +25,6 @@ class UnaccompaniedMinorTransferAdapter
     minor_given_name
     minor_phone_number
     nationality
-    other_adults_address
     phone_number
     privacy_statement_confirm
     reference
@@ -45,8 +44,9 @@ class UnaccompaniedMinorTransferAdapter
     user_agent
     version
   ].freeze
-
+  
   OPTIONAL_KEYS = %i[
+    other_adults_address
     other_names
     no_identification_reason
     other_nationalities
@@ -54,9 +54,9 @@ class UnaccompaniedMinorTransferAdapter
 
   def self.to_json(uam_hash)
     all_keys = REQUIRED_KEYS + OPTIONAL_KEYS
-    # puts JSON.pretty_generate(uam_hash)
-    # puts "***************************************************"
-    # puts JSON.pretty_generate(uam_hash.slice(*all_keys))
+    puts JSON.pretty_generate(uam_hash)
+    puts "***************************************************"
+    puts JSON.pretty_generate(uam_hash.slice(*all_keys))
 
     JSON.generate(uam_hash.slice(*all_keys))
   end
