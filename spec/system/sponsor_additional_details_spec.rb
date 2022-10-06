@@ -56,6 +56,17 @@ RSpec.describe "Sponsor additional details", type: :system do
       expect(page).to have_content("Error: Tell us how you can prove your identity, or why you cannot.")
     end
 
+    it "throws an error box on blank submission" do
+      navigate_to_additional_details
+      choose("I don't have any of these")
+      click_button("Continue")
+
+      expect(page).to have_content("Can you prove your identity?")
+
+      click_button("Continue")
+      expect(page).to have_content("There is a problem")
+    end
+
     it "validates other identity documents field on any submission" do
       navigate_to_additional_details
       choose("I don't have any of these")

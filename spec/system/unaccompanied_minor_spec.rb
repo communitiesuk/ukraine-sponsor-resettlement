@@ -249,27 +249,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
 
     it "complete child flow additional details section and save answers to the db" do
-      new_application = UnaccompaniedMinor.new
-      new_application.save!
-
-      page.set_rack_session(app_reference: new_application.reference)
-
-      visit "/sponsor-a-child/task-list"
-      expect(page).to have_content(task_list_content)
-
-      click_link("Additional details")
-      expect(page).to have_content("Do you have any of these identity documents?")
-
-      choose("Passport")
-      fill_in("Passport number", with: "123456789")
-      click_button("Continue")
-
-      fill_in("Day", with: "6")
-      fill_in("Month", with: "11")
-      fill_in("Year", with: "1987")
-      click_button("Continue")
-
-      expect(page).to have_content("Enter your nationality")
+      navigate_to_nationality
       select("Denmark", from: "unaccompanied-minor-nationality-field")
       click_button("Continue")
 
@@ -281,30 +261,19 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
 
     it "does not allow for empty nationality to be selected" do
-      new_application = UnaccompaniedMinor.new
-      new_application.save!
+      navigate_to_nationality
 
-      page.set_rack_session(app_reference: new_application.reference)
-
-      visit "/sponsor-a-child/task-list"
-      expect(page).to have_content(task_list_content)
-
-      click_link("Additional details")
-      expect(page).to have_content("Do you have any of these identity documents?")
-
-      choose("Passport")
-      fill_in("Passport number", with: "123456789")
-      click_button("Continue")
-
-      fill_in("Day", with: "6")
-      fill_in("Month", with: "11")
-      fill_in("Year", with: "1987")
-      click_button("Continue")
-
-      expect(page).to have_content("Enter your nationality")
       click_button("Continue")
 
       expect(page).to have_content("Error: You must select a valid nationality")
+    end
+
+    it "shows an error box when no nationality is selected " do
+      navigate_to_nationality
+
+      click_button("Continue")
+
+      expect(page).to have_content("There is a problem")
     end
   end
 
@@ -950,5 +919,28 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       choose("Refugee travel document")
       expect(page).to have_field("Refugee travel document number", with: "XYZ123987456")
     end
+  end
+
+  def navigate_to_nationality
+    new_application = UnaccompaniedMinor.new
+    new_application.save!
+
+    page.set_rack_session(app_reference: new_application.reference)
+
+    visit "/sponsor-a-child/task-list"
+    expect(page).to have_content(task_list_content)
+
+    click_link("Additional details")
+    expect(page).to have_content("Do you have any of these identity documents?")
+
+    choose("Passport")
+    fill_in("Passport number", with: "123456789")
+    click_button("Continue")
+
+    fill_in("Day", with: "6")
+    fill_in("Month", with: "11")
+    fill_in("Year", with: "1987")
+    click_button("Continue")
+    expect(page).to have_content("Enter your nationality")
   end
 end
