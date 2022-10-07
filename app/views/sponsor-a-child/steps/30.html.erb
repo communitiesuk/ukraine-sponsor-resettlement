@@ -9,9 +9,12 @@
     <h1 class="govuk-heading-l"><%= t('resident_nationality.full', scope: "unaccompanied_minor.questions")%></h1>
 
 
+    <div class="govuk-inset-text">
+      <%= "#{@adult["given_name"]} #{@adult["family_name"]}" %>
+    </div>
+
       <%= f.govuk_collection_select :adult_nationality, @nationalities, :val, :name,
-                                    label: { text: "", hidden: true },
-                                    hint: { text: t('resident_nationality.hint_html', :name => "#{@adult["given_name"]} #{@adult["family_name"]}", scope: "unaccompanied_minor.questions")}
+                                    label: { text: "Select their country of nationality" }
       %>
 
       <div class="govuk-button-group">
