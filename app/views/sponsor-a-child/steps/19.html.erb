@@ -3,10 +3,12 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
+    <%= form_for @application, url: "/sponsor-a-child/steps/19", method: :post do |f| %>
+    <%= f.govuk_error_summary link_base_errors_to: :nationality %>
+
     <h1 class="govuk-heading-l"><%= t('sponsor_nationality.full', scope: "unaccompanied_minor.questions")%></h1>
 
 
-    <%= form_for @application, url: "/sponsor-a-child/steps/19", method: :post do |f| %>
       <%= f.govuk_collection_select :nationality, @nationalities, :val, :name,
           label: {  text: t('sponsor_nationality.hint_html', scope: "unaccompanied_minor.questions")}
            %>

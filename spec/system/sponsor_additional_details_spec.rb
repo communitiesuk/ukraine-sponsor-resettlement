@@ -53,6 +53,7 @@ RSpec.describe "Sponsor additional details", type: :system do
 
       click_button("Continue")
 
+      expect(page).to have_content("There is a problem")
       expect(page).to have_content("Error: Tell us how you can prove your identity, or why you cannot.")
     end
 
