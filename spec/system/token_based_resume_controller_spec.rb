@@ -189,7 +189,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
 
       expect(page).to have_content(task_list_content)
       visit "/sponsor-a-child/steps/10"
-      expect(page).to have_content("given_name")
+      expect(page).to have_content(given_name)
     end
   end
 end
