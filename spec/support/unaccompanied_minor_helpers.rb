@@ -70,6 +70,8 @@ module UnaccompaniedMinorHelpers
 
     uam_choose_option("Yes")
     fill_in_name("Another", "Sponsor", click_continue: true)
+
+    expect(page).to have_content("You have added")
     click_on("Continue")
 
     expect(page).to have_content(TASK_LIST_CONTENT)
@@ -99,7 +101,7 @@ module UnaccompaniedMinorHelpers
     if option == "I don't have any of these"
       click_on("Continue")
       expect(page).to have_content("Can you prove your identity?")
-      fill_in("unaccompanied_minor[no_identification_reason]", with: "Dog ate them all")
+      fill_in("unaccompanied_minor[no_identification_reason]", with: "Minions ate them all")
       click_on("Continue")
     else
       fill_in("#{option} number", with: "123123123")
@@ -137,7 +139,7 @@ module UnaccompaniedMinorHelpers
 
       other_nationalities.each_with_index do |element, index|
         expect(page).to have_content("Enter your other nationality")
-        select(element, from: "unaccompanied-minor-other-nationality-field")
+        select(element)
         click_on("Continue")
         expect(page).to have_content("Other nationalities")
 
