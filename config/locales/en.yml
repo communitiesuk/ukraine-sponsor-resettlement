@@ -528,3 +528,4 @@ en:
     emails_different: Emails must match
     phone_numbers_different: Phone numbers must match
     no_identity_error: Tell us how you can prove your identity, or why you cannot.
+    non_uk_number: You must enter a UK mobile number
