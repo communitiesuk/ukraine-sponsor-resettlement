@@ -32,6 +32,7 @@ services:
       DB_PASSWORD: password
       VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-development-redis","credentials":{"uri":"redis://redis"}}],"aws-s3-bucket":[{"instance_name":"ukraine-sponsor-resettlement-development-s3","credentials":{"aws_access_key_id":"access-key-id","aws_secret_access_key":"secret-access-key","aws_region":"eu-west-2","bucket_name":"upload-bucket"}}]}'
       BASIC_AUTH_PASS: password
+      UAM_FEATURE_SAVE_AND_RETURN_ACTIVE: true
     ports:
       - 8080:8080
 
