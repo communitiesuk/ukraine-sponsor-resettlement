@@ -20,7 +20,7 @@
           </dt>
           <dd class="govuk-summary-list__value">
             <% @application.other_names.each do |name| %>
-              <%= name %>&nbsp;<%= name %><br />
+              <%= name.join(' ') %><br />
             <% end %>
           </dd>
           <dd class="govuk-summary-list__actions">
@@ -83,7 +83,7 @@
            Other nationalities
           </dt>
             <% @application.other_nationalities.each do |nationality| %>
-              <%= nationality %>
+              <%= nationality.first %><br />
             <% end %>
           <dd class="govuk-summary-list__actions">
             <a class="govuk-link" href="/sponsor-a-child/steps/20">
