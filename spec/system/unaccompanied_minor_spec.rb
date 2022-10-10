@@ -674,7 +674,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       application = UnaccompaniedMinor.new
       application.has_other_names = "true"
 
-      application.other_names = ["Other given name", "Other family name"]
+      application.other_names = [["Other given name", "Other family name"]]
       application.save!
 
       page.set_rack_session(app_reference: application.reference)
@@ -703,7 +703,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       # Create application with minimum expected values
       application = UnaccompaniedMinor.new
 
-      application.other_nationalities = ["AFG - Afghanistan", "AUS - Australia", "CHF - Switzerland"]
+      application.other_nationalities = [["AFG - Afghanistan"], ["AUS - Australia"], ["CHF - Switzerland"]]
       application.save!
 
       page.set_rack_session(app_reference: application.reference)
