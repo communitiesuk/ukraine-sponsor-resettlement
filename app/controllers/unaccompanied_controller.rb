@@ -31,6 +31,10 @@ class UnaccompaniedController < ApplicationController
   TASK_LIST_STEP = 999
   TASK_LIST_URI = "/sponsor-a-child/task-list".freeze
 
+  if ENV["UAM_GA_TRACKING_CODE"].present?
+    GA.tracker = ENV["UAM_GA_TRACKING_CODE"]
+  end
+
   def start
     @feature_save_and_return_active = (ENV["UAM_FEATURE_SAVE_AND_RETURN_ACTIVE"] == "true")
     render "sponsor-a-child/start"
