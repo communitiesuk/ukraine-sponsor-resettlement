@@ -234,7 +234,6 @@ class UnaccompaniedController < ApplicationController
       @application.phone_number = params["unaccompanied_minor"]["phone_number"]
       @application.phone_number_confirm = params["unaccompanied_minor"]["phone_number_confirm"]
 
-     
       if !uk_mobile_number?(@application.phone_number) || !phone_number_valid?(@application.phone_number)
         @application.errors.add(:phone_number, I18n.t(:non_uk_number, scope: :error))
       elsif @application.phone_number != @application.phone_number_confirm
