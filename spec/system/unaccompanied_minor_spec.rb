@@ -241,8 +241,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       fill_in("unaccompanied_minor[email_confirm]", with: "jane.doe@test.com")
       click_button("Continue")
 
-      fill_in("UK phone number", with: "07777 888 999")
-      fill_in("Confirm phone number", with: "07777 888 999")
+      fill_in("UK mobile number", with: "07777 888 999")
+      fill_in("Confirm mobile number", with: "07777 888 999")
       click_button("Continue")
 
       expect(page).to have_content(task_list_content)
@@ -507,7 +507,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       click_button("Continue")
 
-      fill_in("UK phone number", with: "07777 888 999")
+      fill_in("UK mobile number", with: "07777 888 999")
 
       # rubocop:disable RSpec/AnyInstance
       allow_any_instance_of(UnaccompaniedController).to receive(:last_seen_activity_threshold).and_return(- 10.seconds)
@@ -674,7 +674,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       application = UnaccompaniedMinor.new
       application.has_other_names = "true"
 
-      application.other_names = ["Other given name", "Other family name"]
+      application.other_names = [["Other given name", "Other family name"]]
       application.save!
 
       page.set_rack_session(app_reference: application.reference)
@@ -703,7 +703,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       # Create application with minimum expected values
       application = UnaccompaniedMinor.new
 
-      application.other_nationalities = ["AFG - Afghanistan", "AUS - Australia", "CHF - Switzerland"]
+      application.other_nationalities = [["AFG - Afghanistan"], ["AUS - Australia"], ["CHF - Switzerland"]]
       application.save!
 
       page.set_rack_session(app_reference: application.reference)
