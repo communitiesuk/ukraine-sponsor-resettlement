@@ -7,17 +7,15 @@ RSpec.describe "TransferRecord executing minors" do
   end
 
   describe "execute_unaccompanied_minor !" do
-    let(:time_now) { Time.zone.local(1970, 1, 1) }
-    let(:response) { Net::HTTPResponse.new(1.0, 200, "OK") }
-    let(:uam) { instance_double(UnaccompaniedMinor) }
-    let(:json_payload) { "{\"reference\":\"SPON-EDE1-4065-B\"}" }
     let(:remote_api_token_api) { ENV["REMOTE_API_TOKEN_UAM"] }
     let(:remote_api_url) { ENV["REMOTE_API_URL"] }
+    let(:uam) { instance_double(UnaccompaniedMinor) }
+    let(:json_payload) { "{\"reference\":\"SPON-EDE1-4065-B\"}" }
+    let(:response) { Net::HTTPResponse.new(1.0, 200, "OK") }
 
     before do
       allow(UnaccompaniedMinor).to receive(:find).and_return(uam)
       allow(uam).to receive(:prepare_transfer).with(no_args).and_return(json_payload)
-      allow(Time).to receive(:now).and_return(time_now)
       allow(Net::HTTP).to receive(:post).and_return(response)
     end
 
