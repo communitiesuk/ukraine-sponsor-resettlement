@@ -61,7 +61,7 @@ RSpec.describe "Sponsor contact details", type: :system do
       expect(page).to have_content(phone_page_content)
       fill_in_phone_numbers_and_continue(phone_number: "Hello", phone_number_confirm: "07123999999")
 
-      expect(page).to have_content("Error: You must enter a valid phone number")
+      expect(page).to have_content("Error: You must enter a valid UK mobile phone number")
       expect(page).not_to have_content("Error: Phone numbers must match")
     end
 
@@ -82,7 +82,7 @@ RSpec.describe "Sponsor contact details", type: :system do
       expect(page).to have_content(phone_page_content)
       
       fill_in_phone_numbers_and_continue(phone_number: "12312312312", phone_number_confirm: "12312312312")
-      expect(page).to have_content("Error: You must enter a UK mobile number")
+      expect(page).to have_content("Error: You must enter a valid UK mobile phone number")
     end
 
     it "recognises UK mobile number with 447 rather than 07" do 

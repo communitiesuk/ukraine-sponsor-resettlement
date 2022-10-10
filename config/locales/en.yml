@@ -340,7 +340,7 @@ en:
         label_confirm_email: Confirm email address
       phone_number:
         short: Enter your UK mobile number
-        full: Enter a UK mobile number that you have access to, so you can save and continue your application later.
+        full: Enter a UK mobile phone number that you have access to, so you can save and continue your application later.
         label: UK mobile number
       identity_documents:
         short: Sponsor identity documents
@@ -528,4 +528,4 @@ en:
     emails_different: Emails must match
     phone_numbers_different: Phone numbers must match
     no_identity_error: Tell us how you can prove your identity, or why you cannot.
-    non_uk_number: You must enter a UK mobile number
+    non_uk_number: You must enter a valid UK mobile phone number
