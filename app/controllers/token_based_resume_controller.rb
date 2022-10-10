@@ -102,7 +102,6 @@ class TokenBasedResumeController < ApplicationController
             # the application exists, store in the session and let them resume
             @application = @applicationtoken.unaccompanied_minor
             session[:app_reference] = @application.reference
-            session[:unaccompanied_minor] = @application.as_json
             render "sponsor-a-child/task_list"
           else
             # no application was found with this token
@@ -131,7 +130,6 @@ class TokenBasedResumeController < ApplicationController
       selected_application = request.POST["reference"]
       @application = UnaccompaniedMinor.find_by(reference: selected_application)
       session[:app_reference] = selected_application
-      session[:unaccompanied_minor] = @application.as_json
       render "sponsor-a-child/task_list"
     else
       flash[:error] = "No applications found"
