@@ -84,10 +84,10 @@ module UnaccompaniedMinorHelpers
     fill_in("unaccompanied_minor[email_confirm]", with: "spencer.sponsor@example.com")
     click_on("Continue")
 
-    expect(page).to have_content("Enter your UK phone number")
+    expect(page).to have_content("Enter your UK mobile number")
 
-    fill_in("UK phone number", with: "07123123123")
-    fill_in("Confirm phone number", with: "07123123123")
+    fill_in("UK mobile number", with: "07123123123")
+    fill_in("Confirm mobile number", with: "07123123123")
     click_on("Continue")
 
     expect(page).to have_content(TASK_LIST_CONTENT)
