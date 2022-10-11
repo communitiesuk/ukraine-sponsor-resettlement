@@ -21,6 +21,7 @@
         console.log(<%= session.to_json.html_safe %>)
       </script>
     <% end %>
+    <%= analytics_init if GoogleAnalytics.valid_tracker? %>
   </head>
 
   <body class="govuk-template__body ">
