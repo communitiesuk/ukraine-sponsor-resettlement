@@ -65,7 +65,10 @@ class UnaccompaniedController < ApplicationController
       redirect_to "/sponsor-a-child" and return
     end
 
-    if ADULT_STEPS_FULL.include?(step) && (params["key"].blank? || @application.adults_at_address.blank?)
+    if ADULT_STEPS_FULL.include?(step) && \
+      @application.other_adults_address.present? && \
+      @application.other_adults_address.casecmp("yes").zero? && \
+      (params["key"].blank? || @application.adults_at_address.blank?)
       render "sponsor-a-child/task_list"
       return
     end
