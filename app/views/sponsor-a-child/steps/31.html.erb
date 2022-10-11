@@ -9,7 +9,11 @@
 
     <h1 class="govuk-heading-l"><%= t('resident_identity_documents.full', scope: "unaccompanied_minor.questions")%></h1>
 
-      <%= f.govuk_radio_buttons_fieldset :adult_identification_type, legend: { text: "", hidden: true }, hint: { text: t('resident_identity_documents.hint_html', :name => "#{@adult["given_name"]} #{@adult["family_name"]}", scope: "unaccompanied_minor.questions")} do %>
+    <div class="govuk-inset-text">
+      <%= "#{@adult["given_name"]} #{@adult["family_name"]}" %>
+    </div>
+
+      <%= f.govuk_radio_buttons_fieldset :adult_identification_type, legend: { text: "", hidden: true } do %>
 
         <%= f.govuk_radio_button :adult_identification_type, :passport, label: { text: "Passport" }, link_errors: true do %>
           <%= f.govuk_text_field :adult_passport_identification_number, label: { text: "Passport number" }, type: "text" %>
