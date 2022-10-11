@@ -486,6 +486,17 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       visit "/sponsor-a-child/task-list"
       expect(page).to have_link("", href: "/sponsor-a-child/steps/29/123")
     end
+
+    it "redirecs to task list if user skips forward for other adults" do
+      new_application = UnaccompaniedMinor.new
+      new_application.other_adults_address = "yes"
+      new_application.save!
+
+      page.set_rack_session(app_reference: new_application.reference)
+
+      visit "/sponsor-a-child/steps/28"
+      expect(page).to have_content(task_list_content)
+    end
   end
 
   describe "session times out after inactivity" do
