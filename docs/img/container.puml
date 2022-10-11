@@ -39,9 +39,9 @@ System_Boundary(s2, "External Observabilty") {
 }
 
 
-Rel_R(applicant, cloudflare, "Uses", "HTTPS")
-Rel_D(cloudflare, elb, "Uses", "HTTPS")
-Rel_D(elb, web_app, "Uses", "HTTPS")
+BiRel_R(applicant, cloudflare, "Uses", "HTTPS")
+BiRel_D(cloudflare, elb, "Uses", "HTTPS")
+BiRel_D(elb, web_app, "Uses", "HTTPS")
 
 Rel(web_app, postgres, "Stores", "HTTPS")
 Rel(web_app, redis, "Queues asynch jobs", "HTTPS")
