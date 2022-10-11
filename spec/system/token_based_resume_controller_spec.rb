@@ -198,6 +198,4 @@ RSpec.describe TokenBasedResumeController, type: :system do
       expect(page).to have_content(given_name)
     end
   end
-
-  describe ""
 end
