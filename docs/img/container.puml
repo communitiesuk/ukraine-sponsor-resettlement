@@ -1,0 +1,68 @@
+@startuml HFU Container Diagram
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/v2.4.0/C4_Container.puml
+'!include <c4/C4_Container.puml>  
+
+'ref http://plantuml.com/stdlib
+!include <office/Users/user.puml>
+!include <office/Users/mobile_user.puml>
+
+LAYOUT_WITH_LEGEND()
+
+title Container diagram for Homes for Ukraine application forms
+
+Person(applicant, Applicant, "Private & Commercial expressions of interest")
+Person_Ext(techs, Tech Team, "Development and support")
+Container_Ext(cloudflare, "Cloudflare", "DLUCH Managed", "DDoS Protection")
+
+System_Boundary(s1, "Gov.UK PaaS Space") {
+    Container(elb, "Elastic Load Balancer", "Gov Paas", "Distributes requests")
+    Container(web_app, "Web Application Instances", "Rails, Docker container", "Serves the application forms 'Front Door'")
+    ContainerDb(postgres, "PostgreSQL", "PostgreSQL", "Stores user entered application information")
+    ContainerDb(redis, "Redis", "Redis", "RoR backing for deferred / background jobs via Sidekiq")
+    Container(sidekiq, "Sidekiq Instances", "Ruby, Docker container", "Asynch workers\nRetry on failure")
+    
+    Container_Boundary(s3, "Monitoring Space") {
+      System_Ext(prom_ex, "Prometheus Exporter", "(GDS codebase)")
+      System_Ext(prom, "Prometheus")
+      SystemDb_Ext(pg, "PostgreSQL")
+      SystemDb_Ext(influx, "InfluxDB")
+      System_Ext(grafana, "Grafana")
+    }
+}
+
+System(foundry, "Palintir Foundry", "HTTPS API")
+System_Ext(notify, "Gov.UK Notify", "Email & SMS messages to applicants")
+
+System_Boundary(s2, "External Observabilty") {
+  System_Ext(logit, "logit.io", "Application logging drain")
+  System_Ext(sentry, "sentry.io", "Error capture\nEmails team")
+}
+
+
+BiRel_R(applicant, cloudflare, "Uses", "HTTPS")
+BiRel_D(cloudflare, elb, "Uses", "HTTPS")
+BiRel_D(elb, web_app, "Uses", "HTTPS")
+
+Rel(web_app, postgres, "Stores", "HTTPS")
+Rel(web_app, redis, "Queues asynch jobs", "HTTPS")
+Rel_R(web_app, foundry, "POST completed form data", "HTTPS")
+Rel(web_app, sentry, "Record errors", "HTTPS")
+Rel(web_app, logit, "Captures app logs", "HTTPS")
+
+BiRel(sidekiq, redis, "Processes asynch jobs", "HTTPS")
+Rel_L(sidekiq, notify, "Inform applicants", "HTTPS")
+Rel_U(notify, applicant , "Email or SMS")
+
+Rel(prom_ex, web_app, "Pulls metrics")
+Rel(prom, prom_ex, "Pulls metrics")
+Rel(prom, influx, "Metrics stored in")
+Rel(grafana, prom, "Consumes for display")
+Rel(grafana, pg, "Configuration Store")
+
+BiRel_U(techs, grafana, "View metrics and alerts")
+Rel(techs, sentry, "View errors")
+Rel(techs, logit, "View logs")
+
+center footer  [[https://c4model.com/#CoreDiagrams C4 Container Diagram]]
+
+@enduml
