@@ -118,6 +118,7 @@ GEM
     ffi (1.15.5)
     globalid (1.0.0)
       activesupport (>= 5.0)
+    google-analytics-rails (1.1.1)
     govuk-components (3.2.1)
       actionpack (>= 6.1)
       activemodel (>= 6.1)
@@ -358,6 +359,7 @@ DEPENDENCIES
   byebug
   capybara
   dotenv-rails
+  google-analytics-rails (= 1.1.1)
   govuk-components
   govuk_design_system_formbuilder
   govuk_notify_rails
