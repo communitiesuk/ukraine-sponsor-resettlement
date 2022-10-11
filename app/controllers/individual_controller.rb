@@ -1,6 +1,10 @@
 class IndividualController < ApplicationController
   MAX_STEPS = 18
 
+  if ENV["EOI_GA_TRACKING_CODE"].present?
+    GA.tracker = ENV["EOI_GA_TRACKING_CODE"]
+  end
+
   def display
     @application = IndividualExpressionOfInterest.new(session[:individual_expression_of_interest])
 
