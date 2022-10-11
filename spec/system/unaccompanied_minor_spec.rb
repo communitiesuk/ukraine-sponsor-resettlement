@@ -487,7 +487,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_link("", href: "/sponsor-a-child/steps/29/123")
     end
 
-    it "redirecs to task list if user skips forward for other adults" do
+    it "redirects to task list if user skips forward for other adults" do
       new_application = UnaccompaniedMinor.new
       new_application.other_adults_address = "yes"
       new_application.save!
