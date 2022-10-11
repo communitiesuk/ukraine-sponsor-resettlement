@@ -128,6 +128,12 @@ RSpec.describe TokenBasedResumeController, type: :system do
       expect(page).to have_content(I18n.t("phone_number.full", scope: "unaccompanied_minor.questions"))
     end
 
+    it "redirects to start page if no application is present" do
+      visit "/sponsor-a-child/save-and-return"
+
+      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
+    end
+
     it "allows the user to resume an application if the correct email is provided" do
       page.set_rack_session(app_reference: uam.reference)
 
