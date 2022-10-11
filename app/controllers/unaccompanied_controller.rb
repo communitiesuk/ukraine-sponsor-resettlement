@@ -20,6 +20,7 @@ class UnaccompaniedController < ApplicationController
   SPONSOR_OTHER_NATIONALITIES_CHOICE = 20
   SPONSOR_OTHER_NATIONALITY = 21
   ADULTS_AT_ADDRESS = 27
+  ADULTS_SUMMARY_PAGE = 28
   ADULT_DATE_OF_BIRTH = 29
   ADULT_NATIONALITY = 30
   ADULT_ID_TYPE_AND_NUMBER = 31
@@ -28,6 +29,7 @@ class UnaccompaniedController < ApplicationController
   NATIONALITY_STEPS = [SPONSOR_NATIONALITY, SPONSOR_OTHER_NATIONALITY, ADULT_NATIONALITY].freeze
   SAVE_AND_RETURN_STEPS = [SPONSOR_EMAIL, SPONSOR_PHONE_NUMBER].freeze
   ADULT_STEPS = [ADULT_DATE_OF_BIRTH, ADULT_NATIONALITY, ADULT_ID_TYPE_AND_NUMBER].freeze
+  ADULT_STEPS_ALL = [ADULTS_SUMMARY_PAGE, ADULT_DATE_OF_BIRTH, ADULT_NATIONALITY, ADULT_ID_TYPE_AND_NUMBER].freeze
   TASK_LIST_STEP = 999
   TASK_LIST_URI = "/sponsor-a-child/task-list".freeze
 
@@ -65,6 +67,14 @@ class UnaccompaniedController < ApplicationController
 
     if @application.nil? || (1..MAX_STEPS).exclude?(step)
       redirect_to "/sponsor-a-child" and return
+    end
+
+    if ADULT_STEPS_ALL.include?(step) && \
+        @application.other_adults_address.present? && \
+        @application.other_adults_address.casecmp("yes").zero? && \
+        (params["key"].blank? || @application.adults_at_address.blank?)
+      render "sponsor-a-child/task_list"
+      return
     end
 
     if NATIONALITY_STEPS.include?(step)
