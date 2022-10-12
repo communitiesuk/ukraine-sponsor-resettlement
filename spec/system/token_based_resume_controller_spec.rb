@@ -12,6 +12,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
   let(:uam) { UnaccompaniedMinor.new }
   let(:email) { "test@example.com" }
   let(:email_scrambled) { "t***@example.com" }
+  let(:spencer_scrambled) { "s**************@example.com" }
 
   before do
     driven_by(:rack_test_user_agent)
@@ -35,8 +36,6 @@ RSpec.describe TokenBasedResumeController, type: :system do
   describe "User token is expired" do
     before do
       allow(ApplicationToken).to receive(:find_by).and_return(ApplicationToken.new({ token: sms_code, unaccompanied_minor: uam, magic_link: magic_id, expires_at: already_expired, created_at: }))
-      uam = UnaccompaniedMinor.new
-      uam.save!
     end
 
     it "shows an error to the user" do
@@ -59,15 +58,6 @@ RSpec.describe TokenBasedResumeController, type: :system do
   end
 
   describe "User intentionally resumes their application" do
-    uam = UnaccompaniedMinor.new
-    uam.save!
-
-    before do
-      allow(Notifications::Client).to receive(:new).and_return(texter)
-      allow(texter).to receive(:send_sms)
-      allow(UnaccompaniedMinor).to receive(:find_by_email).and_return(uam)
-    end
-
     it "shows the confirm page if required data is present" do
       uam_enter_valid_complete_eligibility_section
       uam_start_page_to_task_list
@@ -76,10 +66,9 @@ RSpec.describe TokenBasedResumeController, type: :system do
       uam_enter_sponsor_not_known_by_another_name
       uam_click_task_list_link("Contact details")
       uam_enter_sponsor_contact_details
-
       visit "/sponsor-a-child/save-and-return"
 
-      expect(page).to have_content("We've sent the link to")
+      expect(page).to have_content("We've sent the link to #{spencer_scrambled}")
     end
 
     it "redirects the user to additional details form if email info are missing" do
@@ -121,8 +110,6 @@ RSpec.describe TokenBasedResumeController, type: :system do
     end
 
     it "allows the user to resume an application if the correct email is provided" do
-      page.set_rack_session(app_reference: uam.reference)
-
       visit "/sponsor-a-child/save-and-return/resend-link"
 
       fill_in("Email address", with: email)
@@ -143,7 +130,7 @@ RSpec.describe TokenBasedResumeController, type: :system do
       fill_in("unaccompanied-minor-email-field", with: email)
       click_button("Send Link")
 
-      expect(page).to have_content("We've sent the link to")
+      expect(page).to have_content("We've sent the link to #{email_scrambled}")
     end
 
     it "shows an error with error box if the email is invalid" do
