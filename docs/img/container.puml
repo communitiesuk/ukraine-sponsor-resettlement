@@ -10,7 +10,7 @@
 !includeurl ICONURL/devicons2/postgresql.puml
 !includeurl ICONURL/devicons2/redis.puml
 !includeurl ICONURL/devicons2/rails_wordmark.puml
-
+!includeurl ICONURL/devicons2/ruby_wordmark.puml
 
 
 
@@ -27,7 +27,7 @@ System_Boundary(s1, "Gov.UK PaaS Space") {
     Container(web_app, "Web Application Instances", "Rails, Docker container", "Serves the application forms 'Front Door'", $sprite="rails_wordmark")
     ContainerDb(postgres, "PostgreSQL", "PostgreSQL", "Stores user entered application information", $sprite="postgresql")
     ContainerDb(redis, "Redis", "Redis", "RoR backing for deferred / background jobs via Sidekiq", $sprite="redis")
-    Container(sidekiq, "Sidekiq Instances", "Ruby, Docker container", "Asynch workers\nRetry on failure")
+    Container(sidekiq, "Sidekiq Instances", "Ruby, Docker container", "Asynch workers\nRetry on failure", $sprite="ruby_wordmark")
     
     Container_Boundary(s3, "Monitoring Space") {
       System_Ext(prom_ex, "Prometheus Exporter", "(GDS codebase)")
