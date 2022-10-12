@@ -3,19 +3,20 @@ require "rails_helper"
 RSpec.describe TokenBasedResumeController, type: :system do
   let(:texter) { instance_double("Notifications::Client") }
   let(:application_token) { instance_double("ApplicationToken") }
-  let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine".freeze }
+  let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine" }
   let(:sms_code) { 123_456 }
   let(:already_expired) { Time.zone.now.utc - 1.hour }
   let(:created_at) { Time.zone.now.utc }
   let(:magic_id) { "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc" }
   let(:expiry_time) { Time.zone.now.utc + 1.hour }
   let(:uam) { UnaccompaniedMinor.new }
+  let(:email) { "test@example.com" }
+  let(:email_scrambled) { "t***@example.com" }
 
   before do
     driven_by(:rack_test_user_agent)
     allow(Notifications::Client).to receive(:new).and_return(texter)
     allow(texter).to receive(:send_sms)
-    allow(UnaccompaniedMinor).to receive(:find_by_email).and_return(uam)
   end
 
   describe "User has been timed out" do
@@ -65,7 +66,6 @@ RSpec.describe TokenBasedResumeController, type: :system do
       allow(Notifications::Client).to receive(:new).and_return(texter)
       allow(texter).to receive(:send_sms)
       allow(UnaccompaniedMinor).to receive(:find_by_email).and_return(uam)
-      allow(ApplicationToken).to receive(:find_by).and_return(ApplicationToken.new({ token: sms_code, unaccompanied_minor: uam, magic_link: magic_id, expires_at: expiry_time, created_at: }))
     end
 
     it "shows the confirm page if required data is present" do
@@ -83,22 +83,31 @@ RSpec.describe TokenBasedResumeController, type: :system do
     end
 
     it "redirects the user to additional details form if email info are missing" do
-      uam.given_name = given_name
-      uam.email = nil
-      uam.save!
-      page.set_rack_session(app_reference: uam.reference)
-
+      uam_enter_valid_complete_eligibility_section
+      uam_start_page_to_task_list
+      uam_click_task_list_link("Name")
+      uam_enter_sponsor_name
+      uam_enter_sponsor_not_known_by_another_name
       visit "/sponsor-a-child/save-and-return"
 
       expect(page).to have_content(I18n.t("email.short", scope: "unaccompanied_minor.questions"))
     end
 
     it "redirects the user to additional details form if phone number info are missing" do
-      uam.given_name = given_name
-      uam.email = email
-      uam.phone_number = nil
-      uam.save!
-      page.set_rack_session(app_reference: uam.reference)
+      uam_enter_valid_complete_eligibility_section
+      uam_start_page_to_task_list
+      uam_click_task_list_link("Name")
+      uam_enter_sponsor_name
+      uam_enter_sponsor_not_known_by_another_name
+      uam_click_task_list_link("Contact details")
+
+      expect(page).to have_content("Enter your email address")
+
+      fill_in("Email", with: "spencer.sponsor@example.com")
+      fill_in("unaccompanied_minor[email_confirm]", with: "spencer.sponsor@example.com")
+      click_on("Continue")
+
+      expect(page).to have_content("Enter your UK mobile number")
 
       visit "/sponsor-a-child/save-and-return"
 
@@ -123,32 +132,21 @@ RSpec.describe TokenBasedResumeController, type: :system do
     end
 
     it "allows the user to resume an application if given_name is not provided" do
-      uam.given_name = nil
-      uam.email = email
-      uam.phone_number = phone_number
-      uam.save!
-      page.set_rack_session(app_reference: uam.reference)
+      uam_enter_valid_complete_eligibility_section
+      uam_start_page_to_task_list
+      uam_click_task_list_link("Contact details")
+      uam_enter_sponsor_contact_details
 
+      visit "/sponsor-a-child/save-and-return"
       visit "/sponsor-a-child/save-and-return/resend-link"
 
-      fill_in("Email address", with: email)
+      fill_in("unaccompanied-minor-email-field", with: email)
       click_button("Send Link")
 
-      expect(page).to have_content("We've sent the link to #{email_scrambled}")
+      expect(page).to have_content("We've sent the link to")
     end
 
-    it "shows an error if the email is invalid" do
-      page.set_rack_session(app_reference: uam.reference)
-
-      visit "/sponsor-a-child/save-and-return/resend-link"
-
-      fill_in("Email address", with: "")
-      click_button("Send Link")
-
-      expect(page).to have_content(I18n.t(:invalid_email, scope: :error))
-    end
-
-    it "shows an error box if the email is invalid" do
+    it "shows an error with error box if the email is invalid" do
       page.set_rack_session(app_reference: uam.reference)
 
       visit "/sponsor-a-child/save-and-return/resend-link"
@@ -157,22 +155,33 @@ RSpec.describe TokenBasedResumeController, type: :system do
       click_button("Send Link")
 
       expect(page).to have_content("There is a problem")
+      expect(page).to have_content(I18n.t(:invalid_email, scope: :error))
     end
 
     it "loads correct application given code" do
-      uam.given_name = given_name
-      uam.phone_number = phone_number
-      uam.email = email
-      uam.save!
-
-      UnaccompaniedMinor.where.not(reference: uam.reference).destroy_all
-      params = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
-
-      page.driver.post "/sponsor-a-child/resume-application", params
-
-      expect(page).to have_content(task_list_content)
+      uam_enter_valid_complete_eligibility_section
+      uam_start_page_to_task_list
       uam_click_task_list_link("Name")
-      expect(page).to have_content(given_name)
+      uam_enter_sponsor_name
+      uam_enter_sponsor_not_known_by_another_name
+      uam_click_task_list_link("Contact details")
+      uam_enter_sponsor_contact_details
+
+      visit "/sponsor-a-child/save-and-return"
+
+      app_ref = page.get_rack_session_key("app_reference")
+      UnaccompaniedMinor.where.not(reference: app_ref).destroy_all
+      application = UnaccompaniedMinor.find_by_reference(app_ref)
+      app_token = ApplicationToken.find_by(unaccompanied_minor: application)
+
+      params = { abstract_resume_token: { token: app_token.token }, uuid: app_token.magic_link }
+
+      page.driver.post("/sponsor-a-child/resume-application", params)
+
+      expect(page.body).to have_text("Name")
+      visit "/sponsor-a-child/task-list"
+      click_on("Name")
+      expect(page).to have_field("Given names", with: "Spencer")
     end
   end
 end
