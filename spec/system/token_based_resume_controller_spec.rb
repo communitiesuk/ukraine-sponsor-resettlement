@@ -169,19 +169,21 @@ RSpec.describe TokenBasedResumeController, type: :system do
 
       visit "/sponsor-a-child/save-and-return"
 
-      app_ref = page.get_rack_session_key("app_reference")
-      UnaccompaniedMinor.where.not(reference: app_ref).destroy_all
-      application = UnaccompaniedMinor.find_by_reference(app_ref)
-      app_token = ApplicationToken.find_by(unaccompanied_minor: application)
-
-      params = { abstract_resume_token: { token: app_token.token }, uuid: app_token.magic_link }
-
-      page.driver.post("/sponsor-a-child/resume-application", params)
+      page.driver.post("/sponsor-a-child/resume-application", token_resume_params)
 
       expect(page.body).to have_text("Name")
       visit "/sponsor-a-child/task-list"
       click_on("Name")
       expect(page).to have_field("Given names", with: "Spencer")
+    end
+
+    def token_resume_params
+      app_ref = page.get_rack_session_key("app_reference")
+      UnaccompaniedMinor.where.not(reference: app_ref).destroy_all
+      application = UnaccompaniedMinor.find_by_reference(app_ref)
+      app_token = ApplicationToken.find_by(unaccompanied_minor: application)
+
+      { abstract_resume_token: { token: app_token.token }, uuid: app_token.magic_link }
     end
   end
 end
