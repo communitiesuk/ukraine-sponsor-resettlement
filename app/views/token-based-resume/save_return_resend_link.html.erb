@@ -18,11 +18,16 @@
                              label: { text: t('email.label_email', scope: "unaccompanied_minor.questions") },
                              type: "email"
       %>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <div class="govuk-button-group">
+            <%= f.govuk_submit t('Send link') %>
 
-      <%= f.govuk_submit t('Send link') %>
+            <a class="govuk-link" href="/sponsor-a-child/start">Start a new application</a>
+          </div>
+        </div>
 
-      <a href="/sponsor-a-child/start" class="govuk-link">Start a new application</a>
+    </div>
     <% end %>
-
   </div>
 </div>
