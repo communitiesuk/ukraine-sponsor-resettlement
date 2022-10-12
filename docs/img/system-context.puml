@@ -14,7 +14,7 @@ Person_Ext(las, Local Authority)
 
 System_Boundary(system, "Ukraine Sponsor Resettlement") {
   System(resettlement_fe, "Resettlement Web Application", "Front door for applications.")
-  System_Ext(foundry, "Foundry", "(Palintir) Foundry")
+  System_Ext(foundry, "Foundry", "(Palantir) Foundry")
   System_Ext(gov_notify, "Gov.UK Notify", "Email & SMS")
 }
 
