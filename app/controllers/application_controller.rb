@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :ensure_session_last_seen
+  before_action :set_tracking_code, :ensure_session_last_seen
   after_action :update_session_last_seen
 
   default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
@@ -9,6 +9,16 @@ class ApplicationController < ActionController::Base
   end
 
 private
+
+  def set_tracking_code
+    Rails.logger.debug request.fullpath
+    if request.fullpath.include?("child") && ENV.fetch("UAM_GA_TRACKING_CODE").present?
+      GA.tracker = ENV.fetch("UAM_GA_TRACKING_CODE")
+    end
+    if request.fullpath.include?("individual") && ENV.fetch("EOI_GA_TRACKING_CODE").present?
+      GA.tracker = ENV.fetch("EOI_GA_TRACKING_CODE")
+    end
+  end
 
   def ensure_session_last_seen
     if session[:last_seen].nil?
