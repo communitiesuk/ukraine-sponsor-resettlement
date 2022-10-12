@@ -12,10 +12,10 @@ private
 
   def set_tracking_code
     Rails.logger.debug request.fullpath
-    if request.fullpath.include?("child") && ENV.fetch("UAM_GA_TRACKING_CODE").present?
+    if request.fullpath.include?("child") && ENV["UAM_GA_TRACKING_CODE"].present?
       GA.tracker = ENV.fetch("UAM_GA_TRACKING_CODE")
     end
-    if request.fullpath.include?("individual") && ENV.fetch("EOI_GA_TRACKING_CODE").present?
+    if request.fullpath.include?("individual") && ENV["EOI_GA_TRACKING_CODE"].present?
       GA.tracker = ENV.fetch("EOI_GA_TRACKING_CODE")
     end
   end
