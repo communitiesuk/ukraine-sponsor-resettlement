@@ -38,7 +38,7 @@ System_Boundary(s1, "Gov.UK PaaS Space") {
     }
 }
 
-System(foundry, "Palintir Foundry", "HTTPS API")
+System(foundry, "Palantir Foundry", "HTTPS API")
 System_Ext(notify, "Gov.UK Notify", "Email & SMS messages to applicants")
 
 System_Boundary(s2, "External Observabilty") {
