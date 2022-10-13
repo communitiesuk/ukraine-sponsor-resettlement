@@ -6,14 +6,15 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     driven_by(:rack_test_user_agent)
   end
 
-  let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine".freeze }
+  let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine" }
   let(:name_page_content) { "Enter your name".freeze }
   let(:other_adults_address_content) { "Enter the name of a person over 16 who will live with the child".freeze }
+  let(:start_page_content) { "Apply to provide a safe home for a child from Ukraine" }
 
   describe "start page" do
     it "sponsor url shows page" do
       visit "/sponsor-a-child"
-      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
+      expect(page).to have_content(start_page_content)
     end
   end
 
@@ -103,111 +104,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
     end
   end
 
-  describe "submitting the form" do
-    it "shows the guidance page before the start page" do
-      visit "/sponsor-a-child/"
-      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
-
-      click_link("Apply to provide a safe home for a child from Ukraine")
-
-      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
-    end
-
-    it "shows check if eligible for this service page" do
-      visit "/sponsor-a-child/start"
-      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
-
-      click_link("Start now")
-
-      expect(page).to have_content("Check if you are eligible to use this service")
-    end
-
-    it "shows the user uneligible page if they answer NO to any question" do
-      visit "/sponsor-a-child/start"
-      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
-
-      click_link("Start now")
-      expect(page).to have_content("Check if you are eligible to use this service")
-
-      click_link("Continue")
-
-      # step 1
-      expect(page).to have_content("Is the child you want to sponsor under 18?")
-      choose("No")
-      click_button("Continue")
-
-      expect(page).to have_content("You cannot use this service")
-    end
-
-    it "takes the user to the end of eligibility path" do
-      uam_enter_valid_complete_eligibility_section
-    end
-
-    it "shows eligibility question 3 if 2 is answered NO" do
-      visit "/sponsor-a-child/start"
-      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
-
-      click_link("Start now")
-
-      expect(page).to have_content("Check if you are eligible to use this service")
-
-      click_link("Continue")
-
-      # step 1
-      expect(page).to have_content("Is the child you want to sponsor under 18?")
-      choose("Yes")
-      click_button("Continue")
-
-      # step 2
-      expect(page).to have_content("Was the child living in Ukraine on or before 31 December 2021?")
-      choose("No")
-      click_button("Continue")
-
-      # step 3
-      expect(page).to have_content("Was the child born after 31 December 2021?")
-    end
-
-    it "shows ineligibility if 6 is answered NO" do
-      visit "/sponsor-a-child/start"
-      expect(page).to have_content("Apply to provide a safe home for a child from Ukraine")
-
-      click_link("Start now")
-
-      expect(page).to have_content("Check if you are eligible to use this service")
-
-      click_link("Continue")
-
-      # step 1
-      expect(page).to have_content("Is the child you want to sponsor under 18?")
-      choose("Yes")
-      click_button("Continue")
-
-      # step 2
-      expect(page).to have_content("Was the child living in Ukraine on or before 31 December 2021?")
-      choose("Yes")
-      click_button("Continue")
-
-      # step 3 is skipped in this instance
-
-      # step 4
-      expect(page).to have_content("Are they travelling to the UK with a parent or legal guardian?")
-      choose("No")
-      click_button("Continue")
-
-      # step 5
-      expect(page).to have_content("Can you upload both consent forms?")
-      choose("Yes")
-      click_button("Continue")
-
-      # step 6
-      expect(page).to have_content("Can you commit to hosting the child for the minimum period?")
-      choose("No")
-      click_button("Continue")
-
-      # ineligible
-      expect(page).to have_content("You cannot use this service")
-    end
-
+  describe "User enters child details" do
     it "complete child flow name(s) section and save answers to the db" do
       new_application = UnaccompaniedMinor.new
       new_application.save!
