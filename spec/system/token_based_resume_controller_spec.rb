@@ -173,4 +173,12 @@ RSpec.describe TokenBasedResumeController, type: :system do
       { abstract_resume_token: { token: app_token.token }, uuid: app_token.magic_link }
     end
   end
+
+  describe "user tries to return without an application present" do
+    it "redirects them to the start page" do
+      visit "/sponsor-a-child/resume-application"
+
+      expect(page).to have_content("Use this service to apply for approval to sponsor a child fleeing Ukraine, who is not travelling with or joining their parent or legal guardian in the UK.")
+    end
+  end
 end
