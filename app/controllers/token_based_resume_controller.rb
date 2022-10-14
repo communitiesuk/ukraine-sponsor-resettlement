@@ -13,13 +13,17 @@ class TokenBasedResumeController < ApplicationController
   def display
     @abstractresumetoken = AbstractResumeToken.new(magic_link: params[:uuid])
     @application_reference = ApplicationToken.find_by(magic_link: params[:uuid])
+    if @application_reference.present?
 
-    if Time.zone.now.utc > @application_reference.expires_at
-      flash[:error] = "This code has expired, please request a new one"
+      if Time.zone.now.utc > @application_reference.expires_at
+        flash[:error] = "This code has expired, please request a new one"
+      else
+        send_token
+      end
+      render "token-based-resume/session_resume_form"
     else
-      send_token
+      render "/sponsor-a-child/start"
     end
-    render "token-based-resume/session_resume_form"
   end
 
   def save_return_confirm

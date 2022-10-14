@@ -17,7 +17,6 @@
           @application.different_address_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
           :id,
           :name,
-          inline: true,
           legend: { text: t('different_address.full', scope: "unaccompanied_minor.questions"), hidden: true },
           hint: { text: t('different_address.hint', scope: "unaccompanied_minor.questions")}%>
 
