@@ -1,5 +1,4 @@
 require "rails_helper"
-require "securerandom"
 
 RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   before do
