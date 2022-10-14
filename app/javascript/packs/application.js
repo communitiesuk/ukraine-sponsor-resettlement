@@ -21,6 +21,8 @@ require('jquery')
 import { initAll } from 'govuk-frontend';
 import '../styles/application.scss';
 import './gds-step_by_step_navigation';
+import './self_assessment_navigation';
+
 
 initAll()
 

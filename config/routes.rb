@@ -20,6 +20,10 @@ Rails.application.routes.draw do
   post "/organisation/check_answers", to: "organisation#submit"
   get "/organisation/confirm", to: "organisation#confirm"
 
+  get "/individual/self-assessment/start", to: "eoi#index"
+  get "/individual/self-assessment/property-suitable", to: "eoi#property_suitable"
+  get "/individual/self-assessment/challenges", to: "eoi#challenges"
+
   get "/additional-info/", to: "errors#reference_not_found"
   get "/additional-info/ref", to: "errors#reference_not_found"
   get "/additional-info/ref/:reference", to: "additional#home"
