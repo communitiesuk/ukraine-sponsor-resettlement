@@ -89,7 +89,6 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Can you commit to hosting the child for the minimum period?")
       uam_choose_option("No")
 
-
       expect(page).to have_content("You cannot use this service")
     end
   end
