@@ -8,7 +8,7 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
 
   describe "other adults identification documents" do
     let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine".freeze }
-    let(:min_chars_digits_message) { "You must enter at least 6 characters (numbers or letters)" }
+    let(:invalid_id_number) { "You must enter a valid identity document number" }
     let(:invalid_id_entries) { ["", " ", "-", "*test", "12345", "AbCdE"].freeze }
     let(:valid_document_id) { "SomeValidId123456".freeze }
 
@@ -37,7 +37,7 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
         fill_in("Passport number", with: line)
         click_button("Continue")
 
-        expect(page).to have_content(min_chars_digits_message), "Failed value:#{line.inspect}"
+        expect(page).to have_content(invalid_id_number), "Failed value:#{line.inspect}"
       end
     end
 
@@ -59,7 +59,7 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
         fill_in("National identity card", with: line)
         click_button("Continue")
 
-        expect(page).to have_content(min_chars_digits_message), "Failed value:#{line.inspect}"
+        expect(page).to have_content(invalid_id_number), "Failed value:#{line.inspect}"
       end
     end
 
@@ -81,7 +81,7 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
         fill_in("National identity card", with: line)
         click_button("Continue")
 
-        expect(page).to have_content(min_chars_digits_message), "Failed value:#{line.inspect}"
+        expect(page).to have_content(invalid_id_number), "Failed value:#{line.inspect}"
       end
     end
 
