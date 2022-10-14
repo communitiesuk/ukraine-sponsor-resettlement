@@ -63,6 +63,14 @@
   </div>
 </div>
 
+<% if @feature_eoi_journey_enabled %>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <%= govuk_button_link_to 'NEW BUTTON IS HERE', route_for(:organisation) %>
+    </div>
+  </div>
+<% end %>
+
 <h1 class="gem-c-title__text govuk-heading-l">
   What sort of accommodation am I expected to provide?
 </h1>
