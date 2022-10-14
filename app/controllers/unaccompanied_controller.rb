@@ -34,7 +34,6 @@ class UnaccompaniedController < ApplicationController
   TASK_LIST_URI = "/sponsor-a-child/task-list".freeze
 
   def start
-    @feature_save_and_return_active = (ENV["UAM_FEATURE_SAVE_AND_RETURN_ACTIVE"] == "true")
     render "sponsor-a-child/start"
   end
 
@@ -51,7 +50,6 @@ class UnaccompaniedController < ApplicationController
   end
 
   def start_application
-    @feature_save_and_return_active = (ENV["UAM_FEATURE_SAVE_AND_RETURN_ACTIVE"] == "true")
     # Redirect to show the task-list
     redirect_to TASK_LIST_URI
   end
@@ -59,7 +57,6 @@ class UnaccompaniedController < ApplicationController
   def display
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
     step = params["stage"].to_i
-    @feature_save_and_return_active = (ENV["UAM_FEATURE_SAVE_AND_RETURN_ACTIVE"] == "true")
 
     if @application.nil? || (1..MAX_STEPS).exclude?(step)
       redirect_to "/sponsor-a-child" and return
@@ -615,7 +612,6 @@ class UnaccompaniedController < ApplicationController
   end
 
   def task_list
-    @feature_save_and_return_active = (ENV["UAM_FEATURE_SAVE_AND_RETURN_ACTIVE"] == "true")
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
 
     if @application.is_cancelled?
