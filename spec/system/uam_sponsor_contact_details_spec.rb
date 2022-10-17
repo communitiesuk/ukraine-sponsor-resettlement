@@ -11,6 +11,29 @@ RSpec.describe "Sponsor contact details", type: :system do
   let(:nonmatching_sponsor_email) { "notmatching@example.com" }
   let(:phone_page_content) { "Enter your UK mobile number" }
   let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine" }
+  let(:phone_number) {"07777 888 999"}
+  
+  describe "Sponsor fills out contact details" do
+    it "Answers are saved to the db" do
+      fill_in_email_and_continue
+
+      fill_in("UK mobile number", with: "07777 888 999")
+      fill_in("Confirm mobile number", with: "07777 888 999")
+      click_button("Continue")
+
+      expect(page).to have_content(task_list_content)
+
+      click_link("Contact details")
+
+      expect(page).to have_field("Email", with: sponsor_email)
+      expect(page).to have_field("unaccompanied_minor[email_confirm]", with: sponsor_email)
+
+      click_button("Continue")
+
+      expect(page).to have_field("UK mobile number", with: "07777 888 999")
+      expect(page).to have_field("Confirm mobile number", with: "07777 888 999")
+    end
+  end
 
   describe "Sponsors contact details don't match" do
     it "shows error message for not matching email addresses" do
