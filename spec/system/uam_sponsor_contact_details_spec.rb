@@ -14,7 +14,7 @@ RSpec.describe "Sponsor contact details", type: :system do
   let(:valid_phone_number) { "07777 888 999" }
 
   describe "Sponsor fills out contact details" do
-    it "Answers are saved to the db" do
+    it "Answers are persisted and visible on returning to the page" do
       fill_in_email_and_continue
 
       fill_in_phone_numbers_and_continue
