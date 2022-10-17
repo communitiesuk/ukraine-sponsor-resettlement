@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get "/individual/self-assessment/start", to: "eoi#index"
   get "/individual/self-assessment/property-suitable", to: "eoi#property_suitable"
   get "/individual/self-assessment/challenges", to: "eoi#challenges"
+  get "/individual/self-assessment/other-ways-to-help", to: "eoi#other_ways_to_help"
 
   get "/additional-info/", to: "errors#reference_not_found"
   get "/additional-info/ref", to: "errors#reference_not_found"
