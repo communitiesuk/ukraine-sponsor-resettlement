@@ -11,7 +11,7 @@ RSpec.describe "Sponsor contact details", type: :system do
   let(:nonmatching_sponsor_email) { "notmatching@example.com" }
   let(:phone_page_content) { "Enter your UK mobile number" }
   let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine" }
-  let(:valid_phone_number) { "07777 888 999" }
+  let(:valid_phone_number) { "07123123123" }
 
   describe "Sponsor fills out contact details" do
     it "Answers are persisted and visible on returning to the page" do
@@ -19,8 +19,8 @@ RSpec.describe "Sponsor contact details", type: :system do
 
       click_link("Contact details")
 
-      expect(page).to have_field("Email", with: sponsor_email)
-      expect(page).to have_field("unaccompanied_minor[email_confirm]", with: sponsor_email)
+      expect(page).to have_field("Email", with: "spencer.sponsor@example.com")
+      expect(page).to have_field("unaccompanied_minor[email_confirm]", with: "spencer.sponsor@example.com")
 
       click_button("Continue")
 
