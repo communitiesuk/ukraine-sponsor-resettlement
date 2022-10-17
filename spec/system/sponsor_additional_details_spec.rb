@@ -62,7 +62,7 @@ RSpec.describe "Sponsor additional details", type: :system do
       expect(page).to have_content("Enter your date of birth")
     end
 
-    it "does not allow for empty nationality to be selected" do
+    it "enforces that nationality is mandatory" do
       navigate_to_nationality
 
       click_button("Continue")
