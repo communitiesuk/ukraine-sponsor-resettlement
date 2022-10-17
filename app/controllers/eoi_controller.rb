@@ -1,6 +1,6 @@
 class EoiController < ApplicationController
   before_action :check_feature_flag
-  
+
   def index; end
 
   def property_suitable
@@ -12,7 +12,6 @@ class EoiController < ApplicationController
   end
 
   def check_feature_flag
-    redirect_to "/404" and return unless (ENV["FEATURE_EOI_JOURNEY_ENABLED"] == "true")
+    redirect_to "/404" and return unless ENV["FEATURE_EOI_JOURNEY_ENABLED"] == "true"
   end
-
 end
