@@ -1,4 +1,6 @@
 class EoiController < ApplicationController
+  before_action :check_feature_flag
+  
   def index; end
 
   def property_suitable
@@ -8,4 +10,9 @@ class EoiController < ApplicationController
   def challenges
     render "eoi/steps/challenges"
   end
+
+  def check_feature_flag
+    redirect_to "/404" and return unless (ENV["FEATURE_EOI_JOURNEY_ENABLED"] == "true")
+  end
+
 end
