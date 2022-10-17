@@ -7,8 +7,9 @@ RSpec.describe "Sponsor additional details", type: :system do
   end
 
   describe "adding sponsors additional details" do
-    let(:valid_document_id) { "SomeValidId123456".freeze }
+    let(:valid_document_id) { "123123123" }
     let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine" }
+    let(:dob) { Time.zone.now - 20.years }
 
     before do
       application = UnaccompaniedMinor.new
@@ -17,28 +18,15 @@ RSpec.describe "Sponsor additional details", type: :system do
     end
 
     it "retains all additional details when page is reloaded" do
-      dob = Time.zone.now - 20.years
-
       navigate_to_additional_details
 
-      choose("Passport")
-      fill_in("Passport number", with: valid_document_id)
-      click_button("Continue")
+      uam_enter_sponsor_identity_documents("Passport")
 
       expect(page).to have_content("Enter your date of birth")
 
-      fill_in("Day", with: dob.day)
-      fill_in("Month", with: dob.month)
-      fill_in("Year", with: dob.year)
+      uam_fill_in_date_of_birth(dob)
 
-      click_button("Continue")
-
-      select("Denmark", from: "unaccompanied-minor-nationality-field")
-      click_button("Continue")
-
-      expect(page).to have_content("Have you ever held any other nationalities?")
-      choose("No")
-      click_button("Continue")
+      uam_enter_sponsor_nationalities(nationality: "Denmark")
 
       expect(page).to have_content(task_list_content)
 
@@ -69,14 +57,7 @@ RSpec.describe "Sponsor additional details", type: :system do
 
     it "validates other identity documents field on any submission" do
       navigate_to_additional_details
-      choose("I don't have any of these")
-      click_button("Continue")
-
-      expect(page).to have_content("Can you prove your identity?")
-
-      fill_in("unaccompanied-minor-no-identification-reason-field", with: "Hello")
-
-      click_button("Continue")
+      uam_enter_sponsor_identity_documents("I don't have any of these")
 
       expect(page).to have_content("Enter your date of birth")
     end
