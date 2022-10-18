@@ -122,55 +122,6 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_field("Given names", with: "Jane")
       expect(page).to have_field("Family name", with: "Doe")
     end
-
-    it "complete child flow contact details section and save answers to the db" do
-      new_application = UnaccompaniedMinor.new
-      new_application.save!
-      page.set_rack_session(app_reference: new_application.reference)
-      visit task_list_url
-      expect(page).to have_content(task_list_content)
-
-      click_link("Contact details")
-      expect(page).to have_content("Enter your email address")
-
-      fill_in("Email", with: "jane.doe@test.com")
-      fill_in("unaccompanied_minor[email_confirm]", with: "jane.doe@test.com")
-      click_button("Continue")
-
-      fill_in("UK mobile number", with: "07777 888 999")
-      fill_in("Confirm mobile number", with: "07777 888 999")
-      click_button("Continue")
-
-      expect(page).to have_content(task_list_content)
-    end
-
-    it "complete child flow additional details section and save answers to the db" do
-      navigate_to_nationality
-      select("Denmark", from: "unaccompanied-minor-nationality-field")
-      click_button("Continue")
-
-      expect(page).to have_content("Have you ever held any other nationalities?")
-      choose("No")
-      click_button("Continue")
-
-      expect(page).to have_content(task_list_content)
-    end
-
-    it "does not allow for empty nationality to be selected" do
-      navigate_to_nationality
-
-      click_button("Continue")
-
-      expect(page).to have_content("Error: You must select a valid nationality")
-    end
-
-    it "shows an error box when no nationality is selected " do
-      navigate_to_nationality
-
-      click_button("Continue")
-
-      expect(page).to have_content("There is a problem")
-    end
   end
 
   describe "submitting the address for child" do
@@ -826,28 +777,5 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       choose("Refugee travel document")
       expect(page).to have_field("Refugee travel document number", with: "XYZ123987456")
     end
-  end
-
-  def navigate_to_nationality
-    new_application = UnaccompaniedMinor.new
-    new_application.save!
-
-    page.set_rack_session(app_reference: new_application.reference)
-
-    visit task_list_url
-    expect(page).to have_content(task_list_content)
-
-    click_link("Additional details")
-    expect(page).to have_content("Do you have any of these identity documents?")
-
-    choose("Passport")
-    fill_in("Passport number", with: "123456789")
-    click_button("Continue")
-
-    fill_in("Day", with: "6")
-    fill_in("Month", with: "11")
-    fill_in("Year", with: "1987")
-    click_button("Continue")
-    expect(page).to have_content("Enter your nationality")
   end
 end

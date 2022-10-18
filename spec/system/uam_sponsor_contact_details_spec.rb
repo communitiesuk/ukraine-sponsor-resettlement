@@ -11,6 +11,23 @@ RSpec.describe "Sponsor contact details", type: :system do
   let(:nonmatching_sponsor_email) { "notmatching@example.com" }
   let(:phone_page_content) { "Enter your UK mobile number" }
   let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine" }
+  let(:valid_phone_number) { "07123123123" }
+
+  describe "Sponsor fills out contact details" do
+    it "Answers are persisted and visible on returning to the page" do
+      uam_enter_sponsor_contact_details
+
+      click_link("Contact details")
+
+      expect(page).to have_field("Email", with: "spencer.sponsor@example.com")
+      expect(page).to have_field("unaccompanied_minor[email_confirm]", with: "spencer.sponsor@example.com")
+
+      click_button("Continue")
+
+      expect(page).to have_field("UK mobile number", with: valid_phone_number)
+      expect(page).to have_field("Confirm mobile number", with: valid_phone_number)
+    end
+  end
 
   describe "Sponsors contact details don't match" do
     it "shows error message for not matching email addresses" do
@@ -42,8 +59,6 @@ RSpec.describe "Sponsor contact details", type: :system do
   end
 
   describe "Sponsors phone number" do
-    let(:valid_phone_number) { "07123123123" }
-
     it "shows an error when the phone number confirmation does not match" do
       non_matching_number = "07123999999"
 
@@ -100,13 +115,6 @@ RSpec.describe "Sponsor contact details", type: :system do
       fill_in_phone_numbers_and_continue(phone_number: "+447312312312", phone_number_confirm: "+447312312312")
       expect(page).to have_content(task_list_content)
     end
-
-    def fill_in_phone_numbers_and_continue(phone_number: valid_phone_number, phone_number_confirm: valid_phone_number)
-      fill_in("unaccompanied-minor-phone-number-field", with: phone_number)
-      fill_in("Confirm mobile number", with: phone_number_confirm)
-
-      click_button("Continue")
-    end
   end
 
   def navigate_to_contact_details
@@ -116,9 +124,16 @@ RSpec.describe "Sponsor contact details", type: :system do
     expect(page).to have_content("Enter an email address that you have access to")
   end
 
-  def fill_in_email_and_continue(confirm_email: sponsor_email)
-    fill_in("Email", with: sponsor_email)
+  def fill_in_email_and_continue(email: sponsor_email, confirm_email: sponsor_email)
+    fill_in("Email", with: email)
     fill_in("unaccompanied_minor[email_confirm]", with: confirm_email)
+
+    click_button("Continue")
+  end
+
+  def fill_in_phone_numbers_and_continue(phone_number: valid_phone_number, phone_number_confirm: valid_phone_number)
+    fill_in("unaccompanied-minor-phone-number-field", with: phone_number)
+    fill_in("Confirm mobile number", with: phone_number_confirm)
 
     click_button("Continue")
   end
