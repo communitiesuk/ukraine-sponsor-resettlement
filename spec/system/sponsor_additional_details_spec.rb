@@ -81,13 +81,9 @@ RSpec.describe "Sponsor additional details", type: :system do
   def navigate_to_nationality
     navigate_to_additional_details
 
-    choose("Passport")
-    fill_in("Passport number", with: "123456789")
-    click_button("Continue")
+    uam_enter_sponsor_identity_documents("Passport")
 
-    fill_in("Day", with: "6")
-    fill_in("Month", with: "11")
-    fill_in("Year", with: "1987")
+    uam_fill_in_date_of_birth(dob)
     click_button("Continue")
     expect(page).to have_content("Enter your nationality")
   end
