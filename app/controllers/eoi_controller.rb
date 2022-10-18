@@ -23,6 +23,16 @@ class EoiController < ApplicationController
   def display
     @application = ExpressionOfInterest.new(session[:eoi])
 
+    # If this new journey is being used, the old journeys (individual and organisation)
+    # aren't applicable any more so delete their cookie data to free up some space in the cookie.
+    if session[:individual_expression_of_interest]
+      session.delete(:individual_expression_of_interest)
+    end
+
+    if session[:organisation_expression_of_interest]
+      session.delete(:organisation_expression_of_interest)
+    end
+
     step = params["stage"].to_i
 
     if (1..MAX_STEPS).cover?(step)
