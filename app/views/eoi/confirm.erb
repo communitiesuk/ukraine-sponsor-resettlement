@@ -1,0 +1,26 @@
+<div class="govuk-width-container">
+  <main class="govuk-main-wrapper govuk-main-wrapper--l" id="main-content" role="main">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <div class="govuk-panel govuk-panel--confirmation">
+          <h1 class="govuk-panel__title">
+            Registration complete
+          </h1>
+          <div class="govuk-panel__body">
+            Your response ID is <br><strong><%= @app_reference %></strong>
+          </div>
+        </div>
+
+        <h2 class="govuk-heading-m">Thank you for registering for the Homes for Ukraine Scheme</h2>
+
+        <p class="govuk-body">
+          A receipt for your response has been emailed to you from the address noreply@levellingup.gov.uk with the subject "Response received - Response ID: <%= @app_reference %>". If it does not appear in your inbox within a couple of minutes, please check your "spam" or "junk" folder.
+        </p>
+
+        <p class="govuk-body">
+          We will keep you updated as the scheme progresses. Please also keep checking on the <%= govuk_link_to 'Homes for Ukraine Scheme', 'https://homesforukraine.campaign.gov.uk/' %> page which will be regularly updated.
+        </p>
+      </div>
+    </div>
+  </main>
+</div>

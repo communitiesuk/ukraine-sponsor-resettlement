@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_20_153503) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_17_135842) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -62,6 +62,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_20_153503) do
     t.string "magic_link"
     t.index ["magic_link"], name: "index_application_tokens_on_magic_link"
     t.index ["unaccompanied_minor_id"], name: "index_application_tokens_on_unaccompanied_minor_id"
+  end
+
+  create_table "expressions_of_interest", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "reference"
+    t.string "fullname", limit: 128
+    t.string "email", limit: 128
+    t.json "answers"
+    t.datetime "transferred_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reference"], name: "index_expressions_of_interest_on_reference", unique: true
   end
 
   create_table "individual_expressions_of_interest", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
