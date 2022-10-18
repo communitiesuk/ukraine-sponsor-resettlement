@@ -80,7 +80,7 @@ class EoiController < ApplicationController
       session[:eoi] = {}
 
       SendExpressionOfInterestUpdateJob.perform_later(@application.id)
-      GovNotifyMailer.send_individual_confirmation_email(@application).deliver_later
+      GovNotifyMailer.send_expression_of_interest_confirmation_email(@application).deliver_later
       redirect_to "/expression-of-interest/confirm"
     else
       render "check_answers"
