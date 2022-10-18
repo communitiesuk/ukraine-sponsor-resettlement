@@ -83,7 +83,7 @@ jobs:
         uses: joshmfrankel/simplecov-check-action@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          minimum_suite_coverage: 83
+          minimum_suite_coverage: 70
           minimum_file_coverage: 0
 
   lint:
