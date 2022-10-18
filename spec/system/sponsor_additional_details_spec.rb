@@ -7,7 +7,9 @@ RSpec.describe "Sponsor additional details", type: :system do
   end
 
   describe "adding sponsors additional details" do
-    let(:valid_document_id) { "SomeValidId123456".freeze }
+    let(:valid_document_id) { "123123123" }
+    let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine" }
+    let(:dob) { Time.zone.now - 20.years }
 
     before do
       application = UnaccompaniedMinor.new
@@ -15,22 +17,18 @@ RSpec.describe "Sponsor additional details", type: :system do
       page.set_rack_session(app_reference: application.reference)
     end
 
-    it "retains date of birth when page is reloaded" do
-      dob = Time.zone.now - 20.years
-
+    it "retains all additional details when page is reloaded" do
       navigate_to_additional_details
 
-      choose("Passport")
-      fill_in("Passport number", with: valid_document_id)
-      click_button("Continue")
+      uam_enter_sponsor_identity_documents("Passport")
 
       expect(page).to have_content("Enter your date of birth")
 
-      fill_in("Day", with: dob.day)
-      fill_in("Month", with: dob.month)
-      fill_in("Year", with: dob.year)
+      uam_fill_in_date_of_birth(dob)
 
-      click_button("Continue")
+      uam_enter_sponsor_nationalities(nationality: "Denmark")
+
+      expect(page).to have_content(task_list_content)
 
       navigate_to_additional_details
 
@@ -57,18 +55,20 @@ RSpec.describe "Sponsor additional details", type: :system do
       expect(page).to have_content("Error: Tell us how you can prove your identity, or why you cannot.")
     end
 
-    it "validates other identity documents field on any submission" do
+    it "if reason is entered for no identity documents it allows user to continue" do
       navigate_to_additional_details
-      choose("I don't have any of these")
-      click_button("Continue")
-
-      expect(page).to have_content("Can you prove your identity?")
-
-      fill_in("unaccompanied-minor-no-identification-reason-field", with: "Hello")
-
-      click_button("Continue")
+      uam_enter_sponsor_identity_documents("I don't have any of these")
 
       expect(page).to have_content("Enter your date of birth")
+    end
+
+    it "enforces that nationality is mandatory" do
+      navigate_to_nationality
+
+      click_button("Continue")
+
+      expect(page).to have_content("There is a problem")
+      expect(page).to have_content("Error: You must select a valid nationality")
     end
   end
 
@@ -76,5 +76,15 @@ RSpec.describe "Sponsor additional details", type: :system do
     visit "/sponsor-a-child/task-list"
     click_link("Additional details")
     expect(page).to have_content("Do you have any of these identity documents?")
+  end
+
+  def navigate_to_nationality
+    navigate_to_additional_details
+
+    uam_enter_sponsor_identity_documents("Passport")
+
+    uam_fill_in_date_of_birth(dob)
+    click_button("Continue")
+    expect(page).to have_content("Enter your nationality")
   end
 end
