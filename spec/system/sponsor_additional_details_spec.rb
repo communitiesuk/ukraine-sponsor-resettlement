@@ -55,7 +55,7 @@ RSpec.describe "Sponsor additional details", type: :system do
       expect(page).to have_content("Error: Tell us how you can prove your identity, or why you cannot.")
     end
 
-    it "validates other identity documents field on any submission" do
+    it "if reason is entered for no identity documents it allows user to continue" do
       navigate_to_additional_details
       uam_enter_sponsor_identity_documents("I don't have any of these")
 
