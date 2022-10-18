@@ -67,15 +67,8 @@ RSpec.describe "Sponsor additional details", type: :system do
 
       click_button("Continue")
 
-      expect(page).to have_content("Error: You must select a valid nationality")
-    end
-
-    it "shows an error box when no nationality is selected " do
-      navigate_to_nationality
-
-      click_button("Continue")
-
       expect(page).to have_content("There is a problem")
+      expect(page).to have_content("Error: You must select a valid nationality")
     end
   end
 
