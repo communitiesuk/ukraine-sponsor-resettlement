@@ -1,5 +1,4 @@
 class GovNotifyMailer < GovukNotifyRails::Mailer
-
   def send_expression_of_interest_confirmation_email(application)
     set_template(ENV["EXPRESSION_OF_INTEREST_CONFIRMATION_TEMPLATE_ID"])
 
