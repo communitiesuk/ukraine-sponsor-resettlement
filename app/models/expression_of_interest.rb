@@ -129,6 +129,6 @@ private
   end
 
   def generate_reference
-    self.reference ||= sprintf("ANON-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
+    self.reference ||= sprintf("EOI-%<ref>s", ref: SecureRandom.uuid[9, 11].upcase)
   end
 end
