@@ -132,6 +132,105 @@ en:
       more_than_12_months: More than 12 months
     accept_and_send:
       full: Accept and send
+  expression_of_interest:
+    questions:
+      family_type:
+        short: Who can you accommodate?
+        full: Who would you like to offer accommodation to?
+      living_space:
+        short: Living space
+        full: What type of living space can you offer?
+      step_free:
+        short: Mobility impaired accessible property
+        full: Does the property, or any of the properties, have step-free access?
+      single_room_count:
+        short: Single rooms available
+        full: How many single rooms do you have available in the property you have specified?
+        hint: If you are offering multiple properties you will be able to specify those rooms at a later date
+      double_room_count:
+        short: Double rooms available
+        full: How many double bedrooms (or larger) do you have available in the property you have specified?
+        hint: If you are offering multiple properties you will be able to specify those rooms at a later date
+      postcode:
+        short: Property postcode(s)
+        full: Enter the first part of the postcode of the property you’re offering
+        subtitle: (If you are offering multiple properties, please enter all the postcodes separated by a comma)
+      accommodation_length:
+        short: Accommodation length
+        full: How long can you offer accommodation for?
+      fullname:
+        short: Name
+        full: Enter your full name
+      email:
+        short: Email
+        full: Enter your email address
+      phone_number:
+        short: Telephone number
+        full: Enter your contact telephone number
+      address_line_1:
+        short: Line 1
+        full: Address line 1
+      address_line_2:
+        short: Line 2
+        full: Address line 2 (optional)
+      address_town:
+        short: Town or city
+        full: Town or city
+      address_postcode:
+        short: Postcode
+        full: Postcode
+      different_address:
+        short: Different address
+        full: Is the property you’re offering at a different address to your home?
+      more_properties:
+        short: More properties
+        full: Are you offering any more properties?
+        hint: If you have more properties, you will be able to share this information when you are contacted by your local authority.
+      more_properties_statement:
+        full: You will be able to share information about any more properties you have to offer when your local authority contacts you
+      number_adults:
+        short: Adults
+        full: Adults
+      number_children:
+        short: Children
+        full: Children
+      allow_pet:
+        short: Allow pets
+        full: Would you consider allowing guests to bring their pets?
+        hint: You will be given more information and asked to make a final decision about this later.
+      agree_future_contact:
+        short: Future contact
+        full: Can we contact you about your registration?
+        comment: Please tick this box in order for us to contact you about your registration of interest to be a sponsor.
+      user_research:
+        short: User research
+        full: Would you like to take part in research to help us improve the Homes for Ukraine service?
+        hint: This could involve completing a survey or taking part in a video call with a user research team. If you choose ‘Yes’, you’re agreeing to be contacted using the email address or telephone number you provided in this form.
+      agree_privacy_statement:
+        short: Privacy statement
+        full: Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme
+        comment: Yes, I have read the privacy statement and agree that the information I have provided in this form can be used for the Homes for Ukraine scheme
+        link:
+    family_type:
+      single_adult: Single adult
+      more_than_one_adult: More than one adult
+      adults_with_children: Adult(s) with children
+      no_prefence: No preference
+    living_space:
+      rooms_in_home_shared_facilities: Room(s) in your home with access to shared facilities (bathroom and kitchen)
+      self_contained_property: A self-contained property (includes at least 1 bedroom, bathroom and kitchen facilities)
+      multiple_properties: Multiple properties (includes at least 1 bedroom, bathroom and kitchen facilities per property)
+    step_free:
+      all: Yes, all
+      some: Yes, some
+      none: "No"
+      unknown: I don’t know
+    accommodation_length:
+      from_6_to_9_months: From 6 to 9 months
+      from_10_to_12_months: From 10 to 12 months
+      more_than_12_months: More than 12 months
+    accept_and_send:
+      full: Accept and send
   organisation:
     family_types:
       single_adult: Single adult
@@ -450,7 +549,7 @@ en:
       full: Apply for approval to provide a safe home for a child from Ukraine
     parental_consent_text:
       long_html: |
-        
+
         At least one parent or legal guardian must consent to their child being hosted in the UK. There are 2 forms they must complete and send to you:
         <ul class="govuk-list govuk-list--bullet">
           <li>Ukraine certified consent form </li>
@@ -458,7 +557,7 @@ en:
         </ul>
 
         <p class="govuk-body">
-        Both forms need to be downloaded, completed and signed. The Ukrainian form also needs to be certified (this is explained in the guidance). 
+        Both forms need to be downloaded, completed and signed. The Ukrainian form also needs to be certified (this is explained in the guidance).
         <br/>
         <br/>
         <a href="https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians#parent-or-legal-guardian-consent" target="_blank">Find out how to complete the consent forms.</a>
@@ -471,7 +570,7 @@ en:
         <p class="govuk-body">You will need to upload both parental consent forms described in step 1.</p>
 
         <a class="govuk-body" href="/sponsor-a-child/start">Apply to provide a safe home for a child from Ukraine</a>
-    
+
     child_visa_applies:
       long_html: |
         <p class="govuk-body">Children from Ukraine can apply for a visa to come to the UK without their parents or legal guardian.</p>

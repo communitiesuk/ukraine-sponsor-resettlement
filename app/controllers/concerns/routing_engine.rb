@@ -23,6 +23,16 @@ class RoutingEngine
     end
   end
 
+  def self.get_next_eoi_step(application, current_step)
+    if application.different_address.present? && application.different_address.casecmp("NO").zero? && current_step == 5
+      9
+    elsif application.more_properties.present? && application.more_properties.casecmp("NO").zero? && current_step == 7
+      9
+    else
+      current_step + 1
+    end
+  end
+
   def self.get_next_unaccompanied_minor_step(application, current_step)
     if application.is_under_18.present? && application.is_under_18.casecmp("no").zero? && current_step == 1
       NOT_ELIGIBLE
