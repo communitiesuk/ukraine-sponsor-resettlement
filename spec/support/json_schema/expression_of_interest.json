@@ -1,0 +1,154 @@
+{
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "accommodation_length",
+    "agree_future_contact",
+    "agree_privacy_statement",
+    "allow_pet",
+    "created_at",
+    "different_address",
+    "double_room_count",
+    "email",
+    "family_type",
+    "fullname",
+    "id",
+    "ip_address",
+    "more_properties",
+    "number_adults",
+    "number_children",
+    "phone_number",
+    "postcode",
+    "property_one_line_1",
+    "property_one_line_2",
+    "property_one_postcode",
+    "property_one_town",
+    "reference",
+    "residential_line_1",
+    "residential_line_2",
+    "residential_postcode",
+    "residential_town",
+    "single_room_count",
+    "started_at",
+    "step_free",
+    "type",
+    "user_agent",
+    "user_research",
+    "version"
+  ],
+  "properties": {
+    "accommodation_length": {
+      "type": "string"
+    },
+    "agree_future_contact": {
+      "type": "string"
+    },
+    "agree_privacy_statement": {
+      "type": "string"
+    },
+    "allow_pet": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "different_address": {
+      "$ref": "#/$defs/yes_or_no"
+    },
+    "double_room_count": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "family_type": {
+      "type": "string"
+    },
+    "fullname": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "ip_address": {
+      "type": "ipv4"
+    },
+    "more_properties": {
+      "type": "string"
+    },
+    "number_adults": {
+      "type": "string"
+    },
+    "number_children": {
+      "type": "string"
+    },
+    "phone_number": {
+      "type": "string"
+    },
+    "postcode": {
+      "type": "string"
+    }, 
+    "property_one_line_1": {
+      "type": "string"
+    },
+    "property_one_line_2": {
+      "type": "string"
+    },
+    "property_one_postcode": {
+      "type": "string"
+    },
+    "property_one_town": {
+      "type": "string"
+    },
+    "reference": {
+      "type": "string"
+    },
+    "residential_line_1": {
+      "type": "string"
+    },
+    "residential_line_2": {
+      "type": "string"
+    },
+    "residential_postcode": {
+      "type": "string"
+    },
+    "residential_town": {
+      "type": "string"
+    },
+    "single_room_count": {
+      "type": "string"
+    },
+    "started_at": {
+      "type": "string"
+    },
+    "step_free": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "user_agent": {
+      "type": "string"
+    },
+    "user_research": {
+      "type": "string"
+    },
+    "version"    : {
+      "type": "number"
+    }
+  },
+  "$defs": {
+    "yes_or_no": {
+      "enum": [
+        "yes",
+        "no"
+      ]
+    },
+    "true_or_false": {
+      "enum": [
+        "true",
+        "false"
+      ]
+    }
+  }
+}
