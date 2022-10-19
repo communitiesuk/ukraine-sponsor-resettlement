@@ -11,6 +11,7 @@
 !includeurl ICONURL/devicons2/redis.puml
 !includeurl ICONURL/devicons2/rails_wordmark.puml
 !includeurl ICONURL/devicons2/ruby_wordmark.puml
+!includeurl ICONURL/devicons2/amazonwebservices_wordmark.puml
 
 
 
@@ -24,6 +25,7 @@ Container_Ext(cloudflare, "Cloudflare", "DLUCH Managed", "DDoS Protection")
 
 System_Boundary(s1, "Gov.UK PaaS Space") {
     Container(elb, "Elastic Load Balancer", "Gov Paas", "Distributes requests")
+    Container(s3bucket, "S3 Bucket", "via gov.paas", "Store uploaded documents", $sprite="amazonwebservices_wordmark")
     Container(web_app, "Web Application Instances", "Rails, Docker container", "Serves the application forms 'Front Door'", $sprite="rails_wordmark")
     ContainerDb(postgres, "PostgreSQL", "PostgreSQL", "Stores user entered application information", $sprite="postgresql")
     ContainerDb(redis, "Redis", "Redis", "RoR backing for deferred / background jobs via Sidekiq", $sprite="redis")
@@ -38,28 +40,32 @@ System_Boundary(s1, "Gov.UK PaaS Space") {
     }
 }
 
-System(foundry, "Palantir Foundry", "HTTPS API")
 System_Ext(notify, "Gov.UK Notify", "Email & SMS messages to applicants")
+System(foundry, "Palantir Foundry", "HTTPS API")
 
 System_Boundary(s2, "External Observabilty") {
   System_Ext(logit, "logit.io", "Application logging drain")
   System_Ext(sentry, "sentry.io", "Error capture\nEmails team")
 }
 
+BiRel(applicant, cloudflare, "Uses", "HTTPS")
+BiRel(cloudflare, elb, "Uses", "HTTPS")
+BiRel(elb, web_app, "Uses", "HTTPS")
 
-BiRel_R(applicant, cloudflare, "Uses", "HTTPS")
-BiRel_D(cloudflare, elb, "Uses", "HTTPS")
-BiRel_D(elb, web_app, "Uses", "HTTPS")
+Rel_R(sidekiq, s3bucket, "Read consent forms to upload", "HTTPS")
+Rel_L(web_app, s3bucket, "Store consent forms", "HTTPS")
 
 Rel(web_app, postgres, "Stores", "HTTPS")
 Rel(web_app, redis, "Queues asynch jobs", "HTTPS")
-Rel_R(web_app, foundry, "POST completed form data", "HTTPS")
 Rel(web_app, sentry, "Record errors", "HTTPS")
 Rel(web_app, logit, "Captures app logs", "HTTPS")
 
 BiRel(sidekiq, redis, "Processes asynch jobs", "HTTPS")
 Rel_L(sidekiq, notify, "Inform applicants", "HTTPS")
 Rel_U(notify, applicant , "Email or SMS")
+
+Lay_D(notify, foundry)
+Rel(sidekiq, foundry, "POST completed applications", "HTTPS API")
 
 Rel(prom_ex, web_app, "Pulls metrics")
 Rel(prom, prom_ex, "Pulls metrics")
