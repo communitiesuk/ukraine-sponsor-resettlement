@@ -1,4 +1,4 @@
-class SendExpressionOfInterestUpdateJob < ApplicationJob
+class SendEoiUpdateJob < ApplicationJob
   queue_as :default
 
   def perform(id)
