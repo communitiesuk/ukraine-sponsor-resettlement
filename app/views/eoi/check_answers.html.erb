@@ -327,7 +327,7 @@
 
     <p class="govuk-body">By submitting this registration you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>
 
-    <%= form_for @application, url: "/expression-of-interest/check_answers", method: :post do |f| %>
+    <%= form_for @application, url: "/expression-of-interest/check-answers", method: :post do |f| %>
       <%= f.govuk_submit t('accept_and_send.full', scope: "expression_of_interest") %>
     <% end %>
   </div>

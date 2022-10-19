@@ -59,7 +59,7 @@ class EoiController < ApplicationController
       next_stage = RoutingEngine.get_next_eoi_step(@application, current_stage)
 
       if next_stage > MAX_STEPS
-        redirect_to "/expression-of-interest/check_answers"
+        redirect_to "/expression-of-interest/check-answers"
       else
         redirect_to "/expression-of-interest/steps/#{next_stage}"
       end

@@ -28,8 +28,8 @@ Rails.application.routes.draw do
   get "/expression-of-interest", to: redirect("/expression-of-interest/self-assessment/start")
   get "/expression-of-interest/steps/:stage", to: "eoi#display"
   post "/expression-of-interest/steps/:stage", to: "eoi#handle_step"
-  get "/expression-of-interest/check_answers", to: "eoi#check_answers"
-  post "/expression-of-interest/check_answers", to: "eoi#submit"
+  get "/expression-of-interest/check-answers", to: "eoi#check_answers"
+  post "/expression-of-interest/check-answers", to: "eoi#submit"
   get "/expression-of-interest/confirm", to: "eoi#confirm"
 
   get "/additional-info/", to: "errors#reference_not_found"
