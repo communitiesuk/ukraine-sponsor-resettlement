@@ -1,5 +1,7 @@
 (function() {
 
+console.log('WE HAVE BEEN CALLED >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+
   var selfAssesmentContinueButton = document.getElementById('selfAssessmentContinueButton');
     if(selfAssesmentContinueButton) {
         selfAssesmentContinueButton.addEventListener('click', function() {
