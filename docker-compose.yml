@@ -57,6 +57,8 @@ services:
       VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-test-redis","credentials":{"uri":"redis://redis"}}],"aws-s3-bucket":[{"instance_name":"ukraine-sponsor-resettlement-test-s3","credentials":{"aws_access_key_id":"access-key-id","aws_secret_access_key":"secret-access-key","aws_region":"eu-west-2","bucket_name":"test-bucket"}}]}'
       REMOTE_API_URL: http://mock-api:8081/data
       GOVUK_NOTIFY_API_KEY: ${GOVUK_NOTIFY_API_KEY}
+      FEATURE_EOI_JOURNEY_ENABLED: 'true'
+
     command: bin/test.sh
 
   sidekiq:
