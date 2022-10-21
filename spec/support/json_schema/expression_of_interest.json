@@ -12,7 +12,6 @@
     "email",
     "family_type",
     "fullname",
-    "id",
     "ip_address",
     "more_properties",
     "number_adults",
@@ -20,7 +19,6 @@
     "phone_number",
     "postcode",
     "property_one_line_1",
-    "property_one_line_2",
     "property_one_postcode",
     "property_one_town",
     "reference",
@@ -89,9 +87,6 @@
       "type": "string"
     }, 
     "property_one_line_1": {
-      "type": "string"
-    },
-    "property_one_line_2": {
       "type": "string"
     },
     "property_one_postcode": {

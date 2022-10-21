@@ -5,8 +5,8 @@ module EoiHelpers
 
   def eoi_enter_valid_complete_self_assessment_section
 
-    # visit "/expression-of-interest/self-assessment/start"
-    driver.get('/expression-of-interest/self-assessment/start')
+    visit "/expression-of-interest/self-assessment/start"
+    
     expect(page).to have_content(START_PAGE_CONTENT)
 
     click_on("Start now")
@@ -23,24 +23,17 @@ module EoiHelpers
     # expect(page).to have_content("Enter your full name")
   end
 
-  def eoi_click_task_list_link(link_text)
-    expect(page).to have_content(TASK_LIST_CONTENT)
-    click_on(link_text)
+  def eoi_skip_to_questions
+    visit "/expression-of-interest/steps/1"
   end
 
-  def eoi_start_page_to_task_list
-    expect(page).to have_content(START_PAGE_CONTENT)
-    click_on("Start application")
-    expect(page).to have_content(TASK_LIST_CONTENT)
-  end
+  def eoi_enter_sponsor_name(name: "Spencer Graham", click_continue: true)
+    expect(page).to have_content("Enter your full name")
 
-  def eoi_enter_sponsor_name(given: "Spencer", family: "Sponsor", click_continue: true)
-    expect(page).to have_content("Enter your name")
-
-    fill_in_name(given, family, click_continue:)
-
+    fill_in("Enter your full name", with: name)
+    click_on("Continue")
     if click_continue
-      expect(page).to have_content(SPONSOR_OTHER_NAME_CONTENT)
+      expect(page).to have_content("Enter your email address")
     end
   end
 
@@ -66,20 +59,17 @@ module EoiHelpers
     expect(page).to have_content(TASK_LIST_CONTENT)
   end
 
-  def eoi_enter_sponsor_contact_details
+  def eoi_enter_sponsor_contact_details(email: "spencer.sponsor@example.com", phone_number: "07123123123" )
+    
     expect(page).to have_content("Enter your email address")
-
-    fill_in("Email", with: "spencer.sponsor@example.com")
-    fill_in("unaccompanied_minor[email_confirm]", with: "spencer.sponsor@example.com")
+    fill_in("Enter your email address", with: email)
     click_on("Continue")
 
-    expect(page).to have_content("Enter your UK mobile number")
+    expect(page).to have_content("Enter your contact telephone number")
 
-    fill_in("UK mobile number", with: "07123123123")
-    fill_in("Confirm mobile number", with: "07123123123")
+    fill_in("Enter your contact telephone number", with: phone_number)
+    
     click_on("Continue")
-
-    expect(page).to have_content(TASK_LIST_CONTENT)
   end
 
   def eoi_enter_sponsor_identity_documents(option)
@@ -141,43 +131,46 @@ module EoiHelpers
     end
   end
 
-  def eoi_enter_residential_address(different_address: false)
-    expect(page).to have_content("Enter the address where the child will be living in the UK")
+  def eoi_enter_sponsor_address(different_address: false, more_properties: false)
+    expect(page).to have_content("This is the address where you live")
     eoi_enter_address
 
-    expect(page).to have_content("Will you be living at this address?")
+    expect(page).to have_content("Is the property you’re offering at a different address to your home?")
 
     if different_address
-      eoi_choose_option("No")
-
-      expect(page).to have_content("Enter the address where you will be living in the UK")
-      eoi_enter_address(line1: "Other address line 1", line2: "Other address line 2", town: "Other town", postcode: "RM18 1JP")
-
-      expect(page).to have_content("Enter the name of a person over 16 who will live with the child")
-      fill_in_name("Other", "Person")
-
-      expect(page).to have_content("You have added")
-      click_on("Continue")
-      expect(page).to have_content(TASK_LIST_CONTENT)
-
-      eoi_click_task_list_link("Other Person details")
-      expect(page).to have_content("Enter this person's date of birth")
-      eoi_fill_in_date_of_birth(Time.zone.now - 17.years)
-
-      expect(page).to have_content("Enter their nationality")
-      select("Bermuda")
-      click_on("Continue")
-
-      expect(page).to have_content("Do they have any of these identity documents?")
-      eoi_choose_option("I don't have any of these")
-    else
       eoi_choose_option("Yes")
 
-      expect(page).to have_content("Will anyone else over the age of 16 be living at this address?")
+      expect(page).to have_content("Enter the address of the property you’re offering")
+      
+      eoi_enter_address(line1: "Child Address line 1", town: "Child Town", postcode: "CH1 1LD")
+
+      expect(page).to have_content("Are you offering any more properties?")
+
+      if more_properties
+        eoi_choose_option("Yes")
+        
+        expect(page).to have_content("You will be able to share information about any more properties you have to offer when your local authority contacts you")
+
+        click_on("Continue")
+      else 
+        eoi_choose_option("No")
+      end
+    else 
       eoi_choose_option("No")
     end
 
-    expect(page).to have_content(TASK_LIST_CONTENT)
+    expect(page).to have_content("How many people will be living at the address you’re offering (not including guests)?")
+  end
+
+  def eoi_people_at_address(adult_number: "2", child_number: "3")
+    expect(page).to have_content("How many people will be living at the address you’re offering (not including guests)?")
+
+    fill_in("Adults", with: adult_number)
+    fill_in("Children", with: child_number)
+
+    click_on("Continue")
+    expect(page).to have_content("Who would you like to offer accommodation to?")
+
   end
 
   def eoi_enter_address(line1: "Address line 1", line2: nil, town: "Town", postcode: "XX1 1XX")
@@ -193,61 +186,75 @@ module EoiHelpers
     click_on("Continue")
   end
 
-  def eoi_enter_childs_personal_details
-    expect(page).to have_content("Enter the name of the child you want to sponsor")
-    fill_in_name("Milly", "Minor")
+  def eoi_sponsor_refugee_preference(type: "Single adult")
+    expect(page).to have_content("Who would you like to offer accommodation to?")
 
-    expect(page).to have_content("How can we contact the child?")
-    eoi_enter_minors_contact_details(select_none: true)
+    choose(type)
+    click_on("Continue")
 
-    expect(page).to have_content("Enter their date of birth")
-    eoi_fill_in_date_of_birth(Time.zone.now - 4.years)
-
-    expect(page).to have_content(TASK_LIST_CONTENT)
+    expect(page).to have_content("How long can you offer accommodation for?")
   end
 
-  def eoi_upload_consent_forms
-    expect(page).to have_content("You must upload 2 completed parental consent forms")
+  def eoi_sponsorship_length(time: "From 6 to 9 months")
+    expect(page).to have_content("How long can you offer accommodation for?")
+
+    choose(time)
+    click_on("Continue")
+    expect(page).to have_content("How many single rooms do you have available in the property you have specified?")
+  end
+  
+  def eoi_number_of_rooms(single: 6, double: 3)
+    expect(page).to have_content("How many single rooms do you have available in the property you have specified?")
+
+    fill_in("expression-of-interest-single-room-count-field", with: single)
     click_on("Continue")
 
-    expect(page).to have_content("Upload the UK sponsorship arrangement consent form")
-    test_file_path = File.join(File.dirname(__FILE__), "..", "uk-test-document.pdf")
-    attach_file("unaccompanied-minor-uk-parental-consent-field", test_file_path)
+    expect(page).to have_content("How many double bedrooms (or larger) do you have available in the property you have specified?")
+
+    fill_in("expression-of-interest-double-room-count-field", with: double)
     click_on("Continue")
 
-    click_on("Upload Ukrainian consent form")
-    expect(page).to have_content("Upload the Ukraine certified consent form")
-    test_file_path = File.join(File.dirname(__FILE__), "..", "ukraine-test-document.pdf")
-    attach_file("unaccompanied-minor-ukraine-parental-consent-field", test_file_path)
-    click_on("Continue")
-
-    expect(page).to have_content(TASK_LIST_CONTENT)
+    expect(page).to have_content("Does the property, or any of the properties, have step-free access?")
   end
 
-  def eoi_confirm_privacy_statement
-    expect(page).to have_content("Confirm you have read the privacy statement and all people involved agree that the information you have provided can be used for the Homes for Ukraine scheme")
-
-    check("unaccompanied_minor[privacy_statement_confirm]")
+  def eoi_accessibility_info(step_free: "Yes, all", pets: "Yes")
+    expect(page).to have_content("Does the property, or any of the properties, have step-free access?")
+    choose(step_free)
     click_on("Continue")
 
-    expect(page).to have_content(TASK_LIST_CONTENT)
-  end
-
-  def eoi_confirm_eligibilty
-    expect(page).to have_content("Confirm your eligibility to sponsor a child from Ukraine")
-
-    check("unaccompanied_minor[sponsor_declaration]")
+    expect(page).to have_content("Would you consider allowing guests to bring their pets?")
+    
+    choose(pets)
     click_on("Continue")
 
-    expect(page).to have_content(TASK_LIST_CONTENT)
+    expect(page).to have_content("Can we contact you about your registration?")
   end
+  
+  def eoi_contact_consent(research: "Yes")
+    expect(page).to have_content("Can we contact you about your registration?")
 
+    check("Can we contact you about your registration?")
+    click_on("Continue")
+
+    expect(page).to have_content("Would you like to take part in research to help us improve the Homes for Ukraine service?")
+
+    choose(research)
+    click_on("Continue")
+
+    expect(page).to have_content("Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme")
+
+    check("Yes, I have read the privacy statement and agree that the information I have provided in this form can be used for the Homes for Ukraine scheme")
+    click_on("Continue")
+
+    expect(page).to have_content("Check your answers before sending your registration")
+  end
+  
   def eoi_check_answers_and_submit
-    expect(page).to have_content("Check your answers before sending your application")
+    expect(page).to have_content("Check your answers before sending your registration")
 
     find("button[type=submit]").click
 
-    expect(page).to have_content("SPON-")
+    expect(page).to have_content("EOI-")
   end
 
   def fill_in_name(given, family, click_continue: true)
