@@ -23,6 +23,9 @@ Rails.application.routes.draw do
   get "/expression-of-interest/self-assessment/start", to: "eoi#index"
   get "/expression-of-interest/self-assessment/property-suitable", to: "eoi#property_suitable"
   get "/expression-of-interest/self-assessment/challenges", to: "eoi#challenges"
+  get "/expression-of-interest/self-assessment/can-you-commit", to: "eoi#can_you_commit"
+  get "/expression-of-interest/self-assessment/your-info", to: "eoi#your_info"
+
   get "/expression-of-interest/self-assessment/other-ways-to-help", to: "eoi#other_ways_to_help"
 
   get "/expression-of-interest", to: redirect("/expression-of-interest/self-assessment/start")
