@@ -4,9 +4,8 @@ module EoiHelpers
   SPONSOR_OTHER_NAME_CONTENT = "Have you ever been known by another name?".freeze
 
   def eoi_enter_valid_complete_self_assessment_section
-
     visit "/expression-of-interest/self-assessment/start"
-    
+
     expect(page).to have_content(START_PAGE_CONTENT)
 
     click_on("Start now")
@@ -59,8 +58,7 @@ module EoiHelpers
     expect(page).to have_content(TASK_LIST_CONTENT)
   end
 
-  def eoi_enter_sponsor_contact_details(email: "spencer.sponsor@example.com", phone_number: "07123123123" )
-    
+  def eoi_enter_sponsor_contact_details(email: "spencer.sponsor@example.com", phone_number: "07123123123")
     expect(page).to have_content("Enter your email address")
     fill_in("Enter your email address", with: email)
     click_on("Continue")
@@ -68,7 +66,7 @@ module EoiHelpers
     expect(page).to have_content("Enter your contact telephone number")
 
     fill_in("Enter your contact telephone number", with: phone_number)
-    
+
     click_on("Continue")
   end
 
@@ -141,21 +139,21 @@ module EoiHelpers
       eoi_choose_option("Yes")
 
       expect(page).to have_content("Enter the address of the property you’re offering")
-      
+
       eoi_enter_address(line1: "Child Address line 1", town: "Child Town", postcode: "CH1 1LD")
 
       expect(page).to have_content("Are you offering any more properties?")
 
       if more_properties
         eoi_choose_option("Yes")
-        
+
         expect(page).to have_content("You will be able to share information about any more properties you have to offer when your local authority contacts you")
 
         click_on("Continue")
-      else 
+      else
         eoi_choose_option("No")
       end
-    else 
+    else
       eoi_choose_option("No")
     end
 
@@ -170,7 +168,6 @@ module EoiHelpers
 
     click_on("Continue")
     expect(page).to have_content("Who would you like to offer accommodation to?")
-
   end
 
   def eoi_enter_address(line1: "Address line 1", line2: nil, town: "Town", postcode: "XX1 1XX")
@@ -202,7 +199,7 @@ module EoiHelpers
     click_on("Continue")
     expect(page).to have_content("How many single rooms do you have available in the property you have specified?")
   end
-  
+
   def eoi_number_of_rooms(single: 6, double: 3)
     expect(page).to have_content("How many single rooms do you have available in the property you have specified?")
 
@@ -223,13 +220,13 @@ module EoiHelpers
     click_on("Continue")
 
     expect(page).to have_content("Would you consider allowing guests to bring their pets?")
-    
+
     choose(pets)
     click_on("Continue")
 
     expect(page).to have_content("Can we contact you about your registration?")
   end
-  
+
   def eoi_contact_consent(research: "Yes")
     expect(page).to have_content("Can we contact you about your registration?")
 
@@ -248,7 +245,7 @@ module EoiHelpers
 
     expect(page).to have_content("Check your answers before sending your registration")
   end
-  
+
   def eoi_check_answers_and_submit
     expect(page).to have_content("Check your answers before sending your registration")
 
