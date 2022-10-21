@@ -89,6 +89,9 @@
     "property_one_line_1": {
       "type": "string"
     },
+    "property_one_line_2": {
+      "type": "string"
+    },
     "property_one_postcode": {
       "type": "string"
     },
