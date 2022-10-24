@@ -9,8 +9,13 @@
     <% end %>
 
     <%= form_for @application, url: formurl, method: :post do |f| %>
+
+      <h1 class="govuk-heading-l">
+       <%= t('phone_number.full', scope: "expression_of_interest.questions")  %>
+      </h1>
+
       <%= f.govuk_text_field :phone_number,
-        label: { text: t('phone_number.full', scope: "expression_of_interest.questions") },
+        label: { text: t('phone_number.full', scope: "expression_of_interest.questions"), hidden:true },
         type: "tel"
       %>
       <%= f.govuk_submit t('continue') %>
