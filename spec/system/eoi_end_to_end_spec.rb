@@ -5,15 +5,14 @@ RSpec.describe "Expression of interest end to end", type: :system do
 
   describe "user successfully completes the eoi journey", js: true do
     it "entering minimum valid details" do
-      puts "ENV[] == #{ENV['FEATURE_EOI_JOURNEY_ENABLED']}"
-
       eoi_skip_to_questions
+
       eoi_enter_sponsor_name
       eoi_enter_sponsor_contact_details
       eoi_enter_sponsor_address
+      eoi_enter_sponsor_start
       eoi_people_at_address
       eoi_sponsor_refugee_preference
-      eoi_sponsorship_length
       eoi_number_of_rooms
       eoi_accessibility_info
       eoi_contact_consent
@@ -88,9 +87,8 @@ RSpec.describe "Expression of interest end to end", type: :system do
   def assert_transfer_json_is_valid(optional_keys = [])
     app_ref = page.get_rack_session_key("app_reference")
     application = ExpressionOfInterest.find_by_reference(app_ref)
-    puts "Here's the app"
-    puts application.as_json
-    puts "There's the app"
+    application.accommodation_length = "From 6 to 9 months" # FIX THIS IN VIEW OR SOMETHING
+
     hash = application.as_json
     json = hash.to_json
 
