@@ -3,7 +3,7 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-    <%= form_for @application, url: "/expression-of-interest/steps/15", method: :post do |f| %>
+    <%= form_for @application, url: "/expression-of-interest/steps/14", method: :post do |f| %>
       <%= f.govuk_collection_radio_buttons :allow_pet,
           @application.allow_pet_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "expression_of_interest.allow_pet")) },
           :id,
