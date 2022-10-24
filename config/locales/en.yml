@@ -133,6 +133,13 @@ en:
     accept_and_send:
       full: Accept and send
   expression_of_interest:
+    pet_option_description: 
+      affirmative:
+        short: "Yes"
+        full: Choose if you bloody love dogs
+      negative:
+        short: "No"
+        full: I hate all animals
     questions:
       family_type:
         short: Who can you accommodate?
