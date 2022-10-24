@@ -2,7 +2,7 @@
   <div class="govuk-grid-column-two-thirds">
     <%= render partial: "shared/back_link" %>
 
-    <%= form_for @application, url: "/expression-of-interest/steps/15", method: :post do |f| %>
+    <%= form_for @application, url: "/expression-of-interest/steps/16", method: :post do |f| %>
         <%= f.govuk_check_boxes_fieldset :agree_privacy_statement, multiple: false, legend: { text: t('agree_privacy_statement.full', scope: "expression_of_interest.questions"), size: 'm' } do %>
             <p>
               <%= govuk_link_to t('individual.questions.agree_privacy_statement.short'), "https://www.gov.uk/government/publications/homes-for-ukraine-scheme-expressions-of-interest-eois-privacy-notices/homes-for-ukraine-scheme-expressions-of-interest-individuals" %>
