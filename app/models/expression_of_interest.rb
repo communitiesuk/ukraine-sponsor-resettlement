@@ -52,7 +52,6 @@ class ExpressionOfInterest < ApplicationRecord
                 :final_submission
 
   validate :validate_different_address, if: -> { run_validation? :different_address }
-  validate :validate_accommodation_length, if: -> { run_validation? :accommodation_length }
   validate :validate_more_properties, if: -> { run_validation? :more_properties }
   validate :validate_number_adults, if: -> { run_validation? :number_adults }
   validates :number_children, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 9, message: I18n.t(:number_children, scope: :error) }, if: -> { run_validation? :number_children }
@@ -120,10 +119,6 @@ class ExpressionOfInterest < ApplicationRecord
   end
 
 private
-
-  def validate_accommodation_length
-    validate_enum(@accommodation_length_types, @accommodation_length, :accommodation_length)
-  end
 
   def serialize
     self.type = "eoi-v2"

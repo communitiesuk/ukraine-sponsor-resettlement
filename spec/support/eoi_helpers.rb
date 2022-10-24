@@ -157,7 +157,15 @@ module EoiHelpers
       eoi_choose_option("No")
     end
 
-    expect(page).to have_content("How many people will be living at the address you’re offering (not including guests)?")
+    expect(page).to have_content("How soon can you start hosting someone?")
+  end
+
+  def eoi_enter_sponsor_start(date: Time.zone.now + 1.year)
+    fill_in("Day", with: date.day)
+    fill_in("Month", with: date.month)
+    fill_in("Year", with: date.year)
+
+    click_on("Continue")
   end
 
   def eoi_people_at_address(adult_number: "2", child_number: "3")
@@ -189,25 +197,13 @@ module EoiHelpers
     choose(type)
     click_on("Continue")
 
-    expect(page).to have_content("How long can you offer accommodation for?")
-  end
-
-  def eoi_sponsorship_length(time: "From 6 to 9 months")
-    expect(page).to have_content("How long can you offer accommodation for?")
-
-    choose(time)
-    click_on("Continue")
-    expect(page).to have_content("How many single rooms do you have available in the property you have specified?")
+    expect(page).to have_content("How many single bedrooms do you have available in the property you have specified?")
   end
 
   def eoi_number_of_rooms(single: 6, double: 3)
-    expect(page).to have_content("How many single rooms do you have available in the property you have specified?")
+    expect(page).to have_content("How many single bedrooms do you have available in the property you have specified?")
 
     fill_in("expression-of-interest-single-room-count-field", with: single)
-    click_on("Continue")
-
-    expect(page).to have_content("How many double bedrooms (or larger) do you have available in the property you have specified?")
-
     fill_in("expression-of-interest-double-room-count-field", with: double)
     click_on("Continue")
 
@@ -224,19 +220,13 @@ module EoiHelpers
     choose(pets)
     click_on("Continue")
 
-    expect(page).to have_content("Can we contact you about your registration?")
+    expect(page).to have_content("Would you like to take part in research to help us improve the Homes for Ukraine service?")
   end
 
   def eoi_contact_consent(research: "Yes")
-    expect(page).to have_content("Can we contact you about your registration?")
-
-    check("Can we contact you about your registration?")
-    click_on("Continue")
-
     expect(page).to have_content("Would you like to take part in research to help us improve the Homes for Ukraine service?")
 
-    choose(research)
-    click_on("Continue")
+    eoi_choose_option(research)
 
     expect(page).to have_content("Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme")
 
@@ -249,7 +239,7 @@ module EoiHelpers
   def eoi_check_answers_and_submit
     expect(page).to have_content("Check your answers before sending your registration")
 
-    find("button[type=submit]").click
+    click_on("Accept and send")
 
     expect(page).to have_content("EOI-")
   end
