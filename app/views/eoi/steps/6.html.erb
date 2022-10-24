@@ -3,8 +3,9 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-    <h2 class="govuk-heading-m">Enter the address of the property you’re offering</h2>
+   <h1 class="govuk-heading-l">Enter the address of the property you're offering</h1>
 
+    <br>
     <% if request.query_string == 'check' %>
       <% formurl = "/expression-of-interest/steps/6?check" %>
     <% else %>
