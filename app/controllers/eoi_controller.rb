@@ -1,5 +1,5 @@
 class EoiController < ApplicationController
-  MAX_STEPS = 18
+  MAX_STEPS = 16
   before_action :check_feature_flag
 
   def index; end
@@ -59,10 +59,23 @@ class EoiController < ApplicationController
     # Update Application object with new attributes
     @application.assign_attributes(application_params)
 
+    if current_stage == 9 # hosting_start_date
+      begin
+        hosting_start_date = Date.new(params["expression_of_interest"]["hosting_start_date(1i)"].to_i, params["expression_of_interest"]["hosting_start_date(2i)"].to_i, params["expression_of_interest"]["hosting_start_date(3i)"].to_i)
+
+        if hosting_start_date < Time.zone.today
+          @application.errors.add(:invalid_hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
+          render path_for_step and return
+        end
+      rescue Date::Error
+        @application.errors.add(:hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
+        render path_for_step and return
+      end
+    end
+
     if @application.valid?
       # Update the session
       session[:eoi] = @application.as_json
-
       # Replace with routing engine to get next stage
       next_stage = RoutingEngine.get_next_eoi_step(@application, current_stage)
 
@@ -78,6 +91,11 @@ class EoiController < ApplicationController
 
   def check_answers
     @application = ExpressionOfInterest.new(session[:eoi])
+    @application.hosting_start_date_as_string = Date.new(
+      @application.hosting_start_date["1"].to_i,
+      @application.hosting_start_date["2"].to_i,
+      @application.hosting_start_date["3"].to_i,
+    ).strftime("%d %B %Y")
   end
 
   def submit
@@ -137,6 +155,7 @@ private
           :number_children,
           :family_type,
           :accommodation_length,
+          :hosting_start_date,
           :single_room_count,
           :double_room_count,
           :step_free,

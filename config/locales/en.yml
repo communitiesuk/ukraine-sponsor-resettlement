@@ -155,6 +155,9 @@ en:
         short: Property postcode(s)
         full: Enter the first part of the postcode of the property you’re offering
         subtitle: (If you are offering multiple properties, please enter all the postcodes separated by a comma)
+      hosting_start_date:
+        full:  How soon can you start hosting someone?
+        short: Hosting start date
       accommodation_length:
         short: Accommodation length
         full: How long can you offer accommodation for?
@@ -628,3 +631,4 @@ en:
     phone_numbers_different: Phone numbers must match
     no_identity_error: Tell us how you can prove your identity, or why you cannot.
     non_uk_number: You must enter a valid UK mobile phone number
+    invalid_hosting_start_date: Enter a valid start date

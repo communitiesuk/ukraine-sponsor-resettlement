@@ -133,7 +133,7 @@
       </dl>
     <% end %>
 
-    <h2 class="govuk-heading-m">Sponsor details</h2>
+    <h2 class="govuk-heading-m">Host details</h2>
 
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <div class="govuk-summary-list__row">
@@ -144,7 +144,7 @@
           <%= @application.number_adults %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/expression-of-interest/steps/9">
+          <a class="govuk-link" href="/expression-of-interest/steps/10">
             Change<span class="govuk-visually-hidden"> adults</span>
           </a>
         </dd>
@@ -157,7 +157,7 @@
           <%= @application.number_children %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/expression-of-interest/steps/9">
+          <a class="govuk-link" href="/expression-of-interest/steps/10">
             Change<span class="govuk-visually-hidden"> children</span>
           </a>
         </dd>
@@ -167,6 +167,24 @@
       <h2 class="govuk-heading-m">Application details</h2>
 
       <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            <%= t('hosting_start_date.short', scope: "expression_of_interest.questions") %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <% if @application.errors.include?(:hosting_start_date) %>
+              <span class="govuk-error-message"><%= @application.errors[:hosting_start_date].join %></span>
+            <% else %>
+              <%= @application.hosting_start_date_as_string %>
+            <% end %>
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="/expression-of-interest/steps/9">
+              Change<span class="govuk-visually-hidden"> start date</span>
+            </a>
+          </dd>
+        </div>
 
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
@@ -180,12 +198,14 @@
             <% end %>
           </dd>
           <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href="/expression-of-interest/steps/10">
+            <a class="govuk-link" href="/expression-of-interest/steps/11">
               Change<span class="govuk-visually-hidden"> family or individual selection</span>
             </a>
           </dd>
         </div>
-
+<%
+=begin
+%>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
             <%= t('accommodation_length.short', scope: "expression_of_interest.questions") %>
@@ -203,7 +223,9 @@
             </a>
           </dd>
         </div>
-
+<%
+=end
+%>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
             <%= t('single_room_count.short', scope: "expression_of_interest.questions") %>
@@ -234,7 +256,7 @@
             <% end %>
           </dd>
           <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href="/expression-of-interest/steps/13">
+            <a class="govuk-link" href="/expression-of-interest/steps/12">
               Change<span class="govuk-visually-hidden"> double rooms available</span>
             </a>
           </dd>
@@ -252,12 +274,15 @@
             <% end %>
           </dd>
           <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href="/expression-of-interest/steps/14">
+            <a class="govuk-link" href="/expression-of-interest/steps/13">
               Change<span class="govuk-visually-hidden"> mobility impairment choice</span>
             </a>
           </dd>
         </div>
 
+<%
+=begin
+%>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
             <%= t('allow_pet.short', scope: "additional_info.questions") %>
@@ -271,7 +296,12 @@
             </a>
           </dd>
         </div>
-
+<%
+=end
+%>
+<%
+=begin
+%>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
             <%= t('agree_future_contact.short', scope: "expression_of_interest.questions") %>
@@ -289,16 +319,18 @@
             </a>
           </dd>
         </div>
-
+<%
+=end
+%>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
             <%= t('user_research.short', scope: "additional_info.questions") %>
           </dt>
           <dd class="govuk-summary-list__value">
-            <%= @application.user_research %>
+            <%= @application.agree_privacy_statement == "yes" ? "Yes" : "No" %>
           </dd>
           <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href="/expression-of-interest/steps/17">
+            <a class="govuk-link" href="/expression-of-interest/steps/14">
               Change<span class="govuk-visually-hidden"> user research</span>
             </a>
           </dd>
@@ -316,7 +348,7 @@
             <% end %>
           </dd>
           <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href="/expression-of-interest/steps/18">
+            <a class="govuk-link" href="/expression-of-interest/steps/15">
               Change<span class="govuk-visually-hidden"> agree_privacy_statement agreement</span>
             </a>
           </dd>

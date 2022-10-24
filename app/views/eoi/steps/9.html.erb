@@ -2,21 +2,16 @@
   <div class="govuk-grid-column-two-thirds">
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
-
-    <h2 class="govuk-heading-m">How many people will be living at the address you’re offering (not including guests)?</h2>
-
+    <% if @application.hosting_start_date.present?
+      @application.hosting_start_date[1] = @application.hosting_start_date["1"]
+      @application.hosting_start_date[2] = @application.hosting_start_date["2"]
+      @application.hosting_start_date[3] = @application.hosting_start_date["3"]
+      end
+    %>
     <%= form_for @application, url: "/expression-of-interest/steps/9", method: :post do |f| %>
-      <%= f.govuk_text_field :number_adults,
-                             label: { text: t('number_adults.full', scope: "expression_of_interest.questions") },
-                             type: "number",
-                             width: 2
-      %>
-      <%= f.govuk_text_field :number_children,
-                             label: { text: t('number_children.full', scope: "expression_of_interest.questions") },
-                             type: "number",
-                             width: 2
-      %>
-
+      <%= f.govuk_date_field :hosting_start_date,
+            hosting_start_date: true,
+            legend: { text: t('hosting_start_date.full', scope: "expression_of_interest.questions") } %>
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>

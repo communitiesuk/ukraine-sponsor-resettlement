@@ -3,12 +3,11 @@
     <%= render partial: "shared/back_link" %>
 
     <%= form_for @application, url: "/expression-of-interest/steps/13", method: :post do |f| %>
-      <%= f.govuk_text_field :double_room_count,
-        label: { text: t('double_room_count.full', scope: "expression_of_interest.questions"), size: 'm' },
-        hint: { text: t('double_room_count.hint', scope: "expression_of_interest.questions")},
-        type: "number",
-        min: 0,
-        width: 2
+      <%= f.govuk_collection_radio_buttons :step_free,
+        @application.step_free_types.map{|type| OpenStruct.new(id: type, name: t(type, scope: "expression_of_interest.step_free")) },
+        :id,
+        :name,
+        legend: { text: t('step_free.full', scope: "expression_of_interest.questions") }
       %>
       <%= f.govuk_submit t('continue') %>
     <% end %>

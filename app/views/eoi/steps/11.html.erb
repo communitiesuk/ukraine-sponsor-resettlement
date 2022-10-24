@@ -3,11 +3,11 @@
     <%= render partial: "shared/back_link" %>
 
     <%= form_for @application, url: "/expression-of-interest/steps/11", method: :post do |f| %>
-      <%= f.govuk_collection_radio_buttons :accommodation_length,
-        @application.accommodation_length_types.map{|type| OpenStruct.new(id: type, name: t(type, scope: "expression_of_interest.accommodation_length")) },
-        :id,
-        :name,
-        legend: { text: t('accommodation_length.full', scope: "expression_of_interest.questions") }
+      <%= f.govuk_collection_radio_buttons :family_type,
+          @application.family_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "expression_of_interest.family_type")) },
+          :id,
+          :name,
+          legend: { text: t('family_type.full', scope: "expression_of_interest.questions") }
       %>
       <%= f.govuk_submit t('continue') %>
     <% end %>

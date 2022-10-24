@@ -1,7 +1,7 @@
 require "securerandom"
 
 class ExpressionOfInterest < ApplicationRecord
-  include IndividualValidations
+  include ExpressionOfInterestValidations
   include ContactDetailsValidations
   include CommonValidations
 
@@ -28,6 +28,8 @@ class ExpressionOfInterest < ApplicationRecord
                 :number_children,
                 :family_types,
                 :family_type,
+                :hosting_start_date,
+                :hosting_start_date_as_string,
                 :accommodation_length_types,
                 :accommodation_length,
                 :single_room_count,
@@ -102,6 +104,7 @@ class ExpressionOfInterest < ApplicationRecord
       number_children:,
       family_type:,
       accommodation_length:,
+      hosting_start_date:,
       single_room_count:,
       double_room_count:,
       step_free:,
