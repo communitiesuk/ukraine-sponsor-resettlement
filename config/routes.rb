@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
   get "/expression-of-interest/self-assessment/other-ways-to-help", to: "eoi#other_ways_to_help"
 
-  get "/expression-of-interest", to: redirect("/expression-of-interest/self-assessment/start")
+  get "/expression-of-interest", to: redirect("/expression-of-interest/self-assessment/property-suitable")
   get "/expression-of-interest/steps/:stage", to: "eoi#display"
   post "/expression-of-interest/steps/:stage", to: "eoi#handle_step"
   get "/expression-of-interest/check-answers", to: "eoi#check_answers"
