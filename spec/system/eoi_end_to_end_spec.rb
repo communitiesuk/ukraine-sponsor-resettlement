@@ -36,12 +36,9 @@ RSpec.describe "Expression of interest end to end", type: :system do
       eoi_contact_consent
       eoi_check_answers_and_submit
 
-      assert_transfer_json_is_valid
-
-    
+      assert_transfer_json_is_valid(expected_optional_keys)
     end
   end
-
 
   def assert_transfer_json_is_valid(optional_keys = [])
     app_ref = page.get_rack_session_key("app_reference")

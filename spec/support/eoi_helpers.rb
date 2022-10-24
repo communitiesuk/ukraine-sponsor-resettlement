@@ -29,7 +29,7 @@ module EoiHelpers
 
     fill_in("Enter your full name", with: name)
     click_on("Continue")
-    
+
     expect(page).to have_content("Enter your email address")
   end
 
@@ -54,7 +54,7 @@ module EoiHelpers
     if different_address
       eoi_choose_option("Yes")
 
-      expect(page).to have_content("Enter the address of the property you’re offering")
+      expect(page).to have_content("Enter the address of the property you're offering")
 
       eoi_enter_address(line1: "Child Address line 1", town: "Child Town", postcode: "CH1 1LD")
 
@@ -85,7 +85,7 @@ module EoiHelpers
   end
 
   def eoi_people_at_address(adult_number: "2", child_number: "3")
-    expect(page).to have_content("How many people will be living at the address you’re offering (not including guests)?")
+    expect(page).to have_content("How many people normally live in the property you’re offering (not including guests)?")
 
     fill_in("Adults", with: adult_number)
     fill_in("Children", with: child_number)
@@ -113,11 +113,11 @@ module EoiHelpers
     choose(type)
     click_on("Continue")
 
-    expect(page).to have_content("How many single bedrooms do you have available in the property you have specified?")
+    expect(page).to have_content("How many bedrooms are available for guests in the property you’re registering now?")
   end
 
   def eoi_number_of_rooms(single: 6, double: 3)
-    expect(page).to have_content("How many single bedrooms do you have available in the property you have specified?")
+    expect(page).to have_content("How many bedrooms are available for guests in the property you’re registering now?")
 
     fill_in("expression-of-interest-single-room-count-field", with: single)
     fill_in("expression-of-interest-double-room-count-field", with: double)
@@ -159,7 +159,6 @@ module EoiHelpers
 
     expect(page).to have_content("EOI-")
   end
-
 
   def eoi_fill_in_date_of_birth(date, click_continue: true)
     fill_in("Day", with: date.day)
