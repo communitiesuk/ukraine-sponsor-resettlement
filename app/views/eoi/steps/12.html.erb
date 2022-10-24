@@ -2,7 +2,13 @@
   <div class="govuk-grid-column-two-thirds">
     <%= render partial: "shared/back_link" %>
 
-    <%= form_for @application, url: "/expression-of-interest/steps/12", method: :post do |f| %>
+    <% if request.query_string == 'check' %>
+      <% formurl = "/expression-of-interest/steps/12?check" %>
+    <% else %>
+      <% formurl = "/expression-of-interest/steps/12" %>
+    <% end %>
+
+    <%= form_for @application, url: formurl, method: :post do |f| %>
       <%= f.govuk_text_field :single_room_count,
         label: { text: t('single_room_count.full', scope: "expression_of_interest.questions"), size: 'm' },
         hint: { text: t('single_room_count.hint', scope: "expression_of_interest.questions") },

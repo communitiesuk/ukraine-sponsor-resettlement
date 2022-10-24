@@ -79,7 +79,7 @@ class EoiController < ApplicationController
       # Replace with routing engine to get next stage
       next_stage = RoutingEngine.get_next_eoi_step(@application, current_stage)
 
-      if next_stage > MAX_STEPS
+      if next_stage > MAX_STEPS || params.key?("check")
         redirect_to "/expression-of-interest/check-answers"
       else
         redirect_to "/expression-of-interest/steps/#{next_stage}"

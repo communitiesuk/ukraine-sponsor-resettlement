@@ -2,7 +2,13 @@
   <div class="govuk-grid-column-two-thirds">
     <%= render partial: "shared/back_link" %>
 
-    <%= form_for @application, url: "/expression-of-interest/steps/3", method: :post do |f| %>
+    <% if request.query_string == 'check' %>
+      <% formurl = "/expression-of-interest/steps/3?check" %>
+    <% else %>
+      <% formurl = "/expression-of-interest/steps/3" %>
+    <% end %>
+
+    <%= form_for @application, url: formurl, method: :post do |f| %>
       <%= f.govuk_text_field :phone_number,
         label: { text: t('phone_number.full', scope: "expression_of_interest.questions") },
         type: "tel"

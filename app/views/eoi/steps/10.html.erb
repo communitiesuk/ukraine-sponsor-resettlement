@@ -5,7 +5,13 @@
 
     <h2 class="govuk-heading-m">How many people will be living at the address you’re offering (not including guests)?</h2>
 
-    <%= form_for @application, url: "/expression-of-interest/steps/10", method: :post do |f| %>
+    <% if request.query_string == 'check' %>
+      <% formurl = "/expression-of-interest/steps/10?check" %>
+    <% else %>
+      <% formurl = "/expression-of-interest/steps/10" %>
+    <% end %>
+
+    <%= form_for @application, url: formurl, method: :post do |f| %>
       <%= f.govuk_text_field :number_adults,
                              label: { text: t('number_adults.full', scope: "expression_of_interest.questions") },
                              type: "number",

@@ -8,7 +8,13 @@
       @application.hosting_start_date[3] = @application.hosting_start_date["3"]
       end
     %>
-    <%= form_for @application, url: "/expression-of-interest/steps/9", method: :post do |f| %>
+    <% if request.query_string == 'check' %>
+      <% formurl = "/expression-of-interest/steps/9?check" %>
+    <% else %>
+      <% formurl = "/expression-of-interest/steps/9" %>
+    <% end %>
+
+    <%= form_for @application, url: formurl, method: :post do |f| %>
       <%= f.govuk_date_field :hosting_start_date,
             hosting_start_date: true,
             legend: { text: t('hosting_start_date.full', scope: "expression_of_interest.questions") } %>

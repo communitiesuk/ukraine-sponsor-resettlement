@@ -2,7 +2,13 @@
   <div class="govuk-grid-column-two-thirds">
     <%= render partial: "shared/back_link" %>
 
-    <%= form_for @application, url: "/expression-of-interest/steps/11", method: :post do |f| %>
+    <% if request.query_string == 'check' %>
+      <% formurl = "/expression-of-interest/steps/11?check" %>
+    <% else %>
+      <% formurl = "/expression-of-interest/steps/11" %>
+    <% end %>
+
+    <%= form_for @application, url: formurl, method: :post do |f| %>
       <%= f.govuk_collection_radio_buttons :family_type,
           @application.family_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "expression_of_interest.family_type")) },
           :id,

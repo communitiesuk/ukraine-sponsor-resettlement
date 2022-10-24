@@ -15,7 +15,7 @@
           <%= @application.fullname %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/expression-of-interest/steps/1">
+          <a class="govuk-link" href="/expression-of-interest/steps/1?check">
             Change<span class="govuk-visually-hidden"> name</span>
           </a>
         </dd>
@@ -29,7 +29,7 @@
           <%= @application.email %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/expression-of-interest/steps/2">
+          <a class="govuk-link" href="/expression-of-interest/steps/2?check">
             Change<span class="govuk-visually-hidden"> email</span>
           </a>
         </dd>
@@ -43,7 +43,7 @@
           <%= @application.phone_number %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/expression-of-interest/steps/3">
+          <a class="govuk-link" href="/expression-of-interest/steps/3?check">
             Change<span class="govuk-visually-hidden"> phone number</span>
           </a>
         </dd>
@@ -67,7 +67,7 @@
           <%= @application.residential_postcode %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/expression-of-interest/steps/4">
+          <a class="govuk-link" href="/expression-of-interest/steps/4?check">
             Change<span class="govuk-visually-hidden"> address</span>
           </a>
         </dd>
@@ -82,7 +82,7 @@
           <%= @application.different_address %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/expression-of-interest/steps/5">
+          <a class="govuk-link" href="/expression-of-interest/steps/5?check">
             Change<span class="govuk-visually-hidden"> different address</span>
           </a>
         </dd>
@@ -111,7 +111,7 @@
             <%= @application.property_one_postcode %>
           </dd>
           <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href="/expression-of-interest/steps/6">
+            <a class="govuk-link" href="/expression-of-interest/steps/6?check">
               Change<span class="govuk-visually-hidden"> address</span>
             </a>
           </dd>
@@ -125,7 +125,7 @@
             <%= @application.more_properties %>
           </dd>
           <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href="/expression-of-interest/steps/7">
+            <a class="govuk-link" href="/expression-of-interest/steps/7?check">
               Change<span class="govuk-visually-hidden"> more properties</span>
             </a>
           </dd>
@@ -144,7 +144,7 @@
           <%= @application.number_adults %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/expression-of-interest/steps/10">
+          <a class="govuk-link" href="/expression-of-interest/steps/10?check">
             Change<span class="govuk-visually-hidden"> adults</span>
           </a>
         </dd>
@@ -157,7 +157,7 @@
           <%= @application.number_children %>
         </dd>
         <dd class="govuk-summary-list__actions">
-          <a class="govuk-link" href="/expression-of-interest/steps/10">
+          <a class="govuk-link" href="/expression-of-interest/steps/10?check">
             Change<span class="govuk-visually-hidden"> children</span>
           </a>
         </dd>
@@ -180,7 +180,7 @@
             <% end %>
           </dd>
           <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href="/expression-of-interest/steps/9">
+            <a class="govuk-link" href="/expression-of-interest/steps/9?check">
               Change<span class="govuk-visually-hidden"> start date</span>
             </a>
           </dd>
@@ -198,7 +198,7 @@
             <% end %>
           </dd>
           <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href="/expression-of-interest/steps/11">
+            <a class="govuk-link" href="/expression-of-interest/steps/11?check">
               Change<span class="govuk-visually-hidden"> family or individual selection</span>
             </a>
           </dd>
@@ -238,7 +238,7 @@
             <% end %>
           </dd>
           <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href="/expression-of-interest/steps/12">
+            <a class="govuk-link" href="/expression-of-interest/steps/12?check">
               Change<span class="govuk-visually-hidden"> single rooms available</span>
             </a>
           </dd>
@@ -256,7 +256,7 @@
             <% end %>
           </dd>
           <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href="/expression-of-interest/steps/12">
+            <a class="govuk-link" href="/expression-of-interest/steps/12?check">
               Change<span class="govuk-visually-hidden"> double rooms available</span>
             </a>
           </dd>
@@ -274,15 +274,13 @@
             <% end %>
           </dd>
           <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href="/expression-of-interest/steps/13">
+            <a class="govuk-link" href="/expression-of-interest/steps/13?check">
               Change<span class="govuk-visually-hidden"> mobility impairment choice</span>
             </a>
           </dd>
         </div>
 
-<%
-=begin
-%>
+
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
             <%= t('allow_pet.short', scope: "additional_info.questions") %>
@@ -291,14 +289,11 @@
             <%= @application.allow_pet %>
           </dd>
           <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href="/expression-of-interest/steps/15">
+            <a class="govuk-link" href="/expression-of-interest/steps/14?check">
               Change<span class="govuk-visually-hidden"> pet</span>
             </a>
           </dd>
         </div>
-<%
-=end
-%>
 <%
 =begin
 %>
@@ -330,7 +325,7 @@
             <%= @application.agree_privacy_statement == "yes" ? "Yes" : "No" %>
           </dd>
           <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href="/expression-of-interest/steps/14">
+            <a class="govuk-link" href="/expression-of-interest/steps/15?check">
               Change<span class="govuk-visually-hidden"> user research</span>
             </a>
           </dd>
@@ -348,7 +343,7 @@
             <% end %>
           </dd>
           <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href="/expression-of-interest/steps/15">
+            <a class="govuk-link" href="/expression-of-interest/steps/16?check">
               Change<span class="govuk-visually-hidden"> agree_privacy_statement agreement</span>
             </a>
           </dd>
