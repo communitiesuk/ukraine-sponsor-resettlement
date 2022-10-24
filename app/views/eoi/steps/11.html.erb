@@ -11,7 +11,7 @@
     <%= form_for @application, url: formurl, method: :post do |f| %>
 
       <h1 class="govuk-heading-l">
-       <%= t('family_type.full', scope: "expression_of_interest.questions")  %>
+        <%= t('family_type.full', scope: "expression_of_interest.questions")  %>
       </h1>
 
       <%= f.govuk_collection_radio_buttons :family_type,

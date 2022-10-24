@@ -9,15 +9,24 @@
     <% end %>
 
     <%= form_for @application, url: formurl, method: :post do |f| %>
+
+      <h1 class="govuk-heading-l">
+         How many bedrooms are available for guests in the property you’re registering now?
+      </h1>
+
+      <div class="govuk-hint">
+        Single bedrooms can normally only contain a single bed. Double bedrooms should have enough space for at least 1 double bed or 2 single beds.
+      </div>
+
+      <br>
+
       <%= f.govuk_text_field :single_room_count,
-        label: { text: t('single_room_count.full', scope: "expression_of_interest.questions"), size: 'm' },
-        hint: { text: t('single_room_count.hint', scope: "expression_of_interest.questions") },
+        label: { text: 'Single bedrooms' },
         type: "number",
         width: 2
       %>
       <%= f.govuk_text_field :double_room_count,
-        label: { text: t('double_room_count.full', scope: "expression_of_interest.questions"), size: 'm' },
-        hint: { text: t('double_room_count.hint', scope: "expression_of_interest.questions")},
+        label: { text: 'Double bedrooms' },
         type: "number",
         min: 0,
         width: 2
