@@ -3,8 +3,12 @@
     <%= render partial: "shared/back_link" %>
 
     <%= form_for @application, url: "/expression-of-interest/steps/1", method: :post do |f| %>
+      <h1 class="govuk-heading-l">
+       <%= t('fullname.full', scope: "expression_of_interest.questions")  %>
+      </h1> 
+
       <%= f.govuk_text_field :fullname,
-        label: { text: t('fullname.full', scope: "expression_of_interest.questions") },
+        label: { text: t('fullname.full', scope: "expression_of_interest.questions"), hidden:true},
         type: "text"
       %>
       <%= f.govuk_submit t('continue') %>
