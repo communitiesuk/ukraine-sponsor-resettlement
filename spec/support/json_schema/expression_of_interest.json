@@ -3,7 +3,6 @@
   "type": "object",
   "required": [
     "accommodation_length",
-    "agree_future_contact",
     "agree_privacy_statement",
     "allow_pet",
     "created_at",
@@ -12,6 +11,7 @@
     "email",
     "family_type",
     "fullname",
+    "host_as_soon_as_possible",
     "ip_address",
     "more_properties",
     "number_adults",
@@ -38,9 +38,6 @@
     "accommodation_length": {
       "type": "string"
     },
-    "agree_future_contact": {
-      "type": "string"
-    },
     "agree_privacy_statement": {
       "type": "string"
     },
@@ -57,7 +54,7 @@
       "type": "string"
     },
     "email": {
-      "type": "email"
+      "type": "string"
     },
     "family_type": {
       "type": "string"
@@ -65,11 +62,17 @@
     "fullname": {
       "type": "string"
     },
+    "hosting_start_date": {
+      "$ref": "#/$defs/start_date"
+    },
+    "host_as_soon_as_possible": {
+      "type": "string"
+    },
     "id": {
       "type": "string"
     },
     "ip_address": {
-      "type": "ipv4"
+      "type": "string"
     },
     "more_properties": {
       "type": "string"
@@ -85,7 +88,7 @@
     },
     "postcode": {
       "type": "string"
-    }, 
+    },
     "property_one_line_1": {
       "type": "string"
     },
@@ -147,6 +150,31 @@
         "true",
         "false"
       ]
+    },
+    "start_date": {
+      "type": "object",
+      "required": [
+        "3",
+        "2",
+        "1"
+      ],
+      "properties": {
+        "1": {
+          "type": "integer",
+          "minimum": 1900,
+          "maximum": 2200
+        },
+        "2": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 12
+        },
+        "3": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 31
+        }
+      }
     }
   }
 }

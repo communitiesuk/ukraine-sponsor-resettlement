@@ -2,11 +2,18 @@
   <div class="govuk-grid-column-two-thirds">
     <%= render partial: "shared/back_link" %>
 
-    <h2 class="govuk-heading-m">Enter your full residential address</h2>
+    <h1 class="govuk-heading-l">Enter your full residential address</h1>
 
-    <p class="hint">This is the address where you live</p>
+    <p class="govuk-hint">This is the address where you live</p>
+    <br>
 
-    <%= form_for @application, url: "/expression-of-interest/steps/4", method: :post do |f| %>
+    <% if request.query_string == 'check' %>
+      <% formurl = "/expression-of-interest/steps/4?check" %>
+    <% else %>
+      <% formurl = "/expression-of-interest/steps/4" %>
+    <% end %>
+
+    <%= form_for @application, url: formurl, method: :post do |f| %>
       <%= f.govuk_text_field :residential_line_1,
                              label: { text: t('address_line_1.full', scope: "expression_of_interest.questions") },
                              type: "text"

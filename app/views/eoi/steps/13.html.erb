@@ -2,13 +2,30 @@
   <div class="govuk-grid-column-two-thirds">
     <%= render partial: "shared/back_link" %>
 
-    <%= form_for @application, url: "/expression-of-interest/steps/13", method: :post do |f| %>
-      <%= f.govuk_text_field :double_room_count,
-        label: { text: t('double_room_count.full', scope: "expression_of_interest.questions"), size: 'm' },
-        hint: { text: t('double_room_count.hint', scope: "expression_of_interest.questions")},
-        type: "number",
-        min: 0,
-        width: 2
+    <% if request.query_string == 'check' %>
+      <% formurl = "/expression-of-interest/steps/13?check" %>
+    <% else %>
+      <% formurl = "/expression-of-interest/steps/13" %>
+    <% end %>
+
+    <%= form_for @application, url: formurl, method: :post do |f| %>
+
+      <h1 class="govuk-heading-l">
+       <%= t('step_free.full', scope: "expression_of_interest.questions")  %>
+      </h1>
+
+      <div class="govuk-hint">
+    Step-free access means that the property entrance and all the rooms your
+    guests will use must be without steps or include a ramp, or a lift suitable for
+    wheelchair users.
+      </div>
+
+      <br>
+      <%= f.govuk_collection_radio_buttons :step_free,
+        @application.step_free_types.map{|type| OpenStruct.new(id: type, name: t(type, scope: "expression_of_interest.step_free")) },
+        :id,
+        :name,
+        legend: { text: t('step_free.full', scope: "expression_of_interest.questions"), hidden:true }
       %>
       <%= f.govuk_submit t('continue') %>
     <% end %>

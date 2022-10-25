@@ -3,12 +3,23 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-    <%= form_for @application, url: "/expression-of-interest/steps/5", method: :post do |f| %>
+    <% if request.query_string == 'check' %>
+      <% formurl = "/expression-of-interest/steps/5?check" %>
+    <% else %>
+      <% formurl = "/expression-of-interest/steps/5" %>
+    <% end %>
+
+    <%= form_for @application, url: formurl, method: :post do |f| %>
+
+      <h1 class="govuk-heading-l">
+       <%= t('different_address.full', scope: "expression_of_interest.questions")  %>
+      </h1>
+
       <%= f.govuk_collection_radio_buttons :different_address,
           @application.different_address_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "expression_of_interest.different_address")) },
           :id,
           :name,
-          legend: { text: t('different_address.full', scope: "expression_of_interest.questions") }
+          legend: { text: t('different_address.full', scope: "expression_of_interest.questions"), hidden:true }
       %>
       <%= f.govuk_submit t('continue') %>
     <% end %>

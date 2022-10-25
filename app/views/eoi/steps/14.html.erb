@@ -1,13 +1,26 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= render partial: "shared/back_link" %>
 
-    <%= form_for @application, url: "/expression-of-interest/steps/14", method: :post do |f| %>
-      <%= f.govuk_collection_radio_buttons :step_free,
-        @application.step_free_types.map{|type| OpenStruct.new(id: type, name: t(type, scope: "expression_of_interest.step_free")) },
-        :id,
-        :name,
-        legend: { text: t('step_free.full', scope: "expression_of_interest.questions") }
+    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
+
+    <% if request.query_string == 'check' %>
+      <% formurl = "/expression-of-interest/steps/14?check" %>
+    <% else %>
+      <% formurl = "/expression-of-interest/steps/14" %>
+    <% end %>
+
+    <%= form_for @application, url: formurl, method: :post do |f| %>
+      <h1 class="govuk-heading-l">
+       <%= t('allow_pet.full', scope: "expression_of_interest.questions")  %>
+      </h1>
+
+      <%= f.govuk_collection_radio_buttons :allow_pet,
+          @application.allow_pet_types.map{ |type| OpenStruct.new(id: t("#{type}.type", scope: "expression_of_interest.pet_option_description"), name: t("#{type}.short", scope: "expression_of_interest.pet_option_description"), description: t("#{type}.full", scope: "expression_of_interest.pet_option_description"))},
+          :id,
+          :name,
+          :description,
+          legend: { text: t('allow_pet.full', scope: "expression_of_interest.questions"), hidden:true},
+          hint: { text: t('allow_pet.hint', scope: "expression_of_interest.questions"), hidden:true}
       %>
       <%= f.govuk_submit t('continue') %>
     <% end %>

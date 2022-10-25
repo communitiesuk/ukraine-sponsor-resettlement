@@ -3,9 +3,16 @@
 
     <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
 
-    <h2 class="govuk-heading-m">Enter the address of the property you’re offering</h2>
+   <h1 class="govuk-heading-l">Enter the address of the property you're offering</h1>
 
-    <%= form_for @application, url: "/expression-of-interest/steps/6", method: :post do |f| %>
+    <br>
+    <% if request.query_string == 'check' %>
+      <% formurl = "/expression-of-interest/steps/6?check" %>
+    <% else %>
+      <% formurl = "/expression-of-interest/steps/6" %>
+    <% end %>
+
+    <%= form_for @application, url: formurl, method: :post do |f| %>
       <%= f.govuk_text_field :property_one_line_1,
                              label: { text: t('address_line_1.full', scope: "expression_of_interest.questions") },
                              type: "text"

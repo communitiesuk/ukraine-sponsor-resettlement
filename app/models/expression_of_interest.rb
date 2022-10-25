@@ -1,7 +1,7 @@
 require "securerandom"
 
 class ExpressionOfInterest < ApplicationRecord
-  include IndividualValidations
+  include ExpressionOfInterestValidations
   include ContactDetailsValidations
   include CommonValidations
 
@@ -24,10 +24,14 @@ class ExpressionOfInterest < ApplicationRecord
                 :property_one_postcode,
                 :more_properties_types,
                 :more_properties,
+                :more_properties_statement,
                 :number_adults,
                 :number_children,
                 :family_types,
                 :family_type,
+                :host_as_soon_as_possible,
+                :hosting_start_date,
+                :hosting_start_date_as_string,
                 :accommodation_length_types,
                 :accommodation_length,
                 :single_room_count,
@@ -50,11 +54,11 @@ class ExpressionOfInterest < ApplicationRecord
                 :final_submission
 
   validate :validate_different_address, if: -> { run_validation? :different_address }
-  validate :validate_accommodation_length, if: -> { run_validation? :accommodation_length }
   validate :validate_more_properties, if: -> { run_validation? :more_properties }
   validate :validate_number_adults, if: -> { run_validation? :number_adults }
   validates :number_children, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 9, message: I18n.t(:number_children, scope: :error) }, if: -> { run_validation? :number_children }
-  validate :validate_allow_pet_pet, if: -> { run_validation? :allow_pet }
+  validate :validate_allow_eoi_pet, if: -> { run_validation? :allow_pet }
+  validate :validate_host_as_soon_as_possible, if: -> { run_validation? :host_as_soon_as_possible }
   validate :validate_user_research, if: -> { run_validation? :user_research }
 
   after_initialize :after_initialize
@@ -67,15 +71,18 @@ class ExpressionOfInterest < ApplicationRecord
 
   def after_initialize
     @family_types = %i[single_adult more_than_one_adult adults_with_children no_preference]
-    @accommodation_length_types = %i[from_6_to_9_months from_10_to_12_months more_than_12_months]
+    @accommodation_length_types = %i[from_6_to_9_months from_10_to_12_months more_than_12_months from_6_months]
     @final_submission = false
     @different_address_types = %i[yes no]
     @more_properties_types = %i[yes no]
     @step_free_types = %i[all some none unknown]
-    @allow_pet_types = %i[yes no]
+    @allow_pet_types = %i[affirmative negative]
+    @allow_eoi_pet_types = %i[yes no]
+    @host_as_soon_as_possible_types = %i[true false]
     @user_research_types = %i[yes no]
     @postcode = "not asked"
     @living_space = "rooms_in_home_shared_facilities"
+    @accommodation_length = "from_6_months"
   end
 
   def as_json
@@ -102,6 +109,8 @@ class ExpressionOfInterest < ApplicationRecord
       number_children:,
       family_type:,
       accommodation_length:,
+      host_as_soon_as_possible:,
+      hosting_start_date:,
       single_room_count:,
       double_room_count:,
       step_free:,
@@ -117,10 +126,6 @@ class ExpressionOfInterest < ApplicationRecord
   end
 
 private
-
-  def validate_accommodation_length
-    validate_enum(@accommodation_length_types, @accommodation_length, :accommodation_length)
-  end
 
   def serialize
     self.type = "eoi-v2"

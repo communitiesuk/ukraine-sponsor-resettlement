@@ -20,7 +20,6 @@ Rails.application.routes.draw do
   post "/organisation/check_answers", to: "organisation#submit"
   get "/organisation/confirm", to: "organisation#confirm"
 
-  get "/expression-of-interest/self-assessment/start", to: "eoi#index"
   get "/expression-of-interest/self-assessment/property-suitable", to: "eoi#property_suitable"
   get "/expression-of-interest/self-assessment/challenges", to: "eoi#challenges"
   get "/expression-of-interest/self-assessment/can-you-commit", to: "eoi#can_you_commit"
@@ -28,7 +27,7 @@ Rails.application.routes.draw do
 
   get "/expression-of-interest/self-assessment/other-ways-to-help", to: "eoi#other_ways_to_help"
 
-  get "/expression-of-interest", to: redirect("/expression-of-interest/self-assessment/start")
+  get "/expression-of-interest", to: redirect("/expression-of-interest/self-assessment/property-suitable")
   get "/expression-of-interest/steps/:stage", to: "eoi#display"
   post "/expression-of-interest/steps/:stage", to: "eoi#handle_step"
   get "/expression-of-interest/check-answers", to: "eoi#check_answers"

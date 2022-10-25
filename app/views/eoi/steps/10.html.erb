@@ -1,14 +1,28 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= render partial: "shared/back_link" %>
 
-    <%= form_for @application, url: "/expression-of-interest/steps/10", method: :post do |f| %>
-      <%= f.govuk_collection_radio_buttons :family_type,
-          @application.family_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "expression_of_interest.family_type")) },
-          :id,
-          :name,
-          legend: { text: t('family_type.full', scope: "expression_of_interest.questions") }
+    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
+
+    <h1 class="govuk-heading-l">How many people normally live in the property you’re offering (not including guests)?</h1>
+
+    <% if request.query_string == 'check' %>
+      <% formurl = "/expression-of-interest/steps/10?check" %>
+    <% else %>
+      <% formurl = "/expression-of-interest/steps/10" %>
+    <% end %>
+
+    <%= form_for @application, url: formurl, method: :post do |f| %>
+      <%= f.govuk_text_field :number_adults,
+                             label: { text: t('number_adults.full', scope: "expression_of_interest.questions") },
+                             type: "number",
+                             width: 2
       %>
+      <%= f.govuk_text_field :number_children,
+                             label: { text: t('number_children.full', scope: "expression_of_interest.questions") },
+                             type: "number",
+                             width: 2
+      %>
+
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>

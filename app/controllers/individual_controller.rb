@@ -1,5 +1,12 @@
 class IndividualController < ApplicationController
   MAX_STEPS = 18
+  before_action :check_feature_flag
+
+  def check_feature_flag
+    if ENV["FEATURE_EOI_JOURNEY_ENABLED"] == "true" && ENV["RAILS_ENV"] != "test"
+      redirect_to "/"
+    end
+  end
 
   def display
     @application = IndividualExpressionOfInterest.new(session[:individual_expression_of_interest])

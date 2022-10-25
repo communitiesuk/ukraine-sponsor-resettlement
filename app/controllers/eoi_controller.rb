@@ -1,5 +1,5 @@
 class EoiController < ApplicationController
-  MAX_STEPS = 18
+  MAX_STEPS = 16
   before_action :check_feature_flag
 
   def index; end
@@ -59,14 +59,34 @@ class EoiController < ApplicationController
     # Update Application object with new attributes
     @application.assign_attributes(application_params)
 
+    if current_stage == 9 # hosting_start_date
+      if params["expression_of_interest"]["host_as_soon_as_possible"] != "true"
+        begin
+          hosting_start_date = Date.new(params["expression_of_interest"]["hosting_start_date(1i)"].to_i, params["expression_of_interest"]["hosting_start_date(2i)"].to_i, params["expression_of_interest"]["hosting_start_date(3i)"].to_i)
+
+          if hosting_start_date < Time.zone.today
+            @application.errors.add(:hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
+            render path_for_step and return
+          end
+        rescue Date::Error
+          @application.errors.add(:hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
+          render path_for_step and return
+        end
+      else
+        params["expression_of_interest"]["hosting_start_date(1i)"] = ""
+        params["expression_of_interest"]["hosting_start_date(2i)"] = ""
+        params["expression_of_interest"]["hosting_start_date(3i)"] = ""
+        @application.hosting_start_date = nil
+      end
+    end
+
     if @application.valid?
       # Update the session
       session[:eoi] = @application.as_json
-
       # Replace with routing engine to get next stage
       next_stage = RoutingEngine.get_next_eoi_step(@application, current_stage)
 
-      if next_stage > MAX_STEPS
+      if next_stage > MAX_STEPS || params.key?("check")
         redirect_to "/expression-of-interest/check-answers"
       else
         redirect_to "/expression-of-interest/steps/#{next_stage}"
@@ -78,6 +98,15 @@ class EoiController < ApplicationController
 
   def check_answers
     @application = ExpressionOfInterest.new(session[:eoi])
+    @application.hosting_start_date_as_string = if @application.host_as_soon_as_possible == "true"
+                                                  "As soon as possible"
+                                                else
+                                                  Date.new(
+                                                    @application.hosting_start_date["1"].to_i,
+                                                    @application.hosting_start_date["2"].to_i,
+                                                    @application.hosting_start_date["3"].to_i,
+                                                  ).strftime("%d %B %Y")
+                                                end
   end
 
   def submit
@@ -85,7 +114,15 @@ class EoiController < ApplicationController
     @application.ip_address = request.ip
     @application.user_agent = request.user_agent
     @application.final_submission = true
-
+    @application.hosting_start_date_as_string = if @application.host_as_soon_as_possible == "true"
+                                                  "As soon as possible"
+                                                else
+                                                  Date.new(
+                                                    @application.hosting_start_date["1"].to_i,
+                                                    @application.hosting_start_date["2"].to_i,
+                                                    @application.hosting_start_date["3"].to_i,
+                                                  ).strftime("%d %B %Y")
+                                                end
     # Set default answers for skipped questions
     @application.more_properties = "no" if @application.more_properties.blank?
     @application.property_one_line_1 = "same as main residence" if @application.property_one_line_1.blank?
@@ -96,7 +133,6 @@ class EoiController < ApplicationController
       @application.save!
       session[:app_reference] = @application.reference
       session[:eoi] = {}
-
       SendEoiUpdateJob.perform_later(@application.id)
       GovNotifyMailer.send_expression_of_interest_confirmation_email(@application).deliver_later
       redirect_to "/expression-of-interest/confirm"
@@ -133,10 +169,13 @@ private
           :property_one_town,
           :property_one_postcode,
           :more_properties,
+          :more_properties_statement,
           :number_adults,
           :number_children,
           :family_type,
           :accommodation_length,
+          :host_as_soon_as_possible,
+          :hosting_start_date,
           :single_room_count,
           :double_room_count,
           :step_free,

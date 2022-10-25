@@ -133,6 +133,15 @@ en:
     accept_and_send:
       full: Accept and send
   expression_of_interest:
+    pet_option_description: 
+      affirmative:
+        type: "yes"
+        short: "Yes"
+        full: You can make a final decision later, after learning which pets your guests want to bring
+      negative:
+        type: "no"
+        short: "No"
+        full: I will not allow pets
     questions:
       family_type:
         short: Who can you accommodate?
@@ -141,20 +150,23 @@ en:
         short: Living space
         full: What type of living space can you offer?
       step_free:
-        short: Mobility impaired accessible property
+        short: Step-free access
         full: Does the property, or any of the properties, have step-free access?
       single_room_count:
-        short: Single rooms available
-        full: How many single rooms do you have available in the property you have specified?
+        short: Single bedrooms available
+        full: How many single bedrooms do you have available in the property you have specified?
         hint: If you are offering multiple properties you will be able to specify those rooms at a later date
       double_room_count:
-        short: Double rooms available
+        short: Double bedrooms available
         full: How many double bedrooms (or larger) do you have available in the property you have specified?
         hint: If you are offering multiple properties you will be able to specify those rooms at a later date
       postcode:
         short: Property postcode(s)
         full: Enter the first part of the postcode of the property you’re offering
         subtitle: (If you are offering multiple properties, please enter all the postcodes separated by a comma)
+      hosting_start_date:
+        full:  How soon can you start hosting someone?
+        short: Hosting start date
       accommodation_length:
         short: Accommodation length
         full: How long can you offer accommodation for?
@@ -206,6 +218,7 @@ en:
         short: User research
         full: Would you like to take part in research to help us improve the Homes for Ukraine service?
         hint: This could involve completing a survey or taking part in a video call with a user research team. If you choose ‘Yes’, you’re agreeing to be contacted using the email address or telephone number you provided in this form.
+
       agree_privacy_statement:
         short: Privacy statement
         full: Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme
@@ -628,3 +641,4 @@ en:
     phone_numbers_different: Phone numbers must match
     no_identity_error: Tell us how you can prove your identity, or why you cannot.
     non_uk_number: You must enter a valid UK mobile phone number
+    invalid_hosting_start_date: Enter a valid start date
