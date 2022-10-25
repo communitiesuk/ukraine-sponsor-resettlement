@@ -71,7 +71,7 @@ class ExpressionOfInterest < ApplicationRecord
 
   def after_initialize
     @family_types = %i[single_adult more_than_one_adult adults_with_children no_preference]
-    @accommodation_length_types = %i[from_6_to_9_months from_10_to_12_months more_than_12_months]
+    @accommodation_length_types = %i[from_6_to_9_months from_10_to_12_months more_than_12_months from_6_months]
     @final_submission = false
     @different_address_types = %i[yes no]
     @more_properties_types = %i[yes no]
@@ -82,6 +82,7 @@ class ExpressionOfInterest < ApplicationRecord
     @user_research_types = %i[yes no]
     @postcode = "not asked"
     @living_space = "rooms_in_home_shared_facilities"
+    @accommodation_length = "from_6_months"
   end
 
   def as_json
