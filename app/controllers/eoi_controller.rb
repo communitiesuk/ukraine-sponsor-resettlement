@@ -158,6 +158,7 @@ private
           :property_one_town,
           :property_one_postcode,
           :more_properties,
+          :more_properties_statement,
           :number_adults,
           :number_children,
           :family_type,
