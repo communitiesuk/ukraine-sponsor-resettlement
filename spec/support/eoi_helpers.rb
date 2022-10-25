@@ -77,7 +77,6 @@ module EoiHelpers
   end
 
   def eoi_enter_sponsor_start(date: Time.zone.now + 1.year)
-
     choose("Specific date")
     fill_in("Day", with: date.day)
     fill_in("Month", with: date.month)
