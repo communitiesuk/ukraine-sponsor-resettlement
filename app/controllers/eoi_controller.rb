@@ -124,10 +124,9 @@ class EoiController < ApplicationController
     if @application.valid?
       @application.save!
       session[:app_reference] = @application.reference
-      Rails.logger.debug JSON.generate(@application.as_json)
-      # session[:eoi] = {}
-      # SendEoiUpdateJob.perform_later(@application.id)
-      # GovNotifyMailer.send_expression_of_interest_confirmation_email(@application).deliver_later
+      session[:eoi] = {}
+      SendEoiUpdateJob.perform_later(@application.id)
+      GovNotifyMailer.send_expression_of_interest_confirmation_email(@application).deliver_later
       redirect_to "/expression-of-interest/confirm"
     else
       render "check_answers"
