@@ -8,6 +8,7 @@
       @application.hosting_start_date[3] = @application.hosting_start_date["3"]
       end
     %>
+
     <% if request.query_string == 'check' %>
       <% formurl = "/expression-of-interest/steps/9?check" %>
     <% else %>
@@ -15,9 +16,15 @@
     <% end %>
 
     <%= form_for @application, url: formurl, method: :post do |f| %>
-      <%= f.govuk_date_field :hosting_start_date,
-            hosting_start_date: true,
-            legend: { text: t('hosting_start_date.full', scope: "expression_of_interest.questions") } %>
+      <%= f.govuk_radio_buttons_fieldset :host_as_soon_as_possible, legend: { text: t('hosting_start_date.full', scope: "expression_of_interest.questions") } do %>
+        <%= f.govuk_radio_button :host_as_soon_as_possible, :true, label: { text: "As soon as possible" } %>
+        <%= f.govuk_radio_button :host_as_soon_as_possible, :false, label: { text: "Specific date" } do %>
+            <%= f.govuk_date_field :hosting_start_date,
+              hosting_start_date: true,
+              legend: { text: "", hidden: true }
+            %>
+        <% end %>
+      <% end %>
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>

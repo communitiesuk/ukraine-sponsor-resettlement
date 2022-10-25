@@ -60,16 +60,23 @@ class EoiController < ApplicationController
     @application.assign_attributes(application_params)
 
     if current_stage == 9 # hosting_start_date
-      begin
-        hosting_start_date = Date.new(params["expression_of_interest"]["hosting_start_date(1i)"].to_i, params["expression_of_interest"]["hosting_start_date(2i)"].to_i, params["expression_of_interest"]["hosting_start_date(3i)"].to_i)
+      if params["expression_of_interest"]["host_as_soon_as_possible"] != "true"
+        begin
+          hosting_start_date = Date.new(params["expression_of_interest"]["hosting_start_date(1i)"].to_i, params["expression_of_interest"]["hosting_start_date(2i)"].to_i, params["expression_of_interest"]["hosting_start_date(3i)"].to_i)
 
-        if hosting_start_date < Time.zone.today
-          @application.errors.add(:invalid_hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
+          if hosting_start_date < Time.zone.today
+            @application.errors.add(:hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
+            render path_for_step and return
+          end
+        rescue Date::Error
+          @application.errors.add(:hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
           render path_for_step and return
         end
-      rescue Date::Error
-        @application.errors.add(:hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
-        render path_for_step and return
+      else
+        params["expression_of_interest"]["hosting_start_date(1i)"] = ""
+        params["expression_of_interest"]["hosting_start_date(2i)"] = ""
+        params["expression_of_interest"]["hosting_start_date(3i)"] = ""
+        @application.hosting_start_date = nil
       end
     end
 
@@ -155,6 +162,7 @@ private
           :number_children,
           :family_type,
           :accommodation_length,
+          :host_as_soon_as_possible,
           :hosting_start_date,
           :single_room_count,
           :double_room_count,

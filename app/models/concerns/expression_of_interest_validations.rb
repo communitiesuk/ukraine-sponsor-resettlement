@@ -35,6 +35,10 @@ private
     validate_enum(@step_free_types, @step_free, :step_free)
   end
 
+  def validate_host_as_soon_as_possible
+    validate_enum(@host_as_soon_as_possible_types, @host_as_soon_as_possible, :host_as_soon_as_possible)
+  end
+
   def validate_enum(enum, value, attribute)
     unless value && enum.include?(value.to_sym)
       errors.add(attribute, I18n.t(:choose_option, scope: :error))
@@ -58,19 +62,21 @@ private
   end
 
   def validate_hosting_start_date
-    start_day = (@hosting_start_date["3"] || @hosting_start_date[3] || nil)
-    start_month = (@hosting_start_date["2"] || @hosting_start_date[2] || nil)
-    start_year = (@hosting_start_date["1"] || @hosting_start_date[1] || nil)
-    if !start_year.to_i || !start_month.to_i || !start_day.to_i
-      errors.add(:hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
-    end
-    begin
-      hosting_start = Date.new(start_year.to_i, start_month.to_i, start_day.to_i)
-      if hosting_start < Time.zone.today || hosting_start.year > 2100
+    if @host_as_soon_as_possible != "true"
+      start_day = (@hosting_start_date["3"] || @hosting_start_date[3] || nil)
+      start_month = (@hosting_start_date["2"] || @hosting_start_date[2] || nil)
+      start_year = (@hosting_start_date["1"] || @hosting_start_date[1] || nil)
+      if !start_year.to_i || !start_month.to_i || !start_day.to_i
         errors.add(:hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
       end
-    rescue Date::Error
-      errors.add(:hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
+      begin
+        hosting_start = Date.new(start_year.to_i, start_month.to_i, start_day.to_i)
+        if hosting_start < Time.zone.today || hosting_start.year > 2100
+          errors.add(:hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
+        end
+      rescue Date::Error
+        errors.add(:hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
+      end
     end
   end
 end

@@ -28,6 +28,7 @@ class ExpressionOfInterest < ApplicationRecord
                 :number_children,
                 :family_types,
                 :family_type,
+                :host_as_soon_as_possible,
                 :hosting_start_date,
                 :hosting_start_date_as_string,
                 :accommodation_length_types,
@@ -56,6 +57,7 @@ class ExpressionOfInterest < ApplicationRecord
   validate :validate_number_adults, if: -> { run_validation? :number_adults }
   validates :number_children, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 9, message: I18n.t(:number_children, scope: :error) }, if: -> { run_validation? :number_children }
   validate :validate_allow_pet_pet, if: -> { run_validation? :allow_pet }
+  validate :validate_host_as_soon_as_possible, if: -> { run_validation? :host_as_soon_as_possible }
   validate :validate_user_research, if: -> { run_validation? :user_research }
 
   after_initialize :after_initialize
@@ -74,6 +76,7 @@ class ExpressionOfInterest < ApplicationRecord
     @more_properties_types = %i[yes no]
     @step_free_types = %i[all some none unknown]
     @allow_pet_types = %i[yes no]
+    @host_as_soon_as_possible_types = %i[true false]
     @user_research_types = %i[yes no]
     @postcode = "not asked"
     @living_space = "rooms_in_home_shared_facilities"
@@ -103,6 +106,7 @@ class ExpressionOfInterest < ApplicationRecord
       number_children:,
       family_type:,
       accommodation_length:,
+      host_as_soon_as_possible:,
       hosting_start_date:,
       single_room_count:,
       double_room_count:,
