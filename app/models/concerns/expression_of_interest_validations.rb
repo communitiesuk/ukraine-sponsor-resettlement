@@ -45,6 +45,10 @@ private
     end
   end
 
+  def validate_allow_eoi_pet
+    validate_enum(@allow_eoi_pet_types, @allow_pet, :allow_pet)
+  end
+
   def validate_fullname
     if @fullname.nil? || @fullname.strip.length < 3 || @fullname.strip.length > 128 || @fullname.split.length < 2 || @fullname.match(SPECIAL_CHARACTERS)
       errors.add(:fullname, I18n.t(:invalid_fullname, scope: :error))

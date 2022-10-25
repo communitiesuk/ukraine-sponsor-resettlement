@@ -135,9 +135,11 @@ en:
   expression_of_interest:
     pet_option_description: 
       affirmative:
+        type: "yes"
         short: "Yes"
         full: You can make a final decision later, after learning which pets your guests want to bring
       negative:
+        type: "no"
         short: "No"
         full: I will not allow pets
     questions:
