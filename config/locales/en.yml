@@ -148,7 +148,7 @@ en:
         short: Living space
         full: What type of living space can you offer?
       step_free:
-        short: Mobility impaired accessible property
+        short: Step-free access
         full: Does the property, or any of the properties, have step-free access?
       single_room_count:
         short: Single bedrooms available
