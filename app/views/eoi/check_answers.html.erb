@@ -79,7 +79,7 @@
           <%= t('different_address.short', scope: "additional_info.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= @application.different_address %>
+          <%= @application.different_address.capitalize %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/expression-of-interest/steps/5?check">
@@ -280,13 +280,12 @@
           </dd>
         </div>
 
-
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
             <%= t('allow_pet.short', scope: "additional_info.questions") %>
           </dt>
           <dd class="govuk-summary-list__value">
-            <%= @application.allow_pet %>
+            <%= @application.allow_pet.capitalize %>
           </dd>
           <dd class="govuk-summary-list__actions">
             <a class="govuk-link" href="/expression-of-interest/steps/14?check">
@@ -294,29 +293,7 @@
             </a>
           </dd>
         </div>
-<%
-=begin
-%>
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            <%= t('agree_future_contact.short', scope: "expression_of_interest.questions") %>
-          </dt>
-          <dd class="govuk-summary-list__value">
-            <% if @application.errors.include?(:agree_future_contact) %>
-              <span class="govuk-error-message"><%= @application.errors[:agree_future_contact].join %></span>
-            <% else %>
-              <%= @application.agree_future_contact == "true" ? "Agreed" : "Not agreed" %>
-            <% end %>
-          </dd>
-          <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href="/expression-of-interest/steps/16">
-              Change<span class="govuk-visually-hidden"> future contact agreement</span>
-            </a>
-          </dd>
-        </div>
-<%
-=end
-%>
+
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
             <%= t('user_research.short', scope: "additional_info.questions") %>
