@@ -136,10 +136,10 @@ en:
     pet_option_description: 
       affirmative:
         short: "Yes"
-        full: Choose if you bloody love dogs
+        full: You can make a final decision later, after learning which pets your guests want to bring
       negative:
         short: "No"
-        full: I hate all animals
+        full: I will not allow pets
     questions:
       family_type:
         short: Who can you accommodate?
