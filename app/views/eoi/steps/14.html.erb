@@ -10,13 +10,17 @@
     <% end %>
 
     <%= form_for @application, url: formurl, method: :post do |f| %>
+      <h1 class="govuk-heading-l">
+       <%= t('allow_pet.full', scope: "expression_of_interest.questions")  %>
+      </h1>
+
       <%= f.govuk_collection_radio_buttons :allow_pet,
           @application.allow_pet_types.map{ |type| OpenStruct.new(id: type, name: t("#{type}.short", scope: "expression_of_interest.pet_option_description"), description: t("#{type}.full", scope: "expression_of_interest.pet_option_description"))},
           :id,
           :name,
           :description,
-          legend: { text: t('allow_pet.full', scope: "expression_of_interest.questions")},
-          hint: { text: t('allow_pet.hint', scope: "expression_of_interest.questions")}
+          legend: { text: t('allow_pet.full', scope: "expression_of_interest.questions"), hidden:true},
+          hint: { text: t('allow_pet.hint', scope: "expression_of_interest.questions"), hidden:true}
       %>
       <%= f.govuk_submit t('continue') %>
     <% end %>
