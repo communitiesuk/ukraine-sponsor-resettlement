@@ -114,7 +114,15 @@ class EoiController < ApplicationController
     @application.ip_address = request.ip
     @application.user_agent = request.user_agent
     @application.final_submission = true
-
+    @application.hosting_start_date_as_string = if @application.host_as_soon_as_possible == "true"
+                                                  "As soon as possible"
+                                                else
+                                                  Date.new(
+                                                    @application.hosting_start_date["1"].to_i,
+                                                    @application.hosting_start_date["2"].to_i,
+                                                    @application.hosting_start_date["3"].to_i,
+                                                  ).strftime("%d %B %Y")
+                                                end
     # Set default answers for skipped questions
     @application.more_properties = "no" if @application.more_properties.blank?
     @application.property_one_line_1 = "same as main residence" if @application.property_one_line_1.blank?
