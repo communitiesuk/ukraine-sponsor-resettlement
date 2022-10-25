@@ -133,6 +133,13 @@ en:
     accept_and_send:
       full: Accept and send
   expression_of_interest:
+    pet_option_description: 
+      affirmative:
+        short: "Yes"
+        full: You can make a final decision later, after learning which pets your guests want to bring
+      negative:
+        short: "No"
+        full: I will not allow pets
     questions:
       family_type:
         short: Who can you accommodate?

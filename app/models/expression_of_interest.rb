@@ -76,7 +76,7 @@ class ExpressionOfInterest < ApplicationRecord
     @different_address_types = %i[yes no]
     @more_properties_types = %i[yes no]
     @step_free_types = %i[all some none unknown]
-    @allow_pet_types = %i[yes no]
+    @allow_pet_types = %i[affirmative negative]
     @host_as_soon_as_possible_types = %i[true false]
     @user_research_types = %i[yes no]
     @postcode = "not asked"
