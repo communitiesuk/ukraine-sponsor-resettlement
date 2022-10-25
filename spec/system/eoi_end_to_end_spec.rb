@@ -10,7 +10,7 @@ RSpec.describe "Expression of interest end to end", type: :system do
       eoi_enter_sponsor_name
       eoi_enter_sponsor_contact_details
       eoi_enter_sponsor_address
-      eoi_enter_sponsor_start
+      eoi_enter_sponsor_start(asap: true)
       eoi_people_at_address
       eoi_sponsor_refugee_preference
       eoi_number_of_rooms

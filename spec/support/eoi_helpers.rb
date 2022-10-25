@@ -76,11 +76,15 @@ module EoiHelpers
     expect(page).to have_content("How soon can you start hosting someone?")
   end
 
-  def eoi_enter_sponsor_start(date: Time.zone.now + 1.year)
-    choose("Specific date")
-    fill_in("Day", with: date.day)
-    fill_in("Month", with: date.month)
-    fill_in("Year", with: date.year)
+  def eoi_enter_sponsor_start(asap: false, date: Time.zone.now + 1.year)
+    if asap
+      choose("As soon as possible")
+    else
+      choose("Specific date")
+      fill_in("Day", with: date.day)
+      fill_in("Month", with: date.month)
+      fill_in("Year", with: date.year)
+    end
 
     click_on("Continue")
   end
