@@ -11,7 +11,7 @@
     "email",
     "family_type",
     "fullname",
-    "hosting_start_date",
+    "host_as_soon_as_possible",
     "ip_address",
     "more_properties",
     "number_adults",
@@ -54,7 +54,7 @@
       "type": "string"
     },
     "email": {
-      "type": "email"
+      "type": "string"
     },
     "family_type": {
       "type": "string"
@@ -63,13 +63,16 @@
       "type": "string"
     },
     "hosting_start_date": {
-      "type": "date"
+      "$ref": "#/$defs/start_date"
+    },
+    "host_as_soon_as_possible": {
+      "type": "string"
     },
     "id": {
       "type": "string"
     },
     "ip_address": {
-      "type": "ipv4"
+      "type": "string"
     },
     "more_properties": {
       "type": "string"
@@ -85,7 +88,7 @@
     },
     "postcode": {
       "type": "string"
-    }, 
+    },
     "property_one_line_1": {
       "type": "string"
     },
@@ -147,6 +150,31 @@
         "true",
         "false"
       ]
+    },
+    "start_date": {
+      "type": "object",
+      "required": [
+        "3",
+        "2",
+        "1"
+      ],
+      "properties": {
+        "1": {
+          "type": "integer",
+          "minimum": 1900,
+          "maximum": 2200
+        },
+        "2": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 12
+        },
+        "3": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 31
+        }
+      }
     }
   }
 }
