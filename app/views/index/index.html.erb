@@ -50,6 +50,17 @@
     <p class="gem-c-lead-paragraph">You can also record your interest as an <%= govuk_link_to 'individual', '/individual' %> or as an organisation (for example charity, business, community group). Please read the rest of this form and the <%= govuk_link_to 'FAQs', 'https://www.gov.uk/guidance/homes-for-ukraine-scheme-frequently-asked-questions' %> first before recording your offer of support, and we will keep in touch with you with updates as the scheme develops.</p>
   </div>
 </div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= govuk_button_link_to 'Register your interest as an individual', route_for(:individual) %>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= govuk_button_link_to 'Register your interest as an organisation', route_for(:organisation) %>
+  </div>
+</div>
 
 <% if @feature_eoi_journey_enabled %>
   <div class="govuk-grid-row">
