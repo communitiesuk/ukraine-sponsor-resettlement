@@ -4,7 +4,9 @@ class IndividualController < ApplicationController
 
   def check_feature_flag
     if ENV["FEATURE_EOI_JOURNEY_ENABLED"] == "true"
-      redirect_to "/expression-of-interest"
+      unless Rails.env = "test"
+        redirect_to "/expression-of-interest"
+      end
     end
   end
 
