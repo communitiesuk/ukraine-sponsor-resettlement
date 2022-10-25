@@ -1,0 +1,49 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render partial: "shared/back_link" %>
+
+    <h1 class="gem-c-title__text govuk-heading-l">
+      Homes for Ukraine:
+    <br/>
+      Register to host people already living in the UK
+    </h1>
+
+    <p class="govuk-body">Thanks to the generosity of the British people, over 100,000 people from Ukraine have arrived in the UK and are living safely in their hosts’ homes.</p>
+
+    <p class="govuk-body">Many of these guests now need to find a new host while they prepare to live independently, because their original hosts are reaching the end of their 6 month commitment.</p>
+
+    <p class="govuk-body">New hosts will receive a thank-you payment of £350 a month, while their guests are staying with them.</p>
+
+    <p class="govuk-body">Guests already living in the UK usually need far less support from their hosts than someone who has just landed in the UK.</p>
+
+    <p class="govuk-body">Many guests have already found work and are settling into their local area, making them more self-sufficient.</p>
+    <br/>
+
+    <h2 class="govuk-heading-m">
+      Check if being a host is right for you
+    </h2>
+
+      <p class="govuk-body">Hosting people from another country is a big commitment, so we’ve prepared some questions to help you decide if it’s right for you.</p>
+
+      <p class="govuk-body">You'll be able to register after you've answered these questions.</p>
+
+    <% if @feature_eoi_journey_enabled %>
+       <a href="/expression-of-interest/self-assessment/property-suitable" role="button" draggable="false" class="govuk-button govuk-button--start govuk-!-margin-top-2 govuk-!-margin-bottom-8"  data-module="govuk-button">
+        Start now
+        <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+          <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
+        </svg>
+       </a>
+    <% end %>
+
+     <h2 class="govuk-heading-m">
+      If you need more information
+    </h2>
+
+    <p class="govuk-body">You can also read the <a target="_blank" href="https://www.gov.uk/guidance/homes-for-ukraine-sponsor-guidance">guidance for sponsors (opens in a new tab)</a>, which contains all the government's  information for sponsors and hosts.</p>
+
+
+
+
+  </div>
+</div>
