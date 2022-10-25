@@ -98,15 +98,15 @@ class EoiController < ApplicationController
 
   def check_answers
     @application = ExpressionOfInterest.new(session[:eoi])
-    if @application.host_as_soon_as_possible == "true"
-      @application.hosting_start_date_as_string = "As soon as possible"
-    else
-      @application.hosting_start_date_as_string = Date.new(
-        @application.hosting_start_date["1"].to_i,
-        @application.hosting_start_date["2"].to_i,
-        @application.hosting_start_date["3"].to_i,
-      ).strftime("%d %B %Y")
-    end
+    @application.hosting_start_date_as_string = if @application.host_as_soon_as_possible == "true"
+                                                  "As soon as possible"
+                                                else
+                                                  Date.new(
+                                                    @application.hosting_start_date["1"].to_i,
+                                                    @application.hosting_start_date["2"].to_i,
+                                                    @application.hosting_start_date["3"].to_i,
+                                                  ).strftime("%d %B %Y")
+                                                end
   end
 
   def submit
@@ -124,10 +124,10 @@ class EoiController < ApplicationController
     if @application.valid?
       @application.save!
       session[:app_reference] = @application.reference
-      session[:eoi] = {}
-
-      SendEoiUpdateJob.perform_later(@application.id)
-      GovNotifyMailer.send_expression_of_interest_confirmation_email(@application).deliver_later
+      Rails.logger.debug JSON.generate(@application.as_json)
+      # session[:eoi] = {}
+      # SendEoiUpdateJob.perform_later(@application.id)
+      # GovNotifyMailer.send_expression_of_interest_confirmation_email(@application).deliver_later
       redirect_to "/expression-of-interest/confirm"
     else
       render "check_answers"
