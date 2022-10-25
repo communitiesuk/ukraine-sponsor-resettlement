@@ -51,22 +51,10 @@
   </div>
 </div>
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <%= govuk_button_link_to 'Register your interest as an individual', route_for(:individual) %>
-  </div>
-</div>
-
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <%= govuk_button_link_to 'Register your interest as an organisation', route_for(:organisation) %>
-  </div>
-</div>
-
 <% if @feature_eoi_journey_enabled %>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <%= govuk_button_link_to 'New EOI', href="/expression-of-interest/self-assessment/start"  %>
+      <%= govuk_button_link_to 'New EOI', href="/expression-of-interest/self-assessment/property-suitable"  %>
     </div>
   </div>
 <% end %>

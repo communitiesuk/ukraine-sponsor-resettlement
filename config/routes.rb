@@ -20,7 +20,6 @@ Rails.application.routes.draw do
   post "/organisation/check_answers", to: "organisation#submit"
   get "/organisation/confirm", to: "organisation#confirm"
 
-  get "/expression-of-interest/self-assessment/start", to: "eoi#index"
   get "/expression-of-interest/self-assessment/property-suitable", to: "eoi#property_suitable"
   get "/expression-of-interest/self-assessment/challenges", to: "eoi#challenges"
   get "/expression-of-interest/self-assessment/can-you-commit", to: "eoi#can_you_commit"
