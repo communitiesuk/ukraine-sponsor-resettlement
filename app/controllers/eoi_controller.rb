@@ -98,11 +98,15 @@ class EoiController < ApplicationController
 
   def check_answers
     @application = ExpressionOfInterest.new(session[:eoi])
-    @application.hosting_start_date_as_string = Date.new(
-      @application.hosting_start_date["1"].to_i,
-      @application.hosting_start_date["2"].to_i,
-      @application.hosting_start_date["3"].to_i,
-    ).strftime("%d %B %Y")
+    if @application.host_as_soon_as_possible == "true"
+      @application.hosting_start_date_as_string = "As soon as possible"
+    else
+      @application.hosting_start_date_as_string = Date.new(
+        @application.hosting_start_date["1"].to_i,
+        @application.hosting_start_date["2"].to_i,
+        @application.hosting_start_date["3"].to_i,
+      ).strftime("%d %B %Y")
+    end
   end
 
   def submit
