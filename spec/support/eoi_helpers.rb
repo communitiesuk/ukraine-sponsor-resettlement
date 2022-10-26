@@ -80,7 +80,7 @@ module EoiHelpers
     if asap
       choose("As soon as possible")
     else
-      choose("Specific date")
+      choose("From a specific date")
       fill_in("Day", with: date.day)
       fill_in("Month", with: date.month)
       fill_in("Year", with: date.year)
