@@ -79,7 +79,7 @@
           <%= t('different_address.short', scope: "additional_info.questions") %>
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= @application.different_address.capitalize %>
+          <%= @application.different_address.present? ? @application.different_address.capitalize : "" %>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/expression-of-interest/steps/5?check">
@@ -122,7 +122,7 @@
             <%= t('more_properties.short', scope: "additional_info.questions") %>
           </dt>
           <dd class="govuk-summary-list__value">
-            <%= @application.more_properties %>
+            <%= @application.more_properties.present? ? @application.more_properties.capitalize : "" %>
           </dd>
           <dd class="govuk-summary-list__actions">
             <a class="govuk-link" href="/expression-of-interest/steps/7?check">
@@ -203,29 +203,7 @@
             </a>
           </dd>
         </div>
-<%
-=begin
-%>
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            <%= t('accommodation_length.short', scope: "expression_of_interest.questions") %>
-          </dt>
-          <dd class="govuk-summary-list__value">
-            <% if @application.errors.include?(:accommodation_length) %>
-              <span class="govuk-error-message"><%= @application.errors[:accommodation_length].join %></span>
-            <% else %>
-              <%= t(@application.accommodation_length, scope: "expression_of_interest.accommodation_length") %>
-            <% end %>
-          </dd>
-          <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href="/expression-of-interest/steps/11">
-              Change<span class="govuk-visually-hidden"> accommodation length</span>
-            </a>
-          </dd>
-        </div>
-<%
-=end
-%>
+
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
             <%= t('single_room_count.short', scope: "expression_of_interest.questions") %>
@@ -285,7 +263,7 @@
             <%= t('allow_pet.short', scope: "additional_info.questions") %>
           </dt>
           <dd class="govuk-summary-list__value">
-            <%= @application.allow_pet.capitalize %>
+            <%= @application.allow_pet.present? ? @application.allow_pet.capitalize : "" %>
           </dd>
           <dd class="govuk-summary-list__actions">
             <a class="govuk-link" href="/expression-of-interest/steps/14?check">
@@ -299,7 +277,7 @@
             <%= t('user_research.short', scope: "additional_info.questions") %>
           </dt>
           <dd class="govuk-summary-list__value">
-            <%= @application.agree_privacy_statement == "yes" ? "Yes" : "No" %>
+            <%= @application.user_research.present? ? @application.user_research.capitalize : "" %>
           </dd>
           <dd class="govuk-summary-list__actions">
             <a class="govuk-link" href="/expression-of-interest/steps/15?check">

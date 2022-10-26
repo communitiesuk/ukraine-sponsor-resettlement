@@ -126,12 +126,14 @@ class EoiController < ApplicationController
     @application = ExpressionOfInterest.new(session[:eoi])
     @application.hosting_start_date_as_string = if @application.host_as_soon_as_possible == "true"
                                                   "As soon as possible"
-                                                else
+                                                elsif @application.hosting_start_date.present?
                                                   Date.new(
                                                     @application.hosting_start_date["1"].to_i,
                                                     @application.hosting_start_date["2"].to_i,
                                                     @application.hosting_start_date["3"].to_i,
                                                   ).strftime("%d %B %Y")
+                                                else
+                                                  ""
                                                 end
   end
 
