@@ -1,5 +1,9 @@
 class EoiController < ApplicationController
   MAX_STEPS = 16
+  MIN_ENTRY_DIGITS = 3
+  MAX_ENTRY_DIGITS = 128
+  POSTCODE_REGEX = /([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})/
+
   before_action :check_feature_flag
 
   def index; end
@@ -77,6 +81,28 @@ class EoiController < ApplicationController
         params["expression_of_interest"]["hosting_start_date(2i)"] = ""
         params["expression_of_interest"]["hosting_start_date(3i)"] = ""
         @application.hosting_start_date = nil
+      end
+    end
+
+    if current_stage == 6 # different_address address form
+      if params["expression_of_interest"]["property_one_line_1"].nil? || params["expression_of_interest"]["property_one_line_1"].strip.length < MIN_ENTRY_DIGITS || params["expression_of_interest"]["property_one_line_1"].strip.length > MAX_ENTRY_DIGITS
+        @application.errors.add(:property_one_line_1, I18n.t(:address_line_1, scope: :error))
+      end
+
+      if params["expression_of_interest"]["property_one_line_2"].present? && params["expression_of_interest"]["property_one_line_2"].strip.length > MAX_ENTRY_DIGITS
+        @application.errors.add(:property_one_line_2, I18n.t(:address_line_2, scope: :error))
+      end
+
+      if params["expression_of_interest"]["property_one_town"].nil? || params["expression_of_interest"]["property_one_town"].strip.length < MIN_ENTRY_DIGITS || params["expression_of_interest"]["property_one_town"].strip.length > MAX_ENTRY_DIGITS
+        @application.errors.add(:property_one_town, I18n.t(:address_town, scope: :error))
+      end
+
+      if params["expression_of_interest"]["property_one_postcode"].nil? || params["expression_of_interest"]["property_one_postcode"].strip.length < MIN_ENTRY_DIGITS || params["expression_of_interest"]["property_one_postcode"].strip.length > MAX_ENTRY_DIGITS || !params["expression_of_interest"]["property_one_postcode"].match(POSTCODE_REGEX)
+        @application.errors.add(:property_one_postcode, I18n.t(:address_postcode, scope: :error))
+      end
+
+      if @application.errors.any?
+        render path_for_step and return
       end
     end
 
