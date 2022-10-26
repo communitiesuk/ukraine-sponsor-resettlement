@@ -11,7 +11,7 @@
     <%= form_for @application, url: formurl, method: :post do |f| %>
         <%= f.govuk_check_boxes_fieldset :agree_privacy_statement, multiple: false, legend: { text: t('agree_privacy_statement.full', scope: "expression_of_interest.questions"), size: 'm' } do %>
             <p>
-              <%= govuk_link_to t('individual.questions.agree_privacy_statement.short'), "https://www.gov.uk/government/publications/homes-for-ukraine-scheme-expressions-of-interest-eois-privacy-notices/homes-for-ukraine-scheme-expressions-of-interest-individuals" %>
+              <%= govuk_link_to t('individual.questions.agree_privacy_statement.link'), "https://www.gov.uk/government/publications/homes-for-ukraine-scheme-expressions-of-interest-eois-privacy-notices/homes-for-ukraine-scheme-expressions-of-interest-individuals", target: "_blank" %>
             </p>
         <%= f.govuk_check_box :agree_privacy_statement, "true", "false", multiple: false, link_errors: true, label: { text: t('agree_privacy_statement.comment', scope: "expression_of_interest.questions") } %><% end %>
 
