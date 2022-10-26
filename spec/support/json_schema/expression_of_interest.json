@@ -12,6 +12,7 @@
     "family_type",
     "fullname",
     "host_as_soon_as_possible",
+    "id",
     "ip_address",
     "more_properties",
     "number_adults",
@@ -62,11 +63,11 @@
     "fullname": {
       "type": "string"
     },
+    "host_as_soon_as_possible": {
+      "$ref":  "#/$defs/true_or_false"
+    },
     "hosting_start_date": {
       "$ref": "#/$defs/start_date"
-    },
-    "host_as_soon_as_possible": {
-      "type": "string"
     },
     "id": {
       "type": "string"

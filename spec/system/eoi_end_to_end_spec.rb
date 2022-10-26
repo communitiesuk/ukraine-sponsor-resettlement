@@ -22,7 +22,8 @@ RSpec.describe "Expression of interest end to end", type: :system do
     end
 
     it "entering all optional fields" do
-      expected_optional_keys = %w[property_one_line_2]
+      expected_optional_keys = %w[property_one_line_2
+                                  hosting_start_date]
 
       eoi_skip_to_questions
       eoi_enter_sponsor_name
@@ -52,7 +53,6 @@ RSpec.describe "Expression of interest end to end", type: :system do
 
     unless optional_keys.empty?
       json_object = JSON.parse(json)
-      # puts json_object
       expect(json_object.keys).to include(*optional_keys)
     end
   end
