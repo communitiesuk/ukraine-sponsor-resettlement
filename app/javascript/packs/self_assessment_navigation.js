@@ -1,14 +1,14 @@
 (function() {
 
     var selfAssesmentContinueButton = document.getElementById('selfAssessmentContinueButton');
-    var formGroup = document.querySelector('.govuk-form-group');
-    var errorMessage = document.querySelector('.govuk-error-message')
-  
-  
+
       if(selfAssesmentContinueButton) {
   
           selfAssesmentContinueButton.addEventListener('click', function() {
               var elements = document.getElementsByName('assessment-buttons');
+              var formGroup = document.querySelector('.govuk-form-group');
+              var errorMessage = document.querySelector('.govuk-error-message')
+
               var selectedOption;
   
               if(!formGroup) {
