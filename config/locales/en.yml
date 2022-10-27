@@ -136,7 +136,7 @@ en:
     pet_option_description: 
       affirmative:
         type: "yes"
-        short: "Yes"
+        short: "Yes, I would consider pets"
         full: You can make a final decision later, after learning which pets your guests want to bring
       negative:
         type: "no"
