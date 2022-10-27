@@ -37,6 +37,39 @@ RSpec.describe "Individual expression of interest", type: :system do
 
       expect(page).to have_content("Error: You must enter a valid email address")
     end
+
+    it "validates empty field for phone number" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      fill_in("Enter your email address", with: "test@test.com")
+      click_on("Continue")
+      click_on("Continue")
+
+      expect(page).to have_content("Enter your contact telephone number")
+      expect(page).to have_content("Error: You must enter a valid phone number")
+    end
+
+    it "won't allow you to continue on an invalid phone number" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      fill_in("Enter your email address", with: "test@test.com")
+      click_on("Continue")
+      fill_in("Enter your contact telephone number", with: "00123")
+      click_on("Continue")
+
+      expect(page).to have_content("Enter your contact telephone number")
+      expect(page).to have_content("Error: You must enter a valid phone number")
+    end
+
+    it "won't allow you to continue if the first line of the address isn't present" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      eoi_enter_sponsor_contact_details
+      eoi_enter_address(line1: "", town: "HouseTown", postcode: "CH1 1LD")
+
+      expect(page).to have_content("Error: You must enter an address")
+
+    end
   end
 
   describe "check answers" do
