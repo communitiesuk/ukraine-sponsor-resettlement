@@ -358,10 +358,10 @@ en:
       more_properties_statement:
         full: You will be able to share information about any more properties you have to offer when your local authority contacts you
       number_adults:
-        short: Adults
+        short: How many Adults
         full: Adults
       number_children:
-        short: Children
+        short: How many Children
         full: Children
       user_research:
         short: User research
