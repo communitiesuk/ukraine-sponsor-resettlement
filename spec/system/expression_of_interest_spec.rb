@@ -68,7 +68,67 @@ RSpec.describe "Individual expression of interest", type: :system do
       eoi_enter_address(line1: "", town: "HouseTown", postcode: "CH1 1LD")
 
       expect(page).to have_content("Error: You must enter an address")
+    end
 
+    it "won't allow you to continue if the address town or city isn't present" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      eoi_enter_sponsor_contact_details
+      eoi_enter_address(line1: "HouseTown", town: "", postcode: "CH1 1LD")
+
+      expect(page).to have_content("Error: You must enter a town or city")
+    end
+
+    it "won't allow you to continue if the address postcode isn't present" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      eoi_enter_sponsor_contact_details
+      eoi_enter_address(line1: "HouseTown", town: "CHILD", postcode: "")
+
+      expect(page).to have_content("Error: You must enter a valid UK postcode")
+    end
+
+    it "won't allow no choice on different address question" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      eoi_enter_sponsor_contact_details
+      eoi_enter_address
+      click_on("Continue")
+
+      expect(page).to have_content("Error: You must select an option to continue")
+    end
+
+    it "won't allow no first line on different address question" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      eoi_enter_sponsor_contact_details
+      eoi_enter_address
+      eoi_choose_option("Yes")
+      eoi_enter_address(line1: "", town: "DifferentTown", postcode: "XX1 1LD")
+
+      expect(page).to have_content("Error: You must enter an address")
+    end
+
+    it "won't allow no town on different address question" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      eoi_enter_sponsor_contact_details
+      eoi_enter_address
+      eoi_choose_option("Yes")
+      eoi_enter_address(line1: "Street1", town: "", postcode: "XX1 1LD")
+
+      expect(page).to have_content("Error: You must enter a town or city")
+    end
+
+    it "won't allow no postcode on different address question" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      eoi_enter_sponsor_contact_details
+      eoi_enter_address
+      eoi_choose_option("Yes")
+      eoi_enter_address(line1: "Street1", town: "DifferentTown", postcode: "")
+
+      expect(page).to have_content("Error: You must enter a valid UK postcode")
     end
   end
 
