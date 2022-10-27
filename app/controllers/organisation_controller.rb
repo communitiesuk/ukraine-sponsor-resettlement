@@ -4,7 +4,7 @@ class OrganisationController < ApplicationController
 
   def check_feature_flag
     if ENV["FEATURE_EOI_JOURNEY_ENABLED"] == "true" && ENV["RAILS_ENV"] != "test"
-      redirect_to "/"
+      redirect_to "/expression-of-interest/self-assessment/property-suitable"
     end
   end
 
