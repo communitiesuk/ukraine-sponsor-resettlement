@@ -5,6 +5,40 @@ RSpec.describe "Individual expression of interest", type: :system do
     driven_by(:rack_test_user_agent)
   end
 
+  describe "Validation" do
+    it "wont let you continue on an empty name field" do
+      eoi_skip_to_questions
+      click_on("Continue")
+
+      expect(page).to have_content("Error: You must enter your full name")
+    end
+
+    it "won't let you enter just one name" do
+      eoi_skip_to_questions
+      fill_in("Enter your full name", with: "Tim")
+      click_on("Continue")
+
+      expect(page).to have_content("Error: You must enter your full name")
+    end
+
+    it "won't let you continue on an empty email field" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      click_on("Continue")
+
+      expect(page).to have_content("Error: You must enter a valid email address")
+    end
+
+    it "stops progression on an invalid email address" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      fill_in("Enter your email address", with: "Notanemail.com")
+      click_on("Continue")
+
+      expect(page).to have_content("Error: You must enter a valid email address")
+    end
+  end
+
   describe "check answers" do
     it "displays answers when the form is complete" do
       eoi_skip_to_questions
