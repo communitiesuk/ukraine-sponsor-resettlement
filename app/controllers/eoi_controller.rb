@@ -64,6 +64,9 @@ class EoiController < ApplicationController
     @application.assign_attributes(application_params)
 
     if current_stage == 9 # hosting_start_date
+      if params["expression_of_interest"]["host_as_soon_as_possible"].blank?
+        @application.errors.add(:host_as_soon_as_possible, I18n.t(:choose_option, scope: :error))
+      end
       if params["expression_of_interest"]["host_as_soon_as_possible"] != "true"
         begin
           hosting_start_date = Date.new(params["expression_of_interest"]["hosting_start_date(1i)"].to_i, params["expression_of_interest"]["hosting_start_date(2i)"].to_i, params["expression_of_interest"]["hosting_start_date(3i)"].to_i)
