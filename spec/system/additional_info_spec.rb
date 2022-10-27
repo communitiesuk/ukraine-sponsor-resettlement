@@ -94,8 +94,8 @@ RSpec.describe "Local Authority matching form", type: :system do
       expect(page).to have_content("Different address yes")
       expect(page).to have_content("Property one address Property 1 House number and Street name")
       expect(page).to have_content("More properties no")
-      expect(page).to have_content("Adults 1")
-      expect(page).to have_content("Children 0")
+      expect(page).to have_content("adults 1")
+      expect(page).to have_content("children 0")
       expect(page).to have_content("Allow pets no")
       expect(page).to have_content("User research yes")
 
@@ -187,8 +187,8 @@ RSpec.describe "Local Authority matching form", type: :system do
       expect(page).to have_content("Different address yes")
       expect(page).to have_content("Property one address Property 1 House number and Street name")
       expect(page).to have_content("More properties yes")
-      expect(page).to have_content("Adults 1")
-      expect(page).to have_content("Children 0")
+      expect(page).to have_content("adults 1")
+      expect(page).to have_content("children 0")
       expect(page).to have_content("Allow pets yes")
       expect(page).to have_content("User research yes")
 
@@ -265,8 +265,8 @@ RSpec.describe "Local Authority matching form", type: :system do
       expect(page).to have_content("Name John Smith")
       expect(page).to have_content("Telephone number 12345 678 901")
       expect(page).to have_content("Different address no")
-      expect(page).to have_content("Adults 1")
-      expect(page).to have_content("Children 0")
+      expect(page).to have_content("adults 1")
+      expect(page).to have_content("children 0")
       expect(page).to have_content("Allow pets no")
       expect(page).to have_content("User research no")
 
