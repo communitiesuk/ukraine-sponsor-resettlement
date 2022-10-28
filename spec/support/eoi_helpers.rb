@@ -56,7 +56,7 @@ module EoiHelpers
 
       expect(page).to have_content("Enter the address of the property you're offering")
 
-      eoi_enter_address(line1: "Child Address line 1", town: "Child Town", postcode: "CH1 1LD")
+      eoi_enter_address(line1: "House Address line 1", town: "HouseTown", postcode: "CH1 1LD")
 
       expect(page).to have_content("Are you offering any more properties?")
 
