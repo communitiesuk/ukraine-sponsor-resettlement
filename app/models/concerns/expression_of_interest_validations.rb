@@ -81,7 +81,7 @@ private
       rescue Date::Error
         errors.add(:hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
       end
-    else
+    elsif @host_as_soon_as_possible != "true" && @host_as_soon_as_possible != "false"
       errors.add(:hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
     end
   end
