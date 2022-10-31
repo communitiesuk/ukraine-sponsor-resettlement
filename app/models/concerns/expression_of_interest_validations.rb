@@ -66,7 +66,7 @@ private
   end
 
   def validate_hosting_start_date
-    if @host_as_soon_as_possible != "true"
+    if @host_as_soon_as_possible != "true" && @hosting_start_date.present?
       start_day = (@hosting_start_date["3"] || @hosting_start_date[3] || nil)
       start_month = (@hosting_start_date["2"] || @hosting_start_date[2] || nil)
       start_year = (@hosting_start_date["1"] || @hosting_start_date[1] || nil)
@@ -81,6 +81,8 @@ private
       rescue Date::Error
         errors.add(:hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
       end
+    else
+      errors.add(:hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
     end
   end
 end

@@ -136,6 +136,7 @@ class EoiController < ApplicationController
                                                     @application.hosting_start_date["3"].to_i,
                                                   ).strftime("%d %B %Y")
                                                 else
+                                                  @application.errors.add(:hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
                                                   ""
                                                 end
   end
@@ -147,12 +148,15 @@ class EoiController < ApplicationController
     @application.final_submission = true
     @application.hosting_start_date_as_string = if @application.host_as_soon_as_possible == "true"
                                                   "As soon as possible"
-                                                else
+                                                elsif @application.hosting_start_date.present?
                                                   Date.new(
                                                     @application.hosting_start_date["1"].to_i,
                                                     @application.hosting_start_date["2"].to_i,
                                                     @application.hosting_start_date["3"].to_i,
                                                   ).strftime("%d %B %Y")
+                                                else
+                                                  @application.errors.add(:hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
+                                                  ""
                                                 end
     # Set default answers for skipped questions
     @application.more_properties = "no" if @application.more_properties.blank?
