@@ -63,52 +63,26 @@ class EoiController < ApplicationController
     # Update Application object with new attributes
     @application.assign_attributes(application_params)
 
-    if current_stage == 9 # hosting_start_date
-      if params["expression_of_interest"]["host_as_soon_as_possible"].blank?
-        @application.errors.add(:host_as_soon_as_possible, I18n.t(:choose_option, scope: :error))
-      end
-      if params["expression_of_interest"]["host_as_soon_as_possible"] != "true"
-        begin
-          hosting_start_date = Date.new(params["expression_of_interest"]["hosting_start_date(1i)"].to_i, params["expression_of_interest"]["hosting_start_date(2i)"].to_i, params["expression_of_interest"]["hosting_start_date(3i)"].to_i)
+    step_validations_map = {
+      1 => [:fullname],
+      2 => [:email],
+      3 => [:phone_number],
+      4 => %i[residential_line_1 residential_line_2 residential_town residential_postcode],
+      5 => [:different_address],
+      6 => %i[property_one_line_1 property_one_line_2 property_one_town property_one_postcode],
+      7 => [:more_properties],
+      8 => [],
+      9 => %i[host_as_soon_as_possible hosting_start_date],
+      10 => %i[number_adults number_children],
+      11 => [:family_type],
+      12 => %i[single_room_count double_room_count],
+      13 => [:step_free],
+      14 => [:allow_pet],
+      15 => [:user_research],
+      16 => [:agree_privacy_statement],
+    }
 
-          if hosting_start_date < Time.zone.today
-            @application.errors.add(:hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
-            render path_for_step and return
-          end
-        rescue Date::Error
-          @application.errors.add(:hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
-          render path_for_step and return
-        end
-      else
-        params["expression_of_interest"]["hosting_start_date(1i)"] = ""
-        params["expression_of_interest"]["hosting_start_date(2i)"] = ""
-        params["expression_of_interest"]["hosting_start_date(3i)"] = ""
-        @application.hosting_start_date = nil
-      end
-    end
-
-    if current_stage == 6 # different_address address form
-      if params["expression_of_interest"]["property_one_line_1"].nil? || params["expression_of_interest"]["property_one_line_1"].strip.length < MIN_ENTRY_DIGITS || params["expression_of_interest"]["property_one_line_1"].strip.length > MAX_ENTRY_DIGITS
-        @application.errors.add(:property_one_line_1, I18n.t(:address_line_1, scope: :error))
-      end
-
-      if params["expression_of_interest"]["property_one_line_2"].present? && params["expression_of_interest"]["property_one_line_2"].strip.length > MAX_ENTRY_DIGITS
-        @application.errors.add(:property_one_line_2, I18n.t(:address_line_2, scope: :error))
-      end
-
-      if params["expression_of_interest"]["property_one_town"].nil? || params["expression_of_interest"]["property_one_town"].strip.length < MIN_ENTRY_DIGITS || params["expression_of_interest"]["property_one_town"].strip.length > MAX_ENTRY_DIGITS
-        @application.errors.add(:property_one_town, I18n.t(:address_town, scope: :error))
-      end
-
-      if params["expression_of_interest"]["property_one_postcode"].nil? || params["expression_of_interest"]["property_one_postcode"].strip.length < MIN_ENTRY_DIGITS || params["expression_of_interest"]["property_one_postcode"].strip.length > MAX_ENTRY_DIGITS || !params["expression_of_interest"]["property_one_postcode"].match(POSTCODE_REGEX)
-        @application.errors.add(:property_one_postcode, I18n.t(:address_postcode, scope: :error))
-      end
-
-      if @application.errors.any?
-        render path_for_step and return
-      end
-    end
-
+    @application.partial_validation = step_validations_map[current_stage]
     if @application.valid?
       # Update the session
       session[:eoi] = @application.as_json
@@ -127,43 +101,23 @@ class EoiController < ApplicationController
 
   def check_answers
     @application = ExpressionOfInterest.new(session[:eoi])
-    @application.hosting_start_date_as_string = if @application.host_as_soon_as_possible == "true"
-                                                  "As soon as possible"
-                                                elsif @application.hosting_start_date.present?
-                                                  Date.new(
-                                                    @application.hosting_start_date["1"].to_i,
-                                                    @application.hosting_start_date["2"].to_i,
-                                                    @application.hosting_start_date["3"].to_i,
-                                                  ).strftime("%d %B %Y")
-                                                else
-                                                  @application.errors.add(:hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
-                                                  ""
-                                                end
+    @application.partial_validation = [:full_validation]
+    @application.valid?
+    render "check_answers"
   end
 
   def submit
     @application = ExpressionOfInterest.new(session[:eoi])
     @application.ip_address = request.ip
     @application.user_agent = request.user_agent
-    @application.final_submission = true
-    @application.hosting_start_date_as_string = if @application.host_as_soon_as_possible == "true"
-                                                  "As soon as possible"
-                                                elsif @application.hosting_start_date.present?
-                                                  Date.new(
-                                                    @application.hosting_start_date["1"].to_i,
-                                                    @application.hosting_start_date["2"].to_i,
-                                                    @application.hosting_start_date["3"].to_i,
-                                                  ).strftime("%d %B %Y")
-                                                else
-                                                  @application.errors.add(:hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
-                                                  ""
-                                                end
-    # Set default answers for skipped questions
-    @application.more_properties = "no" if @application.more_properties.blank?
-    @application.property_one_line_1 = "same as main residence" if @application.property_one_line_1.blank?
-    @application.property_one_town = "same as main residence" if @application.property_one_town.blank?
-    @application.property_one_postcode = @application.residential_postcode if @application.property_one_postcode.blank?
 
+    # Set default answers for skipped questions
+    @application.more_properties = "no" if @application.different_address == "no"
+    @application.property_one_line_1 = "same as main residence" if @application.different_address == "no"
+    @application.property_one_town = "same as main residence" if @application.different_address == "no"
+    @application.property_one_postcode = @application.residential_postcode if @application.different_address == "no"
+
+    @application.partial_validation = [:full_validation]
     if @application.valid?
       @application.save!
       session[:app_reference] = @application.reference
