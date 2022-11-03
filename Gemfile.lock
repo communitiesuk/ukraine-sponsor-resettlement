@@ -312,11 +312,10 @@ GEM
       sentry-ruby (~> 5.5.0)
     sentry-ruby (5.5.0)
       concurrent-ruby (~> 1.0, >= 1.0.2)
-    sidekiq (7.0.0)
-      concurrent-ruby (< 2)
-      connection_pool (>= 2.3.0)
-      rack (>= 2.2.4)
-      redis-client (>= 0.9.0)
+    sidekiq (6.5.5)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.5.0)
     simplecov (0.21.2)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -387,7 +386,7 @@ DEPENDENCIES
   selenium-webdriver
   sentry-rails
   sentry-ruby
-  sidekiq
+  sidekiq (< 7)
   simplecov
   tzinfo-data
   web-console (>= 4.1.0)
