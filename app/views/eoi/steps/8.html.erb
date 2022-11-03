@@ -10,6 +10,8 @@
     <% end %>
 
     <%= form_for @application, url: formurl, method: :post do |f| %>
+        <%= f.govuk_error_summary link_base_errors_to: :more_properties_statement %>
+
 
       <%= f.govuk_text_field :more_properties_statement,
                              label: { text: t('more_properties_statement.full', scope: "expression_of_interest.questions"), size: 'm' },

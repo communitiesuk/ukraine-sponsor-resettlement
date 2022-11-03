@@ -10,6 +10,8 @@
     <% end %>
 
     <%= form_for @application, url: formurl, method: :post do |f| %>
+      <%= f.govuk_error_summary link_base_errors_to: :more_properties %>
+
 
      <h1 class="govuk-heading-l">
        <%= t('more_properties.full', scope: "expression_of_interest.questions")  %>

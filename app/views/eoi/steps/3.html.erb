@@ -9,6 +9,7 @@
     <% end %>
 
     <%= form_for @application, url: formurl, method: :post do |f| %>
+    <%= f.govuk_error_summary link_base_errors_to: :phone_number %>
 
       <h1 class="govuk-heading-l">
        <%= t('phone_number.full', scope: "expression_of_interest.questions")  %>

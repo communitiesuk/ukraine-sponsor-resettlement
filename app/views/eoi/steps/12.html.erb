@@ -9,6 +9,8 @@
     <% end %>
 
     <%= form_for @application, url: formurl, method: :post do |f| %>
+      <%= f.govuk_error_summary link_base_errors_to: :single_room_count %>
+
 
       <h1 class="govuk-heading-l">
          How many bedrooms are available for guests in the property you’re registering now?

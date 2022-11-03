@@ -10,6 +10,8 @@
     <% end %>
 
     <%= form_for @application, url: formurl, method: :post do |f| %>
+      <%= f.govuk_error_summary link_base_errors_to: :allow_pet %>
+
       <h1 class="govuk-heading-l">
        <%= t('allow_pet.full', scope: "expression_of_interest.questions")  %>
       </h1>

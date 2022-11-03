@@ -14,6 +14,7 @@
     </h1>
 
     <%= form_for @application, url: formurl, method: :post do |f| %>
+    <%= f.govuk_error_summary link_base_errors_to: :user_research %>
       <%= f.govuk_collection_radio_buttons :user_research,
           @application.user_research_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "expression_of_interest.user_research")) },
           :id,
