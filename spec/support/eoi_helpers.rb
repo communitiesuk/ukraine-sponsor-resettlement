@@ -66,14 +66,14 @@ module EoiHelpers
         expect(page).to have_content("You will be able to share information about any more properties you have to offer when your local authority contacts you")
 
         click_on("Continue")
+        expect(page).to have_content("How soon can you start hosting someone?")
       else
         eoi_choose_option("No")
       end
     else
       eoi_choose_option("No")
+      expect(page).to have_content("How soon can you start hosting someone?")
     end
-
-    expect(page).to have_content("How soon can you start hosting someone?")
   end
 
   def eoi_enter_sponsor_start(asap: false, date: Time.zone.now + 1.year)

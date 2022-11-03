@@ -120,6 +120,6 @@ private
   end
 
   def run_validation?(attribute)
-    @partial_validation.empty? || @partial_validation.include?(attribute)
+    @partial_validation == [:full_validation] || @partial_validation.include?(attribute)
   end
 end

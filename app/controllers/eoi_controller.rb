@@ -101,7 +101,7 @@ class EoiController < ApplicationController
 
   def check_answers
     @application = ExpressionOfInterest.new(session[:eoi])
-    @application.partial_validation = []
+    @application.partial_validation = [:full_validation]
     @application.valid?
     render "check_answers"
   end
@@ -117,7 +117,7 @@ class EoiController < ApplicationController
     @application.property_one_town = "same as main residence" if @application.different_address == "no"
     @application.property_one_postcode = @application.residential_postcode if @application.different_address == "no"
 
-    @application.partial_validation = []
+    @application.partial_validation = [:full_validation]
     if @application.valid?
       @application.save!
       session[:app_reference] = @application.reference
