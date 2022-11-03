@@ -174,7 +174,7 @@ private
 
     if @application_token.present? && Time.zone.now.utc >= (@application_token.created_at + 1.day)
       # only resend the same link if the application_token has been requested less than a day ago
-      return_link = @application_token.magic_link
+      return_link = generate_magic_link(@application_token.magic_link)
     else
       personal_uuid = SecureRandom.uuid
       return_link = generate_magic_link(personal_uuid)
