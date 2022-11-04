@@ -17,8 +17,8 @@
             </div>
 
             <div id="cookie-banner__button-group" class="govuk-button-group">
-            <%= link_to "Accept cookies", request.original_url + '?cookies_accepted=true',  class: 'govuk-button cookie-button', method: :post, value:"accept"  %>
-            <%= link_to "Reject cookies", request.original_url + '?cookies_accepted=false',  class: 'govuk-button cookie-button', method: :post, value:"reject"  %>
+            <%= link_to "Accept analytics cookies", request.original_url + '?cookies_accepted=true',  class: 'govuk-button cookie-button', method: :post, value:"accept"  %>
+            <%= link_to "Reject analytics cookies", request.original_url + '?cookies_accepted=false',  class: 'govuk-button cookie-button', method: :post, value:"reject"  %>
 
                 <a class="govuk-link" href="#">View cookies</a>
             
