@@ -1,6 +1,8 @@
 <form method="POST">
 
     <div  class="govuk-cookie-banner " data-nosnippet role="region" aria-label="Cookies on Homes for Ukraine">
+          <% if !@cookie_accepted %>  
+
         <div class="govuk-cookie-banner__message govuk-width-container" >
 
             <div class="govuk-grid-row">
@@ -14,14 +16,17 @@
                 </div>
             </div>
 
-            <div class="govuk-button-group">
-            <%= link_to "Accept cookies", request.original_url + '?cookies_accepted=true',  class: 'govuk-button', method: :post, value:"accept"  %>
-            <%= link_to "Reject cookies", request.original_url + '?cookies_accepted=false',  class: 'govuk-button', method: :post, value:"reject"  %>
+            <div id="cookie-banner__button-group" class="govuk-button-group">
+            <%= link_to "Accept cookies", request.original_url + '?cookies_accepted=true',  class: 'govuk-button cookie-button', method: :post, value:"accept"  %>
+            <%= link_to "Reject cookies", request.original_url + '?cookies_accepted=false',  class: 'govuk-button cookie-button', method: :post, value:"reject"  %>
 
                 <a class="govuk-link" href="#">View cookies</a>
             
             </div>
         </div>
+           <% end %>  
+          <% if @cookie_accepted && !@cookie_message_hidden  %>  
+
     <div class="govuk-cookie-banner__message govuk-width-container" >
 
       <div class="govuk-grid-row">
@@ -34,14 +39,11 @@
       </div>
 
       <div class="govuk-button-group">
-      <%= link_to "Hide cookie message", root_path(cookies_hide_message: true),  class: 'govuk-button',method: :post  %>
 
-        <a href="#" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
-          Hide cookie message
-        </a>
+      <%= link_to "Hide cookie message", request.original_url + '&cookie_message_hidden=true',  class: 'govuk-button',method: :post  %>
       </div>
     </div>
-
+     <% end %>  
 
  </form>
 
