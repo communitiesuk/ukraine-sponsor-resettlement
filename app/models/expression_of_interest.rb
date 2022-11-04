@@ -1,8 +1,8 @@
 require "securerandom"
 
 class ExpressionOfInterest < ApplicationRecord
-  include ExpressionOfInterestValidations
   include ContactDetailsValidations
+  include ExpressionOfInterestValidations
   include CommonValidations
 
   self.table_name = "expressions_of_interest"
@@ -31,7 +31,6 @@ class ExpressionOfInterest < ApplicationRecord
                 :family_type,
                 :host_as_soon_as_possible,
                 :hosting_start_date,
-                :hosting_start_date_as_string,
                 :accommodation_length_types,
                 :accommodation_length,
                 :single_room_count,
@@ -51,7 +50,7 @@ class ExpressionOfInterest < ApplicationRecord
                 :ip_address,
                 :user_agent,
                 :started_at,
-                :final_submission
+                :partial_validation
 
   validate :validate_different_address, if: -> { run_validation? :different_address }
   validate :validate_more_properties, if: -> { run_validation? :more_properties }
@@ -72,7 +71,6 @@ class ExpressionOfInterest < ApplicationRecord
   def after_initialize
     @family_types = %i[single_adult more_than_one_adult adults_with_children no_preference]
     @accommodation_length_types = %i[from_6_to_9_months from_10_to_12_months more_than_12_months from_6_months]
-    @final_submission = false
     @different_address_types = %i[yes no]
     @more_properties_types = %i[yes no]
     @step_free_types = %i[all some none unknown]
@@ -83,6 +81,21 @@ class ExpressionOfInterest < ApplicationRecord
     @postcode = "not asked"
     @living_space = "rooms_in_home_shared_facilities"
     @accommodation_length = "from_6_months"
+    @partial_validation = []
+  end
+
+  def hosting_start_date_as_string
+    if @host_as_soon_as_possible == "true"
+      "As soon as possible"
+    elsif @hosting_start_date.present?
+      Date.new(
+        @hosting_start_date["1"].to_i,
+        @hosting_start_date["2"].to_i,
+        @hosting_start_date["3"].to_i,
+      ).strftime("%d %B %Y")
+    else
+      ""
+    end
   end
 
   def as_json
