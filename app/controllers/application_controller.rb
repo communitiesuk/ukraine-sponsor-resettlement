@@ -37,8 +37,8 @@ private
     if session[:cookies_accepted].present?
       @cookie_accepted = session[:cookies_accepted].casecmp("true").zero?
     end
-    if params[:cookies_accepted].present? && params[:cookie_message_hidden].present?
-      session[:cookie_message_hidden] = params[:cookie_message_hidden]
+    if params[:cookies_accepted].present? && params[:c_m_h].present?
+      session[:cookie_message_hidden] = params[:c_m_h]
     end
     if session[:cookie_message_hidden].present?
       @cookie_message_hidden = session[:cookie_message_hidden]
