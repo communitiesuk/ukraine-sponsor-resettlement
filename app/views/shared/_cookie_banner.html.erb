@@ -1,7 +1,7 @@
 <form method="POST">
 
     <div  class="govuk-cookie-banner " data-nosnippet role="region" aria-label="Cookies on Homes for Ukraine">
-          <% if !@cookie_accepted && @form_step == "1"  %>  
+          <% if !@cookie_accepted && @cookie_banner_form_step == 1  %>  
 
         <div class="govuk-cookie-banner__message govuk-width-container" >
 
@@ -25,7 +25,7 @@
             </div>
         </div>
            <% end %>  
-          <% if @cookie_accepted && !@cookie_message_hidden || !@cookie_accepted && !@cookie_message_hidden && @form_step == "2" %>  
+          <% if @cookie_accepted && !@cookie_message_hidden || !@cookie_accepted && !@cookie_message_hidden && @cookie_banner_form_step == 2 %>  
 
     <div class="govuk-cookie-banner__message govuk-width-container" >
 

@@ -31,14 +31,14 @@ private
   end
 
   def cookie_banner
-    @form_step = "1"
+    @cookie_banner_form_step = 1
 
     if params[:cookies_accepted].present?
       session[:cookies_accepted] = params[:cookies_accepted]
     end
     if session[:cookies_accepted].present?
       @cookie_accepted = session[:cookies_accepted].casecmp("true").zero?
-      @form_step = "2"
+      @cookie_banner_form_step = 2
     end
     if params[:cookies_accepted].present? && params[:c_m_h].present?
       session[:cookie_message_hidden] = params[:c_m_h]

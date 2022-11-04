@@ -30,5 +30,27 @@ RSpec.describe "Local Authority matching form", type: :system do
 
       expect(page).not_to have_content("You’ve accepted additional cookies. ")
     end
+
+    it "does not display the cookie banner having gone throught the e2e process once pressing accept " do
+      visit "/"
+      click_link("Accept analytics cookies")
+      click_link("Hide cookie message")
+      visit "/sponsor-a-child/start"
+
+      expect(page).not_to have_content("Cookies on Homes for Ukraine")
+    end
+
+    it "does not display the cookie banner having gone throught the e2e process once pressing reject " do
+      visit "/"
+      click_link("Reject analytics cookies")
+      click_link("Hide cookie message")
+      visit "/sponsor-a-child/start"
+      expect(page).not_to have_content("Cookies on Homes for Ukraine")
+    end
+
+    it "displays the cookie banner if start on another page" do
+      visit "/sponsor-a-child/start"
+      expect(page).to have_content("Cookies on Homes for Ukraine")
+    end
   end
 end
