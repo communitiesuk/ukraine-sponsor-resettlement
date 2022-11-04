@@ -1,11 +1,11 @@
 require "rails_helper"
 
-RSpec.describe "Local Authority matching form", type: :system do
+RSpec.describe "GDS Cookie Banner Form", type: :system do
   before do
     driven_by(:rack_test_user_agent)
   end
 
-  describe "testing the cookie banner " do
+  describe "testing the cookie banner form " do
     it "cookies banner shows up on the page on first visit to the site" do
       visit "/"
       expect(page).to have_content("Cookies on Homes for Ukraine")
