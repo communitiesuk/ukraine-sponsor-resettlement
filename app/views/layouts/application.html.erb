@@ -64,6 +64,10 @@
       </div>
       <%= govuk_phase_banner(tag: { text: "Beta" }) do %>This is a new service
       <% end %>
+      <%no_back_link_pages = ["/", "/individual/check_answers", "/expression-of-interest/confirm", "/sponsor-a-child/task-list", "sponsor-a-child/cancel_confirm", "/sponsor-a-child/cancel-application", "/sponsor-a-child/check-answers", "/sponsor-a-child/confirm", "/sponsor-a-child/save-and-return/confirm", "/sponsor-a-child/save-and-return/resend-link"]%>
+      <%unless no_back_link_pages.include?(request.path) %>
+        <%=(render partial: "shared/back_link") %>
+      <%end%>
       <main class="govuk-main-wrapper " id="main-content" role="main">
         <%= yield %>
       </main>

@@ -1,7 +1,6 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
     <% if @application.hosting_start_date.present?
       @application.hosting_start_date[1] = @application.hosting_start_date["1"]
       @application.hosting_start_date[2] = @application.hosting_start_date["2"]
