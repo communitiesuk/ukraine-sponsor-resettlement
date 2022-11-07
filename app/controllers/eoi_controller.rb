@@ -44,7 +44,7 @@ class EoiController < ApplicationController
 
     # Check that step is a valid state name.
     if EoiWorkflow.states.key?(step)
-      render EoiWorkflow.states[step][:view_name]
+      render "current_stage_view", current_stage_view: EoiWorkflow.states[step][:view_name]
     else
       redirect_to "/expression-of-interest/self-assessment/property-suitable"
     end
@@ -76,7 +76,7 @@ class EoiController < ApplicationController
         redirect_to "/expression-of-interest/steps/#{next_stage}"
       end
     else
-      render EoiWorkflow.states[current_stage][:view_name]
+      render "current_stage_view", current_stage_view: EoiWorkflow.states[current_stage][:view_name]
     end
   end
 
