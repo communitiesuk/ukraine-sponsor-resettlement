@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :set_tracking_code, :ensure_session_last_seen
+  before_action :set_tracking_code, :ensure_session_last_seen, :set_no_back_link_pages
   after_action :update_session_last_seen
 
   default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
@@ -9,6 +9,10 @@ class ApplicationController < ActionController::Base
   end
 
 private
+
+  def set_no_back_link_pages
+    @no_back_link_pages = ["/", "/individual/check_answers", "/expression-of-interest/confirm", "/sponsor-a-child/task-list", "sponsor-a-child/cancel_confirm", "/sponsor-a-child/cancel-application", "/sponsor-a-child/check-answers", "/sponsor-a-child/confirm", "/sponsor-a-child/save-and-return/confirm", "/sponsor-a-child/save-and-return/resend-link"]
+  end
 
   def set_tracking_code
     Rails.logger.debug request.fullpath
