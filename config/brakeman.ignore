@@ -1,0 +1,52 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "4a9258efb8a3dde2007cfde6d89f2321e43a17e51c7bafbe37b9d3c19ad599cf",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/controllers/eoi_controller.rb",
+      "line": 79,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => EoiWorkflow.states[params[\"stage\"]][:view_name], {})",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "EoiController",
+        "method": "handle_step"
+      },
+      "user_input": "params[\"stage\"]",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "5083693cec7329bb7345d9ef126776fdafb1eb0e1c8fda6b32f0ec7e500aa8ae",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/controllers/eoi_controller.rb",
+      "line": 47,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => EoiWorkflow.states[params[\"stage\"]][:view_name], {})",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "EoiController",
+        "method": "display"
+      },
+      "user_input": "params[\"stage\"]",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
+    }
+  ],
+  "updated": "2022-11-07 10:19:32 +0000",
+  "brakeman_version": "5.3.1"
+}
