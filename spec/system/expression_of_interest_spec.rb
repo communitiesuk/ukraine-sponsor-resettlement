@@ -188,25 +188,25 @@ RSpec.describe "Individual expression of interest", type: :system do
       expect(page).to have_content("User research Yes")
       expect(page).to have_content("Privacy statement Agreed")
 
-      click_link("Change different address")
+      click_link("Change pet")
 
-      expect(page).to have_content("Is the property you’re offering at a different address to your home?")
+      expect(page).to have_content("Would you consider allowing guests to bring their pets?")
 
-      choose("Yes")
+      choose("No")
       click_button("Continue")
 
       expect(page).to have_content("Name Spencer Graham")
       expect(page).to have_content("Email spencer.sponsor@example.com")
       expect(page).to have_content("Telephone number 07123123123")
       expect(page).to have_content("Residential address Address line 1 Town XX1 1XX")
-      expect(page).to have_content("Different address Yes")
+      expect(page).to have_content("Different address No")
       expect(page).to have_content("How many adults 2")
       expect(page).to have_content("How many children 3")
       expect(page).to have_content("Who can you accommodate? Single adult")
       expect(page).to have_content("Single bedrooms available 6")
       expect(page).to have_content("Double bedrooms available 3")
       expect(page).to have_content("Step-free access Yes, all")
-      expect(page).to have_content("Allow pets Yes")
+      expect(page).to have_content("Allow pets No")
       expect(page).to have_content("User research Yes")
       expect(page).to have_content("Privacy statement Agreed")
 
