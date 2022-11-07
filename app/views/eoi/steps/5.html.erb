@@ -1,8 +1,6 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
-
     <% if request.query_string == 'check' %>
       <% formurl = "/expression-of-interest/steps/5?check" %>
     <% else %>
@@ -10,6 +8,7 @@
     <% end %>
 
     <%= form_for @application, url: formurl, method: :post do |f| %>
+    <%= f.govuk_error_summary link_base_errors_to: :different_address %>
 
       <h1 class="govuk-heading-l">
        <%= t('different_address.full', scope: "expression_of_interest.questions")  %>

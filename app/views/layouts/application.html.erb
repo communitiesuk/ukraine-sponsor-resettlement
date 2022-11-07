@@ -72,6 +72,9 @@
       </div>
       <%= govuk_phase_banner(tag: { text: "Beta" }) do %>This is a new service
       <% end %>
+      <%unless @no_back_link_pages.include?(request.path) %>
+        <%=(render partial: "shared/back_link") %>
+      <%end%>
       <main class="govuk-main-wrapper " id="main-content" role="main">
         <%= yield %>
       </main>

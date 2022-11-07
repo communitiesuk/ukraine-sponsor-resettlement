@@ -1,8 +1,6 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
-
     <%= form_for @application, url: "/individual/steps/8", method: :post do |f| %>
 
       <%= f.govuk_text_field :more_properties_statement,

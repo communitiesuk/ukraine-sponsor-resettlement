@@ -1,17 +1,18 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
-
-    <h1 class="govuk-heading-l">How many people normally live in the property you’re offering (not including guests)?</h1>
-
     <% if request.query_string == 'check' %>
       <% formurl = "/expression-of-interest/steps/10?check" %>
     <% else %>
       <% formurl = "/expression-of-interest/steps/10" %>
     <% end %>
 
+
     <%= form_for @application, url: formurl, method: :post do |f| %>
+    <%= f.govuk_error_summary link_base_errors_to: :number_adults %>
+
+    <h1 class="govuk-heading-l">How many people normally live in the property you’re offering (not including guests)?</h1>
+
       <%= f.govuk_text_field :number_adults,
                              label: { text: t('number_adults.full', scope: "expression_of_interest.questions") },
                              type: "number",

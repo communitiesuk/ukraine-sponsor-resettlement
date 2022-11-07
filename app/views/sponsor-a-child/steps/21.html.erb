@@ -1,8 +1,6 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
-
     <%= form_for @application, url: "/sponsor-a-child/steps/21", method: :post do |f| %>
     <%= f.govuk_error_summary link_base_errors_to: :other_nationality %>
 
