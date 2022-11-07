@@ -1,4 +1,3 @@
-<form method="POST">
 
     <div  class="govuk-cookie-banner " data-nosnippet role="region" aria-label="Cookies on Homes for Ukraine">
           <% if !@cookie_accepted && @cookie_banner_form_step == 1  %>  
@@ -19,7 +18,6 @@
             <div id="cookie-banner__button-group" class="govuk-button-group">
             <%= link_to "Accept analytics cookies", request.original_url + '?cookies_accepted=true',  class: 'govuk-button cookie-button', method: :post, value:"accept"  %>
             <%= link_to "Reject analytics cookies", request.original_url + '?cookies_accepted=false',  class: 'govuk-button cookie-button', method: :post, value:"reject"  %>
-
             
             </div>
         </div>
@@ -39,11 +37,10 @@
 
       <div class="govuk-button-group">
 
-      <%= link_to "Hide cookie message", request.original_url + '&c_m_h=true',  class: 'govuk-button',method: :post  %>
+      <%= link_to "Hide cookie message", request.original_url + '?&c_m_h=true',  class: 'govuk-button',method: :post  %>
       </div>
     </div>
      <% end %>  
 
- </form>
 
  

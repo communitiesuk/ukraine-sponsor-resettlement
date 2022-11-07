@@ -44,7 +44,7 @@ private
       @cookie_accepted = session[:cookies_accepted].casecmp("true").zero?
       @cookie_banner_form_step = 2
     end
-    if params[:cookies_accepted].present? && params[:c_m_h].present?
+    if params[:c_m_h].present?
       session[:cookie_message_hidden] = params[:c_m_h]
     end
     if session[:cookie_message_hidden].present?
