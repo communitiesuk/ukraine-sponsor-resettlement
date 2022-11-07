@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :set_tracking_code, :ensure_session_last_seen, :set_no_back_link_pages
+  before_action :cookie_banner, :set_tracking_code, :ensure_session_last_seen, :set_no_back_link_pages
   after_action :update_session_last_seen
 
   default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
@@ -16,10 +16,10 @@ private
 
   def set_tracking_code
     Rails.logger.debug request.fullpath
-    if request.fullpath.include?("child") && ENV["UAM_GA_TRACKING_CODE"].present?
+
+    if request.fullpath.include?("child") && ENV["UAM_GA_TRACKING_CODE"].present? && session[:cookies_accepted].present? && session[:cookies_accepted].casecmp("true").zero?
       GA.tracker = ENV.fetch("UAM_GA_TRACKING_CODE")
-    end
-    if request.fullpath.include?("expression") && ENV["EOI_GA_TRACKING_CODE"].present?
+    elsif request.fullpath.include?("expression") && ENV["EOI_GA_TRACKING_CODE"].present? && session[:cookies_accepted].present? && session[:cookies_accepted].casecmp("true").zero?
       GA.tracker = ENV.fetch("EOI_GA_TRACKING_CODE")
     end
   end
@@ -32,5 +32,23 @@ private
 
   def update_session_last_seen
     session[:last_seen] = Time.zone.now.utc.to_s
+  end
+
+  def cookie_banner
+    @cookie_banner_form_step = 1
+
+    if params[:cookies_accepted].present?
+      session[:cookies_accepted] = params[:cookies_accepted]
+    end
+    if session[:cookies_accepted].present?
+      @cookie_accepted = session[:cookies_accepted].casecmp("true").zero?
+      @cookie_banner_form_step = 2
+    end
+    if params[:cookies_accepted].present? && params[:c_m_h].present?
+      session[:cookie_message_hidden] = params[:c_m_h]
+    end
+    if session[:cookie_message_hidden].present?
+      @cookie_message_hidden = session[:cookie_message_hidden]
+    end
   end
 end
