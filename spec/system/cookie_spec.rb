@@ -11,16 +11,16 @@ RSpec.describe "GDS Cookie Banner Form", type: :system do
       expect(page).to have_content("Cookies on Homes for Ukraine")
     end
 
-    it "takes you to the accepted cookies screen on pressing accept " do
+    it "takes you to the accepted cookies screen on pressing accept" do
       visit "/"
       click_link("Accept analytics cookies")
-      expect(page).to have_content("You’ve accepted additional cookies. ")
+      expect(page).to have_content("You’ve accepted additional cookies.")
     end
 
     it "takes you to the rejected cookies screen on pressing reject " do
       visit "/"
       click_link("Reject analytics cookies")
-      expect(page).to have_content("You’ve rejected additional cookies. ")
+      expect(page).to have_content("You’ve rejected additional cookies.")
     end
 
     it "remove the cookie banner upon clicking the Hide cookie message button " do
@@ -28,7 +28,7 @@ RSpec.describe "GDS Cookie Banner Form", type: :system do
       click_link("Accept analytics cookies")
       click_link("Hide cookie message")
 
-      expect(page).not_to have_content("You’ve accepted additional cookies. ")
+      expect(page).not_to have_content("You’ve accepted additional cookies.")
     end
 
     it "does not display the cookie banner having gone throught the e2e process once pressing accept " do
@@ -40,7 +40,7 @@ RSpec.describe "GDS Cookie Banner Form", type: :system do
       expect(page).not_to have_content("Cookies on Homes for Ukraine")
     end
 
-    it "does not display the cookie banner having gone throught the e2e process once pressing reject " do
+    it "does not display the cookie banner having gone throught the e2e process once pressing reject" do
       visit "/"
       click_link("Reject analytics cookies")
       click_link("Hide cookie message")
