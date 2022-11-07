@@ -54,7 +54,6 @@ class EoiWorkflow
     "16" => { actions: [{ action: :go_next, destination: "check-answers" }],
               view_name: "eoi/steps/16",
               validations: [:agree_privacy_statement] },
-    "check-answers" => { actions: [] },
   }
 
   @actions_map = {
