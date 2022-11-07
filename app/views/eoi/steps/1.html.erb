@@ -1,7 +1,5 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <%= render partial: "shared/back_link" %>
-
     <% if request.query_string == 'check' %>
       <% formurl = "/expression-of-interest/steps/1?check" %>
     <% else %>
@@ -9,6 +7,9 @@
     <% end %>
 
     <%= form_for @application, url: formurl, method: :post do |f| %>
+
+    <%= f.govuk_error_summary link_base_errors_to: :fullname %>
+
       <h1 class="govuk-heading-l">
        <%= t('fullname.full', scope: "expression_of_interest.questions")  %>
       </h1>

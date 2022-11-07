@@ -1,8 +1,6 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
-
     <h2 class="govuk-heading-m">Enter the address of the property you’re offering</h2>
 
     <%= form_for @application, url: "/additional-info/steps/6", method: :post do |f| %>

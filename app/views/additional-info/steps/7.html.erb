@@ -1,8 +1,6 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
-
     <%= form_for @application, url: "/additional-info/steps/7", method: :post do |f| %>
       <%= f.govuk_collection_radio_buttons :more_properties,
           @application.more_properties_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "additional_info.more_properties")) },
