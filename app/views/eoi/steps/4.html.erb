@@ -1,19 +1,17 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-
-    <h1 class="govuk-heading-l">Enter your full residential address</h1>
-
-    <p class="govuk-hint">This is the address where you live</p>
-    <br>
-
-    <% if request.query_string == 'check' %>
-      <% formurl = "/expression-of-interest/steps/4?check" %>
-    <% else %>
-      <% formurl = "/expression-of-interest/steps/4" %>
-    <% end %>
-
-    <%= form_for @application, url: formurl, method: :post do |f| %>
+  <% if request.query_string == 'check' %>
+    <% formurl = "/expression-of-interest/steps/4?check" %>
+  <% else %>
+    <% formurl = "/expression-of-interest/steps/4" %>
+  <% end %>
+   <%= form_for @application, url: formurl, method: :post do |f| %>
     <%= f.govuk_error_summary link_base_errors_to: :residential_postcode %>
+      <h1 class="govuk-heading-l">Enter your full residential address</h1>
+
+      <p class="govuk-hint">This is the address where you live</p>
+      <br>
+
       <%= f.govuk_text_field :residential_line_1,
                              label: { text: t('address_line_1.full', scope: "expression_of_interest.questions") },
                              type: "text"
