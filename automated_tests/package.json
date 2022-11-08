@@ -1,0 +1,25 @@
+{
+  "name": "hfu",
+  "version": "1.0.0",
+  "description": "cypress tests",
+  "main": "index.js",
+  "scripts": {
+    "cy_open": "cypress open",
+    "cy_verify": "cypress verify",
+    "e2e": "cypress run --headless || npm run view_report",
+    "view_report": "open cypress/reports/html/index.html",
+    "headless": "cypress run --headless",
+    "delete_report": "rm /Users/tperera@zaizi.com/Desktop/HFU/cypress/reports/html/index.html"
+  },
+  "author": "Troy",
+  "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "cypress": "^10.9.0",
+    "cypress-file-upload": "^5.0.8",
+    "cypress-high-resolution": "^1.0.0",
+    "cypress-mochawesome-reporter": "^3.2.2",
+    "cypress-plugin-tab": "^1.0.5",
+    "cypress-xpath": "^2.0.1"
+  }
+}

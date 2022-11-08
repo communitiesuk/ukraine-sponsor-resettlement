@@ -1,0 +1,12 @@
+{
+  "radiobtn_error_msg" : "You must select an option to continue",
+  "fullname_err_msg": "You must enter your full name",
+  "email_err_msg": "You must enter a valid email address",
+  "phone_err_msg": "You must enter a valid phone number",
+  "addl1_err_msg": "You must enter an address",
+  "townorcity_err_msg": "You must enter a town or city",
+  "postcode_err_msg": "You must enter a valid UK postcode",
+  "number_of_ppl_err_msg": "You must enter a number from 1-9",
+  "number_of_brooms_err_msg": "You must enter a number from 1-9",
+  "consent_err_msg": "You must tick the box to continue"
+}
