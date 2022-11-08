@@ -1,9 +1,4 @@
 class EoiController < ApplicationController
-  MAX_STEPS = 16
-  MIN_ENTRY_DIGITS = 3
-  MAX_ENTRY_DIGITS = 128
-  POSTCODE_REGEX = /([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})/
-
   before_action :check_feature_flag
 
   def index; end
@@ -45,57 +40,43 @@ class EoiController < ApplicationController
       session.delete(:organisation_expression_of_interest)
     end
 
-    step = params["stage"].to_i
+    step = params["stage"]
 
-    if (1..MAX_STEPS).cover?(step)
-      render path_for_step
+    # Check that step is a valid state name.
+    if EoiWorkflow.states.key?(step)
+      render EoiWorkflow.states[step][:view_name]
     else
-      redirect_to "/expression-of-interest/self-assessment/start"
+      redirect_to "/expression-of-interest/self-assessment/property-suitable"
     end
   end
 
   def handle_step
-    current_stage = params["stage"].to_i
+    current_stage = params["stage"]
+    redirect_to "/404" unless EoiWorkflow.states.key?(current_stage)
+
     # Pull session data out of session and
     # instantiate new Application ActiveRecord object
     @application = ExpressionOfInterest.new(session[:eoi])
-    @application.started_at = Time.zone.now.utc if current_stage == 1
+
+    # If its the starting state and not being edited after check-answers
+    if EoiWorkflow.states.keys[0] == current_stage && !params.key?("check")
+      @application.started_at = Time.zone.now.utc
+    end
+
     # Update Application object with new attributes
     @application.assign_attributes(application_params)
 
-    step_validations_map = {
-      1 => [:fullname],
-      2 => [:email],
-      3 => [:phone_number],
-      4 => %i[residential_line_1 residential_line_2 residential_town residential_postcode],
-      5 => [:different_address],
-      6 => %i[property_one_line_1 property_one_line_2 property_one_town property_one_postcode],
-      7 => [:more_properties],
-      8 => [],
-      9 => %i[host_as_soon_as_possible hosting_start_date],
-      10 => %i[number_adults number_children],
-      11 => [:family_type],
-      12 => %i[single_room_count double_room_count],
-      13 => [:step_free],
-      14 => [:allow_pet],
-      15 => [:user_research],
-      16 => [:agree_privacy_statement],
-    }
-
-    @application.partial_validation = step_validations_map[current_stage]
+    @application.partial_validation = EoiWorkflow.states[current_stage][:validations]
     if @application.valid?
-      # Update the session
       session[:eoi] = @application.as_json
-      # Replace with routing engine to get next stage
-      next_stage = RoutingEngine.get_next_eoi_step(@application, current_stage)
-
-      if next_stage > MAX_STEPS || params.key?("check")
+      next_stage = EoiWorkflow.get_next_step(current_stage, application_params)
+      if next_stage == "check-answers" || params.key?("check")
         redirect_to "/expression-of-interest/check-answers"
       else
         redirect_to "/expression-of-interest/steps/#{next_stage}"
       end
     else
-      render path_for_step
+      render EoiWorkflow.states[current_stage][:view_name]
     end
   end
 
@@ -135,11 +116,6 @@ class EoiController < ApplicationController
   end
 
 private
-
-  def path_for_step(to_step = nil)
-    step = to_step || params["stage"].to_i
-    "eoi/steps/#{step}"
-  end
 
   def application_params
     params.require(:expression_of_interest)
