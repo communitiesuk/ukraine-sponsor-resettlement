@@ -115,7 +115,7 @@ private
     elsif @host_as_soon_as_possible == "false" && @hosting_start_date.blank?
       errors.add(:hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
     elsif @host_as_soon_as_possible.blank? && @hosting_start_date.blank?
-      errors.add(:hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
+      errors.add(:host_as_soon_as_possible, I18n.t(:choose_option, scope: :error))
     end
   end
 
