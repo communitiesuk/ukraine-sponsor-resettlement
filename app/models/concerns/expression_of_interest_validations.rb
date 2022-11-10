@@ -9,28 +9,45 @@ module ExpressionOfInterestValidations
   POSTCODE_REGEX      = /([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})/
 
   included do
-    validate :validate_family_type, if: -> { run_validation? :family_type }
     validate :validate_fullname, if: -> { run_validation? :fullname }
+    validates :email, length: { maximum: 128, message: I18n.t(:invalid_email, scope: :error) }, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: I18n.t(:invalid_email, scope: :error) }, if: -> { run_validation? :email }
     validate :validate_phone_number, if: -> { run_validation? :phone_number }
     validate :validate_residential_line_1, if: -> { run_validation? :residential_line_1 }
     validate :validate_residential_line_2, if: -> { run_validation? :residential_line_2 }
     validate :validate_residential_town, if: -> { run_validation? :residential_town }
     validate :validate_residential_postcode, if: -> { run_validation? :residential_postcode }
+    validate :validate_different_address, if: -> { run_validation? :different_address }
     validate :validate_property_one_line_1, if: -> { run_validation? :property_one_line_1 }
     validate :validate_property_one_line_2, if: -> { run_validation? :property_one_line_2 }
     validate :validate_property_one_town, if: -> { run_validation? :property_one_town }
     validate :validate_property_one_postcode, if: -> { run_validation? :property_one_postcode }
-    validate :validate_step_free, if: -> { run_validation? :step_free }
+    validate :validate_more_properties, if: -> { run_validation? :more_properties }
     validate :validate_host_as_soon_as_possible, if: -> { run_validation? :host_as_soon_as_possible }
     validate :validate_hosting_start_date, if: -> { run_validation? :hosting_start_date }
+    validate :validate_number_adults, if: -> { run_validation? :number_adults }
+    validates :number_children, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 9, message: I18n.t(:number_children, scope: :error) }, if: -> { run_validation? :number_children }
+    validate :validate_family_type, if: -> { run_validation? :family_type }
     validates :single_room_count, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 999, message: I18n.t(:invalid_room_count, scope: :error) }, if: -> { run_validation? :single_room_count }
     validates :double_room_count, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 999, message: I18n.t(:invalid_room_count, scope: :error) }, if: -> { run_validation? :double_room_count }
-    validates :agree_future_contact, acceptance: { accept: "true", message: I18n.t(:must_be_accepted, scope: :error) }, if: -> { run_validation? :agree_future_contact }
-    validates :agree_privacy_statement, acceptance: { accept: "true", message: I18n.t(:must_be_accepted, scope: :error) }, if: -> { run_validation? :agree_privacy_statement }
+    validate :validate_step_free, if: -> { run_validation? :step_free }
+    validate :validate_allow_eoi_pet, if: -> { run_validation? :allow_pet }
+    validate :validate_user_research, if: -> { run_validation? :user_research }
     validate :validate_agree_privacy_statement, if: -> { run_validation? :agree_privacy_statement }
   end
 
 private
+
+  def validate_user_research
+    validate_enum(@user_research_types, @user_research, :user_research)
+  end
+
+  def validate_more_properties
+    validate_enum(@more_properties_types, @more_properties, :more_properties)
+  end
+
+  def validate_different_address
+    validate_enum(@different_address_types, @different_address, :different_address)
+  end
 
   def validate_family_type
     validate_enum(@family_types, @family_type, :family_type)
@@ -117,6 +134,76 @@ private
     elsif @host_as_soon_as_possible.blank? && @hosting_start_date.blank?
       errors.add(:host_as_soon_as_possible, I18n.t(:choose_option, scope: :error))
     end
+  end
+
+  def validate_residential_line_1
+    if @residential_line_1.nil? || @residential_line_1.strip.length < MIN_ENTRY_DIGITS || @residential_line_1.strip.length > MAX_ENTRY_DIGITS
+      errors.add(:residential_line_1, I18n.t(:address_line_1, scope: :error))
+    end
+  end
+
+  def validate_residential_line_2
+    if @residential_line_2.present? && @residential_line_2.strip.length > MAX_ENTRY_DIGITS
+      errors.add(:residential_line_2, I18n.t(:address_line_2, scope: :error))
+    end
+  end
+
+  def validate_residential_town
+    if @residential_town.nil? || @residential_town.strip.length < MIN_ENTRY_DIGITS || @residential_town.strip.length > MAX_ENTRY_DIGITS
+      errors.add(:residential_town, I18n.t(:address_town, scope: :error))
+    end
+  end
+
+  def validate_residential_postcode
+    if @residential_postcode.nil? || @residential_postcode.strip.length < MIN_ENTRY_DIGITS || @residential_postcode.strip.length > MAX_ENTRY_DIGITS || !@residential_postcode.match(POSTCODE_REGEX)
+      errors.add(:residential_postcode, I18n.t(:address_postcode, scope: :error))
+    end
+  end
+
+  def validate_number_adults
+    @is_residential_property    = different_address.present? && different_address.casecmp("NO").zero?
+    @is_number_adults_integer   = is_integer?(@number_adults)
+    @is_number_children_integer = is_integer?(number_children)
+
+    if @is_residential_property && (!@is_number_adults_integer || @number_adults.to_i > 9)
+      errors.add(:number_adults, I18n.t(:number_adults_one, scope: :error))
+    elsif @is_residential_property && @is_number_adults_integer && @number_adults.to_i.zero?
+      errors.add(:number_adults, I18n.t(:number_adults_residential, scope: :error))
+    elsif !@is_residential_property && (!@is_number_adults_integer || @number_adults.to_i > 9)
+      errors.add(:number_adults, I18n.t(:number_adults_zero, scope: :error))
+    elsif !@is_residential_property && @is_number_adults_integer && @number_adults.to_i.zero? && @is_number_children_integer && number_children.to_i.positive?
+      errors.add(:number_adults, I18n.t(:child_without_adult, scope: :error))
+    end
+  end
+
+  def name_valid?(value)
+    min_name_length = 1
+    max_name_length = 128
+    validator = /^[-'a-zA-Z\s]{#{min_name_length},#{max_name_length}}$/
+
+    value.present? && !!(value =~ validator)
+  end
+
+  def email_address_valid?(value)
+    min_length = 2
+    max_length = 128
+    validator = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{#{min_length},#{max_length}})\z/i
+
+    value.present? && !!(value =~ validator)
+  end
+
+  def phone_number_valid?(value)
+    value.present? && value.scan(/\d/).join.length > 10 && value.scan(/\d/).join.length < 14 && value.match(/[0-9 -+]+$/)
+  end
+
+  def uk_mobile_number?(value)
+    valid_uk_number = /(^\+447[0-9]{9}$)|(^07[0-9]{9}$)|(^447[0-9]{9}$)/
+    blanks_removed = value.gsub(/\s+/, "")
+    phone_number_valid?(value) && value.present? && blanks_removed.match?(valid_uk_number)
+  end
+
+  def is_integer?(value)
+    true if Integer(value, exception: false)
   end
 
   def run_validation?(attribute)

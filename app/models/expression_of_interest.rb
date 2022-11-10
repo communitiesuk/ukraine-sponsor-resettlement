@@ -1,9 +1,7 @@
 require "securerandom"
 
 class ExpressionOfInterest < ApplicationRecord
-  include ContactDetailsValidations
   include ExpressionOfInterestValidations
-  include CommonValidations
 
   self.table_name = "expressions_of_interest"
 
@@ -51,14 +49,6 @@ class ExpressionOfInterest < ApplicationRecord
                 :user_agent,
                 :started_at,
                 :partial_validation
-
-  validate :validate_different_address, if: -> { run_validation? :different_address }
-  validate :validate_more_properties, if: -> { run_validation? :more_properties }
-  validate :validate_number_adults, if: -> { run_validation? :number_adults }
-  validates :number_children, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 9, message: I18n.t(:number_children, scope: :error) }, if: -> { run_validation? :number_children }
-  validate :validate_allow_eoi_pet, if: -> { run_validation? :allow_pet }
-  validate :validate_host_as_soon_as_possible, if: -> { run_validation? :host_as_soon_as_possible }
-  validate :validate_user_research, if: -> { run_validation? :user_research }
 
   after_initialize :after_initialize
   before_save :serialize
