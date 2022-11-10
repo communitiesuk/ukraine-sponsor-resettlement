@@ -28,7 +28,7 @@ module ExpressionOfInterestValidations
     validates :number_children, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 9, message: I18n.t(:number_children, scope: :error) }, if: -> { run_validation? :number_children }
     validate :validate_family_type, if: -> { run_validation? :family_type }
     validate :validate_number_bedrooms, if: -> { run_validation? :single_room_count  } 
-    validate :validate_number_bedrooms, if: -> { run_validation? :double_room_count  } # numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 9, message: I18n.t(:invalid_room_count, scope: :error) }, if: -> { run_validation? :double_room_count }
+    validate :validate_number_bedrooms, if: -> { run_validation? :double_room_count  } 
     validate :validate_step_free, if: -> { run_validation? :step_free }
     validate :validate_allow_eoi_pet, if: -> { run_validation? :allow_pet }
     validate :validate_user_research, if: -> { run_validation? :user_research }
