@@ -133,7 +133,7 @@ en:
     accept_and_send:
       full: Accept and send
   expression_of_interest:
-    pet_option_description: 
+    pet_option_description:
       affirmative:
         type: "yes"
         short: "Yes, I would consider pets"
@@ -165,7 +165,7 @@ en:
         full: Enter the first part of the postcode of the property you’re offering
         subtitle: (If you are offering multiple properties, please enter all the postcodes separated by a comma)
       hosting_start_date:
-        full:  How soon can you start hosting someone?
+        full: How soon can you start hosting someone?
         short: Hosting start date
       accommodation_length:
         short: Accommodation length
@@ -603,7 +603,7 @@ en:
     no_sponsor_other_name_choice_made: You must select an option
     no_sponsor_other_nationalities_choice_made: You must select an option
     invalid_number: Please enter a non-negative whole number
-    invalid_room_count: You must enter a number from 0 to 999
+    invalid_room_count: You must enter a number from 0 to 9
     invalid_postcode: Please enter a valid UK postcode(s)
     invalid_email: You must enter a valid email address
     invalid_organisation_name: Please enter a valid organisation name
