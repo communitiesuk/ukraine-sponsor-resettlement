@@ -27,8 +27,8 @@ module ExpressionOfInterestValidations
     validate :validate_number_adults, if: -> { run_validation? :number_adults }
     validates :number_children, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 9, message: I18n.t(:number_children, scope: :error) }, if: -> { run_validation? :number_children }
     validate :validate_family_type, if: -> { run_validation? :family_type }
-    validates :single_room_count, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 9, message: I18n.t(:invalid_room_count, scope: :error) }, if: -> { run_validation? :single_room_count }
-    validates :double_room_count, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 9, message: I18n.t(:invalid_room_count, scope: :error) }, if: -> { run_validation? :double_room_count }
+    validate :validate_number_bedrooms, if: -> { run_validation? :single_room_count  } # numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 9, message: I18n.t(:invalid_room_count, scope: :error) }, if: -> { run_validation? :single_room_count }
+    validate :validate_number_bedrooms, if: -> { run_validation? :double_room_count  } # numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 9, message: I18n.t(:invalid_room_count, scope: :error) }, if: -> { run_validation? :double_room_count }
     validate :validate_step_free, if: -> { run_validation? :step_free }
     validate :validate_allow_eoi_pet, if: -> { run_validation? :allow_pet }
     validate :validate_user_research, if: -> { run_validation? :user_research }
@@ -173,6 +173,20 @@ private
       errors.add(:number_adults, I18n.t(:number_adults_zero, scope: :error))
     elsif !@is_residential_property && @is_number_adults_integer && @number_adults.to_i.zero? && @is_number_children_integer && number_children.to_i.positive?
       errors.add(:number_adults, I18n.t(:child_without_adult, scope: :error))
+    end
+  end
+
+  def validate_number_bedrooms
+    if @single_room_count.to_i.zero? && @double_room_count.to_i.zero?
+      errors.add(:single_room_count, I18n.t(:invalid_minimum_room_count, scope: :error))
+      #errors.add(:double_room_count, I18n.t(:invalid_minimum_room_count, scope: :error))
+    else
+      if @single_room_count.blank? || ((@single_room_count.to_i > 9) || @single_room_count.to_i.negative?)
+        errors.add(:single_room_count, I18n.t(:invalid_room_count, scope: :error))
+      end
+      if @double_room_count.blank? || ((@double_room_count.to_i > 9) || @double_room_count.to_i.negative?)
+        errors.add(:double_room_count, I18n.t(:invalid_room_count, scope: :error))
+      end
     end
   end
 
