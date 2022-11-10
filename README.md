@@ -26,7 +26,7 @@ The, [C4 container diagram](https://https://c4model.com/#ContainerDiagram) is in
 
 Alerts are configured in [Grafana](https://ukraine-sponsor-resettlement-monitoring-grafana.london.cloudapps.digital/d/0it5-vEnk/production) and push to the following destinations:
 
-- __#homes-for-ukraine-alerts__, [DLUHC](https://www.gov.uk/government/organisations/department-for-levelling-up-housing-and-communities) managed Slack channel
+- **#homes-for-ukraine-alerts**, [DLUHC](https://www.gov.uk/government/organisations/department-for-levelling-up-housing-and-communities) managed Slack channel
 - [PagerDuty](https://madetech.eu.pagerduty.com/), MadeTech managed instance.
 - Email to the team. (Find the email address defined in the grafana alerts)
 
@@ -52,6 +52,7 @@ Alternatively, to run the rails app in the foreground so that you can see its ou
 The Rails server should start on <http://localhost:8080>
 
 ### Running tests
+
 Run: `make test`
 
 NB: The container will be destroyed when the tests complete, which means that the coverage report will be lost.
@@ -74,6 +75,7 @@ For example, to copy to the coverage report to the current working directory on 
 `docker cp ukraine-sponsor-resettlement-test-1:/app/coverage .`
 
 You can then terminate the testing container with ctrl-c.
+
 ## Database migrations
 
 Database migrations are required to make changes to the database
@@ -94,13 +96,13 @@ This application is running on GovUK PaaS (https://www.cloud.service.gov.uk/). T
 Please note: this takes up to about 15 minutes & "tiny-unencrypted-13" is the only size available on the free tier
 
 1. To create the S3 bucket:\
-    `cf create-service aws-s3-bucket default ukraine-sponsor-resettlement-<target environment>-s3`
+   `cf create-service aws-s3-bucket default ukraine-sponsor-resettlement-<target environment>-s3`
 
 2. Bind the service:\
-    `cf bind-service ukraine-sponsor-resettlement-<target environment> ukraine-sponsor-resettlement-<target environment>-s3 -c '{"permissions": "read-write"}'`
+   `cf bind-service ukraine-sponsor-resettlement-<target environment> ukraine-sponsor-resettlement-<target environment>-s3 -c '{"permissions": "read-write"}'`
 
 3. Restage App:\
-    `cf restage ukraine-sponsor-resettlement-<target environment>`
+   `cf restage ukraine-sponsor-resettlement-<target environment>`
 
 #### Deployments
 
@@ -134,7 +136,7 @@ actions will also fail with the message\
 #### Querying database
 
 You will need the Conduit plug-in installed\
-    `cf install-plugin conduit`
+ `cf install-plugin conduit`
 
 1. Contact 1password manager to get access to the Ukraine Resettlement vault for deployment credentials
 
@@ -144,10 +146,14 @@ You will need the Conduit plug-in installed\
    `cf login --sso`
 
 4. Connect to database:\
-    `cf conduit ukraine-sponsor-resettlement-<target environment>-postgres -c '{"read_only": true}' -- psql`
+   `cf conduit ukraine-sponsor-resettlement-<target environment>-postgres -c '{"read_only": true}' -- psql`
 
-    You will now be able to run SQL queries that require a ";" at the end to execute the query - for example:\
-    `select count(*) from additional_info;`
+   You will now be able to run SQL queries that require a ";" at the end to execute the query - for example:\
+   `select count(*) from additional_info;`
 
 5. Disconnect:\
-    `exit`
+   `exit`
+
+#### Automated tests
+
+This repository features automated tests run through [Cypress](https://www.cypress.io/). Setup and instructions can be found [here](automated_tests/README.md)
