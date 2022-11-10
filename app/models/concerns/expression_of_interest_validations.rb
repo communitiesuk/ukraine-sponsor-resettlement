@@ -177,9 +177,11 @@ private
   end
 
   def validate_number_bedrooms
-    if @single_room_count.to_i.zero? && @double_room_count.to_i.zero?
-      errors.add(:single_room_count, I18n.t(:invalid_minimum_room_count, scope: :error))
-      errors.add(:double_room_count, I18n.t(:invalid_minimum_room_count, scope: :error))
+    if @single_room_count.blank? && @double_room_count.blank?
+      errors.add(:single_room_count, I18n.t(:invalid_room_count, scope: :error))
+      errors.add(:double_room_count, I18n.t(:invalid_room_count, scope: :error))
+    elsif @single_room_count.to_i.zero? && @double_room_count.to_i.zero?
+      errors.add(:base, I18n.t(:invalid_minimum_room_count, scope: :error))
     else
       if @single_room_count.blank? || ((@single_room_count.to_i > 9) || @single_room_count.to_i.negative?)
         errors.add(:single_room_count, I18n.t(:invalid_room_count, scope: :error))

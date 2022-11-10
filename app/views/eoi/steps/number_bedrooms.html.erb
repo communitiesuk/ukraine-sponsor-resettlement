@@ -22,13 +22,16 @@
       <%= f.govuk_text_field :single_room_count,
         label: { text: 'Single bedrooms' },
         type: "number",
-        width: 2
+        width: 2,
+        min: 0,
+        max: 9
       %>
       <%= f.govuk_text_field :double_room_count,
         label: { text: 'Double bedrooms' },
         type: "number",
+        width: 2,
         min: 0,
-        width: 2
+        max: 9
       %>
       <%= f.govuk_submit t('continue') %>
     <% end %>
