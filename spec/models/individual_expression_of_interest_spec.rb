@@ -59,13 +59,13 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
       app = described_class.new
       app.single_room_count = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:single_room_count]).to include("You must enter a number from 0 to 999")
+      expect(app.errors[:single_room_count]).to include("You must enter a number from 0 to 9")
       app.single_room_count = "-1"
       expect(app.valid?).to be(false)
-      expect(app.errors[:single_room_count]).to include("You must enter a number from 0 to 999")
+      expect(app.errors[:single_room_count]).to include("You must enter a number from 0 to 9")
       app.single_room_count = "1000"
       expect(app.valid?).to be(false)
-      expect(app.errors[:single_room_count]).to include("You must enter a number from 0 to 999")
+      expect(app.errors[:single_room_count]).to include("You must enter a number from 0 to 9")
       app.single_room_count = "5"
       expect(app.valid?).to be(true)
     end
@@ -74,13 +74,13 @@ RSpec.describe IndividualExpressionOfInterest, type: :model do
       app = described_class.new
       app.double_room_count = ""
       expect(app.valid?).to be(false)
-      expect(app.errors[:double_room_count]).to include("You must enter a number from 0 to 999")
+      expect(app.errors[:double_room_count]).to include("You must enter a number from 0 to 9")
       app.double_room_count = "-1"
       expect(app.valid?).to be(false)
-      expect(app.errors[:double_room_count]).to include("You must enter a number from 0 to 999")
+      expect(app.errors[:double_room_count]).to include("You must enter a number from 0 to 9")
       app.double_room_count = "1000"
       expect(app.valid?).to be(false)
-      expect(app.errors[:double_room_count]).to include("You must enter a number from 0 to 999")
+      expect(app.errors[:double_room_count]).to include("You must enter a number from 0 to 9")
       app.double_room_count = "5"
       expect(app.valid?).to be(true)
     end
