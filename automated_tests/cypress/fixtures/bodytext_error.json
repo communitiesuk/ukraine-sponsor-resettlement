@@ -7,6 +7,9 @@
   "townorcity_err_msg": "You must enter a town or city",
   "postcode_err_msg": "You must enter a valid UK postcode",
   "number_of_ppl_err_msg": "You must enter a number from 1-9",
-  "number_of_brooms_err_msg": "You must enter a number from 1-9",
-  "consent_err_msg": "You must tick the box to continue"
+  "consent_err_msg": "You must tick the box to continue",
+  "err_summery_title_msg": "There is a problem",
+  "start_date_err_msg": "Enter a valid start date",
+  "number_of_brooms_err_msg": "You must enter a number from 1-9"
+
 }

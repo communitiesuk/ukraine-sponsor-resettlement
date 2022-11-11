@@ -1,10 +1,7 @@
 require('cypress-xpath');
 const elements = require('../../page_elements/EOI/eoi_elements')
-const error = require('../../../fixtures/bodytext_error.json')
-import { faker } from '@faker-js/faker';
-const randomBuildingNo = faker.address.buildingNumber()
-const randomStreetadd = faker.address.streetAddress()
-const randomCityName = faker.address.cityName()
+
+
 
 export const adults_and_children_nv = () => {
     cy.visit('https://ukraine:r3fug3@ukraine-sponsor-resettlement-staging.london.cloudapps.digital/expression-of-interest/steps/10')
