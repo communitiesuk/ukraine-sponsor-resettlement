@@ -130,5 +130,170 @@ RSpec.describe "Individual expression of interest", type: :system do
 
       expect(page).to have_content("Error: You must enter a valid UK postcode")
     end
+
+    it "won't allow no choice on more properties question" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      eoi_enter_sponsor_contact_details
+      eoi_enter_address
+      eoi_choose_option("Yes")
+      eoi_enter_address(line1: "Street1", town: "DifferentTown", postcode: "TE3 3ST")
+      click_on("Continue")
+
+      expect(page).to have_content("Error: You must select an option to continue")
+    end
+
+    it "won't allow no choice on how soon question" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      eoi_enter_sponsor_contact_details
+      eoi_enter_address
+      eoi_choose_option("Yes")
+      eoi_enter_address(line1: "Street1", town: "DifferentTown", postcode: "TE3 3ST")
+      eoi_choose_option("Yes")
+      click_on("Continue")
+      click_on("Continue")
+
+      expect(page).to have_content("Error: You must select an option to continue")
+      expect(page).to have_no_content("Error: Enter a valid start date")
+    end
+
+    it "validates no entry for hosting start date" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      eoi_enter_sponsor_contact_details
+      eoi_enter_address
+      eoi_choose_option("Yes")
+      eoi_enter_address(line1: "Street1", town: "DifferentTown", postcode: "TE3 3ST")
+      eoi_choose_option("Yes")
+      click_on("Continue")
+      choose("From a specific date")
+      click_on("Continue")
+
+      expect(page).to have_content("Error: Enter a valid start date")
+    end
+
+    it "wont allow hosting start date to be in the past" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      eoi_enter_sponsor_contact_details
+      eoi_enter_address
+      eoi_choose_option("Yes")
+      eoi_enter_address(line1: "Street1", town: "DifferentTown", postcode: "TE3 3ST")
+      eoi_choose_option("Yes")
+      click_on("Continue")
+      choose("From a specific date")
+
+      eoi_fill_in_date_of_birth(Time.zone.now.utc - 1.year)
+
+      expect(page).to have_content("Error: Enter a valid start date")
+    end
+
+    it "wont allow blank adult field" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      eoi_enter_sponsor_contact_details
+      eoi_enter_address
+      eoi_choose_option("Yes")
+      eoi_enter_address(line1: "Street1", town: "DifferentTown", postcode: "TE3 3ST")
+      eoi_choose_option("Yes")
+      click_on("Continue")
+      choose("From a specific date")
+      eoi_fill_in_date_of_birth(Time.zone.now.utc + 1.year)
+      fill_in("Children", with: "2")
+      click_on("Continue")
+
+      expect(page).to have_content("Error: You must enter a number from 0-9")
+    end
+
+    it "wont allow blank child field" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      eoi_enter_sponsor_contact_details
+      eoi_enter_address
+      eoi_choose_option("Yes")
+      eoi_enter_address(line1: "Street1", town: "DifferentTown", postcode: "TE3 3ST")
+      eoi_choose_option("Yes")
+      click_on("Continue")
+      choose("From a specific date")
+      eoi_fill_in_date_of_birth(Time.zone.now.utc + 1.year)
+      fill_in("Adult", with: "2")
+      click_on("Continue")
+
+      expect(page).to have_content("Error: You must enter a number from 0-9")
+    end
+
+    it "wont allow children without adult" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      eoi_enter_sponsor_contact_details
+      eoi_enter_address
+      eoi_choose_option("Yes")
+      eoi_enter_address(line1: "Street1", town: "DifferentTown", postcode: "TE3 3ST")
+      eoi_choose_option("Yes")
+      click_on("Continue")
+      choose("From a specific date")
+      eoi_fill_in_date_of_birth(Time.zone.now.utc + 1.year)
+      fill_in("Adult", with: "0")
+      fill_in("Children", with: "3")
+      click_on("Continue")
+
+      expect(page).to have_content("Error: There must be at least 1 adult living with children")
+    end
+
+    it "wont allow no choice on refugee preference" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      eoi_enter_sponsor_contact_details
+      eoi_enter_address
+      eoi_choose_option("Yes")
+      eoi_enter_address(line1: "Street1", town: "DifferentTown", postcode: "TE3 3ST")
+      eoi_choose_option("Yes")
+      click_on("Continue")
+      choose("From a specific date")
+      eoi_fill_in_date_of_birth(Time.zone.now.utc + 1.year)
+      eoi_people_at_address
+      click_on("Continue")
+
+      expect(page).to have_content("Error: You must select an option to continue")
+    end
+
+    it "wont allow no entry on bedroom questions" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      eoi_enter_sponsor_contact_details
+      eoi_enter_address
+      eoi_choose_option("Yes")
+      eoi_enter_address(line1: "Street1", town: "DifferentTown", postcode: "TE3 3ST")
+      eoi_choose_option("Yes")
+      click_on("Continue")
+      choose("From a specific date")
+      eoi_fill_in_date_of_birth(Time.zone.now.utc + 1.year)
+      eoi_people_at_address
+      eoi_sponsor_refugee_preference
+      click_on("Continue")
+
+      expect(page).to have_content("Error: You must enter a number from 0 to 9")
+    end
+
+    it "wont allow both zeros on bedroom questions" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      eoi_enter_sponsor_contact_details
+      eoi_enter_address
+      eoi_choose_option("Yes")
+      eoi_enter_address(line1: "Street1", town: "DifferentTown", postcode: "TE3 3ST")
+      eoi_choose_option("Yes")
+      click_on("Continue")
+      choose("From a specific date")
+      eoi_fill_in_date_of_birth(Time.zone.now.utc + 1.year)
+      eoi_people_at_address
+      eoi_sponsor_refugee_preference
+      fill_in("expression-of-interest-single-room-count-field", with: 0)
+      fill_in("expression-of-interest-double-room-count-field", with: 0)
+      click_on("Continue")
+
+      expect(page).to have_content("You must enter a number from 1 to 9 in either field")
+    end
   end
 end
