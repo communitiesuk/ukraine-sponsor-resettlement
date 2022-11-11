@@ -295,5 +295,86 @@ RSpec.describe "Individual expression of interest", type: :system do
 
       expect(page).to have_content("You must enter a number from 1 to 9 in either field")
     end
+
+    it "wont allow no choice on step free question" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      eoi_enter_sponsor_contact_details
+      eoi_enter_address
+      eoi_choose_option("Yes")
+      eoi_enter_address(line1: "Street1", town: "DifferentTown", postcode: "TE3 3ST")
+      eoi_choose_option("Yes")
+      click_on("Continue")
+      choose("From a specific date")
+      eoi_fill_in_date_of_birth(Time.zone.now.utc + 1.year)
+      eoi_people_at_address
+      eoi_sponsor_refugee_preference
+      eoi_number_of_rooms
+      click_on("Continue")
+
+      expect(page).to have_content("You must select an option to continue")
+    end
+
+    it "wont allow no choice on pets question" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      eoi_enter_sponsor_contact_details
+      eoi_enter_address
+      eoi_choose_option("Yes")
+      eoi_enter_address(line1: "Street1", town: "DifferentTown", postcode: "TE3 3ST")
+      eoi_choose_option("Yes")
+      click_on("Continue")
+      choose("From a specific date")
+      eoi_fill_in_date_of_birth(Time.zone.now.utc + 1.year)
+      eoi_people_at_address
+      eoi_sponsor_refugee_preference
+      eoi_number_of_rooms
+      choose("Yes, all")
+      click_on("Continue")
+      click_on("Continue")
+
+      expect(page).to have_content("You must select an option to continue")
+    end
+
+    it "wont allow no choice on research question" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      eoi_enter_sponsor_contact_details
+      eoi_enter_address
+      eoi_choose_option("Yes")
+      eoi_enter_address(line1: "Street1", town: "DifferentTown", postcode: "TE3 3ST")
+      eoi_choose_option("Yes")
+      click_on("Continue")
+      choose("From a specific date")
+      eoi_fill_in_date_of_birth(Time.zone.now.utc + 1.year)
+      eoi_people_at_address
+      eoi_sponsor_refugee_preference
+      eoi_number_of_rooms
+      eoi_accessibility_info
+      click_on("Continue")
+
+      expect(page).to have_content("You must select an option to continue")
+    end
+
+    it "wont allow no choice on privacy statement question" do
+      eoi_skip_to_questions
+      eoi_enter_sponsor_name
+      eoi_enter_sponsor_contact_details
+      eoi_enter_address
+      eoi_choose_option("Yes")
+      eoi_enter_address(line1: "Street1", town: "DifferentTown", postcode: "TE3 3ST")
+      eoi_choose_option("Yes")
+      click_on("Continue")
+      choose("From a specific date")
+      eoi_fill_in_date_of_birth(Time.zone.now.utc + 1.year)
+      eoi_people_at_address
+      eoi_sponsor_refugee_preference
+      eoi_number_of_rooms
+      eoi_accessibility_info
+      eoi_choose_option("Yes")
+      click_on("Continue")
+
+      expect(page).to have_content("You must tick the box to continue")
+    end
   end
 end
