@@ -226,12 +226,19 @@ export const accommodation_details_ev_s11 = () => {
 
 //changes will be done here
 export const no_of_bedrooms_ev_s12 = () => {
+
     cy.get(elements.page_heading).contains('How many bedrooms are available for guests in the property you’re registering now?').should('be.visible')
     cy.get(elements.continue_button).click().wait(1000)
     cy.get(elements.sbedroom_error).should("contain.text", "You must enter a number from 0 to 9")
     cy.get(elements.dbbedroom_error).should("contain.text", "You must enter a number from 0 to 9")
-    cy.get(elements.sbedroom_textbox_error).clear().type(1001)
-    cy.get(elements.dbbedroom_textbox_error).clear().type(1)
+    cy.get(elements.sbedroom_textbox_error).clear().type(0)
+    cy.get(elements.dbbedroom_textbox_error).clear().type(0)
+    cy.get(elements.continue_button).click().wait(1000)
+    cy.get(elements.error_summery_error_list_first).contains(error.number_of_brooms_err_msg).should('be.visible').wait(500)
+    cy.get(elements.sbedroom_error).should('not.exist')
+    cy.get(elements.dbbedroom_error).should('not.exist').wait(500)
+    cy.get(elements.sbedroom_textbox).clear().type(1001)
+    cy.get(elements.dbbedroom_textbox).clear().type(1)
     cy.get(elements.continue_button).click().wait(500)
     cy.get(elements.sbedroom_error).should("contain.text", "You must enter a number from 0 to 9")
     cy.get(elements.sbedroom_textbox_error).clear().type(1)
@@ -307,7 +314,7 @@ export const check_your_answers = () => {
     cy.get(elements.cya_pets).should("contain.text", 'No')
     cy.get(elements.cya_research).should("contain.text", 'No')
     cy.get(elements.cya_pstatement).should("contain.text", 'Agreed')
-    
+
 }
 
 

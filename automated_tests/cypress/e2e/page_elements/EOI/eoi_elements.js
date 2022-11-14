@@ -10,21 +10,22 @@ var page_elements = {
     error_validation_radio_label: ".govuk-error-message",
     continue_button: "button[type='submit']",
     error_summery_title: "#error-summary-title",
-    hinttext:".govuk-hint",
-    error_sbox_sel_option_msg:"//a[normalize-space()='You must select an option to continue']",
+    error_summery_error_list_first: ".govuk-error-summary__list > li > a",
+    hinttext: ".govuk-hint",
+    error_sbox_sel_option_msg: "//a[normalize-space()='You must select an option to continue']",
     //step1-3 
     fullname_label: "label[for='expression-of-interest-fullname-field']",
     fullname_textbox: "#expression-of-interest-fullname-field",
     fullname_error_label: "#expression-of-interest-fullname-error",
     fullname_error_sbox_msg: "//a[normalize-space()='You must enter your full name']",
     fullname_error_textbox: "#expression-of-interest-fullname-field-error",
-    email_label:"label[for='expression-of-interest-email-field']",
+    email_label: "label[for='expression-of-interest-email-field']",
     email_textbox: "#expression-of-interest-email-field",
     email_error_label: "#expression-of-interest-email-error",
     email_error_textbox: "#expression-of-interest-email-field-error",
     email_error_sbox_msg: "a[data-turbo='false']",
-    phonenumber_label:"label[for='expression-of-interest-phone-number-field']",
-    phonenumber_textbox:'#expression-of-interest-phone-number-field',
+    phonenumber_label: "label[for='expression-of-interest-phone-number-field']",
+    phonenumber_textbox: '#expression-of-interest-phone-number-field',
     phonenumber_error_label: "#expression-of-interest-phone-number-error",
     phonenumber_error_textbox: "#expression-of-interest-phone-number-field-error",
     pnonenumber_error_sbox_msg: "//a[normalize-space()='You must enter a valid phone number']",
@@ -76,10 +77,10 @@ var page_elements = {
     sdate_error_sbox_msg: "//a[normalize-space()='Enter a valid start date']",
 
 
-    day_textbox:"#expression_of_interest_hosting_start_date_3i",
-    day_textbox_error:"#expression-of-interest-hosting-start-date-field-error",
-    month_textbox:"#expression_of_interest_hosting_start_date_2i",
-    year_textbox:"#expression_of_interest_hosting_start_date_1i",
+    day_textbox: "#expression_of_interest_hosting_start_date_3i",
+    day_textbox_error: "#expression-of-interest-hosting-start-date-field-error",
+    month_textbox: "#expression_of_interest_hosting_start_date_2i",
+    year_textbox: "#expression_of_interest_hosting_start_date_1i",
 
     adults_textbox: "#expression-of-interest-number-adults-field",
     adults_textbox_error: "#expression-of-interest-number-adults-field-error",
@@ -98,9 +99,9 @@ var page_elements = {
     sbedroom_error: "#expression-of-interest-single-room-count-error",
     sbedroom_textbox_error: "#expression-of-interest-single-room-count-field-error",
 
-    dbbedroom_textbox: "#expression-of-interest-double-room-count-field", 
-    dbbedroom_error: "#expression-of-interest-double-room-count-error", 
-    dbbedroom_textbox_error: "#expression-of-interest-double-room-count-field-error", 
+    dbbedroom_textbox: "#expression-of-interest-double-room-count-field",
+    dbbedroom_error: "#expression-of-interest-double-room-count-error",
+    dbbedroom_textbox_error: "#expression-of-interest-double-room-count-field-error",
     //step13
     stepfree_yta_radiobtn: "#expression-of-interest-step-free-all-field",
     stepfree_error_label: "#expression-of-interest-step-free-error",
@@ -110,23 +111,23 @@ var page_elements = {
     pets_error_label: "#expression-of-interest-allow-pet-error",
     pets_yes_radiobtn: "#expression-of-interest-allow-pet-yes-field",
     pets_no_radiobtn_error: "#expression-of-interest-allow-pet-no-field",
-    pets_error_sbox_msg:"a[data-turbo='false']",
+    pets_error_sbox_msg: "a[data-turbo='false']",
     //step15
     research_heading: ".govuk-fieldset__legend.govuk-fieldset__legend--m",
     research_yes_radiobtn: "#expression-of-interest-user-research-yes-field",
     research_error_label: "#expression-of-interest-user-research-error",
     research_no_radiobtn_error: "#expression-of-interest-user-research-no-field",
-    research_error_sbox_msg:"a[data-turbo='false']",
+    research_error_sbox_msg: "a[data-turbo='false']",
     //step16
     consent_heading: ".govuk-fieldset__legend.govuk-fieldset__legend--m",
     consent_checkbox: "#expression-of-interest-agree-privacy-statement-true-field",
     consent_checkbox_error: "#expression-of-interest-agree-privacy-statement-field-error",
     consent_error_label: "#expression-of-interest-agree-privacy-statement-error",
-    consent_error_sbox_msg:"a[data-turbo='false']",
+    consent_error_sbox_msg: "a[data-turbo='false']",
     //check your answers
     cya_name: "body > div:nth-child(5) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(3) > div:nth-child(1) > dd:nth-child(2)",
-    cya_email:"body > div:nth-child(5) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(3) > div:nth-child(2) > dd:nth-child(2)",
-    cya_phone:"body > div:nth-child(5) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(3) > div:nth-child(3) > dd:nth-child(2)",
+    cya_email: "body > div:nth-child(5) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(3) > div:nth-child(2) > dd:nth-child(2)",
+    cya_phone: "body > div:nth-child(5) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(3) > div:nth-child(3) > dd:nth-child(2)",
     registration_complete_heading: ".govuk-panel__title",
     ref_number: "div[class='govuk-panel__body'] strong",
     cya_res_address: "body > div:nth-child(5) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(3) > div:nth-child(4) > dd:nth-child(2)",
@@ -146,9 +147,9 @@ var page_elements = {
     cya_pstatement: "body > div:nth-child(5) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(9) > div:nth-child(8) > dd:nth-child(2)",
 
 
-    
 
-    
+
+
 };
 module.exports = page_elements;
 
