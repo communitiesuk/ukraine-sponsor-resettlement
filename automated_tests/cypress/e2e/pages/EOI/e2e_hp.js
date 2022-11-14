@@ -2,12 +2,6 @@ require('cypress-xpath');
 const elements = require('../../page_elements/EOI/eoi_elements')
 const bodytext = require('../../../fixtures/bodytext.json')
 const secrets = require('../../../fixtures/bodytext_secrets.json')
-import { faker } from '@faker-js/faker';
-const randomName = faker.name.fullName()
-const randonBuildingNo = faker.address.buildingNumber()
-const randomStreetadd = faker.address.streetAddress()
-const randomCityName = faker.address.cityName()
-const randomPhoneno = faker.phone.phoneNumber('+00 00 00# ## ##')
 
 
 export const eoi_eligibility_check = () => {
@@ -32,30 +26,30 @@ export const eoi_eligibility_check = () => {
 
 export const your_details_page = () => {
     cy.get(elements.fullname_label).contains('Enter your full name').should('be.visible').wait(500)
-    cy.get(elements.fullname_textbox).clear().type(randomName).wait(200)
+    cy.get(elements.fullname_textbox).clear().type(secrets.user_name).wait(200)
     cy.get(elements.continue_button).click().wait(500)
     cy.get(elements.email_label).contains('Enter your email address').should('be.visible').wait(500)
     cy.get(elements.email_textbox).clear().type(secrets.email).wait(500)
     cy.get(elements.continue_button).click().wait(500)
     cy.get(elements.phonenumber_label).contains('Enter your contact telephone number').should('be.visible').wait(500)
-    cy.get(elements.phonenumber_textbox).clear().type(randomPhoneno).wait(200)
+    cy.get(elements.phonenumber_textbox).clear().type(secrets.phoneno).wait(200)
     cy.get(elements.continue_button).click().wait(1000)
 }
 
 export const your_property_address = () => {
     cy.get(elements.page_heading).contains('Enter your full residential address').should('be.visible').wait(500)
-    cy.get(elements.addressl1_textbox).clear().type(randonBuildingNo).wait(200)
-    cy.get(elements.addressl2_textbox).clear().type(randomStreetadd).wait(200)
-    cy.get(elements.townorcity_textbox).clear().type(randomCityName).wait(200)
+    cy.get(elements.addressl1_textbox).clear().type(secrets.building_no)
+    cy.get(elements.addressl2_textbox).clear().type(secrets.street)
+    cy.get(elements.townorcity_textbox).clear().type(secrets.city)
     cy.get(elements.postcode_textbox).clear().type('NW10 3WE').wait(200)
     cy.get(elements.continue_button).click().wait(500)
     cy.get(elements.page_heading).contains('Is the property you’re offering at a different address to your home?').should('be.visible').wait(200)
     cy.get(elements.difadd_yes_radiobtn).click().wait(200)
-    cy.get(elements.continue_button).click().wait(1000)
-    cy.get(elements.page_heading).contains("Enter the address of the property you're offering").should('be.visible').wait(500)
+    cy.get(elements.continue_button).click().wait(500)
+    cy.get(elements.page_heading).contains("Enter the address of the property you're offering").should('be.visible').wait(200)
     cy.get(elements.offering_addressl1_textbox).clear().type('Property One Address').wait(200)
-    cy.get(elements.offering_addressl2_textbox).clear().type(randomStreetadd).wait(200)
-    cy.get(elements.offering_townorcity_textbox).clear().type(randomCityName).wait(200)
+    cy.get(elements.offering_addressl2_textbox).clear().type(secrets.street)
+    cy.get(elements.offering_townorcity_textbox).clear().type(secrets.city)
     cy.get(elements.offering_postcode_textbox).clear().type('KT20 3KE').wait(200)
     cy.get(elements.continue_button).click().wait(1000)
 }
@@ -90,7 +84,7 @@ export const accommodation_details = () => {
 
 export const stepfree_access_details = () => {
     cy.get(elements.page_heading).contains('Does the property, or any of the properties, have step-free access?').should('be.visible').wait(500)
-    cy.get(elements.stepfacc_yta_radiobtn).click().wait(500)
+    cy.get(elements.stepfree_yta_radiobtn).click().wait(500)
     cy.get(elements.continue_button).click().wait(1000)
 }
 
@@ -114,9 +108,9 @@ export const consent = () => {
 
 export const check_your_answers = () => {
     cy.get(elements.page_heading).contains('Check your answers before sending your registration').should('be.visible').wait(200)
-    cy.get(elements.cya_name).contains(randomName).should('be.visible').wait(500)
+    cy.get(elements.cya_name).contains(secrets.user_name).should('be.visible').wait(500)
     cy.get(elements.cya_email).contains(secrets.email).should('be.visible')
-    cy.get(elements.cya_phone).contains(randomPhoneno).should('be.visible').wait(1000)
+    cy.get(elements.cya_phone).contains(secrets.phoneno).should('be.visible').wait(1000)
     cy.get(elements.cya_res_address).should("contain.text", 'NW10 3WE')
     cy.get(elements.cya_dif_address).should("contain.text", 'Yes')
     cy.get(elements.cya_p1_address).should("contain.text", 'Property One Address')
