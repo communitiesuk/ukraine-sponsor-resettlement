@@ -52,8 +52,9 @@ private
   def send_to(email_address)
     mail(to: email_address)
   rescue Notifications::Client::BadRequestError => e
-    if !Rails.env.production? && e.message.include?("Can't send to this recipient using a team-only API key")
-      # ignore
+    if Rails.env.staging? && e.message.include?("this recipient using a team-only API key")
+      # ignore / noop
+      nil
     else
       raise
     end
