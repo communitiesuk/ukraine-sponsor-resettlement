@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get "/expression-of-interest/self-assessment/challenges", to: "eoi#challenges"
   get "/expression-of-interest/self-assessment/can-you-commit", to: "eoi#can_you_commit"
   get "/expression-of-interest/self-assessment/your-info", to: "eoi#your_info"
+  get "/expression-of-interest/self-assessment/choose-country", to: "eoi#choose_country"
 
   get "/expression-of-interest/self-assessment/other-ways-to-help", to: "eoi#other_ways_to_help"
 
