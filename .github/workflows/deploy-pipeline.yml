@@ -42,7 +42,7 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-      
+
     env:
       RAILS_ENV: test
       INSTANCE_NAME: ukraine-sponsor-resettlement-test
@@ -53,8 +53,8 @@ jobs:
       DB_USERNAME: ukraine
       DB_PASSWORD: password
       GOVUK_NOTIFY_API_KEY: ${{ secrets.GOVUK_NOTIFY_API_KEY }}
-      FEATURE_EOI_JOURNEY_ENABLED: 'true'
-      FEATURE_EOI_CHOOSE_COUNTRY_ENABLED: 'true'
+      FEATURE_EOI_JOURNEY_ENABLED: "true"
+      FEATURE_EOI_CHOOSE_COUNTRY_ENABLED: "true"
 
     steps:
       - name: Checkout
@@ -97,14 +97,13 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
-          install: false
           working-directory: automated_tests
+          install: false
           start: bundle exec rails server -e test -p 8080
           # quote the url to be safe against YML parsing surprises
-          wait-on: 'http://localhost:8080'
+          wait-on: "http://localhost:8080"
           browser: chrome
-          headless: true
-
+          quiet: true
   lint:
     name: Lint
     runs-on: ubuntu-latest
