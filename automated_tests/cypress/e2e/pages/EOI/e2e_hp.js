@@ -20,6 +20,9 @@ export const eoi_eligibility_check = () => {
     cy.get(elements.page_heading).contains('Can you commit to hosting for at least 6 months?').should('be.visible')
     cy.get(elements.yes_radiobtn).click().wait(200)
     cy.get(elements.sa_continue_button).click().wait(500)
+    cy.get(elements.page_heading).contains('CHOOSE COUNTRY').should('be.visible')
+    cy.get(elements.england_radiobtn).click().wait(200)
+    cy.get(elements.sa_continue_button).click().wait(1000)
     cy.get(elements.page_heading).contains('Now we need your information').should('be.visible')
     cy.get(elements.sa_continue_button).click().wait(1000)
 }
