@@ -39,9 +39,11 @@ export const eoi_eligibility_check_ev_6months = () => {
     cy.get(elements.yes_radiobtn).click()
     cy.get(elements.sa_continue_button).click().wait(200)
 }
-
 export const eoi_eligibility_check_country = () => {
     cy.get(elements.page_heading).contains('CHOOSE COUNTRY').should('be.visible')
+    cy.get(elements.sa_continue_button).click().wait(200)
+    cy.get(elements.error_validation_radio_label).contains(error.radiobtn_error_msg).should('be.visible')
+    cy.get(elements.error_summery_title).contains(error.err_summery_title_msg).should('be.visible').wait(200)
     cy.get(elements.england_radiobtn).click().wait(200)
     cy.get(elements.sa_continue_button).click().wait(1000)
     cy.get(elements.page_heading).contains('Now we need your information').should('be.visible')
