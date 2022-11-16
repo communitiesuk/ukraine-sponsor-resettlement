@@ -1,4 +1,3 @@
-require('cypress-xpath');
 const elements = require('../../page_elements/EOI/eoi_elements')
 const bodytext = require('../../../fixtures/bodytext.json')
 const secrets = require('../../../fixtures/bodytext_secrets.json')
@@ -6,7 +5,6 @@ const secrets = require('../../../fixtures/bodytext_secrets.json')
 
 export const eoi_eligibility_check = () => {
     cy.visit('/')
-    //cy.visit('http://localhost:8080')
     cy.get(elements.coockies_accept).click().wait(1000)
     cy.get(elements.hide_coockie_msg).click().wait(1000)
     cy.get(elements.main_heading).contains("Homes for Ukraine: Register to host people already living in the UK").should('be.visible').wait(1000)

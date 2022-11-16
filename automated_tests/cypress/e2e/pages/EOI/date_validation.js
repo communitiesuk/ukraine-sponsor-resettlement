@@ -2,7 +2,7 @@ const elements = require('../../page_elements/EOI/eoi_elements')
 const error = require('../../../fixtures/bodytext_error.json')
 
 export const date_null = () => {
-    cy.visit('https://ukraine:r3fug3@ukraine-sponsor-resettlement-staging.london.cloudapps.digital/expression-of-interest/steps/9')
+    cy.visit('/expression-of-interest/steps/9')
     cy.get(elements.coockies_accept).click().wait(1000)
     cy.get(elements.hide_coockie_msg).click().wait(1000)
     cy.get(elements.start_hosting_heading).contains('How soon can you start hosting someone?').should('be.visible')

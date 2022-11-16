@@ -1,10 +1,10 @@
-require('cypress-xpath');
+require('cypress-xpath')
 const elements = require('../../page_elements/EOI/eoi_elements')
 
 
 
 export const adults_and_children_nv = () => {
-    cy.visit('https://ukraine:r3fug3@ukraine-sponsor-resettlement-staging.london.cloudapps.digital/expression-of-interest/steps/10')
+    cy.visit('/expression-of-interest/steps/10')
     cy.get(elements.coockies_accept).click().wait(1000)
     cy.get(elements.hide_coockie_msg).click().wait(1000)
     cy.get(elements.page_heading).contains('How many people normally live in the property you’re offering (not including guests)?').should('be.visible')
