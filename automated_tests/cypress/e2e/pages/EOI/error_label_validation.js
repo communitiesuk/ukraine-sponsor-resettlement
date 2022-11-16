@@ -193,7 +193,7 @@ export const how_soon_ev_s9 = () => {
     cy.xpath(elements.error_sbox_sel_option_msg).contains(error.radiobtn_error_msg).should('be.visible').wait(200)
     cy.get(elements.specific_date_radiobtn_error).click().wait(500)
     cy.get(elements.continue_button).click().wait(500)
-    cy.get(elements.sdate_error_label).contains(error.start_date_err_msg).should('be.visible')
+    cy.get(elements.day_textbox_error).contains(error.start_date_err_msg).should('be.visible')
     cy.get(elements.error_summery_title).contains(error.err_summery_title_msg).should('be.visible').wait(500)
     cy.xpath(elements.sdate_error_sbox_msg).contains(error.start_date_err_msg).should('be.visible').wait(200)
     cy.get(elements.day_textbox_error).clear().type('31')
