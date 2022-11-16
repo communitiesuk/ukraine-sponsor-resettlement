@@ -96,14 +96,14 @@ jobs:
 
       - name: Cypress run
         uses: cypress-io/github-action@v4
-          with:
-            install: false
-            working-directory: automated_tests
-            start: bundle exec rails server -e test -p 8080
-            # quote the url to be safe against YML parsing surprises
-            wait-on: 'http://localhost:8080'
-            browser: chrome
-            headless: true
+        with:
+          install: false
+          working-directory: automated_tests
+          start: bundle exec rails server -e test -p 8080
+          # quote the url to be safe against YML parsing surprises
+          wait-on: 'http://localhost:8080'
+          browser: chrome
+          headless: true
 
   lint:
     name: Lint
