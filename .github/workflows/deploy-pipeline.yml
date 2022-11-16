@@ -42,6 +42,7 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+      
     env:
       RAILS_ENV: test
       INSTANCE_NAME: ukraine-sponsor-resettlement-test
@@ -87,6 +88,22 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           minimum_suite_coverage: 70
           minimum_file_coverage: 0
+      - name: Setup cypress
+        uses: cypress-io/github-action@v4
+        with:
+          working-directory: automated_tests
+          runTests: false
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v4
+        with:
+          install: false
+          working-directory: automated_tests
+          start: bundle exec rails server -e test -p 8080
+          # quote the url to be safe against YML parsing surprises
+          wait-on: 'http://localhost:8080'
+          browser: chrome
+          headless: true
 
   lint:
     name: Lint
