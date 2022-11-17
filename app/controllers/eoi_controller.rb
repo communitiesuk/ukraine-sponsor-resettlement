@@ -4,7 +4,7 @@ class EoiController < ApplicationController
   def index; end
 
 
-  #somebigchangeformergecheck
+  # somebigchangeformergecheck
 
   def property_suitable
     render "eoi/steps/is_your_property_suitable"
