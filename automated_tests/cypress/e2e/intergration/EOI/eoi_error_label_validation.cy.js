@@ -5,7 +5,7 @@ describe('[Frontend-UI]: EOI FORM ERROR LABEL VALIDATION', function () {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });
   Cypress.Cookies.defaults({ preserve: '_ukraine_sponsor_resettlement_session' })
-  
+
   context('Self Assessment', function () {
     it('verify property suitability [start page]', function () {
       element.eoi_eligibility_check_ev_start()
@@ -19,7 +19,9 @@ describe('[Frontend-UI]: EOI FORM ERROR LABEL VALIDATION', function () {
     it('verify property suitability [hosting for at least 6 months]', function () {
       element.eoi_eligibility_check_ev_6months()
     })
-
+    it('verify country suitability [England+NI/Wales/Scotland]', function () {
+      element.eoi_eligibility_check_country()
+    })
   })
 
   context('Registration', function () {

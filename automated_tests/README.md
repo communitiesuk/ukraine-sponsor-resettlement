@@ -13,6 +13,12 @@ Install npm & cypress dependencies
 
 Test Runner
 
+_**IMPORTANT: The tests will be run against a local running instance of the project**_
+
+\_To run them against a staging/live instance, please use [the --env override](https://docs.cypress.io/guides/guides/environment-variables#Option-4-env)
+
+`npm run cy_open --env baseUrl="https://my.site.com/test"`
+
 - run `npm run cy_open` to open cypress test runnner
 - select & run test(s)
 

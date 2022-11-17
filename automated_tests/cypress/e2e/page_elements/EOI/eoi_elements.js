@@ -6,6 +6,7 @@ var page_elements = {
     page_heading: '.govuk-heading-l',
     start_button: "a[role='button']",
     yes_radiobtn: "input[value='yes']",
+    england_radiobtn: "input[value='England']",
     sa_continue_button: "#selfAssessmentContinueButton",
     error_validation_radio_label: ".govuk-error-message",
     continue_button: "button[type='submit']",

@@ -1,4 +1,4 @@
-require('cypress-xpath');
+require('cypress-xpath')
 const elements = require('../../page_elements/EOI/eoi_elements')
 const error = require('../../../fixtures/bodytext_error.json')
 const bodytext = require('../../../fixtures/bodytext.json')
@@ -7,7 +7,6 @@ const secrets = require('../../../fixtures/bodytext_secrets.json')
 
 export const eoi_eligibility_check_ev_start = () => {
     cy.visit('/').wait(1000)
-    //cy.visit('http://localhost:8080')
     cy.get(elements.coockies_accept).click().wait(500)
     cy.get(elements.hide_coockie_msg).click().wait(1000)
     cy.get(elements.main_heading).contains("Homes for Ukraine: Register to host people already living in the UK").should('be.visible')
@@ -39,6 +38,14 @@ export const eoi_eligibility_check_ev_6months = () => {
     cy.xpath(elements.error_sbox_sel_option_msg).contains(error.radiobtn_error_msg).should('be.visible').wait(200)
     cy.get(elements.yes_radiobtn).click()
     cy.get(elements.sa_continue_button).click().wait(200)
+}
+export const eoi_eligibility_check_country = () => {
+    cy.get(elements.page_heading).contains('CHOOSE COUNTRY').should('be.visible')
+    cy.get(elements.sa_continue_button).click().wait(200)
+    cy.get(elements.error_validation_radio_label).contains(error.radiobtn_error_msg).should('be.visible')
+    cy.get(elements.error_summery_title).contains(error.err_summery_title_msg).should('be.visible').wait(200)
+    cy.get(elements.england_radiobtn).click().wait(200)
+    cy.get(elements.sa_continue_button).click().wait(1000)
     cy.get(elements.page_heading).contains('Now we need your information').should('be.visible')
     cy.get(elements.sa_continue_button).click().wait(1000)
 }
@@ -253,7 +260,7 @@ export const no_of_bedrooms_ev_s12 = () => {
 }
 
 export const stepfree_access_details_ev_s13 = () => {
-    cy.visit('https://ukraine:r3fug3@ukraine-sponsor-resettlement-staging.london.cloudapps.digital/expression-of-interest/steps/13')
+    cy.visit('/expression-of-interest/steps/13').wait(1000)
     cy.get(elements.page_heading).contains('Does the property, or any of the properties, have step-free access?').should('be.visible')
     cy.get(elements.continue_button).click().wait(500)
     cy.get(elements.stepfree_error_label).contains(error.radiobtn_error_msg).should('be.visible')

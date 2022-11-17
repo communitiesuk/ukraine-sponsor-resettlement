@@ -1,10 +1,10 @@
-require('cypress-xpath');
+require('cypress-xpath')
 const elements = require('../../page_elements/EOI/eoi_elements')
 const error = require('../../../fixtures/bodytext_error.json')
 const secrets = require('../../../fixtures/bodytext_secrets.json')
 
 export const residential_address_nv = () => {
-    cy.visit('https://ukraine:r3fug3@ukraine-sponsor-resettlement-staging.london.cloudapps.digital/expression-of-interest/steps/4')
+    cy.visit('/expression-of-interest/steps/4').wait(1000)
     cy.get(elements.coockies_accept).click().wait(1000)
     cy.get(elements.hide_coockie_msg).click().wait(1000)
     cy.get(elements.page_heading).contains('Enter your full residential address').should('be.visible')
@@ -110,7 +110,7 @@ export const residential_address_av = () => {
 }
 
 export const offering_property_address_nv = () => {
-    cy.visit('https://ukraine:r3fug3@ukraine-sponsor-resettlement-staging.london.cloudapps.digital/expression-of-interest/steps/6')
+    cy.visit('/expression-of-interest/steps/6').wait(1000)
     cy.get(elements.page_heading).contains("Enter the address of the property you're offering").should('be.visible')
     cy.get(elements.offering_addressl1_textbox).clear()
     cy.get(elements.offering_addressl2_textbox).clear()
