@@ -5,7 +5,7 @@ on:
       branches:
         - master
   deployment:
-    environment: production
+    environment: "production"
   workflow_dispatch:
 
 
