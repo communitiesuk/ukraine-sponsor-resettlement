@@ -4,6 +4,10 @@ on:
       types: closed
       branches:
         - master
+  deployment:
+    environment: production
+  workflow_dispatch:
+
 jobs:
   test:
     name: Test
