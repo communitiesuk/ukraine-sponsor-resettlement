@@ -3,7 +3,6 @@ class EoiController < ApplicationController
 
   def index; end
 
-
   # somebigchangeformergecheck
 
   def property_suitable
