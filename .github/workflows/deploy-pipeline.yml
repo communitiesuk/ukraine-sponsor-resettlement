@@ -88,22 +88,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           minimum_suite_coverage: 70
           minimum_file_coverage: 0
-      - name: Setup cypress
-        uses: cypress-io/github-action@v4
-        with:
-          working-directory: automated_tests
-          runTests: false
-
-      - name: Cypress run
-        uses: cypress-io/github-action@v4
-        with:
-          working-directory: automated_tests
-          install: false
-          start: bundle exec rails server -e test -p 8080
-          # quote the url to be safe against YML parsing surprises
-          wait-on: "http://localhost:8080"
-          browser: chrome
-          quiet: true
   lint:
     name: Lint
     runs-on: ubuntu-latest
