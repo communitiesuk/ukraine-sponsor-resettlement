@@ -52,6 +52,10 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "16"
+      
+      - name: Compile Assets
+        run: |
+          bundle exec rake assets:precompile
 
       - name: Setup cypress
         uses: cypress-io/github-action@v4
