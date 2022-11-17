@@ -3,7 +3,7 @@ on:
   pull_request:
       types: closed
       branches:
-        - master
+        - dummy-branch-for-tests
 jobs:
   test:
     name: Test
