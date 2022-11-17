@@ -3,7 +3,12 @@ on:
   pull_request:
       types: closed
       branches:
-        - dummy-branch-for-tests
+        - master
+  deployment:
+    environment: production
+  workflow_dispatch:
+
+
 jobs:
   test:
     name: Test
