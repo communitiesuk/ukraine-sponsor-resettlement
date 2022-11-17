@@ -1,5 +1,9 @@
 name: Cypress_Run
-on: [pull_request]
+on: 
+  pull_request:
+      types: closed
+      branches:
+        - master
 jobs:
   test:
     name: Test
