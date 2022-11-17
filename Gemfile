@@ -36,6 +36,9 @@ gem "sentry-ruby"
 gem "aws-sdk-s3"
 gem "ratonvirus"
 
+# Postcode parsing
+gem "uk_postcode"
+
 group :development, :test do
   gem "brakeman"
   # Check gems for known vulnerabilities
