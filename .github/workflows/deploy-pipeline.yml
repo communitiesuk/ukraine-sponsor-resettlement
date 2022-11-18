@@ -91,7 +91,6 @@ jobs:
 
   cypress-tests:
     name: Cypress Tests
-    runs-on: ubuntu-latest
     uses: ./.github/workflows/cypress-run.yml
 
   lint:
