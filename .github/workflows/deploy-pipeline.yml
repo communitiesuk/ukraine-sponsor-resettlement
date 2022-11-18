@@ -89,10 +89,6 @@ jobs:
           minimum_suite_coverage: 70
           minimum_file_coverage: 0
 
-  cypress-tests:
-    name: Cypress Tests
-    uses: ./.github/workflows/cypress-run.yml
-
   lint:
     name: Lint
     runs-on: ubuntu-latest
@@ -148,13 +144,17 @@ jobs:
         run: |
           brakeman --color -o /dev/stdout
 
+  cypress-tests:
+    name: Cypress Tests
+    uses: ./.github/workflows/cypress-run.yml
+
   deploy-staging:
     name: Deploy Staging
     concurrency: "staging"
     runs-on: ubuntu-latest
     environment: "staging"
     if: github.ref == 'refs/heads/master'
-    needs: [lint, test, audit, brakeman-scan, cypress-tests]
+    needs: [lint, test, audit, brakeman-scan]
 
     env:
       ADDITIONAL_INFO_CONFIRMATION_TEMPLATE_ID: ${{ secrets.ADDITIONAL_INFO_CONFIRMATION_TEMPLATE_ID }}
@@ -277,13 +277,14 @@ jobs:
           cf set-env $APP_NAME UAM_GA_TRACKING_CODE $UAM_GA_TRACKING_CODE
           cf push -f worker-manifest.yml $APP_NAME --strategy rolling --no-wait
 
+
   deploy-production:
     name: Deploy Production
     concurrency: "production"
     runs-on: ubuntu-latest
     environment: "production"
     if: github.ref == 'refs/heads/master'
-    needs: [deploy-staging]
+    needs: [deploy-staging, cypress-tests]
 
     env:
       ADDITIONAL_INFO_CONFIRMATION_TEMPLATE_ID: ${{ secrets.ADDITIONAL_INFO_CONFIRMATION_TEMPLATE_ID }}
