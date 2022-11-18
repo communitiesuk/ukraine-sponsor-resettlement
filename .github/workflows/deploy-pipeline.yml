@@ -144,10 +144,6 @@ jobs:
         run: |
           brakeman --color -o /dev/stdout
 
-  cypress-tests:
-    name: Cypress Tests
-    uses: ./.github/workflows/cypress-run.yml
-
   deploy-staging:
     name: Deploy Staging
     concurrency: "staging"
@@ -277,6 +273,9 @@ jobs:
           cf set-env $APP_NAME UAM_GA_TRACKING_CODE $UAM_GA_TRACKING_CODE
           cf push -f worker-manifest.yml $APP_NAME --strategy rolling --no-wait
 
+  cypress-tests:
+    name: Cypress Tests
+    uses: ./.github/workflows/cypress-run.yml
 
   deploy-production:
     name: Deploy Production
