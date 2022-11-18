@@ -34,8 +34,9 @@ services:
       BASIC_AUTH_PASS: password
       FEATURE_EOI_JOURNEY_ENABLED: 'true'
       FEATURE_EOI_CHOOSE_COUNTRY_ENABLED: 'true'
-      UAM_GA_TRACKING_CODE: 'ga-uam-tracking-dev'
-      EOI_GA_TRACKING_CODE: 'ga-eoi-tracking-dev'
+      UAM_GA_TRACKING_CODE: 'UA-243629620-2'
+      EOI_GA_TRACKING_CODE: 'UA-243629620-1'
+
     ports:
       - 8080:8080
 

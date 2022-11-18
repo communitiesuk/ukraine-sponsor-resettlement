@@ -30,10 +30,6 @@ class EoiController < ApplicationController
   def your_info
     render "eoi/steps/now_we_need_your_info"
   end
-  
-  def cookies
-    render "eoi/cookies"
-  end
 
   def check_feature_flag
     redirect_to "/404" and return unless ENV["FEATURE_EOI_JOURNEY_ENABLED"] == "true"

@@ -6,6 +6,9 @@ Rails.application.routes.draw do
 
   get "/health", to: proc { [200, {}, %w[OK]] }
 
+  get "/cookies", to: "cookies#display"
+  post "/cookies", to: "cookies#post"
+
   get "/individual", to: redirect("/individual/steps/1")
   get "/individual/steps/:stage", to: "individual#display"
   post "/individual/steps/:stage", to: "individual#handle_step"
@@ -25,9 +28,6 @@ Rails.application.routes.draw do
   get "/expression-of-interest/self-assessment/can-you-commit", to: "eoi#can_you_commit"
   get "/expression-of-interest/self-assessment/your-info", to: "eoi#your_info"
   get "/expression-of-interest/self-assessment/choose-country", to: "eoi#choose_country"
-
-  get "/cookies", to: "eoi#cookies"
-
 
   get "/expression-of-interest/self-assessment/other-ways-to-help", to: "eoi#other_ways_to_help"
 
