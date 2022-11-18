@@ -1,17 +1,15 @@
 name: Cypress_Run
 on: 
-  pull_request:
-      types: closed
-      branches:
-        - master
-  deployment:
-    environment: "production"
+  push:
+    branches:
+      - master
   workflow_dispatch:
+  workflow_call:
 
 
 jobs:
-  test:
-    name: Test
+  cypress-tests:
+    name: Cypress Tests
     runs-on: ubuntu-latest
     services:
       postgres:

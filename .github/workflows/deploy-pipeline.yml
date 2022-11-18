@@ -88,6 +88,12 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           minimum_suite_coverage: 70
           minimum_file_coverage: 0
+
+  cypress-tests:
+    name: Cypress Tests
+    runs-on: ubuntu-latest
+    - uses: ./.github/workflows/cypress-run.yml@main
+
   lint:
     name: Lint
     runs-on: ubuntu-latest
@@ -149,7 +155,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: "staging"
     if: github.ref == 'refs/heads/master'
-    needs: [lint, test, audit, brakeman-scan]
+    needs: [lint, test, audit, brakeman-scan, cypress-tests]
 
     env:
       ADDITIONAL_INFO_CONFIRMATION_TEMPLATE_ID: ${{ secrets.ADDITIONAL_INFO_CONFIRMATION_TEMPLATE_ID }}
