@@ -26,6 +26,9 @@ Rails.application.routes.draw do
   get "/expression-of-interest/self-assessment/your-info", to: "eoi#your_info"
   get "/expression-of-interest/self-assessment/choose-country", to: "eoi#choose_country"
 
+  get "/cookies", to: "eoi#cookies"
+
+
   get "/expression-of-interest/self-assessment/other-ways-to-help", to: "eoi#other_ways_to_help"
 
   get "/expression-of-interest", to: redirect("/expression-of-interest/self-assessment/property-suitable")
