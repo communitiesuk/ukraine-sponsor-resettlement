@@ -273,13 +273,17 @@ jobs:
           cf set-env $APP_NAME UAM_GA_TRACKING_CODE $UAM_GA_TRACKING_CODE
           cf push -f worker-manifest.yml $APP_NAME --strategy rolling --no-wait
 
+  cypress-tests:
+    name: Cypress Tests
+    uses: ./.github/workflows/cypress-run.yml
+
   deploy-production:
     name: Deploy Production
     concurrency: "production"
     runs-on: ubuntu-latest
     environment: "production"
     if: github.ref == 'refs/heads/master'
-    needs: [deploy-staging]
+    needs: [deploy-staging, cypress-tests]
 
     env:
       ADDITIONAL_INFO_CONFIRMATION_TEMPLATE_ID: ${{ secrets.ADDITIONAL_INFO_CONFIRMATION_TEMPLATE_ID }}

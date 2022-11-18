@@ -1,15 +1,14 @@
 name: Cypress_Run
-on:
-  pull_request:
-    types: closed
+on: 
+  push:
     branches:
       - master
   workflow_dispatch:
+  workflow_call:
 
 jobs:
-  test:
-    if: github.event.pull_request.merged == true
-    name: E2E tests
+  cypress-tests:
+    name: Cypress Tests
     runs-on: ubuntu-latest
     services:
       postgres:
