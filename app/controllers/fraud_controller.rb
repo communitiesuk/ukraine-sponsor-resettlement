@@ -3,7 +3,7 @@ class FraudController < ApplicationController
 
   def display
     @abstractconfirm = AbstractConfirm.new
-    render "fraud/fraud_page"
+    render "fraud/fraud_page" 
   end
 
   def post
