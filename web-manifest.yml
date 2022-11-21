@@ -2,7 +2,7 @@
 defaults: &defaults
   buildpacks:
     - https://github.com/cloudfoundry/ruby-buildpack.git
-  command: git checkout tags/v1.8.59 && bundle exec rake cf:on_first_instance db:migrate && bin/rails server
+  command: bundle exec rake cf:on_first_instance db:migrate && bin/rails server
   instances: 2
   memory: 512M
   health-check-type: http
