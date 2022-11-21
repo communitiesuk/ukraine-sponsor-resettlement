@@ -1,0 +1,122 @@
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full-width">
+
+      <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+        <div class="govuk-notification-banner__header">
+          <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+            Success
+          </h2>
+        </div>
+        <div class="govuk-notification-banner__content">
+          <p class="govuk-notification-banner__heading">
+            You’ve set your cookie preferences
+          </p>
+          <p>
+            <a class="govuk-notification-banner__link" style="font-weight:normal" href="start">Go back to the page you were looking at</a>
+          </p>
+        </div>
+      </div>
+
+      <h1 class="govuk-heading-l">
+        Cookies on Homes for Ukraine
+      </h1>
+
+      <p>Cookies are small files saved on your phone, tablet or computer when you visit a website.
+      </br> </br>
+
+
+We use cookies to make this site work and collect information about how you use our service.</p>
+
+      <h2 class="govuk-heading-m">
+        Essential cookies
+      </h2>
+
+    
+      <p>Essential cookies are used to remember your cookie preferences. We do not need to ask permission to use them.</p>
+
+         <table class="govuk-table">
+        <!-- <caption class="govuk-table__caption govuk-table__caption--m">Dates and amounts</caption> -->
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Purpose</th>
+            <th scope="col" class="govuk-table__header">Expires</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">_ukraine_sponsor_resettlement_scheme</td>
+            <td class="govuk-table__cell">Saves your cookie consent settings</td>
+            <td class="govuk-table__cell">Session</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 class="govuk-heading-m">
+        Analytics cookies (optional)
+      </h2>
+
+      <p>
+        With your permission, we use Google Analytics to collect data about how you use our service. This information helps us to improve it.
+      </p>
+      <p>
+        Google isn’t allowed to use or share our analytics data. You can <a href="https://support.google.com/analytics/answer/6004245" class="govuk-link" rel="noreferrer noopener" target="_blank">read more in their privacy policy (opens in a new tab)</a>.
+      </p>
+      <p>
+        Google Analytics stores anonymised information about:
+      </p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>how you got to our service</li>
+        <li>the pages you visit on our service and how long you spend on them</li>
+        <li>any errors you see while using our service</li>
+      </ul>
+      <p>
+        No personal details are stored with this information, so you can’t be identified.
+      </p>
+
+      <table class="govuk-table">
+        <!-- <caption class="govuk-table__caption govuk-table__caption--m">Dates and amounts</caption> -->
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Name</th>
+            <th scope="col" class="govuk-table__header">Purpose</th>
+            <th scope="col" class="govuk-table__header">Expires</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">_ga </td>
+            <td class="govuk-table__cell">Distinguishes unique users</td>
+            <td class="govuk-table__cell">2 years</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">_gid</td>
+            <td class="govuk-table__cell">Stores information of how visitors use our site</td>
+            <td class="govuk-table__cell">24 hours</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">_gat</td>
+            <td class="govuk-table__cell">Throttles request rate</td>
+            <td class="govuk-table__cell">1 minute</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 class="govuk-heading-m">
+        Change your cookie settings
+      </h2>
+
+        <%= form_for @abstractcookies, url: "/cookies", method: :post do |f| %>
+          <%= f.govuk_collection_radio_buttons :cookies_accepted,
+              ['yes', 'no'].map{ |type| OpenStruct.new(id: type, name: t(type , scope: "expression_of_interest.different_address")) },
+              :id,
+              :name,
+              legend: { text: t('different_address.full', scope: "expression_of_interest.questions"), hidden:true }
+          %>
+
+          <%= f.govuk_submit t('Save cookie settings') %>
+        <% end %>
+
+    </div>
+  </div>
+

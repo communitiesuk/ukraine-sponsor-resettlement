@@ -21,7 +21,8 @@
         console.log(<%= session.to_json.html_safe %>)
       </script>
     <% end %>
-     <% if @cookie_accepted %>  
+     <% if @cookies_accepted == true %>   
+     
     <%= analytics_init if GoogleAnalytics.valid_tracker? %>
      <% end %>
 
