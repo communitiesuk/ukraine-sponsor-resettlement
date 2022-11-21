@@ -76,9 +76,6 @@ jobs:
       - name: Migrate DB
         run: |
           bundle exec rake db:migrate
-      - name: NPM audit fix
-        run: |
-          npm audit fix --force
       - name: Compile Assets
         run: |
           bundle exec rake assets:precompile
