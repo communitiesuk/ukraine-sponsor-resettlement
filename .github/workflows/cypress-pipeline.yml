@@ -1,13 +1,12 @@
 name: Cypress_Run
 on:
-  pull_request:
-    types: closed
-    branches:
-      - master
+  workflow_call:
+
 jobs:
   test:
-    name: Test
+    name: E2E tests
     runs-on: ubuntu-latest
+    environment: "production"
     services:
       postgres:
         image: postgres:13.5
@@ -55,4 +54,3 @@ jobs:
           # quote the url to be safe against YML parsing surprises
           wait-on: "http://localhost:8080"
           browser: chrome
-          headless: true
