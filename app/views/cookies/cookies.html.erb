@@ -93,10 +93,10 @@ We use cookies to make this site work and collect information about how you use 
 
         <%= form_for @abstractcookies, url: "/cookies", method: :post do |f| %>
           <%= f.govuk_collection_radio_buttons :cookies_accepted,
-              ['yes', 'no'].map{ |type| OpenStruct.new(id: type, name: t(type , scope: "expression_of_interest.different_address")) },
+              ['yes', 'no'].map{ |type| OpenStruct.new(id: type, name: t(type , scope: "en.yes_no_types")) },
               :id,
               :name,
-              legend: { text: t('different_address.full', scope: "expression_of_interest.questions"), hidden:true }
+              legend: { text:"Change your cookie settings", hidden:true }
           %>
 
           <%= f.govuk_submit t('Save cookie settings') %>
