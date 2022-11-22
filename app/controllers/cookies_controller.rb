@@ -3,7 +3,6 @@ class CookiesController < ApplicationController
 
   def display
     @abstractcookies = AbstractCookiesAccept.new
-
     render "cookies/cookies"
   end
 
@@ -13,6 +12,7 @@ class CookiesController < ApplicationController
 
     session[:cookies_accepted] = @abstractcookies.cookies_accepted.casecmp("yes").zero?.to_s
     @cookies_accepted = @abstractcookies.cookies_accepted.casecmp("yes").zero?
+    @cookies_updated = true
 
     display
   end
