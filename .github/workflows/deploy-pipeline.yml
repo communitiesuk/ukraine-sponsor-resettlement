@@ -144,9 +144,9 @@ jobs:
         run: |
           brakeman --color -o /dev/stdout
 
-  e2e-test:
-    name: E2E Tests
-    uses: ./.github/workflows/cypress-pipeline.yml
+  #e2e-test:
+  #  name: E2E Tests
+  #  uses: ./.github/workflows/cypress-pipeline.yml
 
   deploy-staging:
     name: Deploy Staging
