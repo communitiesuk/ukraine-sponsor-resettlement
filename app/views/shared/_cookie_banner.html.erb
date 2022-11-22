@@ -18,7 +18,8 @@
             <div id="cookie-banner__button-group" class="govuk-button-group">
             <%= link_to "Accept analytics cookies", request.original_url + '?cookies_accepted=true',  class: 'govuk-button cookie-button', method: :post, value:"accept"  %>
             <%= link_to "Reject analytics cookies", request.original_url + '?cookies_accepted=false',  class: 'govuk-button cookie-button', method: :post, value:"reject"  %>
-            
+             <a class="govuk-link" href="/cookies">View cookies</a>
+
             </div>
         </div>
            <% end %>  
@@ -30,7 +31,9 @@
         <div class="govuk-grid-column-two-thirds">
 
           <div class="govuk-cookie-banner__content">
-            <p class="govuk-body">You’ve  <%= @cookies_accepted ? "accepted" : 'rejected'  %>  additional cookies.</p>
+            <p class="govuk-body">You’ve  <%= @cookies_accepted ? "accepted" : 'rejected'  %>  additional cookies.                       
+            You can <a class="govuk-link" href="/cookies">change your cookie settings</a> at any time.</p>
+
           </div>
         </div>
       </div>

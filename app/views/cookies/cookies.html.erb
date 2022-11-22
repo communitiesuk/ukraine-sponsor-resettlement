@@ -1,21 +1,6 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full-width">
-
-      <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
-        <div class="govuk-notification-banner__header">
-          <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
-            Success
-          </h2>
-        </div>
-        <div class="govuk-notification-banner__content">
-          <p class="govuk-notification-banner__heading">
-            You’ve set your cookie preferences
-          </p>
-          <p>
-            <a class="govuk-notification-banner__link" style="font-weight:normal" href="start">Go back to the page you were looking at</a>
-          </p>
-        </div>
-      </div>
+    <%= render :partial => "shared/cookie_success" if @cookies_updated %>
 
       <h1 class="govuk-heading-l">
         Cookies on Homes for Ukraine
@@ -106,12 +91,16 @@ We use cookies to make this site work and collect information about how you use 
         Change your cookie settings
       </h2>
 
+      <h2 class="govuk-heading-s">
+        Do you want to accept analytics cookies?
+      </h2>
+
         <%= form_for @abstractcookies, url: "/cookies", method: :post do |f| %>
           <%= f.govuk_collection_radio_buttons :cookies_accepted,
-              ['yes', 'no'].map{ |type| OpenStruct.new(id: type, name: t(type , scope: "expression_of_interest.different_address")) },
+              ['yes', 'no'].map{ |type| OpenStruct.new(id: type, name: t(type , scope: "en.yes_no_types")) },
               :id,
               :name,
-              legend: { text: t('different_address.full', scope: "expression_of_interest.questions"), hidden:true }
+              legend: { text:"Change your cookie settings", hidden:true }
           %>
 
           <%= f.govuk_submit t('Save cookie settings') %>
