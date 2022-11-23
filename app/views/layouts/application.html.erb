@@ -21,14 +21,13 @@
         console.log(<%= session.to_json.html_safe %>)
       </script>
     <% end %>
-     <% if @cookies_accepted == true %>   
-     
+     <% if @cookies_accepted == true %>    
     <%= analytics_init if GoogleAnalytics.valid_tracker? %>
      <% end %>
 
   </head>
 
-  <body class="govuk-template__body ">
+  <body data-cookies-accepted=<%= session[:cookies_accepted ]%> class="govuk-template__body ">
 
     <script>
       document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
