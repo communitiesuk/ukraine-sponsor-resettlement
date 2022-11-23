@@ -10,7 +10,7 @@ var page_elements = {
     sa_continue_button: "#selfAssessmentContinueButton",
     error_validation_radio_label: ".govuk-error-message",
     continue_button: "button[type='submit']",
-    error_summery_title: "#error-summary-title",
+    error_summery_title: ".govuk-error-summary__title",
     error_summery_error_list_first: ".govuk-error-summary__list > li > a",
     hinttext: ".govuk-hint",
     error_sbox_sel_option_msg: "//a[normalize-space()='You must select an option to continue']",
