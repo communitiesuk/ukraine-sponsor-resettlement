@@ -95,7 +95,7 @@ We use cookies to make this site work and collect information about how you use 
         Do you want to accept analytics cookies?
       </h2>
 
-        <%= form_for @abstractcookies, url: "/cookies", method: :post do |f| %>
+        <%= form_for @abstractcookies, url: "/cookies?back_to=" + @back_to_link, method: :post do |f| %>
           <%= f.govuk_collection_radio_buttons :cookies_accepted,
               ['yes', 'no'].map{ |type| OpenStruct.new(id: type, name: t(type , scope: "en.yes_no_types")) },
               :id,

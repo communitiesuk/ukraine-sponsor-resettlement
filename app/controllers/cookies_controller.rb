@@ -3,6 +3,7 @@ class CookiesController < ApplicationController
 
   def display
     @abstractcookies = AbstractCookiesAccept.new
+    @back_to_link = params["back_to"] || URI(request.referer).path || "/"
     render "cookies/cookies"
   end
 
