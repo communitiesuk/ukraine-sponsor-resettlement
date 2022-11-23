@@ -40,7 +40,7 @@
 
 
         if(cookiesRejectButton) {
-            var cookiesAccepted = document.querySelector('[data-cookies-accepted]').dataset.cookiesAccepted === 'true' ? true : false
+            var cookiesAccepted = document.querySelector('[data-cookies-accepted]').dataset.cookiesAccepted.replace(/\?/g, '') === 'true' ? true : false
             if(cookiesAccepted) {
                 cookiesAcceptButton.checked = true
                 cookiesRejectButton.checked = false
