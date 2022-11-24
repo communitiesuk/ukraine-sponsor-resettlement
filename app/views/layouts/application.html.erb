@@ -27,7 +27,7 @@
 
   </head>
 
-  <body data-cookies-accepted=<%= session[:cookies_accepted ]%> class="govuk-template__body ">
+  <body data-cookies-accepted=<%= session[:cookies_accepted ] || 'false' %> class="govuk-template__body ">
 
     <script>
       document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
