@@ -36,7 +36,7 @@ private
 
   def cookie_banner
     @cookie_banner_form_step = 1
-    @is_cookie_page = request.path == '/cookies'
+    @is_cookie_page = request.path == "/cookies"
     if params[:cookies_accepted].present?
       session[:cookies_accepted] = params[:cookies_accepted]
     end
