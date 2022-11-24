@@ -2,6 +2,10 @@ var page_elements = {
     //main
     coockies_accept: "a[value='accept']",
     hide_coockie_msg: ".govuk-button[rel='nofollow']",
+    cookies_page_link_from_banner: "#cookies-page-link",
+    cookies_accept_cookies_page: "#abstract-cookies-accept-cookies-accepted-yes-field",
+    cookies_submit_cookies_page: ".govuk-button",
+    cookies_back_to_cookies_page: ".govuk-notification-banner__link",
     main_heading: '.gem-c-title__text.govuk-heading-l',
     page_heading: '.govuk-heading-l',
     start_button: "a[role='button']",
