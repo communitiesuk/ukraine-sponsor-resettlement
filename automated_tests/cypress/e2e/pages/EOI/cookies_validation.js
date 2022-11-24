@@ -18,3 +18,26 @@ export const eoi_cookies_page_back_link = () => {
     .should('have.attr', 'href')
     .and('contain', 'sponsor-a-child')
 }
+
+export const cookie_displays = () => {
+  cy.visit('/expression-of-interest/steps/9')
+  cy.get(elements.cookie_banner_heading).should('exist')
+}
+
+export const cookie_message_dissappears_after_clicking_view_cookies = () => {
+  cy.visit('/expression-of-interest/steps/9')
+  cy.contains(elements.view_cookies).click().wait(250)
+  cy.get(elements.cookie_banner_heading).should('not.exist')
+}
+
+export const banner_hidden_after_clicking_goback_to_page_link = () => {
+  cy.visit('/expression-of-interest/steps/9')
+  cy.contains(elements.view_cookies).click().wait(250)
+  cy.get(elements.cookie_page_yes_input).click()
+  cy.contains(elements.save_cookie_settings).click().wait(250)
+  cy.contains(elements.go_back_to_previous_page).click().wait(250)
+  cy.get(elements.cookie_banner_heading).should('not.exist')
+  cy.contains(elements.hide_cookie_message).should('not.exist')
+
+}
+

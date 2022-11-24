@@ -19,7 +19,6 @@
             <%= link_to "Accept analytics cookies", request.original_url + '?cookies_accepted=true',  class: 'govuk-button cookie-button', method: :post, value:"accept"  %>
             <%= link_to "Reject analytics cookies", request.original_url + '?cookies_accepted=false',  class: 'govuk-button cookie-button', method: :post, value:"reject"  %>
             <a class="govuk-link" id="cookies-page-link" href="/cookies">View cookies</a>
-
             </div>
         </div>
            <% end %>  

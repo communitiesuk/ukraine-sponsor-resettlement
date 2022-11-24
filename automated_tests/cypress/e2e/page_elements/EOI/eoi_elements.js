@@ -18,6 +18,13 @@ var page_elements = {
     error_summery_error_list_first: ".govuk-error-summary__list > li > a",
     hinttext: ".govuk-hint",
     error_sbox_sel_option_msg: "//a[normalize-space()='You must select an option to continue']",
+    cookie_banner_heading: ".govuk-cookie-banner__heading",
+    cookie_page_yes_input:'#abstract-cookies-accept-cookies-accepted-yes-field',
+    save_cookie_settings: 'Save Cookie Settings',
+    hide_cookie_message: 'Hide cookie message',
+    view_cookies: 'View cookies',
+
+    go_back_to_previous_page: "Go back to the page you were looking at",
     //step1-3 
     fullname_label: "label[for='expression-of-interest-fullname-field']",
     fullname_textbox: "#expression-of-interest-fullname-field",
