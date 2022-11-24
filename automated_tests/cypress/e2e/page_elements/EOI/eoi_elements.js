@@ -21,6 +21,9 @@ var page_elements = {
     cookie_banner_heading: ".govuk-cookie-banner__heading",
     cookie_page_yes_input:'#abstract-cookies-accept-cookies-accepted-yes-field',
     save_cookie_settings: 'Save Cookie Settings',
+    hide_cookie_message: 'Hide cookie message',
+    view_cookies: 'View cookies',
+
     go_back_to_previous_page: "Go back to the page you were looking at",
     //step1-3 
     fullname_label: "label[for='expression-of-interest-fullname-field']",
