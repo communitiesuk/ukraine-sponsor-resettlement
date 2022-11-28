@@ -1,4 +1,4 @@
-const alfa = require('../../pages/EOI/cookies_validation')
+const alfa = require('../../pages/Service/cookies_validation')
 
 describe('[Frontend-UI]: COOKIES PAGE', function () {
   this.beforeAll(() => {
@@ -18,13 +18,13 @@ describe('[Frontend-UI]: COOKIES PAGE', function () {
     })
 
     it('hides the cookie banner when the user clicks "view cookies" on the banner', function () {
-        alfa.cookie_message_dissappears_after_clicking_view_cookies()
-      })
+      alfa.cookie_message_dissappears_after_clicking_view_cookies()
+    })
 
-    
+
     it('banner hidden on click "Go back to the page you were looking at" on cookies success page', function () {
-        alfa.banner_hidden_after_clicking_goback_to_page_link()
-      })
+      alfa.banner_hidden_after_clicking_goback_to_page_link()
+    })
 
   })
 
