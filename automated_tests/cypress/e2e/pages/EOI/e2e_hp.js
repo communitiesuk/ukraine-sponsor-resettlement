@@ -5,7 +5,7 @@ const secrets = require('../../../fixtures/bodytext_secrets.json')
 
 export const eoi_eligibility_check = () => {
     cy.visit('/')
-    cy.get(elements.coockies_accept).click().wait(250)
+    cy.get(elements.cookies_accept).click().wait(250)
     cy.get(elements.hide_coockie_msg).click().wait(250)
     cy.get(elements.main_heading).contains("Homes for Ukraine: Register to host people already living in the UK").should('be.visible').wait(250)
     cy.get(elements.start_button).click().wait(250)

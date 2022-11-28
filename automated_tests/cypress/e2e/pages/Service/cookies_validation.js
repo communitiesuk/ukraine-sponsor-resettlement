@@ -1,5 +1,5 @@
 require('cypress-xpath')
-const elements = require('../../page_elements/EOI/eoi_elements')
+const elements = require('../../page_elements/Service/service_elements')
 
 
 export const eoi_cookies_page_back_link = () => {
