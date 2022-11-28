@@ -4,7 +4,7 @@ const error = require('../../../fixtures/bodytext_error.json')
 export const date_null = () => {
     cy.visit('/expression-of-interest/steps/9')
     cy.get(elements.cookies_accept).click().wait(250)
-    cy.get(elements.hide_coockie_msg).click().wait(250)
+    cy.get(elements.hide_cookie_msg).click().wait(250)
     cy.get(elements.start_hosting_heading).contains('How soon can you start hosting someone?').should('be.visible')
     cy.get(elements.continue_button).click().wait(250)
     cy.get(elements.sdate_radiobtn_error_label).contains(error.radiobtn_error_msg).should('be.visible')

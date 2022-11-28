@@ -6,7 +6,7 @@ const elements = require('../../page_elements/EOI/eoi_elements')
 export const adults_and_children_nv = () => {
     cy.visit('/expression-of-interest/steps/10')
     cy.get(elements.cookies_accept).click().wait(250)
-    cy.get(elements.hide_coockie_msg).click().wait(250)
+    cy.get(elements.hide_cookie_msg).click().wait(250)
     cy.get(elements.page_heading).contains('How many people normally live in the property you’re offering (not including guests)?').should('be.visible')
     cy.get(elements.continue_button).click().wait(250)
     cy.get(elements.adults_error).should('exist')
