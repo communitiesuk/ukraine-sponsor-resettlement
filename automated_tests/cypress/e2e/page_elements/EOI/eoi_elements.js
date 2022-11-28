@@ -1,7 +1,11 @@
 var page_elements = {
     //main
-    coockies_accept: "a[value='accept']",
+    cookies_accept: "a[value='accept']",
     hide_coockie_msg: ".govuk-button[rel='nofollow']",
+    cookies_page_link_from_banner: "#cookies-page-link",
+    cookies_accept_cookies_page: "#abstract-cookies-accept-cookies-accepted-yes-field",
+    cookies_submit_cookies_page: ".govuk-button",
+    cookies_back_to_cookies_page: ".govuk-notification-banner__link",
     main_heading: '.gem-c-title__text.govuk-heading-l',
     page_heading: '.govuk-heading-l',
     start_button: "a[role='button']",
@@ -10,10 +14,17 @@ var page_elements = {
     sa_continue_button: "#selfAssessmentContinueButton",
     error_validation_radio_label: ".govuk-error-message",
     continue_button: "button[type='submit']",
-    error_summery_title: "#error-summary-title",
-    error_summery_error_list_first: ".govuk-error-summary__list > li > a",
+    error_summary_title: ".govuk-error-summary__title",
+    error_summary_error_list_first: ".govuk-error-summary__list > li > a",
     hinttext: ".govuk-hint",
     error_sbox_sel_option_msg: "//a[normalize-space()='You must select an option to continue']",
+    cookie_banner_heading: ".govuk-cookie-banner__heading",
+    cookie_page_yes_input: '#abstract-cookies-accept-cookies-accepted-yes-field',
+    save_cookie_settings: 'Save Cookie Settings',
+    hide_cookie_message: 'Hide cookie message',
+    view_cookies: 'View cookies',
+
+    go_back_to_previous_page: "Go back to the page you were looking at",
     //step1-3 
     fullname_label: "label[for='expression-of-interest-fullname-field']",
     fullname_textbox: "#expression-of-interest-fullname-field",

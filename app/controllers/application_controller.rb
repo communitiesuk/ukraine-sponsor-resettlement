@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 private
 
   def set_no_back_link_pages
-    @no_back_link_pages = ["/", "/individual/check_answers", "/expression-of-interest/confirm", "/sponsor-a-child/task-list", "sponsor-a-child/cancel_confirm", "/sponsor-a-child/cancel-application", "/sponsor-a-child/check-answers", "/sponsor-a-child/confirm", "/sponsor-a-child/save-and-return/confirm", "/sponsor-a-child/save-and-return/resend-link"]
+    @no_back_link_pages = ["/", "/individual/check_answers", "/expression-of-interest/confirm", "/sponsor-a-child/task-list", "sponsor-a-child/cancel_confirm", "/sponsor-a-child/cancel-application", "/sponsor-a-child/check-answers", "/sponsor-a-child/confirm", "/sponsor-a-child/save-and-return/confirm", "/sponsor-a-child/save-and-return/resend-link", "/cookies"]
   end
 
   def set_tracking_code
@@ -36,12 +36,12 @@ private
 
   def cookie_banner
     @cookie_banner_form_step = 1
-
+    @is_cookie_page = request.path == "/cookies"
     if params[:cookies_accepted].present?
       session[:cookies_accepted] = params[:cookies_accepted]
     end
     if session[:cookies_accepted].present?
-      @cookie_accepted = session[:cookies_accepted].casecmp("true").zero?
+      @cookies_accepted = session[:cookies_accepted].casecmp("true").zero?
       @cookie_banner_form_step = 2
     end
     if params[:c_m_h].present?
