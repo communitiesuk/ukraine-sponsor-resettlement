@@ -5,7 +5,7 @@ const secrets = require('../../../fixtures/bodytext_secrets.json')
 
 export const residential_address_nv = () => {
     cy.visit('/expression-of-interest/steps/4').wait(250)
-    cy.get(elements.coockies_accept).click().wait(250)
+    cy.get(elements.cookies_accept).click().wait(250)
     cy.get(elements.hide_coockie_msg).click().wait(250)
     cy.get(elements.page_heading).contains('Enter your full residential address').should('be.visible')
     cy.get(elements.addressl1_textbox).clear()
