@@ -103,6 +103,8 @@ class EoiWorkflow
           case pc.country
           when :england
             return :go_next
+          when :northern_ireland
+            return :go_next
           when :scotland
             return :redirect_scotland
           when :wales
