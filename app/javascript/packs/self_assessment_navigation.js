@@ -1,9 +1,10 @@
 (function() {
 
     var selfAssesmentContinueButton = document.getElementById('selfAssessmentContinueButton');
+    var cookiesRejectButton = document.getElementById('abstract-cookies-accept-cookies-accepted-no-field');
+    var cookiesAcceptButton = document.getElementById('abstract-cookies-accept-cookies-accepted-yes-field');
 
       if(selfAssesmentContinueButton) {
-  
           selfAssesmentContinueButton.addEventListener('click', function() {
               var elements = document.getElementsByName('assessment-buttons');
               var formGroup = document.querySelector('.govuk-form-group');
@@ -36,5 +37,19 @@
             
             })
       }
-  
+
+
+        if(cookiesRejectButton) {
+            var cookiesAccepted = document.querySelector('[data-cookies-accepted]').dataset.cookiesAccepted.replace(/\?/g, '') === 'true' ? true : false
+            if(cookiesAccepted) {
+                cookiesAcceptButton.checked = true
+                cookiesRejectButton.checked = false
+
+            } else {
+                cookiesRejectButton.checked = true
+                cookiesAcceptButton.checked = false
+
+            }
+        }
+       
   } )()

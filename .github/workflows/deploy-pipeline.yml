@@ -273,6 +273,11 @@ jobs:
           cf set-env $APP_NAME UAM_GA_TRACKING_CODE $UAM_GA_TRACKING_CODE
           cf push -f worker-manifest.yml $APP_NAME --strategy rolling --no-wait
 
+  #e2e-tests:
+  #  name: E2E Tests
+  #  needs: [deploy-staging]
+  #  uses: ./.github/workflows/cypress-pipeline.yml
+
   deploy-production:
     name: Deploy Production
     concurrency: "production"
