@@ -1,7 +1,7 @@
 var page_elements = {
     //main
     cookies_accept: "a[value='accept']",
-    hide_coockie_msg: ".govuk-button[rel='nofollow']",
+    hide_cookie_msg: ".govuk-button[rel='nofollow']",
     cookies_page_link_from_banner: "#cookies-page-link",
     cookies_accept_cookies_page: "#abstract-cookies-accept-cookies-accepted-yes-field",
     cookies_submit_cookies_page: ".govuk-button",
