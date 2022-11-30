@@ -22,6 +22,9 @@ module.exports = defineConfig({
     },
     baseUrl: 'http://localhost:8080',
   },
+  env: {
+    waitTime: 150,
+  }
 });
 
 
