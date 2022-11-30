@@ -81,6 +81,8 @@ class EoiWorkflow
             case pc.country
             when :england
               return :skip_diff_addr
+            when :northern_ireland
+              return :skip_diff_addr
             when :scotland
               return :redirect_scotland
             when :wales
