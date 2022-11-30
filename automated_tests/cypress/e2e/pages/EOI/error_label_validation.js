@@ -120,7 +120,7 @@ export const residential_address_validation_ev_s4 = () => {
     cy.get(elements.error_summary_title).should('not.exist')
     cy.xpath(elements.addressl1_error_sbox_msg).should('not.exist')
     cy.xpath(elements.townorcity_error_sbox_msg).should('not.exist')
-    cy.xpath(elements.postcode_error_sbox_msg).should('not.exist').wait(500)
+    cy.xpath(elements.postcode_error_sbox_msg).should('not.exist').wait(Cypress.env('waitTime'))
 }
 
 export const hosting_details_ev_s5 = () => {
