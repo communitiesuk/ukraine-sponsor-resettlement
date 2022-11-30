@@ -308,7 +308,7 @@ export const check_your_answers = () => {
     cy.get(elements.cya_sf_access).should("contain.text", "I don’t know")
     cy.get(elements.cya_pets).should("contain.text", 'No')
     cy.get(elements.cya_research).should("contain.text", 'No')
-    cy.get(elements.cya_pstatement).should("contain.text", 'Agreed').wait(500)
+    cy.get(elements.cya_pstatement).should("contain.text", 'Agreed').wait(Cypress.env('waitTime'))
 }
 
 
