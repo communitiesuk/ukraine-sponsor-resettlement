@@ -116,7 +116,7 @@ export const residential_address_validation_ev_s4 = () => {
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     cy.get(elements.addressl1_error_label).should('not.exist')
     cy.get(elements.townorcity_error_label).should('not.exist')
-    cy.get(elements.postcode_error_label).should('not.exist').wait(250)
+    cy.get(elements.postcode_error_label).should('not.exist').wait(Cypress.env('waitTime'))
     cy.get(elements.error_summary_title).should('not.exist')
     cy.xpath(elements.addressl1_error_sbox_msg).should('not.exist')
     cy.xpath(elements.townorcity_error_sbox_msg).should('not.exist')
