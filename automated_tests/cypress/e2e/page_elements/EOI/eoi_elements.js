@@ -106,14 +106,18 @@ var page_elements = {
     morethanone_radiobtn: "#expression-of-interest-family-type-more-than-one-adult-field",
     nopref_radiobtn: "#expression-of-interest-family-type-no-preference-field",
     accommodation_error_label: "#expression-of-interest-family-type-error",
-
+    
+    //step12
     sbedroom_textbox: "#expression-of-interest-single-room-count-field",
-    sbedroom_error: "#expression-of-interest-single-room-count-error",
+    sbedroom_error_label: "#expression-of-interest-single-room-count-error",
     sbedroom_textbox_error: "#expression-of-interest-single-room-count-field-error",
+    sbedroom_error_sbox_msg: "a[href='#expression-of-interest-single-room-count-field-error']",
 
     dbbedroom_textbox: "#expression-of-interest-double-room-count-field",
-    dbbedroom_error: "#expression-of-interest-double-room-count-error",
+    dbbedroom_error_label: "#expression-of-interest-double-room-count-error",
     dbbedroom_textbox_error: "#expression-of-interest-double-room-count-field-error",
+    dbbedroom_error_sbox_msg: "a[href='#expression-of-interest-double-room-count-field-error']",
+
     //step13
     stepfree_yta_radiobtn: "#expression-of-interest-step-free-all-field",
     stepfree_error_label: "#expression-of-interest-step-free-error",

@@ -20,7 +20,8 @@ module.exports = defineConfig({
       require('cypress-high-resolution')(on, config)
 
     },
-    baseUrl: 'http://localhost:8080',
+  baseUrl: 'http://localhost:8080',
+    
   },
 });
 
