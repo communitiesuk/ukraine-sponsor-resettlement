@@ -118,14 +118,14 @@ export const check_your_answers = () => {
     cy.get(elements.cya_more_properties).should("contain.text", 'Yes')
     cy.get(elements.cya_adults).should("contain.text", '6')
     cy.get(elements.cya_children).should("contain.text", '4')
-    cy.get(elements.cya_start_date).should("contain.text", 'As soon as possible').wait(250)
+    cy.get(elements.cya_start_date).should("contain.text", 'As soon as possible').wait(Cypress.env('waitTime'))
     cy.get(elements.cya_accommodate).should("contain.text", 'More than one adult')
     cy.get(elements.cya_sbedrooms).should("contain.text", '4')
     cy.get(elements.cya_dbedrooms).should("contain.text", '2')
     cy.get(elements.cya_sf_access).should("contain.text", "Yes, all")
     cy.get(elements.cya_pets).should("contain.text", 'Yes')
     cy.get(elements.cya_research).should("contain.text", 'Yes')
-    cy.get(elements.cya_pstatement).should("contain.text", 'Agreed').wait(500)
+    cy.get(elements.cya_pstatement).should("contain.text", 'Agreed').wait(Cypress.env('waitTime'))
 }
 
 export const accept_send = () => {
