@@ -167,7 +167,7 @@ export const offering_property_address_validation_ev_s6 = () => {
     cy.get(elements.error_summary_title).contains(error.err_summary_title_msg).should('be.visible').wait(Cypress.env('waitTime'))
     cy.xpath(elements.offering_addressl1_error_sbox_msg).should('not.exist')
     cy.xpath(elements.offering_townorcity_error_sbox_msg).should('not.exist')
-    cy.xpath(elements.offering_postcode_error_sbox_msg).contains(error.postcode_err_msg).should('be.visible').wait(250)
+    cy.xpath(elements.offering_postcode_error_sbox_msg).contains(error.postcode_err_msg).should('be.visible').wait(Cypress.env('waitTime'))
     //off address line one, city and postcode
     cy.get(elements.offering_postcode_error_textbox).clear().type("KE10 3BB")
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
