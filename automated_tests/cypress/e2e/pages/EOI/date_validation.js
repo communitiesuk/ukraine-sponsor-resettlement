@@ -106,5 +106,5 @@ export const date_av = () => {
 }
 
 export const no_of_people_living_page = () => {
-    cy.get(elements.page_heading).contains('How many people normally live in the property you’re offering (not including guests)?').should('be.visible').wait(500)
+    cy.get(elements.page_heading).contains('How many people normally live in the property you’re offering (not including guests)?').should('be.visible').wait(Cypress.env('waitTime'))
 }
