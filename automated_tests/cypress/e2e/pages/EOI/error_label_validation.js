@@ -177,7 +177,7 @@ export const offering_property_address_validation_ev_s6 = () => {
     cy.get(elements.error_summary_title).should('not.exist').wait(Cypress.env('waitTime'))
     cy.xpath(elements.offering_addressl1_error_sbox_msg).should('not.exist')
     cy.xpath(elements.offering_townorcity_error_sbox_msg).should('not.exist')
-    cy.xpath(elements.offering_postcode_error_sbox_msg).should('not.exist').wait(500)
+    cy.xpath(elements.offering_postcode_error_sbox_msg).should('not.exist').wait(Cypress.env('waitTime'))
 }
 
 export const more_properties_ev_s7_8 = () => {
