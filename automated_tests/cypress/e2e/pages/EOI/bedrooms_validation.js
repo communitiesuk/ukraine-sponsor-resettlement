@@ -6,7 +6,7 @@ const bodytext = require('../../../fixtures/bodytext.json')
 export const bedrooms_null = () => {
     cy.visit('/expression-of-interest/steps/12')
     cy.get(elements.cookies_accept).click().wait(Cypress.env('waitTime'))
-    cy.get(elements.hide_coockie_msg).click().wait(Cypress.env('waitTime'))
+    cy.get(elements.hide_cookie_msg).click().wait(Cypress.env('waitTime'))
     cy.get(elements.page_heading).contains('How many bedrooms are available for guests in the property you’re registering now?').should('be.visible')
     cy.get(elements.hinttext).contains(bodytext.bedrooms_hint).should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
