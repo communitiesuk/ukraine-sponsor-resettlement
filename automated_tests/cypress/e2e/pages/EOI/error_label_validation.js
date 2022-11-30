@@ -249,7 +249,7 @@ export const no_of_bedrooms_ev_s12 = () => {
 }
 
 export const stepfree_access_details_ev_s13 = () => {
-    cy.get(elements.page_heading).contains('Does the property, or any of the properties, have step-free access?').should('be.visible').wait(250)
+    cy.get(elements.page_heading).contains('Does the property, or any of the properties, have step-free access?').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     cy.get(elements.stepfree_error_label).contains(error.radiobtn_error_msg).should('be.visible')
     cy.get(elements.error_summary_title).contains(error.err_summary_title_msg).should('be.visible').wait(Cypress.env('waitTime'))
