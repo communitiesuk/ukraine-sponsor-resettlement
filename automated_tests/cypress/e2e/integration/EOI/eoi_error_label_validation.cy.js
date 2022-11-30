@@ -33,8 +33,11 @@ describe('[Frontend-UI]: EOI FORM ERROR LABEL VALIDATION', function () {
       element.residential_address_validation_ev_s4()
     })
 
-    it('verify offering property address[step 5-6]', function () {
+    it('verify hosting details[step 5]', function () {
       element.hosting_details_ev_s5()
+    })
+
+    it('verify offering property address[step 6]', function () {
       element.offering_property_address_validation_ev_s6()
     })
 
@@ -47,8 +50,11 @@ describe('[Frontend-UI]: EOI FORM ERROR LABEL VALIDATION', function () {
       element.no_of_ppl_ev_s10()
     })
 
-    it('verify accommodation details [step 11-12]', function () {
+    it('verify accommodation details [step 11]', function () {
       element.accommodation_details_ev_s11()
+    })
+
+    it('verify number of rooms [step 12]', function () {
       element.no_of_bedrooms_ev_s12()
     })
 
