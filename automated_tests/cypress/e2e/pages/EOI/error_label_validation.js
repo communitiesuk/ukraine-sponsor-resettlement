@@ -78,7 +78,7 @@ export const your_details_page_ev_s1_3 = () => {
 }
 
 export const residential_address_validation_ev_s4 = () => {
-    cy.get(elements.page_heading).contains('Enter your full residential address').should('be.visible').wait(250)
+    cy.get(elements.page_heading).contains('Enter your full residential address').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.addressl1_textbox).clear()
     cy.get(elements.addressl2_textbox).clear()
     cy.get(elements.townorcity_textbox).clear()
