@@ -79,17 +79,10 @@ class EoiController < ApplicationController
       session[:eoi] = @application.as_json
       next_stage = EoiWorkflow.get_next_step(current_stage, application_params, @application)
 
-      case next_stage
-      when "redirect_scotland"
-        redirect_to "https://www.scotland.com/", allow_other_host: true
-      when "redirect_wales"
-        redirect_to "https://www.wales.com/", allow_other_host: true
+      if next_stage == "check-answers" || params.key?("check")
+        redirect_to "/expression-of-interest/check-answers"
       else
-        if next_stage == "check-answers" || params.key?("check")
-          redirect_to "/expression-of-interest/check-answers"
-        else
-          redirect_to "/expression-of-interest/steps/#{next_stage}"
-        end
+        redirect_to "/expression-of-interest/steps/#{next_stage}"
       end
     else
       render EoiWorkflow.states[current_stage][:view_name]

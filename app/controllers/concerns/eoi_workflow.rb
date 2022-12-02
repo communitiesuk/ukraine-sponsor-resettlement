@@ -18,16 +18,16 @@ class EoiWorkflow
                { action: :go_diff_addr, destination: "6" },
                { action: :skip_diff_addr, destination: "9" },
                { action: :back_to_address, destination: "4" },
-               { action: :redirect_scotland, destination: "redirect_scotland" },
-               { action: :redirect_wales, destination: "redirect_wales" },
+               { action: :redirect_scotland, destination: "end" },
+               { action: :redirect_wales, destination: "end" },
              ],
              view_name: "eoi/steps/different_address",
              validations: [:different_address] },
     "6" => { actions: [
                { action: :go_next, destination: "7" },
                { action: :reload, destination: "6" },
-               { action: :redirect_scotland, destination: "redirect_scotland" },
-               { action: :redirect_wales, destination: "redirect_wales" },
+               { action: :redirect_scotland, destination: "end" },
+               { action: :redirect_wales, destination: "end" },
              ],
              view_name: "eoi/steps/property_one_address",
              validations: %i[property_one_line_1 property_one_line_2 property_one_town property_one_postcode] },
@@ -64,6 +64,9 @@ class EoiWorkflow
     "16" => { actions: [{ action: :go_next, destination: "check-answers" }],
               view_name: "eoi/steps/privacy_statement",
               validations: [:agree_privacy_statement] },
+    "end" => { actions: [],
+               view_name: "eoi/steps/invalid_postcode",
+               validations: [] },
   }
 
   @actions_map = {
