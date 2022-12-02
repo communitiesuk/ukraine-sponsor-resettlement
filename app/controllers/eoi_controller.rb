@@ -77,7 +77,8 @@ class EoiController < ApplicationController
     @application.partial_validation = EoiWorkflow.states[current_stage][:validations]
     if @application.valid?
       session[:eoi] = @application.as_json
-      next_stage = EoiWorkflow.get_next_step(current_stage, application_params)
+      next_stage = EoiWorkflow.get_next_step(current_stage, application_params, @application)
+
       if next_stage == "check-answers" || params.key?("check")
         redirect_to "/expression-of-interest/check-answers"
       else
