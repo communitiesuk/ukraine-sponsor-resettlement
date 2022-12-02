@@ -22,19 +22,14 @@ module.exports = defineConfig({
       require('cypress-high-resolution')(on, config)
     },
   
-//   baseUrl: 'http://localhost:8080', // if you change this on your machine, do not commit!!!
-//   },
-//   env: {
-//     waitTime: 150, // if you change this on your machine, do not commit!!!
-//   }
-// });
-
-baseUrl: 'https://ukraine:r3fug3@ukraine-sponsor-resettlement-staging.london.cloudapps.digital',
-},
-env: {
-  waitTime: 400, 
-}
+  baseUrl: 'http://localhost:8080', // if you change this on your machine, do not commit!!!
+  },
+  env: {
+    waitTime: 150, // if you change this on your machine, do not commit!!!
+  }
 });
+
+
 
 
 
