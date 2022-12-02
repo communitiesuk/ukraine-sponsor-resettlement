@@ -1,3 +1,5 @@
+require "uk_postcode"
+
 class EoiWorkflow
   @states = {
     "1" => { actions: [{ action: :go_next, destination: "2" }],
@@ -15,10 +17,18 @@ class EoiWorkflow
     "5" => { actions: [
                { action: :go_diff_addr, destination: "6" },
                { action: :skip_diff_addr, destination: "9" },
+               { action: :back_to_address, destination: "4" },
+               { action: :redirect_scotland, destination: "end" },
+               { action: :redirect_wales, destination: "end" },
              ],
              view_name: "eoi/steps/different_address",
              validations: [:different_address] },
-    "6" => { actions: [{ action: :go_next, destination: "7" }],
+    "6" => { actions: [
+               { action: :go_next, destination: "7" },
+               { action: :reload, destination: "6" },
+               { action: :redirect_scotland, destination: "end" },
+               { action: :redirect_wales, destination: "end" },
+             ],
              view_name: "eoi/steps/property_one_address",
              validations: %i[property_one_line_1 property_one_line_2 property_one_town property_one_postcode] },
     "7" => { actions: [
@@ -54,6 +64,9 @@ class EoiWorkflow
     "16" => { actions: [{ action: :go_next, destination: "check-answers" }],
               view_name: "eoi/steps/privacy_statement",
               validations: [:agree_privacy_statement] },
+    "end" => { actions: [],
+               view_name: "eoi/steps/invalid_postcode",
+               validations: [] },
   }
 
   @actions_map = {
@@ -61,15 +74,57 @@ class EoiWorkflow
     "2" => :go_next,
     "3" => :go_next,
     "4" => :go_next,
-    "5" => lambda do |params|
+    "5" => lambda do |params, eoi_instance|
       if params.key?("different_address") && params["different_address"].casecmp("yes").zero?
         :go_diff_addr
       elsif params.key?("different_address") && params["different_address"].casecmp("no").zero?
-        :skip_diff_addr
+        if ENV["FEATURE_EOI_CHOOSE_COUNTRY_ENABLED"] == "true"
+          if eoi_instance.residential_postcode
+            pc = UKPostcode.parse(eoi_instance.residential_postcode)
+            case pc.country
+            when :england
+              return :skip_diff_addr
+            when :northern_ireland
+              return :skip_diff_addr
+            when :scotland
+              return :redirect_scotland
+            when :wales
+              return :redirect_wales
+            else
+              return :skip_diff_addr
+            end
+          else
+            return :back_to_address
+          end
+        else
+          :skip_diff_addr
+        end
       end
     end,
-    "6" => :go_next,
-    "7" => lambda do |params|
+    "6" => lambda do |params, _eoi_instance|
+      if ENV["FEATURE_EOI_CHOOSE_COUNTRY_ENABLED"] == "true"
+        if params["property_one_postcode"]
+          pc = UKPostcode.parse(params["property_one_postcode"])
+          case pc.country
+          when :england
+            return :go_next
+          when :northern_ireland
+            return :go_next
+          when :scotland
+            return :redirect_scotland
+          when :wales
+            return :redirect_wales
+          else
+            return :go_next
+          end
+        else
+          return :reload
+        end
+      else
+        :go_next
+      end
+    end,
+    "7" => lambda do |params, _eoi_instance|
       if params.key?("more_properties") && params["more_properties"].casecmp("yes").zero?
         :go_more_properties_statement
       elsif params.key?("more_properties") && params["more_properties"].casecmp("no").zero?
@@ -95,18 +150,18 @@ class EoiWorkflow
     attr_reader :states
   end
 
-  def self.get_action_from_submit(current_state_name, submitted_params)
+  def self.get_action_from_submit(current_state_name, submitted_params, eoi_instance)
     if @actions_map.key?(current_state_name)
       if @actions_map[current_state_name].instance_of?(::Proc)
-        @actions_map[current_state_name].call(submitted_params)
+        @actions_map[current_state_name].call(submitted_params, eoi_instance)
       elsif @actions_map[current_state_name].instance_of?(::Symbol)
         @actions_map[current_state_name]
       end
     end
   end
 
-  def self.get_next_step(current_state, submitted_params)
-    action = get_action_from_submit(current_state, submitted_params)
+  def self.get_next_step(current_state, submitted_params, eoi_instance)
+    action = get_action_from_submit(current_state, submitted_params, eoi_instance)
     state_table_entry_actions = @states[current_state][:actions]
     state_table_entry_actions.each do |state_table_entry_action|
       if state_table_entry_action[:action] == action
