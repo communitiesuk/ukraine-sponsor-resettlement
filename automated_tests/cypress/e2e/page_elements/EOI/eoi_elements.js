@@ -7,6 +7,7 @@ var page_elements = {
     cookies_submit_cookies_page: ".govuk-button",
     cookies_back_to_cookies_page: ".govuk-notification-banner__link",
     main_heading: '.gem-c-title__text.govuk-heading-l',
+    main_heading_xl: ".gem-c-title__text.govuk-heading-xl",
     page_heading: '.govuk-heading-l',
     start_button: "a[role='button']",
     yes_radiobtn: "input[value='yes']",
@@ -23,8 +24,21 @@ var page_elements = {
     save_cookie_settings: 'Save Cookie Settings',
     hide_cookie_message: 'Hide cookie message',
     view_cookies: 'View cookies',
-
     go_back_to_previous_page: "Go back to the page you were looking at",
+
+    //page links
+    guidance_for_sponsors_link: ".govuk-body>a",
+    gov_licence_link: "//a[normalize-space()='Open Government Licence v3.0']",
+    gov_licence_logo: "#open-licence-logo",
+    crown_copyright_link: ".govuk-footer__link.govuk-footer__copyright-logo",
+    crown_copyright_header: "div[class='entry-header'] h1",
+    local_council_link: "//a[normalize-space()='contact your local council (opens in a new page)']",
+    stand_with_ukraine_link: "//a[normalize-space()='#StandWithUkraine (opens in a new page)']",
+    community_sponsorship_link: "//a[normalize-space()='community sponsorship (opens in a new page)']",
+    volunteering_link: "//a[normalize-space()='volunteering (opens in a new page)']",
+    support_organisations_link: "//a[normalize-space()='support these organisations (opens in a new page)']",
+    privacy_statement_link: ".govuk-link",
+
     //step1-3 
     fullname_label: "label[for='expression-of-interest-fullname-field']",
     fullname_textbox: "#expression-of-interest-fullname-field",
@@ -41,6 +55,7 @@ var page_elements = {
     phonenumber_error_label: "#expression-of-interest-phone-number-error",
     phonenumber_error_textbox: "#expression-of-interest-phone-number-field-error",
     pnonenumber_error_sbox_msg: "//a[normalize-space()='You must enter a valid phone number']",
+    
     //step4   
     addressl1_textbox: "#expression-of-interest-residential-line-1-field",
     addressl2_textbox: "#expression-of-interest-residential-line-2-field",
@@ -55,11 +70,13 @@ var page_elements = {
     addressl1_error_sbox_msg: "//a[normalize-space()='You must enter an address']",
     townorcity_error_sbox_msg: "//a[normalize-space()='You must enter a town or city']",
     postcode_error_sbox_msg: "//a[normalize-space()='You must enter a valid UK postcode']",
+    
     //step5
     difaddress_heading: ".govuk-fieldset__legend.govuk-fieldset__legend--m",
     difadd_yes_radiobtn: "#expression-of-interest-different-address-yes-field",
     difadd_yes_error_radiobtn: "#expression-of-interest-different-address-field-error",
     difaddress_error_label: "#expression-of-interest-different-address-error",
+    
     //step6-8
     offeringadd_heading: ".govuk-fieldset__legend.govuk-fieldset__legend--m",
     offering_addressl1_textbox: "#expression-of-interest-property-one-line-1-field",
@@ -79,6 +96,7 @@ var page_elements = {
     more_properties_error_label: "#expression-of-interest-more-properties-error",
     more_properties_yes_error_radiobtn: "#expression-of-interest-more-properties-field-error",
     anymore_properties_label: "label[for='expression-of-interest-more-properties-statement-field']",
+    
     //step9
     start_hosting_heading: '.govuk-fieldset__legend.govuk-fieldset__legend--m',
     asap_radiobtn: '#expression-of-interest-host-as-soon-as-possible-true-field',
@@ -87,13 +105,12 @@ var page_elements = {
     specific_date_radiobtn_error: "#expression-of-interest-host-as-soon-as-possible-false-field",
     sdate_error_label: "#expression-of-interest-hosting-start-date-error",
     sdate_error_sbox_msg: "//a[normalize-space()='Enter a valid start date']",
-
-
     day_textbox: "#expression_of_interest_hosting_start_date_3i",
     day_textbox_error: "#expression-of-interest-hosting-start-date-field-error",
     month_textbox: "#expression_of_interest_hosting_start_date_2i",
     year_textbox: "#expression_of_interest_hosting_start_date_1i",
-
+    
+    //step10
     adults_textbox: "#expression-of-interest-number-adults-field",
     adults_textbox_error: "#expression-of-interest-number-adults-field-error",
     adults_error: "#expression-of-interest-number-adults-error",
@@ -112,7 +129,6 @@ var page_elements = {
     sbedroom_error_label: "#expression-of-interest-single-room-count-error",
     sbedroom_textbox_error: "#expression-of-interest-single-room-count-field-error",
     sbedroom_error_sbox_msg: "a[href='#expression-of-interest-single-room-count-field-error']",
-
     dbbedroom_textbox: "#expression-of-interest-double-room-count-field",
     dbbedroom_error_label: "#expression-of-interest-double-room-count-error",
     dbbedroom_textbox_error: "#expression-of-interest-double-room-count-field-error",
@@ -122,24 +138,28 @@ var page_elements = {
     stepfree_yta_radiobtn: "#expression-of-interest-step-free-all-field",
     stepfree_error_label: "#expression-of-interest-step-free-error",
     stepfree_idk_radiobtn_error: "#expression-of-interest-step-free-unknown-field",
+    
     //step14
     pets_heading: ".govuk-fieldset__legend.govuk-fieldset__legend--m",
     pets_error_label: "#expression-of-interest-allow-pet-error",
     pets_yes_radiobtn: "#expression-of-interest-allow-pet-yes-field",
     pets_no_radiobtn_error: "#expression-of-interest-allow-pet-no-field",
     pets_error_sbox_msg: "a[data-turbo='false']",
+    
     //step15
     research_heading: ".govuk-fieldset__legend.govuk-fieldset__legend--m",
     research_yes_radiobtn: "#expression-of-interest-user-research-yes-field",
     research_error_label: "#expression-of-interest-user-research-error",
     research_no_radiobtn_error: "#expression-of-interest-user-research-no-field",
     research_error_sbox_msg: "a[data-turbo='false']",
+    
     //step16
     consent_heading: ".govuk-fieldset__legend.govuk-fieldset__legend--m",
     consent_checkbox: "#expression-of-interest-agree-privacy-statement-true-field",
     consent_checkbox_error: "#expression-of-interest-agree-privacy-statement-field-error",
     consent_error_label: "#expression-of-interest-agree-privacy-statement-error",
     consent_error_sbox_msg: "a[data-turbo='false']",
+    
     //check your answers
     cya_name: "body > div:nth-child(5) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(3) > div:nth-child(1) > dd:nth-child(2)",
     cya_email: "body > div:nth-child(5) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(3) > div:nth-child(2) > dd:nth-child(2)",
@@ -152,7 +172,6 @@ var page_elements = {
     cya_more_properties: "body > div:nth-child(5) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(5) > div:nth-child(2) > dd:nth-child(2)",
     cya_adults: "body > div:nth-child(5) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(7) > div:nth-child(1) > dd:nth-child(2)",
     cya_children: "body > div:nth-child(5) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(7) > div:nth-child(2) > dd:nth-child(2)",
-
     cya_start_date: "body > div:nth-child(5) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(9) > div:nth-child(1) > dd:nth-child(2)",
     cya_accommodate: "body > div:nth-child(5) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(9) > div:nth-child(2) > dd:nth-child(2)",
     cya_sbedrooms: "span[title='translation missing: en.4']",
@@ -161,11 +180,6 @@ var page_elements = {
     cya_pets: "body > div:nth-child(5) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(9) > div:nth-child(6) > dd:nth-child(2)",
     cya_research: "body > div:nth-child(5) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(9) > div:nth-child(6) > dd:nth-child(2)",
     cya_pstatement: "body > div:nth-child(5) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(9) > div:nth-child(8) > dd:nth-child(2)",
-
-
-
-
-
 };
 module.exports = page_elements;
 
