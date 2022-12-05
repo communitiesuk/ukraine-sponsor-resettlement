@@ -37,6 +37,9 @@ Run a single spec file
 - npx cypress run --spec cypress/e2e/integration/EOI/eoi_date_validation.cy.js
 - npx cypress run --spec cypress/e2e/integration/EOI/eoi_adults_and_children_validation.cy.js
 - npx cypress run --spec cypress/e2e/integration/Service/service_cookies_validation.cy.js
+- npx cypress run --spec cypress/e2e/integration/EOI/eoi_bedrooms_validation.cy.js
+- npx cypress run --spec cypress/e2e/integration/EOI/eoi_links_validation.cy.js
+
 
 Run with specific browser
 
