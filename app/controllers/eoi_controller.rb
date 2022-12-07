@@ -13,11 +13,6 @@ class EoiController < ApplicationController
     render "eoi/steps/challenges"
   end
 
-  def other_ways_to_help
-    @back_link = "/"
-    render "eoi/steps/other_ways_to_help"
-  end
-
   def can_you_commit
     @back_link = "/expression-of-interest/self-assessment/challenges"
     render "eoi/steps/can_you_commit"
@@ -31,13 +26,18 @@ class EoiController < ApplicationController
     end
   end
 
-  def your_info
-    @back_link = "/expression-of-interest/self-assessment/can-you-commit"
-    render "eoi/steps/now_we_need_your_info"
+  def other_ways_to_help
+    @back_link = "/"
+    render "eoi/steps/other_ways_to_help"
   end
 
   def check_feature_flag
     redirect_to "/404" and return unless ENV["FEATURE_EOI_JOURNEY_ENABLED"] == "true"
+  end
+
+  def your_info
+    @back_link = "/expression-of-interest/self-assessment/can-you-commit"
+    render "eoi/steps/now_we_need_your_info"
   end
 
   def display
@@ -57,7 +57,7 @@ class EoiController < ApplicationController
 
     # Check that step is a valid state name.
     if EoiWorkflow.states.key?(step)
-      @back_link = EoiWorkflow.get_prev_step(step)
+      @back_link = EoiWorkflow.get_prev_step(step, params)
       render EoiWorkflow.states[step][:view_name]
     else
       @back_link = "/"
@@ -67,7 +67,7 @@ class EoiController < ApplicationController
 
   def handle_step
     current_stage = params["stage"]
-    @back_link = EoiWorkflow.get_prev_step(current_stage)
+    @back_link = EoiWorkflow.get_prev_step(current_stage, params)
     redirect_to "/404" unless EoiWorkflow.states.key?(current_stage)
 
     # Pull session data out of session and
