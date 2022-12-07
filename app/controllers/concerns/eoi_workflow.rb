@@ -4,9 +4,11 @@ class EoiWorkflow
   @states = {
     "1" => { actions: [{ action: :go_next, destination: "2" }],
              view_name: "eoi/steps/fullname",
+             previous: "/expression-of-interest/self-assessment/your-info",
              validations: [:fullname] },
     "2" => { actions: [{ action: :go_next, destination: "3" }],
              view_name: "eoi/steps/email",
+             previous: "1",
              validations: [:email] },
     "3" => { actions: [{ action: :go_next, destination: "4" }],
              view_name: "eoi/steps/phone_number",
@@ -167,6 +169,15 @@ class EoiWorkflow
       if state_table_entry_action[:action] == action
         return state_table_entry_action[:destination]
       end
+    end
+  end
+
+  def self.get_prev_step(current_state)
+    step = @states[current_state][:previous] || "/expression-of-interest/self-assessment/property-suitable"
+    begin
+      "/expression-of-interest/steps/#{step}" if Float(step)
+    rescue StandardError
+      step
     end
   end
 end
