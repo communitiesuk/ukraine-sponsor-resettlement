@@ -19,9 +19,6 @@ describe('[Frontend-UI]: EOI FORM ERROR LABEL VALIDATION', function () {
     it('verify property suitability [hosting for at least 6 months]', function () {
       element.eoi_eligibility_check_ev_6months()
     })
-    it('verify country suitability [England+NI/Wales/Scotland]', function () {
-      element.eoi_eligibility_check_country()
-    })
   })
 
   context('Registration', function () {
