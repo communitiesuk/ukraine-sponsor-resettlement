@@ -1,2 +1,7 @@
-
-<a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
+<% if @back_link.present? %>
+    <a href="<%= @back_link %>" class="govuk-back-link">
+        Back<% if @back_link == "/" %> to the start of the service<% end %>
+    </a>
+<% else %>
+    <a href="#" onclick="history.go(-1);return false;" class="govuk-back-link">Back</a>
+<% end %>

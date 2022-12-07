@@ -4,18 +4,22 @@ class EoiController < ApplicationController
   def index; end
 
   def property_suitable
+    @back_link = "/"
     render "eoi/steps/is_your_property_suitable"
   end
 
   def challenges
+    @back_link = "/expression-of-interest/self-assessment/property-suitable"
     render "eoi/steps/challenges"
   end
 
   def other_ways_to_help
+    @back_link = "/"
     render "eoi/steps/other_ways_to_help"
   end
 
   def can_you_commit
+    @back_link = "/expression-of-interest/self-assessment/challenges"
     render "eoi/steps/can_you_commit"
   end
 
@@ -28,6 +32,7 @@ class EoiController < ApplicationController
   end
 
   def your_info
+    @back_link = "/expression-of-interest/self-assessment/can-you-commit"
     render "eoi/steps/now_we_need_your_info"
   end
 
@@ -52,14 +57,17 @@ class EoiController < ApplicationController
 
     # Check that step is a valid state name.
     if EoiWorkflow.states.key?(step)
+      @back_link = EoiWorkflow.get_prev_step(step)
       render EoiWorkflow.states[step][:view_name]
     else
+      @back_link = "/"
       redirect_to "/expression-of-interest/self-assessment/property-suitable"
     end
   end
 
   def handle_step
     current_stage = params["stage"]
+    @back_link = EoiWorkflow.get_prev_step(current_stage)
     redirect_to "/404" unless EoiWorkflow.states.key?(current_stage)
 
     # Pull session data out of session and
