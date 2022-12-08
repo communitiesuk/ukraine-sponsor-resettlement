@@ -82,12 +82,12 @@ jobs:
       - name: Run tests
         run: |
           bundle exec rake
-      - name: Test coverage
-        uses: joshmfrankel/simplecov-check-action@main
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          minimum_suite_coverage: 70
-          minimum_file_coverage: 0
+    #- name: Test coverage
+    #    uses: joshmfrankel/simplecov-check-action@main
+    #    with:
+    #      github_token: ${{ secrets.GITHUB_TOKEN }}
+    #      minimum_suite_coverage: 70
+    #      minimum_file_coverage: 0
 
   lint:
     name: Lint
