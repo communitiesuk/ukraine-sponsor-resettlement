@@ -19,14 +19,6 @@ class EoiController < ApplicationController
     render "eoi/steps/can_you_commit"
   end
 
-  def choose_country
-    if ENV["FEATURE_EOI_CHOOSE_COUNTRY_ENABLED"] == "true"
-      render "eoi/steps/choose_country"
-    else
-      redirect_to "/expression-of-interest/self-assessment/your-info"
-    end
-  end
-
   def your_info
     render "eoi/steps/now_we_need_your_info"
   end
