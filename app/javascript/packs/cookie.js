@@ -7,6 +7,7 @@
 
     }
     CookieModule.prototype.init = function($module) {   
+        window.scrollTo(0,0)
         this.accept = this.$module.querySelector('[data-accept-cookies]')
         this.$module.message = this.$module.querySelector('.govuk-cookie-banner___message')
         this.$module.confirmationMessage = this.$module.querySelector('.govuk-cookie-banner___confirmation')
@@ -16,6 +17,7 @@
 
         this.cookies_policy = JSON.parse(Utils.getCookie('cookies_policy', '{}'))
         this.cookies_preferences_set = Utils.getCookie('cookies_preferences_set') === 'true'
+        
         this.$module.showAcceptConfirmation = this.showAcceptConfirmation.bind(this);
         this.$module.showRejectConfirmation = this.showRejectConfirmation.bind(this);
 
@@ -30,19 +32,12 @@
     }
 
     CookieModule.prototype.showBanner = function () {
-        var meta = Utils.acceptedAdditionalCookies(this.cookies_policy);
-        console.log(meta)
     
         if (this.cookies_preferences_set) {
           this.$module.hidden = true;
         } else {
           this.$module.hidden = false;
-        //   this.$module.confirmAccept.hidden = !meta.responded || !meta.acceptedAdditionalCookies;
-        //   this.$module.confirmReject.hidden = !meta.responded || meta.acceptedAdditionalCookies;
-    
-          // XXX this prevents the banner from displaying in future whether or not the user
-          // interacts with it - is this what we want?
-        //   Utils.setCookie('cookies_preferences_set', 'true', {'days': 365});
+
         }
       }
 
@@ -62,24 +57,19 @@
       CookieModule.prototype.showAcceptConfirmation = function () {
         this.$module.message.style.display = 'none'
         this.$module.confirmationMessage.style.display = 'block';
-        this.$module.cookieAcceptedCopy.innerText =  'You’ve Accepted additional cookies. '
+        this.$module.cookieAcceptedCopy.innerText =  'You’ve accepted additional cookies.'
       }
 
       CookieModule.prototype.showRejectConfirmation = function () {
         this.$module.message.style.display = 'none'
         this.$module.confirmationMessage.style.display = 'block';
-        this.$module.cookieAcceptedCopy.innerText = 'You’ve Rejected additional cookies.'
-
+        this.$module.cookieAcceptedCopy.innerText = 'You’ve rejected additional cookies.'
       }
-
 
       CookieModule.prototype.hideCookieMessage = function () {
         this.$module.hidden = true;
 
       }
-
-
-
 
     Modules.CookieModule = CookieModule
 
@@ -138,4 +128,5 @@
           new CookieModule(nodes[i]).init();
         }
       });
+
   })(window.GOVUK.Modules)
