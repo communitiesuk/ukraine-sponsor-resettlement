@@ -8,14 +8,7 @@
     Utils.ALL_COOKIES = {
       "analytics": true,
     };
-  
-    Utils.ESSENTIAL_COOKIES = {
-      "essential": true,
-      "usage": false,
-      "campaigns": false,
-      "settings": false
-    };
-  
+
     Utils.acceptedAdditionalCookies = function (status) {
       var responded = false, acceptedAdditionalCookies = false;
       for (var key in status) {
@@ -28,7 +21,6 @@
       }
       return {responded: responded, acceptedAdditionalCookies: acceptedAdditionalCookies};
     };
-  
   
     Utils.getCookie = function (name, defaultValue) {
       name += "=";
@@ -55,6 +47,4 @@
       document.cookie = cookieString;
     };
   
-
-
   })();

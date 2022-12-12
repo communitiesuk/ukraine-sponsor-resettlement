@@ -13,15 +13,12 @@
         this.$module.confirmationMessage = this.$module.querySelector('.govuk-cookie-banner___confirmation')
         this.$module.confirmationMessage.style.display = 'none';
         this.hideCookie = this.$module.querySelector('[data-hide-cookie-message]')
-        this.$module.cookieAcceptedCopy = this.$module.querySelector('.cookie-accepted__status')
+        this.$module.cookieStatusCopy = this.$module.querySelector('.cookie-accepted__status')
 
         this.cookies_policy = JSON.parse(Utils.getCookie('cookies_policy', '{}'))
         this.cookies_preferences_set = Utils.getCookie('cookies_preferences_set') === 'true'
         
-        this.$module.showAcceptConfirmation = this.showAcceptConfirmation.bind(this);
-        this.$module.showRejectConfirmation = this.showRejectConfirmation.bind(this);
-
-
+        this.$module.showConfirmationMessage = this.showConfirmationMessage.bind(this);
 
         this.$module.querySelector('[data-accept-cookies]').addEventListener('click', this.acceptCookies.bind(this))
         this.$module.querySelector('[data-reject-cookies]').addEventListener('click', this.rejectCookies.bind(this))
@@ -37,18 +34,17 @@
           this.$module.hidden = true;
         } else {
           this.$module.hidden = false;
-
         }
       }
 
         CookieModule.prototype.acceptCookies = function () {
-        this.$module.showAcceptConfirmation()
+        this.$module.showConfirmationMessage('accepted')
         Utils.setCookie('cookies_policy', JSON.stringify(Utils.ALL_COOKIES), {'days': 365})
         Utils.setCookie('cookies_preferences_set', 'true', {'days': 365})
       }
 
       CookieModule.prototype.rejectCookies = function () {
-        this.$module.showRejectConfirmation();
+        this.$module.showConfirmationMessage('rejected')
         Utils.setCookie('cookies_policy', 
         JSON.stringify(
             {...Utils.ALL_COOKIES,
@@ -58,21 +54,15 @@
         Utils.setCookie('cookies_preferences_set', 'true', {'days': 365})
       }
 
-      CookieModule.prototype.showAcceptConfirmation = function () {
+      CookieModule.prototype.showConfirmationMessage = function (messageStatus) {
         this.$module.message.style.display = 'none'
         this.$module.confirmationMessage.style.display = 'block';
-        this.$module.cookieAcceptedCopy.innerText =  'You’ve accepted additional cookies.'
+        this.$module.cookieStatusCopy.innerText =  `You’ve ${messageStatus} additional cookies.`
       }
 
-      CookieModule.prototype.showRejectConfirmation = function () {
-        this.$module.message.style.display = 'none'
-        this.$module.confirmationMessage.style.display = 'block';
-        this.$module.cookieAcceptedCopy.innerText = 'You’ve rejected additional cookies.'
-      }
-
+ 
       CookieModule.prototype.hideCookieMessage = function () {
         this.$module.hidden = true;
-
       }
 
     Modules.CookieModule = CookieModule
