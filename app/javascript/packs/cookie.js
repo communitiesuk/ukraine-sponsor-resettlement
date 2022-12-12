@@ -12,13 +12,18 @@
         this.$module.confirmationMessage = this.$module.querySelector('.govuk-cookie-banner___confirmation')
         this.$module.confirmationMessage.style.display = 'none';
         this.hideCookie = this.$module.querySelector('[data-hide-cookie-message]')
+        this.$module.cookieAcceptedCopy = this.$module.querySelector('.cookie-accepted__status')
 
         this.cookies_policy = JSON.parse(Utils.getCookie('cookies_policy', '{}'))
         this.cookies_preferences_set = Utils.getCookie('cookies_preferences_set') === 'true'
         this.$module.showAcceptConfirmation = this.showAcceptConfirmation.bind(this);
+        this.$module.showRejectConfirmation = this.showRejectConfirmation.bind(this);
+
 
 
         this.$module.querySelector('[data-accept-cookies]').addEventListener('click', this.acceptCookies.bind(this))
+        this.$module.querySelector('[data-reject-cookies]').addEventListener('click', this.rejectCookies.bind(this))
+
         this.$module.querySelector('[data-hide-cookie-message]').addEventListener('click', this.hideCookieMessage.bind(this))
 
         this.showBanner()
@@ -37,25 +42,36 @@
     
           // XXX this prevents the banner from displaying in future whether or not the user
           // interacts with it - is this what we want?
-          Utils.setCookie('cookies_preferences_set', 'true', {'days': 365});
+        //   Utils.setCookie('cookies_preferences_set', 'true', {'days': 365});
         }
       }
 
         CookieModule.prototype.acceptCookies = function () {
-        console.log('CALLED')
-
-        console.log("CookieBanner.acceptCookies: setting ALL_COOKIES")
-        console.log(this)
         this.$module.showAcceptConfirmation()
         Utils.setCookie('cookies_policy', JSON.stringify(Utils.ALL_COOKIES), {'days': 365})
+        Utils.setCookie('cookies_preferences_set', 'true', {'days': 365})
+      }
+
+      CookieModule.prototype.rejectCookies = function () {
+        console.log("CookieBanner.rejectCookies: setting ESSENTIAL_COOKIES")
+        this.$module.showRejectConfirmation();
+        Utils.setCookie('cookies_policy', JSON.stringify(Utils.ESSENTIAL_COOKIES), {'days': 365})
         Utils.setCookie('cookies_preferences_set', 'true', {'days': 365})
       }
 
       CookieModule.prototype.showAcceptConfirmation = function () {
         this.$module.message.style.display = 'none'
         this.$module.confirmationMessage.style.display = 'block';
+        this.$module.cookieAcceptedCopy.innerText =  'You’ve Accepted additional cookies. '
+      }
+
+      CookieModule.prototype.showRejectConfirmation = function () {
+        this.$module.message.style.display = 'none'
+        this.$module.confirmationMessage.style.display = 'block';
+        this.$module.cookieAcceptedCopy.innerText = 'You’ve Rejected additional cookies.'
 
       }
+
 
       CookieModule.prototype.hideCookieMessage = function () {
         this.$module.hidden = true;
@@ -99,7 +115,7 @@
             <div class="govuk-grid-column-two-thirds">
 
               <div class="govuk-cookie-banner__content">
-                <p class="govuk-body">You’ve Accepted additional cookies.                       
+                <p class="govuk-body cookie-accepted__status">You’ve Accepted additional cookies.                       
                 You can <a class="govuk-link" href="/cookies">change your cookie settings</a> at any time.</p>
 
               </div>
@@ -114,7 +130,7 @@
         </div>
       </div>`
 
-    body.insertBefore(el, body.firstChild);
+     body.insertBefore(el, body.firstChild);
 
       const nodes = document.querySelectorAll('.govuk-cookie-banner')
 
