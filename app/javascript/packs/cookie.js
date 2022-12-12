@@ -50,7 +50,12 @@
       CookieModule.prototype.rejectCookies = function () {
         console.log("CookieBanner.rejectCookies: setting ESSENTIAL_COOKIES")
         this.$module.showRejectConfirmation();
-        Utils.setCookie('cookies_policy', JSON.stringify(Utils.ESSENTIAL_COOKIES), {'days': 365})
+        Utils.setCookie('cookies_policy', 
+        JSON.stringify(
+            {...Utils.ALL_COOKIES,
+                 analytics:false
+        }),
+         {'days': 365})
         Utils.setCookie('cookies_preferences_set', 'true', {'days': 365})
       }
 

@@ -35,20 +35,23 @@ private
   end
 
   def cookie_banner
-    @cookie_banner_form_step = 1
-    @is_cookie_page = request.path == "/cookies"
-    if params[:cookies_accepted].present?
-      session[:cookies_accepted] = params[:cookies_accepted]
+    
+    if cookies[:cookies_preferences_set].present? && cookies[:cookies_preferences_set] = 'true'
+      cookies_json = JSON.parse(cookies[:cookies_policy])
+      @cookies_accepted = cookies_json['analytics']
+      puts "*******************"
+      puts @cookies_accepted
+      puts "*******************"
     end
-    if session[:cookies_accepted].present?
-      @cookies_accepted = session[:cookies_accepted].casecmp("true").zero?
-      @cookie_banner_form_step = 2
-    end
-    if params[:c_m_h].present?
-      session[:cookie_message_hidden] = params[:c_m_h]
-    end
-    if session[:cookie_message_hidden].present?
-      @cookie_message_hidden = session[:cookie_message_hidden]
-    end
+    # if session[:cookies_accepted].present?
+    #   @cookies_accepted = session[:cookies_accepted].casecmp("true").zero?
+    #   @cookie_banner_form_step = 2
+    # end
+    # if params[:c_m_h].present?
+    #   session[:cookie_message_hidden] = params[:c_m_h]
+    # end
+    # if session[:cookie_message_hidden].present?
+    #   @cookie_message_hidden = session[:cookie_message_hidden]
+    # end
   end
 end
