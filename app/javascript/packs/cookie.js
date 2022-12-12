@@ -82,11 +82,11 @@
         var body = document.querySelector('.govuk-template__body')
         var el = document.createElement("div");
 
-        el.innerHTML += `<div class="govuk-cookie-banner " data-nosnippet role="region" aria-label="Cookies on [name of service]">
+        el.innerHTML += `<div class="govuk-cookie-banner " data-nosnippet role="region" aria-label="Cookies on Homes for Ukraine">
         <div class="govuk-cookie-banner__message govuk-width-container govuk-cookie-banner___message">
           <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
-              <h2 class="govuk-cookie-banner__heading govuk-heading-m">Cookies on [name of service]</h2>
+              <h2 class="govuk-cookie-banner__heading govuk-heading-m">Cookies on Homes for Ukraine</h2>
               <div class="govuk-cookie-banner__content">
                 <p class="govuk-body">We use some essential cookies to make this service work.</p>
                 <p class="govuk-body">We’d also like to use analytics cookies so we can understand how you use the service and make improvements.</p>
@@ -100,7 +100,7 @@
             <button value="reject" type="button" name="cookies" data-reject-cookies="1" class="govuk-button" data-module="govuk-button">
               Reject analytics cookies
             </button>
-            <a class="govuk-link" href="#">View cookies</a>
+            <a class="govuk-link" href="/cookies">View cookies</a>
           </div>
         </div>
 
