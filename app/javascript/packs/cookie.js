@@ -48,7 +48,6 @@
       }
 
       CookieModule.prototype.rejectCookies = function () {
-        console.log("CookieBanner.rejectCookies: setting ESSENTIAL_COOKIES")
         this.$module.showRejectConfirmation();
         Utils.setCookie('cookies_policy', 
         JSON.stringify(
