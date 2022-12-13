@@ -84,6 +84,7 @@ var page_elements = {
     difadd_yes_radiobtn: "#expression-of-interest-different-address-yes-field",
     difadd_yes_error_radiobtn: "#expression-of-interest-different-address-field-error",
     difaddress_error_label: "#expression-of-interest-different-address-error",
+    difadd_no_radiobtn: "#expression-of-interest-different-address-no-field",
     
     //step6-8
     offeringadd_heading: ".govuk-fieldset__legend.govuk-fieldset__legend--m",
