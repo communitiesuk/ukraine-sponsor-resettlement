@@ -39,12 +39,12 @@ var page_elements = {
     gov_licence_logo: "#open-licence-logo",
     crown_copyright_link: ".govuk-footer__link.govuk-footer__copyright-logo",
     crown_copyright_header: "div[class='entry-header'] h1",
-    local_council_link: "//a[normalize-space()='contact your local council (opens in a new page)']",
+    local_council_link: "//a[normalize-space()='contact your local council (opens in a new tab)']",
     local_council_link_samepage: "//a[normalize-space()='Find the local council']",
-    stand_with_ukraine_link: "//a[normalize-space()='#StandWithUkraine (opens in a new page)']",
-    community_sponsorship_link: "//a[normalize-space()='community sponsorship (opens in a new page)']",
-    volunteering_link: "//a[normalize-space()='volunteering (opens in a new page)']",
-    support_organisations_link: "//a[normalize-space()='support these organisations (opens in a new page)']",
+    stand_with_ukraine_link: "//a[normalize-space()='#StandWithUkraine (opens in a new tab)']",
+    community_sponsorship_link: "//a[normalize-space()='community sponsorship (opens in a new tab)']",
+    volunteering_link: "//a[normalize-space()='volunteering (opens in a new tab)']",
+    support_organisations_link: "//a[normalize-space()='support these organisations (opens in a new tab)']",
     privacy_statement_link: ".govuk-link",
 
     //step1-3 

@@ -111,7 +111,7 @@ en:
         short: Privacy statement
         full: Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme
         comment: Yes, I have read the privacy statement and agree that the information I have provided in this form can be used for the Homes for Ukraine scheme
-        link: Privacy statement (opens in a new page)
+        link: Privacy statement (opens in a new tab)
     family_type:
       single_adult: Single adult
       more_than_one_adult: More than one adult
