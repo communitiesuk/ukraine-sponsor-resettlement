@@ -14,7 +14,6 @@
         this.$module.confirmationMessage.style.display = 'none';
         this.$module.cookieStatusCopy = this.$module.querySelector('.cookie-accepted__status')
 
-        this.cookies_policy = JSON.parse(Utils.getCookie('cookies_policy', '{}'))
         this.cookies_preferences_set = Utils.getCookie('cookies_preferences_set') === 'true'
         
         this.$module.showConfirmationMessage = this.showConfirmationMessage.bind(this);

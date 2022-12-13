@@ -9,18 +9,7 @@
       "analytics": true,
     };
 
-    Utils.acceptedAdditionalCookies = function (status) {
-      var responded = false, acceptedAdditionalCookies = false;
-      for (var key in status) {
-        if (status.hasOwnProperty(key)) {
-          responded = true;
-          if (key !== "essential") {
-            acceptedAdditionalCookies ||= status[key];
-          }
-        }
-      }
-      return {responded: responded, acceptedAdditionalCookies: acceptedAdditionalCookies};
-    };
+
   
     Utils.getCookie = function (name, defaultValue) {
       name += "=";
