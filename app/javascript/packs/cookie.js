@@ -6,13 +6,12 @@
         this.$module = $module;
 
     }
-    CookieModule.prototype.init = function($module) {   
+    CookieModule.prototype.init = function() {   
         window.scrollTo(0,0)
         this.accept = this.$module.querySelector('[data-accept-cookies]')
         this.$module.message = this.$module.querySelector('.govuk-cookie-banner___message')
         this.$module.confirmationMessage = this.$module.querySelector('.govuk-cookie-banner___confirmation')
         this.$module.confirmationMessage.style.display = 'none';
-        this.hideCookie = this.$module.querySelector('[data-hide-cookie-message]')
         this.$module.cookieStatusCopy = this.$module.querySelector('.cookie-accepted__status')
 
         this.cookies_policy = JSON.parse(Utils.getCookie('cookies_policy', '{}'))
@@ -22,7 +21,6 @@
 
         this.$module.querySelector('[data-accept-cookies]').addEventListener('click', this.acceptCookies.bind(this))
         this.$module.querySelector('[data-reject-cookies]').addEventListener('click', this.rejectCookies.bind(this))
-
         this.$module.querySelector('[data-hide-cookie-message]').addEventListener('click', this.hideCookieMessage.bind(this))
 
         this.showBanner()
