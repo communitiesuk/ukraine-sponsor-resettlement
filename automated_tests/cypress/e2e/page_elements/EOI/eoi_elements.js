@@ -191,8 +191,3 @@ var page_elements = {
     cya_pstatement: "body > div:nth-child(5) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(9) > div:nth-child(8) > dd:nth-child(2)",
 };
 module.exports = page_elements;
-
-
-
-
-
