@@ -84,6 +84,7 @@ var page_elements = {
     difadd_yes_radiobtn: "#expression-of-interest-different-address-yes-field",
     difadd_yes_error_radiobtn: "#expression-of-interest-different-address-field-error",
     difaddress_error_label: "#expression-of-interest-different-address-error",
+    difadd_no_radiobtn: "#expression-of-interest-different-address-no-field",
     
     //step6-8
     offeringadd_heading: ".govuk-fieldset__legend.govuk-fieldset__legend--m",
@@ -190,8 +191,3 @@ var page_elements = {
     cya_pstatement: "body > div:nth-child(5) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(9) > div:nth-child(8) > dd:nth-child(2)",
 };
 module.exports = page_elements;
-
-
-
-
-
