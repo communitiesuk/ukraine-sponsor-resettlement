@@ -4,9 +4,6 @@ const error = require('../../../fixtures/bodytext_error.json')
 const secrets = require('../../../fixtures/bodytext_secrets.json')
 const bodytext = require('../../../fixtures/bodytext.json')
 
-
-
-
 export const scot_address_glas_1 = () => {
     cy.get(elements.addressl1_textbox).clear().type('No 1')
     cy.get(elements.addressl2_textbox).clear().type('Scotland Lane')
@@ -103,7 +100,6 @@ export const wales_address_pembroke = () => {
     cy.get(elements.offering_townorcity_textbox).clear().type('Pembroke')
     cy.get(elements.offering_postcode_textbox).clear().type('SA71 4AP').wait(Cypress.env('waitTime'))
 }
-
 
 //Scotland/Glas
 export const postcode_validation_scot_same = () => {
