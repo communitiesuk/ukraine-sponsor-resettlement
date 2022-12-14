@@ -23,14 +23,12 @@ _**IMPORTANT: The tests will be run against a local running instance of the proj
 - select & run test(s)
 
 Command line
-
 - run `npm run e2e` to run all tests using default Electron broswer and open the report
 - run `npm run view_report` to view report on browser
 - run `npm run headless` to run all tests headless mode
 - run `npm run delete_report` to delete report directory
 
 Run a single spec file
-
 - npx cypress run --spec cypress/e2e/integration/EOI/eoi_e2e_hp.cy.js
 - npx cypress run --spec cypress/e2e/integration/EOI/eoi_error_label_validation.cy.js
 - npx cypress run --spec cypress/e2e/integration/EOI/eoi_address_validation.cy.js
@@ -43,5 +41,4 @@ Run a single spec file
 
 
 Run with specific browser
-
 - npx cypress run --spec cypress/e2e/integration/EOI/eoi_e2e_hp.cy.js --browser chrome
