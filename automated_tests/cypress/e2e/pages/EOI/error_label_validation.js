@@ -38,18 +38,9 @@ export const eoi_eligibility_check_ev_6months = () => {
     cy.xpath(elements.error_sbox_sel_option_msg).contains(error.radiobtn_error_msg).should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.yes_radiobtn).click()
     cy.get(elements.sa_continue_button).click().wait(Cypress.env('waitTime'))
-
-}
-export const eoi_eligibility_check_country = () => {
-    cy.get(elements.sa_continue_button).click().wait(Cypress.env('waitTime'))
-    cy.get(elements.error_validation_radio_label).contains(error.radiobtn_error_msg).should('be.visible')
-    cy.get(elements.error_summary_title).contains(error.err_summary_title_msg).should('be.visible').wait(Cypress.env('waitTime'))
-    cy.get(elements.england_radiobtn).click().wait(Cypress.env('waitTime'))
-    cy.get(elements.sa_continue_button).click().wait(Cypress.env('waitTime'))
     cy.get(elements.page_heading).contains('Now we need your information').should('be.visible')
     cy.get(elements.sa_continue_button).click().wait(Cypress.env('waitTime'))
 }
-
 export const your_details_page_ev_s1_3 = () => {
     cy.get(elements.fullname_label).contains('Enter your full name').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.fullname_textbox).clear()
