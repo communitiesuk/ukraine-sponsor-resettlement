@@ -53,7 +53,7 @@ export const links_validation_sa_p1_wales = () => {
     cy.visit('/').wait(Cypress.env('waitTime'))
     cy.get(elements.main_heading).contains("Homes for Ukraine: Register to host people already living in the UK").should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.wales_link).click().wait(Cypress.env('waitTime'))
-    cy.url().should('include', 'https://gov.wales/offer-home-wales-refugees-ukraine')
+    cy.url().should('include', 'https://www.gov.wales/offer-home-wales-refugees-ukraine')
     cy.get(elements.page_heading_wales).contains("Offer a home in Wales to refugees from Ukraine").should('be.visible').wait(Cypress.env('waitTime'))
     cy.go('back')
 }
@@ -125,7 +125,7 @@ export const links_validation_postcode_check_page_l2 = () => {
     cy.visit('/expression-of-interest/steps/end').wait(Cypress.env('waitTime'))
     cy.get(elements.page_heading).contains('You have entered an address that is not in England or Northern Ireland').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.wales_link).click().wait(Cypress.env('waitTime'))
-    cy.url().should('include', 'https://gov.wales/offer-home-wales-refugees-ukraine')
+    cy.url().should('include', 'https://www.gov.wales/offer-home-wales-refugees-ukraine')
     cy.get(elements.page_heading_wales).contains("Offer a home in Wales to refugees from Ukraine").should('be.visible').wait(Cypress.env('waitTime'))
     cy.go('back')
 }
