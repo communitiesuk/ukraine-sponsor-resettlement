@@ -17,7 +17,7 @@ export const links_validation_hfu = () => {
     cy.visit('/expression-of-interest/self-assessment/challenges').wait(Cypress.env('waitTime'))
     cy.get(elements.page_heading).contains("Important things to consider").should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.huf_header_link).click().wait(Cypress.env('waitTime'))
-    cy.url().should('include', 'https://ukraine-sponsor-resettlement-staging.london.cloudapps.digital/').should('exist')
+    cy.url().should('include', Cypress.config('baseUrl')).should('exist')
     cy.get(elements.main_heading).contains("Homes for Ukraine: Register to host people already living in the UK").should('be.visible').wait(Cypress.env('waitTime'))
     cy.go('back')
 }
