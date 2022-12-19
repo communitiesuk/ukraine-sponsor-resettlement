@@ -14,7 +14,8 @@ var page_elements = {
     govuk_header: ".homepage-inverse-header__title",
     start_button: "a[role='button']",
     yes_radiobtn: "input[value='yes']",
-    england_radiobtn: "input[value='England']",
+    no_radiobtn: "input[value='no']",
+    back_link: ".govuk-back-link",
     sa_continue_button: "#selfAssessmentContinueButton",
     error_validation_radio_label: ".govuk-error-message",
     continue_button: "button[type='submit']",
@@ -39,12 +40,12 @@ var page_elements = {
     gov_licence_logo: "#open-licence-logo",
     crown_copyright_link: ".govuk-footer__link.govuk-footer__copyright-logo",
     crown_copyright_header: "div[class='entry-header'] h1",
-    local_council_link: "//a[normalize-space()='contact your local council (opens in a new page)']",
+    local_council_link: "//a[normalize-space()='contact your local council (opens in a new tab)']",
     local_council_link_samepage: "//a[normalize-space()='Find the local council']",
-    stand_with_ukraine_link: "//a[normalize-space()='#StandWithUkraine (opens in a new page)']",
-    community_sponsorship_link: "//a[normalize-space()='community sponsorship (opens in a new page)']",
-    volunteering_link: "//a[normalize-space()='volunteering (opens in a new page)']",
-    support_organisations_link: "//a[normalize-space()='support these organisations (opens in a new page)']",
+    stand_with_ukraine_link: "//a[normalize-space()='#StandWithUkraine (opens in a new tab)']",
+    community_sponsorship_link: "//a[normalize-space()='community sponsorship (opens in a new tab)']",
+    volunteering_link: "//a[normalize-space()='volunteering (opens in a new tab)']",
+    support_organisations_link: "//a[normalize-space()='support these organisations (opens in a new tab)']",
     privacy_statement_link: ".govuk-link",
 
     //step1-3 
@@ -84,6 +85,7 @@ var page_elements = {
     difadd_yes_radiobtn: "#expression-of-interest-different-address-yes-field",
     difadd_yes_error_radiobtn: "#expression-of-interest-different-address-field-error",
     difaddress_error_label: "#expression-of-interest-different-address-error",
+    difadd_no_radiobtn: "#expression-of-interest-different-address-no-field",
     
     //step6-8
     offeringadd_heading: ".govuk-fieldset__legend.govuk-fieldset__legend--m",
@@ -190,8 +192,3 @@ var page_elements = {
     cya_pstatement: "body > div:nth-child(5) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(9) > div:nth-child(8) > dd:nth-child(2)",
 };
 module.exports = page_elements;
-
-
-
-
-
