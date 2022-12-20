@@ -1,12 +1,5 @@
 class OrganisationController < ApplicationController
   MAX_STEPS = 14
-  before_action :check_feature_flag
-
-  def check_feature_flag
-    if ENV["FEATURE_EOI_JOURNEY_ENABLED"] == "true" && ENV["RAILS_ENV"] != "test"
-      redirect_to "/expression-of-interest/self-assessment/property-suitable"
-    end
-  end
 
   def display
     @application = OrganisationExpressionOfInterest.new(session[:organisation_expression_of_interest])

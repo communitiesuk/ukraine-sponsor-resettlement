@@ -1,4 +1,4 @@
-version: '3.3'
+version: "3.3"
 
 services:
   pg:
@@ -22,7 +22,7 @@ services:
       - sidekiq
       - s3
     volumes:
-      - .:/app:cached  # For development, the app dir is a bind mount to the dir on the host
+      - .:/app:cached # For development, the app dir is a bind mount to the dir on the host
     environment:
       RAILS_ENV: development
       INSTANCE_NAME: ukraine-sponsor-resettlement-development
@@ -32,10 +32,8 @@ services:
       DB_PASSWORD: password
       VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-development-redis","credentials":{"uri":"redis://redis"}}],"aws-s3-bucket":[{"instance_name":"ukraine-sponsor-resettlement-development-s3","credentials":{"aws_access_key_id":"access-key-id","aws_secret_access_key":"secret-access-key","aws_region":"eu-west-2","bucket_name":"upload-bucket"}}]}'
       BASIC_AUTH_PASS: password
-      FEATURE_EOI_JOURNEY_ENABLED: 'true'
-      FEATURE_EOI_CHOOSE_COUNTRY_ENABLED: 'true'
-      UAM_GA_TRACKING_CODE: 'UA-243629620-2'
-      EOI_GA_TRACKING_CODE: 'UA-243629620-1'
+      UAM_GA_TRACKING_CODE: "UA-243629620-2"
+      EOI_GA_TRACKING_CODE: "UA-243629620-1"
 
     ports:
       - 8080:8080
@@ -44,7 +42,7 @@ services:
     build:
       dockerfile: Dockerfile-dev
       context: .
-      target: testingbuild  # For running the tests the app files are copied into the container because running them from a bind mount is too slow
+      target: testingbuild # For running the tests the app files are copied into the container because running them from a bind mount is too slow
     depends_on:
       - pg
       - redis
@@ -59,9 +57,6 @@ services:
       VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-test-redis","credentials":{"uri":"redis://redis"}}],"aws-s3-bucket":[{"instance_name":"ukraine-sponsor-resettlement-test-s3","credentials":{"aws_access_key_id":"access-key-id","aws_secret_access_key":"secret-access-key","aws_region":"eu-west-2","bucket_name":"test-bucket"}}]}'
       REMOTE_API_URL: http://mock-api:8081/data
       GOVUK_NOTIFY_API_KEY: ${GOVUK_NOTIFY_API_KEY}
-      FEATURE_EOI_JOURNEY_ENABLED: 'true'
-      FEATURE_EOI_CHOOSE_COUNTRY_ENABLED: 'true'
-
 
     command: bin/test.sh
 
@@ -114,4 +109,3 @@ services:
       context: http-mock-server
     ports:
       - 8081:8081
-
