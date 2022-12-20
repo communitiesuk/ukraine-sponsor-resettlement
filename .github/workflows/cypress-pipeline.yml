@@ -36,8 +36,6 @@ jobs:
       DB_USERNAME: ukraine
       DB_PASSWORD: password
       GOVUK_NOTIFY_API_KEY: ${{ secrets.GOVUK_NOTIFY_API_KEY }}
-      FEATURE_EOI_JOURNEY_ENABLED: "true"
-      FEATURE_EOI_CHOOSE_COUNTRY_ENABLED: "true"
 
     steps:
       - name: Setup cypress

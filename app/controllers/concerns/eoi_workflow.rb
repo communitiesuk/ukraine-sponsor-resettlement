@@ -78,50 +78,42 @@ class EoiWorkflow
       if params.key?("different_address") && params["different_address"].casecmp("yes").zero?
         :go_diff_addr
       elsif params.key?("different_address") && params["different_address"].casecmp("no").zero?
-        if ENV["FEATURE_EOI_CHOOSE_COUNTRY_ENABLED"] == "true"
-          if eoi_instance.residential_postcode
-            pc = UKPostcode.parse(eoi_instance.residential_postcode)
-            case pc.country
-            when :england
-              return :skip_diff_addr
-            when :northern_ireland
-              return :skip_diff_addr
-            when :scotland
-              return :redirect_scotland
-            when :wales
-              return :redirect_wales
-            else
-              return :skip_diff_addr
-            end
-          else
-            return :back_to_address
-          end
-        else
-          :skip_diff_addr
-        end
-      end
-    end,
-    "6" => lambda do |params, _eoi_instance|
-      if ENV["FEATURE_EOI_CHOOSE_COUNTRY_ENABLED"] == "true"
-        if params["property_one_postcode"]
-          pc = UKPostcode.parse(params["property_one_postcode"])
+        if eoi_instance.residential_postcode
+          pc = UKPostcode.parse(eoi_instance.residential_postcode)
           case pc.country
           when :england
-            return :go_next
+            return :skip_diff_addr
           when :northern_ireland
-            return :go_next
+            return :skip_diff_addr
           when :scotland
             return :redirect_scotland
           when :wales
             return :redirect_wales
           else
-            return :go_next
+            return :skip_diff_addr
           end
         else
-          return :reload
+          return :back_to_address
+        end
+      end
+    end,
+    "6" => lambda do |params, _eoi_instance|
+      if params["property_one_postcode"]
+        pc = UKPostcode.parse(params["property_one_postcode"])
+        case pc.country
+        when :england
+          return :go_next
+        when :northern_ireland
+          return :go_next
+        when :scotland
+          return :redirect_scotland
+        when :wales
+          return :redirect_wales
+        else
+          return :go_next
         end
       else
-        :go_next
+        return :reload
       end
     end,
     "7" => lambda do |params, _eoi_instance|
