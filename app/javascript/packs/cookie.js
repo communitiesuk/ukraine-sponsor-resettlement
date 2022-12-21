@@ -1,74 +1,75 @@
 
-(function(Modules) {
-    'use strict'
+(function (Modules) {
+  'use strict'
 
-    function CookieModule ($module) {
-        this.$module = $module;
+  function CookieModule($module) {
+    this.$module = $module;
 
+  }
+  CookieModule.prototype.init = function () {
+    window.scrollTo(0, 0)
+    this.accept = this.$module.querySelector('[data-accept-cookies]')
+    this.$module.message = this.$module.querySelector('.govuk-cookie-banner___message')
+    this.$module.confirmationMessage = this.$module.querySelector('.govuk-cookie-banner___confirmation')
+    this.$module.confirmationMessage.style.display = 'none';
+    this.$module.cookieStatusCopy = this.$module.querySelector('.cookie-accepted__status')
+
+    this.cookies_preferences_set = Utils.getCookie('cookies_preferences_set') === 'true'
+
+    this.$module.showConfirmationMessage = this.showConfirmationMessage.bind(this);
+
+    this.$module.querySelector('[data-accept-cookies]').addEventListener('click', this.acceptCookies.bind(this))
+    this.$module.querySelector('[data-reject-cookies]').addEventListener('click', this.rejectCookies.bind(this))
+    this.$module.querySelector('[data-hide-cookie-message]').addEventListener('click', this.hideCookieMessage.bind(this))
+
+    this.showBanner()
+  }
+
+  CookieModule.prototype.showBanner = function () {
+
+    if (this.cookies_preferences_set) {
+      this.$module.hidden = true;
+    } else {
+      this.$module.hidden = false;
     }
-    CookieModule.prototype.init = function() {   
-        window.scrollTo(0,0)
-        this.accept = this.$module.querySelector('[data-accept-cookies]')
-        this.$module.message = this.$module.querySelector('.govuk-cookie-banner___message')
-        this.$module.confirmationMessage = this.$module.querySelector('.govuk-cookie-banner___confirmation')
-        this.$module.confirmationMessage.style.display = 'none';
-        this.$module.cookieStatusCopy = this.$module.querySelector('.cookie-accepted__status')
+  }
 
-        this.cookies_preferences_set = Utils.getCookie('cookies_preferences_set') === 'true'
-        
-        this.$module.showConfirmationMessage = this.showConfirmationMessage.bind(this);
+  CookieModule.prototype.acceptCookies = function () {
+    this.$module.showConfirmationMessage('accepted')
+    Utils.setCookie('cookies_policy', JSON.stringify(Utils.ALL_COOKIES), { 'days': 365 })
+    Utils.setCookie('cookies_preferences_set', 'true', { 'days': 365 })
+  }
 
-        this.$module.querySelector('[data-accept-cookies]').addEventListener('click', this.acceptCookies.bind(this))
-        this.$module.querySelector('[data-reject-cookies]').addEventListener('click', this.rejectCookies.bind(this))
-        this.$module.querySelector('[data-hide-cookie-message]').addEventListener('click', this.hideCookieMessage.bind(this))
-
-        this.showBanner()
-    }
-
-    CookieModule.prototype.showBanner = function () {
-    
-        if (this.cookies_preferences_set) {
-          this.$module.hidden = true;
-        } else {
-          this.$module.hidden = false;
-        }
-      }
-
-        CookieModule.prototype.acceptCookies = function () {
-        this.$module.showConfirmationMessage('accepted')
-        Utils.setCookie('cookies_policy', JSON.stringify(Utils.ALL_COOKIES), {'days': 365})
-        Utils.setCookie('cookies_preferences_set', 'true', {'days': 365})
-      }
-
-      CookieModule.prototype.rejectCookies = function () {
-        this.$module.showConfirmationMessage('rejected')
-        Utils.setCookie('cookies_policy', 
-        JSON.stringify(
-            {...Utils.ALL_COOKIES,
-                 analytics:false
+  CookieModule.prototype.rejectCookies = function () {
+    this.$module.showConfirmationMessage('rejected')
+    Utils.setCookie('cookies_policy',
+      JSON.stringify(
+        {
+          ...Utils.ALL_COOKIES,
+          analytics: false
         }),
-         {'days': 365})
-        Utils.setCookie('cookies_preferences_set', 'true', {'days': 365})
-      }
+      { 'days': 365 })
+    Utils.setCookie('cookies_preferences_set', 'true', { 'days': 365 })
+  }
 
-      CookieModule.prototype.showConfirmationMessage = function (messageStatus) {
-        this.$module.message.style.display = 'none'
-        this.$module.confirmationMessage.style.display = 'block';
-        this.$module.cookieStatusCopy.innerText =  `You’ve ${messageStatus} additional cookies.`
-      }
+  CookieModule.prototype.showConfirmationMessage = function (messageStatus) {
+    this.$module.message.style.display = 'none'
+    this.$module.confirmationMessage.style.display = 'block';
+    this.$module.cookieStatusCopy.innerText = `You’ve ${messageStatus} additional cookies.`
+  }
 
- 
-      CookieModule.prototype.hideCookieMessage = function () {
-        this.$module.hidden = true;
-      }
 
-    Modules.CookieModule = CookieModule
+  CookieModule.prototype.hideCookieMessage = function () {
+    this.$module.hidden = true;
+  }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        var body = document.querySelector('.govuk-template__body')
-        var el = document.createElement("div");
+  Modules.CookieModule = CookieModule
 
-        el.innerHTML += `<div class="govuk-cookie-banner " data-nosnippet role="region" aria-label="Cookies on Homes for Ukraine">
+  document.addEventListener('DOMContentLoaded', function () {
+    var body = document.querySelector('.govuk-template__body')
+    var el = document.createElement("div");
+
+    el.innerHTML += `<div class="govuk-cookie-banner " data-nosnippet role="region" aria-label="Cookies on Homes for Ukraine">
         <div class="govuk-cookie-banner__message govuk-width-container govuk-cookie-banner___message">
           <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
@@ -86,7 +87,7 @@
             <button value="reject" type="button" name="cookies" data-reject-cookies="1" class="govuk-button" data-module="govuk-button">
               Reject analytics cookies
             </button>
-            <a class="govuk-link" href="/cookies">View cookies</a>
+            <a class="govuk-link" id="cookies-page-link" href="/cookies">View cookies</a>
           </div>
         </div>
 
@@ -104,20 +105,20 @@
           </div>
 
           <div class="govuk-button-group">
-          <button value="reject" type="button" name="cookies" data-hide-cookie-message="1" class="govuk-button" data-module="govuk-button">
+          <button value="hide-cookies" type="button" name="cookies" data-hide-cookie-message="1" class="govuk-button" data-module="govuk-button">
           Hide Cookie Message
         </button>        
       </div>
         </div>
       </div>`
 
-     body.insertBefore(el, body.firstChild);
+    body.insertBefore(el, body.firstChild);
 
-      const nodes = document.querySelectorAll('.govuk-cookie-banner')
+    const nodes = document.querySelectorAll('.govuk-cookie-banner')
 
-        for (var i = 0, length = nodes.length; i < length; i++) {
-          new CookieModule(nodes[i]).init();
-        }
-      });
+    for (var i = 0, length = nodes.length; i < length; i++) {
+      new CookieModule(nodes[i]).init();
+    }
+  });
 
-  })(window.GOVUK.Modules)
+})(window.GOVUK.Modules)
