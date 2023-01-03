@@ -9,19 +9,19 @@ Rails.application.routes.draw do
   get "/cookies", to: "cookies#display"
   post "/cookies", to: "cookies#post"
 
-  get "/individual", to: redirect("/individual/steps/1")
-  get "/individual/steps/:stage", to: "individual#display"
-  post "/individual/steps/:stage", to: "individual#handle_step"
-  get "/individual/check_answers", to: "individual#check_answers"
-  post "/individual/check_answers", to: "individual#submit"
-  get "/individual/confirm", to: "individual#confirm"
+  get "/individual", to: redirect("/expression-of-interest/self-assessment/property-suitable")
+  get "/individual/steps/:stage", to: redirect("/expression-of-interest/self-assessment/property-suitable")
+  post "/individual/steps/:stage", to: redirect("/expression-of-interest/self-assessment/property-suitable")
+  get "/individual/check_answers", to: redirect("/expression-of-interest/self-assessment/property-suitable")
+  post "/individual/check_answers", to: redirect("/expression-of-interest/self-assessment/property-suitable")
+  get "/individual/confirm", to: redirect("/expression-of-interest/self-assessment/property-suitable")
 
-  get "/organisation", to: redirect("/organisation/steps/1")
-  get "/organisation/steps/:stage", to: "organisation#display"
-  post "/organisation/steps/:stage", to: "organisation#handle_step"
-  get "/organisation/check_answers", to: "organisation#check_answers"
-  post "/organisation/check_answers", to: "organisation#submit"
-  get "/organisation/confirm", to: "organisation#confirm"
+  get "/organisation", to: redirect("/expression-of-interest/self-assessment/property-suitable")
+  get "/organisation/steps/:stage", to: redirect("/expression-of-interest/self-assessment/property-suitable")
+  post "/organisation/steps/:stage", to: redirect("/expression-of-interest/self-assessment/property-suitable")
+  get "/organisation/check_answers", to: redirect("/expression-of-interest/self-assessment/property-suitable")
+  post "/organisation/check_answers", to: redirect("/expression-of-interest/self-assessment/property-suitable")
+  get "/organisation/confirm", to: redirect("/expression-of-interest/self-assessment/property-suitable")
 
   get "/expression-of-interest/self-assessment/property-suitable", to: "eoi#property_suitable"
   get "/expression-of-interest/self-assessment/challenges", to: "eoi#challenges"
