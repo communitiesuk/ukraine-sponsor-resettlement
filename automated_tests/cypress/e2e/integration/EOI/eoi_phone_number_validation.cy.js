@@ -8,7 +8,7 @@ describe('[Frontend-UI]: EOI FORM DATE VALIDATION', function () {
 
   context('Contact Telephone Number Validations[Telephone Number Page : Invalid]', function () {
     it("phone number invalid [blank]", function () {
-      element.phone_balnk()
+      element.phone_blank()
     })
     it("phone number invalid [letters]", function () {
       element.phone_letters()
