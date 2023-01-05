@@ -16,7 +16,7 @@ const phone_nm_error = () => {
     cy.xpath(elements.pnonenumber_error_sbox_msg).contains(error.phone_err_msg).should('be.visible').wait(Cypress.env('waitTime'))
 }
 //invalid
-export const phone_balnk = () => {
+export const phone_blank = () => {
     cy.visit('/expression-of-interest/steps/3')
     coockie_accept()
     cy.get(elements.phonenumber_label).contains('Enter your contact telephone number').should('be.visible')
