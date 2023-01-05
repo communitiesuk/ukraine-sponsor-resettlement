@@ -26,18 +26,17 @@ export const cookie_displays = () => {
 
 export const cookie_message_dissappears_after_clicking_view_cookies = () => {
   cy.visit('/expression-of-interest/steps/9')
-  cy.contains(elements.view_cookies).click().wait(Cypress.env('waitTime'))
+  cy.get(elements.view_cookies).click().wait(Cypress.env('waitTime'))
   cy.get(elements.cookie_banner_heading).should('not.exist')
 }
 
 export const banner_hidden_after_clicking_goback_to_page_link = () => {
   cy.visit('/expression-of-interest/steps/9')
-  cy.contains(elements.view_cookies).click().wait(Cypress.env('waitTime'))
+  cy.get(elements.view_cookies).click().wait(Cypress.env('waitTime'))
   cy.get(elements.cookie_page_yes_input).click()
   cy.contains(elements.save_cookie_settings).click().wait(Cypress.env('waitTime'))
   cy.contains(elements.go_back_to_previous_page).click().wait(Cypress.env('waitTime'))
   cy.get(elements.cookie_banner_heading).should('not.exist')
   cy.contains(elements.hide_cookie_message).should('not.exist')
-
 }
 

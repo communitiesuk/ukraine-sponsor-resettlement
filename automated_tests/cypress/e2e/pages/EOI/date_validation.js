@@ -10,7 +10,6 @@ export const date_null = () => {
     cy.get(elements.sdate_radiobtn_error_label).contains(error.radiobtn_error_msg).should('be.visible')
     cy.get(elements.specific_date_radiobtn_error).click().wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
-
 }
 
 export const date_v1 = () => {

@@ -12,6 +12,7 @@ var page_elements = {
     page_heading_scotland: ".ds_page-header__title",
     page_heading_wales: ".page-header__title.page-header__title--has-type",
     govuk_header: ".homepage-inverse-header__title",
+    second_header: "div[class='govuk-grid-column-two-thirds'] h2[class='govuk-heading-m']",
     start_button: "a[role='button']",
     yes_radiobtn: "input[value='yes']",
     no_radiobtn: "input[value='no']",

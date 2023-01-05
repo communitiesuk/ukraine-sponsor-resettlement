@@ -1,6 +1,7 @@
 require('cypress-xpath')
 const elements = require('../../page_elements/EOI/eoi_elements')
 
+
 //header
 export const links_validation_govuk = () => {
     cy.visit('/').wait(Cypress.env('waitTime'))
@@ -13,14 +14,62 @@ export const links_validation_govuk = () => {
     cy.go('back')
 }
 
+const validation_error = () => {
+    cy.writeFile('cypress/fixtures/envlinks.txt', '') //clear thetext file
+    cy.writeFile('cypress/fixtures/envlinks.txt', { alfa: 'url changed' })
+    cy.log('[************* FAILED TEST *************]()')
+    cy.log('************* **FAILED TEST** *************')
+    cy.log('[************* FAILED TEST *************]()')
+    cy.log('************* **FAILED TEST** *************')
+    cy.log('[************* FAILED TEST *************]()')
+    cy.log('************* **FAILED TEST** *************')
+    cy.log('[*** FAILED TEST *** DUE TO ENVIRONMENT (local/staging/prod) URL CHANGED, ENTER THE CORRECT URL AND RE-RUN THE TEST > >> >>> >>>> >>>>>** ***]()')
+    cy.readFile('cypress/fixtures/envlinks.txt').should('not.contains', 'url changed')
+}
+
 export const links_validation_hfu = () => {
     cy.visit('/expression-of-interest/self-assessment/challenges').wait(Cypress.env('waitTime'))
     cy.get(elements.page_heading).contains("Important things to consider").should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.huf_header_link).click().wait(Cypress.env('waitTime'))
-    cy.url().should('include', Cypress.config('baseUrl')).should('exist')
+
+    let local = ('http://localhost:8080');
+    let staging = ('https://ukraine-sponsor-resettlement-staging.london.cloudapps.digital/')
+    let prod = ('https://apply-to-offer-homes-for-ukraine.service.gov.uk/')
+    
+    //get the current url and save it in a file
+    cy.url().then(envurl => {
+        const saveLocation = `cypress/fixtures/envlinks.txt`
+        cy.writeFile(saveLocation, { envurl })
+    })
+    //get the url from the saved location and save it as a variable
+    cy.readFile(`cypress/fixtures/envlinks.txt`).then((saved_url) => {
+        //localhost
+        if (saved_url.includes(local)) {
+            cy.url().should('include', Cypress.config('baseUrl')).should('exist')
+            cy.log("[This is LOCALHOST / homes-for-ukraine URL]()")
+            return
+        }
+        //staging
+        if (saved_url.includes(staging)) {
+            cy.url().should("have.contain", 'london.cloudapps.digital')
+            cy.log("[This is STAGING / homes-for-ukraine URL]()")
+            return
+        }
+        //prod
+        if (saved_url.includes(prod)) {
+            cy.url().should('include', Cypress.config('baseUrl')).should('exist')
+            cy.log("[This is PROD / homes-for-ukraine URL]()")
+            return
+        }
+        else {
+            validation_error()
+        }
+    })
     cy.get(elements.main_heading).contains("Homes for Ukraine: Register to host people already living in the UK").should('be.visible').wait(Cypress.env('waitTime'))
     cy.go('back')
 }
+
+
 //footer
 export const links_validation_govlicence = () => {
     cy.visit('/').wait(Cypress.env('waitTime'))

@@ -31,15 +31,19 @@ Command line
 
 Run a single spec file
 - npx cypress run --spec cypress/e2e/integration/EOI/eoi_e2e_hp.cy.js
-- npx cypress run --spec cypress/e2e/integration/EOI/eoi_error_label_validation.cy.js
 - npx cypress run --spec cypress/e2e/integration/EOI/eoi_address_validation.cy.js
-- npx cypress run --spec cypress/e2e/integration/EOI/eoi_date_validation.cy.js
 - npx cypress run --spec cypress/e2e/integration/EOI/eoi_adults_and_children_validation.cy.js
-- npx cypress run --spec cypress/e2e/integration/Service/service_cookies_validation.cy.js
+- npx cypress run --spec cypress/e2e/integration/EOI/eoi_back_link_validation.cy.js
 - npx cypress run --spec cypress/e2e/integration/EOI/eoi_bedrooms_validation.cy.js
+- npx cypress run --spec cypress/e2e/integration/EOI/eoi_date_validation.cy.js
+- npx cypress run --spec cypress/e2e/integration/EOI/eoi_error_label_validation.cy.js
+- npx cypress run --spec cypress/e2e/integration/EOI/eoi_legacy_journey_validation.cy.js
 - npx cypress run --spec cypress/e2e/integration/EOI/eoi_links_validation.cy.js
+- npx cypress run --spec cypress/e2e/integration/EOI/eoi_phone_number_validation.cy.js
 - npx cypress run --spec cypress/e2e/integration/EOI/eoi_postcode_validation.cy.js
 - npx cypress run --spec cypress/e2e/integration/EOI/eoi_self_assesment_uhp.cy.js
+- npx cypress run --spec cypress/e2e/integration/Service/service_cookies_validation.cy.js
+
 
 Run with specific browser
 - npx cypress run --spec cypress/e2e/integration/EOI/eoi_e2e_hp.cy.js --browser chrome
