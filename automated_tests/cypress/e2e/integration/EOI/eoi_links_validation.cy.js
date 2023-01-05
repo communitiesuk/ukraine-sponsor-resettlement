@@ -5,7 +5,7 @@ describe('[Frontend-UI]: EOI PAGE LINKS VALIDATION', function () {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });
   Cypress.Cookies.defaults({ preserve: '_ukraine_sponsor_resettlement_session' })
-  
+
   context('Header', function () {
     it('Page links validation [Header: Gov.UK]', function () {
       element.links_validation_govuk()
@@ -27,12 +27,12 @@ describe('[Frontend-UI]: EOI PAGE LINKS VALIDATION', function () {
   context('Self Assessment', function () {
     it('Page links validation [Page 1: Register your interest in Scotland]', function () {
       element.links_validation_sa_p1_scotland()
-     })
+    })
     it('Page links validation [Page 1: Register your interest in Wales]', function () {
       element.links_validation_sa_p1_wales()
-     })
+    })
     it('Page links validation [Page 1: Guidance]', function () {
-     element.links_validation_sa_p1_guidance()
+      element.links_validation_sa_p1_guidance()
     })
     it('Page links validation [Other ways you can help page: local council]', function () {
       element.links_validation_sa_other_ways_l1()
