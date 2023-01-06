@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe RoutingEngine, type: :model do
-
   describe "unaccompanied minors - routing back to task list when a 'section' is complete" do
     it "when name(s) is complete route to task list" do
       application = UnaccompaniedMinor.new

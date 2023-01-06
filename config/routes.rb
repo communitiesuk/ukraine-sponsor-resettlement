@@ -46,7 +46,6 @@ Rails.application.routes.draw do
   post "/expression-of-interest/check-answers", to: "eoi#submit"
   get "/expression-of-interest/confirm", to: "eoi#confirm"
 
-
   get "/sponsor-a-child", to: "unaccompanied#guidance"
   get "/sponsor-a-child/start", to: "unaccompanied#start"
   get "/sponsor-a-child/start-application", to: "unaccompanied#start_application"
