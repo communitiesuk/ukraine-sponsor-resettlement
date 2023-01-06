@@ -35,7 +35,7 @@ private
   end
 
   def cookie_banner
-    if cookies[:cookies_preferences_set].present? && cookies[:cookies_preferences_set] == "true"
+    if cookies[:cookies_preferences_set].present? && cookies[:cookies_preferences_set] == "true" && cookies[:cookies_policy].present?
       cookies_json = JSON.parse(cookies[:cookies_policy])
       @cookies_accepted = cookies_json["analytics"]
     end
