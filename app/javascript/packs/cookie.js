@@ -6,6 +6,7 @@
     this.$module = $module;
 
   }
+
   CookieModule.prototype.init = function () {
     window.scrollTo(0, 0)
     this.accept = this.$module.querySelector('[data-accept-cookies]')
@@ -24,10 +25,11 @@
     this.$module.querySelector('[data-accept-cookies]').addEventListener('click', this.acceptCookies.bind(this))
     this.$module.querySelector('[data-reject-cookies]').addEventListener('click', this.rejectCookies.bind(this))
     this.$module.querySelector('[data-hide-cookie-message]').addEventListener('click', this.hideCookieMessage.bind(this))
-    
+
     this.showBanner()
 
     if(shouldHideBanner) {
+      this.acceptCookies()
       this.$module.hidden = true
     } 
   }
