@@ -13,7 +13,7 @@ class CookiesController < ApplicationController
 
     session[:cookies_accepted] = @abstractcookies.cookies_accepted.casecmp("yes").zero?.to_s
     @cookies_accepted = @abstractcookies.cookies_accepted.casecmp("yes").zero?
-    cookies[:cookies_preferences_set] = { value: "true", expires: 1.week.from_now };
+    cookies[:cookies_preferences_set] = { value: "true", expires: 1.year.from_now }
     @cookies_updated = true
 
     display
