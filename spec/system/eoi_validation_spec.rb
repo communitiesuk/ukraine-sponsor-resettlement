@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Individual expression of interest", type: :system do
+RSpec.describe "Expression of interest", type: :system do
   before do
     driven_by(:rack_test_user_agent)
   end
