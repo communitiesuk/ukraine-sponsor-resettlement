@@ -29,7 +29,6 @@
     this.showBanner()
 
     if(shouldHideBanner) {
-      this.acceptCookies()
       this.$module.hidden = true
     } 
   }
