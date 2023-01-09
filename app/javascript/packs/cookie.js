@@ -6,6 +6,7 @@
     this.$module = $module;
 
   }
+
   CookieModule.prototype.init = function () {
     window.scrollTo(0, 0)
     this.accept = this.$module.querySelector('[data-accept-cookies]')
@@ -13,6 +14,9 @@
     this.$module.confirmationMessage = this.$module.querySelector('.govuk-cookie-banner___confirmation')
     this.$module.confirmationMessage.style.display = 'none';
     this.$module.cookieStatusCopy = this.$module.querySelector('.cookie-accepted__status')
+
+    var urlParams = new URLSearchParams(window.location.search);
+    var shouldHideBanner = urlParams.has('c_m_h')
 
     this.cookies_preferences_set = Utils.getCookie('cookies_preferences_set') === 'true'
 
@@ -23,6 +27,10 @@
     this.$module.querySelector('[data-hide-cookie-message]').addEventListener('click', this.hideCookieMessage.bind(this))
 
     this.showBanner()
+
+    if(shouldHideBanner) {
+      this.$module.hidden = true
+    } 
   }
 
   CookieModule.prototype.showBanner = function () {
@@ -69,6 +77,12 @@
     var body = document.querySelector('.govuk-template__body')
     var el = document.createElement("div");
 
+    var isCookiesPage = window.location.pathname === '/cookies';
+
+    if(isCookiesPage) {
+      return false
+    }
+
     el.innerHTML += `<div class="govuk-cookie-banner " data-nosnippet role="region" aria-label="Cookies on Homes for Ukraine">
         <div class="govuk-cookie-banner__message govuk-width-container govuk-cookie-banner___message">
           <div class="govuk-grid-row">
@@ -104,21 +118,21 @@
             </div>
           </div>
 
-          <div class="govuk-button-group">
-          <button value="hide-cookies" type="button" name="cookies" data-hide-cookie-message="1" class="govuk-button" data-module="govuk-button">
-          Hide Cookie Message
-        </button>        
-      </div>
+            <div class="govuk-button-group">
+            <button value="hide-cookies" type="button" name="cookies" data-hide-cookie-message="1" class="govuk-button" data-module="govuk-button">
+            Hide Cookie Message
+          </button>        
         </div>
-      </div>`
+          </div>
+        </div>`
 
-    body.insertBefore(el, body.firstChild);
+      body.insertBefore(el, body.firstChild);
 
-    const nodes = document.querySelectorAll('.govuk-cookie-banner')
+      const nodes = document.querySelectorAll('.govuk-cookie-banner')
 
-    for (var i = 0, length = nodes.length; i < length; i++) {
-      new CookieModule(nodes[i]).init();
-    }
+      for (var i = 0, length = nodes.length; i < length; i++) {
+        new CookieModule(nodes[i]).init();
+      }
   });
 
 })(window.GOVUK.Modules)
