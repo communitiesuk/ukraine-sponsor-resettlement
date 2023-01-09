@@ -1,6 +1,7 @@
 var page_elements = {
   //main
   cookies_accept: "a[value='accept']",
+  cookies_reject: "button[value='reject']",
   hide_cookie_msg: ".govuk-button[rel='nofollow']",
   hide_cookie_message: 'Hide cookie message',
   cookies_page_link_from_banner: "#cookies-page-link",
@@ -14,8 +15,3 @@ var page_elements = {
   cookie_page_yes_input: '#abstract-cookies-accept-cookies-accepted-yes-field',
 };
 module.exports = page_elements;
-
-
-
-
-

@@ -1,7 +1,7 @@
 const element = require('../../pages/EOI/legacy_journey_validation')
 
 //Any URL within the individual or organisation routes should redirect the user to "/expression-of-interest/self-assessment/property-suitable" (old routes still existing on the DOM)
-describe('[Frontend-UI]: EOI FORM LEGACY JOURNEY VALIDATION', function () {
+describe('[Frontend-UI]: EOI FORM LEGACY JOURNEY REDIRECT VALIDATION', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });
@@ -30,7 +30,6 @@ describe('[Frontend-UI]: EOI FORM LEGACY JOURNEY VALIDATION', function () {
       element.eoi_ind_step_16_17()
     })
   })
-
   context('Organisationl Journey', function () {
     it('verify organisation journey redirects to self assesment /property-suitable page [step 1-3]', function () {
       element.eoi_org_step_1_3()
@@ -50,6 +49,24 @@ describe('[Frontend-UI]: EOI FORM LEGACY JOURNEY VALIDATION', function () {
     it('verify organisation journey redirects to self assesment /property-suitable page [step 16-17]', function () {
       element.eoi_org_step_16_17()
     }) 
+  })
+  context('Additional Information', function () {
+    it('verify additional-info journey redirects to self assesment /property-suitable page [step 1-3]', function () {
+      element.eoi_ad_info_step_1_3()
+    })
+    it('verify additional-info journey redirects to self assesment /property-suitable page [step 4-6]', function () {
+      element.eoi_ad_info_step_4_6()
+    })
+    it('verify additional-info journey redirects to self assesment /property-suitable page [step 7-9]', function () {
+      element.eoi_ad_info_step_7_9()
+    })
+    it('verify additional-info journey redirects to self assesment /property-suitable page [step 10-12]', function () {
+      element.eoi_ad_info_step_10_11()
+    })
+    it('verify additional-info journey redirects to self assesment /property-suitable page [step 13-15]', function () {
+      element.eoi_ad_info_check_ans()
+    })
+   
   })
 })
 
