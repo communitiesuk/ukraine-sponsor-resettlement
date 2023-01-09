@@ -1,7 +1,6 @@
 require('cypress-xpath')
 const elements = require('../../page_elements/EOI/eoi_elements')
 
-
 //header
 export const links_validation_govuk = () => {
     cy.visit('/').wait(Cypress.env('waitTime'))
@@ -14,8 +13,8 @@ export const links_validation_govuk = () => {
     cy.go('back')
 }
 
-const validation_error = () => {
-    cy.writeFile('cypress/fixtures/envlinks.txt', '') //clear thetext file
+export const validation_error = () => {
+    cy.writeFile('cypress/fixtures/envlinks.txt', '') //clear the text file
     cy.writeFile('cypress/fixtures/envlinks.txt', { alfa: 'url changed' })
     cy.log('[************* FAILED TEST *************]()')
     cy.log('************* **FAILED TEST** *************')
@@ -25,6 +24,7 @@ const validation_error = () => {
     cy.log('************* **FAILED TEST** *************')
     cy.log('[*** FAILED TEST *** DUE TO ENVIRONMENT (local/staging/prod) URL CHANGED, ENTER THE CORRECT URL AND RE-RUN THE TEST > >> >>> >>>> >>>>>** ***]()')
     cy.readFile('cypress/fixtures/envlinks.txt').should('not.contains', 'url changed')
+    cy.writeFile('cypress/fixtures/envlinks.txt', '') //clear the text file
 }
 
 export const links_validation_hfu = () => {
@@ -35,11 +35,11 @@ export const links_validation_hfu = () => {
     let local = ('http://localhost:8080');
     let staging = ('https://ukraine-sponsor-resettlement-staging.london.cloudapps.digital/')
     let prod = ('https://apply-to-offer-homes-for-ukraine.service.gov.uk/')
-    
+
     //get the current url and save it in a file
     cy.url().then(envurl => {
         const saveLocation = `cypress/fixtures/envlinks.txt`
-        cy.writeFile(saveLocation, { envurl })
+        cy.writeFile(saveLocation, { envurl }).wait(Cypress.env('waitTime'))
     })
     //get the url from the saved location and save it as a variable
     cy.readFile(`cypress/fixtures/envlinks.txt`).then((saved_url) => {
@@ -47,18 +47,21 @@ export const links_validation_hfu = () => {
         if (saved_url.includes(local)) {
             cy.url().should('include', Cypress.config('baseUrl')).should('exist')
             cy.log("[This is LOCALHOST / homes-for-ukraine URL]()")
+            cy.writeFile('cypress/fixtures/envlinks.txt', '') //clear the text file
             return
         }
         //staging
-        if (saved_url.includes(staging)) {
+        else if (saved_url.includes(staging)) {
             cy.url().should("have.contain", 'london.cloudapps.digital')
             cy.log("[This is STAGING / homes-for-ukraine URL]()")
+            cy.writeFile('cypress/fixtures/envlinks.txt', '') //clear the text file
             return
         }
         //prod
-        if (saved_url.includes(prod)) {
+        else if (saved_url.includes(prod)) {
             cy.url().should('include', Cypress.config('baseUrl')).should('exist')
             cy.log("[This is PROD / homes-for-ukraine URL]()")
+            cy.writeFile('cypress/fixtures/envlinks.txt', '') //clear the text file
             return
         }
         else {
