@@ -39,4 +39,3 @@ export const banner_hidden_after_clicking_goback_to_page_link = () => {
   cy.get(elements.cookie_banner_heading).should('not.be.visible')
   cy.get(elements.hide_cookie_message).should('not.exist')
 }
-

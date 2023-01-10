@@ -1,12 +1,12 @@
 const element = require('../../pages/EOI/phone_number_validation')
 
-describe('[Frontend-UI]: EOI FORM DATE VALIDATION', function () {
+describe('[Frontend-UI]: EOI FORM CONTACT TELEPHONE NUMBER VALIDATION', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });
  // Cypress.Cookies.defaults({ preserve: '_ukraine_sponsor_resettlement_session' })
 
-  context('Contact Telephone Number Validations[Telephone Number Page : Invalid]', function () {
+  context('Contact Telephone Number Validation[Telephone Number Page : Invalid]', function () {
     it("phone number invalid [blank]", function () {
       element.phone_blank()
     })
@@ -35,7 +35,7 @@ describe('[Frontend-UI]: EOI FORM DATE VALIDATION', function () {
       element.phone_10digits_plus()
     })
   })
-  context('Contact Telephone Number Validations[Telephone Number Page : Valid]', function () {
+  context('Contact Telephone Number Validation[Telephone Number Page : Valid]', function () {
     it("phone number valid [numbers : 11 digits]", function () {
       element.phone_11_digits()
     })
@@ -54,7 +54,7 @@ describe('[Frontend-UI]: EOI FORM DATE VALIDATION', function () {
   })
 
 
-  context('Contact Telephone Number Validations[Telephone Number Error Page : Invalid]', function () {
+  context('Contact Telephone Number Validation[Telephone Number Error Page : Invalid]', function () {
     it("phone number invalid [letters and special characters]", function () {
       element.phone_err_special_charactors()
     })
