@@ -7,18 +7,20 @@
 
     <h1 class="govuk-heading-l"><%= t('sponsor_has_other_nationality.full', scope: "unaccompanied_minor.questions")%></h1>
 
-      <%= f.govuk_radio_buttons_fieldset(:has_other_nationalities,
-          legend: { hidden: true, text: "" },
-          hint: { text: t('sponsor_has_other_nationality.hint', scope: "unaccompanied_minor.questions")} ) do %>
-        <%= f.govuk_radio_button :has_other_nationalities, true, label: { text: t('Yes' ) } %>
-        <%= f.govuk_radio_button :has_other_nationalities, false, label: { text: t('No' ) },  link_errors: true  %>
-      <% end %>
+
+      <%= f.govuk_collection_radio_buttons :has_other_nationalities,
+          %i[true false].map{ |val| OpenStruct.new(id: val, name: val==:true ? "Yes" : "No")},
+          :id,
+          :name,
+          legend: {hidden: true},
+          hint: { text: t('sponsor_has_other_nationality.hint', scope: "unaccompanied_minor.questions")}
+      %>
 
       <div class="govuk-button-group">
         <%= f.govuk_submit t('continue') %>
         <a class="govuk-link" href="/sponsor-a-child/save-and-return">Save and return later</a>
       </div>
-    
+
     <% end %>
   </div>
 </div>

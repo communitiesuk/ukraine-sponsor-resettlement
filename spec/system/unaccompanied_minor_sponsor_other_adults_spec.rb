@@ -17,11 +17,10 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
       application.adults_at_address = {}
       application.adults_at_address.store("123", Adult.new("Bob", "Jones", "2001-6-13", "Afghanistan", "id_and_type"))
       application.save!
-
       page.set_rack_session(app_reference: application.reference)
     end
 
-    it " shows an error when the id type is not answered" do
+    it "shows an error when the id type is not answered" do
       navigate_to_id_document_entry
 
       click_button("Continue")
@@ -51,7 +50,7 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
       expect(page).to have_content(task_list_content)
     end
 
-    it " shows an error when the national id card entry is not valid" do
+    it "shows an error when the national id card entry is not valid" do
       navigate_to_id_document_entry
 
       invalid_id_entries.each do |line|

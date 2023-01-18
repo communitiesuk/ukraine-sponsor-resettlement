@@ -100,7 +100,8 @@ class UnaccompaniedMinor < ApplicationRecord
                 :adult_identification_type,
                 :adult_passport_identification_number,
                 :adult_id_identification_number,
-                :adult_refugee_identification_number
+                :adult_refugee_identification_number,
+                :partial_validation
 
   after_initialize :after_initialize
   before_save :serialize
@@ -375,11 +376,11 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
   def after_initialize
-    @final_submission = false
     @eligibility_types = %i[yes no]
     @have_parental_consent_options = %i[yes no]
     @different_address_types = %i[yes no]
     @other_adults_address_types = %i[yes no]
+    @partial_validation = []
     self.certificate_reference ||= get_formatted_certificate_number
   end
 

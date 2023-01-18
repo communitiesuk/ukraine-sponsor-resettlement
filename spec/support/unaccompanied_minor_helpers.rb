@@ -314,6 +314,8 @@ module UnaccompaniedMinorHelpers
 
     if select_none
       check("They cannot be contacted")
+      uncheck("Email")
+      uncheck("Phone")
     end
 
     if click_continue

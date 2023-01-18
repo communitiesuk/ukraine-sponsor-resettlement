@@ -30,7 +30,7 @@ module ApplicationHelper
   end
 
   def last_seen_activity_threshold
-    30.minutes
+    30.days
   end
 
 private

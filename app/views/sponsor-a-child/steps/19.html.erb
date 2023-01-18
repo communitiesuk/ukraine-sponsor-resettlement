@@ -8,13 +8,14 @@
 
 
       <%= f.govuk_collection_select :nationality, @nationalities, :val, :name,
+          :selected => @nationality,
           label: {  text: t('sponsor_nationality.hint_html', scope: "unaccompanied_minor.questions")}
            %>
       <div class="govuk-button-group">
         <%= f.govuk_submit t('continue') %>
         <a class="govuk-link" href="/sponsor-a-child/save-and-return">Save and return later</a>
       </div>
-    
+
     <% end %>
   </div>
 </div>
