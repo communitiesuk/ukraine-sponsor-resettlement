@@ -39,5 +39,4 @@ private
       errors.add(:residential_postcode, I18n.t(:address_postcode, scope: :error))
     end
   end
-
 end
