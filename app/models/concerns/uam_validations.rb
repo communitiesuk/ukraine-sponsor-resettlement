@@ -14,7 +14,6 @@ module UamValidations
     validate :validate_adult_date_of_birth, if: -> { run_validation? :adult_date_of_birth }
     validate :validate_adult_nationality, if: -> { run_validation? :adult_nationality }
     validate :validate_adult_identification_number, if: -> { run_validation? :adult_id_identification_number }
-
     validate :validate_different_sponsor_address, if: -> { run_validation? :different_address }
     validate :validate_family_name, if: -> { run_validation? :family_name }
     validate :validate_given_name, if: -> { run_validation? :given_name }
@@ -439,7 +438,9 @@ module UamValidations
   end
 
   def run_validation?(attribute)
-    if %i[adult_given_name adult_family_name adult_date_of_birth adult_nationality adult_id_identification_number other_nationality has_other_nationalities].include?(attribute)
+    optional_fields_exclude_from_full_validation = %i[adult_given_name adult_family_name adult_date_of_birth adult_nationality adult_id_identification_number other_nationality]
+    # an attribute from the above list will only get validated if the @partial_validation field is not :full_validation
+    if optional_fields_exclude_from_full_validation.include?(attribute)
       @partial_validation.include?(attribute)
     else
       @partial_validation == [:full_validation] || @partial_validation.include?(attribute)

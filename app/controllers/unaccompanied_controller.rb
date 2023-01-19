@@ -232,29 +232,24 @@ class UnaccompaniedController < ApplicationController
                                       end
 
     if @application.valid?
-      if current_step == SPONSOR_OTHER_NAMES
+
+      # Update the 'derived' fields with validated field data
+      case current_step
+      when SPONSOR_OTHER_NAMES
         (@application.other_names ||= []) << [@application.other_given_name.strip, @application.other_family_name.strip]
-      end
-
-      if current_step == SPONSOR_OTHER_NATIONALITY
+      when SPONSOR_OTHER_NATIONALITY
         (@application.other_nationalities ||= []) << [params["unaccompanied_minor"]["other_nationality"]]
-      end
-
-      if current_step == ADULT_DATE_OF_BIRTH
+      when ADULT_DATE_OF_BIRTH
         @application.adults_at_address[params["key"]]["date_of_birth"] = Date.new(params["unaccompanied_minor"]["adult_date_of_birth(1i)"].to_i, params["unaccompanied_minor"]["adult_date_of_birth(2i)"].to_i, params["unaccompanied_minor"]["adult_date_of_birth(3i)"].to_i)
-      end
-
-      if current_step == ADULTS_AT_ADDRESS && !(params["unaccompanied_minor"]["adult_given_name"].empty? && params["unaccompanied_minor"]["adult_family_name"].empty?)
-        @application.adults_at_address = {} if @application.adults_at_address.nil?
-        @application.adults_at_address.store(SecureRandom.uuid.upcase.to_s, Adult.new(params["unaccompanied_minor"]["adult_given_name"], params["unaccompanied_minor"]["adult_family_name"]))
-      end
-
-      if current_step == ADULT_NATIONALITY
+      when ADULTS_AT_ADDRESS
+        if !params["unaccompanied_minor"]["adult_given_name"].empty? && !params["unaccompanied_minor"]["adult_family_name"].empty?
+          @application.adults_at_address = {} if @application.adults_at_address.nil?
+          @application.adults_at_address.store(SecureRandom.uuid.upcase.to_s, Adult.new(params["unaccompanied_minor"]["adult_given_name"], params["unaccompanied_minor"]["adult_family_name"]))
+        end
+      when ADULT_NATIONALITY
         @adult = @application.adults_at_address[params["key"]]
         @adult["nationality"] = params["unaccompanied_minor"]["adult_nationality"]
-      end
-
-      if current_step == MINOR_CONTACT_DETAILS
+      when MINOR_CONTACT_DETAILS
         @application.minor_contact_type = @application.minor_contact_type.reject(&:empty?)
         if @application.minor_contact_type.include?("none")
           @application.minor_email = ""
@@ -270,14 +265,10 @@ class UnaccompaniedController < ApplicationController
           @application.minor_email = ""
           @application.minor_email_confirm = ""
         end
-      end
-
-      # capture the over 16 year old at address id type and number
-      if current_step == ADULT_ID_TYPE_AND_NUMBER
+      when ADULT_ID_TYPE_AND_NUMBER
         @adult = @application.adults_at_address[params["key"]]
         id_type = params["unaccompanied_minor"]["adult_identification_type"]
         document_id = nil
-
         case id_type
         when "passport"
           document_id = params["unaccompanied_minor"]["adult_passport_identification_number"]
@@ -286,7 +277,6 @@ class UnaccompaniedController < ApplicationController
         when "refugee_travel_document"
           document_id = params["unaccompanied_minor"]["adult_refugee_identification_number"]
         end
-
         @adult["id_type_and_number"] = "#{id_type} - #{document_id || '123456789'}"
       end
 

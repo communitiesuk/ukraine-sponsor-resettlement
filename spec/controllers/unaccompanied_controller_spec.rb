@@ -41,6 +41,7 @@ RSpec.describe UnaccompaniedController, type: :controller do
     uam.phone_number = "07777 123 456"
     uam.phone_number_confirm = "07777 123 456"
     uam.nationality = "GBR - United Kingdom"
+    uam.has_other_nationalities = "false"
     uam.sponsor_date_of_birth = {
       3 => 1,
       2 => 6,
