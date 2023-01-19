@@ -30,6 +30,7 @@ Command line
 - run `npm run delete_report` to delete report directory
 
 Run a single spec file
+EOI:
 - npx cypress run --spec cypress/e2e/integration/EOI/eoi_e2e_hp.cy.js
 - npx cypress run --spec cypress/e2e/integration/EOI/eoi_address_validation.cy.js
 - npx cypress run --spec cypress/e2e/integration/EOI/eoi_adults_and_children_validation.cy.js
@@ -43,6 +44,10 @@ Run a single spec file
 - npx cypress run --spec cypress/e2e/integration/EOI/eoi_postcode_validation.cy.js
 - npx cypress run --spec cypress/e2e/integration/EOI/eoi_self_assesment_uhp.cy.js
 - npx cypress run --spec cypress/e2e/integration/Service/service_cookies_validation.cy.js
+
+UAM: 
+- npx cypress run --spec cypress/e2e/integration/UAM/uam_e2e_hp_spec.cy.js
+- npx cypress run --spec cypress/e2e/integration/UAM/uam_eligibility_spec.cy.js
 
 
 Run with specific browser

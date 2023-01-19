@@ -22,7 +22,7 @@ module.exports = defineConfig({
       require('cypress-high-resolution')(on, config)
     },
     
-  baseUrl: 'http://localhost:8080', // if you change this on your machine, do not commit!!!
+  baseUrl: 'http://localhost:8080/sponsor-a-child', // if you change this on your machine, do not commit!!!
   excludeSpecPattern: process.env.all ? ['cypress/e2e/integration/EOI/run_all_specs.cy.js'] : [],
   },
   env: {
