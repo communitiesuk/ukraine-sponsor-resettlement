@@ -72,9 +72,7 @@ module UamValidations
   end
 
   def validate_sponsor_date_of_birth
-    puts "!!!!!VSDOB"
     if @sponsor_date_of_birth.present?
-      puts @sponsor_date_of_birth
       dob_day = (@sponsor_date_of_birth["3"] || @sponsor_date_of_birth[3] || nil)
       dob_month = (@sponsor_date_of_birth["2"] || @sponsor_date_of_birth[2] || nil)
       dob_year = (@sponsor_date_of_birth["1"] || @sponsor_date_of_birth[1] || nil)
@@ -99,7 +97,6 @@ module UamValidations
   end
 
   def validate_minor_date_of_birth
-    puts "!!!!!VMDOB"
     if @minor_date_of_birth.present?
       dob_day = (@minor_date_of_birth["3"] || @minor_date_of_birth[3] || nil)
       dob_month = (@minor_date_of_birth["2"] || @minor_date_of_birth[2] || nil)
@@ -373,14 +370,23 @@ module UamValidations
   def validate_sponsor_identification_number
     case @identification_type
     when "passport"
+      if @identification_number.present?
+        @passport_identification_number = @identification_number
+      end
       if @passport_identification_number.blank? || @passport_identification_number.strip.length.zero?
         errors.add(:passport_identification_number, I18n.t(:invalid_id_number, scope: :error))
       end
     when "national_identity_card"
+      if @identification_number.present?
+        @id_identification_number = @identification_number
+      end
       if @id_identification_number.blank? || @id_identification_number.strip.length.zero?
         errors.add(:id_identification_number, I18n.t(:invalid_id_number, scope: :error))
       end
     when "refugee_travel_document"
+      if @identification_number.present?
+        @refugee_identification_number = @identification_number
+      end
       if @refugee_identification_number.blank? || @refugee_identification_number.strip.length.zero?
         errors.add(:refugee_identification_number, I18n.t(:invalid_id_number, scope: :error))
       end
