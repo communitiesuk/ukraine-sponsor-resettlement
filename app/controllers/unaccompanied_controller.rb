@@ -207,77 +207,13 @@ class UnaccompaniedController < ApplicationController
                                       elsif !application_params.keys.empty? && application_params.keys[0].start_with?("adult_date_of_birth")
                                         [:adult_date_of_birth]
                                       elsif application_params.key?("identification_type") || application_params.key?("id_identification_number")
-                                        %i[identification_type identification_number]
+                                         %i[identification_type passport_identification_number id_identification_number refugee_identification_number]
                                       else
                                         application_params.keys.map(&:to_sym)
                                       end
 
     if @application.valid?
-      # UamWorkflow.do_transforms(current_step.to_s, @application, params)
-
-      # Update the 'derived' fields with validated field data
-      case current_step
-      when SPONSOR_OTHER_NAMES
-        (@application.other_names ||= []) << [@application.other_given_name.strip, @application.other_family_name.strip]
-      when SPONSOR_OTHER_NATIONALITY
-        (@application.other_nationalities ||= []) << [params["unaccompanied_minor"]["other_nationality"]]
-      when SPONSOR_ID_TYPE
-        @application.identification_type = if params["unaccompanied_minor"].key?("identification_type")
-                                             params["unaccompanied_minor"]["identification_type"]
-                                           else
-                                             ""
-                                           end
-
-        @application.identification_number = case @application.identification_type
-                                             when "passport"
-                                               params["unaccompanied_minor"]["passport_identification_number"]
-                                             when "national_identity_card"
-                                               params["unaccompanied_minor"]["id_identification_number"]
-                                             when "refugee_travel_document"
-                                               params["unaccompanied_minor"]["refugee_identification_number"]
-                                             else
-                                               ""
-                                             end
-      when ADULT_DATE_OF_BIRTH
-        @application.adults_at_address[params["key"]]["date_of_birth"] = Date.new(params["unaccompanied_minor"]["adult_date_of_birth(1i)"].to_i, params["unaccompanied_minor"]["adult_date_of_birth(2i)"].to_i, params["unaccompanied_minor"]["adult_date_of_birth(3i)"].to_i)
-      when ADULTS_AT_ADDRESS
-        if !params["unaccompanied_minor"]["adult_given_name"].empty? && !params["unaccompanied_minor"]["adult_family_name"].empty?
-          @application.adults_at_address = {} if @application.adults_at_address.nil?
-          @application.adults_at_address.store(SecureRandom.uuid.upcase.to_s, Adult.new(params["unaccompanied_minor"]["adult_given_name"], params["unaccompanied_minor"]["adult_family_name"]))
-        end
-      when ADULT_NATIONALITY
-        @adult = @application.adults_at_address[params["key"]]
-        @adult["nationality"] = params["unaccompanied_minor"]["adult_nationality"]
-      when MINOR_CONTACT_DETAILS
-        @application.minor_contact_type = @application.minor_contact_type.reject(&:empty?)
-        if @application.minor_contact_type.include?("none")
-          @application.minor_email = ""
-          @application.minor_email_confirm = ""
-          @application.minor_phone_number = ""
-          @application.minor_phone_number_confirm = ""
-        end
-        unless @application.minor_contact_type.include?("telephone")
-          @application.minor_phone_number = ""
-          @application.minor_phone_number_confirm = ""
-        end
-        unless @application.minor_contact_type.include?("email")
-          @application.minor_email = ""
-          @application.minor_email_confirm = ""
-        end
-      when ADULT_ID_TYPE_AND_NUMBER
-        @adult = @application.adults_at_address[params["key"]]
-        id_type = params["unaccompanied_minor"]["adult_identification_type"]
-        document_id = nil
-        case id_type
-        when "passport"
-          document_id = params["unaccompanied_minor"]["adult_passport_identification_number"]
-        when "national_identity_card"
-          document_id = params["unaccompanied_minor"]["adult_id_identification_number"]
-        when "refugee_travel_document"
-          document_id = params["unaccompanied_minor"]["adult_refugee_identification_number"]
-        end
-        @adult["id_type_and_number"] = "#{id_type} - #{document_id || '123456789'}"
-      end
+      UamWorkflow.do_data_transforms(current_step.to_s, @application, params)
 
       # Update the database
       @application.update!(@application.as_json)

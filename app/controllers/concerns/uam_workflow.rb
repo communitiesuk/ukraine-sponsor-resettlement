@@ -151,7 +151,7 @@ class UamWorkflow
     "5" => lambda do |uam_instance|
       if uam_instance.is_consent.casecmp("yes").zero?
         :go_next
-      elsif uam_instance.casecmp("no").zero?
+      elsif uam_instance.is_consent.casecmp("no").zero?
         :not_eligible
       end
     end,
@@ -325,7 +325,7 @@ class UamWorkflow
     attr_reader :states
   end
 
-  def self.do_transforms(current_state, uam_instance, params)
+  def self.do_data_transforms(current_state, uam_instance, params)
     if @data_transforms.key?(current_state)
       transformproc = @data_transforms[current_state]
       transformproc.call(uam_instance, params)
