@@ -117,6 +117,7 @@ class UnaccompaniedController < ApplicationController
             1 => Date.parse(adult_dob).year,
           }
         end
+
         @application.adult_nationality = adult_nationality if adult_nationality.present? && adult_nationality.length.positive?
 
         if adult_id_type_and_number.present? && adult_id_type_and_number.length.positive?
@@ -196,26 +197,6 @@ class UnaccompaniedController < ApplicationController
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
     @application.started_at = Time.zone.now.utc if current_step == 1
 
-    # capture identification document number
-    if current_step == SPONSOR_ID_TYPE
-      @application.identification_type = if params["unaccompanied_minor"].key?("identification_type")
-                                           params["unaccompanied_minor"]["identification_type"]
-                                         else
-                                           ""
-                                         end
-
-      @application.identification_number = case @application.identification_type
-                                           when "passport"
-                                             params["unaccompanied_minor"]["passport_identification_number"]
-                                           when "national_identity_card"
-                                             params["unaccompanied_minor"]["id_identification_number"]
-                                           when "refugee_travel_document"
-                                             params["unaccompanied_minor"]["refugee_identification_number"]
-                                           else
-                                             ""
-                                           end
-    end
-
     # Update Application object with new attributes
     @application.assign_attributes(application_params)
 
@@ -232,6 +213,7 @@ class UnaccompaniedController < ApplicationController
                                       end
 
     if @application.valid?
+      # UamWorkflow.do_transforms(current_step.to_s, @application, params)
 
       # Update the 'derived' fields with validated field data
       case current_step
@@ -239,6 +221,23 @@ class UnaccompaniedController < ApplicationController
         (@application.other_names ||= []) << [@application.other_given_name.strip, @application.other_family_name.strip]
       when SPONSOR_OTHER_NATIONALITY
         (@application.other_nationalities ||= []) << [params["unaccompanied_minor"]["other_nationality"]]
+      when SPONSOR_ID_TYPE
+        @application.identification_type = if params["unaccompanied_minor"].key?("identification_type")
+                                             params["unaccompanied_minor"]["identification_type"]
+                                           else
+                                             ""
+                                           end
+
+        @application.identification_number = case @application.identification_type
+                                             when "passport"
+                                               params["unaccompanied_minor"]["passport_identification_number"]
+                                             when "national_identity_card"
+                                               params["unaccompanied_minor"]["id_identification_number"]
+                                             when "refugee_travel_document"
+                                               params["unaccompanied_minor"]["refugee_identification_number"]
+                                             else
+                                               ""
+                                             end
       when ADULT_DATE_OF_BIRTH
         @application.adults_at_address[params["key"]]["date_of_birth"] = Date.new(params["unaccompanied_minor"]["adult_date_of_birth(1i)"].to_i, params["unaccompanied_minor"]["adult_date_of_birth(2i)"].to_i, params["unaccompanied_minor"]["adult_date_of_birth(3i)"].to_i)
       when ADULTS_AT_ADDRESS
@@ -293,16 +292,12 @@ class UnaccompaniedController < ApplicationController
           redirect_to "/sponsor-a-child/save-and-return/"
         end
       else
-        # Replace with routing engine to get next stage
-        next_stage = RoutingEngine.get_next_unaccompanied_minor_step(@application, current_step)
-        if NOT_ELIGIBLE.include?(next_stage)
+        next_stage = UamWorkflow.get_next_step(current_step.to_s, @application)
+        if next_stage == "non-eligible"
           redirect_to "/sponsor-a-child/non-eligible"
-        elsif next_stage == TASK_LIST_STEP
-          # Redirect to show the task-list
+        elsif next_stage == "task-list"
           redirect_to TASK_LIST_URI
-        elsif next_stage > MAX_STEPS
-          redirect_to "/sponsor-a-child/check-answers"
-        elsif ADULT_STEPS.include?(next_stage)
+        elsif UamWorkflow.states[next_stage].key?(:requires_key_param) && UamWorkflow.states[next_stage][:requires_key_param] == true
           redirect_to "/sponsor-a-child/steps/#{next_stage}/#{params['key']}"
         else
           redirect_to "/sponsor-a-child/steps/#{next_stage}"
