@@ -1,10 +1,8 @@
 var page_elements = {
-    //main
-
+    //common
     show: "button[aria-label='2. Apply for approval from your local council , Show this section'] span[class='govuk-accordion__section-toggle']",
     hide: "button[aria-label='2. Apply for approval from your local council , Hide this section'] span[class='govuk-accordion__section-toggle-text']",
-    spchild_link:"body > div:nth-child(6) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(3) > div:nth-child(2) > a:nth-child(5)", 
-
+    spchild_link: "body > div:nth-child(6) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(3) > div:nth-child(2) > a:nth-child(5)",
     main_heading: ".gem-c-title__text.govuk-heading-l",
     page_heading: ".govuk-heading-l",
     page_heading_xl: ".gem-c-title__text.govuk-heading-xl",
@@ -15,47 +13,48 @@ var page_elements = {
     continue_button_other: "a[class='govuk-button']",
     insettext: '.govuk-inset-text',
     summary_text: ".govuk-details__summary-text",
+    err_summary_title: '.govuk-error-summary__title',
+    err_sbox_msg: "a[data-turbo='false']",
     //step1
     step1_radio_btn_yes: '#unaccompanied-minor-is-under-18-yes-field',
-    eligibility_step1_page_error_u18: '#unaccompanied-minor-is-under-18-error',
-    eligibility_step1_page_error_box: '#error-summary-title',
-    eligibility_step1_page_error_radion_btn_no: '#unaccompanied-minor-is-under-18-no-field',
-    ligibility_step1_page_error_radion_btn_yes: '#unaccompanied-minor-is-under-18-field-error',
+    step1_err_radion_btn_no: '#unaccompanied-minor-is-under-18-no-field',
+    step1_err_radio_btn_yes: '#unaccompanied-minor-is-under-18-field-error',
+    step1_err_msg: '#unaccompanied-minor-is-under-18-error',
     //step2
-    eligibility_step2_page_error_before_31_december: '#unaccompanied-minor-is-living-december-error',
-    eligibility_step2_page_error_box: '#error-summary-title',
-    eligibility_step2_page_error_radion_btn_no: '#unaccompanied-minor-is-living-december-no-field',
-    eligibility_step2_page_error_radion_btn_yes: '#unaccompanied-minor-is-living-december-field-error',
+    step2_err_radio_btn_yes: '#unaccompanied-minor-is-living-december-field-error',
     eligibility_step2_radio_btn_yes: '#unaccompanied-minor-is-living-december-yes-field',
     step2_radio_btn_no: '#unaccompanied-minor-is-living-december-no-field',
     step2_bodytext: '#unaccompanied-minor-is-living-december-hint',
+    step2_err_msg: '#unaccompanied-minor-is-living-december-error',
+    step2_err_radio_btn_no: '#unaccompanied-minor-is-living-december-no-field',
     //step3
-    eligibility_step3_page_error_after_31_december: '#unaccompanied-minor-is-born-after-december-error',
-    eligibility_step3_page_error_radion_btn_no: '#unaccompanied-minor-is-born-after-december-no-field',
     step3_radio_btn_yes: '#unaccompanied-minor-is-born-after-december-yes-field',
+    step3_err_msg: '#unaccompanied-minor-is-born-after-december-error',
+    step3_err_radio_btn_yes: '#unaccompanied-minor-is-born-after-december-field-error',
+    step3_err_radion_btn_no: '#unaccompanied-minor-is-born-after-december-no-field',
     //step4
-    eligibility_step4_page_error__parent_or_legal_guardian: '#unaccompanied-minor-is-unaccompanied-error',
-    eligibility_step4_page_error_radio_btn_yes: '#unaccompanied-minor-is-unaccompanied-field-error',
-    step4__parent_guardian_radio_btn_no: '#unaccompanied-minor-is-unaccompanied-no-field',
-    eligibility_step4_page_error_radio_btn_no: '#unaccompanied-minor-is-unaccompanied-no-field',
+    step4_radio_btn_no: '#unaccompanied-minor-is-unaccompanied-no-field',
+    step4_err_radio_btn_yes: '#unaccompanied-minor-is-unaccompanied-field-error',
     step4_bodytext: '#unaccompanied-minor-is-unaccompanied-hint',
+    step4_err_msg: '#unaccompanied-minor-is-unaccompanied-error',
+    step4_err_radio_btn_no: '#unaccompanied-minor-is-unaccompanied-no-field',
     //step5
-    eligibility_step5_page_error_consent_forms: '#unaccompanied-minor-is-consent-error',
-    eligibility_step5_page_error_radio_btn_no: '#unaccompanied-minor-is-consent-no-field',
+    step5_err_radio_btn_no: '#unaccompanied-minor-is-consent-no-field',
     step5_consent_radio_btn_yes: '#unaccompanied-minor-is-consent-yes-field',
-    eligibility_step5_page_error_radio_btn_yes: '#unaccompanied-minor-is-consent-field-error',
     step5_bodytext: '#unaccompanied-minor-is-consent-hint',
     step5_guidance_link: '//a[contains(text(),"Read guidance about which consent forms are requir")]',
+    step5_err_msg: '#unaccompanied-minor-is-consent-error',
+    step5_err_radio_btn_yes: '#unaccompanied-minor-is-consent-field-error',
     //step6
-    eligibility_step6_page_error_minimum_period: '#unaccompanied-minor-is-committed-error',
-    eligibility_step6_page_error_radio_btn_no: '#unaccompanied-minor-is-committed-no-field',
+    step6_err_radio_btn_no: '#unaccompanied-minor-is-committed-no-field',
     step6_minimum_period_radio_btn_yes: '#unaccompanied-minor-is-committed-yes-field',
-    eligibility_step6_page_error_radio_btn_yes: '#unaccompanied-minor-is-committed-field-error',
+    step6_err_msg: '#unaccompanied-minor-is-committed-error',
+    step6_err_radio_btn_yes: '#unaccompanied-minor-is-committed-field-error',
     //step7
-    eligibility_step7_page_error_minimum_period: '#unaccompanied-minor-is-permitted-error',
-    eligibility_step7_page_error_radio_btn_no: '#unaccompanied-minor-is-permitted-no-field',
+    step7_err_radio_btn_no: '#unaccompanied-minor-is-permitted-no-field',
     step7_minimum_period_radio_btn_yes: '#unaccompanied-minor-is-permitted-yes-field',
-    eligibility_step7_page_error_radio_btn_yes: '#unaccompanied-minor-is-permitted-field-error',
+    step7_err_msg: '#unaccompanied-minor-is-permitted-error',
+    step7_err_radio_btn_yes: '#unaccompanied-minor-is-permitted-field-error',
     //step9
     step9_body_text: '.govuk-body',
     step9_start_application_btn: 'a[role="button"]',
@@ -73,15 +72,28 @@ var page_elements = {
     family_name_label: 'label[for="unaccompanied-minor-family-name-field"]',
     given_names_textbox: '#unaccompanied-minor-given-name-field',
     family_name_textbox: '#unaccompanied-minor-family-name-field',
+    step10_gn_sbox_err_msg: "//a[normalize-space()='You must enter a valid given name']",
+    step10_fn_sbox_err_msg: "//a[normalize-space()='You must enter a valid family name']",
+    step10_gn_err_msg: '#unaccompanied-minor-given-name-error',
+    step10_fn_err_msg: '#unaccompanied-minor-family-name-error',
+    step10_gn_err_textbox: '#unaccompanied-minor-given-name-field-error',
+    step10_fn_err_textbox: '#unaccompanied-minor-family-name-field-error',
     //step11
     known_by_another_name_hinttext: '#unaccompanied-minor-has-other-names-hint',
     select_no: '#unaccompanied-minor-has-other-names-field',
     select_yes: '#unaccompanied-minor-has-other-names-true-field',
+    step11_err_msg: '#unaccompanied-minor-has-other-names-error',
     //step12
     other_given_names_label: "label[for='unaccompanied-minor-other-given-name-field']",
     other_family_name_label: "label[for='unaccompanied-minor-other-family-name-field']",
     other_given_names_textbox: '#unaccompanied-minor-other-given-name-field',
     other_family_name_textbox: '#unaccompanied-minor-other-family-name-field',
+    step12_gn_sbox_err_msg: "//a[normalize-space()='You must enter a valid given name']",
+    step12_fn_sbox_err_msg: "//a[normalize-space()='You must enter a valid family name']",
+    step12_gn_err_msg: "#unaccompanied-minor-other-given-name-error",
+    step12_fn_err_msg: "#unaccompanied-minor-other-family-name-error",
+    step12_gn_err_textbox: '#unaccompanied-minor-other-given-name-field-error',
+    step12_fn_err_textbox: '#unaccompanied-minor-other-family-name-field-error',
     //step13
     other_added_names_label: 'tr>td:nth-child(1)',
     name_completed: '//strong[normalize-space()="Completed"]',
@@ -92,6 +104,10 @@ var page_elements = {
     confirm_email_ad_label: 'label[for="unaccompanied-minor-email-confirm-field"]',
     email_ad_textbox: '#unaccompanied-minor-email-field',
     confirm_email_ad_textbox: '#unaccompanied-minor-email-confirm-field',
+    step14_email_err_msg: "#unaccompanied-minor-email-error",
+    step14_email_err_cf_msg: "#unaccompanied-minor-email-confirm-error",
+    step14_email_err_textbox: '#unaccompanied-minor-email-field-error',
+    step14_email_err_cf_textbox: '#unaccompanied-minor-email-confirm-field-error',
     //step15
     mobile_number_body: '.govuk-body',
     mobile_number_label: 'label[for="unaccompanied-minor-phone-number-field"]',
@@ -99,29 +115,46 @@ var page_elements = {
     mobile_number_textbox: '#unaccompanied-minor-phone-number-field',
     confirm_mobile_number_textbox: '#unaccompanied-minor-phone-number-confirm-field',
     contact_details_completed: "strong[class='govuk-tag app-task-list__tag ']",
+    step15_mob_err_msg: "#unaccompanied-minor-phone-number-error",
+    step15_mob_err_cf_msg: "#unaccompanied-minor-phone-number-confirm-error",
+    step15_mob_err_textbox: '#unaccompanied-minor-phone-number-field-error',
+    step15_mob_err_cf_textbox: '#unaccompanied-minor-phone-number-confirm-field-error',
     //step16
     additional_details: 'a[href="/sponsor-a-child/steps/16"]',
     passport_label: 'label[for="unaccompanied-minor-identification-type-passport-field"]',
     ni_label: 'label[for="unaccompanied-minor-identification-type-national-identity-card-field"]',
     refugee_teavel_doc_label: 'label[for="unaccompanied-minor-identification-type-refugee-travel-document-field"]',
     dont_have_any_label: 'label[for="unaccompanied-minor-identification-type-none-field"]',
+    step16_id_err_msg: "#unaccompanied-minor-identification-type-error",
+    step16_idh_btn: "#unaccompanied-minor-identification-type-none-field",
     //step17
     passport_nm_radio_button: '#unaccompanied-minor-identification-type-passport-field',
     passport_nm_textbox: '#unaccompanied-minor-passport-identification-number-field',
+    step17_id_reason_err_msg: "#unaccompanied-minor-no-identification-reason-error",
+    step17_id_reason_err_textbox: '#unaccompanied-minor-no-identification-reason-field-error',
     //step18
     day_textbox: '#unaccompanied_minor_sponsor_date_of_birth_3i',
     month_textbox: '#unaccompanied_minor_sponsor_date_of_birth_2i',
     year_textbox: '#unaccompanied_minor_sponsor_date_of_birth_1i',
+    step18_dob_err_msg: "#unaccompanied-minor-sponsor-date-of-birth-error",
+    step18_day_err_textbox: "#unaccompanied-minor-sponsor-date-of-birth-field-error",
+    step18_month_err_textbox: "#unaccompanied_minor_sponsor_date_of_birth_2i",
+    step18_year_err_textbox: "#unaccompanied_minor_sponsor_date_of_birth_1i",
     //step19
     nationality_label: "label[for='unaccompanied-minor-nationality-field']",
     nationality_dropdown: '#unaccompanied-minor-nationality-field',
+    step19_nationality_err_msg: "#unaccompanied-minor-nationality-error",
+    step19_nationality_dropdown_err: "#unaccompanied-minor-nationality-field-error",
     //step20
     other_nationalities_hint: '#unaccompanied-minor-has-other-nationalities-hint',
     other_nationalities_yes_radio_button: '#unaccompanied-minor-has-other-nationalities-true-field',
     other_nationalities_no_radio_button: '#unaccompanied-minor-has-other-nationalities-field',
+    step20_oth_nationality_err_msg: '#unaccompanied-minor-has-other-nationalities-error',
     //step21
     other_nationality_hint: "#unaccompanied-minor-other-nationality-hint",
     other_nationality_dropdown: '#unaccompanied-minor-other-nationality-field',
+    step21_oth_nationality_err_msg: '#unaccompanied-minor-other-nationality-error',
+    step21_oth_nationality_dropdown_err: "#unaccompanied-minor-other-nationality-field-error",
     //step22
     listed_other_nationalities: "td:nth-child(1)",
     //verify task completed
@@ -139,10 +172,22 @@ var page_elements = {
     child_address_line2_textbox: '#unaccompanied-minor-residential-line-2-field',
     child_town_city_textbox: '#unaccompanied-minor-residential-town-field',
     child_postcode_textbox: '#unaccompanied-minor-residential-postcode-field',
+    step23_addr_sbox_err_msg: "//a[normalize-space()='You must enter an address']",
+    step23_city_sbox_err_msg: "//a[normalize-space()='You must enter a town or city']",
+    step23_pc_sbox_err_msg: "//a[normalize-space()='You must enter a valid UK postcode']",
+    step23_addr_err_msg: "#unaccompanied-minor-residential-line-1-error",
+    step23_city_err_msg: "#unaccompanied-minor-residential-town-error",
+    step23_pc_err_msg: "#unaccompanied-minor-residential-postcode-error",
+    step23_addr_line1_err_textbox: '#unaccompanied-minor-residential-line-1-field-error',
+    step23_addr_line2_err_textbox: '#unaccompanied-minor-residential-line-2-field',
+    step23_city_err_textbox: '#unaccompanied-minor-residential-town-field-error',
+    step23_pc_err_textbox: '#unaccompanied-minor-residential-postcode-field-error',
     //step24
     child_address_validation_text: '.govuk-inset-text',
     sponsor_living_at_the_same_address_hint: '#unaccompanied-minor-different-address-hint',
     sponsor_living_at_the_same_address_no_button: '#unaccompanied-minor-different-address-no-field',
+    step24_sa_err_msg: "#unaccompanied-minor-different-address-error",
+    step24_sa_err_no_btn: "#unaccompanied-minor-different-address-no-field",
     //step26
     sponsor_address_line1_label: 'label[for="unaccompanied-minor-sponsor-address-line-1-field"]',
     sponsor_address_line2_label: 'label[for="unaccompanied-minor-sponsor-address-line-2-field"]',
@@ -152,11 +197,25 @@ var page_elements = {
     sponsor_address_line2_textbox: '#unaccompanied-minor-sponsor-address-line-2-field',
     sponsor_town_city_textbox: '#unaccompanied-minor-sponsor-address-town-field',
     sponsor_postcode_textbox: '#unaccompanied-minor-sponsor-address-postcode-field',
+    step26_addr_sbox_err_msg: "//a[normalize-space()='You must enter an address']",
+    step26_city_sbox_err_msg: "//a[normalize-space()='You must enter a town or city']",
+    step26_pc_sbox_err_msg: "//a[normalize-space()='You must enter a valid UK postcode']",
+    step26_addr_err_msg: "#unaccompanied-minor-sponsor-address-line-1-error",
+    step26_city_err_msg: "#unaccompanied-minor-sponsor-address-town-error",
+    step26_pc_err_msg: "#unaccompanied-minor-sponsor-address-postcode-error",
+    step26_addr_line1_err_textbox: '#unaccompanied-minor-sponsor-address-line-1-field-error',
+    step26_addr_line2_err_textbox: '#unaccompanied-minor-sponsor-address-line-2-field',
+    step26_city_err_textbox: '#unaccompanied-minor-sponsor-address-town-field-error',
+    step26_pc_err_textbox: '#unaccompanied-minor-sponsor-address-postcode-field-error',
     //step27
     over16_person_given_names_label: "label[for='unaccompanied-minor-adult-given-name-field']",
     over16_person_family_name_label: "label[for='unaccompanied-minor-adult-family-name-field']",
     over16_person_given_names_textbox: '#unaccompanied-minor-adult-given-name-field',
     over16_person_family_name_textbox: '#unaccompanied-minor-adult-family-name-field',
+    step27_fn_err_msg: "//a[normalize-space()='You must enter a valid family name']",
+    step27_gn_err_msg: "//a[normalize-space()='You must enter a valid given name']",
+    step27_gn_err_textbox: "#unaccompanied-minor-adult-given-name-field-error",
+    step27_fn_err_textbox: "#unaccompanied-minor-adult-family-name-field-error",
     //step28
     residents_header: '.govuk-table__head',
     over16_persons_name: 'td:nth-child(1)',
@@ -185,18 +244,35 @@ var page_elements = {
     residents_ni_radio_button: "#unaccompanied-minor-adult-identification-type-national-identity-card-field",
     residents_ni_number_label: "label[for='unaccompanied-minor-adult-id-identification-number-field']",
     residents_ni_number_textbox: '#unaccompanied-minor-adult-id-identification-number-field',
+    step29_dob_err_msg: "#unaccompanied-minor-adult-date-of-birth-error",
+    step29_day_err_textbox: "#unaccompanied-minor-adult-date-of-birth-field-error",
+    step29_month_err_textbox: "#unaccompanied_minor_adult_date_of_birth_2i",
+    step29_year_err_textbox: "#unaccompanied_minor_adult_date_of_birth_1i",
     //verify completed 3 of 5
     completed_3_of_5_label: ".govuk-grid-column-two-thirds > :nth-child(3)",
     completed_residents_details: "strong[class='govuk-tag app-task-list__tag ']",
     not_started_data: 'body > div:nth-child(6) > main:nth-child(3) > div:nth-child(1) > div:nth-child(1) > ol:nth-child(4) > li:nth-child(4) > ul:nth-child(2) > li:nth-child(1) > strong:nth-child(2)',
     not_started_eligibility: 'body > div:nth-child(6) > main:nth-child(3) > div:nth-child(1) > div:nth-child(1) > ol:nth-child(4) > li:nth-child(4) > ul:nth-child(2) > li:nth-child(2) > strong:nth-child(2)',
     cannot_start_yet: "//strong[normalize-space()='Cannot start yet']",
+    //step30
+    step30_nat_err_msg: "#unaccompanied-minor-adult-nationality-error",
+    step30_nat_err_dd: '#unaccompanied-minor-adult-nationality-field-error',
+    //step31
+    step31_id_err_msg: "#unaccompanied-minor-adult-identification-type-error",
+    step31_pp_err_radio_btn: "#unaccompanied-minor-adult-identification-type-field-error",
+    step31_pp_err_textbox: "#unaccompanied-minor-adult-passport-identification-number-field",
     //step32
     childs_personal_details_link: "a[href='/sponsor-a-child/steps/32']",
     childs_personal_details_givennames_label: "label[for='unaccompanied-minor-minor-given-name-field']",
     childs_personal_details_familyname_label: "label[for='unaccompanied-minor-minor-family-name-field']",
     childs_personal_details_givennames_textbox: "#unaccompanied-minor-minor-given-name-field",
     childs_personal_details_familyname_textbox: "#unaccompanied-minor-minor-family-name-field",
+    step32_fn_sbox_err_msg: "//a[normalize-space()='You must enter a valid family name']",
+    step32_gn_sbox_err_msg: "//a[normalize-space()='You must enter a valid given name']",
+    step32_fn_err_msg: "#unaccompanied-minor-minor-family-name-error",
+    step32_gn_err_msg: "#unaccompanied-minor-minor-given-name-error",
+    step32_gn_err_textbox: "#unaccompanied-minor-minor-given-name-field-error",
+    step32_fn_err_textbox: "#unaccompanied-minor-minor-family-name-field-error",
     //step33
     childs_personal_details_insettext: '.govuk-inset-text',
     cpd_cbcontacted_label: "label[for='unaccompanied-minor-minor-contact-type-none-field']",
@@ -206,17 +282,34 @@ var page_elements = {
     cpd_cemail_textbox: '#unaccompanied-minor-minor-email-confirm-field',
     cpd_pnumber_textkbox: '#unaccompanied-minor-minor-phone-number-field',
     cpd_cpnumber_textbox: '#unaccompanied-minor-minor-phone-number-confirm-field',
+    step33_ctc_err_msg: '#unaccompanied-minor-minor-contact-type-error',
+    step33_email_err_box: '#unaccompanied-minor-minor-contact-type-field-error',
+    step33_email_err_textbox: '#unaccompanied-minor-minor-email-field',
+    step33_email_err_con_textbox: '#unaccompanied-minor-minor-email-confirm-field',
+    step33_phone_err_box: '#unaccompanied-minor-minor-contact-type-telephone-field',
+    step33_phone_err_textbox: '#unaccompanied-minor-minor-phone-number-field',
+    step33_phone_err_con_textbox: '#unaccompanied-minor-minor-phone-number-confirm-field',
+    //step34
     cpd_day_textbox: '#unaccompanied_minor_minor_date_of_birth_3i',
     cpd_month_textbox: '#unaccompanied_minor_minor_date_of_birth_2i',
     cpd_year_textbox: '#unaccompanied_minor_minor_date_of_birth_1i',
+    step34_dob_err_msg: '#unaccompanied-minor-minor-date-of-birth-error',
+    step34_day_err_textbox: "#unaccompanied-minor-minor-date-of-birth-field-error",
+    step34_month_err_textbox: "#unaccompanied_minor_minor_date_of_birth_2i",
+    step34_year_err_textbox: "#unaccompanied_minor_minor_date_of_birth_1i",
     //step35
     consentform_link: "a[href='/sponsor-a-child/steps/35']",
+    //step36
     consentform_choosefile_button: '#unaccompanied-minor-uk-parental-consent-field',
     consentform_completed_tag: "strong[class='govuk-tag app-task-list__tag ']",
+    step36_uk_form_err_msg: "#unaccompanied-minor-uk-parental-consent-error",
+    step36_cfile_err_btn: "#unaccompanied-minor-uk-parental-consent-field-error",
     //step37
     ukrconsentform_link: "a[href='/sponsor-a-child/steps/37']",
     ukrconsentform_choosefile_button: "#unaccompanied-minor-ukraine-parental-consent-field",
     ukrconsentform_completed_tag: "(//strong[contains(@class,'govuk-tag app-task-list__tag')][normalize-space()='Completed'])[2]",
+    step37_ukr_form_err_msg: "#unaccompanied-minor-ukraine-parental-consent-error",
+    step37_cfile_err_btn: "#unaccompanied-minor-ukraine-parental-consent-field-error",
     //verify completed 4 of 5
     completed_4_of_5_label: "div[class='govuk-width-container'] p:nth-child(3)",
     completed_childs_details: ":nth-child(3) > .app-task-list__items > :nth-child(1) > .govuk-tag",
@@ -227,10 +320,15 @@ var page_elements = {
     confirm_data_checkbox: '#unaccompanied-minor-privacy-statement-confirm-true-field',
     confirm_eligibility_link: "a[href='/sponsor-a-child/steps/39']",
     confirm_eligibility_checkbox: '#unaccompanied-minor-sponsor-declaration-true-field',
+    step38_privacy_err_msg: "#unaccompanied-minor-privacy-statement-confirm-error",
+    step38_privacy_err_checkbox: "#unaccompanied-minor-privacy-statement-confirm-field-error",
+    //step39
+    step39_ctb_err_msg: "#unaccompanied-minor-sponsor-declaration-error",
+    step39_ctb_err_checkbox: "#unaccompanied-minor-sponsor-declaration-field-error",
     //send application
     check_your_answers_link: "a[href='/sponsor-a-child/check-answers']",
     answers_fullname: "//dd[normalize-space()='QA AUTOMATION TEST']",
-    answers_othernames :":nth-child(3) > :nth-child(2) > .govuk-summary-list__value",
+    answers_othernames: ":nth-child(3) > :nth-child(2) > .govuk-summary-list__value",
     answers_email: ":nth-child(3) > :nth-child(3) > .govuk-summary-list__value",
     answers_mobile: ":nth-child(3) > :nth-child(4) > .govuk-summary-list__value",
     answers_id: " :nth-child(3) > :nth-child(5) > .govuk-summary-list__value",
@@ -239,33 +337,14 @@ var page_elements = {
     answers_other_nationalities: ":nth-child(3) > :nth-child(8)",
     answers_child_address: ":nth-child(5) > :nth-child(1) > .govuk-summary-list__value",
     answers_over16_name: ":nth-child(5) > :nth-child(2) > .govuk-summary-list__value",
-    
     answers_child_fullname: ":nth-child(7) > :nth-child(1) > .govuk-summary-list__value",
     answers_child_email: ":nth-child(7) > :nth-child(2) > .govuk-summary-list__value",
     answers_child_phone: ":nth-child(7) > :nth-child(3) > .govuk-summary-list__value",
     answers_child_dob: ":nth-child(7) > :nth-child(4) > .govuk-summary-list__value",
-
     answers_consent1: ":nth-child(7) > :nth-child(5) > .govuk-summary-list__value",
     answers_consent2: ":nth-child(7) > :nth-child(6) > .govuk-summary-list__value",
-
     answers_agree1: ":nth-child(9) > :nth-child(1) > .govuk-summary-list__value",
     answers_agree2: ":nth-child(9) > :nth-child(2) > .govuk-summary-list__value",
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     accept_send: "button[type='submit']",
     app_complete_title: ".govuk-panel__title",
     ref_number: "div[class='govuk-panel__body'] strong"

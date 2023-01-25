@@ -1,12 +1,85 @@
 require('cypress-xpath');
+const secrets = require('../../../fixtures/uam_appdata.json')
 const elements = require('../../page_elements/UAM/uam_elements')
 const bodytext = require('../../../fixtures/uam_bodytext.json')
-const alfa = require('../../pages/UAM/uam_eligibility')
-const secrets = require('../../../fixtures/uam_appdata.json')
-   
+const common = require('../../pages/UAM/uam_common')
+
+const show_hide = () => {
+    cy.visit('/')
+    cy.get('body').then(($body) => {
+        if ($body.find(elements.show).length > 0) { //evaluates as show if button exists at all
+            cy.get(elements.show).click().wait(Cypress.env('waitTime'))
+            cy.get(elements.spchild_link).click().wait(Cypress.env('waitTime'))
+        }
+        else {
+            cy.get(elements.spchild_link).click().wait(Cypress.env('waitTime'))
+        }
+    })
+}
+export const uam_eligibility_start = () => {
+   // show_hide()
+    cy.visit('/sponsor-a-child/start')
+    common.uam_start_header()
+    cy.get(elements.startnow_button).click().wait(Cypress.env('waitTime'))
+}
+export const uam_eligibility_check = () => {
+    common.uam_check_header()
+    cy.get(elements.page_body).contains(bodytext.check_eligibility_body).should('be.visible')
+    cy.get(elements.continue_button_ec).click().wait(Cypress.env('waitTime'))
+}
+export const uam_eligibility_step_1 = () => {
+    common.uam_step1_header()
+    cy.get(elements.step1_radio_btn_yes).click()
+    cy.get(elements.continue_button).click()
+}
+export const uam_eligibility_step_2 = () => {
+    common.uam_step2_header()
+    cy.get(elements.step2_bodytext).contains(bodytext.step2_bodytext).should('be.visible')
+    cy.get(elements.step2_radio_btn_no).click()
+    cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
+}
+export const uam_eligibility_step_3 = () => {
+    common.uam_step3_header()
+    cy.get(elements.step3_radio_btn_yes).click()
+    cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
+}
+export const uam_eligibility_step_4 = () => {
+    common.uam_step4_header()
+    cy.get(elements.step4_bodytext).contains(bodytext.step4_bodytext).should('be.visible')
+    cy.get(elements.step4_radio_btn_no).click()
+    cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
+}
+export const uam_eligibility_step_5 = () => {
+    common.uam_step5_header()
+    cy.get(elements.step5_bodytext).contains(bodytext.step5_bodytext).should('be.visible')
+    cy.xpath(elements.step5_guidance_link).contains(bodytext.step5_link).should('be.visible')
+    cy.get(elements.step5_consent_radio_btn_yes).click()
+    cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
+}
+export const uam_eligibility_step_6 = () => {
+    common.uam_step6_header()
+    cy.get(elements.summary_text).should('be.visible')
+    cy.get(elements.step6_minimum_period_radio_btn_yes).click()
+    cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
+}
+export const uam_eligibility_step_7 = () => {
+    common.uam_step7_header()
+    cy.get(elements.summary_text).should('be.visible')
+    cy.get(elements.step7_minimum_period_radio_btn_yes).click()
+    cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
+}
+export const uam_eligibility_step_9 = () => {
+    common.uam_step9_header()
+    cy.get(elements.step9_body_text).should('be.visible').contains(bodytext.step9_bodytext).should('be.visible')
+    cy.get(elements.step9_start_application_btn).should('be.visible').click()
+}
+export const uam_eligibility_tasklist = () => {
+    common.uam_tasklist_header()
+    cy.get(elements.tasklist_page_body).should('be.visible').contains(bodytext.app_incomplete).should('be.visible')
+}
+//APPLICATION STARTS HERE  
 export const uam_tasklist_page = () => {
-    cy.visit('/task-list')
-    alfa.uam_eligibility_tasklist
+    uam_eligibility_tasklist
     cy.get(elements.your_details_heading).contains('Your details').should('be.visible')
     cy.xpath(elements.childs_accormadation_heading).contains('Child’s accommodation').should('be.visible')
     cy.xpath(elements.childs_details_heading).contains("Child's details").should('be.visible')
@@ -46,7 +119,7 @@ export const your_details_othername_step_13 = () => {
     cy.xpath(elements.name_completed).should('be.visible')
 }
 export const your_details_contact_details_step_14 = () => {
-    alfa.uam_tasklist_header()
+    common.uam_tasklist_header()
     cy.get(elements.contact_details_link).click()
     cy.get(elements.page_heading).contains('Enter your email address').should('be.visible')
     cy.get(elements.email_ad_body).contains(bodytext.step14_bodytext).should('be.visible')
@@ -73,7 +146,7 @@ const additional_details_labels = () => {
     cy.get(elements.dont_have_any_label).contains("I don't have any of these").should('be.visible').wait(Cypress.env('waitTime'))
 }
 export const your_details_additional_details_step_16 = () => {
-    alfa.uam_tasklist_header()
+    common.uam_tasklist_header()
     cy.get(elements.contact_details_completed).contains('Completed').should('be.visible')
     cy.get(elements.additional_details).click().wait(Cypress.env('waitTime'))
     additional_details_labels()
@@ -115,14 +188,13 @@ export const your_details_additional_details_step_22 = () => {
 }
 //VERIFY COMPLETED
 export const verify_completed_tasks_1_of_4 = () => {
-    alfa.uam_eligibility_tasklist
+    uam_eligibility_tasklist
     cy.xpath(elements.completed_1_of_4_label).contains('You have completed 1 of 4 sections.').should('be.visible')
     cy.xpath(elements.completed_name).contains('Completed').should('be.visible')
     cy.xpath(elements.completed_details).contains('Completed').should('be.visible')
     cy.xpath(elements.completed_ad_details).contains('Completed').should('be.visible').wait(Cypress.env('waitTime'))
 }
 export const childs_accommodation_step_23 = () => {
-    cy.visit('/task-list')
     cy.get(elements.address_link).click()
     cy.get(elements.page_heading).contains('Enter the address where the child will be living in the UK').should('be.visible')
     cy.get(elements.child_address_line1_label).contains('Address line 1').should('be.visible')
@@ -176,14 +248,14 @@ export const childs_accommodation_step_28 = () => {
 }
 //VERIFY COMPLETED 2 of 5
 export const verify_completed_tasks_2_of_5 = () => {
-    alfa.uam_eligibility_tasklist
+    uam_eligibility_tasklist
     cy.get(elements.completed_2_of_5_label).contains('You have completed 2 of 5 sections.').should('be.visible')
     cy.xpath(elements.completed_address).contains('Completed').should('be.visible')
     cy.get(elements.completed_live_there).contains('Completed').should('be.visible').wait(Cypress.env('waitTime'))
 }
 //RESIDENT'S DETAILS(OVER 16)
 export const residents_details_step29 = () => {
-    alfa.uam_eligibility_tasklist()
+    uam_eligibility_tasklist()
     cy.xpath(elements.residents_details_link).click().wait(Cypress.env('waitTime'))
     cy.get(elements.main_heading).contains("Enter this person's date of birth").should('be.visible')
     cy.get(elements.residents_details_inserttext).should('contain.text', 'OVER SIXTEEN').should('be.visible')
@@ -217,7 +289,7 @@ export const residents_details_step31 = () => {
 }
 //VERIFY COMPLETED 3 of 5
 export const verify_completed_tasks_3_of_5 = () => {
-    alfa.uam_eligibility_tasklist
+    uam_eligibility_tasklist()
     cy.get(elements.completed_3_of_5_label).contains('You have completed 3 of 5 sections.').should('be.visible')
     cy.xpath(elements.completed_address).contains('Completed').should('be.visible')
     cy.get(elements.completed_live_there).contains('Completed').should('be.visible')
@@ -227,8 +299,7 @@ export const verify_completed_tasks_3_of_5 = () => {
     cy.xpath(elements.cannot_start_yet).contains('Cannot start yet').should('be.visible').wait(Cypress.env('waitTime'))
 }
 export const childs_details_step_32 = () => {
-    cy.visit('/task-list')
-    alfa.uam_eligibility_tasklist
+    uam_eligibility_tasklist()
     cy.get(elements.childs_personal_details_link).click()
     cy.get(elements.main_heading).contains("Enter the name of the child you want to sponsor").should('be.visible')
     cy.get(elements.summary_text).contains("I'm not sure how to enter their name").should('be.visible')
@@ -259,7 +330,7 @@ export const childs_details_step_34 = () => {
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
 export const consent_form_step_35 = () => {
-    alfa.uam_eligibility_tasklist()
+    uam_eligibility_tasklist()
     cy.get(elements.consentform_link).click().wait(Cypress.env('waitTime'))
     cy.get(elements.main_heading).contains('You must upload 2 completed parental consent forms').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
@@ -267,36 +338,36 @@ export const consent_form_step_35 = () => {
 export const consent_form_step_36 = () => {
     cy.get(elements.page_heading_xl).contains('Upload the UK sponsorship arrangement consent form').should('be.visible')
     cy.get(elements.insettext).contains("TINY BOB").should('be.visible')
-    cy.get(elements.consentform_choosefile_button).attachFile("saconsent.png").wait(Cypress.env('waitTime'))
+    cy.get(elements.consentform_choosefile_button).attachFile("jpegs/saconsent.png").wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click()
     cy.get(elements.consentform_completed_tag).should('be.visible').wait(Cypress.env('waitTime'))
 }
 export const ukrconsent_form_step_37 = () => {
-    alfa.uam_eligibility_tasklist()
+    uam_eligibility_tasklist()
     cy.get(elements.ukrconsentform_link).click().wait(Cypress.env('waitTime'))
     cy.get(elements.insettext).contains("TINY BOB").should('be.visible')
     cy.get(elements.page_heading_xl).contains('Upload the Ukraine certified consent form').should('be.visible')
-    cy.get(elements.ukrconsentform_choosefile_button).attachFile("ukrconsent.png").wait(Cypress.env('waitTime'))
+    cy.get(elements.ukrconsentform_choosefile_button).attachFile("jpegs/ukrconsent.png").wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     cy.xpath(elements.ukrconsentform_completed_tag).should('be.visible').wait(Cypress.env('waitTime'))
 }
 //VERIFY COMPLETED
 export const verify_completed_tasks_4_of_5 = () => {
-    alfa.uam_eligibility_tasklist
+    uam_eligibility_tasklist
     cy.get(elements.completed_4_of_5_label).contains('You have completed 4 of 5 sections.').should('be.visible')
     cy.get(elements.completed_childs_details).contains('Completed').should('be.visible')
     cy.get(elements.completed_consent_form).contains('Completed').should('be.visible')
     cy.get(elements.completed_ukrconsent_form).contains('Completed').should('be.visible')
 }
 export const confirmation_page_step_38 = () => {
-    alfa.uam_eligibility_tasklist()
+    uam_eligibility_tasklist()
     cy.get(elements.confirm_data_link).click().wait(Cypress.env('waitTime'))
     cy.get(elements.page_heading).contains('Confirm you have read the privacy statement and all people involved agree that the information you have provided can be used for the Homes for Ukraine scheme').should('be.visible')
     cy.get(elements.confirm_data_checkbox).click().wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
 export const confirmation_page_step_39 = () => {
-    alfa.uam_eligibility_tasklist()
+    uam_eligibility_tasklist()
     cy.get(elements.confirm_eligibility_link).click().wait(Cypress.env('waitTime'))
     cy.get(elements.page_heading_xl).contains('Confirm your eligibility to sponsor a child from Ukraine').should('be.visible')
     cy.get(elements.confirm_eligibility_checkbox).click().wait(Cypress.env('waitTime'))
@@ -304,7 +375,7 @@ export const confirmation_page_step_39 = () => {
 }
 //CHECK ANSWERS
 export const check_answers = () => {
-    alfa.uam_eligibility_tasklist()
+    uam_eligibility_tasklist()
     cy.get(elements.check_your_answers_link).click().wait(Cypress.env('waitTime'))
     cy.get(elements.page_heading).contains('Check your answers before sending your application').should('be.visible')
     cy.xpath(elements.answers_fullname).contains(secrets.full_name)
