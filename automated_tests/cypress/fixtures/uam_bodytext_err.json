@@ -1,0 +1,21 @@
+{ 
+    " _COMMENT": "******** UAM ******* ******** UAM ******* ******** UAM *************** UAM *************** UAM *************** UAM *************** UAM *************** UAM *******",
+    "sbox_title_msg": "There is a problem",
+    "sel_opt_err_msg": "You must select an option",
+    "sel_more_opt_err_msg": "Please choose one or more of the options",
+    "fn_err_msg": "You must enter a valid family name",
+    "gn_err_msg": "You must enter a valid given name",
+    "email_err_msg": "You must enter a valid email address",
+    "email_err_mm_msg": "Emails must match",
+    "mobile_err_msg": "You must enter a valid UK mobile phone number",
+    "mobile_err_mm_msg": "Phone numbers must match",
+    "id_err_msg": "Tell us how you can prove your identity, or why you cannot.",
+    "dob_err_msg": "Enter a valid date of birth",
+    "nationality_err_msg": "You must select a valid nationality",
+    "address_err_msg": "You must enter an address",
+    "city_err_msg": "You must enter a town or city",
+    "pc_err_msg": "You must enter a valid UK postcode",
+    "cfile_err_msg": "You must choose a file",
+    "privacy_err_msg": "You must read and agree to the privacy statement",
+    "chk_the_box_err_msg": "You must check the box to continue"
+}
