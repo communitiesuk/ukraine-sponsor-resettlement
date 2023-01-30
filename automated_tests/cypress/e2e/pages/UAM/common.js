@@ -11,4 +11,3 @@ export const uam_step6_header = () => { cy.get(elements.page_heading).contains('
 export const uam_step7_header = () => { cy.get(elements.page_heading).contains('Do you have permission to live in the UK for the minimum period?').should('be.visible') }
 export const uam_step9_header = () => { cy.get(elements.page_heading).contains('You are eligible to use this service').should('be.visible') }
 export const uam_tasklist_header = () => { cy.get(elements.page_heading).contains('Apply for approval to provide a safe home for a child from Ukraine').should('be.visible') }
-

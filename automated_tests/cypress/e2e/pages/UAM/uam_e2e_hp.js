@@ -2,78 +2,13 @@ require('cypress-xpath');
 const secrets = require('../../../fixtures/uam_appdata.json')
 const elements = require('../../page_elements/UAM/uam_elements')
 const bodytext = require('../../../fixtures/uam_bodytext.json')
-const common = require('../../pages/UAM/uam_common')
+const common = require('./common')
+const eligibility = require('./eligibility')
 
-const show_hide = () => {
-    cy.visit('/')
-    cy.get('body').then(($body) => {
-        if ($body.find(elements.show).length > 0) { //evaluates as show if button exists at all
-            cy.get(elements.show).click().wait(Cypress.env('waitTime'))
-            cy.get(elements.spchild_link).click().wait(Cypress.env('waitTime'))
-        }
-        else {
-            cy.get(elements.spchild_link).click().wait(Cypress.env('waitTime'))
-        }
-    })
+export const uam_eligibility_step1_9 = () => {
+    eligibility.uam_eligibility_steps()
 }
-export const uam_eligibility_start = () => {
-   // show_hide()
-    cy.visit('/sponsor-a-child/start')
-    common.uam_start_header()
-    cy.get(elements.startnow_button).click().wait(Cypress.env('waitTime'))
-}
-export const uam_eligibility_check = () => {
-    common.uam_check_header()
-    cy.get(elements.page_body).contains(bodytext.check_eligibility_body).should('be.visible')
-    cy.get(elements.continue_button_ec).click().wait(Cypress.env('waitTime'))
-}
-export const uam_eligibility_step_1 = () => {
-    common.uam_step1_header()
-    cy.get(elements.step1_radio_btn_yes).click()
-    cy.get(elements.continue_button).click()
-}
-export const uam_eligibility_step_2 = () => {
-    common.uam_step2_header()
-    cy.get(elements.step2_bodytext).contains(bodytext.step2_bodytext).should('be.visible')
-    cy.get(elements.step2_radio_btn_no).click()
-    cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
-}
-export const uam_eligibility_step_3 = () => {
-    common.uam_step3_header()
-    cy.get(elements.step3_radio_btn_yes).click()
-    cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
-}
-export const uam_eligibility_step_4 = () => {
-    common.uam_step4_header()
-    cy.get(elements.step4_bodytext).contains(bodytext.step4_bodytext).should('be.visible')
-    cy.get(elements.step4_radio_btn_no).click()
-    cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
-}
-export const uam_eligibility_step_5 = () => {
-    common.uam_step5_header()
-    cy.get(elements.step5_bodytext).contains(bodytext.step5_bodytext).should('be.visible')
-    cy.xpath(elements.step5_guidance_link).contains(bodytext.step5_link).should('be.visible')
-    cy.get(elements.step5_consent_radio_btn_yes).click()
-    cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
-}
-export const uam_eligibility_step_6 = () => {
-    common.uam_step6_header()
-    cy.get(elements.summary_text).should('be.visible')
-    cy.get(elements.step6_minimum_period_radio_btn_yes).click()
-    cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
-}
-export const uam_eligibility_step_7 = () => {
-    common.uam_step7_header()
-    cy.get(elements.summary_text).should('be.visible')
-    cy.get(elements.step7_minimum_period_radio_btn_yes).click()
-    cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
-}
-export const uam_eligibility_step_9 = () => {
-    common.uam_step9_header()
-    cy.get(elements.step9_body_text).should('be.visible').contains(bodytext.step9_bodytext).should('be.visible')
-    cy.get(elements.step9_start_application_btn).should('be.visible').click()
-}
-export const uam_eligibility_tasklist = () => {
+const uam_eligibility_tasklist = () => {
     common.uam_tasklist_header()
     cy.get(elements.tasklist_page_body).should('be.visible').contains(bodytext.app_incomplete).should('be.visible')
 }
@@ -93,8 +28,8 @@ export const your_details_name_step_10 = () => {
     cy.get(elements.save_and_return_label).contains('Save and return later').should('be.visible')
     cy.get(elements.given_names_label).contains("Given names").should('be.visible')
     cy.get(elements.family_name_label).contains("Family name").should('be.visible').wait(Cypress.env('waitTime'))
-    cy.get(elements.given_names_textbox).type(secrets.given_names)
-    cy.get(elements.family_name_textbox).type(secrets.family_name)
+    cy.get(elements.step10_gn_textbox).type(secrets.given_names)
+    cy.get(elements.step10_fn_textbox).type(secrets.family_name)
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
 export const your_details_othername_step_11 = () => {
@@ -108,8 +43,8 @@ export const your_details_othername_step_12 = () => {
     cy.get(elements.summary_text).contains("I'm not sure how to enter my nam").should('be.visible')
     cy.get(elements.other_given_names_label).contains("Given names").should('be.visible')
     cy.get(elements.other_family_name_label).contains("Family name").should('be.visible').wait(Cypress.env('waitTime'))
-    cy.get(elements.other_given_names_textbox).type(secrets.known_by_given_names)
-    cy.get(elements.other_family_name_textbox).type(secrets.known_by_family_name)
+    cy.get(elements.step12_gn_textbox).type(secrets.known_by_given_names)
+    cy.get(elements.step12_fn_textbox).type(secrets.known_by_family_name)
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
 export const your_details_othername_step_13 = () => {
@@ -125,8 +60,8 @@ export const your_details_contact_details_step_14 = () => {
     cy.get(elements.email_ad_body).contains(bodytext.step14_bodytext).should('be.visible')
     cy.get(elements.email_ad_label).contains('Email address').should('be.visible')
     cy.get(elements.confirm_email_ad_label).contains('Confirm email address').should('be.visible')
-    cy.get(elements.email_ad_textbox).type(secrets.email)
-    cy.get(elements.confirm_email_ad_textbox).type(secrets.email)
+    cy.get(elements.step14_email_textbox).type(secrets.email)
+    cy.get(elements.step14_email_cf_textbox).type(secrets.email)
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
 export const your_details_mobile_step_15 = () => {
@@ -134,8 +69,8 @@ export const your_details_mobile_step_15 = () => {
     cy.get(elements.mobile_number_body).contains('Enter a UK mobile phone number that you have access to, so you can save and continue your application later.').should('be.visible')
     cy.get(elements.mobile_number_label).contains('UK mobile number').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.confirm_mobile_number_label).contains('Confirm mobile number').should('be.visible')
-    cy.get(elements.mobile_number_textbox).type(secrets.mobile)
-    cy.get(elements.confirm_mobile_number_textbox).type(secrets.mobile)
+    cy.get(elements.step15_mob_textbox).type(secrets.mobile)
+    cy.get(elements.step15_mob_cf_textbox).type(secrets.mobile)
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
 const additional_details_labels = () => {
@@ -201,7 +136,7 @@ export const childs_accommodation_step_23 = () => {
     cy.get(elements.child_address_line2_label).contains('Address line 2 (optional)').should('be.visible')
     cy.get(elements.child_town_city_label).contains('Town or city').should('be.visible')
     cy.get(elements.child_postcode_label).contains('Postcode').should('be.visible').wait(Cypress.env('waitTime'))
-//CLILD'S ADDRESS
+    //CLILD'S ADDRESS
     cy.get(elements.child_address_line1_textbox).type(secrets.child_line1)
     cy.get(elements.child_address_line2_textbox).type(secrets.child_line2)
     cy.get(elements.child_town_city_textbox).type(secrets.child_town_or_city)
@@ -229,7 +164,7 @@ export const childs_accommodation_step_26 = () => {
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
 export const childs_accommodation_step_27 = () => {
-//OVER 16 PERSON LIVING WITH THE CHILD
+    //OVER 16 PERSON LIVING WITH THE CHILD
     cy.get(elements.page_heading).contains('Enter the name of a person over 16 who will live with the child').should('be.visible')
     cy.get(elements.child_address_validation_text).should('contain.text', 'CHILDS, ADDRESS, LONDON, NW10 5BD').should('be.visible')
     cy.get(elements.summary_text).contains(" I'm not sure how to enter their name").wait(Cypress.env('waitTime'))
@@ -382,7 +317,7 @@ export const check_answers = () => {
     cy.get(elements.answers_othernames).contains(secrets.known_by_fullname)
     cy.get(elements.answers_email).contains(secrets.email)
     cy.get(elements.answers_mobile).contains(secrets.mobile)
-    cy.get(elements.answers_id).contains('passport')+(secrets.passport_no)
+    cy.get(elements.answers_id).contains('passport') + (secrets.passport_no)
     cy.get(elements.answers_dob).contains(secrets.dob)
     cy.get(elements.answers_nationality).contains("GBR - United Kingdom")
     cy.get(elements.answers_other_nationalities).contains("GBD - British Overseas Territories").wait(Cypress.env('waitTime'))
