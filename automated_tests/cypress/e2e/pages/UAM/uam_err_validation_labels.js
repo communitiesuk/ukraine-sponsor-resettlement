@@ -2,7 +2,7 @@ require('cypress-xpath');
 const secrets = require('../../../fixtures/uam_appdata.json')
 const elements = require('../../page_elements/UAM/uam_elements')
 const bodytext = require('../../../fixtures/uam_bodytext.json')
-const common = require('./uam_common')
+const common = require('./common')
 const bt_err = require('../../../fixtures/uam_bodytext_err.json')
 
 const summery_box_error = () => {
