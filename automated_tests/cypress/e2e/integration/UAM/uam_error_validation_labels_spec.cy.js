@@ -1,11 +1,10 @@
-const element = require('../../pages/UAM/uam_e2e_hp')
+const element = require('../../pages/UAM/uam_error_validation_labels')
 
 describe('[Frontend-UI]: UAM E2E JOURNEY [HAPPY PATH]', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
-    cy.fixture('uam_appdata').then(function(uam_secrets){
-      this.data = uam_secrets
-    })
+    cy.fixture('uam_appdata').then(function(uam_secrets){this.data = uam_secrets})
+    cy.fixture('uam_bodytext_err').then(function(uam_bt_err){this.data = uam_bt_err})
   });
   Cypress.Cookies.defaults({ preserve: '_ukraine_sponsor_resettlement_session' })
 
@@ -22,11 +21,6 @@ describe('[Frontend-UI]: UAM E2E JOURNEY [HAPPY PATH]', function () {
       element.uam_eligibility_step_7()
       element.uam_eligibility_step_9()
       element.uam_eligibility_tasklist()
-    })
-  })
-  context('[Frontend-UI] Tasklist ', function () {
-    it('verify tasklist page details', function () {
-      element.uam_tasklist_page()
     })
   })
   context('[Frontend-UI] Your details ', function () {
@@ -51,6 +45,9 @@ describe('[Frontend-UI]: UAM E2E JOURNEY [HAPPY PATH]', function () {
     it('verify ID', function () {
       element.your_details_additional_details_step_16()
     })
+    it('prove ID', function () {
+      element.your_details_prove_id_step_17()
+    })
     it('verify DOB', function () {
       element.your_details_additional_details_step_18()
     })
@@ -61,9 +58,6 @@ describe('[Frontend-UI]: UAM E2E JOURNEY [HAPPY PATH]', function () {
       element.your_details_additional_details_step_20()
       element.your_details_additional_details_step_21()
       element.your_details_additional_details_step_22()
-    })
-    it('verify completed 1 of 4', function () {
-      element.verify_completed_tasks_1_of_4()
     })
   })
   context('[Frontend-UI] Verify Child’s accommodation ', function () {
@@ -82,9 +76,6 @@ describe('[Frontend-UI]: UAM E2E JOURNEY [HAPPY PATH]', function () {
     it('verify added person over 16', function () {
       element.childs_accommodation_step_28()
     })
-    it('verify completed 2 of 5', function () {
-      element.verify_completed_tasks_2_of_5()
-    })
   })
   context('[Frontend-UI] Residents details(over 16) ', function () {
     it('verify person over 16 DOB', function () {
@@ -95,9 +86,6 @@ describe('[Frontend-UI]: UAM E2E JOURNEY [HAPPY PATH]', function () {
     })
     it('verify person over 16 ID documents', function () {
       element.residents_details_step31()
-    })
-    it('verify completed 3 of 5', function () {
-      element.verify_completed_tasks_3_of_5()
     })
   })
   context('[Frontend-UI] Childs details ', function () {
@@ -119,9 +107,6 @@ describe('[Frontend-UI]: UAM E2E JOURNEY [HAPPY PATH]', function () {
     it('verify ukrainian consent form upload', function () {
       element.ukrconsent_form_step_37()
     })
-    it('verify completed tasks 4 of 5', function () {
-      element.verify_completed_tasks_4_of_5()
-    })
   })
   context('[Frontend-UI] Send application ', function () {
     it('verify use data [confirmation]', function () {
@@ -132,9 +117,6 @@ describe('[Frontend-UI]: UAM E2E JOURNEY [HAPPY PATH]', function () {
     })
     it('verify check answers', function () {
       element.check_answers()
-    })
-    it('verify send application', function () {
-      element.accept_send()
     })
   })
 })
