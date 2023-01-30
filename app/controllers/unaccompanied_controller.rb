@@ -6,31 +6,6 @@ class UnaccompaniedController < ApplicationController
 
   before_action :check_last_activity, only: %i[handle_step display]
 
-  MAX_STEPS = 44
-  NOT_ELIGIBLE = [-1, 0].freeze
-  SPONSOR_NAME = 10
-  SPONSOR_OTHER_NAMES_CHOICE = 11
-  SPONSOR_OTHER_NAMES = 12
-  SPONSOR_EMAIL = 14
-  SPONSOR_PHONE_NUMBER = 15
-  SPONSOR_ID_TYPE = 16
-  SPONSOR_ID_MISSING_EXPLANATION = 17
-  SPONSOR_DATE_OF_BIRTH = 18
-  SPONSOR_NATIONALITY = 19
-  SPONSOR_OTHER_NATIONALITIES_CHOICE = 20
-  SPONSOR_OTHER_NATIONALITY = 21
-  ADULTS_AT_ADDRESS = 27
-  ADULTS_SUMMARY_PAGE = 28
-  ADULT_DATE_OF_BIRTH = 29
-  ADULT_NATIONALITY = 30
-  ADULT_ID_TYPE_AND_NUMBER = 31
-  MINOR_CONTACT_DETAILS = 33
-  MINOR_DATE_OF_BIRTH = 34
-  NATIONALITY_STEPS = [SPONSOR_NATIONALITY, SPONSOR_OTHER_NATIONALITY, ADULT_NATIONALITY].freeze
-  SAVE_AND_RETURN_STEPS = [SPONSOR_EMAIL, SPONSOR_PHONE_NUMBER].freeze
-  ADULT_STEPS = [ADULT_DATE_OF_BIRTH, ADULT_NATIONALITY, ADULT_ID_TYPE_AND_NUMBER].freeze
-  ADULT_STEPS_ALL = [ADULTS_SUMMARY_PAGE, ADULT_DATE_OF_BIRTH, ADULT_NATIONALITY, ADULT_ID_TYPE_AND_NUMBER].freeze
-  TASK_LIST_STEP = 999
   TASK_LIST_URI = "/sponsor-a-child/task-list".freeze
 
   def start
@@ -56,28 +31,28 @@ class UnaccompaniedController < ApplicationController
 
   def display
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
-    step = params["stage"].to_i
+    step = params["stage"].to_s
 
-    if @application.nil? || (1..MAX_STEPS).exclude?(step)
+    if @application.nil? || !UamWorkflow.states.key?(step)
       redirect_to "/sponsor-a-child" and return
     end
 
-    if ADULT_STEPS_ALL.include?(step) && \
+    if (UamWorkflow.state_has_tag(step, :adult_step) || UamWorkflow.state_has_tag(step, :adult_summary)) && \
         @application.other_adults_address.present? && \
         (params["key"].blank? || @application.adults_at_address.blank?)
       render "sponsor-a-child/task_list"
       return
     end
 
-    if NATIONALITY_STEPS.include?(step)
-      @nationalities = if step == SPONSOR_OTHER_NATIONALITY
+    if UamWorkflow.state_has_tag(step, :nationality_step)
+      @nationalities = if UamWorkflow.state_has_tag(step, :other_nationality)
                          get_nationalities_as_list(@application.saved_nationalities_as_list)
                        else
                          get_nationalities_as_list
                        end
     end
 
-    if SAVE_AND_RETURN_STEPS.include?(step)
+    if UamWorkflow.state_has_tag(step, :save_and_return_1) || UamWorkflow.state_has_tag(step, :save_and_return_2)
       if request.GET["save"]
         @save_and_return_message = true
         @save = "?save=1"
@@ -86,7 +61,7 @@ class UnaccompaniedController < ApplicationController
       end
     end
 
-    if step == SPONSOR_ID_TYPE
+    if UamWorkflow.state_has_tag(step, :sponsor_id_type)
       case @application.identification_type
       when "passport"
         @application.passport_identification_number = @application.identification_number
@@ -95,7 +70,7 @@ class UnaccompaniedController < ApplicationController
       when "refugee_travel_document"
         @application.refugee_identification_number = @application.identification_number
       end
-    elsif ADULT_STEPS.include?(step)
+    elsif UamWorkflow.state_has_tag(step, :adult_step)
       if @application.adults_at_address.present?
         Rails.logger.debug "Adult page!"
 
@@ -139,9 +114,9 @@ class UnaccompaniedController < ApplicationController
   end
 
   def handle_upload_uk
-    current_stage = params["stage"].to_i
+    current_stage = params["stage"].to_s
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
-    @application.started_at = Time.zone.now.utc if current_stage == 1
+    @application.started_at = Time.zone.now.utc if current_stage == UamWorkflow.states.keys[0]
     @application.uk_parental_consent_filename = ""
 
     begin
@@ -164,9 +139,9 @@ class UnaccompaniedController < ApplicationController
   end
 
   def handle_upload_ukraine
-    current_stage = params["stage"].to_i
+    current_stage = params["stage"].to_s
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
-    @application.started_at = Time.zone.now.utc if current_stage == 1
+    @application.started_at = Time.zone.now.utc if current_stage == UamWorkflow.states.keys[0]
     @application.ukraine_parental_consent_filename = ""
 
     begin
@@ -189,13 +164,11 @@ class UnaccompaniedController < ApplicationController
   end
 
   def handle_step
-    current_step = params["stage"].to_i
-    current_step.freeze
-
+    current_step = params["stage"].to_s
     # Pull session data out of session and
     # instantiate new or existing Application ActiveRecord object
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
-    @application.started_at = Time.zone.now.utc if current_step == 1
+    @application.started_at = Time.zone.now.utc if current_step == UamWorkflow.states.keys[0]
 
     # Update Application object with new attributes
     @application.assign_attributes(application_params)
@@ -207,33 +180,30 @@ class UnaccompaniedController < ApplicationController
                                       elsif !application_params.keys.empty? && application_params.keys[0].start_with?("adult_date_of_birth")
                                         [:adult_date_of_birth]
                                       elsif application_params.key?("identification_type") || application_params.key?("id_identification_number")
-                                         %i[identification_type passport_identification_number id_identification_number refugee_identification_number]
+                                        %i[identification_type passport_identification_number id_identification_number refugee_identification_number]
                                       else
                                         application_params.keys.map(&:to_sym)
                                       end
 
     if @application.valid?
-      UamWorkflow.do_data_transforms(current_step.to_s, @application, params)
-
-      # Update the database
+      UamWorkflow.do_data_transforms(current_step, @application, params)
       @application.update!(@application.as_json)
 
       # Special steps if we are in save_and_return territory
-      # warning: this overrides the routing engine for steps 10-14-15
       if request.GET["save"]
-        case current_step
-        when 14
-          redirect_to "/sponsor-a-child/steps/15?save=1"
-        when 15
+        if UamWorkflow.state_has_tag(current_step, :save_and_return_1)
+          next_step = UamWorkflow.find_by_tag(:save_and_return_2)
+          redirect_to "/sponsor-a-child/steps/#{next_step}?save=1"
+        elsif UamWorkflow.state_has_tag(current_step, :save_and_return_2)
           redirect_to "/sponsor-a-child/save-and-return/"
         end
       else
-        next_stage = UamWorkflow.get_next_step(current_step.to_s, @application)
+        next_stage = UamWorkflow.get_next_step(current_step, @application)
         if next_stage == "non-eligible"
           redirect_to "/sponsor-a-child/non-eligible"
         elsif next_stage == "task-list"
           redirect_to TASK_LIST_URI
-        elsif UamWorkflow.states[next_stage].key?(:requires_key_param) && UamWorkflow.states[next_stage][:requires_key_param] == true
+        elsif UamWorkflow.state_has_tag(next_stage, :adult_step)
           redirect_to "/sponsor-a-child/steps/#{next_stage}/#{params['key']}"
         else
           redirect_to "/sponsor-a-child/steps/#{next_stage}"
@@ -241,11 +211,11 @@ class UnaccompaniedController < ApplicationController
       end
     else
       # Validation failed. Expose the data needed on the steps that need it.
-      if NATIONALITY_STEPS.include?(current_step)
+      if UamWorkflow.state_has_tag(current_step, :nationality_step)
         @nationalities = get_nationalities_as_list(@application.saved_nationalities_as_list)
       end
 
-      if [ADULT_DATE_OF_BIRTH, ADULT_NATIONALITY, ADULT_ID_TYPE_AND_NUMBER].include?(current_step)
+      if UamWorkflow.state_has_tag(current_step, :adult_step)
         @adult = @application.adults_at_address[params["key"]]
       end
       render_current_step
@@ -369,9 +339,11 @@ class UnaccompaniedController < ApplicationController
     if @application.adults_at_address.length.zero?
       @application.other_adults_address = "no"
       @application.adults_at_address = nil
-      redirect_to "/sponsor-a-child/steps/#{ADULTS_AT_ADDRESS}"
+      adults_at_address_step = UamWorkflow.find_by_tag(:adults_at_address)
+      redirect_to "/sponsor-a-child/steps/#{adults_at_address_step}"
     else
-      redirect_to "/sponsor-a-child/steps/28"
+      adult_summary = UamWorkflow.find_by_tag(:adult_summary)
+      redirect_to "/sponsor-a-child/steps/#{adult_summary}"
     end
   end
 
@@ -389,7 +361,8 @@ class UnaccompaniedController < ApplicationController
     if @application.other_names.blank?
       redirect_to TASK_LIST_URI
     else
-      redirect_to "/sponsor-a-child/steps/13"
+      uns = UamWorkflow.find_by_tag(:other_names_summary)
+      redirect_to "/sponsor-a-child/steps/#{uns}"
     end
   end
 
@@ -407,19 +380,20 @@ class UnaccompaniedController < ApplicationController
     if @application.other_nationalities.blank?
       redirect_to TASK_LIST_URI
     else
-      redirect_to "/sponsor-a-child/steps/22"
+      ns = UamWorkflow.find_by_tag(:nationalities_summary)
+      redirect_to "/sponsor-a-child/steps/#{ns}"
     end
   end
 
 private
 
-  def path_for_step(to_step = nil)
-    step = to_step || params["stage"].to_i
-    "sponsor-a-child/steps/#{step}"
-  end
-
   def render_current_step
-    render path_for_step
+    step = params["stage"].to_s
+    if UamWorkflow.states.key?(step)
+      render UamWorkflow.states[step][:view_name]
+    else
+      redirect_to "/404"
+    end
   end
 
   def check_last_activity
