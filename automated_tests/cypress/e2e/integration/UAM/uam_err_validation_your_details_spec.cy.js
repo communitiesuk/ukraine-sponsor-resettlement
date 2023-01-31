@@ -106,11 +106,28 @@ describe('[Frontend-UI]: UAM ERROR VALIDATION [YOUR DETAILS]', function () {
     })
   })
 
-  context('[Your Details]   Additional Details : DOB', function () {
-    it('verify use data [confirmation] error labels', function () {
-      element.your_details_adi_details_step_18_v1()
+  context('[Your Details] Additional Details : DOB', function () {
+    it('sponsor dob validation [All feilds empty]', function () {
+      element.your_details_ad_details_dob_step_18_v1()
     })
-    
+    it('sponsor dob validation [two feilds empty]', function () {
+      element.your_details_ad_details_dob_step_18_v2()
+    })
+    it('sponsor dob validation [one feild empty]', function () {
+      element.your_details_ad_details_dob_step_18_v3()
+    })
+    it('sponsor dob validation [future date]', function () {
+      element.your_details_ad_details_dob_step_18_v4('2050')
+    })
+    it('sponsor dob validation [past date (1 year ago)]', function () {
+      element.your_details_ad_details_dob_step_18_v5('2022')
+    })
+    it('sponsor dob validation [past date (17 year ago)]', function () {
+      element.your_details_ad_details_dob_step_18_v6('2005')
+    })
+    it('sponsor dob validation [past date (18+ year ago)]', function () {
+      element.your_details_ad_details_dob_step_18_v7('2004')
+    })
   })
 })
 
