@@ -105,7 +105,6 @@ describe('[Frontend-UI]: UAM ERROR VALIDATION [YOUR DETAILS]', function () {
       element.your_details_mobile_step_15_v7()
     })
   })
-
   context('[Your Details] Additional Details : DOB', function () {
     it('sponsor dob validation [All feilds empty]', function () {
       element.your_details_ad_details_dob_step_18_v1()
@@ -130,9 +129,4 @@ describe('[Frontend-UI]: UAM ERROR VALIDATION [YOUR DETAILS]', function () {
     })
   })
 })
-
-
-
-
-
 
