@@ -463,63 +463,96 @@ export const your_details_mobile_step_15_v7 = () => {
     cy.get(elements.page_heading).contains("Apply for approval to provide a safe home for a child from Ukraine").should('be.visible')
 }
 //*******ADDITIONAL DETAILS*********************ADDITIONAL DETAILS*********************ADDITIONAL DETAILS*********************ADDITIONAL DETAILS**************
-
-
-export const your_details_adi_details_step_18_v1 = () => {
-    cy.get(elements.additional_details).click().wait(Cypress.env('waitTime'))
-    cy.get(elements.page_heading).contains('Do you have any of these identity documents?').should('be.visible')
-    click_continue()
-    cy.get(elements.step16_id_err_msg).contains(bt_err.sel_opt_err_msg).should('be.visible')
-    cy.get(elements.step16_idh_btn).click()
-    click_continue()
-}
-export const your_details_prove_id_step_17 = () => {
-    cy.get(elements.page_heading).contains('Can you prove your identity?').should('be.visible')
-    click_continue()
-    summary_box_title()
-    cy.get(elements.err_sbox_msg).contains(bt_err.id_err_msg).should('be.visible')
-    cy.get(elements.step17_id_reason_err_msg).contains(bt_err.id_err_msg).should('be.visible')
-    cy.get(elements.step17_id_reason_err_textbox).type('PROVE YOUR IDENTITY')
-    click_continue()
-}
-export const your_details_additional_details_step_18 = () => {
+const dob_heading = () =>{
     cy.get(elements.page_heading).contains('Enter your date of birth').should('be.visible')
-    click_continue()
-    summary_box_title()
+}
+const dob_err_yes = () => {
+    cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible')
     cy.get(elements.err_sbox_msg).contains(bt_err.dob_err_msg).should('be.visible')
     cy.get(elements.step18_dob_err_msg).contains(bt_err.dob_err_msg).should('be.visible')
+}
+const dob_future_date_err_yes = () => {
+    cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible')
+    cy.get(elements.err_sbox_msg).contains(bt_err.dob_future_err_msg).should('be.visible')
+    cy.get(elements.step18_dob_err_msg).contains(bt_err.dob_future_err_msg).should('be.visible')
+}
+//all fields empty: [D: empty, M: Empty, Year: empty]
+export const your_details_ad_details_dob_step_18_v1 = () => {
+    cy.visit('/sponsor-a-child/task-list')
+    cy.get(elements.additional_details).click().wait(Cypress.env('waitTime'))
+    cy.get(elements.page_heading).contains('Do you have any of these identity documents?').should('be.visible')
+    cy.get(elements.passport_nm_radio_button).click()
+    cy.get(elements.passport_nm_textbox).type(secrets.passport_no)
+    click_continue()
+    dob_heading()
+    click_continue()
+    dob_err_yes()
+}
+//two fields empty: 
+export const your_details_ad_details_dob_step_18_v2 = () => {
     cy.get(elements.step18_day_err_textbox).type(secrets.day)
+    cy.get(elements.step18_month_err_textbox).clear()
+    cy.get(elements.step18_year_err_textbox).clear()
+    click_continue()
+    dob_err_yes()
+    cy.get(elements.step18_day_err_textbox).clear()
+    cy.get(elements.step18_month_err_textbox).type(secrets.month)
+    cy.get(elements.step18_year_err_textbox).clear()
+    click_continue()
+    dob_err_yes()
+    cy.get(elements.step18_day_err_textbox).clear()
+    cy.get(elements.step18_month_err_textbox).clear()
+    cy.get(elements.step18_year_err_textbox).type(secrets.year)
+    click_continue()
+    dob_err_yes()
+}
+//one field empty: 
+export const  your_details_ad_details_dob_step_18_v3 = () => {
+    cy.get(elements.step18_day_err_textbox).clear()
     cy.get(elements.step18_month_err_textbox).type(secrets.month)
     cy.get(elements.step18_year_err_textbox).type(secrets.year)
     click_continue()
+    dob_err_yes()
+    cy.get(elements.step18_day_err_textbox).type(secrets.day)
+    cy.get(elements.step18_month_err_textbox).clear()
+    cy.get(elements.step18_year_err_textbox).type(secrets.year)
+    click_continue()
+    dob_err_yes()
+    cy.get(elements.step18_day_err_textbox).type(secrets.day)
+    cy.get(elements.step18_month_err_textbox).type(secrets.month)
+    cy.get(elements.step18_year_err_textbox).clear()
+    click_continue()
+    dob_err_yes()
 }
-export const your_details_additional_details_step_19 = () => {
+//all valid: future date
+export const  your_details_ad_details_dob_step_18_v4 = (x) => {
+    cy.get(elements.step18_day_err_textbox).type(secrets.day)
+    cy.get(elements.step18_month_err_textbox).type(secrets.month)
+    cy.get(elements.step18_year_err_textbox).type(x)
+    click_continue()
+    dob_future_date_err_yes()
+}
+ //all valid: past date [1 year ago]  
+export const  your_details_ad_details_dob_step_18_v5 = (x) => {
+    cy.get(elements.step18_day_err_textbox).type(secrets.day)
+    cy.get(elements.step18_month_err_textbox).type(secrets.month)
+    cy.get(elements.step18_year_err_textbox).type(x)
+    click_continue()
+    dob_future_date_err_yes()
+}
+//all valid: past date [17 year ago]  
+export const  your_details_ad_details_dob_step_18_v6 = (x) => {
+    cy.get(elements.step18_day_err_textbox).type(secrets.day)
+    cy.get(elements.step18_month_err_textbox).type(secrets.month)
+    cy.get(elements.step18_year_err_textbox).type(x)
+    click_continue()
+    dob_future_date_err_yes()
+}
+//all valid: past date [18+ year ago]  
+export const  your_details_ad_details_dob_step_18_v7 = (x) => {
+    cy.get(elements.step18_day_err_textbox).type(secrets.day)
+    cy.get(elements.step18_month_err_textbox).type(secrets.month)
+    cy.get(elements.step18_year_err_textbox).type(x)
+    click_continue()
     cy.get(elements.page_heading).contains('Enter your nationality').should('be.visible')
-    click_continue()
-    summary_box_title()
-    cy.get(elements.err_sbox_msg).contains(bt_err.nationality_err_msg).should('be.visible')
-    cy.get(elements.step19_nationality_err_msg).contains(bt_err.nationality_err_msg).should('be.visible')
-    cy.get(elements.step19_nationality_dropdown_err).select('GBR - United Kingdom').should('have.value', 'GBR - United Kingdom')
-    click_continue()
-}
-export const your_details_additional_details_step_20 = () => {
-    cy.get(elements.page_heading).contains('Have you ever held any other nationalities?').should('be.visible')
-    click_continue()
-    summery_box_error()
-    cy.get(elements.step20_oth_nationality_err_msg).contains(bt_err.sel_opt_err_msg).should('be.visible')
-    cy.get(elements.other_nationalities_yes_radio_button).click()
-    click_continue()
-}
-export const your_details_additional_details_step_21 = () => {
-    cy.get(elements.page_heading).contains('Enter your other nationality').should('be.visible')
-    click_continue()
-    summary_box_title()
-    cy.get(elements.err_sbox_msg).contains(bt_err.nationality_err_msg).should('be.visible')
-    cy.get(elements.step21_oth_nationality_err_msg).contains(bt_err.nationality_err_msg).should('be.visible')
-    cy.get(elements.step21_oth_nationality_dropdown_err).select('GBD - British Overseas Territories').should('have.value', 'GBD - British Overseas Territories').wait(Cypress.env('waitTime'))
-    click_continue()
-}
-export const your_details_additional_details_step_22 = () => {
-    cy.get(elements.page_heading).contains('You have added 1 other nationality').should('be.visible')
-    cy.get(elements.continue_button_other).click().wait(Cypress.env('waitTime'))
 }
