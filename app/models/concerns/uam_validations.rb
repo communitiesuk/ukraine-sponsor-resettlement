@@ -191,7 +191,7 @@ module UamValidations
   end
 
   def validate_privacy_statement_confirm
-    if @privacy_statement_confirm.nil? || @privacy_statement_confirm.strip.length.zero? || @privacy_statement_confirm == "false"
+    if @privacy_statement_confirm.nil? || @privacy_statement_confirm.strip.empty? || @privacy_statement_confirm == "false"
       errors.add(:privacy_statement_confirm, I18n.t(:privacy_statement, scope: :error))
     end
   end
@@ -235,7 +235,7 @@ module UamValidations
   end
 
   def validate_sponsor_declaration
-    if @sponsor_declaration.nil? || @sponsor_declaration.strip.length.zero? || @sponsor_declaration == "false"
+    if @sponsor_declaration.nil? || @sponsor_declaration.strip.empty? || @sponsor_declaration == "false"
       errors.add(:sponsor_declaration, I18n.t(:invalid_eligibility, scope: :error))
     end
   end
