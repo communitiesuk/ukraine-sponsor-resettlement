@@ -261,7 +261,7 @@ class UnaccompaniedController < ApplicationController
       when "passport"
         @application.identification_number = params["unaccompanied_minor"]["passport_identification_number"]
 
-        if @application.identification_number.strip.length.zero?
+        if @application.identification_number.strip.empty?
           @application.errors.add(:passport_identification_number, I18n.t(:invalid_id_number, scope: :error))
 
           render_current_step
@@ -270,7 +270,7 @@ class UnaccompaniedController < ApplicationController
       when "national_identity_card"
         @application.identification_number = params["unaccompanied_minor"]["id_identification_number"]
 
-        if @application.identification_number.strip.length.zero?
+        if @application.identification_number.strip.empty?
           @application.errors.add(:id_identification_number, I18n.t(:invalid_id_number, scope: :error))
 
           render_current_step
@@ -279,7 +279,7 @@ class UnaccompaniedController < ApplicationController
       when "refugee_travel_document"
         @application.identification_number = params["unaccompanied_minor"]["refugee_identification_number"]
 
-        if @application.identification_number.strip.length.zero?
+        if @application.identification_number.strip.empty?
           @application.errors.add(:refugee_identification_number, I18n.t(:invalid_id_number, scope: :error))
 
           render_current_step
@@ -669,7 +669,7 @@ class UnaccompaniedController < ApplicationController
 
     @application.update!(@application.as_json)
 
-    if @application.adults_at_address.length.zero?
+    if @application.adults_at_address.empty?
       @application.other_adults_address = "no"
       @application.adults_at_address = nil
       redirect_to "/sponsor-a-child/steps/#{ADULTS_AT_ADDRESS}"
@@ -682,7 +682,7 @@ class UnaccompaniedController < ApplicationController
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
     @application.other_names = @application.other_names.excluding([[params["given_name"], params["family_name"]]])
 
-    if @application.other_names.length.zero?
+    if @application.other_names.empty?
       @application.has_other_names = "false"
       @application.other_names = nil
     end
@@ -700,7 +700,7 @@ class UnaccompaniedController < ApplicationController
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
     @application.other_nationalities = @application.other_nationalities.delete_if { |entry| entry[0].split.first == params["country_code"] }
 
-    if @application.other_nationalities.length.zero?
+    if @application.other_nationalities.empty?
       @application.has_other_nationalities = "false"
       @application.other_nationalities = nil
     end
