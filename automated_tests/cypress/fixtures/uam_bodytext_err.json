@@ -11,6 +11,7 @@
     "mobile_err_mm_msg": "Phone numbers must match",
     "id_err_msg": "Tell us how you can prove your identity, or why you cannot.",
     "dob_err_msg": "Enter a valid date of birth",
+    "dob_future_err_msg": "You must be over 18 to sponsor a child",
     "nationality_err_msg": "You must select a valid nationality",
     "address_err_msg": "You must enter an address",
     "city_err_msg": "You must enter a town or city",

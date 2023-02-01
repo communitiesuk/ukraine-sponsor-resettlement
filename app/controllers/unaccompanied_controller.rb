@@ -330,13 +330,13 @@ class UnaccompaniedController < ApplicationController
     end
   end
 
-   def remove_adult
+  def remove_adult
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
     @application.adults_at_address = @application.adults_at_address.except!(params["key"]) if @application.adults_at_address.key?(params["key"])
 
     @application.update!(@application.as_json)
 
-    if @application.adults_at_address.length.zero?
+    if @application.adults_at_address.empty?
       @application.other_adults_address = "no"
       @application.adults_at_address = nil
       adults_at_address_step = UamWorkflow.find_by_tag(:adults_at_address)
@@ -351,7 +351,7 @@ class UnaccompaniedController < ApplicationController
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
     @application.other_names = @application.other_names.excluding([[params["given_name"], params["family_name"]]])
 
-    if @application.other_names.length.zero?
+    if @application.other_names.empty?
       @application.has_other_names = "false"
       @application.other_names = nil
     end
@@ -370,7 +370,7 @@ class UnaccompaniedController < ApplicationController
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
     @application.other_nationalities = @application.other_nationalities.delete_if { |entry| entry[0].split.first == params["country_code"] }
 
-    if @application.other_nationalities.length.zero?
+    if @application.other_nationalities.empty?
       @application.has_other_nationalities = "false"
       @application.other_nationalities = nil
     end

@@ -11,17 +11,7 @@ describe('[Frontend-UI]: UAM E2E JOURNEY [HAPPY PATH]', function () {
 
   context('[Frontend-UI] Eligibility Check', function () {
     it('verify eligibility for sponcer a child', function () {
-      element.uam_eligibility_start()
-      element.uam_eligibility_check()
-      element.uam_eligibility_step_1()
-      element.uam_eligibility_step_2()
-      element.uam_eligibility_step_3()
-      element.uam_eligibility_step_4()
-      element.uam_eligibility_step_5()
-      element.uam_eligibility_step_6()
-      element.uam_eligibility_step_7()
-      element.uam_eligibility_step_9()
-      element.uam_eligibility_tasklist()
+      element.uam_eligibility_step1_9()
     })
   })
   context('[Frontend-UI] Tasklist ', function () {
