@@ -380,15 +380,15 @@ module UamValidations
   def validate_sponsor_identification_number
     case @identification_type
     when "passport"
-      if @identification_number.blank? || @identification_number.strip.length.empty?
+      if @identification_number.blank? || @identification_number.strip.empty?
         errors.add(:passport_identification_number, I18n.t(:invalid_id_number, scope: :error))
       end
     when "national_identity_card"
-      if @identification_number.blank? || @identification_number.strip.length.empty?
+      if @identification_number.blank? || @identification_number.strip.empty?
         errors.add(:id_identification_number, I18n.t(:invalid_id_number, scope: :error))
       end
     when "refugee_travel_document"
-      if @identification_number.blank? || @identification_number.strip.length.empty?
+      if @identification_number.blank? || @identification_number.strip.empty?
         errors.add(:refugee_identification_number, I18n.t(:invalid_id_number, scope: :error))
       end
     when "none"
@@ -399,19 +399,19 @@ module UamValidations
   end
 
   def validate_sponsor_id_passport_number
-    if @identification_type == "passport" && (@passport_identification_number.blank? || @passport_identification_number.strip.length.empty?)
+    if @identification_type == "passport" && (@passport_identification_number.blank? || @passport_identification_number.strip.empty?)
       errors.add(:passport_identification_number, I18n.t(:invalid_id_number, scope: :error))
     end
   end
 
   def validate_sponsor_id_identification_number
-    if @identification_type == "national_identity_card" && (@id_identification_number.blank? || @id_identification_number.strip.length.empty?)
+    if @identification_type == "national_identity_card" && (@id_identification_number.blank? || @id_identification_number.strip.empty?)
       errors.add(:id_identification_number, I18n.t(:invalid_id_number, scope: :error))
     end
   end
 
   def validate_sponsor_id_refugee_number
-    if @identification_type == "refugee_travel_document" && (@refugee_identification_number.blank? || @refugee_identification_number.strip.length.empty?)
+    if @identification_type == "refugee_travel_document" && (@refugee_identification_number.blank? || @refugee_identification_number.strip.empty?)
       errors.add(:refugee_identification_number, I18n.t(:invalid_id_number, scope: :error))
     end
   end
