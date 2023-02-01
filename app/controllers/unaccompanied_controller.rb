@@ -330,7 +330,7 @@ class UnaccompaniedController < ApplicationController
     end
   end
 
-  def remove_adult
+   def remove_adult
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
     @application.adults_at_address = @application.adults_at_address.except!(params["key"]) if @application.adults_at_address.key?(params["key"])
 
