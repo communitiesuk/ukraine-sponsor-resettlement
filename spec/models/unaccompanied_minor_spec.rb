@@ -4,7 +4,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   let(:given_name_error) { "You must enter a valid given name" }
   let(:family_name_error) { "You must enter a valid family name" }
   let(:email_address_error) { "You must enter a valid email address" }
-  let(:phone_numbers_error) { "You must enter a valid phone number" }
+  let(:phone_numbers_error) { "You must enter a valid UK mobile phone number" }
   let(:empty_address_error) { "You must enter an address" }
   let(:empty_town_city_error) { "You must enter a town or city" }
   let(:postcode_error) { "You must enter a valid UK postcode" }
@@ -53,6 +53,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   describe "contact detail validations" do
     it "sponsor full name is valid" do
       app = described_class.new
+      app.partial_validation = %i[given_name family_name]
       app.given_name = ""
       expect(app.valid?).to be(false)
       expect(app.errors[:given_name]).to include(given_name_error)
@@ -78,6 +79,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
 
     it "sponsor email is valid" do
       app = described_class.new
+      app.partial_validation = %i[email]
       app.email = ""
       expect(app.valid?).to be(false)
       expect(app.errors[:email]).to include(email_address_error)
@@ -87,29 +89,36 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.errors[:email]).to include(email_address_error)
       expect(app.errors[:email].count).to be(1)
       app.email = "John.Smith@test.com"
+      app.email_confirm = "John.Smith@test.com"
       expect(app.valid?).to be(true)
     end
 
     it "sponsor phone is valid" do
       app = described_class.new
+      app.partial_validation = %i[phone_number]
       app.phone_number = ""
+      app.phone_number_confirm = ""
       expect(app.valid?).to be(false)
       expect(app.errors[:phone_number]).to include(phone_numbers_error)
       expect(app.errors[:phone_number].count).to be(1)
       app.phone_number = "07777 888 99"
+      app.phone_number_confirm = "07777 888 99"
       expect(app.valid?).to be(false)
       expect(app.errors[:phone_number]).to include(phone_numbers_error)
       expect(app.errors[:phone_number].count).to be(1)
       app.phone_number = "123456789012345"
+      app.phone_number_confirm = "123456789012345"
       expect(app.valid?).to be(false)
       expect(app.errors[:phone_number]).to include(phone_numbers_error)
       expect(app.errors[:phone_number].count).to be(1)
       app.phone_number = "07777 888 999"
+      app.phone_number_confirm = "07777 888 999"
       expect(app.valid?).to be(true)
     end
 
     it "sponsor address line 1 is valid" do
       app = described_class.new
+      app.partial_validation = %i[residential_line_1]
       app.residential_line_1 = ""
       expect(app.valid?).to be(false)
       expect(app.errors[:residential_line_1]).to include(empty_address_error)
@@ -128,6 +137,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
 
     it "sponsor address line 2 is valid" do
       app = described_class.new
+      app.partial_validation = %i[residential_line_2]
       app.residential_line_2 = ("X" * 129).to_s
       expect(app.valid?).to be(false)
       expect(app.errors[:residential_line_2]).to include("You must enter less than 128 characters")
@@ -142,6 +152,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
 
     it "sponsor address town is valid" do
       app = described_class.new
+      app.partial_validation = %i[residential_town]
       app.residential_town = ""
       expect(app.valid?).to be(false)
       expect(app.errors[:residential_town]).to include(empty_town_city_error)
@@ -160,6 +171,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
 
     it "address postcode is valid" do
       app = described_class.new
+      app.partial_validation = %i[residential_postcode]
       app.residential_postcode = ""
       expect(app.valid?).to be(false)
       expect(app.errors[:residential_postcode]).to include(postcode_error)
@@ -181,6 +193,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
 
     it "other adults at address is valid when page is skipped" do
       app = described_class.new
+      app.partial_validation = %i[other_adults_address]
       app.other_adults_address = ""
       app.different_address = "yes"
       expect(app.valid?).to be(false)
@@ -196,6 +209,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   describe "parental consent questions" do
     it "ensure content type" do
       app = described_class.new
+      app.partial_validation = [:uk_parental_consent_file_type]
       app.uk_parental_consent_file_type = "invalid"
       expect(app.valid?).to be(false)
       expect(app.errors[:uk_parental_consent]).to include("You can only upload pdf, jpeg or png files")
@@ -219,20 +233,28 @@ RSpec.describe UnaccompaniedMinor, type: :model do
 
     it "ensure the file is 20MB or smaller" do
       app = described_class.new
+      app.partial_validation = %i[uk_parental_consent_file_size]
+
       app.uk_parental_consent_file_size = 1024 * 1024 * 21
       expect(app.valid?).to be(false)
       expect(app.errors[:uk_parental_consent]).to include("Your file must be smaller than 20MB")
+
       app.uk_parental_consent_file_size = 1024 * 1024 * 20
       expect(app.valid?).to be(true)
+
+      app.partial_validation = %i[ukraine_parental_consent_file_size]
+
       app.ukraine_parental_consent_file_size = 1024 * 1024 * 21
       expect(app.valid?).to be(false)
       expect(app.errors[:ukraine_parental_consent]).to include("Your file must be smaller than 20MB")
+
       app.ukraine_parental_consent_file_size = 1024 * 1024 * 20
       expect(app.valid?).to be(true)
     end
 
     it "ensure file name is provided" do
       app = described_class.new
+      app.partial_validation = [:uk_parental_consent_filename]
       app.uk_parental_consent_filename = ""
       expect(app.valid?).to be(false)
       expect(app.errors[:uk_parental_consent]).to include("You must choose a file")
@@ -242,6 +264,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
 
     it "validates that the have parental consent forms attribute is selected" do
       app = described_class.new
+      app.partial_validation = [:have_parental_consent]
       app.have_parental_consent = ""
       expect(app.valid?).to be(false)
       expect(app.errors[:have_parental_consent]).to include(no_choice_error)
@@ -253,6 +276,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   describe "age validations" do
     it "sponsor is older than 18" do
       app = described_class.new
+      app.partial_validation = [:sponsor_date_of_birth]
       app.sponsor_date_of_birth = {
         3 => 1,
         2 => 1,
@@ -273,6 +297,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   describe "accept privacy terms" do
     it "validates that the have privacy terms is selected" do
       app = described_class.new
+      app.partial_validation = [:privacy_statement_confirm]
       app.privacy_statement_confirm = ""
       expect(app.valid?).to be(false)
       expect(app.errors[:privacy_statement_confirm]).to include("You must read and agree to the privacy statement")
@@ -287,6 +312,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   describe "accept sponsor declaration" do
     it "validates that the have sponsor checkbox is selected" do
       app = described_class.new
+      app.partial_validation = [:sponsor_declaration]
       app.sponsor_declaration = ""
       expect(app.valid?).to be(false)
       expect(app.errors[:sponsor_declaration]).to include("You must check the box to continue")
@@ -446,6 +472,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   describe "child flow validation" do
     it "child's given and family name" do
       app = described_class.new
+      app.partial_validation = %i[minor_given_name minor_family_name]
       app.minor_given_name = ""
       expect(app.valid?).to be(false)
       expect(app.errors[:minor_given_name]).to include(given_name_error)
@@ -494,6 +521,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   describe "eligibility validation" do
     it "is born after december" do
       app = described_class.new
+      app.partial_validation = %i[is_living_december is_born_after_december]
       app.is_living_december = "yes"
       app.is_born_after_december = ""
       expect(app.valid?).to be(true)

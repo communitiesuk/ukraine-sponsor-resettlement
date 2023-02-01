@@ -10,8 +10,8 @@ module ContactDetailsValidations
     validate :validate_residential_line_2, if: -> { run_validation? :residential_line_2 }
     validate :validate_residential_town, if: -> { run_validation? :residential_town }
     validate :validate_residential_postcode, if: -> { run_validation? :residential_postcode }
-    validates :email, length: { maximum: 128, message: I18n.t(:invalid_email, scope: :error) }, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: I18n.t(:invalid_email, scope: :error) }, if: -> { run_validation? :email }
-    validate :validate_phone_number, if: -> { run_validation? :phone_number }
+    # validates :email, length: { maximum: 128, message: I18n.t(:invalid_email, scope: :error) }, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: I18n.t(:invalid_email, scope: :error) }, if: -> { run_validation? :email }
+    # validate :validate_phone_number, if: -> { run_validation? :phone_number }
   end
 
 private
@@ -38,15 +38,5 @@ private
     if @residential_postcode.nil? || @residential_postcode.strip.length < MIN_ENTRY_DIGITS || @residential_postcode.strip.length > MAX_ENTRY_DIGITS || !@residential_postcode.match(POSTCODE_REGEX)
       errors.add(:residential_postcode, I18n.t(:address_postcode, scope: :error))
     end
-  end
-
-  def validate_phone_number
-    unless phone_number_valid?(@phone_number)
-      errors.add(:phone_number, I18n.t(:invalid_phone_number, scope: :error))
-    end
-  end
-
-  def run_validation?(attribute)
-    @final_submission || send(attribute)
   end
 end

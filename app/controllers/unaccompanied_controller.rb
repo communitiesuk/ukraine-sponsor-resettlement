@@ -6,31 +6,6 @@ class UnaccompaniedController < ApplicationController
 
   before_action :check_last_activity, only: %i[handle_step display]
 
-  MAX_STEPS = 44
-  NOT_ELIGIBLE = [-1, 0].freeze
-  SPONSOR_NAME = 10
-  SPONSOR_OTHER_NAMES_CHOICE = 11
-  SPONSOR_OTHER_NAMES = 12
-  SPONSOR_EMAIL = 14
-  SPONSOR_PHONE_NUMBER = 15
-  SPONSOR_ID_TYPE = 16
-  SPONSOR_ID_MISSING_EXPLANATION = 17
-  SPONSOR_DATE_OF_BIRTH = 18
-  SPONSOR_NATIONALITY = 19
-  SPONSOR_OTHER_NATIONALITIES_CHOICE = 20
-  SPONSOR_OTHER_NATIONALITY = 21
-  ADULTS_AT_ADDRESS = 27
-  ADULTS_SUMMARY_PAGE = 28
-  ADULT_DATE_OF_BIRTH = 29
-  ADULT_NATIONALITY = 30
-  ADULT_ID_TYPE_AND_NUMBER = 31
-  MINOR_CONTACT_DETAILS = 33
-  MINOR_DATE_OF_BIRTH = 34
-  NATIONALITY_STEPS = [SPONSOR_NATIONALITY, SPONSOR_OTHER_NATIONALITY, ADULT_NATIONALITY].freeze
-  SAVE_AND_RETURN_STEPS = [SPONSOR_EMAIL, SPONSOR_PHONE_NUMBER].freeze
-  ADULT_STEPS = [ADULT_DATE_OF_BIRTH, ADULT_NATIONALITY, ADULT_ID_TYPE_AND_NUMBER].freeze
-  ADULT_STEPS_ALL = [ADULTS_SUMMARY_PAGE, ADULT_DATE_OF_BIRTH, ADULT_NATIONALITY, ADULT_ID_TYPE_AND_NUMBER].freeze
-  TASK_LIST_STEP = 999
   TASK_LIST_URI = "/sponsor-a-child/task-list".freeze
 
   def start
@@ -56,24 +31,28 @@ class UnaccompaniedController < ApplicationController
 
   def display
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
-    step = params["stage"].to_i
+    step = params["stage"].to_s
 
-    if @application.nil? || (1..MAX_STEPS).exclude?(step)
+    if @application.nil? || !UamWorkflow.states.key?(step)
       redirect_to "/sponsor-a-child" and return
     end
 
-    if ADULT_STEPS_ALL.include?(step) && \
+    if (UamWorkflow.state_has_tag(step, :adult_step) || UamWorkflow.state_has_tag(step, :adult_summary)) && \
         @application.other_adults_address.present? && \
         (params["key"].blank? || @application.adults_at_address.blank?)
       render "sponsor-a-child/task_list"
       return
     end
 
-    if NATIONALITY_STEPS.include?(step)
-      @nationalities = get_nationalities_as_list(@application.saved_nationalities_as_list)
+    if UamWorkflow.state_has_tag(step, :nationality_step)
+      @nationalities = if UamWorkflow.state_has_tag(step, :other_nationality)
+                         get_nationalities_as_list(@application.saved_nationalities_as_list)
+                       else
+                         get_nationalities_as_list
+                       end
     end
 
-    if SAVE_AND_RETURN_STEPS.include?(step)
+    if UamWorkflow.state_has_tag(step, :save_and_return_1) || UamWorkflow.state_has_tag(step, :save_and_return_2)
       if request.GET["save"]
         @save_and_return_message = true
         @save = "?save=1"
@@ -82,7 +61,7 @@ class UnaccompaniedController < ApplicationController
       end
     end
 
-    if step == SPONSOR_ID_TYPE
+    if UamWorkflow.state_has_tag(step, :sponsor_id_type)
       case @application.identification_type
       when "passport"
         @application.passport_identification_number = @application.identification_number
@@ -91,16 +70,21 @@ class UnaccompaniedController < ApplicationController
       when "refugee_travel_document"
         @application.refugee_identification_number = @application.identification_number
       end
-    elsif ADULT_STEPS.include?(step)
+    elsif UamWorkflow.state_has_tag(step, :adult_step)
       if @application.adults_at_address.present?
         Rails.logger.debug "Adult page!"
 
         # Set properties based on values from hash of adults
         @adult = @application.adults_at_address[params["key"]]
 
-        adult_dob = @adult["date_of_birth"]
+        if @adult["date_of_birth"].present? && @adult["date_of_birth"].length.positive?
+          @application.adult_date_of_birth = { 3 => @adult["date_of_birth"]["3"], 2 => @adult["date_of_birth"]["2"], 1 => @adult["date_of_birth"]["1"] }
+        end
+
         adult_nationality = @adult["nationality"]
         adult_id_type_and_number = @adult["id_type_and_number"]
+
+        adult_dob = @adult["date_of_birth"]
         if adult_dob.present? && adult_dob.length.positive?
           @application.adult_date_of_birth = {
             3 => Date.parse(adult_dob).day,
@@ -108,7 +92,9 @@ class UnaccompaniedController < ApplicationController
             1 => Date.parse(adult_dob).year,
           }
         end
+
         @application.adult_nationality = adult_nationality if adult_nationality.present? && adult_nationality.length.positive?
+
         if adult_id_type_and_number.present? && adult_id_type_and_number.length.positive?
           id_type_and_number = adult_id_type_and_number.split(" - ")
           @application.adult_identification_type = id_type_and_number[0].to_s
@@ -128,9 +114,9 @@ class UnaccompaniedController < ApplicationController
   end
 
   def handle_upload_uk
-    current_stage = params["stage"].to_i
+    current_stage = params["stage"].to_s
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
-    @application.started_at = Time.zone.now.utc if current_stage == 1
+    @application.started_at = Time.zone.now.utc if current_stage == UamWorkflow.states.keys[0]
     @application.uk_parental_consent_filename = ""
 
     begin
@@ -144,7 +130,7 @@ class UnaccompaniedController < ApplicationController
       # Do nothing!
       Rails.logger.debug "No upload file found!"
     end
-
+    @application.partial_validation = %i[uk_parental_consent_file_type uk_parental_consent_filename uk_parental_consent_saved_filename uk_parental_consent_file_size]
     if @application.valid?
       save_and_redirect(@application.uk_parental_consent_saved_filename, upload_params.tempfile)
     else
@@ -153,9 +139,9 @@ class UnaccompaniedController < ApplicationController
   end
 
   def handle_upload_ukraine
-    current_stage = params["stage"].to_i
+    current_stage = params["stage"].to_s
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
-    @application.started_at = Time.zone.now.utc if current_stage == 1
+    @application.started_at = Time.zone.now.utc if current_stage == UamWorkflow.states.keys[0]
     @application.ukraine_parental_consent_filename = ""
 
     begin
@@ -169,7 +155,7 @@ class UnaccompaniedController < ApplicationController
       # Do nothing!
       Rails.logger.debug "No upload file found!"
     end
-
+    @application.partial_validation = %i[ukraine_parental_consent_file_type ukraine_parental_consent_filename ukraine_parental_consent_saved_filename ukraine_parental_consent_file_size]
     if @application.valid?
       save_and_redirect(@application.ukraine_parental_consent_saved_filename, upload_params.tempfile)
     else
@@ -178,379 +164,60 @@ class UnaccompaniedController < ApplicationController
   end
 
   def handle_step
-    current_step = params["stage"].to_i
-    current_step.freeze
-
+    current_step = params["stage"].to_s
     # Pull session data out of session and
     # instantiate new or existing Application ActiveRecord object
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
-    @application.started_at = Time.zone.now.utc if current_step == 1
-
-    if current_step == SPONSOR_OTHER_NAMES_CHOICE && (params["unaccompanied_minor"].blank? || params["unaccompanied_minor"]["has_other_names"].blank?)
-      @application.errors.add(:has_other_names, I18n.t(:no_sponsor_other_name_choice_made, scope: :error))
-
-      render_current_step
-      return
-    end
-
-    # capture other names
-    if current_step == SPONSOR_OTHER_NAMES
-      param_other_given_name = params["unaccompanied_minor"]["other_given_name"]
-      param_other_family_name = params["unaccompanied_minor"]["other_family_name"]
-
-      unless name_valid?(param_other_given_name)
-        @application.errors.add(:other_given_name, I18n.t(:invalid_given_name, scope: :error))
-      end
-
-      unless name_valid?(param_other_family_name)
-        @application.errors.add(:other_family_name, I18n.t(:invalid_family_name, scope: :error))
-      end
-
-      unless @application.errors.empty?
-        @previously_entered_other_given_name = param_other_given_name
-        @previously_entered_other_family_name = param_other_family_name
-        render_current_step
-        return
-      end
-
-      # adds other attributes
-      (@application.other_names ||= []) << [param_other_given_name.strip, param_other_family_name.strip]
-      # resets the current state
-      params["unaccompanied_minor"]["other_given_name"] = ""
-      params["unaccompanied_minor"]["other_family_name"] = ""
-    end
-
-    if current_step == SPONSOR_EMAIL
-      @application.email = params["unaccompanied_minor"]["email"]
-      @application.email_confirm = params["unaccompanied_minor"]["email_confirm"]
-
-      if !email_address_valid?(@application.email)
-        @application.errors.add(:email, I18n.t(:invalid_email, scope: :error))
-      elsif @application.email != @application.email_confirm
-        @application.errors.add(:email_confirm, I18n.t(:emails_different, scope: :error))
-      end
-
-      unless @application.errors.empty?
-        render_current_step
-        return
-      end
-    end
-
-    if current_step == SPONSOR_PHONE_NUMBER
-      @application.phone_number = params["unaccompanied_minor"]["phone_number"]
-      @application.phone_number_confirm = params["unaccompanied_minor"]["phone_number_confirm"]
-
-      if !uk_mobile_number?(@application.phone_number)
-        @application.errors.add(:phone_number, I18n.t(:non_uk_number, scope: :error))
-      elsif @application.phone_number != @application.phone_number_confirm
-        @application.errors.add(:phone_number_confirm, I18n.t(:phone_numbers_different, scope: :error))
-      end
-
-      unless @application.errors.empty?
-        render_current_step
-        return
-      end
-    end
-
-    # capture identification document number
-    if current_step == SPONSOR_ID_TYPE
-      # Really don't like this! Validation logic should be in UAM_Validation class
-      @application.identification_type = params["unaccompanied_minor"]["identification_type"]
-
-      case @application.identification_type
-      when "passport"
-        @application.identification_number = params["unaccompanied_minor"]["passport_identification_number"]
-
-        if @application.identification_number.strip.empty?
-          @application.errors.add(:passport_identification_number, I18n.t(:invalid_id_number, scope: :error))
-
-          render_current_step
-          return
-        end
-      when "national_identity_card"
-        @application.identification_number = params["unaccompanied_minor"]["id_identification_number"]
-
-        if @application.identification_number.strip.empty?
-          @application.errors.add(:id_identification_number, I18n.t(:invalid_id_number, scope: :error))
-
-          render_current_step
-          return
-        end
-      when "refugee_travel_document"
-        @application.identification_number = params["unaccompanied_minor"]["refugee_identification_number"]
-
-        if @application.identification_number.strip.empty?
-          @application.errors.add(:refugee_identification_number, I18n.t(:invalid_id_number, scope: :error))
-
-          render_current_step
-          return
-        end
-      when "none"
-        @application.identification_number = ""
-      else
-        @application.errors.add(:identification_type, I18n.t(:choose_option, scope: :error))
-
-        render_current_step
-        return
-      end
-    end
-
-    if current_step == SPONSOR_ID_MISSING_EXPLANATION
-
-      explanation = params["unaccompanied_minor"]["no_identification_reason"]
-      if explanation.blank?
-        @application.errors.add(:no_identification_reason, I18n.t(:no_identity_error, scope: :error))
-
-        render_current_step
-        return
-      end
-    end
-
-    if current_step == SPONSOR_DATE_OF_BIRTH
-      begin
-        sponsor_dob = Date.new(params["unaccompanied_minor"]["sponsor_date_of_birth(1i)"].to_i, params["unaccompanied_minor"]["sponsor_date_of_birth(2i)"].to_i, params["unaccompanied_minor"]["sponsor_date_of_birth(3i)"].to_i)
-        if 18.years.ago.to_date < sponsor_dob
-          @application.errors.add(:sponsor_date_of_birth, I18n.t(:too_young_date_of_birth, scope: :error))
-
-          render_current_step
-          return
-        end
-      rescue Date::Error
-        @application.errors.add(:sponsor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
-
-        render_current_step
-        return
-      end
-    end
-
-    if current_step == SPONSOR_NATIONALITY && params["unaccompanied_minor"]["nationality"].present? && !nationality_permitted_value(params["unaccompanied_minor"]["nationality"])
-      @application.errors.add(:nationality, I18n.t(:invalid_nationality, scope: :error))
-      @nationalities = get_nationalities_as_list(@application.saved_nationalities_as_list)
-      render_current_step
-      return
-    end
-
-    if current_step == SPONSOR_OTHER_NATIONALITIES_CHOICE && (params["unaccompanied_minor"].blank? || params["unaccompanied_minor"]["has_other_nationalities"].blank?)
-      @application.errors.add(:has_other_nationalities, I18n.t(:no_sponsor_other_nationalities_choice_made, scope: :error))
-
-      render_current_step
-      return
-    end
-
-    # capture other nationalities
-    if current_step == SPONSOR_OTHER_NATIONALITY && params["unaccompanied_minor"]["other_nationality"].present?
-      if !nationality_permitted_value(params["unaccompanied_minor"]["other_nationality"])
-        @application.errors.add(:other_nationality, I18n.t(:invalid_nationality, scope: :error))
-        @nationalities = get_nationalities_as_list(@application.saved_nationalities_as_list)
-        render_current_step
-        return
-      elsif (@application.other_nationalities.present? && @application.other_nationalities.include?([params["unaccompanied_minor"]["other_nationality"]])) ||
-          @application.nationality == params["unaccompanied_minor"]["other_nationality"]
-        @application.errors.add(:other_nationality, I18n.t(:invalid_nationality_duplicate, scope: :error))
-        @nationalities = get_nationalities_as_list(@application.saved_nationalities_as_list)
-        render_current_step
-        return
-      else
-        # adds other attributes
-        (@application.other_nationalities ||= []) << [params["unaccompanied_minor"]["other_nationality"]]
-        # resets the current state
-        params["unaccompanied_minor"]["other_nationality"] = ""
-      end
-    end
-
-    if current_step == MINOR_CONTACT_DETAILS
-      if params["unaccompanied_minor"]["minor_contact_type"].none? { |w| w.length > 1 } # minor_contact_type"=>["", "none"],
-        @application.errors.add(:minor_contact_type, I18n.t(:choose_one_or_more_options, scope: :error))
-        render_current_step
-        return
-      elsif params["unaccompanied_minor"]["minor_contact_type"].include?("none")
-        # Clear all entries and continue
-        params["unaccompanied_minor"]["minor_contact_type"] = ["", "none"]
-        params["unaccompanied_minor"]["minor_email"] = ""
-        params["unaccompanied_minor"]["minor_email_confirm"] = ""
-        params["unaccompanied_minor"]["minor_phone_number"] = ""
-      else
-        @application.minor_contact_type = params["unaccompanied_minor"]["minor_contact_type"]
-
-        if params["unaccompanied_minor"]["minor_contact_type"].include?("email")
-          @application.minor_email = params["unaccompanied_minor"]["minor_email"]
-          @application.minor_email_confirm = params["unaccompanied_minor"]["minor_email_confirm"]
-
-          if !email_address_valid?(@application.minor_email)
-            @application.errors.add(:minor_email, I18n.t(:invalid_email, scope: :error))
-          elsif @application.minor_email != @application.minor_email_confirm
-            @application.errors.add(:minor_email_confirm, I18n.t(:emails_different, scope: :error))
-          end
-        else
-          params["unaccompanied_minor"]["minor_email"] = ""
-          params["unaccompanied_minor"]["minor_email_confirm"] = ""
-          @application.minor_email = ""
-          @application.minor_email_confirm = ""
-        end
-
-        if @application.minor_contact_type.include?("telephone")
-          @application.minor_phone_number = params["unaccompanied_minor"]["minor_phone_number"]
-          @application.minor_phone_number_confirm = params["unaccompanied_minor"]["minor_phone_number_confirm"]
-
-          if !phone_number_valid?(@application.minor_phone_number)
-            @application.errors.add(:minor_phone_number, I18n.t(:invalid_phone_number, scope: :error))
-          elsif @application.minor_phone_number != @application.minor_phone_number_confirm
-            @application.errors.add(:minor_phone_number_confirm, I18n.t(:phone_numbers_different, scope: :error))
-          end
-        else
-          params["unaccompanied_minor"]["minor_phone_number"] = ""
-          params["unaccompanied_minor"]["minor_phone_number_confirm"] = ""
-          @application.minor_phone_number = ""
-          @application.minor_phone_number_confirm = ""
-        end
-      end
-
-      unless @application.errors.empty?
-        render_current_step
-        return
-      end
-    end
-
-    if current_step == MINOR_DATE_OF_BIRTH
-      # There must be a better way!
-      begin
-        minor_dob = Date.new(params["unaccompanied_minor"]["minor_date_of_birth(1i)"].to_i, params["unaccompanied_minor"]["minor_date_of_birth(2i)"].to_i, params["unaccompanied_minor"]["minor_date_of_birth(3i)"].to_i)
-
-        if minor_dob < 18.years.ago.to_date
-          @application.errors.add(:minor_date_of_birth, I18n.t(:too_old_date_of_birth, scope: :error))
-        elsif minor_dob > Date.current
-          @application.errors.add(:minor_date_of_birth, I18n.t(:date_of_birth_future, scope: :error))
-        end
-      rescue Date::Error
-        @application.errors.add(:minor_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
-      end
-
-      unless @application.errors.empty?
-        render_current_step
-        return
-      end
-    end
-
-    if current_step == ADULT_DATE_OF_BIRTH
-      @adult = @application.adults_at_address[params["key"]]
-      Rails.logger.debug "@adult: #{@adult}"
-      begin
-        adult_dob = Date.new(params["unaccompanied_minor"]["adult_date_of_birth(1i)"].to_i, params["unaccompanied_minor"]["adult_date_of_birth(2i)"].to_i, params["unaccompanied_minor"]["adult_date_of_birth(3i)"].to_i)
-
-        if adult_dob > 16.years.ago.to_date
-          @application.adults_at_address[params["key"]]["date_of_birth"] = ""
-          @application.errors.add(:adult_date_of_birth, I18n.t(:not_over_16_years_old, scope: :error))
-
-          render_current_step
-          return
-        else
-          @application.adults_at_address[params["key"]]["date_of_birth"] = adult_dob
-        end
-      rescue Date::Error
-        @application.adults_at_address[params["key"]]["date_of_birth"] = ""
-        @application.errors.add(:adult_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
-
-        render_current_step
-        return
-      end
-    end
-
-    # capture the other adults at address
-    # only store them if given and family name are not empty ("")
-    if current_step == ADULTS_AT_ADDRESS && !(params["unaccompanied_minor"]["adult_given_name"].empty? && params["unaccompanied_minor"]["adult_family_name"].empty?)
-      @application.adults_at_address = {} if @application.adults_at_address.nil?
-      @application.adults_at_address.store(SecureRandom.uuid.upcase.to_s, Adult.new(params["unaccompanied_minor"]["adult_given_name"], params["unaccompanied_minor"]["adult_family_name"]))
-    end
-
-    # capture the over 16 year old at address nationality
-    if current_step == ADULT_NATIONALITY && params["unaccompanied_minor"]["adult_nationality"].present?
-      @adult = @application.adults_at_address[params["key"]]
-
-      if !nationality_permitted_value(params["unaccompanied_minor"]["adult_nationality"])
-        @application.errors.add(:adult_nationality, I18n.t(:invalid_nationality, scope: :error))
-        @nationalities = get_nationalities_as_list(@application.saved_nationalities_as_list)
-        render_current_step
-        return
-      else
-        @adult["nationality"] = params["unaccompanied_minor"]["adult_nationality"]
-      end
-    end
-
-    # capture the over 16 year old at address id type and number
-    if current_step == ADULT_ID_TYPE_AND_NUMBER
-      min_six_letters_or_digits = /^[0-9a-zA-Z]{6,}$/
-
-      @adult = @application.adults_at_address[params["key"]]
-      id_type = params["unaccompanied_minor"]["adult_identification_type"]
-      document_id = nil
-
-      if id_type.blank?
-        @application.errors.add(:adult_identification_type, I18n.t(:choose_option, scope: :error))
-      elsif id_type == "passport"
-        document_id = params["unaccompanied_minor"]["adult_passport_identification_number"]
-
-        if document_id.blank? || document_id !~ min_six_letters_or_digits
-          @application.errors.add(:adult_passport_identification_number, I18n.t(:invalid_id_number, scope: :error))
-        end
-      elsif id_type == "national_identity_card"
-        document_id = params["unaccompanied_minor"]["adult_id_identification_number"]
-
-        if document_id.blank? || document_id !~ min_six_letters_or_digits
-          @application.errors.add(:adult_id_identification_number, I18n.t(:invalid_id_number, scope: :error))
-        end
-      elsif id_type == "refugee_travel_document"
-        document_id = params["unaccompanied_minor"]["adult_refugee_identification_number"]
-
-        if document_id.blank? || document_id !~ min_six_letters_or_digits
-          @application.errors.add(:adult_refugee_identification_number, I18n.t(:invalid_id_number, scope: :error))
-        end
-      end
-
-      # Have to force the data in (even with errors)
-      # Allows the FE to display the correct error without loosing data
-      @adult["id_type_and_number"] = "#{id_type} - #{document_id || '123456789'}"
-
-      unless @application.errors.empty?
-        # have to assign here so the errors display correctly
-        @application.assign_attributes(application_params)
-        render_current_step
-        return
-      end
-    end
+    @application.started_at = Time.zone.now.utc if current_step == UamWorkflow.states.keys[0]
 
     # Update Application object with new attributes
     @application.assign_attributes(application_params)
 
+    @application.partial_validation = if !application_params.keys.empty? && application_params.keys[0].start_with?("sponsor_date_of_birth")
+                                        [:sponsor_date_of_birth]
+                                      elsif !application_params.keys.empty? && application_params.keys[0].start_with?("minor_date_of_birth")
+                                        [:minor_date_of_birth]
+                                      elsif !application_params.keys.empty? && application_params.keys[0].start_with?("adult_date_of_birth")
+                                        [:adult_date_of_birth]
+                                      elsif application_params.key?("identification_type") || application_params.key?("id_identification_number")
+                                        %i[identification_type passport_identification_number id_identification_number refugee_identification_number]
+                                      else
+                                        application_params.keys.map(&:to_sym)
+                                      end
+
     if @application.valid?
-      # Update the database
+      UamWorkflow.do_data_transforms(current_step, @application, params)
       @application.update!(@application.as_json)
 
       # Special steps if we are in save_and_return territory
-      # warning: this overrides the routing engine for steps 10-14-15
       if request.GET["save"]
-        case current_step
-        when 14
-          redirect_to "/sponsor-a-child/steps/15?save=1"
-        when 15
+        if UamWorkflow.state_has_tag(current_step, :save_and_return_1)
+          next_step = UamWorkflow.find_by_tag(:save_and_return_2)
+          redirect_to "/sponsor-a-child/steps/#{next_step}?save=1"
+        elsif UamWorkflow.state_has_tag(current_step, :save_and_return_2)
           redirect_to "/sponsor-a-child/save-and-return/"
         end
       else
-        # Replace with routing engine to get next stage
-        next_stage = RoutingEngine.get_next_unaccompanied_minor_step(@application, current_step)
-        if NOT_ELIGIBLE.include?(next_stage)
+        next_stage = UamWorkflow.get_next_step(current_step, @application)
+        if next_stage == "non-eligible"
           redirect_to "/sponsor-a-child/non-eligible"
-        elsif next_stage == TASK_LIST_STEP
-          # Redirect to show the task-list
+        elsif next_stage == "task-list"
           redirect_to TASK_LIST_URI
-        elsif next_stage > MAX_STEPS
-          redirect_to "/sponsor-a-child/check-answers"
-        elsif ADULT_STEPS.include?(next_stage)
+        elsif UamWorkflow.state_has_tag(next_stage, :adult_step)
           redirect_to "/sponsor-a-child/steps/#{next_stage}/#{params['key']}"
         else
           redirect_to "/sponsor-a-child/steps/#{next_stage}"
         end
       end
     else
+      # Validation failed. Expose the data needed on the steps that need it.
+      if UamWorkflow.state_has_tag(current_step, :nationality_step)
+        @nationalities = get_nationalities_as_list(@application.saved_nationalities_as_list)
+      end
+
+      if UamWorkflow.state_has_tag(current_step, :adult_step)
+        @adult = @application.adults_at_address[params["key"]]
+      end
       render_current_step
     end
   end
@@ -573,7 +240,7 @@ class UnaccompaniedController < ApplicationController
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
     @application.ip_address = request.ip
     @application.user_agent = request.user_agent
-    @application.final_submission = true
+    @application.partial_validation = [:full_validation]
 
     Rails.logger.debug "Submit JSON: #{@application.as_json}"
 
@@ -672,9 +339,11 @@ class UnaccompaniedController < ApplicationController
     if @application.adults_at_address.empty?
       @application.other_adults_address = "no"
       @application.adults_at_address = nil
-      redirect_to "/sponsor-a-child/steps/#{ADULTS_AT_ADDRESS}"
+      adults_at_address_step = UamWorkflow.find_by_tag(:adults_at_address)
+      redirect_to "/sponsor-a-child/steps/#{adults_at_address_step}"
     else
-      redirect_to "/sponsor-a-child/steps/28"
+      adult_summary = UamWorkflow.find_by_tag(:adult_summary)
+      redirect_to "/sponsor-a-child/steps/#{adult_summary}"
     end
   end
 
@@ -692,7 +361,8 @@ class UnaccompaniedController < ApplicationController
     if @application.other_names.blank?
       redirect_to TASK_LIST_URI
     else
-      redirect_to "/sponsor-a-child/steps/13"
+      uns = UamWorkflow.find_by_tag(:other_names_summary)
+      redirect_to "/sponsor-a-child/steps/#{uns}"
     end
   end
 
@@ -710,19 +380,20 @@ class UnaccompaniedController < ApplicationController
     if @application.other_nationalities.blank?
       redirect_to TASK_LIST_URI
     else
-      redirect_to "/sponsor-a-child/steps/22"
+      ns = UamWorkflow.find_by_tag(:nationalities_summary)
+      redirect_to "/sponsor-a-child/steps/#{ns}"
     end
   end
 
 private
 
-  def path_for_step(to_step = nil)
-    step = to_step || params["stage"].to_i
-    "sponsor-a-child/steps/#{step}"
-  end
-
   def render_current_step
-    render path_for_step
+    step = params["stage"].to_s
+    if UamWorkflow.states.key?(step)
+      render UamWorkflow.states[step][:view_name]
+    else
+      redirect_to "/404"
+    end
   end
 
   def check_last_activity
@@ -745,16 +416,6 @@ private
   def save_file(filename, file)
     @service = StorageService.new(PaasConfigurationService.new, ENV["INSTANCE_NAME"])
     @service.write_file(filename, file)
-  end
-
-  def nationality_permitted_value(nationality)
-    nationality_name = nationality.split(" - ")[1]
-    nationality_struct = OpenStruct.new(val: nationality, name: nationality_name)
-    if !get_nationalities_as_list.include?(nationality_struct) || nationality == "---"
-      false
-    else
-      true
-    end
   end
 
   def application_params
@@ -780,6 +441,7 @@ private
           :email,
           :email_confirm,
           :phone_number,
+          :phone_number_confirm,
           :identification_type,
           :identification_number,
           :passport_identification_number,

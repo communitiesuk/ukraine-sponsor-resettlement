@@ -8,7 +8,6 @@ RSpec.describe UamValidations, type: :model do
       empty_lines.each do |line|
         uam = new_uam
         uam.sponsor_address_line_1 = line
-
         expect(uam.valid?).to be(false)
         expect(uam.errors).to include(:sponsor_address_line_1), "Failed value:#{line}"
       end
@@ -80,7 +79,7 @@ RSpec.describe UamValidations, type: :model do
       uam.different_address = "no"
 
       # Set dummy attributes to satisfy other validators 😒
-      uam.final_submission = true
+      uam.partial_validation = [:full_validation]
       uam.uk_parental_consent_file_size = 1
       uam.ukraine_parental_consent_file_size = 1
       uam.sponsor_date_of_birth = {

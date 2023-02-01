@@ -28,7 +28,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
 
-      uam_enter_minors_contact_details(email: minors_email, telephone: minors_phone, select_none: true)
+      uam_enter_minors_contact_details(email: minors_email, confirm_email: minors_email, telephone: minors_phone, confirm_telephone: minors_phone, select_none: true)
 
       expect(page).to have_content("Enter their date of birth")
 
