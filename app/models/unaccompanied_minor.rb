@@ -336,7 +336,7 @@ class UnaccompaniedMinor < ApplicationRecord
     required_vals = [given_name, family_name, date_of_birth, nationality, id]
     if required_vals.all? { |item| item.to_s.length.positive? }
       TASK_LABEL_COMPLETE
-    elsif required_vals.all? { |item| item.to_s.length.zero? }
+    elsif required_vals.all? { |item| item.to_s.empty? }
       TASK_LABEL_TO_DO
     else
       TASK_LABEL_IN_PROGRESS
@@ -471,12 +471,12 @@ private
 
   def is_main_address_empty?
     # function that checks if the mandatory elements for the main address are filled in
-    [@residential_line_1, @residential_town, @residential_postcode].all? { |item| item.to_s.length.zero? }
+    [@residential_line_1, @residential_town, @residential_postcode].all? { |item| item.to_s.empty? }
   end
 
   def is_secondary_address_empty?
     # function that checks if the mandatory elements for the main address are filled in
-    [@sponsor_address_line_1, @sponsor_address_town, @sponsor_address_postcode].all? { |item| item.to_s.length.zero? }
+    [@sponsor_address_line_1, @sponsor_address_town, @sponsor_address_postcode].all? { |item| item.to_s.empty? }
   end
 
   def is_main_address_complete?

@@ -82,7 +82,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
 
       params = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
 
-      post :submit, params: params
+      post(:submit, params:)
 
       expect(response.status).to eq(200)
       expect(response).to render_template("sponsor-a-child/task_list")
@@ -118,7 +118,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
 
       params = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
 
-      post :submit, params: params
+      post(:submit, params:)
 
       expect(response.status).to eq(200)
       expect(response).to render_template("token-based-resume/select_multiple_applications")
@@ -134,7 +134,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
 
     it "shows the task list after an application has been selected" do
       params = { reference: uam.reference }
-      post :select_multiple_applications, params: params
+      post(:select_multiple_applications, params:)
 
       expect(response.status).to eq(200)
       expect(response).to render_template("sponsor-a-child/task_list")
@@ -146,7 +146,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc".freeze
       params = { abstract_resume_token: { token: "" }, uuid: magic_id }
 
-      post :submit, params: params
+      post(:submit, params:)
 
       expect(response.status).to eq(200)
       expect(response).to render_template("token-based-resume/session_resume_form")
@@ -158,7 +158,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       non_numeric_code = "ABCDEF".freeze
       params = { abstract_resume_token: { token: non_numeric_code }, uuid: magic_id }
 
-      post :submit, params: params
+      post(:submit, params:)
 
       expect(response.status).to eq(200)
       expect(response).to render_template("token-based-resume/session_resume_form")
@@ -170,7 +170,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       non_numeric_code = "665312".freeze
       params = { abstract_resume_token: { token: non_numeric_code }, uuid: magic_id }
 
-      post :submit, params: params
+      post(:submit, params:)
 
       expect(response.status).to eq(302)
       expect(response).to redirect_to("/sponsor-a-child/resume-application?uuid=#{magic_id}")
@@ -204,7 +204,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       numeric_code = 123_456
       params = { abstract_resume_token: { token: numeric_code }, uuid: magic_id }
 
-      post :submit, params: params
+      post(:submit, params:)
 
       expect(response.status).to eq(302)
       expect(response).to redirect_to("/sponsor-a-child/resume-application?uuid=#{magic_id}")
@@ -215,7 +215,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc".freeze
       params = { uuid: magic_id }
 
-      get :request_new_token, params: params
+      get(:request_new_token, params:)
 
       expect(response.status).to eq(200)
       application_token = ApplicationToken.find_by(magic_link: magic_id)
