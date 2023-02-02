@@ -20,6 +20,7 @@ SecureHeaders::Configuration.default do |config|
     ],
     script_src: %w[
       'self'
+      'hfukraine-nonce'
 
     ],
   }
