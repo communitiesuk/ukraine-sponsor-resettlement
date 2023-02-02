@@ -20,7 +20,7 @@ SecureHeaders::Configuration.default do |config|
     ],
     script_src: %w[
       'self'
-      'unsafe-inline'
+
     ],
   }
 end
