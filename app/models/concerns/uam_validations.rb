@@ -23,6 +23,10 @@ module UamValidations
     validate :validate_sponsor_email, if: -> { run_validation? :email }
     validate :validate_sponsor_phone_number, if: -> { run_validation? :phone_number }
     validate :validate_sponsor_identification_number, if: -> { run_validation? :identification_number }
+    validate :validate_sponsor_identification_type, if: -> { run_validation? :identification_type }
+    validate :validate_sponsor_id_passport_number, if: -> { run_validation? :passport_identification_number }
+    validate :validate_sponsor_id_identification_number, if: -> { run_validation? :id_identification_number }
+    validate :validate_sponsor_id_refugee_number, if: -> { run_validation? :refugee_identification_number }
     validate :validate_sponsor_no_identification_reason, if: -> { run_validation? :no_identification_reason }
     validate :validate_sponsor_nationality, if: -> { run_validation? :nationality }
     validate :validate_sponsor_has_other_nationalities, if: -> { run_validation? :has_other_nationalities }
@@ -229,7 +233,7 @@ module UamValidations
   end
 
   def validate_privacy_statement_confirm
-    if @privacy_statement_confirm.nil? || @privacy_statement_confirm.strip.length.zero? || @privacy_statement_confirm == "false"
+    if @privacy_statement_confirm.nil? || @privacy_statement_confirm.strip.empty? || @privacy_statement_confirm == "false"
       errors.add(:privacy_statement_confirm, I18n.t(:privacy_statement, scope: :error))
     end
   end
@@ -279,7 +283,7 @@ module UamValidations
   end
 
   def validate_sponsor_declaration
-    if @sponsor_declaration.nil? || @sponsor_declaration.strip.length.zero? || @sponsor_declaration == "false"
+    if @sponsor_declaration.nil? || @sponsor_declaration.strip.empty? || @sponsor_declaration == "false"
       errors.add(:sponsor_declaration, I18n.t(:invalid_eligibility, scope: :error))
     end
   end
@@ -367,24 +371,48 @@ module UamValidations
     end
   end
 
+  def validate_sponsor_identification_type
+    if @identification_type.blank?
+      errors.add(:identification_type, I18n.t(:choose_option, scope: :error))
+    end
+  end
+
   def validate_sponsor_identification_number
     case @identification_type
     when "passport"
-      if @identification_number.strip.length.zero?
+      if @identification_number.blank? || @identification_number.strip.empty?
         errors.add(:passport_identification_number, I18n.t(:invalid_id_number, scope: :error))
       end
     when "national_identity_card"
-      if @identification_number.strip.length.zero?
+      if @identification_number.blank? || @identification_number.strip.empty?
         errors.add(:id_identification_number, I18n.t(:invalid_id_number, scope: :error))
       end
     when "refugee_travel_document"
-      if @identification_number.strip.length.zero?
+      if @identification_number.blank? || @identification_number.strip.empty?
         errors.add(:refugee_identification_number, I18n.t(:invalid_id_number, scope: :error))
       end
     when "none"
       nil
     else
       errors.add(:identification_type, I18n.t(:choose_option, scope: :error))
+    end
+  end
+
+  def validate_sponsor_id_passport_number
+    if @identification_type == "passport" && (@passport_identification_number.blank? || @passport_identification_number.strip.empty?)
+      errors.add(:passport_identification_number, I18n.t(:invalid_id_number, scope: :error))
+    end
+  end
+
+  def validate_sponsor_id_identification_number
+    if @identification_type == "national_identity_card" && (@id_identification_number.blank? || @id_identification_number.strip.empty?)
+      errors.add(:id_identification_number, I18n.t(:invalid_id_number, scope: :error))
+    end
+  end
+
+  def validate_sponsor_id_refugee_number
+    if @identification_type == "refugee_travel_document" && (@refugee_identification_number.blank? || @refugee_identification_number.strip.empty?)
+      errors.add(:refugee_identification_number, I18n.t(:invalid_id_number, scope: :error))
     end
   end
 
@@ -438,7 +466,7 @@ module UamValidations
   end
 
   def run_validation?(attribute)
-    optional_fields_exclude_from_full_validation = %i[adult_given_name adult_family_name adult_date_of_birth adult_nationality adult_id_identification_number other_nationality]
+    optional_fields_exclude_from_full_validation = %i[adult_given_name adult_family_name adult_date_of_birth adult_nationality adult_id_identification_number other_nationality passport_identification_number id_identification_number refugee_identification_number]
     # an attribute from the above list will only get validated if the @partial_validation field is not :full_validation
     if optional_fields_exclude_from_full_validation.include?(attribute)
       @partial_validation.include?(attribute)
