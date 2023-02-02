@@ -35,10 +35,6 @@ module UkraineSponsorResettlement
     config.middleware.use SessionCheck
 
     config.middleware.use SecureHeaders::Middleware
-
-
     
-
-
   end
 end
