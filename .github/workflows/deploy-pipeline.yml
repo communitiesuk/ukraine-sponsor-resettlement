@@ -164,9 +164,8 @@ jobs:
         sleep 30
 
         # Run ZAP scan
-        zap-cli --zap-url http://0.0.0.0:8081 -p 9081 -r results.html spider http://your-rails-app-url.com
-        zap-cli --zap-url http://0.0.0.0:8081 -p 9081 -r results.html active-scan --recursive http://your-rails-app-url.com
-
+       zap-cli --zap-url http://0.0.0.0:8081 -p 9081 -r results.html --auth-method http --auth-username user --auth-password password -l https://ukraine-sponsor-resettlement-staging.london.cloudapps.digital spider hhttps://ukraine-sponsor-resettlement-staging.london.cloudapps.digital/
+        zap-cli --zap-url http://0.0.0.0:8081 -p 9081 -r results.html --auth-method http --auth-username user --auth-password password -l https://ukraine-sponsor-resettlement-staging.london.cloudapps.digital active-scan --recursive hhttps://ukraine-sponsor-resettlement-staging.london.cloudapps.digital/
         # Wait for scan to complete
         sleep 30
 
