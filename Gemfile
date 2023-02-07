@@ -22,8 +22,7 @@ gem "bootsnap", ">= 1.4.4", require: false
 # GovUK Notify notifications and client
 gem "govuk_notify_rails"
 # SecureRandom to generate UUIDs
-gem "securerandom"
-
+gem "owasp_zap"
 gem "rack-attack"
 gem "redis"
 gem "secure_headers"

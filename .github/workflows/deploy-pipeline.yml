@@ -141,6 +141,37 @@ jobs:
       - name: Scan
         run: |
           brakeman --color -o /dev/stdout
+  
+   security-check:
+    name: Security Check
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+      with:
+        submodules: 'recursive'
+
+    - name: Install OWASP ZAP
+      run: sudo apt-get update && sudo apt-get install zaproxy -y
+
+    - name: Run ZAP security checks
+      run: |
+        # Start ZAP
+        zap.sh -daemon -port 8081 &
+
+        # Wait for ZAP to start
+        sleep 30
+
+        # Run ZAP scan
+        zap-cli --zap-url http://0.0.0.0:8081 -p 9081 -r results.html spider http://your-rails-app-url.com
+        zap-cli --zap-url http://0.0.0.0:8081 -p 9081 -r results.html active-scan --recursive http://your-rails-app-url.com
+
+        # Wait for scan to complete
+        sleep 30
+
+        # Stop ZAP
+        zap-cli --zap-url http://0.0.0.0:8081 -p 9081 shutdown
 
   deploy-staging:
     name: Deploy Staging
