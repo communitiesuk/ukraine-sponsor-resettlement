@@ -154,10 +154,12 @@ jobs:
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@v0.4.0
         with:
-          target: 'https://ukraine:r3fug3@ukraine-sponsor-resettlement-staging.london.cloudapps.digital/
+          target: 'https://ukraine:r3fug3@ukraine-sponsor-resettlement-staging.london.cloudapps.digital/'
           rules_file_name: '.zap/rules.tsv'
           results-file: 'results.html'
           auth-method: 'http'
+          auth-username: ${{ secrets.STAGING_USERNAME }}
+          auth-password: ${{ secrets.STAGING_PASSWORD }}
           recursive: 'true'
 
 
