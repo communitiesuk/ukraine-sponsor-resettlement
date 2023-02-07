@@ -142,35 +142,35 @@ jobs:
         run: |
           brakeman --color -o /dev/stdout
   
-   security-check:
+  security-check:
     name: Security Check
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v2
-      with:
-        submodules: 'recursive'
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
 
-    - name: Install OWASP ZAP
-      run: sudo apt-get update && sudo apt-get install zaproxy -y
+      - name: Install OWASP ZAP
+        run: sudo apt-get update && sudo apt-get install zaproxy -y
 
-    - name: Run ZAP security checks
-      run: |
-        # Start ZAP
-        zap.sh -daemon -port 8081 &
+      - name: Run ZAP security checks
+        run: |
+          # Start ZAP
+          zap.sh -daemon -port 8081 &
 
-        # Wait for ZAP to start
-        sleep 30
+          # Wait for ZAP to start
+          sleep 30
 
-        # Run ZAP scan
-       zap-cli --zap-url http://0.0.0.0:8081 -p 9081 -r results.html --auth-method http --auth-username user --auth-password password -l https://ukraine-sponsor-resettlement-staging.london.cloudapps.digital spider hhttps://ukraine-sponsor-resettlement-staging.london.cloudapps.digital/
-        zap-cli --zap-url http://0.0.0.0:8081 -p 9081 -r results.html --auth-method http --auth-username user --auth-password password -l https://ukraine-sponsor-resettlement-staging.london.cloudapps.digital active-scan --recursive hhttps://ukraine-sponsor-resettlement-staging.london.cloudapps.digital/
-        # Wait for scan to complete
-        sleep 30
+          # Run ZAP scan
+          zap-cli --zap-url http://0.0.0.0:8081 -p 9081 -r results.html --auth-method http --auth-username user --auth-password password -l https://ukraine-sponsor-resettlement-staging.london.cloudapps.digital spider hhttps://ukraine-sponsor-resettlement-staging.london.cloudapps.digital/
+          zap-cli --zap-url http://0.0.0.0:8081 -p 9081 -r results.html --auth-method http --auth-username user --auth-password password -l https://ukraine-sponsor-resettlement-staging.london.cloudapps.digital active-scan --recursive hhttps://ukraine-sponsor-resettlement-staging.london.cloudapps.digital/
+          # Wait for scan to complete
+          sleep 30
 
-        # Stop ZAP
-        zap-cli --zap-url http://0.0.0.0:8081 -p 9081 shutdown
+          # Stop ZAP
+          zap-cli --zap-url http://0.0.0.0:8081 -p 9081 shutdown
+
 
   deploy-staging:
     name: Deploy Staging
