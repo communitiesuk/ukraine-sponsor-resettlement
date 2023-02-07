@@ -152,7 +152,7 @@ jobs:
           submodules: 'recursive'
 
       - name: Install OWASP ZAP
-        run: sudo apt-get update && sudo apt-get install zaproxy -y
+        run: sudo snap install zaproxy
 
       - name: Run ZAP security checks
         run: |
