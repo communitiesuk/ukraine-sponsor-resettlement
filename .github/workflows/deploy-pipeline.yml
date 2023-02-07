@@ -159,8 +159,8 @@ jobs:
           port: 9081
           results-file: 'results.html'
           auth-method: 'http'
-          auth-username: 'user'
-          auth-password: 'password'
+          auth-username: ${{ secrets.STAGING_USERNAME }}
+          auth-password: ${{ secrets.STAGING_PASSWORD }}
           recursive: 'true'
 
 
@@ -198,6 +198,8 @@ jobs:
       REMOTE_API_URL: ${{ secrets.REMOTE_API_URL }}
       SAVE_AND_RETURN_TEMPLATE_ID: ${{ secrets.SAVE_AND_RETURN_TEMPLATE_ID }}
       SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+      STAGING_USERNAME: ${{ secrets.STAGING_USERNAME }}
+      STAGING_PASSWORD: ${{ secrets.STAGING_PASSWORD }}
       SPONSOR_CONFIRMATION_TEMPLATE_ID: ${{ secrets.SPONSOR_CONFIRMATION_TEMPLATE_ID }}
       UAM_FILE_UPLOAD_API_TOKEN: ${{ secrets.UAM_FILE_UPLOAD_API_TOKEN }}
       UAM_FILE_UPLOAD_API_URL: ${{ secrets.UAM_FILE_UPLOAD_API_URL }}
@@ -244,6 +246,8 @@ jobs:
           cf set-env $APP_NAME REMOTE_API_URL $REMOTE_API_URL
           cf set-env $APP_NAME SAVE_AND_RETURN_TEMPLATE_ID $SAVE_AND_RETURN_TEMPLATE_ID
           cf set-env $APP_NAME SENTRY_DSN $SENTRY_DSN
+          cf set-env $APP_NAME STAGING_USERNAME $STAGING_USERNAME
+          cf set-env $APP_NAME STAGING_PASSWORD $STAGING_PASSWORD
           cf set-env $APP_NAME SPONSOR_CONFIRMATION_TEMPLATE_ID $SPONSOR_CONFIRMATION_TEMPLATE_ID
           cf set-env $APP_NAME UAM_FILE_UPLOAD_API_TOKEN $UAM_FILE_UPLOAD_API_TOKEN
           cf set-env $APP_NAME UAM_FILE_UPLOAD_API_URL $UAM_FILE_UPLOAD_API_URL
@@ -282,6 +286,8 @@ jobs:
           cf set-env $APP_NAME SAVE_AND_RETURN_TEMPLATE_ID $SAVE_AND_RETURN_TEMPLATE_ID
           cf set-env $APP_NAME SENTRY_DSN $SENTRY_DSN
           cf set-env $APP_NAME SPONSOR_CONFIRMATION_TEMPLATE_ID $SPONSOR_CONFIRMATION_TEMPLATE_ID
+          cf set-env $APP_NAME STAGING_USERNAME $STAGING_USERNAME
+          cf set-env $APP_NAME STAGING_PASSWORD $STAGING_PASSWORD
           cf set-env $APP_NAME UAM_FILE_UPLOAD_API_TOKEN $UAM_FILE_UPLOAD_API_TOKEN
           cf set-env $APP_NAME UAM_FILE_UPLOAD_API_URL $UAM_FILE_UPLOAD_API_URL
           cf set-env $APP_NAME UAM_FOUNDRY_ATTACHMENT_ASSIGN_API_URL $UAM_FOUNDRY_ATTACHMENT_ASSIGN_API_URL
