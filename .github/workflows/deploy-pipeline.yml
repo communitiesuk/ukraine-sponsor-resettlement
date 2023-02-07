@@ -155,12 +155,10 @@ jobs:
         uses: zaproxy/action-full-scan@v0.4.0
         with:
           target: 'https://ukraine-sponsor-resettlement-staging.london.cloudapps.digital/'
-          zap-url: 'http://0.0.0.0:8081'
-          port: 9081
           results-file: 'results.html'
           auth-method: 'http'
-          auth-username: ${{ secrets.STAGING_USERNAME }}
-          auth-password: ${{ secrets.STAGING_PASSWORD }}
+          auth-username: ukraine
+          auth-password: r3fug3
           recursive: 'true'
 
 
