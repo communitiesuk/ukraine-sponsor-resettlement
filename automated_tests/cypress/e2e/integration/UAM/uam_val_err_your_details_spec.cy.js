@@ -116,16 +116,16 @@ describe('[Frontend-UI]: UAM VALIDATION ERRORS [YOUR DETAILS]', function () {
       element.your_details_ad_details_dob_step_18_v3()
     })
     it('sponsor dob: validation errors [future date]', function () {
-      element.your_details_ad_details_dob_step_18_v4('2050')
+      element.your_details_ad_details_dob_step_18_v4()
     })
     it('sponsor dob: validation errors [past date (1 year)]', function () {
-      element.your_details_ad_details_dob_step_18_v5('2022')
+      element.your_details_ad_details_dob_step_18_v5()
     })
     it('sponsor dob: validation errors [past date (17 years)]', function () {
-      element.your_details_ad_details_dob_step_18_v6('2005')
+      element.your_details_ad_details_dob_step_18_v6()
     })
     it('sponsor dob: validation errors [past date (18+ years)]', function () {
-      element.your_details_ad_details_dob_step_18_v7('2004')
+      element.your_details_ad_details_dob_step_18_v7()
     })
   })
 })
