@@ -19,6 +19,7 @@ _**IMPORTANT: The tests will be run against a local running instance of the proj
 
 `npm run cy_open --env baseUrl="https://my.site.com/test"`
 
+Test runner
 - run `npm run cy_open` to open cypress test runnner
 - select & run test(s)
 - select `run_all_specs` to run all tests

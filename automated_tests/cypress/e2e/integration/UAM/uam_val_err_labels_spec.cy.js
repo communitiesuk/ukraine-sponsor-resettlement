@@ -1,6 +1,6 @@
-const element = require('../../pages/UAM/uam_err_validation_labels')
+const element = require('../../pages/UAM/uam_val_err_labels')
 
-describe('[Frontend-UI]: UAM ERROR VALIDATION [LABELS]', function () {
+describe('[Frontend-UI]: UAM VALIDATION ERRORS [LABELS]', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
     cy.fixture('uam_appdata').then(function(uam_secrets){this.data = uam_secrets})

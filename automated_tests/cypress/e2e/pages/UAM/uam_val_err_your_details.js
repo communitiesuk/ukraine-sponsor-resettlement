@@ -46,7 +46,7 @@ export const your_details_name_step_10_v1 = () => {
     fn_err_yes()
     gn_err_yes()
 }
-//one field valid: [GN: valid, FN: empty]
+//one field empty: [GN: valid, FN: empty]
 export const your_details_name_step_10_v2 = () => {
     s10_page_heading()
     cy.get(elements.step10_gn_err_textbox).type(secrets.given_names)
@@ -54,7 +54,7 @@ export const your_details_name_step_10_v2 = () => {
     fn_err_yes()
     gn_err_no()
 }
-//one field valid: [GN: Empty, FN: Valid]
+//one field empty: [GN: Empty, FN: Valid]
 export const your_details_name_step_10_v3 = () => {
     s10_page_heading()
     cy.get(elements.step10_gn_textbox).clear()
@@ -532,7 +532,7 @@ export const  your_details_ad_details_dob_step_18_v4 = (x) => {
     click_continue()
     dob_future_date_err_yes()
 }
- //all valid: past date [1 year ago]  
+//all valid: past date [1 year ago]  
 export const  your_details_ad_details_dob_step_18_v5 = (x) => {
     cy.get(elements.step18_day_err_textbox).type(secrets.day)
     cy.get(elements.step18_month_err_textbox).type(secrets.month)

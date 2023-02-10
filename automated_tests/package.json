@@ -23,6 +23,7 @@
     "cypress-xpath": "^2.0.1"
   },
   "dependencies": {
-    "ci": "^2.2.0"
+    "ci": "^2.2.0",
+    "dayjs": "^1.11.7"
   }
 }
