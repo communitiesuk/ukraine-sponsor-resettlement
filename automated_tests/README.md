@@ -19,6 +19,7 @@ _**IMPORTANT: The tests will be run against a local running instance of the proj
 
 `npm run cy_open --env baseUrl="https://my.site.com/test"`
 
+Test runner
 - run `npm run cy_open` to open cypress test runnner
 - select & run test(s)
 - select `run_all_specs` to run all tests
@@ -47,8 +48,10 @@ EOI:
 
 UAM: 
 - npx cypress run --spec cypress/e2e/integration/UAM/uam_e2e_hp_spec.cy.js
-- npx cypress run --spec cypress/e2e/integration/UAM/uam_eligibility_spec.cy.js
-
+- npx cypress run --spec cypress/e2e/integration/UAM/uam_val_err_childs_accomm_spec.cy.js
+- npx cypress run --spec cypress/e2e/integration/UAM/uam_val_err_labels_spec.cy.js
+- npx cypress run --spec cypress/e2e/integration/UAM/uam_val_err_res_details_spec.cy.js
+- npx cypress run --spec cypress/e2e/integration/UAM/uam_val_err_your_details_spec.cy.js
 
 Run with specific browser
 - npx cypress run --spec cypress/e2e/integration/EOI/eoi_e2e_hp.cy.js --browser chrome
