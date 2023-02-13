@@ -49,6 +49,7 @@ EOI:
 UAM: 
 - npx cypress run --spec cypress/e2e/integration/UAM/uam_e2e_hp_spec.cy.js
 - npx cypress run --spec cypress/e2e/integration/UAM/uam_val_err_childs_accomm_spec.cy.js
+- npx cypress run --spec cypress/e2e/integration/UAM/uam_val_err_childs_details_spec.cy.js
 - npx cypress run --spec cypress/e2e/integration/UAM/uam_val_err_labels_spec.cy.js
 - npx cypress run --spec cypress/e2e/integration/UAM/uam_val_err_res_details_spec.cy.js
 - npx cypress run --spec cypress/e2e/integration/UAM/uam_val_err_your_details_spec.cy.js

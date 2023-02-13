@@ -3,11 +3,7 @@ const secrets = require('../../../fixtures/uam_appdata.json')
 const elements = require('../../page_elements/UAM/uam_elements')
 const bodytext = require('../../../fixtures/uam_bodytext.json')
 const common = require('./common')
-const eligibility = require('./eligibility')
 
-export const uam_eligibility_step1_9 = () => {
-    eligibility.uam_eligibility_steps()
-}
 const uam_eligibility_tasklist = () => {
     common.uam_tasklist_header()
     cy.get(elements.tasklist_page_body).should('be.visible').contains(bodytext.app_incomplete).should('be.visible')
@@ -238,22 +234,22 @@ export const childs_details_step_32 = () => {
     cy.get(elements.childs_personal_details_link).click()
     cy.get(elements.main_heading).contains("Enter the name of the child you want to sponsor").should('be.visible')
     cy.get(elements.summary_text).contains("I'm not sure how to enter their name").should('be.visible')
-    cy.get(elements.childs_personal_details_givennames_label).contains("Given names").should('be.visible')
-    cy.get(elements.childs_personal_details_familyname_label).contains("Family name").should('be.visible').wait(Cypress.env('waitTime'))
-    cy.get(elements.childs_personal_details_givennames_textbox).should('be.visible').type(secrets.child_name)
-    cy.get(elements.childs_personal_details_familyname_textbox).should('be.visible').type(secrets.child_familyname).wait(Cypress.env('waitTime'))
+    cy.get(elements.step32_gn_label).contains("Given names").should('be.visible')
+    cy.get(elements.step32_fn_label).contains("Family name").should('be.visible').wait(Cypress.env('waitTime'))
+    cy.get(elements.step32_gn_textbox).should('be.visible').type(secrets.child_name)
+    cy.get(elements.step32_fn_textbox).should('be.visible').type(secrets.child_familyname).wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
 export const childs_details_step_33 = () => {
     cy.get(elements.main_heading).contains("How can we contact the child?").should('be.visible')
     cy.get(elements.childs_personal_details_insettext).contains("TINY BOB").should('be.visible')
     cy.get(elements.cpd_cbcontacted_label).should('be.visible')
-    cy.get(elements.cpd_email_checkbox).should('exist').click().wait(Cypress.env('waitTime'))
-    cy.get(elements.cpd_phone_checkbox).should('exist').click().wait(Cypress.env('waitTime'))
-    cy.get(elements.cpd_email_textkbox).type(secrets.child_email)
-    cy.get(elements.cpd_cemail_textbox).type(secrets.child_email)
-    cy.get(elements.cpd_pnumber_textkbox).type(secrets.child_phone_no)
-    cy.get(elements.cpd_cpnumber_textbox).type(secrets.child_phone_no)
+    cy.get(elements.step33_email_checkbox).should('exist').click().wait(Cypress.env('waitTime'))
+    cy.get(elements.step33_phone_checkbox).should('exist').click().wait(Cypress.env('waitTime'))
+    cy.get(elements.step33_email_textbox).type(secrets.child_email)
+    cy.get(elements.step33_email_cf_textbox).type(secrets.child_email)
+    cy.get(elements.step33_phone_textbox).type(secrets.child_phone_no)
+    cy.get(elements.step33_phone_cf_textbox).type(secrets.child_phone_no)
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
 export const childs_details_step_34 = () => {
