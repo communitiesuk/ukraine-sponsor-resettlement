@@ -1,4 +1,5 @@
 const element = require('../../pages/UAM/uam_val_err_childs_accomm')
+const eligibility = require('../../pages/UAM/eligibility')
 
 describe('[Frontend-UI]: UAM VALIDATION ERRORS [CHILDS ACCOMMODATION]', function () {
   this.beforeAll(() => {
@@ -10,7 +11,7 @@ describe('[Frontend-UI]: UAM VALIDATION ERRORS [CHILDS ACCOMMODATION]', function
 
   context('Eligibility Check', function () {
     it('verify eligibility', function () {
-      element.uam_eligibility_step1_9()
+      eligibility.uam_eligibility_steps()
     })
   })
   context('[Child’s Accommodation] Childs Address Validation Errors', function () {

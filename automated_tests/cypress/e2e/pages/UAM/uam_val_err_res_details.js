@@ -3,13 +3,8 @@ const secrets = require('../../../fixtures/uam_appdata.json')
 const elements = require('../../page_elements/UAM/uam_elements')
 const common = require('./common')
 const bt_err = require('../../../fixtures/uam_bodytext_err.json')
-const eligibility = require('./eligibility')
 import dayjs from 'dayjs'
 
-//Eligibility Steps
-export const uam_eligibility_step1_9 = () => {
-    eligibility.uam_eligibility_steps()
-}
 //*******Residents' details(OVER 16)**************Residents' details(OVER 16)**************Residents' details(OVER 16)**************Residents' details(OVER 16)**************
 const click_continue = () => {cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))}
 const s29_page_heading = () => {cy.get(elements.page_heading).contains("Enter this person's date of birth").should('be.visible')}

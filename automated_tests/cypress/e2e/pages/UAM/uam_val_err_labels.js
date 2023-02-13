@@ -332,12 +332,12 @@ export const childs_details_step_33 = () => {
     summary_box_title()
     cy.get(elements.err_sbox_msg).contains(bt_err.sel_more_opt_err_msg).should('be.visible')
     cy.get(elements.step33_ctc_err_msg).contains(bt_err.sel_more_opt_err_msg).should('be.visible')
-    cy.get(elements.step33_email_err_box).click().wait(Cypress.env('waitTime'))
-    cy.get(elements.step33_email_err_textbox).type(secrets.child_email)
-    cy.get(elements.step33_email_err_con_textbox).type(secrets.child_email)
-    cy.get(elements.step33_phone_err_box).click().wait(Cypress.env('waitTime'))
-    cy.get(elements.step33_phone_err_textbox).type(secrets.child_phone_no)
-    cy.get(elements.step33_phone_err_con_textbox).type(secrets.child_phone_no).wait(Cypress.env('waitTime'))
+    cy.get(elements.step33_email_err_checkbox).click().wait(Cypress.env('waitTime'))
+    cy.get(elements.step33_email_textbox).type(secrets.child_email)
+    cy.get(elements.step33_email_cf_textbox).type(secrets.child_email)
+    cy.get(elements.step33_phone_checkbox).click().wait(Cypress.env('waitTime'))
+    cy.get(elements.step33_phone_textbox).type(secrets.child_phone_no)
+    cy.get(elements.step33_phone_cf_textbox).type(secrets.child_phone_no).wait(Cypress.env('waitTime'))
     click_continue()
 }
 export const childs_details_step_34 = () => {

@@ -1,14 +1,8 @@
 require('cypress-xpath');
 const secrets = require('../../../fixtures/uam_appdata.json')
 const elements = require('../../page_elements/UAM/uam_elements')
-//const common = require('./common')
 const bt_err = require('../../../fixtures/uam_bodytext_err.json')
-const eligibility = require('./eligibility')
 
-//Eligibility Steps
-export const uam_eligibility_step1_9 = () => {
-    eligibility.uam_eligibility_steps()
-}
 //*******Child’s accommodation**************Child’s accommodation**************Child’s accommodation**************Child’s accommodation**************
 const click_continue = () => { cy.get(elements.continue_button).click().wait(Cypress.env('waitTime')) }
 const all_sbox_feilds_err = () => {
@@ -541,7 +535,8 @@ export const your_details_name_step_27_v1 = () => {
 //one field empty: [GN: valid, FN: empty]
 export const your_details_name_step_27_v2 = () => {
     s27_page_heading()
-    cy.get(elements.step27_gn_err_textbox).type(secrets.given_names)
+    cy.get(elements.step27_gn_err_textbox).clear().type(secrets.given_names)
+    cy.get(elements.step27_fn_err_textbox).clear()
     click_continue()
     fn_err_yes()
     gn_err_no()
@@ -550,7 +545,7 @@ export const your_details_name_step_27_v2 = () => {
 export const your_details_name_step_27_v3 = () => {
     s27_page_heading()
     cy.get(elements.step27_gn_textbox).clear()
-    cy.get(elements.step27_fn_err_textbox).type(secrets.family_name)
+    cy.get(elements.step27_fn_err_textbox).clear().type(secrets.family_name)
     click_continue()
     gn_err_yes()
     fn_err_no()
