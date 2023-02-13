@@ -3,11 +3,7 @@ const secrets = require('../../../fixtures/uam_appdata.json')
 const elements = require('../../page_elements/UAM/uam_elements')
 const bodytext = require('../../../fixtures/uam_bodytext.json')
 const common = require('./common')
-const eligibility = require('./eligibility')
 
-export const uam_eligibility_step1_9 = () => {
-    eligibility.uam_eligibility_steps()
-}
 const uam_eligibility_tasklist = () => {
     common.uam_tasklist_header()
     cy.get(elements.tasklist_page_body).should('be.visible').contains(bodytext.app_incomplete).should('be.visible')
@@ -136,11 +132,11 @@ export const childs_accommodation_step_23 = () => {
     cy.get(elements.child_address_line2_label).contains('Address line 2 (optional)').should('be.visible')
     cy.get(elements.child_town_city_label).contains('Town or city').should('be.visible')
     cy.get(elements.child_postcode_label).contains('Postcode').should('be.visible').wait(Cypress.env('waitTime'))
-    //CLILD'S ADDRESS
-    cy.get(elements.child_address_line1_textbox).type(secrets.child_line1)
-    cy.get(elements.child_address_line2_textbox).type(secrets.child_line2)
-    cy.get(elements.child_town_city_textbox).type(secrets.child_town_or_city)
-    cy.get(elements.child_postcode_textbox).type(secrets.child_postcode).wait(Cypress.env('waitTime'))
+//CLILD'S ADDRESS
+    cy.get(elements.step23_addr_line1_textbox).type(secrets.child_line1)
+    cy.get(elements.step23_addr_line2_textbox).type(secrets.child_line2)
+    cy.get(elements.step23_city_textbox).type(secrets.child_town_or_city)
+    cy.get(elements.step23_pc_textbox).type(secrets.child_postcode).wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
 export const childs_accommodation_step_24 = () => {
@@ -153,14 +149,14 @@ export const childs_accommodation_step_24 = () => {
 //SPONSOR ADDRESS
 export const childs_accommodation_step_26 = () => {
     cy.get(elements.page_heading).contains('Enter the address where you will be living in the UK').should('be.visible').wait(Cypress.env('waitTime'))
-    cy.get(elements.sponsor_address_line1_label).contains('Address line 1').should('be.visible')
-    cy.get(elements.sponsor_address_line2_label).contains('Address line 2 (optional)').should('be.visible')
-    cy.get(elements.sponsor_town_city_label).contains('Town or city').should('be.visible')
-    cy.get(elements.sponsor_postcode_label).contains('Postcode').should('be.visible').wait(Cypress.env('waitTime'))
-    cy.get(elements.sponsor_address_line1_textbox).type(secrets.sponsor_line1)
-    cy.get(elements.sponsor_address_line2_textbox).type(secrets.sponsor_line2)
-    cy.get(elements.sponsor_town_city_textbox).type(secrets.sponsor_town_or_city)
-    cy.get(elements.sponsor_postcode_textbox).type(secrets.sponsor_postcode)
+    cy.get(elements.step26_addr_line1_label).contains('Address line 1').should('be.visible')
+    cy.get(elements.step26_addr_line2_label).contains('Address line 2 (optional)').should('be.visible')
+    cy.get(elements.step26_city_label).contains('Town or city').should('be.visible')
+    cy.get(elements.step26_pc_label).contains('Postcode').should('be.visible').wait(Cypress.env('waitTime'))
+    cy.get(elements.step26_addr_line1_textbox).type(secrets.sponsor_line1)
+    cy.get(elements.step26_addr_line2_textbox).type(secrets.sponsor_line2)
+    cy.get(elements.step26_city_textbox).type(secrets.sponsor_town_or_city)
+    cy.get(elements.step26_pc_textbox).type(secrets.sponsor_postcode)
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
 export const childs_accommodation_step_27 = () => {
@@ -168,10 +164,10 @@ export const childs_accommodation_step_27 = () => {
     cy.get(elements.page_heading).contains('Enter the name of a person over 16 who will live with the child').should('be.visible')
     cy.get(elements.child_address_validation_text).should('contain.text', 'CHILDS, ADDRESS, LONDON, NW10 5BD').should('be.visible')
     cy.get(elements.summary_text).contains(" I'm not sure how to enter their name").wait(Cypress.env('waitTime'))
-    cy.get(elements.over16_person_given_names_label).contains('Given names').should('be.visible')
-    cy.get(elements.over16_person_family_name_label).contains('Family name').should('be.visible').wait(Cypress.env('waitTime'))
-    cy.get(elements.over16_person_given_names_textbox).type(secrets.over16_name)
-    cy.get(elements.over16_person_family_name_textbox).type(secrets.over16_familyname)
+    cy.get(elements.step27_gn_label).contains('Given names').should('be.visible')
+    cy.get(elements.step27_fn_label).contains('Family name').should('be.visible').wait(Cypress.env('waitTime'))
+    cy.get(elements.step27_gn_textbox).type(secrets.over16_name)
+    cy.get(elements.step27_fn_textbox).type(secrets.over16_familyname)
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
 export const childs_accommodation_step_28 = () => {
@@ -195,29 +191,29 @@ export const residents_details_step29 = () => {
     cy.get(elements.main_heading).contains("Enter this person's date of birth").should('be.visible')
     cy.get(elements.residents_details_inserttext).should('contain.text', 'OVER SIXTEEN').should('be.visible')
     cy.get(elements.residents_details_hinttext).contains('For example, 31 3 2010').should('be.visible').wait(Cypress.env('waitTime'))
-    cy.get(elements.residents_details_day_textbox).type(secrets.over16_day)
-    cy.get(elements.residents_details_month_textbox).type(secrets.over16_month)
-    cy.get(elements.residents_details_year_textbox).type(secrets.over16_year)
-    cy.get(elements.residents_details_continue_button).click().wait(Cypress.env('waitTime'))
+    cy.get(elements.step29_day_textbox).type(secrets.over16_day)
+    cy.get(elements.step29_month_err_textbox).type(secrets.over16_month)
+    cy.get(elements.step29_year_err_textbox).type(secrets.over16_year)
+    cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
 export const residents_details_step30 = () => {
     cy.get(elements.page_heading).contains('Enter their nationality').should('be.visible')
     cy.get(elements.residents_details_inserttext).should('contain.text', 'OVER SIXTEEN').should('be.visible')
-    cy.get(elements.residents_nationality_label).contains('Select their country of nationality').should('be.visible')
-    cy.get(elements.residents_nationality_dropdown).select('ZWE - Zimbabwe').should('have.value', 'ZWE - Zimbabwe').wait(Cypress.env('waitTime'))
+    cy.get(elements.step30_nat_label).contains('Select their country of nationality').should('be.visible')
+    cy.get(elements.step30_nat_dd).select('ZWE - Zimbabwe').should('have.value', 'ZWE - Zimbabwe').wait(Cypress.env('waitTime'))
         .select('RUS - Russia').should('have.value', 'RUS - Russia').wait(Cypress.env('waitTime'))
-    cy.get(elements.residents_details_continue_button).click().wait(Cypress.env('waitTime'))
+    cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
 export const residents_details_step31 = () => {
     cy.get(elements.page_heading).contains('Do they have any of these identity documents?').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.residents_details_inserttext).should('contain.text', 'OVER SIXTEEN').should('be.visible')
     cy.get(elements.residents_pp_radio_button).should('exist').click().wait(Cypress.env('waitTime'))
     cy.get(elements.residents_pp_number_label).should('be.visible').click()
-    cy.get(elements.residents_pp_number_textbox).should('be.visible').type('PASSPORT NUMBER').clear().wait(Cypress.env('waitTime'))
-    cy.get(elements.residents_rtdn_radio_button).should('exist').click()
+    cy.get(elements.step31_pp_textbox).should('be.visible').type('PASSPORT NUMBER').clear().wait(Cypress.env('waitTime'))
+    cy.get(elements.step31_refu_err_radio_btn).should('exist').click()
     cy.get(elements.residents_rtdn_number_label).should('be.visible').click()
     cy.get(elements.residents_rtdn_number_textbox).should('be.visible').type('Refugee travel document number').clear().wait(Cypress.env('waitTime'))
-    cy.get(elements.residents_ni_radio_button).should('exist').click()
+    cy.get(elements.step31_ni_err_radio_btn).should('exist').click()
     cy.get(elements.residents_ni_number_label).should('be.visible').click()
     cy.get(elements.residents_ni_number_textbox).should('be.visible').type(secrets.over16_passport_no).wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
@@ -238,22 +234,22 @@ export const childs_details_step_32 = () => {
     cy.get(elements.childs_personal_details_link).click()
     cy.get(elements.main_heading).contains("Enter the name of the child you want to sponsor").should('be.visible')
     cy.get(elements.summary_text).contains("I'm not sure how to enter their name").should('be.visible')
-    cy.get(elements.childs_personal_details_givennames_label).contains("Given names").should('be.visible')
-    cy.get(elements.childs_personal_details_familyname_label).contains("Family name").should('be.visible').wait(Cypress.env('waitTime'))
-    cy.get(elements.childs_personal_details_givennames_textbox).should('be.visible').type(secrets.child_name)
-    cy.get(elements.childs_personal_details_familyname_textbox).should('be.visible').type(secrets.child_familyname).wait(Cypress.env('waitTime'))
+    cy.get(elements.step32_gn_label).contains("Given names").should('be.visible')
+    cy.get(elements.step32_fn_label).contains("Family name").should('be.visible').wait(Cypress.env('waitTime'))
+    cy.get(elements.step32_gn_textbox).should('be.visible').type(secrets.child_name)
+    cy.get(elements.step32_fn_textbox).should('be.visible').type(secrets.child_familyname).wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
 export const childs_details_step_33 = () => {
     cy.get(elements.main_heading).contains("How can we contact the child?").should('be.visible')
     cy.get(elements.childs_personal_details_insettext).contains("TINY BOB").should('be.visible')
     cy.get(elements.cpd_cbcontacted_label).should('be.visible')
-    cy.get(elements.cpd_email_checkbox).should('exist').click().wait(Cypress.env('waitTime'))
-    cy.get(elements.cpd_phone_checkbox).should('exist').click().wait(Cypress.env('waitTime'))
-    cy.get(elements.cpd_email_textkbox).type(secrets.child_email)
-    cy.get(elements.cpd_cemail_textbox).type(secrets.child_email)
-    cy.get(elements.cpd_pnumber_textkbox).type(secrets.child_phone_no)
-    cy.get(elements.cpd_cpnumber_textbox).type(secrets.child_phone_no)
+    cy.get(elements.step33_email_checkbox).should('exist').click().wait(Cypress.env('waitTime'))
+    cy.get(elements.step33_phone_checkbox).should('exist').click().wait(Cypress.env('waitTime'))
+    cy.get(elements.step33_email_textbox).type(secrets.child_email)
+    cy.get(elements.step33_email_cf_textbox).type(secrets.child_email)
+    cy.get(elements.step33_phone_textbox).type(secrets.child_phone_no)
+    cy.get(elements.step33_phone_cf_textbox).type(secrets.child_phone_no)
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
 export const childs_details_step_34 = () => {
@@ -367,7 +363,7 @@ export const accept_send = () => {
             cy.url().should('include', Cypress.config('baseUrl')).should('exist')
             send_application()
             cy.log("[This is LOCALHOST / REGISTRATION DETAILS SENT /********** Application complete **********]()")
-            cy.writeFile('cypress/fixtures/envlinks.txt', '')
+            cy.writeFile('cypress/fixtures/envlinks.txt', '').wait(3000)
             return
         }
         //staging
@@ -375,7 +371,7 @@ export const accept_send = () => {
             cy.url().should("have.contain", 'london.cloudapps.digital')
             send_application()
             cy.log("[This is STAGING / REGISTRATION DETAILS SENT / ********** Application complete **********]()")
-            cy.writeFile('cypress/fixtures/envlinks.txt', '').wait(5000)
+            cy.writeFile('cypress/fixtures/envlinks.txt', '').wait(3000)
             return
         }
         //prod
@@ -384,7 +380,7 @@ export const accept_send = () => {
             cy.log('[************* This is PROD / REGISTRATION DETAILS NOT SENT *************]()')
             cy.log('************* **This is PROD / REGISTRATION DETAILS NOT SENT** *************')
             cy.log('[************* This is PROD / REGISTRATION DETAILS NOT SENT *************]()')
-            cy.writeFile('cypress/fixtures/envlinks.txt', '')
+            cy.writeFile('cypress/fixtures/envlinks.txt', '').wait(3000)
             return
         }
         else {
