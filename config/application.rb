@@ -34,7 +34,6 @@ module UkraineSponsorResettlement
     config.active_job.queue_adapter = :sidekiq
     config.middleware.use SessionCheck
 
-    config.middleware.use SecureHeaders::Middleware
     
   end
 end
