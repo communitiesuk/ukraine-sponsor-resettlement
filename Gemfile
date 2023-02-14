@@ -25,7 +25,6 @@ gem "govuk_notify_rails"
 gem "owasp_zap"
 gem "rack-attack"
 gem "redis"
-gem "secure_headers"
 gem "sidekiq", "<7"
 
 # Sentry - Application Monitoring
