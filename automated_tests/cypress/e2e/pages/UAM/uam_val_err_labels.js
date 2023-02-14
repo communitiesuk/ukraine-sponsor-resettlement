@@ -30,7 +30,7 @@ export const uam_eligibility_step_1 = () => {
     click_continue()
     summery_box_error()
     cy.get(elements.step1_err_msg).should('be.visible')
-    cy.get(elements.step1_err_radio_btn_yes).click()
+    cy.get(elements.step1_err_radio_btn_yes).click().wait(Cypress.env('waitTime'))
     click_continue()
 }
 export const uam_eligibility_step_2 = () => {
@@ -38,7 +38,7 @@ export const uam_eligibility_step_2 = () => {
     click_continue()
     summery_box_error()
     cy.get(elements.step2_err_msg).should('be.visible')
-    cy.get(elements.step2_err_radio_btn_no).click()
+    cy.get(elements.step2_err_radio_btn_no).click().wait(Cypress.env('waitTime'))
     click_continue()
 }
 export const uam_eligibility_step_3 = () => {
@@ -46,7 +46,7 @@ export const uam_eligibility_step_3 = () => {
     click_continue()
     summery_box_error()
     cy.get(elements.step3_err_msg).should('be.visible')
-    cy.get(elements.step3_err_radio_btn_yes).click()
+    cy.get(elements.step3_err_radio_btn_yes).click().wait(Cypress.env('waitTime'))
     click_continue()
 }
 export const uam_eligibility_step_4 = () => {
@@ -54,7 +54,7 @@ export const uam_eligibility_step_4 = () => {
     click_continue()
     summery_box_error()
     cy.get(elements.step4_err_msg).should('be.visible')
-    cy.get(elements.step4_err_radio_btn_no).click()
+    cy.get(elements.step4_err_radio_btn_no).click().wait(Cypress.env('waitTime'))
     click_continue()
 }
 export const uam_eligibility_step_5 = () => {
@@ -62,7 +62,7 @@ export const uam_eligibility_step_5 = () => {
     click_continue()
     summery_box_error()
     cy.get(elements.step5_err_msg).should('be.visible')
-    cy.get(elements.step5_err_radio_btn_yes).click()
+    cy.get(elements.step5_err_radio_btn_yes).click().wait(Cypress.env('waitTime'))
     click_continue()
 }
 export const uam_eligibility_step_6 = () => {
@@ -70,7 +70,7 @@ export const uam_eligibility_step_6 = () => {
     click_continue()
     summery_box_error()
     cy.get(elements.step6_err_msg).should('be.visible')
-    cy.get(elements.step6_err_radio_btn_yes).click()
+    cy.get(elements.step6_err_radio_btn_yes).click().wait(Cypress.env('waitTime'))
     click_continue()
 }
 export const uam_eligibility_step_7 = () => {
@@ -78,12 +78,12 @@ export const uam_eligibility_step_7 = () => {
     click_continue()
     summery_box_error()
     cy.get(elements.step7_err_msg).should('be.visible')
-    cy.get(elements.step7_err_radio_btn_yes).click()
+    cy.get(elements.step7_err_radio_btn_yes).click().wait(Cypress.env('waitTime'))
     click_continue()
 }
 export const uam_eligibility_step_9 = () => {
     common.uam_step9_header()
-    cy.get(elements.step9_start_application_btn).should('be.visible').click()
+    cy.get(elements.step9_start_application_btn).should('be.visible').click().wait(Cypress.env('waitTime'))
 }
 //APPLICATION STARTS HERE  
 export const uam_eligibility_tasklist = () => {
@@ -99,7 +99,7 @@ export const your_details_name_step_10 = () => {
     cy.get(elements.step10_fn_err_msg).contains(bt_err.fn_err_msg).should('be.visible')
     cy.get(elements.step10_gn_err_msg).contains(bt_err.gn_err_msg).should('be.visible')
     cy.get(elements.step10_gn_err_textbox).type(secrets.given_names)
-    cy.get(elements.step10_fn_err_textbox).type(secrets.family_name)
+    cy.get(elements.step10_fn_err_textbox).type(secrets.family_name).wait(Cypress.env('waitTime'))
     click_continue()
 }
 export const your_details_othername_step_11 = () => {
@@ -107,7 +107,7 @@ export const your_details_othername_step_11 = () => {
     click_continue()
     summery_box_error()
     cy.get(elements.step11_err_msg).contains(bt_err.sel_opt_err_msg).should('be.visible')
-    cy.get(elements.select_yes).click()
+    cy.get(elements.step11_err_yes).click().wait(Cypress.env('waitTime'))
     click_continue()
 }
 export const your_details_othername_step_12 = () => {
@@ -127,7 +127,7 @@ export const your_details_othername_step_13 = () => {
     cy.xpath(elements.name_completed).should('be.visible')
 }
 export const your_details_contact_details_step_14 = () => {
-    cy.get(elements.contact_details_link).click()
+    cy.get(elements.contact_details_link).click().wait(Cypress.env('waitTime'))
     cy.get(elements.page_heading).contains('Enter your email address').should('be.visible')
     click_continue()
     summary_box_title()
@@ -138,21 +138,21 @@ export const your_details_contact_details_step_14 = () => {
     summary_box_title()
     cy.get(elements.err_sbox_msg).contains(bt_err.email_err_mm_msg).should('be.visible')
     cy.get(elements.step14_email_err_cf_msg).contains(bt_err.email_err_mm_msg).should('be.visible')
-    cy.get(elements.step14_email_err_cf_textbox).type(secrets.email)
+    cy.get(elements.step14_email_err_cf_textbox).type(secrets.email).wait(Cypress.env('waitTime'))
     click_continue()
 }
 export const your_details_mobile_step_15 = () => {
-    cy.get(elements.page_heading).contains('Enter your UK mobile number').should('be.visible')
+    cy.get(elements.page_heading).contains('Enter your UK mobile number').should('be.visible').wait(Cypress.env('waitTime'))
     click_continue()
     summary_box_title()
     cy.get(elements.err_sbox_msg).contains(bt_err.mobile_err_msg).should('be.visible')
     cy.get(elements.step15_mob_err_msg).contains(bt_err.mobile_err_msg).should('be.visible')
-    cy.get(elements.step15_mob_err_textbox).type(secrets.mobile)
+    cy.get(elements.step15_mob_err_textbox).type(secrets.mobile).wait(Cypress.env('waitTime'))
     click_continue()
     summary_box_title()
     cy.get(elements.err_sbox_msg).contains(bt_err.mobile_err_mm_msg).should('be.visible')
     cy.get(elements.step15_mob_err_cf_msg).contains(bt_err.mobile_err_mm_msg).should('be.visible')
-    cy.get(elements.step15_mob_err_cf_textbox).type(secrets.mobile)
+    cy.get(elements.step15_mob_err_cf_textbox).type(secrets.mobile).wait(Cypress.env('waitTime'))
     click_continue()
 }
 export const your_details_additional_details_step_16 = () => {
@@ -161,7 +161,7 @@ export const your_details_additional_details_step_16 = () => {
     click_continue()
     summery_box_error()
     cy.get(elements.step16_id_err_msg).contains(bt_err.sel_opt_err_msg).should('be.visible')
-    cy.get(elements.step16_idh_btn).click()
+    cy.get(elements.step16_idh_btn).click().wait(Cypress.env('waitTime'))
     click_continue()
 }
 export const your_details_prove_id_step_17 = () => {
@@ -185,7 +185,7 @@ export const your_details_additional_details_step_18 = () => {
     click_continue()
 }
 export const your_details_additional_details_step_19 = () => {
-    cy.get(elements.page_heading).contains('Enter your nationality').should('be.visible')
+    cy.get(elements.page_heading).contains('Enter your nationality').should('be.visible').wait(Cypress.env('waitTime'))
     click_continue()
     summary_box_title()
     cy.get(elements.err_sbox_msg).contains(bt_err.nationality_err_msg).should('be.visible')
@@ -198,7 +198,7 @@ export const your_details_additional_details_step_20 = () => {
     click_continue()
     summery_box_error()
     cy.get(elements.step20_oth_nationality_err_msg).contains(bt_err.sel_opt_err_msg).should('be.visible')
-    cy.get(elements.other_nationalities_yes_radio_button).click()
+    cy.get(elements.step20_oth_nationality_err_yes).click().wait(Cypress.env('waitTime'))
     click_continue()
 }
 export const your_details_additional_details_step_21 = () => {
@@ -216,7 +216,7 @@ export const your_details_additional_details_step_22 = () => {
 }
 export const childs_accommodation_step_23 = () => {
     // cy.visit('/sponsor-a-child/task-list')
-    cy.get(elements.address_link).click()
+    cy.get(elements.address_link).click().wait(Cypress.env('waitTime'))
     cy.get(elements.page_heading).contains('Enter the address where the child will be living in the UK').should('be.visible')
     click_continue()
     summary_box_title()
@@ -226,7 +226,7 @@ export const childs_accommodation_step_23 = () => {
     cy.get(elements.step23_addr_err_msg).contains(bt_err.address_err_msg).should('be.visible')
     cy.get(elements.step23_city_err_msg).contains(bt_err.city_err_msg).should('be.visible')
     cy.get(elements.step23_pc_err_msg).contains(bt_err.pc_err_msg).should('be.visible')
-    //CLILD'S ADDRESS
+//CLILD'S ADDRESS
     cy.get(elements.step23_addr_line1_err_textbox).type(secrets.child_line1)
     cy.get(elements.step23_addr_line2_err_textbox).type(secrets.child_line2)
     cy.get(elements.step23_city_err_textbox).type(secrets.child_town_or_city)
@@ -238,7 +238,7 @@ export const childs_accommodation_step_24 = () => {
     click_continue()
     summery_box_error()
     cy.get(elements.step24_sa_err_msg).contains(bt_err.sel_opt_err_msg).should('be.visible')
-    cy.get(elements.step24_sa_err_no_btn).click()
+    cy.get(elements.step24_sa_err_no_btn).click().wait(Cypress.env('waitTime'))
     click_continue()
 }
 //SPONSOR ADDRESS
@@ -263,8 +263,8 @@ export const childs_accommodation_step_27 = () => {
     cy.get(elements.page_heading).contains('Enter the name of a person over 16 who will live with the child').should('be.visible')
     click_continue()
     summary_box_title()
-    cy.xpath(elements.step27_fn_err_msg).contains(bt_err.fn_err_msg).should('be.visible')
-    cy.xpath(elements.step27_gn_err_msg).contains(bt_err.gn_err_msg).should('be.visible')
+    cy.get(elements.step27_fn_err_msg).contains(bt_err.fn_err_msg).should('be.visible')
+    cy.get(elements.step27_gn_err_msg).contains(bt_err.gn_err_msg).should('be.visible')
     cy.get(elements.step27_gn_err_textbox).type(secrets.over16_name)
     cy.get(elements.step27_fn_err_textbox).type(secrets.over16_familyname)
     click_continue()
@@ -301,44 +301,43 @@ export const residents_details_step30 = () => {
     cy.get(elements.step30_nat_err_dd).select('ZWE - Zimbabwe').should('have.value', 'ZWE - Zimbabwe').wait(Cypress.env('waitTime'))
     click_continue()
 }
-
 export const residents_details_step31 = () => {
     cy.get(elements.page_heading).contains('Do they have any of these identity documents?').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.residents_details_inserttext).should('contain.text', 'OVER SIXTEEN').should('be.visible')
     click_continue()
     summery_box_error()
     cy.get(elements.step31_id_err_msg).contains(bt_err.sel_opt_err_msg).should('be.visible')
-    cy.get(elements.step31_pp_err_radio_btn).click()
-    cy.get(elements.step31_pp_err_textbox).should('be.visible').type(secrets.over16_passport_no).wait(Cypress.env('waitTime'))
+    cy.get(elements.step31_pp_err_radio_btn).click().wait(Cypress.env('waitTime'))
+    cy.get(elements.step31_pp_textbox).should('be.visible').type(secrets.over16_passport_no).wait(Cypress.env('waitTime'))
     click_continue()
 }
 export const childs_details_step_32 = () => {
     cy.visit('/sponsor-a-child/task-list')
-    cy.get(elements.childs_personal_details_link).click()
-    cy.get(elements.main_heading).contains("Enter the name of the child you want to sponsor").should('be.visible')
+    cy.get(elements.childs_personal_details_link).click().wait(Cypress.env('waitTime'))
+    cy.get(elements.main_heading).contains("Enter the name of the child you want to sponsor").should('be.visible').wait(Cypress.env('waitTime'))
     click_continue()
     summary_box_title()
     cy.xpath(elements.step32_fn_sbox_err_msg).contains(bt_err.fn_err_msg).should('be.visible')
-    cy.xpath(elements.step32_gn_sbox_err_msg).contains(bt_err.gn_err_msg).should('be.visible')
+    cy.xpath(elements.step32_gn_sbox_err_msg).contains(bt_err.gn_err_msg).should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.step32_fn_err_msg).contains(bt_err.fn_err_msg).should('be.visible')
-    cy.get(elements.step32_gn_err_msg).contains(bt_err.gn_err_msg).should('be.visible')
+    cy.get(elements.step32_gn_err_msg).contains(bt_err.gn_err_msg).should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.step32_gn_err_textbox).should('be.visible').type(secrets.child_name)
     cy.get(elements.step32_fn_err_textbox).should('be.visible').type(secrets.child_familyname).wait(Cypress.env('waitTime'))
     click_continue()
 }
 export const childs_details_step_33 = () => {
     cy.get(elements.main_heading).contains("How can we contact the child?").should('be.visible')
-    cy.get(elements.childs_personal_details_insettext).contains("TINY BOB").should('be.visible')
+    cy.get(elements.childs_personal_details_insettext).contains("TINY BOB").should('be.visible').wait(Cypress.env('waitTime'))
     click_continue()
     summary_box_title()
     cy.get(elements.err_sbox_msg).contains(bt_err.sel_more_opt_err_msg).should('be.visible')
     cy.get(elements.step33_ctc_err_msg).contains(bt_err.sel_more_opt_err_msg).should('be.visible')
-    cy.get(elements.step33_email_err_box).click()
-    cy.get(elements.step33_email_err_textbox).type(secrets.child_email)
-    cy.get(elements.step33_email_err_con_textbox).type(secrets.child_email)
-    cy.get(elements.step33_phone_err_box).click()
-    cy.get(elements.step33_phone_err_textbox).type(secrets.child_phone_no)
-    cy.get(elements.step33_phone_err_con_textbox).type(secrets.child_phone_no)
+    cy.get(elements.step33_email_err_checkbox).click().wait(Cypress.env('waitTime'))
+    cy.get(elements.step33_email_textbox).type(secrets.child_email)
+    cy.get(elements.step33_email_cf_textbox).type(secrets.child_email)
+    cy.get(elements.step33_phone_checkbox).click().wait(Cypress.env('waitTime'))
+    cy.get(elements.step33_phone_textbox).type(secrets.child_phone_no)
+    cy.get(elements.step33_phone_cf_textbox).type(secrets.child_phone_no).wait(Cypress.env('waitTime'))
     click_continue()
 }
 export const childs_details_step_34 = () => {
@@ -361,19 +360,19 @@ export const consent_form_step_35 = () => {
 export const consent_form_step_36 = () => {
     cy.get(elements.page_heading_xl).contains('Upload the UK sponsorship arrangement consent form').should('be.visible')
     cy.get(elements.insettext).contains("TINY BOB").should('be.visible')
-    cy.get(elements.continue_button).click()
+    cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     summary_box_title()
     cy.get(elements.err_sbox_msg).contains(bt_err.cfile_err_msg).should('be.visible')
     cy.get(elements.step36_uk_form_err_msg).contains(bt_err.cfile_err_msg).should('be.visible')
     cy.get(elements.step36_cfile_err_btn).attachFile("jpegs/saconsent.png").wait(Cypress.env('waitTime'))
-    cy.get(elements.continue_button).click()
+    cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     cy.get(elements.consentform_completed_tag).should('be.visible').wait(Cypress.env('waitTime'))
 }
 export const ukrconsent_form_step_37 = () => {
     cy.get(elements.ukrconsentform_link).click().wait(Cypress.env('waitTime'))
     cy.get(elements.insettext).contains("TINY BOB").should('be.visible')
     cy.get(elements.page_heading_xl).contains('Upload the Ukraine certified consent form').should('be.visible')
-    cy.get(elements.continue_button).click()
+    cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     summary_box_title()
     cy.get(elements.err_sbox_msg).contains(bt_err.cfile_err_msg).should('be.visible')
     cy.get(elements.step37_ukr_form_err_msg).contains(bt_err.cfile_err_msg).should('be.visible')
@@ -399,7 +398,7 @@ export const confirmation_page_step_39 = () => {
     click_continue()
     summary_box_title()
     cy.get(elements.err_sbox_msg).contains(bt_err.chk_the_box_err_msg).should('be.visible')
-    cy.get(elements.step39_ctb_err_msg).contains(bt_err.chk_the_box_err_msg).should('be.visible')
+    cy.get(elements.step39_ctb_err_msg).contains(bt_err.chk_the_box_err_msg).should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.step39_ctb_err_checkbox).click().wait(Cypress.env('waitTime'))
     click_continue()
 }

@@ -1,4 +1,5 @@
 const element = require('../../pages/UAM/uam_e2e_hp')
+const eligibility = require('../../pages/UAM/eligibility')
 
 describe('[Frontend-UI]: UAM E2E JOURNEY [HAPPY PATH]', function () {
   this.beforeAll(() => {
@@ -11,7 +12,7 @@ describe('[Frontend-UI]: UAM E2E JOURNEY [HAPPY PATH]', function () {
 
   context('[Frontend-UI] Eligibility Check', function () {
     it('verify eligibility for sponcer a child', function () {
-      element.uam_eligibility_step1_9()
+      eligibility.uam_eligibility_steps()
     })
   })
   context('[Frontend-UI] Tasklist ', function () {
