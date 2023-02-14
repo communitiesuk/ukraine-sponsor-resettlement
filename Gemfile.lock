@@ -406,7 +406,6 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   scss_lint-govuk
-  secure_headers
   selenium-webdriver
   sentry-rails
   sentry-ruby
