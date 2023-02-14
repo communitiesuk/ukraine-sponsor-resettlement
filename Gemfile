@@ -26,7 +26,6 @@ gem "securerandom"
 
 gem "rack-attack"
 gem "redis"
-gem "secure_headers"
 gem "sidekiq", "<7"
 
 # Sentry - Application Monitoring
