@@ -53,5 +53,5 @@ Install npm & cypress dependencies
 ## Run with specific browser
 - npx cypress run --spec cypress/e2e/integration/EOI/eoi_e2e_hp.cy.js --browser chrome
 
-## UAM Automation Regression Testing Document						
+## UAM Automation regression pack					
 `https://docs.google.com/spreadsheets/d/1CS-Tfx93y1AGcTiwwCIICH4T2sLGrEl3q8RllyhLpPE/edit?pli=1#gid=0`
