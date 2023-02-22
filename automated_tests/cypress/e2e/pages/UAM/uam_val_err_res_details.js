@@ -203,7 +203,7 @@ export const residents_details_step_31_v2 = () => {
     click_continue()
     pp_error()
 }
-//National id
+//national id
 export const residents_details_step_31_v3 = () => {
     cy.get(elements.step31_ni_err_radio_btn).click()
     click_continue()
@@ -218,7 +218,7 @@ export const residents_details_step_31_v3 = () => {
     click_continue()
     ni_error()
 }
-//National id
+//refugee travel doc 
 export const residents_details_step_31_v4 = () => {
     cy.get(elements.step31_refu_err_radio_btn).click()
     click_continue()

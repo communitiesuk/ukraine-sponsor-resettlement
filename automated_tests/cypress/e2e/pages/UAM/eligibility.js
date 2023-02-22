@@ -3,20 +3,7 @@ const elements = require('../../page_elements/UAM/uam_elements')
 const bodytext = require('../../../fixtures/uam_bodytext.json')
 const common = require('./common')
 
-const show_hide = () => {
-    cy.visit('/')
-    cy.get('body').then(($body) => {
-        if ($body.find(elements.show).length > 0) { //evaluates as show if button exists at all
-            cy.get(elements.show).click().wait(Cypress.env('waitTime'))
-            cy.get(elements.spchild_link).click().wait(Cypress.env('waitTime'))
-        }
-        else {
-            cy.get(elements.spchild_link).click().wait(Cypress.env('waitTime'))
-        }
-    })
-}
-const uam_eligibility_start = () => {
-   // show_hide()
+export const uam_eligibility_start = () => {
     cy.visit('/sponsor-a-child/start')
     common.uam_start_header()
     cy.get(elements.startnow_button).click().wait(Cypress.env('waitTime'))

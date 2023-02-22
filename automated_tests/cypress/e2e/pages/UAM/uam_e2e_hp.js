@@ -81,8 +81,8 @@ export const your_details_additional_details_step_16 = () => {
     cy.get(elements.contact_details_completed).contains('Completed').should('be.visible')
     cy.get(elements.additional_details).click().wait(Cypress.env('waitTime'))
     additional_details_labels()
-    cy.get(elements.passport_nm_radio_button).click()
-    cy.get(elements.passport_nm_textbox).type(secrets.passport_no)
+    cy.get(elements.step16_pp_radio_btn).click()
+    cy.get(elements.step16_pp_textbox).type(secrets.passport_no)
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
 export const your_details_additional_details_step_18 = () => {
