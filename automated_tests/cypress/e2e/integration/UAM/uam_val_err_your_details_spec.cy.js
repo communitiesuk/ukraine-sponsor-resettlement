@@ -105,6 +105,17 @@ describe('[Frontend-UI]: UAM VALIDATION ERRORS [YOUR DETAILS]', function () {
       element.your_details_mobile_step_15_v7()
     })
   })
+
+  // context('[Your Details] Additional Details : ID', function () {
+  //   it('sponsor ID [none selected]', function () {
+  //     element.your_details_ad_details_id_step_16_v1()
+  //   })
+  //   it('sponsor ID [validation errors]', function () {
+  //     element.your_details_ad_details_id_step_16_v2()
+  //   })
+    
+  // })
+  
   context('[Your Details] Additional Details : DOB', function () {
     it('sponsor dob: validation errors [All feilds empty]', function () {
       element.your_details_ad_details_dob_step_18_v1()

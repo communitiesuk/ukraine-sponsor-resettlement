@@ -1,7 +1,7 @@
 var page_elements = {
     //common
-    show: "button[aria-label='2. Apply for approval from your local council , Show this section'] span[class='govuk-accordion__section-toggle']",
-    hide: "button[aria-label='2. Apply for approval from your local council , Hide this section'] span[class='govuk-accordion__section-toggle-text']",
+    show_true: '.govuk-accordion__show-all[aria-expanded="true"]',
+    show_false: '.govuk-accordion__show-all[aria-expanded="false"]',
     spchild_link: "body > div:nth-child(6) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(3) > div:nth-child(2) > a:nth-child(5)",
     main_heading: ".gem-c-title__text.govuk-heading-l",
     page_heading: ".govuk-heading-l",
@@ -15,8 +15,30 @@ var page_elements = {
     summary_text: ".govuk-details__summary-text",
     err_summary_title: '.govuk-error-summary__title',
     err_sbox_msg: "a[data-turbo='false']",
+    details_text: '.govuk-details__text',
+    save_return: "//a[normalize-space()='Save and return later']",
+    go_back_pre_page:"//a[normalize-space()='Go back to the previous page']",
+    email_sent_cf: "//main[@id='main-content']//p[1]",
+    add_btn: ".govuk-button.govuk-button--secondary",
+    //main page
+    mainp_gui_link: "//a[normalize-space()='guidance for sponsoring a child fleeing Ukraine']",
+    spon_consent_link: "//a[normalize-space()='UK sponsorship arrangement consent form']",
+    how_to_comp_consent_link: "//a[normalize-space()='Find out how to complete the consent forms.']",
+    apply_visa: "//a[contains(text(),'Read the guidance for children applying for a visa')]",
+    page_heading_cont: ".govuk-caption-xl.gem-c-title__context",
+    gov_lic_link:"//a[normalize-space()='Open Government Licence v3.0']",
+    open_lic_logo: "#open-licence-logo",
+    crown_cr: ".govuk-footer__link.govuk-footer__copyright-logo",
+    crown_cr_header: "div[class='entry-header'] h1",
+    //other
+    cont_link: "//a[normalize-space()='Continue a saved application']",
+    start_new_app: "//a[normalize-space()='Start a new application']",
+    spon_fam_link: "//a[normalize-space()='Sponsor a family member from Ukraine']",
+    spon_alknow_link: "//a[normalize-space()='Sponsor someone you already know from Ukraine']",
+    register_link: "//a[normalize-space()='Register your interest with Homes for Ukraine']",
     //step1
     step1_radio_btn_yes: '#unaccompanied-minor-is-under-18-yes-field',
+    step1_radio_btn_no: '#unaccompanied-minor-is-under-18-no-field',
     step1_err_radion_btn_no: '#unaccompanied-minor-is-under-18-no-field',
     step1_err_radio_btn_yes: '#unaccompanied-minor-is-under-18-field-error',
     step1_err_msg: '#unaccompanied-minor-is-under-18-error',
@@ -29,29 +51,30 @@ var page_elements = {
     step2_err_radio_btn_no: '#unaccompanied-minor-is-living-december-no-field',
     //step3
     step3_radio_btn_yes: '#unaccompanied-minor-is-born-after-december-yes-field',
+    step3_radio_btn_no: '#unaccompanied-minor-is-born-after-december-no-field',
     step3_err_msg: '#unaccompanied-minor-is-born-after-december-error',
     step3_err_radio_btn_yes: '#unaccompanied-minor-is-born-after-december-field-error',
-    step3_err_radion_btn_no: '#unaccompanied-minor-is-born-after-december-no-field',
     //step4
     step4_radio_btn_no: '#unaccompanied-minor-is-unaccompanied-no-field',
+    step4_radio_btn_yes: '#unaccompanied-minor-is-unaccompanied-yes-field',
     step4_err_radio_btn_yes: '#unaccompanied-minor-is-unaccompanied-field-error',
     step4_bodytext: '#unaccompanied-minor-is-unaccompanied-hint',
     step4_err_msg: '#unaccompanied-minor-is-unaccompanied-error',
-    step4_err_radio_btn_no: '#unaccompanied-minor-is-unaccompanied-no-field',
     //step5
-    step5_err_radio_btn_no: '#unaccompanied-minor-is-consent-no-field',
+    step5_radio_btn_no: '#unaccompanied-minor-is-consent-no-field',
     step5_consent_radio_btn_yes: '#unaccompanied-minor-is-consent-yes-field',
     step5_bodytext: '#unaccompanied-minor-is-consent-hint',
     step5_guidance_link: '//a[contains(text(),"Read guidance about which consent forms are requir")]',
     step5_err_msg: '#unaccompanied-minor-is-consent-error',
     step5_err_radio_btn_yes: '#unaccompanied-minor-is-consent-field-error',
+    step5_guidance_link: "//a[contains(text(),'Read guidance about which consent forms are requir')]",
     //step6
-    step6_err_radio_btn_no: '#unaccompanied-minor-is-committed-no-field',
+    step6_radio_btn_no: '#unaccompanied-minor-is-committed-no-field',
     step6_minimum_period_radio_btn_yes: '#unaccompanied-minor-is-committed-yes-field',
     step6_err_msg: '#unaccompanied-minor-is-committed-error',
     step6_err_radio_btn_yes: '#unaccompanied-minor-is-committed-field-error',
     //step7
-    step7_err_radio_btn_no: '#unaccompanied-minor-is-permitted-no-field',
+    step7_radio_btn_no: '#unaccompanied-minor-is-permitted-no-field',
     step7_minimum_period_radio_btn_yes: '#unaccompanied-minor-is-permitted-yes-field',
     step7_err_msg: '#unaccompanied-minor-is-permitted-error',
     step7_err_radio_btn_yes: '#unaccompanied-minor-is-permitted-field-error',
@@ -98,6 +121,8 @@ var page_elements = {
     //step13
     other_added_names_label: 'tr>td:nth-child(1)',
     name_completed: '//strong[normalize-space()="Completed"]',
+    step_13_otr_name: 'body > div:nth-child(6) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > table:nth-child(2) > tbody:nth-child(3) > tr:nth-child(1) > td:nth-child(1)',
+    remove_link: "(//a[normalize-space()='Remove'])[2]",
     //step14
     contact_details_link: 'a[href="/sponsor-a-child/steps/14"]',
     email_ad_body: '.govuk-body',
@@ -128,9 +153,12 @@ var page_elements = {
     dont_have_any_label: 'label[for="unaccompanied-minor-identification-type-none-field"]',
     step16_id_err_msg: "#unaccompanied-minor-identification-type-error",
     step16_idh_btn: "#unaccompanied-minor-identification-type-none-field",
+    step16_pp_radio_btn: "#unaccompanied-minor-identification-type-passport-field",
+    step16_pp_label: "label[for='unaccompanied-minor-passport-identification-number-field-error']",
+    step16_pp_err_msg: "#unaccompanied-minor-passport-identification-number-error",
+    step16_pp_err_textbox: "#unaccompanied-minor-passport-identification-number-field-error",
+    step16_pp_textbox: '#unaccompanied-minor-passport-identification-number-field',
     //step17
-    passport_nm_radio_button: '#unaccompanied-minor-identification-type-passport-field',
-    passport_nm_textbox: '#unaccompanied-minor-passport-identification-number-field',
     step17_id_reason_err_msg: "#unaccompanied-minor-no-identification-reason-error",
     step17_id_reason_err_textbox: '#unaccompanied-minor-no-identification-reason-field-error',
     //step18
@@ -159,6 +187,7 @@ var page_elements = {
     step21_oth_nationality_dropdown_err: "#unaccompanied-minor-other-nationality-field-error",
     //step22
     listed_other_nationalities: "td:nth-child(1)",
+    step_22_otr_nationality_l2: "body > div:nth-child(6) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > table:nth-child(2) > tbody:nth-child(3) > tr:nth-child(1) > td:nth-child(1)",
     //verify task completed
     completed_1_of_4_label: "//p[normalize-space()='You have completed 1 of 4 sections.']",
     completed_name: "//body[1]/div[2]/main[1]/div[1]/div[1]/ol[1]/li[1]/ul[1]/li[2]/strong[1]",
@@ -318,11 +347,13 @@ var page_elements = {
     step34_year_err_textbox: "#unaccompanied_minor_minor_date_of_birth_1i",
     //step35
     consentform_link: "a[href='/sponsor-a-child/steps/35']",
+    step35_pcf_link: "//a[normalize-space()='Read guidance about parental consent forms.']",
     //step36
     consentform_choosefile_button: '#unaccompanied-minor-uk-parental-consent-field',
     consentform_completed_tag: "strong[class='govuk-tag app-task-list__tag ']",
     step36_uk_form_err_msg: "#unaccompanied-minor-uk-parental-consent-error",
     step36_cfile_err_btn: "#unaccompanied-minor-uk-parental-consent-field-error",
+    step36_gui_link: "//a[contains(text(),'read the guidance on completing parental consent f')]",
     //step37
     ukrconsentform_link: "a[href='/sponsor-a-child/steps/37']",
     ukrconsentform_choosefile_button: "#unaccompanied-minor-ukraine-parental-consent-field",
@@ -341,9 +372,11 @@ var page_elements = {
     confirm_eligibility_checkbox: '#unaccompanied-minor-sponsor-declaration-true-field',
     step38_privacy_err_msg: "#unaccompanied-minor-privacy-statement-confirm-error",
     step38_privacy_err_checkbox: "#unaccompanied-minor-privacy-statement-confirm-field-error",
+    step38_privacy_link: "#privacy-statement-link",
     //step39
     step39_ctb_err_msg: "#unaccompanied-minor-sponsor-declaration-error",
     step39_ctb_err_checkbox: "#unaccompanied-minor-sponsor-declaration-field-error",
+    step39_gui_link: "//a[normalize-space()='guidance for sponsoring a child fleeing Ukraine']",
     //send application
     check_your_answers_link: "a[href='/sponsor-a-child/check-answers']",
     answers_fullname: "//dd[normalize-space()='QA AUTOMATION TEST']",
@@ -366,6 +399,24 @@ var page_elements = {
     answers_agree2: ":nth-child(9) > :nth-child(2) > .govuk-summary-list__value",
     accept_send: "button[type='submit']",
     app_complete_title: ".govuk-panel__title",
-    ref_number: "div[class='govuk-panel__body'] strong"
+    ref_number: "div[class='govuk-panel__body'] strong",
+    gui_link: "//a[contains(text(),'Read the guidance on sponsoring a child from Ukrai')]",
+    comp_ano_app: "//a[normalize-space()='complete another application']",
+    //links
+    fn_cng_link: "(//a[@class='govuk-link'])[3]",
+    email_cng_link: "(//a[@class='govuk-link'])[4]",
+    mob_cng_link: "(//a[@class='govuk-link'])[5]",
+    id_cng_link: "(//a[@class='govuk-link'])[6]",
+    dob_cng_link: "(//a[@class='govuk-link'])[7]",
+    nat_cng_link: "(//a[@class='govuk-link'])[8]",
+    oth_nat_cng_link: "(//a[@class='govuk-link'])[9]",
+    child_live_cng_link: "(//a[@class='govuk-link'])[10]",
+    child_fn_cng_link: "(//a[@class='govuk-link'])[11]",
+    child_email_cng_link: "(//a[@class='govuk-link'])[12]",
+    child_dob_cng_link: "(//a[@class='govuk-link'])[13]",
+    uk_const_cng_link: "(//a[@class='govuk-link'])[14]",
+    ukr_const_cng_link: "(//a[@class='govuk-link'])[15]",
+    const_data_share_cng_link: "(//a[@class='govuk-link'])[16]",
+    commit_cond_cng_link: "(//a[@class='govuk-link'])[17]",
 };
 module.exports = page_elements;

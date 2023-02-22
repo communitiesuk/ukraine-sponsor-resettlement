@@ -54,7 +54,7 @@ export const uam_eligibility_step_4 = () => {
     click_continue()
     summery_box_error()
     cy.get(elements.step4_err_msg).should('be.visible')
-    cy.get(elements.step4_err_radio_btn_no).click().wait(Cypress.env('waitTime'))
+    cy.get(elements.step4_radio_btn_no).click().wait(Cypress.env('waitTime'))
     click_continue()
 }
 export const uam_eligibility_step_5 = () => {
