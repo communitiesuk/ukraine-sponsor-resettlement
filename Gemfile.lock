@@ -304,7 +304,6 @@ GEM
       sass (~> 3.5, >= 3.5.5)
     scss_lint-govuk (0.2.0)
       scss_lint
-    secure_headers (6.5.0)
     securerandom (0.2.2)
     selenium-webdriver (4.8.0)
       rexml (~> 3.2, >= 3.2.5)
@@ -387,7 +386,6 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   scss_lint-govuk
-  secure_headers
   securerandom
   selenium-webdriver
   sentry-rails
@@ -400,7 +398,7 @@ DEPENDENCIES
   webpacker (~> 5.0)
 
 RUBY VERSION
-   ruby 3.1.2p20
+   ruby 3.1.3p185
 
 BUNDLED WITH
    2.3.22
