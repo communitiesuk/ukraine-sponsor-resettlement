@@ -1,10 +1,10 @@
-const element = require('../../pages/UAM/uam_val_err_your_details')
+const element = require('../../pages/UAM/uam_your_details')
 
-describe('[Frontend-UI]: UAM VALIDATION ERRORS [YOUR DETAILS]', function () {
+describe('[Frontend-UI]: UAM YOUR DETAILS [SPONSOR]', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
-    cy.fixture('uam_appdata').then(function(uam_secrets){this.data = uam_secrets})
-    cy.fixture('uam_bodytext_err').then(function(uam_bt_err){this.data = uam_bt_err})
+    cy.fixture('uam_appdata').then(function (uam_secrets) { this.data = uam_secrets })
+    cy.fixture('uam_bodytext_err').then(function (uam_bt_err) { this.data = uam_bt_err })
   });
   Cypress.Cookies.defaults({ preserve: '_ukraine_sponsor_resettlement_session' })
 
@@ -105,17 +105,23 @@ describe('[Frontend-UI]: UAM VALIDATION ERRORS [YOUR DETAILS]', function () {
       element.your_details_mobile_step_15_v7()
     })
   })
-
-  // context('[Your Details] Additional Details : ID', function () {
-  //   it('sponsor ID [none selected]', function () {
-  //     element.your_details_ad_details_id_step_16_v1()
-  //   })
-  //   it('sponsor ID [validation errors]', function () {
-  //     element.your_details_ad_details_id_step_16_v2()
-  //   })
-    
-  // })
-  
+  context('[Your Details] Additional Details : ID', function () {
+    it('sponsor ID [none selected]', function () {
+      element.your_details_ad_details_id_step_16_v1()
+    })
+    it('sponsor ID [validation errors: passport]', function () {
+      element.your_details_ad_details_id_step_16_v2()
+    })
+    it('sponsor ID [validation errors: national ID]', function () {
+      element.your_details_ad_details_id_step_16_v3()
+    })
+    it('sponsor ID [validation errors: Refugee travel document]', function () {
+      element.your_details_ad_details_id_step_16_v4()
+    })
+    it('sponsor ID [validation errors: I dont have any of these]', function () {
+      element.your_details_ad_details_id_step_16_v5()
+    })
+  })
   context('[Your Details] Additional Details : DOB', function () {
     it('sponsor dob: validation errors [All feilds empty]', function () {
       element.your_details_ad_details_dob_step_18_v1()
@@ -140,4 +146,3 @@ describe('[Frontend-UI]: UAM VALIDATION ERRORS [YOUR DETAILS]', function () {
     })
   })
 })
-

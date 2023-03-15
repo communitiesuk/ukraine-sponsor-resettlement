@@ -1,7 +1,5 @@
 require('cypress-xpath')
 const elements = require('../../page_elements/EOI/eoi_elements')
-const error = require('../../../fixtures/bodytext_error.json')
-const secrets = require('../../../fixtures/bodytext_secrets.json')
 const bodytext = require('../../../fixtures/bodytext.json')
 
 export const scot_address_glas_1 = () => {

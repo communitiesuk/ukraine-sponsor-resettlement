@@ -10,17 +10,17 @@ describe('[Frontend-UI]: UAM E2E JOURNEY [HAPPY PATH]', function () {
   });
   Cypress.Cookies.defaults({ preserve: '_ukraine_sponsor_resettlement_session' })
 
-  context('[Frontend-UI] Eligibility Check', function () {
+  context('Eligibility Check', function () {
     it('verify eligibility for sponcer a child', function () {
       eligibility.uam_eligibility_steps()
     })
   })
-  context('[Frontend-UI] Tasklist ', function () {
+  context('Tasklist ', function () {
     it('verify tasklist page details', function () {
       element.uam_tasklist_page()
     })
   })
-  context('[Frontend-UI] Your details ', function () {
+  context('Your details ', function () {
     it('verify your name', function () {
       element.your_details_name_step_10()
     })
@@ -57,7 +57,7 @@ describe('[Frontend-UI]: UAM E2E JOURNEY [HAPPY PATH]', function () {
       element.verify_completed_tasks_1_of_4()
     })
   })
-  context('[Frontend-UI] Verify Child’s accommodation ', function () {
+  context('Verify Child’s accommodation ', function () {
     it('verify childs address', function () {
       element.childs_accommodation_step_23()
     })
@@ -77,7 +77,7 @@ describe('[Frontend-UI]: UAM E2E JOURNEY [HAPPY PATH]', function () {
       element.verify_completed_tasks_2_of_5()
     })
   })
-  context('[Frontend-UI] Residents details(over 16) ', function () {
+  context('Residents details(over 16) ', function () {
     it('verify person over 16 DOB', function () {
       element.residents_details_step29()
     })
@@ -91,7 +91,7 @@ describe('[Frontend-UI]: UAM E2E JOURNEY [HAPPY PATH]', function () {
       element.verify_completed_tasks_3_of_5()
     })
   })
-  context('[Frontend-UI] Childs details ', function () {
+  context('Childs details ', function () {
     it('verify childs name', function () {
       element.childs_details_step_32()
     })
@@ -114,7 +114,7 @@ describe('[Frontend-UI]: UAM E2E JOURNEY [HAPPY PATH]', function () {
       element.verify_completed_tasks_4_of_5()
     })
   })
-  context('[Frontend-UI] Send application ', function () {
+  context('Send application ', function () {
     it('verify use data [confirmation]', function () {
       element.confirmation_page_step_38()
     })

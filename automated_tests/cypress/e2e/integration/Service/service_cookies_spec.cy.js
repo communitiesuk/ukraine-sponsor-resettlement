@@ -1,4 +1,4 @@
-const alfa = require('../../pages/Service/cookies_validation')
+const alfa = require('../../pages/Service/cookies')
 
 describe('[Frontend-UI]: COOKIES PAGE', function () {
   this.beforeAll(() => {

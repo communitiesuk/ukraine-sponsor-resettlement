@@ -1,6 +1,6 @@
-const alfa = require('../../pages/EOI/address_validation')
+const alfa = require('../../pages/EOI/eoi_address')
 
-describe('[Frontend-UI]: EOI FORM ADDRESS VALIDATION', function () {
+describe('[Frontend-UI]: EOI ADDRESS VALIDATION', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });
@@ -26,7 +26,6 @@ describe('[Frontend-UI]: EOI FORM ADDRESS VALIDATION', function () {
       alfa.residential_address_av()
     })
   })
-
   context('Offering Property Address', function () {
     it('address of the property offering error validation [null values]', function () {
       alfa.offering_property_address_nv()
@@ -47,14 +46,7 @@ describe('[Frontend-UI]: EOI FORM ADDRESS VALIDATION', function () {
       alfa.offering_property_address_av()
     })
   })
-
   this.afterAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });
 })
-
-
-
-
-
-

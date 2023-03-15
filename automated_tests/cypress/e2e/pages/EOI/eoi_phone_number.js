@@ -2,7 +2,6 @@ const elements = require('../../page_elements/EOI/eoi_elements')
 const error = require('../../../fixtures/bodytext_error.json')
 const secrets = require('../../../fixtures/bodytext_secrets.json')
 
-
 const coockie_accept = () => {
     cy.get(elements.cookies_accept).click().wait(Cypress.env('waitTime'))
     cy.get(elements.hide_cookie_msg).click().wait(Cypress.env('waitTime'))
@@ -116,7 +115,6 @@ export const phone_plus = () => {
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     residential_address_page()
 }
-
 //error page invalid
 export const phone_err_special_charactors = () => {
     phone_letters()

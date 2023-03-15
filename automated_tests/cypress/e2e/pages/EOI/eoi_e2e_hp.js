@@ -1,7 +1,7 @@
 const elements = require('../../page_elements/EOI/eoi_elements')
 const bodytext = require('../../../fixtures/bodytext.json')
 const secrets = require('../../../fixtures/bodytext_secrets.json')
-const alfa = require('../../pages/EOI/links_validation')
+const alfa = require('../../pages/EOI/eoi_links')
 
 export const eoi_eligibility_check = () => {
     cy.visit('/')
@@ -114,7 +114,6 @@ export const check_your_answers = () => {
     cy.get(elements.cya_research).should("contain.text", 'Yes')
     cy.get(elements.cya_pstatement).should("contain.text", 'Agreed').wait(Cypress.env('waitTime'))
 }
-
 const send_your_registration_details = () => {
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     cy.get(elements.registration_complete_heading).contains('Thank you for registering').should('be.visible').wait(Cypress.env('waitTime'))

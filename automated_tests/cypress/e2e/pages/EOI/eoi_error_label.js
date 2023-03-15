@@ -4,7 +4,6 @@ const error = require('../../../fixtures/bodytext_error.json')
 const bodytext = require('../../../fixtures/bodytext.json')
 const secrets = require('../../../fixtures/bodytext_secrets.json')
 
-
 export const eoi_eligibility_check_ev_start = () => {
     cy.visit('/').wait(Cypress.env('waitTime'))
     cy.get(elements.cookies_accept).click().wait(Cypress.env('waitTime'))
@@ -67,7 +66,6 @@ export const your_details_page_ev_s1_3 = () => {
     cy.get(elements.phonenumber_error_textbox).clear().type(secrets.phoneno)
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
-
 export const residential_address_validation_ev_s4 = () => {
     cy.get(elements.page_heading).contains('Enter your full residential address').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.addressl1_textbox).clear()
@@ -113,7 +111,6 @@ export const residential_address_validation_ev_s4 = () => {
     cy.xpath(elements.townorcity_error_sbox_msg).should('not.exist')
     cy.xpath(elements.postcode_error_sbox_msg).should('not.exist').wait(Cypress.env('waitTime'))
 }
-
 export const hosting_details_ev_s5 = () => {
     cy.get(elements.difaddress_heading).contains('Is the property you’re offering at a different address to your home?').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
@@ -123,7 +120,6 @@ export const hosting_details_ev_s5 = () => {
     cy.get(elements.difadd_yes_error_radiobtn).click().wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
-
 export const offering_property_address_validation_ev_s6 = () => {
     cy.get(elements.page_heading).contains("Enter the address of the property you're offering").should('be.visible').wait(250)
     cy.get(elements.offering_addressl1_textbox).clear()
@@ -170,7 +166,6 @@ export const offering_property_address_validation_ev_s6 = () => {
     cy.xpath(elements.offering_townorcity_error_sbox_msg).should('not.exist')
     cy.xpath(elements.offering_postcode_error_sbox_msg).should('not.exist').wait(Cypress.env('waitTime'))
 }
-
 export const more_properties_ev_s7_8 = () => {
     cy.get(elements.page_heading).contains('Are you offering any more properties?').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
@@ -182,7 +177,6 @@ export const more_properties_ev_s7_8 = () => {
     cy.get(elements.anymore_properties_label).contains(bodytext.more_properties_to_offer).should('be.visible')
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
-
 export const how_soon_ev_s9 = () => {
     cy.get(elements.start_hosting_heading).contains('How soon can you start hosting someone?').should('be.visible')
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
@@ -211,7 +205,6 @@ export const no_of_ppl_ev_s10 = () => {
     cy.get(elements.children_error).should('not.exist')
     cy.get(elements.adults_error).should('not.exist').wait(Cypress.env('waitTime'))
 }
-
 export const accommodation_details_ev_s11 = () => {
     cy.get(elements.page_heading).contains('Who would you like to offer accommodation to? ').should('be.visible')
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
@@ -221,7 +214,6 @@ export const accommodation_details_ev_s11 = () => {
     cy.get(elements.nopref_radiobtn).click().wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
-
 export const no_of_bedrooms_ev_s12 = () => {
     cy.get(elements.page_heading).contains('How many bedrooms are available for guests in the property you’re registering now?').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.hinttext).contains(bodytext.bedrooms_hint).should('be.visible').wait(Cypress.env('waitTime'))
@@ -238,7 +230,6 @@ export const no_of_bedrooms_ev_s12 = () => {
     cy.get(elements.sbedroom_error_sbox_msg).should('not.exist')
     cy.get(elements.dbbedroom_error_sbox_msg).should('not.exist').wait(Cypress.env('waitTime'))
 }
-
 export const stepfree_access_details_ev_s13 = () => {
     cy.get(elements.page_heading).contains('Does the property, or any of the properties, have step-free access?').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
@@ -249,7 +240,6 @@ export const stepfree_access_details_ev_s13 = () => {
     cy.get(elements.stepfree_idk_radiobtn_error).click()
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
-
 export const pets_details_ev_s14 = () => {
     cy.get(elements.pets_heading).contains('Would you consider allowing guests to bring their pets?').should('be.visible')
     cy.get(elements.continue_button).click()
@@ -259,7 +249,6 @@ export const pets_details_ev_s14 = () => {
     cy.get(elements.pets_no_radiobtn_error).click()
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
-
 export const take_part_in_research_ev_s15 = () => {
     cy.get(elements.research_heading).contains('Would you like to take part in research to help us improve the Homes for Ukraine service?').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
@@ -269,7 +258,6 @@ export const take_part_in_research_ev_s15 = () => {
     cy.get(elements.research_no_radiobtn_error).click()
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
-
 export const consent_ev_s16 = () => {
     cy.get(elements.consent_heading).contains('Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
@@ -279,8 +267,6 @@ export const consent_ev_s16 = () => {
     cy.get(elements.consent_checkbox_error).click()
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
-
-
 export const check_your_answers = () => {
     cy.get(elements.page_heading).contains('Check your answers before sending your registration').should('be.visible')
     cy.get(elements.cya_name).contains(secrets.user_name).should('be.visible')
@@ -301,12 +287,3 @@ export const check_your_answers = () => {
     cy.get(elements.cya_research).should("contain.text", 'No')
     cy.get(elements.cya_pstatement).should("contain.text", 'Agreed').wait(Cypress.env('waitTime'))
 }
-
-
-
-
-
-
-
-
-

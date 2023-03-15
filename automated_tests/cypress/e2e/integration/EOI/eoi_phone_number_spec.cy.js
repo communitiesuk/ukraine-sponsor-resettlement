@@ -1,6 +1,6 @@
-const element = require('../../pages/EOI/phone_number_validation')
+const element = require('../../pages/EOI/eoi_phone_number')
 
-describe('[Frontend-UI]: EOI FORM CONTACT TELEPHONE NUMBER VALIDATION', function () {
+describe('[Frontend-UI]: EOI CONTACT TELEPHONE NUMBER VALIDATION', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });
@@ -52,8 +52,6 @@ describe('[Frontend-UI]: EOI FORM CONTACT TELEPHONE NUMBER VALIDATION', function
       element.phone_plus()
     })
   })
-
-
   context('Contact Telephone Number Validation[Telephone Number Error Page : Invalid]', function () {
     it("phone number invalid [letters and special characters]", function () {
       element.phone_err_special_charactors()
@@ -76,16 +74,7 @@ describe('[Frontend-UI]: EOI FORM CONTACT TELEPHONE NUMBER VALIDATION', function
       element.phone_err_plus()
     })
   })
-
   this.afterAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });
-
-
 })
-
-
-
-
-
-

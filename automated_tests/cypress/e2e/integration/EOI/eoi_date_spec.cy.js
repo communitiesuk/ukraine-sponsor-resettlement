@@ -1,6 +1,6 @@
-const element = require('../../pages/EOI/date_validation')
+const element = require('../../pages/EOI/eoi_date')
 
-describe('[Frontend-UI]: EOI FORM DATE VALIDATION', function () {
+describe('[Frontend-UI]: EOI DATE VALIDATION', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });
@@ -34,20 +34,11 @@ describe('[Frontend-UI]: EOI FORM DATE VALIDATION', function () {
     it("date error validations [all valid, 31-12-2030]", function () {
       element.date_av()
     })
-
     it("date error validations [confirmation]", function () {
       element.no_of_people_living_page()
     })
-
     this.afterAll(() => {
       cy.clearCookie('_ukraine_sponsor_resettlement_session')
     });
-
   })
 })
-
-
-
-
-
-

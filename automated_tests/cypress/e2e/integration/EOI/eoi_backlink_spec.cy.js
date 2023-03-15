@@ -1,6 +1,6 @@
-const element = require('../../pages/EOI/back_link_validation')
+const element = require('../../pages/EOI/eoi_backlink')
 
-describe('[Frontend-UI]: EOI FORM BACK LINK VALIDATION', function () {
+describe('[Frontend-UI]: EOI BACKLINK VALIDATION', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });
@@ -20,7 +20,6 @@ describe('[Frontend-UI]: EOI FORM BACK LINK VALIDATION', function () {
       element.eoi_eligibility_check_p4_5()
     })
   })
-
   context('Registration', function () {
     it('verify details full name page [back link : step 1]', function () {
       element.your_details_name_s1()
@@ -31,7 +30,6 @@ describe('[Frontend-UI]: EOI FORM BACK LINK VALIDATION', function () {
     it('verify details phone no page [back link : step 3]', function () {
       element.your_details_phone_s3()
     })
-
     it('verify residential address page [back link : step 4]', function () {
       element.your_details_resaddress_s4()
     })
@@ -76,9 +74,3 @@ describe('[Frontend-UI]: EOI FORM BACK LINK VALIDATION', function () {
     })
   })
 })
-
-
-
-
-
-

@@ -1,6 +1,6 @@
-const alfa = require('../../pages/EOI/adults_&_children_validation')
+const alfa = require('../../pages/EOI/eoi_adults_&_children')
 
-describe('[Frontend-UI]: EOI FORM ADULTS AND CHILDREN VALIDATION', function () {
+describe('[Frontend-UI]: EOI ADULTS AND CHILDREN VALIDATION', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });
@@ -34,16 +34,8 @@ describe('[Frontend-UI]: EOI FORM ADULTS AND CHILDREN VALIDATION', function () {
     it('adults and children [both fields valid A:6/C:4]', function () {
       alfa.adults_and_children_v8()
     })
-
   })
-
   this.afterAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });
 })
-
-
-
-
-
-
