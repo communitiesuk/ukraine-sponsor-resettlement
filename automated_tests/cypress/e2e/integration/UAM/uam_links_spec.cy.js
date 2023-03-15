@@ -1,6 +1,6 @@
 const element = require('../../pages/UAM/uam_links')
 
-describe('[Frontend-UI]: UAM LINKS [Validation]', function () {
+describe('[Frontend-UI]: UAM LINKS', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
     cy.fixture('uam_appdata').then(function (uam_secrets) {
@@ -132,6 +132,3 @@ describe('[Frontend-UI]: UAM LINKS [Validation]', function () {
 
   })
 })
-
-
-

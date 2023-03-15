@@ -17,7 +17,6 @@ export const residential_address_nv = () => {
     cy.get(elements.townorcity_error_label).contains(error.townorcity_err_msg).should('be.visible')
     cy.get(elements.postcode_error_label).contains(error.postcode_err_msg).should('be.visible')
 }
-
 export const residential_address_sc = () => {
     cy.get(elements.addressl1_error_textbox).clear().type('A')
     cy.get(elements.townorcity_error_textbox).clear().type('B')
@@ -27,7 +26,6 @@ export const residential_address_sc = () => {
     cy.get(elements.townorcity_error_label).contains(error.townorcity_err_msg).should('be.visible')
     cy.get(elements.postcode_error_label).contains(error.postcode_err_msg).should('be.visible')
 }
-
 export const residential_address_tc = () => {
     cy.get(elements.addressl1_error_textbox).clear().type('@1')
     cy.get(elements.townorcity_error_textbox).clear().type('2*')
@@ -37,7 +35,6 @@ export const residential_address_tc = () => {
     cy.get(elements.townorcity_error_label).contains(error.townorcity_err_msg).should('be.visible')
     cy.get(elements.postcode_error_label).contains(error.postcode_err_msg).should('be.visible')
 }
-
 export const residential_address_v1 = () => {
     //ONLY ADDl1 VALID
     cy.get(elements.addressl1_error_textbox).clear().type(secrets.building_no)
@@ -47,7 +44,6 @@ export const residential_address_v1 = () => {
     cy.get(elements.addressl1_error_label).should('not.exist')
     cy.get(elements.townorcity_error_label).contains(error.townorcity_err_msg).should('be.visible')
     cy.get(elements.postcode_error_label).contains(error.postcode_err_msg).should('be.visible')
-
     //ONLY CITY VALID
     cy.get(elements.addressl1_textbox).clear()
     cy.get(elements.townorcity_error_textbox).clear().type(secrets.city)
@@ -56,8 +52,7 @@ export const residential_address_v1 = () => {
     cy.get(elements.addressl1_error_label).contains(error.addl1_err_msg).should('be.visible')
     cy.get(elements.townorcity_error_label).should('not.exist')
     cy.get(elements.postcode_error_label).contains(error.postcode_err_msg).should('be.visible')
-
-    //ONLY POST-CODE VALID
+    //ONLY POSTCODE VALID
     cy.get(elements.addressl1_error_textbox).clear()
     cy.get(elements.townorcity_textbox).clear()
     cy.get(elements.postcode_error_textbox).clear().type('NW10 3WE')
@@ -66,7 +61,6 @@ export const residential_address_v1 = () => {
     cy.get(elements.townorcity_error_label).contains(error.townorcity_err_msg).should('be.visible')
     cy.get(elements.postcode_error_label).should('not.exist')
 }
-
 export const residential_address_v2 = () => {
     //POST-CODE INVALID, ADDL1 & CITY VALID
     cy.get(elements.addressl1_error_textbox).clear().type(secrets.building_no)
@@ -76,7 +70,6 @@ export const residential_address_v2 = () => {
     cy.get(elements.addressl1_error_label).should('not.exist')
     cy.get(elements.townorcity_error_label).should('not.exist')
     cy.get(elements.postcode_error_label).contains(error.postcode_err_msg).should('be.visible')
-
     //CITY INVALID, ADDL1 & POST-CODE VALID 
     cy.get(elements.addressl1_textbox).clear().type(secrets.building_no)
     cy.get(elements.townorcity_textbox).clear().type('$$')
@@ -85,7 +78,6 @@ export const residential_address_v2 = () => {
     cy.get(elements.addressl1_error_label).should('not.exist')
     cy.get(elements.townorcity_error_label).contains(error.townorcity_err_msg).should('be.visible')
     cy.get(elements.postcode_error).should('not.exist')
-
     //ADDL1 INVALID, CITY & POST-CODE VALID
     cy.get(elements.addressl1_textbox).clear().type('!!')
     cy.get(elements.townorcity_error_textbox).clear().type(secrets.city)
@@ -95,7 +87,6 @@ export const residential_address_v2 = () => {
     cy.get(elements.townorcity_error_label).should('not.exist')
     cy.get(elements.postcode_error_label).should('not.exist')
 }
-
 export const residential_address_av = () => {
     //ALL VALID
     cy.get(elements.addressl1_error_textbox).clear().type(secrets.building_no)
@@ -108,7 +99,6 @@ export const residential_address_av = () => {
     cy.get(elements.postcode_error_label).should('not.exist')
     cy.get(elements.difaddress_heading).contains('Is the property you’re offering at a different address to your home?').should('be.visible').wait(Cypress.env('waitTime'))
 }
-
 export const offering_property_address_nv = () => {
     cy.visit('/expression-of-interest/steps/6').wait(Cypress.env('waitTime'))
     cy.get(elements.page_heading).contains("Enter the address of the property you're offering").should('be.visible')
@@ -121,7 +111,6 @@ export const offering_property_address_nv = () => {
     cy.get(elements.offering_townorcity_error_label).contains(error.townorcity_err_msg).should('be.visible')
     cy.get(elements.offering_postcode_error_label).contains(error.postcode_err_msg).should('be.visible')
 }
-
 export const offering_property_address_sc = () => {
     cy.get(elements.offering_addressl1_error_textbox).clear().type('A')
     cy.get(elements.offering_townorcity_error_textbox).clear().type('B')
@@ -149,7 +138,6 @@ export const offering_property_address_v1 = () => {
     cy.get(elements.offering_addressl1_error_label).should('not.exist')
     cy.get(elements.offering_townorcity_error_label).contains(error.townorcity_err_msg).should('be.visible')
     cy.get(elements.offering_postcode_error_label).contains(error.postcode_err_msg).should('be.visible')
-
     //ONLY CITY VALID
     cy.get(elements.offering_addressl1_textbox).clear()
     cy.get(elements.offering_townorcity_error_textbox).clear().type(secrets.city)
@@ -158,8 +146,7 @@ export const offering_property_address_v1 = () => {
     cy.get(elements.offering_addressl1_error_label).contains(error.addl1_err_msg).should('be.visible')
     cy.get(elements.offering_townorcity_error_label).should('not.exist')
     cy.get(elements.offering_postcode_error_label).contains(error.postcode_err_msg).should('be.visible')
-
-    //ONLY POST-CODE VALID
+    //ONLY POSTCODE VALID
     cy.get(elements.offering_addressl1_error_textbox).clear()
     cy.get(elements.offering_townorcity_textbox).clear()
     cy.get(elements.offering_postcode_error_textbox).clear().type('NW10 3WE')
@@ -168,7 +155,6 @@ export const offering_property_address_v1 = () => {
     cy.get(elements.offering_townorcity_error_label).contains(error.townorcity_err_msg).should('be.visible')
     cy.get(elements.offering_postcode_error_label).should('not.exist')
 }
-
 export const offering_property_address_v2 = () => {
     //POSTCODE INVALID, ADDL1 & CITY VALID
     cy.get(elements.offering_addressl1_error_textbox).clear().type(secrets.building_no)
@@ -178,7 +164,6 @@ export const offering_property_address_v2 = () => {
     cy.get(elements.offering_addressl1_error_label).should('not.exist')
     cy.get(elements.offering_townorcity_error_label).should('not.exist')
     cy.get(elements.offering_postcode_error_label).contains(error.postcode_err_msg).should('be.visible')
-
     //CITY INVALID, ADDL1 & POST-CODE VALID 
     cy.get(elements.offering_addressl1_textbox).clear().type(secrets.building_no)
     cy.get(elements.offering_townorcity_textbox).clear().type('$$')
@@ -187,7 +172,6 @@ export const offering_property_address_v2 = () => {
     cy.get(elements.offering_addressl1_error_label).should('not.exist')
     cy.get(elements.offering_townorcity_error_label).contains(error.townorcity_err_msg).should('be.visible')
     cy.get(elements.offering_postcode_error_label).should('not.exist')
-
     //ADDL1 INVALID, CITY & POST-CODE VALID
     cy.get(elements.offering_addressl1_textbox).clear().type('!!')
     cy.get(elements.offering_townorcity_error_textbox).clear().type(secrets.city)

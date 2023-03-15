@@ -1,4 +1,4 @@
-const element = require('../../pages/EOI/links_validation')
+const element = require('../../pages/EOI/eoi_links')
 
 describe('[Frontend-UI]: EOI PAGE LINKS VALIDATION', function () {
   this.beforeAll(() => {
@@ -14,7 +14,6 @@ describe('[Frontend-UI]: EOI PAGE LINKS VALIDATION', function () {
       element.links_validation_hfu()
     })
   })
-
   context('Footer', function () {
     it('Page links validation [Footer: Government Licence]', function () {
       element.links_validation_govlicence()
@@ -23,7 +22,6 @@ describe('[Frontend-UI]: EOI PAGE LINKS VALIDATION', function () {
       element.links_validation_crown_copyright()
     })
   })
-
   context('Self Assessment', function () {
     it('Page links validation [Page 1: Register your interest in Scotland]', function () {
       element.links_validation_sa_p1_scotland()
@@ -50,7 +48,6 @@ describe('[Frontend-UI]: EOI PAGE LINKS VALIDATION', function () {
       element.links_validation_sa_other_ways_l5()
     })
   })
-
   context('Registration', function () {
     it('Page links validation [Postcode verification page: Register your interest in Scotland]', function () {
       element.links_validation_postcode_check_page_l1()
@@ -61,19 +58,11 @@ describe('[Frontend-UI]: EOI PAGE LINKS VALIDATION', function () {
     it('Page links validation [Postcode verification page: Find the local council]', function () {
       element.links_validation_postcode_check_page_l3()
     })
-
     it('Page links validation [steps 16: privacy statement]', function () {
       element.links_validation_step_16()
     })
   })
-
   this.afterAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });
 })
-
-
-
-
-
-

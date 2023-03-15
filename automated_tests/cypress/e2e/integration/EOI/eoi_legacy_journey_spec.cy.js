@@ -1,7 +1,7 @@
-const element = require('../../pages/EOI/legacy_journey_validation')
+const element = require('../../pages/EOI/eoi_legacy_journey')
 
 //Any URL within the individual or organisation routes should redirect the user to "/expression-of-interest/self-assessment/property-suitable" (old routes still existing on the DOM)
-describe('[Frontend-UI]: EOI FORM LEGACY JOURNEY REDIRECT VALIDATION', function () {
+describe('[Frontend-UI]: EOI LEGACY JOURNEY REDIRECT VALIDATION', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });
@@ -66,12 +66,5 @@ describe('[Frontend-UI]: EOI FORM LEGACY JOURNEY REDIRECT VALIDATION', function 
     it('verify additional-info journey redirects to self assesment /property-suitable page [step 13-15]', function () {
       element.eoi_ad_info_check_ans()
     })
-   
   })
 })
-
-
-
-
-
-

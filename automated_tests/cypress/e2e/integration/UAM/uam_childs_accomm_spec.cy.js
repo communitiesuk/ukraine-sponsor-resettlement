@@ -1,7 +1,7 @@
-const element = require('../../pages/UAM/uam_val_err_childs_accomm')
+const element = require('../../pages/UAM/uam_childs_accomm')
 const eligibility = require('../../pages/UAM/eligibility')
 
-describe('[Frontend-UI]: UAM VALIDATION ERRORS [CHILDS ACCOMMODATION]', function () {
+describe('[Frontend-UI]: UAM CHILDS ACCOMMODATION', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
     cy.fixture('uam_appdata').then(function(uam_secrets){this.data = uam_secrets})

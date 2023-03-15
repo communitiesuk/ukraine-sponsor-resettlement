@@ -1,6 +1,6 @@
-const alfa = require('../../pages/EOI/postcode_validation')
+const alfa = require('../../pages/EOI/eoi_postcode')
 
-describe('[Frontend-UI]: EOI FORM POSTCODE VALIDATION', function () {
+describe('[Frontend-UI]: EOI POSTCODE VALIDATION', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });
@@ -20,7 +20,6 @@ describe('[Frontend-UI]: EOI FORM POSTCODE VALIDATION', function () {
       alfa.postcode_validation_scot_eng()
     }) 
   })
-
   context('Postcode Validation: Residential Address Wales', function () {
     it('postcode validation [Residential Add: Wales/Broughton, Offering Add: Same Address]', function () {
       alfa.postcode_validation_wales_same()
@@ -35,7 +34,6 @@ describe('[Frontend-UI]: EOI FORM POSTCODE VALIDATION', function () {
       alfa.postcode_validation_wales_eng()
     })
   })
-
   context('Postcode Validation: Residential Address England', function () {
     it('postcode validation [Residential Add: England/London, Offering Add: Same Address]', function () {
       alfa.postcode_validation_eng_same()
@@ -61,15 +59,8 @@ describe('[Frontend-UI]: EOI FORM POSTCODE VALIDATION', function () {
     it('postcode validation [Residential Add: England/London, Offering Add: Wales/Pembroke]', function () {
       alfa.postcode_validation_eng_wales_pemb()
     })
-
   })
   this.afterAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });
 })
-
-
-
-
-
-

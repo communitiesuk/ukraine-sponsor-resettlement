@@ -1,6 +1,6 @@
-const element = require('../../pages/EOI/self_assessment_uhp')
+const element = require('../../pages/EOI/eoi_self_assessment_uhp')
 
-describe('[Frontend-UI]: EOI FORM SELF ASSESSMENT UHP', function () {
+describe('[Frontend-UI]: EOI SELF ASSESSMENT UHP', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });
@@ -23,9 +23,7 @@ describe('[Frontend-UI]: EOI FORM SELF ASSESSMENT UHP', function () {
       element.eoi_eligibility_check_need_information()
     })
   })
-
     this.afterAll(() => {
       cy.clearCookie('_ukraine_sponsor_resettlement_session')
     });
-  
 })

@@ -11,7 +11,6 @@ export const date_null = () => {
     cy.get(elements.specific_date_radiobtn_error).click().wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
-
 export const date_v1 = () => {
     cy.get(elements.day_textbox_error).clear().type('20')
     cy.get(elements.month_textbox).clear()
@@ -29,7 +28,6 @@ export const date_v1 = () => {
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     cy.get(elements.sdate_error_label).contains('Enter a valid start date').should('be.visible')
 }
-
 export const date_v2 = () => {
     //day & month
     cy.get(elements.day_textbox_error).clear().type('25')
@@ -50,7 +48,6 @@ export const date_v2 = () => {
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     cy.get(elements.sdate_error_label).contains('Enter a valid start date').should('be.visible')
 }
-
 //invalid date
 export const date_v3 = () => {
     cy.get(elements.day_textbox_error).clear().type('31')
@@ -59,7 +56,6 @@ export const date_v3 = () => {
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     cy.get(elements.sdate_error_label).contains('Enter a valid start date').should('be.visible')
 }
-
 //before today's date
 export const date_v4 = () => {
     cy.get(elements.day_textbox_error).clear().type('20')
@@ -67,7 +63,6 @@ export const date_v4 = () => {
     cy.get(elements.year_textbox).clear().type('2021')
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
-
 //invalid day
 export const date_v5 = () => {
     cy.get(elements.sdate_error_label).contains('Enter a valid start date').should('be.visible')
@@ -76,7 +71,6 @@ export const date_v5 = () => {
     cy.get(elements.year_textbox).clear().type('2023')
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
-
 //invalid month
 export const date_v6 = () => {
     cy.get(elements.sdate_error_label).contains('Enter a valid start date').should('be.visible')
@@ -85,7 +79,6 @@ export const date_v6 = () => {
     cy.get(elements.year_textbox).clear().type('2023')
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
-
 //invalid year
 export const date_v7 = () => {
     cy.get(elements.sdate_error_label).contains('Enter a valid start date').should('be.visible')
@@ -94,7 +87,6 @@ export const date_v7 = () => {
     cy.get(elements.year_textbox).clear().type('500')
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
-
 //all valid
 export const date_av = () => {
     cy.get(elements.sdate_error_label).contains('Enter a valid start date').should('be.visible')
@@ -103,7 +95,6 @@ export const date_av = () => {
     cy.get(elements.year_textbox).clear().type('2030')
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
-
 export const no_of_people_living_page = () => {
     cy.get(elements.page_heading).contains('How many people normally live in the property you’re offering (not including guests)?').should('be.visible').wait(Cypress.env('waitTime'))
 }

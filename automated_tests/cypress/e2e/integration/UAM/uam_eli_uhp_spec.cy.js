@@ -1,7 +1,7 @@
 const element = require('../../pages/UAM/uam_e2e_hp')
-const eligibility = require('../../pages/UAM/eli_uhp')
+const eligibility = require('../../pages/UAM/uam_eli_uhp')
 
-describe('[Frontend-UI]: UAM ELIGIBILITY UNHAPPY PATH]', function () {
+describe('[Frontend-UI]: UAM ELIGIBILITY [UNHAPPY PATH]', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
     cy.fixture('uam_appdata').then(function(uam_secrets){
@@ -37,9 +37,5 @@ describe('[Frontend-UI]: UAM ELIGIBILITY UNHAPPY PATH]', function () {
     })
   })
 })
-
-
-
-
 
 

@@ -463,101 +463,69 @@ export const your_details_mobile_step_15_v7 = () => {
     click_continue()
     cy.get(elements.page_heading).contains("Apply for approval to provide a safe home for a child from Ukraine").should('be.visible')
 }
-
-//*******ADDITIONAL DETAILS*********************ADDITIONAL DETAILS*********************ADDITIONAL DETAILS*********************ADDITIONAL DETAILS**************
-
-//NO VALIDATIONS HERE 
-
-//******** Identity Documents ************** Identity Documents ************** Identity Documents ************** Identity Documents ************** 
-// const s16_page_heading = () => {cy.get(elements.page_heading).contains("Do you have any of these identity documents?").should('be.visible')}
-// const all_error = () => {
-//     cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible')
-//     cy.get(elements.err_sbox_msg).contains(bt_err.sel_opt_err_msg).should('be.visible')
-//     cy.get(elements.step16_id_err_msg).contains(bt_err.sel_opt_err_msg).should('be.visible')
-// }
-// const pp_error = () => {
-//     cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible')
-//     cy.get(elements.err_sbox_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
-//     cy.get(elements.step16_pp_label).contains(bt_err.pp_err_lbl).should('be.visible')
-//     cy.get(elements.step16_pp_err_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
-// }
-// const ni_error = () => {
-//     cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible')
-//     cy.get(elements.err_sbox_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
-//     cy.get(elements.step16_ni_label).contains(bt_err.ni_err_lbl).should('be.visible')
-//     cy.get(elements.step16_ni_err_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
-// }
-// const refu_error = () => {
-//     cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible')
-//     cy.get(elements.err_sbox_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
-//     cy.get(elements.step16_refu_label).contains(bt_err.refu_err_lbl).should('be.visible')
-//     cy.get(elements.step16_refu_err_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
-// }
-// //none selected
-// export const your_details_ad_details_id_step_16_v1 = () => {
-//     cy.visit('/sponsor-a-child/steps/16')
-//     click_continue()
-//     s16_page_heading()
-//     click_continue()
-//     all_error()
-// }
-// //passport [min requirement 6 valid characters (letters & numbers)]
-// export const your_details_ad_details_id_step_16_v2 = () => {
-//     cy.get(elements.step16_pp_radio_btn).click()
-//     click_continue()
-//     pp_error()
-//     cy.get(elements.step16_pp_err_textbox).should('be.visible').clear().type('PASS1').wait(Cypress.env('waitTime'))
-//     click_continue()
-//     pp_error()
-//     cy.get(elements.step16_pp_err_textbox).should('be.visible').clear().type('$$$$$$$$').wait(Cypress.env('waitTime'))
-//     click_continue()
-//     pp_error()
-//     cy.get(elements.step16_pp_err_textbox).should('be.visible').clear().type('£PASS123').wait(Cypress.env('waitTime'))
-//     click_continue()
-//     pp_error()
-// }
-
-// //national id
-// export const residents_details_step_31_v3 = () => {
-//     cy.get(elements.step16_ni_err_radio_btn).click()
-//     click_continue()
-//     ni_error()
-//     cy.get(elements.step16_ni_err_textbox).should('be.visible').clear().type('NINO1').wait(Cypress.env('waitTime'))
-//     click_continue()
-//     ni_error()
-//     cy.get(elements.step16_ni_err_textbox).should('be.visible').clear().type('££££££££').wait(Cypress.env('waitTime'))
-//     click_continue()
-//     ni_error()
-//     cy.get(elements.step16_ni_err_textbox).should('be.visible').clear().type('£NINUM123').wait(Cypress.env('waitTime'))
-//     click_continue()
-//     ni_error()
-// }
-// //refugee travel doc 
-// export const residents_details_step_31_v4 = () => {
-//     cy.get(elements.step16_refu_err_radio_btn).click()
-//     click_continue()
-//     refu_error()
-//     cy.get(elements.step16_refu_err_textbox).should('be.visible').clear().type('REFU1').wait(Cypress.env('waitTime'))
-//     click_continue()
-//     refu_error()
-//     cy.get(elements.step16_refu_err_textbox).should('be.visible').clear().type('@@££$$&&**').wait(Cypress.env('waitTime'))
-//     click_continue()
-//     refu_error()
-//     cy.get(elements.step16_refu_err_textbox).should('be.visible').clear().type('£REFU123').wait(Cypress.env('waitTime'))
-//     click_continue()
-//     refu_error()
-// }
-// //I don't have any of these
-// export const residents_details_step_31_v5 = () => {
-//     cy.get(elements.step16_idha_radio_btn).click()
-//     click_continue()
-//     common.uam_tasklist_header()
-// }
-
-
-
-
-
+//*******ADDITIONAL DETAILS********
+//MINIMUM VALIDATIONS >>>> ******** Identity Documents ************** Identity Documents ************** Identity Documents ************** Identity Documents ************** 
+const s16_page_heading = () => {cy.get(elements.page_heading).contains("Do you have any of these identity documents?").should('be.visible')}
+const all_error = () => {
+    cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible')
+    cy.get(elements.err_sbox_msg).contains(bt_err.sel_opt_err_msg).should('be.visible')
+    cy.get(elements.step16_id_err_msg).contains(bt_err.sel_opt_err_msg).should('be.visible')
+}
+const pp_error = () => {
+    cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible')
+    cy.get(elements.err_sbox_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
+    cy.get(elements.step16_pp_label).contains(bt_err.pp_err_lbl).should('be.visible')
+    cy.get(elements.step16_pp_err_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
+}
+const ni_error = () => {
+    cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible')
+    cy.get(elements.err_sbox_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
+    cy.get(elements.step16_ni_label).contains(bt_err.ni_err_lbl).should('be.visible')
+    cy.get(elements.step16_ni_err_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
+}
+const refu_error = () => {
+    cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible')
+    cy.get(elements.err_sbox_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
+    cy.get(elements.step16_refu_label).contains(bt_err.refu_err_lbl).should('be.visible')
+    cy.get(elements.step16_refu_err_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
+}
+const noid_error = () => {
+    cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible')
+    cy.get(elements.err_sbox_msg).contains(bt_err.id_err_msg).should('be.visible')
+    cy.get(elements.step16_noid_err_msg).contains(bt_err.id_err_msg).should('be.visible')
+}
+//none selected
+export const your_details_ad_details_id_step_16_v1 = () => {
+    cy.visit('/sponsor-a-child/steps/16')
+    click_continue()
+    s16_page_heading()
+    all_error()
+}
+//passport [min requirement 1 character]
+export const your_details_ad_details_id_step_16_v2 = () => {
+    cy.get(elements.step16_pp_radio_btn).click()
+    click_continue()
+    pp_error()
+}
+//national id [min requirement 1 character]
+export const your_details_ad_details_id_step_16_v3 = () => {
+    cy.get(elements.step16_ni_radio_btn).click()
+    click_continue()
+    ni_error()
+}
+//refugee travel doc [min requirement 1 character]
+export const your_details_ad_details_id_step_16_v4 = () => {
+    cy.get(elements.step16_refu_radio_btn).click()
+    click_continue()
+    refu_error()
+}
+//I don't have any of these [min requirement 1 character]
+export const your_details_ad_details_id_step_16_v5 = () => {
+    cy.get(elements.step16_idha_radio_btn).click()
+    click_continue()
+    click_continue()
+    noid_error()
+}
 const dob_heading = () =>{
     cy.get(elements.page_heading).contains('Enter your date of birth').should('be.visible')
 }

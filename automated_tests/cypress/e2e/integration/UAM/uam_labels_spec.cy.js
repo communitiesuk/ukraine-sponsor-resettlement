@@ -1,6 +1,6 @@
-const element = require('../../pages/UAM/uam_val_err_labels')
+const element = require('../../pages/UAM/uam_labels')
 
-describe('[Frontend-UI]: UAM VALIDATION ERRORS [LABELS]', function () {
+describe('[Frontend-UI]: UAM LABELS', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
     cy.fixture('uam_appdata').then(function(uam_secrets){this.data = uam_secrets})
@@ -8,7 +8,7 @@ describe('[Frontend-UI]: UAM VALIDATION ERRORS [LABELS]', function () {
   });
   Cypress.Cookies.defaults({ preserve: '_ukraine_sponsor_resettlement_session' })
 
-  context('[Frontend-UI] Eligibility Check Error Labels', function () {
+  context('Eligibility Check Error Labels', function () {
     it('verify eligibility error labels', function () {
       element.uam_eligibility_start()
       element.uam_eligibility_check()
@@ -23,7 +23,7 @@ describe('[Frontend-UI]: UAM VALIDATION ERRORS [LABELS]', function () {
       element.uam_eligibility_tasklist()
     })
   })
-  context('[Frontend-UI] Your Details Error Labels ', function () {
+  context('Your Details Error Labels ', function () {
     it('verify your name error labels', function () {
       element.your_details_name_step_10()
     })
@@ -60,7 +60,7 @@ describe('[Frontend-UI]: UAM VALIDATION ERRORS [LABELS]', function () {
       element.your_details_additional_details_step_22()
     })
   })
-  context('[Frontend-UI] Verify Child’s accommodation Error Labels ', function () {
+  context('Verify Child’s accommodation Error Labels ', function () {
     it('verify childs address error labels', function () {
       element.childs_accommodation_step_23()
     })
@@ -77,7 +77,7 @@ describe('[Frontend-UI]: UAM VALIDATION ERRORS [LABELS]', function () {
       element.childs_accommodation_step_28()
     })
   })
-  context('[Frontend-UI] Residents Details(over 16) Error Labels', function () {
+  context('Residents Details(over 16) Error Labels', function () {
     it('verify person over 16 DOB error labels', function () {
       element.residents_details_step29()
     })
@@ -88,7 +88,7 @@ describe('[Frontend-UI]: UAM VALIDATION ERRORS [LABELS]', function () {
       element.residents_details_step31()
     })
   })
-  context('[Frontend-UI] Childs Details Error Labels ', function () {
+  context('Childs Details Error Labels ', function () {
     it('verify childs name error labels', function () {
       element.childs_details_step_32()
     })
@@ -108,7 +108,7 @@ describe('[Frontend-UI]: UAM VALIDATION ERRORS [LABELS]', function () {
       element.ukrconsent_form_step_37()
     })
   })
-  context('[Frontend-UI] Send application Error Labels ', function () {
+  context('Send application Error Labels ', function () {
     it('verify use data [confirmation] error labels', function () {
       element.confirmation_page_step_38()
     })
@@ -120,9 +120,3 @@ describe('[Frontend-UI]: UAM VALIDATION ERRORS [LABELS]', function () {
     })
   })
 })
-
-
-
-
-
-

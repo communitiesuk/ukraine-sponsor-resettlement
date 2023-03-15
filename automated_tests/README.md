@@ -22,19 +22,19 @@ Install npm & cypress dependencies
 
 ## Run a single spec file
 # EOI:
-- npx cypress run --spec cypress/e2e/integration/EOI/eoi_e2e_hp.cy.js
-- npx cypress run --spec cypress/e2e/integration/EOI/eoi_address_validation.cy.js
-- npx cypress run --spec cypress/e2e/integration/EOI/eoi_adults_and_children_validation.cy.js
-- npx cypress run --spec cypress/e2e/integration/EOI/eoi_back_link_validation.cy.js
-- npx cypress run --spec cypress/e2e/integration/EOI/eoi_bedrooms_validation.cy.js
-- npx cypress run --spec cypress/e2e/integration/EOI/eoi_date_validation.cy.js
-- npx cypress run --spec cypress/e2e/integration/EOI/eoi_error_label_validation.cy.js
-- npx cypress run --spec cypress/e2e/integration/EOI/eoi_legacy_journey_validation.cy.js
-- npx cypress run --spec cypress/e2e/integration/EOI/eoi_links_validation.cy.js
-- npx cypress run --spec cypress/e2e/integration/EOI/eoi_phone_number_validation.cy.js
-- npx cypress run --spec cypress/e2e/integration/EOI/eoi_postcode_validation.cy.js
-- npx cypress run --spec cypress/e2e/integration/EOI/eoi_self_assesment_uhp.cy.js
-- npx cypress run --spec cypress/e2e/integration/Service/service_cookies_validation.cy.js
+- npx cypress run --spec cypress/e2e/integration/EOI/eoi_e2e_hp_spec.cy.js
+- npx cypress run --spec cypress/e2e/integration/EOI/eoi_address_spec.cy.js
+- npx cypress run --spec cypress/e2e/integration/EOI/eoi_adults_children_spec.cy.js
+- npx cypress run --spec cypress/e2e/integration/EOI/eoi_backlink_spec.cy.js
+- npx cypress run --spec cypress/e2e/integration/EOI/eoi_bedrooms_spec.cy.js
+- npx cypress run --spec cypress/e2e/integration/EOI/eoi_date_spec.cy.js
+- npx cypress run --spec cypress/e2e/integration/EOI/eoi_error_label_spec.cy.js
+- npx cypress run --spec cypress/e2e/integration/EOI/eoi_legacy_journey_spec.cy.js
+- npx cypress run --spec cypress/e2e/integration/EOI/eoi_links_spec.cy.js
+- npx cypress run --spec cypress/e2e/integration/EOI/eoi_phone_number_spec.cy.js
+- npx cypress run --spec cypress/e2e/integration/EOI/eoi_postcode_spec.cy.js
+- npx cypress run --spec cypress/e2e/integration/EOI/eoi_self_assessment_uhp_spec.cy.js
+- npx cypress run --spec cypress/e2e/integration/Service/service_cookies_spec.cy.js
 # `run all EOI specs`
 - `npx cypress run --spec cypress/e2e/integration/EOI/run_all_eoi_specs.cy.js`
 
@@ -42,16 +42,16 @@ Install npm & cypress dependencies
 - npx cypress run --spec cypress/e2e/integration/UAM/uam_e2e_hp_spec.cy.js
 - npx cypress run --spec cypress/e2e/integration/UAM/uam_eli_uhp_spec.cy.js
 - npx cypress run --spec cypress/e2e/integration/UAM/uam_links_spec.cy.js
-- npx cypress run --spec cypress/e2e/integration/UAM/uam_val_err_childs_accomm_spec.cy.js
-- npx cypress run --spec cypress/e2e/integration/UAM/uam_val_err_childs_details_spec.cy.js
-- npx cypress run --spec cypress/e2e/integration/UAM/uam_val_err_labels_spec.cy.js
-- npx cypress run --spec cypress/e2e/integration/UAM/uam_val_err_res_details_spec.cy.js
-- npx cypress run --spec cypress/e2e/integration/UAM/uam_val_err_your_details_spec.cy.js
+- npx cypress run --spec cypress/e2e/integration/UAM/uam_childs_accomm_spec.cy.js
+- npx cypress run --spec cypress/e2e/integration/UAM/uam_childs_details_spec.cy.js
+- npx cypress run --spec cypress/e2e/integration/UAM/uam_labels_spec.cy.js
+- npx cypress run --spec cypress/e2e/integration/UAM/uam_res_details_spec.cy.js
+- npx cypress run --spec cypress/e2e/integration/UAM/uam_your_details_spec.cy.js
 # `run all UAM specs`
 - `npx cypress run --spec cypress/e2e/integration/UAM/run_all_uam_specs.cy.js`   
 
 ## Run with specific browser
 - npx cypress run --spec cypress/e2e/integration/EOI/eoi_e2e_hp.cy.js --browser chrome
 
-## UAM Automation regression pack					
+## Automation regression pack			
 `https://docs.google.com/spreadsheets/d/1CS-Tfx93y1AGcTiwwCIICH4T2sLGrEl3q8RllyhLpPE/edit?pli=1#gid=0`
