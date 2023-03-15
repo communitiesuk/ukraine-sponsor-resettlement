@@ -1,7 +1,7 @@
 require('cypress-xpath')
 const elements = require('../../page_elements/EOI/eoi_elements')
-const error = require('../../../fixtures/bodytext_error.json')
-const secrets = require('../../../fixtures/bodytext_secrets.json')
+const error = require('../../../fixtures/eoi_bodytext_error.json')
+const secrets = require('../../../fixtures/eoi_bodytext_secrets.json')
 
 export const residential_address_nv = () => {
     cy.visit('/expression-of-interest/steps/4').wait(Cypress.env('waitTime'))

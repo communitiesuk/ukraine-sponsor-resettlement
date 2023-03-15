@@ -1,6 +1,6 @@
 const alfa = require('../../pages/EOI/eoi_adults_&_children')
 
-describe('[Frontend-UI]: EOI ADULTS AND CHILDREN VALIDATION', function () {
+describe('[Frontend-UI]: EOI ADULTS AND CHILDREN', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });

@@ -1,6 +1,6 @@
 const elements = require('../../page_elements/EOI/eoi_elements')
-const bodytext = require('../../../fixtures/bodytext.json')
-const secrets = require('../../../fixtures/bodytext_secrets.json')
+const bodytext = require('../../../fixtures/eoi_bodytext.json')
+const secrets = require('../../../fixtures/eoi_bodytext_secrets.json')
 const alfa = require('../../pages/EOI/eoi_links')
 
 export const eoi_eligibility_check = () => {

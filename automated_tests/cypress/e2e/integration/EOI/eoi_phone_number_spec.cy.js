@@ -1,6 +1,6 @@
 const element = require('../../pages/EOI/eoi_phone_number')
 
-describe('[Frontend-UI]: EOI CONTACT TELEPHONE NUMBER VALIDATION', function () {
+describe('[Frontend-UI]: EOI CONTACT TELEPHONE NUMBER', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });

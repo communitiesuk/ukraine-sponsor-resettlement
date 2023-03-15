@@ -1,6 +1,6 @@
 const elements = require('../../page_elements/EOI/eoi_elements')
-const error = require('../../../fixtures/bodytext_error.json')
-const secrets = require('../../../fixtures/bodytext_secrets.json')
+const error = require('../../../fixtures/eoi_bodytext_error.json')
+const secrets = require('../../../fixtures/eoi_bodytext_secrets.json')
 
 const coockie_accept = () => {
     cy.get(elements.cookies_accept).click().wait(Cypress.env('waitTime'))

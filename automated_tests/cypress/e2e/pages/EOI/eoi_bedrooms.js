@@ -1,6 +1,6 @@
 const elements = require('../../page_elements/EOI/eoi_elements')
-const error = require('../../../fixtures/bodytext_error.json')
-const bodytext = require('../../../fixtures/bodytext.json')
+const error = require('../../../fixtures/eoi_bodytext_error.json')
+const bodytext = require('../../../fixtures/eoi_bodytext.json')
 
 //NULL
 export const bedrooms_null = () => {

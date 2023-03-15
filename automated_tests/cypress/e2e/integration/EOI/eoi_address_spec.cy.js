@@ -1,6 +1,6 @@
 const alfa = require('../../pages/EOI/eoi_address')
 
-describe('[Frontend-UI]: EOI ADDRESS VALIDATION', function () {
+describe('[Frontend-UI]: EOI ADDRESS', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });

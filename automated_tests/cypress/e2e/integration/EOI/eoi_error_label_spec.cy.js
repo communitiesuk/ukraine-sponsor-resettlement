@@ -1,6 +1,6 @@
 const element = require('../../pages/EOI/eoi_error_label')
 
-describe('[Frontend-UI]: EOI ERROR LABEL VALIDATION', function () {
+describe('[Frontend-UI]: EOI ERROR LABEL', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });

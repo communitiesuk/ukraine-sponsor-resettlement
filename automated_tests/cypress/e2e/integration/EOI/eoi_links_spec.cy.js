@@ -1,6 +1,6 @@
 const element = require('../../pages/EOI/eoi_links')
 
-describe('[Frontend-UI]: EOI PAGE LINKS VALIDATION', function () {
+describe('[Frontend-UI]: EOI PAGE LINKS', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });

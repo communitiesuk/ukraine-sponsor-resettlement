@@ -1,6 +1,6 @@
 const element = require('../../pages/EOI/eoi_bedrooms')
 
-describe('[Frontend-UI]: EOI BEDROOM VALIDATION', function () {
+describe('[Frontend-UI]: EOI BEDROOM', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });
