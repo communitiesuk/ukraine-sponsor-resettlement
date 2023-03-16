@@ -1,6 +1,6 @@
 require('cypress-xpath')
 const elements = require('../../page_elements/EOI/eoi_elements')
-const bodytext = require('../../../fixtures/bodytext.json')
+const bodytext = require('../../../fixtures/eoi_bodytext.json')
 
 export const scot_address_glas_1 = () => {
     cy.get(elements.addressl1_textbox).clear().type('No 1')

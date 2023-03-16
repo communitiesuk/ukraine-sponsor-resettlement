@@ -1,5 +1,5 @@
 const elements = require('../../page_elements/EOI/eoi_elements')
-const bodytext = require('../../../fixtures/bodytext.json')
+const bodytext = require('../../../fixtures/eoi_bodytext.json')
 
 const sa_page_1_heading = () => {cy.get(elements.page_heading).contains('Check if your property is suitable for hosting').should('be.visible').wait(Cypress.env('waitTime'))
 cy.get(elements.second_header).contains(bodytext.home_is_suitable).should('be.visible').wait(Cypress.env('waitTime'))

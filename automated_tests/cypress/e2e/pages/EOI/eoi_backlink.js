@@ -1,6 +1,6 @@
 const elements = require('../../page_elements/EOI/eoi_elements')
-const bodytext = require('../../../fixtures/bodytext.json')
-const secrets = require('../../../fixtures/bodytext_secrets.json')
+const bodytext = require('../../../fixtures/eoi_bodytext.json')
+const secrets = require('../../../fixtures/eoi_bodytext_secrets.json')
 
 const back_link = () => {cy.get(elements.back_link).click().wait(Cypress.env('waitTime'))}
 const sa_page_1_heading = () => {cy.get(elements.page_heading).contains('Check if your property is suitable for hosting').should('be.visible')}

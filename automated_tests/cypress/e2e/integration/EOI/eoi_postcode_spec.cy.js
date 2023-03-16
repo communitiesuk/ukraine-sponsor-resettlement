@@ -1,6 +1,6 @@
 const alfa = require('../../pages/EOI/eoi_postcode')
 
-describe('[Frontend-UI]: EOI POSTCODE VALIDATION', function () {
+describe('[Frontend-UI]: EOI POSTCODE', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });

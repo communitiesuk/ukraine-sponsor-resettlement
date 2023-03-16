@@ -1,8 +1,8 @@
 require('cypress-xpath')
 const elements = require('../../page_elements/EOI/eoi_elements')
-const error = require('../../../fixtures/bodytext_error.json')
-const bodytext = require('../../../fixtures/bodytext.json')
-const secrets = require('../../../fixtures/bodytext_secrets.json')
+const error = require('../../../fixtures/eoi_bodytext_error.json')
+const bodytext = require('../../../fixtures/eoi_bodytext.json')
+const secrets = require('../../../fixtures/eoi_bodytext_secrets.json')
 
 export const eoi_eligibility_check_ev_start = () => {
     cy.visit('/').wait(Cypress.env('waitTime'))

@@ -1,6 +1,6 @@
 const element = require('../../pages/EOI/eoi_backlink')
 
-describe('[Frontend-UI]: EOI BACKLINK VALIDATION', function () {
+describe('[Frontend-UI]: EOI BACKLINK', function () {
   this.beforeAll(() => {
     cy.clearCookie('_ukraine_sponsor_resettlement_session')
   });
