@@ -1,5 +1,5 @@
 {
-  "instance_min_count": 8,
+  "instance_min_count": 4,
   "instance_max_count": 32,
   "scaling_rules": [
     {
