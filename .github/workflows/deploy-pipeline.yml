@@ -351,6 +351,7 @@ jobs:
           cf set-env $APP_NAME UAM_FOUNDRY_ATTACHMENT_ASSIGN_API_URL $UAM_FOUNDRY_ATTACHMENT_ASSIGN_API_URL
           cf set-env $APP_NAME UAM_GA_TRACKING_CODE $UAM_GA_TRACKING_CODE
           cf push -f web-manifest.yml $APP_NAME --strategy rolling --no-wait
+          cf install-plugin -r CF-Community app-autoscaler-plugin -f
           cf attach-autoscaling-policy $APP_NAME policy.json
       - name: Deploy Sidekiq
         env:
