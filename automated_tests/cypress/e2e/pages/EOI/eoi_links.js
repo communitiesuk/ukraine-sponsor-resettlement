@@ -107,8 +107,8 @@ export const links_validation_sa_p1_guidance = () => {
     cy.visit('/').wait(Cypress.env('waitTime'))
     cy.get(elements.main_heading).contains("Homes for Ukraine: Register to host people already living in the UK").should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.guidance_for_sponsors_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-    cy.url().should('include', 'https://www.gov.uk/guidance/homes-for-ukraine-sponsor-guidance')
-    cy.get(elements.main_heading).contains("Homes for Ukraine: sponsor guidance").should('be.visible').wait(Cypress.env('waitTime'))
+    cy.url().should('include', 'https://www.gov.uk/government/collections/homes-for-ukraine-sponsor-guides')
+    cy.get(elements.main_heading).contains("Homes for Ukraine: sponsor guides").should('be.visible').wait(Cypress.env('waitTime'))
     cy.go('back')
 }
 export const links_validation_sa_other_ways_l1 = () => {
@@ -147,8 +147,8 @@ export const links_validation_sa_other_ways_l5 = () => {
     cy.visit('/expression-of-interest/self-assessment/other-ways-to-help').wait(Cypress.env('waitTime'))
     cy.get(elements.page_heading).contains("There are other ways you can help").should('be.visible').wait(Cypress.env('waitTime'))
     cy.xpath(elements.support_organisations_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-    cy.url().should('include', 'https://www.gov.uk/guidance/recognised-providers-organisations-who-can-help-guests-from-ukraine-find-sponsors-in-the-uk')
-    cy.get(elements.main_heading).contains("Recognised Providers: Organisations who can help guests from Ukraine find sponsors in the UK").should('be.visible').wait(Cypress.env('waitTime'))
+    cy.url().should('include', 'https://www.gov.uk/guidance/find-a-sponsor-using-recognised-providers-homes-for-ukraine')
+    cy.get(elements.main_heading).contains("Find a sponsor using recognised providers: Homes for Ukraine").should('be.visible').wait(Cypress.env('waitTime'))
     cy.go('back')
 }
 export const links_validation_postcode_check_page_l1 = () => {
