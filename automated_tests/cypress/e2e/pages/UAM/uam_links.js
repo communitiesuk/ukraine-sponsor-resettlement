@@ -1,7 +1,6 @@
 require('cypress-xpath');
 const elements = require('../../page_elements/UAM/uam_elements')
 const eligibility = require('../../pages/UAM/eligibility')
-//const bodytext = require('../../../fixtures/uam_bodytext.json')
 const secrets = require('../../../fixtures/uam_appdata.json')
 const common = require('./common')
 
@@ -195,7 +194,7 @@ export const uam_step_10_l2 = () => {
     mobile()
     Continue()
     cy.get(elements.page_heading).contains("We've sent you an email with a link to your saved application").should('be.visible')
-    cy.xpath(elements.email_sent_cf).contains("We've sent the link to t******@zaizi.com.").should('be.visible')
+    cy.xpath(elements.email_sent_cf).contains("We've sent the link to t***@test123.com.").should('be.visible')
 }
 const other_name1 = () =>{
     cy.get(elements.step12_gn_textbox).clear().type(secrets.known_by_given_names)

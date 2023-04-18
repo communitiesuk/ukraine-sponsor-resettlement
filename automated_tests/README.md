@@ -1,13 +1,18 @@
 ## Cypress-framework: UI testing
 
 ## Pre requisites
-You need to have npm installed to be able to run the tests on your local
+- You need to have npm installed to be able to run the tests on your local
 
 ## Usage
 Install npm & cypress dependencies
 - cd `automated tests` directory
 - run `npm install` (install specific ver. `npm install cypress@10.9.0`)
 - run `npm run cy_verify` to verify cypress installation (ver. should be: "^10.9.0")
+
+## Before beginning the test:
+Add email & phone/mobile number here : 
+- EOI : `../../automated_tests/cypress/fixtures/eoi_bodytext_secrets.json` 
+- UAM : `../../automated_tests/cypress/fixtures/uam_appdata.json`
 
 ## Test Runner
 - run `npm run cy_open` to open cypress test runnner

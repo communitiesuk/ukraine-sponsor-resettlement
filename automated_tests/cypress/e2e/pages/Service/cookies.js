@@ -1,6 +1,6 @@
 require('cypress-xpath')
 const elements = require('../../page_elements/Service/service_elements')
-
+const eoielements = require('../../page_elements/EOI/eoi_elements')
 
 export const eoi_cookies_page_back_link = () => {
   // Visit a page
@@ -18,18 +18,15 @@ export const eoi_cookies_page_back_link = () => {
     .should('have.attr', 'href')
     .and('contain', 'sponsor-a-child')
 }
-
 export const cookie_displays = () => {
   cy.visit('/expression-of-interest/steps/9')
   cy.get(elements.cookie_banner_heading).should('exist')
 }
-
 export const cookie_message_dissappears_after_clicking_view_cookies = () => {
   cy.visit('/expression-of-interest/steps/9')
   cy.get(elements.view_cookies).click().wait(Cypress.env('waitTime'))
-  cy.get(elements.cookie_banner_heading).should('not.exist')
+  cy.get(eoielements.page_heading).contains('Cookies on Homes for Ukraine').should('be.visible')
 }
-
 export const banner_hidden_after_clicking_goback_to_page_link = () => {
   cy.visit('/expression-of-interest/steps/9')
   cy.get(elements.view_cookies).click().wait(Cypress.env('waitTime'))
