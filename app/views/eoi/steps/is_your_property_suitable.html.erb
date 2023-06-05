@@ -31,8 +31,6 @@
         <li>schools and education facilities nearby</li>
         <li> opportunities to socialise in the area</li>
       </ul>
-     <h2 class="govuk-heading-m"> Do you think your home is suitable?</h2>
-      <p>Your property doesn't have to meet every requirement, but the more it has, the better your chances of becoming a host.</p>
 
       <br/>
 
@@ -41,8 +39,15 @@
       <span class="govuk-visually-hidden">Error:</span> You must select an option to continue
     </p>
   <fieldset class="govuk-fieldset">
-
-    <div class="govuk-radios" data-module="govuk-radios">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+      <h2 class="govuk-heading-m">
+        Do you think your home is suitable?
+      </h2>
+    </legend>
+    <div id="assessment-buttons-property-suitable-hint" class="govuk-hint">
+      Your property doesn't have to meet every requirement, but the more it has, the better your chances of becoming a host.
+    </div>
+    <div id="assessment-buttons-property-suitable" class="govuk-radios" data-module="govuk-radios">
       <div class="govuk-radios__item">
         <input class="govuk-radios__input" id="assessment-buttons-property-suitable-yes-field" name="assessment-buttons" type="radio" data-next="/expression-of-interest/self-assessment/challenges" value="yes">
         <label class="govuk-label govuk-radios__label" for="assessment-buttons-property-suitable-yes-field">
