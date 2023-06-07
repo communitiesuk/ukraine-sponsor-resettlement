@@ -17,10 +17,13 @@
     <%= form_for @application, url: formurl, method: :post do |f| %>
       <%= f.govuk_error_summary link_base_errors_to: :host_as_soon_as_possible %>
 
-
-    <h1 class="govuk-heading-l">
-       <%= t('hosting_start_date.full', scope: "expression_of_interest.questions")  %>
-    </h1>
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-heading-l">
+            <%= t('hosting_start_date.full', scope: "expression_of_interest.questions")  %>
+          </h1>
+        </legend>
+      </fieldset>
     
       <%= f.govuk_radio_buttons_fieldset :host_as_soon_as_possible, legend: { text: t('hosting_start_date.full', scope: "expression_of_interest.questions"), hidden:true } do %>
         <%= f.govuk_radio_button :host_as_soon_as_possible, :true, label: { text: "As soon as possible" } %>
