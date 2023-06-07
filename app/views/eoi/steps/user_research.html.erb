@@ -9,10 +9,12 @@
 
     <%= form_for @application, url: formurl, method: :post do |f| %>
     <%= f.govuk_error_summary link_base_errors_to: :user_research %>
-
-    <h1 class="govuk-heading-l">
-        Would you like to take part in research to help us improve the Homes for Ukraine service?
-    </h1>
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-heading-l">
+              Would you like to take part in research to help us improve the Homes for Ukraine service?
+          </h1>
+        </legend>
 
       <%= f.govuk_collection_radio_buttons :user_research,
           @application.user_research_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "expression_of_interest.user_research")) },
@@ -21,6 +23,7 @@
           legend: { text: t('user_research.full', scope: "additional_info.questions"), hidden:true},
           hint: { text: t('user_research.hint', scope: "additional_info.questions")}
       %>
+      </fieldset>
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>

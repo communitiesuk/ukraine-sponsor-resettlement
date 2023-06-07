@@ -8,7 +8,10 @@
 
     <%= form_for @application, url: formurl, method: :post do |f| %>
     <%= f.govuk_error_summary link_base_errors_to: :property_one_line_1 %>
-   <h1 class="govuk-heading-l">Enter the address of the property you're offering</h1>
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-heading-l">Enter the address of the property you're offering</h1>
+        </legend>
 
     <br>
 
@@ -30,6 +33,7 @@
                              type: "text",
                              width: 10
       %>
+      </fieldset>
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>

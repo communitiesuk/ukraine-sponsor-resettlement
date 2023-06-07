@@ -10,9 +10,12 @@
     <%= form_for @application, url: formurl, method: :post do |f| %>
       <%= f.govuk_error_summary link_base_errors_to: :allow_pet %>
 
-      <h1 class="govuk-heading-l">
-       <%= t('allow_pet.full', scope: "expression_of_interest.questions")  %>
-      </h1>
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-heading-l">
+          <%= t('allow_pet.full', scope: "expression_of_interest.questions")  %>
+          </h1>
+        </legend>
 
       <%= f.govuk_collection_radio_buttons :allow_pet,
           @application.allow_pet_types.map{ |type| OpenStruct.new(id: t("#{type}.type", scope: "expression_of_interest.pet_option_description"), name: t("#{type}.short", scope: "expression_of_interest.pet_option_description"), description: t("#{type}.full", scope: "expression_of_interest.pet_option_description"))},
@@ -22,6 +25,7 @@
           legend: { text: t('allow_pet.full', scope: "expression_of_interest.questions"), hidden:true},
           hint: { text: t('allow_pet.hint', scope: "expression_of_interest.questions"), hidden:true}
       %>
+      </fieldset>
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>

@@ -5,15 +5,17 @@
 
     <%= f.govuk_error_summary link_base_errors_to: :is_born_after_december %>
 
-     <h1 class="govuk-heading-l"><%= t('sponsored_children_december_birth.full', scope: "unaccompanied_minor.questions")%></h1>
-
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-heading-l"><%= t('sponsored_children_december_birth.full', scope: "unaccompanied_minor.questions")%></h1>
+        </legend>
       <%= f.govuk_collection_radio_buttons :is_born_after_december,
                                            @application.eligibility_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
                                            :id,
                                            :name,
                                            legend: { text: t('sponsored_children_december_birth.full', scope: "unaccompanied_minor.questions"), hidden: true }
       %>
-
+      </fieldset>
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>

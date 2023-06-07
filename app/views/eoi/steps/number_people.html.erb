@@ -10,9 +10,10 @@
 
     <%= form_for @application, url: formurl, method: :post do |f| %>
     <%= f.govuk_error_summary link_base_errors_to: :number_adults %>
-
-    <h1 class="govuk-heading-l">How many people normally live in the property you’re offering (not including guests)?</h1>
-
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-heading-l">How many people normally live in the property you’re offering (not including guests)?</h1>
+        </legend>
       <%= f.govuk_text_field :number_adults,
                              label: { text: t('number_adults.full', scope: "expression_of_interest.questions") },
                              type: "number",
@@ -23,6 +24,7 @@
                              type: "number",
                              width: 2
       %>
+      </fieldset>
 
       <%= f.govuk_submit t('continue') %>
     <% end %>

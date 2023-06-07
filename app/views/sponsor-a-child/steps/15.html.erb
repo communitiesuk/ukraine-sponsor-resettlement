@@ -5,7 +5,11 @@
 
      <%= f.govuk_error_summary link_base_errors_to: :phone_number %>
 
-    <h1 class="govuk-heading-l"><%= t('phone_number.short', scope: "unaccompanied_minor.questions")%></h1>
+
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-heading-l"><%= t('phone_number.short', scope: "unaccompanied_minor.questions")%></h1>
+        </legend>
     <p class="govuk-body"><%= t('phone_number.full', scope: "unaccompanied_minor.questions")%>
     <br/>
     <br/>
@@ -23,6 +27,7 @@
         label: { text: "Confirm mobile number"  },
         type: "tel"
       %>
+      </fieldset>
 
       <div class="govuk-button-group">
         <%= f.govuk_submit t('continue') %>

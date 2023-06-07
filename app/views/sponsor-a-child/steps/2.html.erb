@@ -5,8 +5,10 @@
 
     <%= f.govuk_error_summary link_base_errors_to: :is_living_december %>
 
-    <h1 class="govuk-heading-l"><%= t('sponsored_children_living_december.full', scope: "unaccompanied_minor.questions")%></h1>
-
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-heading-l"><%= t('sponsored_children_living_december.full', scope: "unaccompanied_minor.questions")%></h1>
+        </legend>
       <%= f.govuk_collection_radio_buttons :is_living_december,
                                            @application.eligibility_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
                                            :id,
@@ -14,7 +16,7 @@
                                            legend: { text: t('sponsored_children_living_december.full', scope: "unaccompanied_minor.questions"), hidden: true },
                                            hint: { text: t('sponsored_children_living_december.hint', scope: "unaccompanied_minor.questions") }
       %>
-
+      </fieldset>
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>

@@ -10,10 +10,12 @@
     <%= form_for @application, url: formurl, method: :post do |f| %>
       <%= f.govuk_error_summary link_base_errors_to: :more_properties %>
 
-
-     <h1 class="govuk-heading-l">
-       <%= t('more_properties.full', scope: "expression_of_interest.questions")  %>
-      </h1> 
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+        <h1 class="govuk-heading-l">
+          <%= t('more_properties.full', scope: "expression_of_interest.questions")  %>
+          </h1> 
+        </legend>
 
       <%= f.govuk_collection_radio_buttons :more_properties,
           @application.more_properties_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "expression_of_interest.more_properties")) },
@@ -22,6 +24,7 @@
           legend: { text: t('more_properties.full', scope: "additional_info.questions"), hidden:true },
           hint: { text: t('more_properties.hint', scope: "additional_info.questions")}
       %>
+      </fieldset>
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>

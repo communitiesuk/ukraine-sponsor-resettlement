@@ -9,11 +9,12 @@
 
     <%= form_for @application, url: formurl, method: :post do |f| %>
       <%= f.govuk_error_summary link_base_errors_to: :single_room_count %>
-
-
-      <h1 class="govuk-heading-l">
-         How many bedrooms are available for guests in the property you’re registering now?
-      </h1>
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-heading-l">
+            How many bedrooms are available for guests in the property you’re registering now?
+          </h1>
+        </legend>
 
       <div class="govuk-hint">
         You must enter at least 1 single or double bedroom. Single bedrooms can normally only contain a single bed. Double bedrooms should have enough space for at least 1 double bed or 2 single beds.      </div>
@@ -33,6 +34,7 @@
         min: 0,
         max: 9
       %>
+      </fieldset>
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>

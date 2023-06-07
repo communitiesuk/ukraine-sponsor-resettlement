@@ -5,9 +5,14 @@
     
     <%= f.govuk_error_summary link_base_errors_to: :ukraine_parental_consent %>
     
-    <h1 class="gem-c-title__text govuk-heading-xl">
-      Upload the Ukraine certified consent form
-   </h1>
+
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="gem-c-title__text govuk-heading-xl">
+            Upload the Ukraine certified consent form
+          </h1>
+        </legend>
+      </fieldset>
 
    <div class="govuk-inset-text">
     <%=@application.minor_full_name?%>

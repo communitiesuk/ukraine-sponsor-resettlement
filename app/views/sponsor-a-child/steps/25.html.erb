@@ -5,8 +5,11 @@
 
      <%= f.govuk_error_summary link_base_errors_to: :other_adults_address %>
     
+
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
     <h1 class="govuk-heading-l"><%= t('other_adults_address.full', scope: "unaccompanied_minor.questions")%></h1>
-        
+          </legend>
       <div>
           <%=t('different_address.hint_html', :formatted_address => @application.formatted_address?, scope: "unaccompanied_minor.questions")%>
       </div>
@@ -33,7 +36,7 @@
           :name,
           legend: { text: "", hidden: true }
       %>
-
+      </fieldset>
       <div class="govuk-button-group">
         <%= f.govuk_submit t('continue') %>
         <a class="govuk-link" href="/sponsor-a-child/save-and-return">Save and return later</a>
