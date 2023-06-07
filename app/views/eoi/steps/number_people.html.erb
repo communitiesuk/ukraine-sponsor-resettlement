@@ -14,7 +14,6 @@
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
           <h1 class="govuk-heading-l">How many people normally live in the property you’re offering (not including guests)?</h1>
         </legend>
-      </fieldset>
       <%= f.govuk_text_field :number_adults,
                              label: { text: t('number_adults.full', scope: "expression_of_interest.questions") },
                              type: "number",
@@ -25,6 +24,7 @@
                              type: "number",
                              width: 2
       %>
+      </fieldset>
 
       <%= f.govuk_submit t('continue') %>
     <% end %>

@@ -23,7 +23,6 @@
             <%= t('hosting_start_date.full', scope: "expression_of_interest.questions")  %>
           </h1>
         </legend>
-      </fieldset>
     
       <%= f.govuk_radio_buttons_fieldset :host_as_soon_as_possible, legend: { text: t('hosting_start_date.full', scope: "expression_of_interest.questions"), hidden:true } do %>
         <%= f.govuk_radio_button :host_as_soon_as_possible, :true, label: { text: "As soon as possible" } %>
@@ -34,6 +33,7 @@
             %>
         <% end %>
       <% end %>
+      </fieldset>
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>

@@ -16,7 +16,6 @@
             <%= t('family_type.full', scope: "expression_of_interest.questions")  %>
           </h1>
         </legend>
-      </fieldset>
 
       <%= f.govuk_collection_radio_buttons :family_type,
           @application.family_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "expression_of_interest.family_type")) },
@@ -24,6 +23,7 @@
           :name,
           legend: { text: t('family_type.full', scope: "expression_of_interest.questions"), hidden:true }
       %>
+      </fieldset>
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>

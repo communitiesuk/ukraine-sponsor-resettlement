@@ -19,7 +19,6 @@
       <div class="govuk-hint">
         You must enter at least 1 single or double bedroom. Single bedrooms can normally only contain a single bed. Double bedrooms should have enough space for at least 1 double bed or 2 single beds.      </div>
       <br>
-      </fieldset>
 
       <%= f.govuk_text_field :single_room_count,
         label: { text: 'Single bedrooms' },
@@ -35,6 +34,7 @@
         min: 0,
         max: 9
       %>
+      </fieldset>
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>
