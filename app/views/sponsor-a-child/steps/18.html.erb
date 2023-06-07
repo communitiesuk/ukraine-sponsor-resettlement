@@ -5,8 +5,12 @@
 
     <%= f.govuk_error_summary link_base_errors_to: :sponsor_date_of_birth %>
 
-      <h1 class="govuk-heading-l"><%= t('sponsor_date_of_birth.full', scope: "unaccompanied_minor.questions")%></h1>
 
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+      <h1 class="govuk-heading-l"><%= t('sponsor_date_of_birth.full', scope: "unaccompanied_minor.questions")%></h1>
+        </legend>
+      </fieldset>
        <% if @application.sponsor_date_of_birth.present?
             @application.sponsor_date_of_birth[1] = @application.sponsor_date_of_birth["1"]
             @application.sponsor_date_of_birth[2] = @application.sponsor_date_of_birth["2"]

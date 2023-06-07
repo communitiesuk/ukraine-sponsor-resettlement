@@ -5,9 +5,13 @@
 
     <%= f.govuk_error_summary link_base_errors_to: :different_address %>
 
+
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
     <h1 class="gem-c-title__text govuk-heading-l">
       Will you (the sponsor) be living at this address?
     </h1>
+        </legend>
 
     <div class="govuk-inset-text"><%= @application.formatted_address? %></div>
 
@@ -17,7 +21,7 @@
           :name,
           legend: { text: t('different_address.full', scope: "unaccompanied_minor.questions"), hidden: true },
           hint: { text: t('different_address.hint', scope: "unaccompanied_minor.questions")}%>
-
+      </fieldset>
       <div class="govuk-button-group">
         <%= f.govuk_submit t('continue') %>
         <a class="govuk-link" href="/sponsor-a-child/save-and-return">Save and return later</a>

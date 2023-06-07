@@ -5,9 +5,10 @@
 
     <%= f.govuk_error_summary link_base_errors_to: :has_other_names %>
 
-
-    <h1 class="govuk-heading-l"><%= t('other_names.full', scope: "unaccompanied_minor.questions")%></h1>
-
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-heading-l"><%= t('other_names.full', scope: "unaccompanied_minor.questions")%></h1>
+        </legend>
       <%= f.govuk_collection_radio_buttons :has_other_names,
           %i[true false].map{ |val| OpenStruct.new(id: val, name: val==:true ? "Yes" : "No")},
           :id,
@@ -15,6 +16,7 @@
           legend: {hidden:true},
           hint: { text: t('other_names.hint', scope: "unaccompanied_minor.questions")}
       %>
+      </fieldset>
 
       <div class="govuk-button-group">
         <%= f.govuk_submit t('continue') %>

@@ -5,30 +5,34 @@
 
      <%= f.govuk_error_summary link_base_errors_to: :given_name %>
 
-    <h1 class="govuk-heading-l"><%= t('fullname.full', scope: "unaccompanied_minor.questions")%></h1>
-      <%= f.govuk_fieldset legend: { text: "", hidden: true },
-        hint: { text: t('fullname.hint', scope: "unaccompanied_minor.questions") } do %>
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary">
-                    <span class="govuk-details__summary-text">
-                    I'm not sure how to enter my name
-                    </span>
-                </summary>
-                <div class="govuk-details__text">Enter your name as it is written on your identity documents. Use the English spelling if it is written in two languages.
-                <br/>
-                <br/>'Given names' - enter your first name and any of other names like these, for example:
-                <ul>
-                <li>middle names</li>
-                <li>a suffix (for example, Jr)</li>
-                <li>a patronymic name (common in Ukraine)</li>
-                </ul>
-                <div>
-                'Family name' - enter your last name (surname).</div>
-                </div>
-            </details>
-            <%= f.govuk_text_field :given_name, label: { text: 'Given names' }, type: "text" %>
-            <%= f.govuk_text_field :family_name, label: { text: 'Family name' }, type: "text" %>
-      <% end %>
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-heading-l"><%= t('fullname.full', scope: "unaccompanied_minor.questions")%></h1>
+        </legend>
+        <%= f.govuk_fieldset legend: { text: "", hidden: true },
+          hint: { text: t('fullname.hint', scope: "unaccompanied_minor.questions") } do %>
+              <details class="govuk-details" data-module="govuk-details">
+                  <summary class="govuk-details__summary">
+                      <span class="govuk-details__summary-text">
+                      I'm not sure how to enter my name
+                      </span>
+                  </summary>
+                  <div class="govuk-details__text">Enter your name as it is written on your identity documents. Use the English spelling if it is written in two languages.
+                  <br/>
+                  <br/>'Given names' - enter your first name and any of other names like these, for example:
+                  <ul>
+                  <li>middle names</li>
+                  <li>a suffix (for example, Jr)</li>
+                  <li>a patronymic name (common in Ukraine)</li>
+                  </ul>
+                  <div>
+                  'Family name' - enter your last name (surname).</div>
+                  </div>
+              </details>
+              <%= f.govuk_text_field :given_name, label: { text: 'Given names' }, type: "text" %>
+              <%= f.govuk_text_field :family_name, label: { text: 'Family name' }, type: "text" %>
+        <% end %>
+      </fieldset>
 
       <div class="govuk-button-group">
         <%= f.govuk_submit t('continue') %>

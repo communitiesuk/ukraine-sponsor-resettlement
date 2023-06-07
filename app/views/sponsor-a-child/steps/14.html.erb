@@ -5,7 +5,11 @@
 
     <%= f.govuk_error_summary link_base_errors_to: :email %>
 
-    <h1 class="govuk-heading-l"><%= t('email.short', scope: "unaccompanied_minor.questions")%></h1>
+
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-heading-l"><%= t('email.short', scope: "unaccompanied_minor.questions")%></h1>
+        </legend>
     <p class="govuk-body"><%= t('email.full', scope: "unaccompanied_minor.questions")%></p>
     
       <%= f.govuk_text_field :email,
@@ -17,6 +21,7 @@
                              label: { text: t('email.label_confirm_email', scope: "unaccompanied_minor.questions") },
                              type: "email"
       %>
+      </fieldset>
       
       <div class="govuk-button-group">
         <%= f.govuk_submit t('continue') %>
