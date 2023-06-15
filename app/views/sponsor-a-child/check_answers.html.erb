@@ -11,7 +11,7 @@
           key: t('fullname.hint', scope: "unaccompanied_minor.questions"),
           value: @application.sponsor_full_name?,
           url: "/sponsor-a-child/steps/10",
-          url_text: "name" %>
+          url_text: t('fullname.hint', scope: "unaccompanied_minor.questions") %>
 
     <% if @application.has_other_names.present? && @application.has_other_names.casecmp("true").zero? %>
         <div class="govuk-summary-list__row">
@@ -25,7 +25,7 @@
           </dd>
           <dd class="govuk-summary-list__actions">
             <a class="govuk-link" href="/sponsor-a-child/steps/13">
-              Change<span class="govuk-visually-hidden"> name</span>
+              Change<span class="govuk-visually-hidden"> <%= t('other_name.short', scope: "unaccompanied_minor.questions") %></span>
             </a>
           </dd>
         </div>
@@ -35,13 +35,13 @@
         key: t('email.short', scope: "unaccompanied_minor.questions"),
         value: @application.email,
         url: "/sponsor-a-child/steps/14",
-        url_text: "email" %>
+        url_text: t('email.short', scope: "unaccompanied_minor.questions") %>
 
     <%= render 'sponsor-a-child/answers_row',
         key: t('phone_number.short', scope: "unaccompanied_minor.questions"),
         value: @application.phone_number,
         url: "/sponsor-a-child/steps/15",
-        url_text: "number" %>
+        url_text: t('phone_number.short', scope: "unaccompanied_minor.questions") %>
 
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
@@ -53,7 +53,7 @@
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/sponsor-a-child/steps/16">
-            Change<span class="govuk-visually-hidden"> id</span>
+            Change<span class="govuk-visually-hidden"> ID</span>
           </a>
         </dd>
       </div>
@@ -62,13 +62,13 @@
         key:  t('sponsor_date_of_birth.short', scope: "unaccompanied_minor.questions"),
         value: @application.sponsor_date_of_birth_as_string,
         url: "/sponsor-a-child/steps/18",
-        url_text: "date of birth" %>
+        url_text: t('sponsor_date_of_birth.short', scope: "unaccompanied_minor.questions") %>
 
       <%= render 'sponsor-a-child/answers_row',
         key:  "Nationality",
         value: @application.nationality,
         url: "/sponsor-a-child/steps/19",
-        url_text: "nationality" %>
+        url_text: "Nationality" %>
 
       <% if @application.other_nationalities.blank? %>
 
@@ -76,7 +76,7 @@
           key:  "Other nationalities",
           value: "None",
           url: "/sponsor-a-child/steps/19",
-          url_text: "nationality" %>
+          url_text: "Other nationalities" %>
       <% else %>
         <div class="govuk-summary-list__row">
           <dt class="govuk-summary-list__key">
@@ -87,7 +87,7 @@
             <% end %>
           <dd class="govuk-summary-list__actions">
             <a class="govuk-link" href="/sponsor-a-child/steps/20">
-              Change<span class="govuk-visually-hidden"> other nationalities</span>
+              Change<span class="govuk-visually-hidden"> Other nationalities</span>
             </a>
           </dd>
         </div>
@@ -102,7 +102,7 @@
       key:  "Address",
       value: @application.formatted_address?,
       url: "/sponsor-a-child/steps/23",
-      url_text: "address" %>
+      url_text: "Address" %>
 
     <% if !@application.adults_at_address.nil? && !@application.adults_at_address.empty? %>
       <div class="govuk-summary-list__row">
@@ -116,7 +116,7 @@
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/sponsor-a-child/steps/28">
-            Change<span class="govuk-visually-hidden"> name</span>
+            Change<span class="govuk-visually-hidden"> Over 16 years old</span>
           </a>
         </dd>
       </div>
@@ -132,28 +132,28 @@
       key:  "Full name",
       value: @application.minor_full_name?,
       url: "/sponsor-a-child/steps/32",
-      url_text: "name" %>
+      url_text: "Full name" %>
 
       <% if @application.minor_contact_type.blank? || @application.minor_contact_type.include?("none") %>
         <%= render 'sponsor-a-child/answers_row',
           key: "Contact",
           value: "They cannot be contacted",
           url: "/sponsor-a-child/steps/33",
-          url_text: "contact" %>
+          url_text: "Contact" %>
       <% else %>
         <% if @application.minor_email.present? %>
           <%= render 'sponsor-a-child/answers_row',
             key: "Contact email",
             value: @application.minor_email,
             url: "/sponsor-a-child/steps/33",
-            url_text: "contact" %>
+            url_text: "Contact email" %>
         <% end %>
         <% if @application.minor_phone_number.present? %>
           <%= render 'sponsor-a-child/answers_row',
             key: "Contact telephone",
             value: @application.minor_phone_number,
             url: "/sponsor-a-child/steps/33",
-            url_text: "contact" %>
+            url_text: "Contact telephone" %>
         <% end %> 
       <% end %>
 
@@ -161,19 +161,19 @@
             key: t('minor_date_of_birth.short', scope: "unaccompanied_minor.questions"),
             value: @application.minor_date_of_birth_as_string,
             url: "/sponsor-a-child/steps/34",
-            url_text: "date of birth" %>
+            url_text: t('minor_date_of_birth.short', scope: "unaccompanied_minor.questions") %>
 
       <%= render 'sponsor-a-child/answers_row',
             key: t('uk_parental_consent.short', scope: "unaccompanied_minor.questions"),
             value: @application.uk_parental_consent_filename,
             url: "/sponsor-a-child/steps/36",
-            url_text: "form" %>
+            url_text: t('uk_parental_consent.short', scope: "unaccompanied_minor.questions") %>
 
       <%= render 'sponsor-a-child/answers_row',
             key: t('ukraine_parental_consent.short', scope: "unaccompanied_minor.questions"),
             value: @application.ukraine_parental_consent_filename,
             url: "/sponsor-a-child/steps/37",
-            url_text: "form" %>
+            url_text: t('ukraine_parental_consent.short', scope: "unaccompanied_minor.questions") %>
     </dl>
 
     <h2 class="govuk-heading-m">Sponsor declaration</h2>
@@ -190,7 +190,7 @@
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link" href="/sponsor-a-child/steps/38">
-            Change<span class="govuk-visually-hidden"> data sharing agreement</span>
+            Change<span class="govuk-visually-hidden"> Do you consent to the data sharing agreement?</span>
           </a>
         </dd>
       </div>
@@ -199,14 +199,14 @@
         key: "Do you consent to the data sharing agreement?",
         value: (@application.privacy_statement_confirm == "true" ? "Agreed" : "Not agreed"),
         url: "/sponsor-a-child/steps/38",
-        url_text: "data sharing agreement" %>
+        url_text: "Do you consent to the data sharing agreement?" %>
     <% end %>
     
     <%= render 'sponsor-a-child/answers_row',
         key: "Do you commit to the conditions of sponsoring an unaccompanied child?",
         value: (@application.sponsor_declaration == "true" ? "Agreed" : "Not agreed"),
         url: "/sponsor-a-child/steps/39",
-        url_text: "child sponsoring declaration" %>
+        url_text: "Do you commit to the conditions of sponsoring an unaccompanied child?" %>
 
     </dl>
 
