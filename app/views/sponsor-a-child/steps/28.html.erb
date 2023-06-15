@@ -10,7 +10,7 @@
         <thead class="govuk-table__head">
           <tr class="govuk-table__row">
             <th scope="col" class="govuk-table__header">Residents</th>
-            <th scope="col" class="govuk-table__header"></th>
+            <th scope="col" class="govuk-table__header">Action</th>
           </tr>
         </thead>
         <tbody class="govuk-table__body">
@@ -18,7 +18,7 @@
             <tr class="govuk-table__row">
               <td class="govuk-table__cell"><%= "#{@application.adults_at_address[key]["given_name"]} #{@application.adults_at_address[key]["family_name"]}" %></td>
               <td class="govuk-table__cell">
-                <%= link_to("Remove", "/sponsor-a-child/remove/#{key}") %>
+                <%= link_to("Remove", "/sponsor-a-child/remove/#{key}") %></span>
               </td>
             </tr>
         </tbody>
