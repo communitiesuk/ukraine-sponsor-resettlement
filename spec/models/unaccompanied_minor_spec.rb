@@ -140,7 +140,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       app.partial_validation = %i[residential_line_2]
       app.residential_line_2 = ("X" * 129).to_s
       expect(app.valid?).to be(false)
-      expect(app.errors[:residential_line_2]).to include("You must enter less than 128 characters")
+      expect(app.errors[:residential_line_2]).to include("You must enter less than 128 characters for address line 2")
       expect(app.errors[:residential_line_2].count).to be(1)
       app.residential_line_2 = ""
       expect(app.valid?).to be(true)
