@@ -31,8 +31,8 @@
 
 en:
   yes_no_types:
-    yes: "Yes"
-    no: "No"
+    "yes": "Yes"
+    "no": "No"
   individual:
     questions:
       family_type:
@@ -152,6 +152,8 @@ en:
       step_free:
         short: Step-free access
         full: Does the property, or any of the properties, have step-free access?
+        "yes": "Yes"
+        "no": "No"
       single_room_count:
         short: Single bedrooms available
         full: How many single bedrooms do you have available in the property you have specified?
@@ -194,6 +196,8 @@ en:
       different_address:
         short: Different address
         full: Is the property you’re offering at a different address to your home?
+        "yes": "Yes"
+        "no": "No"
       more_properties:
         short: More properties
         full: Are you offering any more properties?
@@ -218,7 +222,8 @@ en:
         short: User research
         full: Would you like to take part in research to help us improve the Homes for Ukraine service?
         hint: This could involve completing a survey or taking part in a video call with a user research team. If you choose ‘Yes’, you’re agreeing to be contacted using the email address or telephone number you provided in this form.
-
+        "yes": "Yes"
+        "no": "No"
       agree_privacy_statement:
         short: Privacy statement
         full: Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme
@@ -385,12 +390,6 @@ en:
       from_6_to_9_months: From 6 to 9 months
       from_10_to_12_months: From 10 to 12 months
       more_than_12_months: More than 12 months
-    different_address:
-      yes: Yes
-      no: No
-    user_research:
-      yes: Yes
-      no: No
   unaccompanied_minor:
     questions:
       privacy_statement:
@@ -402,33 +401,49 @@ en:
       sponsored_children_age:
         short: Sponsored children age
         full: Is the child you want to sponsor under 18?
+        "yes": "Yes"
+        "no": "No"
       sponsored_children_living_december:
         short: Sponsored children living december
         full: Was the child living in Ukraine on or before 31 December 2021?
         hint: Select 'Yes' even if they were temporarily away at the time.
           Select 'No' if they were born after 31 December 2021.
+        "yes": "Yes"
+        "no": "No"
       sponsored_children_december_birth:
         short: Sponsored children december birth
         full: Was the child born after 31 December 2021?
+        "yes": "Yes"
+        "no": "No"
       sponsored_children_legal_guardian_travelling:
         short: Sponsored children legal guardian traveling
         full: Are they travelling to the UK with a parent or legal guardian?
         hint: This excludes travelling with another relative, such as a grandmother, aunt or uncle who is not their legal guardian.
+        "yes": "Yes"
+        "no": "No"
       sponsored_children_legal_guardian_consent:
         short: Sponsored children legal guardian consent
         full: Can you upload both consent forms?
         hint_html: You must be able to upload both completed and signed consent forms from at least one of the child's parents or their legal guardian.<br /><br /><a target="_blank" href="https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians#parent-or-legal-guardian-consent">Read guidance about which consent forms are required</a>
+        "yes": "Yes"
+        "no": "No"
       sponsor_british_citizenship:
         short: Sponsor british citizenship
         full: Are you a British citizen?
+        "yes": "Yes"
+        "no": "No"
       sponsor_right_to_live_in_uk:
         short: Sponsor right to live in the UK
         full: Do you have permission to live in the UK for the minimum period?
         hint_html: You will need permission to live in the UK for at least <ul><li>3 years</li></ul> OR <ul><li>Until the child turns 18 and you have hosted them for at least 6 months</li></ul>
+        "yes": "Yes"
+        "no": "No"        
       sponsor_commitment:
         short: Sponsor commitment
         full: Can you commit to hosting the child for the minimum period?
         hint_html: You must commit to hosting the child in the UK for at least<ul><li>3 years</li></ul> OR <ul><li>Until the child turns 18 and you have hosted them for at least 6 months</li>
+        "yes": "Yes"
+        "no": "No"
       eligibility_completed:
         short: Eligibility checks completed
       fullname:
@@ -531,6 +546,8 @@ en:
         hint_html: |
           <div class="govuk-inset-text">%{formatted_address}</div>
         hint: There must be at least one an adult living with the child, but it doesn't have to be you. If you select 'No', we will ask you for this adult's details.
+        "yes": "Yes"
+        "no": "No"
       other_adults_address:
         short: Over 16s
         full: Will anyone else over the age of 16 be living at this address?
