@@ -603,7 +603,7 @@ en:
     no_sponsor_other_name_choice_made: You must select an option
     no_sponsor_other_nationalities_choice_made: You must select an option
     invalid_number: Please enter a non-negative whole number
-    invalid_room_count: You must enter a number from 0 to 9
+    invalid_room_count: You must enter a number from 0 to 9 for available rooms at the property you're offering
     invalid_minimum_room_count: You must enter a number from 1 to 9 in either field
     invalid_postcode: Please enter a valid UK postcode(s)
     invalid_email: You must enter a valid email address
@@ -617,12 +617,12 @@ en:
     choose_one_or_more_options: Please choose one or more of the options
     max_500_chars: Please use 500 characters or less
     address_line_1: You must enter an address
-    address_line_2: You must enter less than 128 characters
+    address_line_2: You must enter less than 128 characters for address line 2
     address_town: You must enter a town or city
     address_postcode: You must enter a valid UK postcode
-    number_adults_zero: You must enter a number from 0-9
-    number_adults_one: You must enter a number from 1-9
-    number_children: You must enter a number from 0-9
+    number_adults_zero: You must enter a number from 0-9 for adults that normally live at the property you're offering
+    number_adults_one: You must enter a number from 1-9 for adults that normally live at the property you're offering
+    number_children: You must enter a number from 0-9 for children that normally live at the property you're offering
     child_without_adult: There must be at least 1 adult living with children
     number_adults_residential: There must be at least 1 adult living at your residential address
     invalid_file_type_chosen: You can only upload pdf, jpeg or png files
