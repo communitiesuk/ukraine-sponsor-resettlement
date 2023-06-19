@@ -149,7 +149,7 @@ module EoiHelpers
 
     eoi_choose_option(research)
 
-    expect(page).to have_content("Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme")
+    expect(page).to have_content("Confirm you have read the privacy statement")
 
     check("Yes, I have read the privacy statement and agree that the information I have provided in this form can be used for the Homes for Ukraine scheme")
     click_on("Continue")
