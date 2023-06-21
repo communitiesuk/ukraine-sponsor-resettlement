@@ -23,7 +23,7 @@
         </details>
 
       <%= f.govuk_collection_radio_buttons :is_permitted,
-                                           @application.eligibility_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
+                                           @application.eligibility_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.questions.sponsor_right_to_live_in_uk")) },
                                            :id,
                                            :name,
                                            legend: { text: "", hidden: true }
