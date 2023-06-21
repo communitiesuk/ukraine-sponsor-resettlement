@@ -38,9 +38,9 @@ module EoiHelpers
     fill_in("Enter your email address", with: email)
     click_on("Continue")
 
-    expect(page).to have_content("Enter your contact telephone number")
+    expect(page).to have_content("Enter a telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192")
 
-    fill_in("Enter your contact telephone number", with: phone_number)
+    fill_in("Enter a telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192", with: phone_number)
 
     click_on("Continue")
   end
