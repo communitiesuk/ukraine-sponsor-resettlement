@@ -30,6 +30,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  continue: "Continue"
   yes_no_types:
     "yes": "Yes"
     "no": "No"
