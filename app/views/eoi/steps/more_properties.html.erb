@@ -20,7 +20,7 @@
         </legend>
 
       <%= f.govuk_collection_radio_buttons :more_properties,
-          @application.more_properties_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "expression_of_interest.more_properties")) },
+          @application.more_properties_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "expression_of_interest.questions.more_properties")) },
           :id,
           :name,
           legend: { text: t('more_properties.full', scope: "additional_info.questions"), hidden:true },
