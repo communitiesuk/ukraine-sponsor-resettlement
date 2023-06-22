@@ -10,7 +10,7 @@ class CookiesController < ApplicationController
   def post
     @abstractcookies = AbstractCookiesAccept.new
     @abstractcookies.assign_attributes(confirm_params)
-
+    Rails.logger.debug 'fuck you'
     session[:cookies_accepted] = @abstractcookies.cookies_accepted.casecmp("yes").zero?.to_s
     @cookies_accepted = @abstractcookies.cookies_accepted.casecmp("yes").zero?
     cookies[:cookies_preferences_set] = { value: "true", expires: 1.year.from_now }
