@@ -18,11 +18,13 @@ private
     Rails.logger.debug request.fullpath
 
     if cookies[:cookies_preferences_set].present? && cookies[:cookies_preferences_set] == "true" && cookies[:cookies_policy].present?
-      if request.fullpath.include?("child") && ENV["UAM_GA_TRACKING_CODE"].present?
-        GA.tracker = ENV.fetch("UAM_GA_TRACKING_CODE")
-      elsif request.fullpath.include?("expression") && ENV["EOI_GA_TRACKING_CODE"].present?
-        GA.tracker = ENV.fetch("EOI_GA_TRACKING_CODE")
+      if request.fullpath.include?("child") && ENV["UAM_GA4_TRACKING_CODE"].present?
+        session[:ga4_tracking_code] = ENV.fetch("UAM_GA4_TRACKING_CODE")
+      elsif request.fullpath.include?("expression") && ENV["EOI_GA4_TRACKING_CODE"].present?
+        session[:ga4_tracking_code] = ENV.fetch("EOI_GA4_TRACKING_CODE")
       end
+    else
+      session[:ga4_tracking_code] = 'X-XXXX-XXXX'
     end
   end
 

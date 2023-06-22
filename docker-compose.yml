@@ -32,8 +32,8 @@ services:
       DB_PASSWORD: password
       VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-development-redis","credentials":{"uri":"redis://redis"}}],"aws-s3-bucket":[{"instance_name":"ukraine-sponsor-resettlement-development-s3","credentials":{"aws_access_key_id":"access-key-id","aws_secret_access_key":"secret-access-key","aws_region":"eu-west-2","bucket_name":"upload-bucket"}}]}'
       BASIC_AUTH_PASS: password
-      UAM_GA_TRACKING_CODE: "UA-243629620-2"
-      EOI_GA_TRACKING_CODE: "UA-243629620-1"
+      UAM_GA4_TRACKING_CODE: "G-HVPNNH6M78"
+      EOI_GA4_TRACKING_CODE: "G-QEDR70MQVN"
 
     ports:
       - 8080:8080
