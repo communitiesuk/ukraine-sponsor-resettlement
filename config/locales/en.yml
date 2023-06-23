@@ -68,7 +68,7 @@ en:
         full: Enter your email address
       phone_number:
         short: Telephone number
-        full: Enter your contact telephone number
+        full: Enter a telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192
       address_line_1:
         short: Line 1
         full: Address line 1
@@ -181,7 +181,7 @@ en:
         full: Enter your email address
       phone_number:
         short: Telephone number
-        full: Enter your contact telephone number
+        full: Enter a telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192
       address_line_1:
         short: Line 1
         full: Address line 1
@@ -315,7 +315,7 @@ en:
         full: Enter your email address
       phone_number:
         short: Phone number (optional)
-        full: Enter your contact telephone number (optional)
+        full: Enter a telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192 (optional)
       agree_privacy_statement:
         short: Privacy statement
         full: Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme
@@ -628,7 +628,7 @@ en:
     invalid_postcode: Please enter a valid UK postcode(s)
     invalid_email: You must enter a valid email address
     invalid_organisation_name: Please enter a valid organisation name
-    invalid_phone_number: You must enter a valid phone number
+    invalid_phone_number: Enter a telephone number in the correct format
     invalid_minor_fullname: You must enter the child's full name
     invalid_fullname: You must enter your full name
     invalid_family_name: You must enter a valid family name
@@ -661,5 +661,5 @@ en:
     emails_different: Emails must match
     phone_numbers_different: Phone numbers must match
     no_identity_error: Tell us how you can prove your identity, or why you cannot.
-    non_uk_number: You must enter a valid UK mobile phone number
+    non_uk_number: Enter a telephone number in the correct format
     invalid_hosting_start_date: Enter a valid start date
