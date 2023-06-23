@@ -236,7 +236,7 @@ module UnaccompaniedMinorHelpers
   end
 
   def uam_confirm_privacy_statement
-    expect(page).to have_content("Confirm you have read the privacy statement and all people involved agree that the information you have provided can be used for the Homes for Ukraine scheme")
+    expect(page).to have_content("Confirm you have read the privacy statement")
 
     check("unaccompanied_minor[privacy_statement_confirm]")
     click_on("Continue")
