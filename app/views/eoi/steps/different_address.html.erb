@@ -21,10 +21,10 @@
         </legend>
 
       <%= f.govuk_collection_radio_buttons :different_address,
-          @application.different_address_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "expression_of_interest.different_address")) },
+          @application.different_address_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "expression_of_interest.questions.different_address")) },
           :id,
           :name,
-          legend: { text: t('different_address.full', scope: "expression_of_interest.questions"), hidden:true }
+          legend: { text: t('different_address.full', scope: "expression_of_interest.questions.different_address"), hidden:true }
       %>
       </fieldset>
       <%= f.govuk_submit t('continue') %>
