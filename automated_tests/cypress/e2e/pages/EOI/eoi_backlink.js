@@ -21,7 +21,7 @@ const bedrooms_heading_step_12 = () => {cy.get(elements.page_heading).contains('
 const stepfree_access_heading_step_13 = () => {cy.get(elements.page_heading).contains('Does the property, or any of the properties, have step-free access?').should('be.visible').wait(Cypress.env('waitTime'))}
 const pets_heading_step_14 = () => {cy.get(elements.pets_heading).contains('Would you consider allowing guests to bring their pets?').should('be.visible').wait(Cypress.env('waitTime'))}
 const research_heading_step_15 = () => {cy.get(elements.research_heading).contains('Would you like to take part in research to help us improve the Homes for Ukraine service?').should('be.visible').wait(Cypress.env('waitTime'))}
-const privercy_heading_step_16 = () => {cy.get(elements.consent_heading).contains('Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme').should('be.visible').wait(Cypress.env('waitTime'))}
+const privercy_heading_step_16 = () => {cy.get(elements.consent_heading).contains('Confirm you have read the privacy statement').should('be.visible').wait(Cypress.env('waitTime'))}
 const check_answers_heading_step_17 = () => {cy.get(elements.page_heading).contains('Check your answers before sending your registration').should('be.visible').wait(Cypress.env('waitTime'))}
 
 export const eoi_eligibility_check_p1_2 = () => {

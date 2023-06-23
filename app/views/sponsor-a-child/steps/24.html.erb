@@ -10,15 +10,15 @@
 
       <fieldset class="govuk-fieldset">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-    <h1 class="gem-c-title__text govuk-heading-l">
-      Will you (the sponsor) be living at this address?
-    </h1>
+          <h1 class="gem-c-title__text govuk-heading-l">
+            Will you (the sponsor) be living at this address?
+          </h1>
         </legend>
 
     <div class="govuk-inset-text"><%= @application.formatted_address? %></div>
 
       <%= f.govuk_collection_radio_buttons :different_address,
-          @application.different_address_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
+          @application.different_address_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "yes_no_types")) },
           :id,
           :name,
           legend: { text: t('different_address.full', scope: "unaccompanied_minor.questions"), hidden: true },

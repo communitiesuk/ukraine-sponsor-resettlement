@@ -33,7 +33,7 @@
             </details>
 
       <%= f.govuk_collection_radio_buttons :other_adults_address,
-          @application.other_adults_address_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
+          @application.other_adults_address_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.questions.different_address")) },
           :id,
           :name,
           legend: { text: "", hidden: true }
