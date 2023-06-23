@@ -17,7 +17,7 @@
           %i[true false].map{ |val| OpenStruct.new(id: val, name: val==:true ? "Yes" : "No")},
           :id,
           :name,
-          legend: {hidden: true},
+          legend: { text: t('sponsor_has_other_nationality.full', scope: "unaccompanied_minor.questions"), hidden: true },
           hint: { text: t('sponsor_has_other_nationality.hint', scope: "unaccompanied_minor.questions")}
       %>
       </fieldset>
