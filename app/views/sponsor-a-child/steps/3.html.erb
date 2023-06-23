@@ -12,7 +12,7 @@
           <h1 class="govuk-heading-l"><%= t('sponsored_children_december_birth.full', scope: "unaccompanied_minor.questions")%></h1>
         </legend>
       <%= f.govuk_collection_radio_buttons :is_born_after_december,
-                                           @application.eligibility_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
+                                           @application.eligibility_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.questions.sponsored_children_legal_guardian_travelling")) },
                                            :id,
                                            :name,
                                            legend: { text: t('sponsored_children_december_birth.full', scope: "unaccompanied_minor.questions"), hidden: true }
