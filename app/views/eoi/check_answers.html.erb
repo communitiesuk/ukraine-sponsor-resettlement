@@ -239,7 +239,7 @@
           <% if @application.errors.include?(:single_room_count) %>
             <span class="govuk-error-message"><%= @application.errors[:single_room_count].join %></span>
           <% else %>
-            <%= t(@application.single_room_count) %>
+            <%= @application.single_room_count %>
           <% end %>
         </dd>
         <dd class="govuk-summary-list__actions">
@@ -256,7 +256,7 @@
           <% if @application.errors.include?(:double_room_count) %>
             <span class="govuk-error-message"><%= @application.errors[:double_room_count].join %></span>
           <% else %>
-            <%= t(@application.double_room_count) %>
+            <%= @application.double_room_count %>
           <% end %>
         </dd>
         <dd class="govuk-summary-list__actions">
