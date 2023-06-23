@@ -26,7 +26,7 @@
                                            @application.eligibility_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.questions.sponsor_commitment")) },
                                            :id,
                                            :name,
-                                           legend: { text: "", hidden: true }
+                                           legend: { text: t('sponsor_commitment.full', scope: "unaccompanied_minor.questions"), hidden: true }
       %>
       </fieldset>
       <%= f.govuk_submit t('continue') %>
