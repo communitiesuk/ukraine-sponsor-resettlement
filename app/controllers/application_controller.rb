@@ -17,10 +17,12 @@ private
   def set_tracking_code
     Rails.logger.debug request.fullpath
 
-    if request.fullpath.include?("child") && ENV["UAM_GA_TRACKING_CODE"].present? && session[:cookies_accepted].present? && session[:cookies_accepted].casecmp("true").zero?
-      GA.tracker = ENV.fetch("UAM_GA_TRACKING_CODE")
-    elsif request.fullpath.include?("expression") && ENV["EOI_GA_TRACKING_CODE"].present? && session[:cookies_accepted].present? && session[:cookies_accepted].casecmp("true").zero?
-      GA.tracker = ENV.fetch("EOI_GA_TRACKING_CODE")
+    if cookies[:cookies_preferences_set].present? && cookies[:cookies_preferences_set] == "true" && cookies[:cookies_policy].present?
+      if request.fullpath.include?("child") && ENV["UAM_GA_TRACKING_CODE"].present?
+        GA.tracker = ENV.fetch("UAM_GA_TRACKING_CODE")
+      elsif request.fullpath.include?("expression") && ENV["EOI_GA_TRACKING_CODE"].present?
+        GA.tracker = ENV.fetch("EOI_GA_TRACKING_CODE")
+      end
     end
   end
 
