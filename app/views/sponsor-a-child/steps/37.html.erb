@@ -1,4 +1,4 @@
-<% provide(:title, "Upload the Ukraine certified consent form - ") %>
+<% provide(:title, session[:has_error] || '' + "Upload the Ukraine certified consent form - ") %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -30,10 +30,10 @@
                     </span>
                 </summary>
                 <div class="govuk-details__text">
-                 You can only upload these file types: pdf, jpeg, png.<br/>
-                <br/>
-                You can only upload 1 file. If you have multiple files, please use an app or website to combine the documents into a single PDF file. <br/>
-                <br/>
+                 You can only upload these file types: pdf, jpeg, png.<br aria-hidden="true">
+                <br aria-hidden="true">
+                You can only upload 1 file. If you have multiple files, please use an app or website to combine the documents into a single PDF file. <br aria-hidden="true">
+                <br aria-hidden="true">
                 If the parents or guardians are struggling to complete the form and send it to you, they should <a class="govuk-link" href="https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-parents-or-legal-guardians-children-and-minors-applying-without-parents#parental-or-legal-guardian-consent-1" target="_blank"> read the guidance on completing parental consent forms (opens in a new tab)</a>
                 </div>
 

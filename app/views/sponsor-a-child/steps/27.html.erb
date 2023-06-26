@@ -1,4 +1,4 @@
-<% provide(:title, t('adults_at_address.full', scope: "unaccompanied_minor.questions") + " - ") %>
+<% provide(:title, session[:has_error] || '' + t('adults_at_address.full', scope: "unaccompanied_minor.questions") + " - ") %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -21,8 +21,8 @@
                     I'm not sure how to enter their name
                     </span>
                 </summary>
-                <div class="govuk-details__text">Enter their name as shown on their identity documents. Use the English spelling if it is written in two languages. <br/>
-                <br/>
+                <div class="govuk-details__text">Enter their name as shown on their identity documents. Use the English spelling if it is written in two languages. <br aria-hidden="true">
+                <br aria-hidden="true">
                 'Given names': enter their first name and any other names like these, for example:
 
                 <ul class="govuk-list govuk-list--bullet">

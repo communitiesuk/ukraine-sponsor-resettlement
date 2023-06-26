@@ -1,4 +1,4 @@
-<% provide(:title, "Enter your full residential address - ") %>
+<% provide(:title, session[:has_error] || '' + "Enter your full residential address - ") %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -14,7 +14,7 @@
           <h1 class="govuk-heading-l">Enter your full residential address</h1>
         </legend>
         <p class="govuk-hint">This is the address where you live</p>
-        <br>
+        <br aria-hidden="true">
 
       <%= f.govuk_text_field :residential_line_1,
                              label: { text: t('address_line_1.full', scope: "expression_of_interest.questions") },

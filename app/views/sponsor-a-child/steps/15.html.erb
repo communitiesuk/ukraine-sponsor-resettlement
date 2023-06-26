@@ -1,4 +1,4 @@
-<% provide(:title, t('phone_number.short', scope: "unaccompanied_minor.questions") + " - ") %>
+<% provide(:title, session[:has_error] || '' + t('phone_number.short', scope: "unaccompanied_minor.questions") + " - ") %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -13,8 +13,8 @@
           <h1 class="govuk-heading-l"><%= t('phone_number.short', scope: "unaccompanied_minor.questions")%></h1>
         </legend>
     <p class="govuk-body"><%= t('phone_number.full', scope: "unaccompanied_minor.questions")%>
-    <br/>
-    <br/>
+    <br aria-hidden="true">
+    <br aria-hidden="true">
     If you need to use someone else’s phone, make sure you have their permission to do so.
     
     </p>

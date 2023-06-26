@@ -4,7 +4,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   let(:given_name_error) { "You must enter a valid given name" }
   let(:family_name_error) { "You must enter a valid family name" }
   let(:email_address_error) { "You must enter a valid email address" }
-  let(:phone_numbers_error) { "You must enter a valid UK mobile phone number" }
+  let(:phone_numbers_error) { "Enter a telephone number in the correct format" }
   let(:empty_address_error) { "You must enter an address" }
   let(:empty_town_city_error) { "You must enter a town or city" }
   let(:postcode_error) { "You must enter a valid UK postcode" }

@@ -1,4 +1,4 @@
-<% provide(:title, t('more_properties.full', scope: "expression_of_interest.questions") + " - ") %>
+<% provide(:title, session[:has_error] || '' + t('more_properties.full', scope: "expression_of_interest.questions") + " - ") %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
