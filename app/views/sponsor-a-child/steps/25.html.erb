@@ -36,7 +36,7 @@
           @application.other_adults_address_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.questions.different_address")) },
           :id,
           :name,
-          legend: { text: "", hidden: true }
+          legend: { text: t('other_adults_address.full', scope: "unaccompanied_minor.questions"), hidden: true }
       %>
       </fieldset>
       <div class="govuk-button-group">

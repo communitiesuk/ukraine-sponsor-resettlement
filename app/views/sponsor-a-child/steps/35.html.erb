@@ -31,7 +31,7 @@
 
     <%= form_for @application, url: "/sponsor-a-child/steps/35", method: :post do |f| %>
       <%= f.govuk_text_field :have_parental_consent,
-                             label: { text: "No label", hidden: true },
+                             label: { text: 'Continue to form upload', hidden: true },
                              type: "hidden",
                              value: "yes"
       %>
