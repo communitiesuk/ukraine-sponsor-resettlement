@@ -186,6 +186,7 @@ class UnaccompaniedController < ApplicationController
                                       end
 
     if @application.valid?
+      session[:has_error] = ""
       UamWorkflow.do_data_transforms(current_step, @application, params)
       @application.update!(@application.as_json)
 
@@ -211,6 +212,7 @@ class UnaccompaniedController < ApplicationController
       end
     else
       # Validation failed. Expose the data needed on the steps that need it.
+      session[:has_error] = "Error - "
       if UamWorkflow.state_has_tag(current_step, :nationality_step)
         @nationalities = get_nationalities_as_list(@application.saved_nationalities_as_list)
       end
