@@ -14,7 +14,7 @@
           <h1 class="govuk-heading-l">Enter your full residential address</h1>
         </legend>
         <p class="govuk-hint">This is the address where you live</p>
-        <br>
+        <br aria-hidden="true">
 
       <%= f.govuk_text_field :residential_line_1,
                              label: { text: t('address_line_1.full', scope: "expression_of_interest.questions") },

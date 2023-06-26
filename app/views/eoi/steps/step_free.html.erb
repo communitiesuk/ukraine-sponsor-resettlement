@@ -22,7 +22,7 @@
           Step-free access means that the property entrance and all the rooms your guests will use must be without steps, or include a ramp or lift suitable for wheelchair users.
         </div>
 
-      <br>
+      <br aria-hidden="true">
       <%= f.govuk_collection_radio_buttons :step_free,
         @application.step_free_types.map{|type| OpenStruct.new(id: type, name: t(type, scope: "expression_of_interest.step_free")) },
         :id,
