@@ -1,4 +1,4 @@
-<% provide(:title, t('sponsored_children_december_birth.full', scope: "unaccompanied_minor.questions") + " - ") %>
+<% provide(:title, session[:has_error] || '' + t('sponsored_children_december_birth.full', scope: "unaccompanied_minor.questions") + " - ") %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">

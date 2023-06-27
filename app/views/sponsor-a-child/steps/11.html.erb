@@ -1,4 +1,4 @@
-<% provide(:title, t('other_names.full', scope: "unaccompanied_minor.questions") + " - ") %>
+<% provide(:title, session[:has_error] || '' + t('other_names.full', scope: "unaccompanied_minor.questions") + " - ") %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -15,7 +15,7 @@
           %i[true false].map{ |val| OpenStruct.new(id: val, name: val==:true ? "Yes" : "No")},
           :id,
           :name,
-          legend: {hidden:true},
+          legend: { text:t('other_names.full', scope: "unaccompanied_minor.questions"), hidden:true },
           hint: { text: t('other_names.hint', scope: "unaccompanied_minor.questions")}
       %>
       </fieldset>

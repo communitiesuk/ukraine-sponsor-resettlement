@@ -9,7 +9,7 @@ const sa_page_3_heading = () => {cy.get(elements.page_heading).contains('Can you
 const sa_page_4_heading = () => {cy.get(elements.page_heading).contains('Now we need your information').should('be.visible')}
 const name_heading_step_1 = () => {cy.get(elements.fullname_label).contains('Enter your full name').should('be.visible').wait(Cypress.env('waitTime'))}
 const email_heading_step_2 = () => {cy.get(elements.email_label).contains('Enter your email address').should('be.visible').wait(Cypress.env('waitTime'))}
-const phone_heading_step_3 = () => {cy.get(elements.phonenumber_label).contains('Enter your contact telephone number').should('be.visible').wait(Cypress.env('waitTime'))}
+const phone_heading_step_3 = () => {cy.get(elements.phonenumber_label).contains('Enter a telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192').should('be.visible').wait(Cypress.env('waitTime'))}
 const residential_address_heading_step_4 = () => {cy.get(elements.page_heading).contains('Enter your full residential address').should('be.visible').wait(Cypress.env('waitTime'))}
 const dif_address_ques_heading_step_5 = () => {cy.get(elements.page_heading).contains('Is the property you’re offering at a different address to your home?').should('be.visible').wait(Cypress.env('waitTime'))}
 const offering_address_heading_step_6 = () => {cy.get(elements.page_heading).contains("Enter the address of the property you're offering").should('be.visible').wait(Cypress.env('waitTime'))}
@@ -21,7 +21,7 @@ const bedrooms_heading_step_12 = () => {cy.get(elements.page_heading).contains('
 const stepfree_access_heading_step_13 = () => {cy.get(elements.page_heading).contains('Does the property, or any of the properties, have step-free access?').should('be.visible').wait(Cypress.env('waitTime'))}
 const pets_heading_step_14 = () => {cy.get(elements.pets_heading).contains('Would you consider allowing guests to bring their pets?').should('be.visible').wait(Cypress.env('waitTime'))}
 const research_heading_step_15 = () => {cy.get(elements.research_heading).contains('Would you like to take part in research to help us improve the Homes for Ukraine service?').should('be.visible').wait(Cypress.env('waitTime'))}
-const privercy_heading_step_16 = () => {cy.get(elements.consent_heading).contains('Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme').should('be.visible').wait(Cypress.env('waitTime'))}
+const privercy_heading_step_16 = () => {cy.get(elements.consent_heading).contains('Confirm you have read the privacy statement').should('be.visible').wait(Cypress.env('waitTime'))}
 const check_answers_heading_step_17 = () => {cy.get(elements.page_heading).contains('Check your answers before sending your registration').should('be.visible').wait(Cypress.env('waitTime'))}
 
 export const eoi_eligibility_check_p1_2 = () => {

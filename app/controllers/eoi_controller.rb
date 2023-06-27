@@ -62,6 +62,7 @@ class EoiController < ApplicationController
 
     @application.partial_validation = EoiWorkflow.states[current_stage][:validations]
     if @application.valid?
+      session[:has_error] = ""
       session[:eoi] = @application.as_json
       next_stage = EoiWorkflow.get_next_step(current_stage, application_params, @application)
 
@@ -71,6 +72,7 @@ class EoiController < ApplicationController
         redirect_to "/expression-of-interest/steps/#{next_stage}"
       end
     else
+      session[:has_error] = "Error - "
       render EoiWorkflow.states[current_stage][:view_name]
     end
   end

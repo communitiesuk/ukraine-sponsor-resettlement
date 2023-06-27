@@ -1,4 +1,4 @@
-<% provide(:title, t('apply_to_sponsor.short', scope: "unaccompanied_minor.questions") + " - ") %>
+<% provide(:title, t('apply_to_sponsor.short', scope: "unaccompanied_minor") + " - ") %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -16,11 +16,11 @@
     </p>
 
     <%= govuk_accordion do |accordion|
-      accordion.section(heading_text: "1. Get parental consent") { tag.p(t('parental_consent_text.long_html', scope: "unaccompanied_minor")) }
+      accordion.with_section(heading_text: "1. Get parental consent") { tag.p(t('parental_consent_text.long_html', scope: "unaccompanied_minor")) }
 
-      accordion.section(heading_text: "2. Apply for approval from your local council") { tag.p(t('local_council_approval.long_html', scope: "unaccompanied_minor")) }
+      accordion.with_section(heading_text: "2. Apply for approval from your local council") { tag.p(t('local_council_approval.long_html', scope: "unaccompanied_minor")) }
 
-      accordion.section(heading_text: "3. The child applies for a visa") { tag.p(t('child_visa_applies.long_html', scope: "unaccompanied_minor")) }
+      accordion.with_section(heading_text: "3. The child applies for a visa") { tag.p(t('child_visa_applies.long_html', scope: "unaccompanied_minor")) }
       end %>
 
   </div>

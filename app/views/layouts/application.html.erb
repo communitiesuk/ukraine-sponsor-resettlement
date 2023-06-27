@@ -65,7 +65,9 @@
       <div role="navigation">
         <%= content_for(:before_content) %>
       </div>
-      <%= govuk_phase_banner(tag: { text: "Beta" }) do %>This is a new service
+      <%= govuk_phase_banner(tag: { text: "Beta" }) do %>This is a new service - your
+        <%= mail_to "homesforukraine@levellingup.gov.uk", "feedback", class: "govuk-link" %>
+        will help us improve it.
       <% end %>
       <%unless @no_back_link_pages.include?(request.path) %>
         <%=(render partial: "shared/back_link") %>
