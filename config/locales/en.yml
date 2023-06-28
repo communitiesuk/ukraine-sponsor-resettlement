@@ -487,7 +487,8 @@ en:
       sponsor_nationality:
         short: Sponsor nationality
         full: Enter your nationality
-        hint_html: You will be able to add other nationalities on the next page. <br/> <br/> Select your country of nationality
+        hint: Select your country of nationality
+        hint_long: You will be able to add other nationalities on the next page.
       sponsor_has_other_nationality:
         short: Sponsor has other nationality
         full: Have you ever held any other nationalities?
