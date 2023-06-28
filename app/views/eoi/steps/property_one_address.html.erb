@@ -1,4 +1,4 @@
-<% provide(:title, "Enter the address of the property you're offering - ") %>
+<% provide(:title, session[:has_error] || '' + "Enter the address of the property you're offering - ") %>
 
 
 <div class="govuk-grid-row">
@@ -16,7 +16,7 @@
           <h1 class="govuk-heading-l">Enter the address of the property you're offering</h1>
         </legend>
 
-    <br>
+    <br aria-hidden="true">
 
       <%= f.govuk_text_field :property_one_line_1,
                              label: { text: t('address_line_1.full', scope: "expression_of_interest.questions") },

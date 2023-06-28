@@ -1,4 +1,4 @@
-<% provide(:title, t('other_adults_address.full', scope: "unaccompanied_minor.questions") + " - ") %>
+<% provide(:title, session[:has_error] || '' + t('other_adults_address.full', scope: "unaccompanied_minor.questions") + " - ") %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -23,11 +23,11 @@
                     </span>
                 </summary>
                 <div class="govuk-details__text">
-                  You must count everyone who will be living at this address while the child is living there, whether those people are living there now or not.<br/>
-                  <br/>
+                  You must count everyone who will be living at this address while the child is living there, whether those people are living there now or not.<br aria-hidden="true">
+                  <br aria-hidden="true">
                   You must include people who will live there temporarily or occasionally, for example, students or seasonal workers.
-                  <br/>
-                  <br/>
+                  <br aria-hidden="true">
+                  <br aria-hidden="true">
                   You should not include people who will stay for very short periods, for example, family members who may visit for a few days.
                 </div>
             </details>
@@ -36,7 +36,7 @@
           @application.other_adults_address_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.questions.different_address")) },
           :id,
           :name,
-          legend: { text: "", hidden: true }
+          legend: { text: t('other_adults_address.full', scope: "unaccompanied_minor.questions"), hidden: true }
       %>
       </fieldset>
       <div class="govuk-button-group">

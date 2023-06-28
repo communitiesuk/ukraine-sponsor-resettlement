@@ -1,7 +1,7 @@
 
 
 <div class="govuk-grid-row">
-  <% provide(:title, t('identity_documents.full', scope: "unaccompanied_minor.questions") + " - ") %>
+  <% provide(:title, session[:has_error] || '' + t('identity_documents.full', scope: "unaccompanied_minor.questions") + " - ") %>
 
   <div class="govuk-grid-column-two-thirds">
 

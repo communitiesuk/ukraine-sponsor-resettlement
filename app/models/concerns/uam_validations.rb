@@ -9,14 +9,14 @@ module UamValidations
   POSTCODE_REGEX = /([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})/
 
   included do
-    validate :validate_adult_family_name, if: -> { run_validation? :adult_family_name }
     validate :validate_adult_given_name, if: -> { run_validation? :adult_given_name }
+    validate :validate_adult_family_name, if: -> { run_validation? :adult_family_name }
     validate :validate_adult_date_of_birth, if: -> { run_validation? :adult_date_of_birth }
     validate :validate_adult_nationality, if: -> { run_validation? :adult_nationality }
     validate :validate_adult_identification_number, if: -> { run_validation? :adult_id_identification_number }
     validate :validate_different_sponsor_address, if: -> { run_validation? :different_address }
-    validate :validate_family_name, if: -> { run_validation? :family_name }
     validate :validate_given_name, if: -> { run_validation? :given_name }
+    validate :validate_family_name, if: -> { run_validation? :family_name }
     validate :validate_sponsor_other_names_choice, if: -> { run_validation? :has_other_names }
     validate :validate_sponsor_other_given_name, if: -> { run_validation? :other_given_name }
     validate :validate_sponsor_other_family_name, if: -> { run_validation? :other_family_name }
@@ -43,8 +43,8 @@ module UamValidations
     validate :validate_minor_contact_type, if: -> { run_validation? :minor_contact_type }
     validate :validate_minor_email, if: -> { run_validation? :minor_email }
     validate :validate_minor_phone_number, if: -> { run_validation? :minor_phone_number }
-    validate :validate_minor_family_name, if: -> { run_validation? :minor_family_name }
     validate :validate_minor_given_name, if: -> { run_validation? :minor_given_name }
+    validate :validate_minor_family_name, if: -> { run_validation? :minor_family_name }
     validate :validate_other_adults_address, if: -> { run_validation? :other_adults_address }
     validate :validate_privacy_statement_confirm, if: -> { run_validation? :privacy_statement_confirm }
     validate :validate_residential_line_1, if: -> { run_validation? :sponsor_address_line_1 }

@@ -9,7 +9,7 @@
             Application complete
           </h1>
           <div class="govuk-panel__body">
-            Your reference number is <br><strong><%= @app_reference %></strong>
+            Your reference number is <br aria-hidden="true"><strong><%= @app_reference %></strong>
           </div>
         </div>
 
@@ -32,11 +32,11 @@
         </p>
 
         <p class="govuk-body">
-          <%= govuk_link_to 'Read the guidance on sponsoring a child from Ukraine', 'https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians', target: "_blank" %> to learn more about the checks that will be made to confirm you can sponsor a child.
+          <%= govuk_link_to 'Read the guidance on sponsoring a child from Ukraine (opens in a new tab)', 'https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians', target: "_blank" %> to learn more about the checks that will be made to confirm you can sponsor a child.
         </p>
 
         <p class="govuk-body">
-          If your application is approved, you will only be approved to sponsor the child named in this application. If you would like to sponsor another child, you must <%= govuk_link_to 'complete another application', '/sponsor-a-child', target: "_blank" %>, even if the children are related.
+          If your application is approved, you will only be approved to sponsor the child named in this application. If you would like to sponsor another child, you must <%= govuk_link_to 'complete another application (opens in a new tab)', '/sponsor-a-child', target: "_blank" %>, even if the children are related.
         </p>
       </div>
     </div>

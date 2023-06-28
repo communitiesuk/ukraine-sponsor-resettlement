@@ -1,4 +1,4 @@
-<% provide(:title, "You must upload 2 completed parental consent forms - ") %>
+<% provide(:title, session[:has_error] || '' + "You must upload 2 completed parental consent forms - ") %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -24,14 +24,14 @@
 
      <p class="govuk-body">
         These forms must be completed by at least one parent or legal guardian.
-        <br/>
-        <br/>
+        <br aria-hidden="true">
+        <br aria-hidden="true">
         <a class="govuk-link" href="https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians#parent-or-legal-guardian-consent" target="_blank">Read guidance about parental consent forms (opens in a new tab)</a>
      </p>
 
     <%= form_for @application, url: "/sponsor-a-child/steps/35", method: :post do |f| %>
       <%= f.govuk_text_field :have_parental_consent,
-                             label: { text: "No label", hidden: true },
+                             label: { text: 'Continue to form upload', hidden: true },
                              type: "hidden",
                              value: "yes"
       %>

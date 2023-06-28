@@ -1,4 +1,4 @@
-<% provide(:title, t('sponsored_children_age.full', scope: "unaccompanied_minor.questions") + " - ") %>
+<% provide(:title, session[:has_error] || '' + t('sponsored_children_age.full', scope: "unaccompanied_minor.questions") + " - ") %>
 
 
 <div class="govuk-grid-row">
@@ -16,7 +16,7 @@
                                            @application.eligibility_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.questions.sponsored_children_age")) },
                                            :id,
                                            :name,
-                                           legend: { text: "", hidden: true }
+                                           legend: { text: t('sponsored_children_age.full', scope: "unaccompanied_minor.questions"), hidden: true }
       %>
       </fieldset>
       <%= f.govuk_submit t('continue') %>
