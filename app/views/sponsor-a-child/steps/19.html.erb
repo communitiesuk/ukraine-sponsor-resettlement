@@ -9,12 +9,15 @@
 
       <fieldset class="govuk-fieldset">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-    <h1 class="govuk-heading-l"><%= t('sponsor_nationality.full', scope: "unaccompanied_minor.questions")%></h1>
+          <h1 class="govuk-heading-l"><%= t('sponsor_nationality.full', scope: "unaccompanied_minor.questions")%></h1>
         </legend>
+        <p class="govuk-hint">
+        <%= t('sponsor_nationality.hint_long', scope: "unaccompanied_minor.questions") %>
+        </p>
 
       <%= f.govuk_collection_select :nationality, @nationalities, :val, :name,
           :selected => @nationality,
-          label: {  text: t('sponsor_nationality.hint_html', scope: "unaccompanied_minor.questions")}
+          label: {  text: t('sponsor_nationality.hint', scope: "unaccompanied_minor.questions")}
            %>
       </fieldset>
       <div class="govuk-button-group">
