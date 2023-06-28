@@ -16,12 +16,14 @@
     
       <%= f.govuk_text_field :email,
                              label: { text:  t('email.label_email', scope: "unaccompanied_minor.questions")},
-                             type: "email"
+                             type: "text",
+                             inputmode: "email"
       %>
 
       <%= f.govuk_text_field :email_confirm,
                              label: { text: t('email.label_confirm_email', scope: "unaccompanied_minor.questions") },
-                             type: "email"
+                             type: "text",
+                             inputmode: "email"
       %>
       </fieldset>
       
