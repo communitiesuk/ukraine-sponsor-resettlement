@@ -12,13 +12,13 @@
     <%= form_for @application, url: formurl, method: :post do |f| %>
       <%= f.govuk_error_summary link_base_errors_to: :step_free %>
 
-      <fieldset class="govuk-fieldset">
+      <fieldset class="govuk-fieldset" aria-describedby="step-free-access-hint">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
           <h1 class="govuk-heading-l">
           <%= t('step_free.full', scope: "expression_of_interest.questions")  %>
           </h1>
         </legend>
-        <div class="govuk-hint">
+        <div class="govuk-hint" id="step-free-access-hint">
           Step-free access means that the property entrance and all the rooms your guests will use must be without steps, or include a ramp or lift suitable for wheelchair users.
         </div>
 
