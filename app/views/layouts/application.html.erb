@@ -21,10 +21,17 @@
         console.log(<%= session.to_json.html_safe %>)
       </script>
     <% end %>
-     <% if @cookies_accepted == true %>    
-    <%= analytics_init if GoogleAnalytics.valid_tracker? %>
-     <% end %>
+    <% if @cookies_accepted == true %>    
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=<%= session[:ga4_tracking_code] %>"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
+        gtag('config', <%= session[:ga4_tracking_code] %>);
+      </script>
+    <% end %>
   </head>
 
   <body class="govuk-template__body ">
