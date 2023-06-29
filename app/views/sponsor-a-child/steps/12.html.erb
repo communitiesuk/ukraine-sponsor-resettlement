@@ -27,8 +27,8 @@
                 'Family name' - enter your last name (surname).</div>
                 </div>
             </details>
-            <%= f.govuk_text_field :other_given_name, label: { text: 'Given names' }, type: "text", value: @previously_entered_other_given_name %>
-            <%= f.govuk_text_field :other_family_name, label: { text: 'Family name' }, type: "text", value: @previously_entered_other_family_name %>
+            <%= f.govuk_text_field :other_given_name, label: { text: 'Given names' }, type: "text", inputmode: "text", value: @previously_entered_other_given_name %>
+            <%= f.govuk_text_field :other_family_name, label: { text: 'Family name' }, type: "text", inputmode: "text", value: @previously_entered_other_family_name %>
       <% end %>
 
       <div class="govuk-button-group">
