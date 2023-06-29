@@ -20,20 +20,24 @@
 
       <%= f.govuk_text_field :property_one_line_1,
                              label: { text: t('address_line_1.full', scope: "expression_of_interest.questions") },
-                             type: "text"
+                             type: "text",
+                             inputmode: "text"
       %>
       <%= f.govuk_text_field :property_one_line_2,
                              label: { text: t('address_line_2.full', scope: "expression_of_interest.questions") },
-                             type: "text"
+                             type: "text",
+                             inputmode: "text"
       %>
       <%= f.govuk_text_field :property_one_town,
                              label: { text: t('address_town.full', scope: "additional_info.questions") },
                              type: "text",
+                             inputmode: "text",
                              width: 20
       %>
       <%= f.govuk_text_field :property_one_postcode,
                              label: { text: t('address_postcode.full', scope: "additional_info.questions") },
                              type: "text",
+                             inputmode: "text",
                              width: 10
       %>
       </fieldset>

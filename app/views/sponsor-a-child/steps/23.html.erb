@@ -14,20 +14,24 @@
         </legend>
       <%= f.govuk_text_field :residential_line_1,
                              label: { text: t('address_line_1.full', scope: "unaccompanied_minor.questions") },
-                             type: "text"
+                             type: "text",
+                             inputmode:"text"
       %>
       <%= f.govuk_text_field :residential_line_2,
                              label: { text: t('address_line_2.full', scope: "unaccompanied_minor.questions") },
-                             type: "text"
+                             type: "text",
+                             inputmode:"text"
       %>
       <%= f.govuk_text_field :residential_town,
                              label: { text: t('address_town.full', scope: "unaccompanied_minor.questions") },
                              type: "text",
+                             inputmode:"text",
                              width: 20
       %>
       <%= f.govuk_text_field :residential_postcode,
                              label: { text: t('address_postcode.full', scope: "unaccompanied_minor.questions") },
                              type: "text",
+                             inputmode:"text",
                              width: 10
       %>
       </fieldset>

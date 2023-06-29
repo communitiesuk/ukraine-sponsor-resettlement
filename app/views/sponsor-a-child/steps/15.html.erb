@@ -22,12 +22,14 @@
 
       <%= f.govuk_text_field :phone_number,
         label: { text: t('phone_number.label', scope: "unaccompanied_minor.questions") },
-        type: "tel"
+        type: "text",
+        inputmode: "numeric"
       %>
 
       <%= f.govuk_text_field :phone_number_confirm,
         label: { text: "Confirm mobile number"  },
-        type: "tel"
+        type: "text",
+        inputmode: "email"
       %>
       </fieldset>
 
