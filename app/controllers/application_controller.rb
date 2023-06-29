@@ -23,8 +23,6 @@ private
       elsif request.fullpath.include?("expression") && ENV["EOI_GA4_TRACKING_CODE"].present?
         session[:ga4_tracking_code] = ENV.fetch("EOI_GA4_TRACKING_CODE")
       end
-    else
-      session[:ga4_tracking_code] = "X-XXXX-XXXX"
     end
   end
 

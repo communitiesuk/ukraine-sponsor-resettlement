@@ -21,7 +21,7 @@
         console.log(<%= session.to_json.html_safe %>)
       </script>
     <% end %>
-    <% if @cookies_accepted == true %>    
+    <% if @cookies_accepted == true && session[:ga4_tracking_code].present? %>    
       <!-- Google tag (gtag.js) -->
       <script async src="https://www.googletagmanager.com/gtag/js?id=<%= session[:ga4_tracking_code] %>"></script>
       <script>
@@ -29,7 +29,7 @@
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', <%= session[:ga4_tracking_code] %>);
+        gtag('config', '<%= session[:ga4_tracking_code] %>');
       </script>
     <% end %>
   </head>
