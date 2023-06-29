@@ -24,7 +24,8 @@
 
       <%= f.govuk_text_field :email,
                              label: { text: t('email.label_email', scope: "unaccompanied_minor.questions") },
-                             type: "email"
+                             type: "text",
+                             inputmode: "email"
       %>
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">

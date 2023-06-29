@@ -26,7 +26,9 @@
 
     <%= f.govuk_date_field :adult_date_of_birth,
         date_of_birth: true,
-        legend: { text: "", hidden: true } %>
+        legend: { text: "", hidden: true },
+        type: "text",
+        inputmode: "numeric" %>
 
 
       <div class="govuk-button-group">
