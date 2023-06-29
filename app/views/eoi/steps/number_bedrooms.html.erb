@@ -11,7 +11,7 @@
 
     <%= form_for @application, url: formurl, method: :post do |f| %>
       <%= f.govuk_error_summary link_base_errors_to: :single_room_count %>
-      <fieldset class="govuk-fieldset">
+      <fieldset class="govuk-fieldset" aria-describedby="number-of-bedrooms-hint">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
           <h1 class="govuk-heading-l">
             How many bedrooms are available for guests in the property you’re registering now?
