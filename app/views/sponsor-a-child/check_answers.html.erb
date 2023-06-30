@@ -32,7 +32,7 @@
           </dd>
         </div>
     <% end %>
-      
+
     <%= render 'sponsor-a-child/answers_row',
         key: t('email.short', scope: "unaccompanied_minor.questions"),
         value: @application.email,
@@ -134,7 +134,7 @@
       key:  "Full name",
       value: @application.minor_full_name?,
       url: "/sponsor-a-child/steps/32",
-      url_text: "Full name" %>
+      url_text: "Child's full name" %>
 
       <% if @application.minor_contact_type.blank? || @application.minor_contact_type.include?("none") %>
         <%= render 'sponsor-a-child/answers_row',
@@ -156,7 +156,7 @@
             value: @application.minor_phone_number,
             url: "/sponsor-a-child/steps/33",
             url_text: "Contact telephone" %>
-        <% end %> 
+        <% end %>
       <% end %>
 
       <%= render 'sponsor-a-child/answers_row',
@@ -181,7 +181,7 @@
     <h2 class="govuk-heading-m">Sponsor declaration</h2>
 
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-    
+
     <% if @application.errors.include?(:privacy_statement_confirm) %>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
@@ -203,7 +203,7 @@
         url: "/sponsor-a-child/steps/38",
         url_text: "Do you consent to the data sharing agreement?" %>
     <% end %>
-    
+
     <%= render 'sponsor-a-child/answers_row',
         key: "Do you commit to the conditions of sponsoring an unaccompanied child?",
         value: (@application.sponsor_declaration == "true" ? "Agreed" : "Not agreed"),
