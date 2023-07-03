@@ -40,13 +40,13 @@
     <p style="display:none" class="govuk-error-message">
       <span class="govuk-visually-hidden">Error:</span> You must select an option to continue
     </p>
-  <fieldset class="govuk-fieldset">
+  <fieldset class="govuk-fieldset" aria-describedby="property-suitable-hint">
     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
       <h2 class="govuk-heading-m">
         Do you think your home is suitable?
       </h2>
     </legend>
-    <div id="assessment-buttons-property-suitable-hint" class="govuk-hint">
+    <div id="assessment-buttons-property-suitable-hint" class="govuk-hint" id="property-suitable-hint">
       Your property doesn't have to meet every requirement, but the more it has, the better your chances of becoming a host.
     </div>
     <div id="assessment-buttons-property-suitable" class="govuk-radios" data-module="govuk-radios">
@@ -54,14 +54,14 @@
         <input class="govuk-radios__input" id="assessment-buttons-property-suitable-yes-field" name="assessment-buttons" type="radio" data-next="/expression-of-interest/self-assessment/challenges" value="yes">
         <label class="govuk-label govuk-radios__label" for="assessment-buttons-property-suitable-yes-field">
           Yes
-          <div class="govuk-hint">I think my home is suitable</div>
+          <div class="govuk-hint" id="suitable-home-hint">I think my home is suitable</div>
         </label>
       </div>
       <div class="govuk-radios__item">
         <input class="govuk-radios__input" id="assessment-buttons-property-suitable-no-field" name="assessment-buttons" data-next="/expression-of-interest/self-assessment/other-ways-to-help" type="radio" value="no">
         <label class="govuk-label govuk-radios__label" for="assessment-buttons-property-suitable-no-field">
           No
-         <div class="govuk-hint">My home is not suitable for hosting</div>
+         <div class="govuk-hint" id="not-suitable-home-hint">My home is not suitable for hosting</div>
 
         </label>
       </div>

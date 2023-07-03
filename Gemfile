@@ -11,8 +11,6 @@ gem "pg", "~> 1.1"
 gem "puma", "~> 5.6"
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem "webpacker", "~> 5.0"
-# GoogleAnalytics
-gem "google-analytics-rails", "1.1.1"
 # GOV UK frontend components
 gem "govuk-components"
 # GOV UK component form builder DSL

@@ -32,7 +32,9 @@
         <%= f.govuk_radio_button :host_as_soon_as_possible, :false, label: { text: "From a specific date" } do %>
             <%= f.govuk_date_field :hosting_start_date,
               hosting_start_date: true,
-              legend: { text: "", hidden: true }
+              legend: { text: "", hidden: true },
+              type: "text",
+              inputmode: "numeric"
             %>
         <% end %>
       <% end %>

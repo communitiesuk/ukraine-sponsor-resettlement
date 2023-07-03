@@ -19,10 +19,10 @@
           <%= f.govuk_text_field :adult_passport_identification_number, label: { text: "Passport number" }, type: "text" %>
         <% end %>
         <%= f.govuk_radio_button :adult_identification_type, :national_identity_card, label: { text: "National identity card" } do %>
-          <%= f.govuk_text_field :adult_id_identification_number, label: { text: "National identity card number"  }, type: "text"  %>
+          <%= f.govuk_text_field :adult_id_identification_number, label: { text: "National identity card number"  }, type: "text" ,inputmode:"text" %>
         <% end %>
         <%= f.govuk_radio_button :adult_identification_type, :refugee_travel_document, label: { text: "Refugee travel document" } do %>
-          <%= f.govuk_text_field :adult_refugee_identification_number, label: { text: "Refugee travel document number"  }, type: "text"  %>
+          <%= f.govuk_text_field :adult_refugee_identification_number, label: { text: "Refugee travel document number"  }, type: "text" , inputmode:"text" %>
         <% end %>
         <%= f.govuk_check_box_divider %>
         <%= f.govuk_radio_button :adult_identification_type, :none, label: { text: "I don't have any of these" } %>

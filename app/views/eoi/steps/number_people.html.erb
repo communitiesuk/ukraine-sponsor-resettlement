@@ -18,12 +18,14 @@
         </legend>
       <%= f.govuk_text_field :number_adults,
                              label: { text: t('number_adults.full', scope: "expression_of_interest.questions") },
-                             type: "number",
+                             type: "text",
+                             inputmode:"numeric",
                              width: 2
       %>
       <%= f.govuk_text_field :number_children,
                              label: { text: t('number_children.full', scope: "expression_of_interest.questions") },
                              type: "number",
+                             inputmode:"numeric",
                              width: 2
       %>
       </fieldset>
