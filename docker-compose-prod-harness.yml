@@ -1,3 +1,6 @@
+# docker compose file provided for build/test on local machine
+# also provides definitive list of required environment variables.
+
 version: "3.3"
 
 services:
