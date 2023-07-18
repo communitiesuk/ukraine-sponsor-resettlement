@@ -9,7 +9,7 @@ class PaasConfigurationService
   end
 
   def config_present?
-    !ENV["VCAP_SERVICES"].nil?
+    !ENV["VCAP_SERVICES"].nil? || !(ENV["REDIS_URL"].nil? && ENV["AWS_BUCKET_NAME"].nil?)
   end
 
   def redis_config_present?
@@ -23,16 +23,38 @@ class PaasConfigurationService
 private
 
   def read_paas_config
-    unless config_present?
-      @logger.warn("Could not find VCAP_SERVICES in the environment!")
-      return {}
-    end
+    if ENV["REDIS_URL"].nil? || ENV["AWS_BUCKET_NAME"].nil?
+      @logger.warn("Could not find redis url and aws bucket name in the environment")
+      if ENV["VCAP_SERVICES"].nil?
+        @logger.warn("Could not find VCAP_SERVICES in the environment")
+        return {}
+      end
 
-    begin
-      JSON.parse(ENV["VCAP_SERVICES"], { symbolize_names: true })
-    rescue StandardError
-      @logger.warn("Could not parse VCAP_SERVICES!")
-      {}
+      begin
+        JSON.parse(ENV["VCAP_SERVICES"], { symbolize_names: true })
+      rescue StandardError
+        @logger.warn("Could not parse VCAP_SERVICES")
+        {}
+      end
+    else
+      c = {}
+      c[:redis] = [{
+        instance_name: "#{ENV['INSTANCE_NAME']}-redis",
+        credentials: {
+          uri: ENV["REDIS_URL"],
+        },
+      }]
+
+      c[:'aws-s3-bucket'] = [{
+        instance_name: "#{ENV['INSTANCE_NAME']}-s3",
+        credentials: {
+          aws_access_key_id: ENV["AWS_ACCESS_KEY_ID"],
+          aws_secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"],
+          bucket_name: ENV["AWS_BUCKET_NAME"],
+          aws_region: ENV["AWS_REGION"],
+        },
+      }]
+      c
     end
   end
 
