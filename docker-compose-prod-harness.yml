@@ -1,0 +1,150 @@
+# docker compose file provided for build/test on local machine
+# also provides definitive list of required environment variables.
+
+version: "3.3"
+
+services:
+  pg:
+    image: postgres:13.5-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ukraine
+      POSTGRES_USER: ukraine
+    ports:
+      - 5432:5432
+
+  app:
+    build:
+      dockerfile: Dockerfile-prod
+      context: .
+    depends_on:
+      - pg
+      - redis
+      - sidekiq
+      - s3
+    environment:
+      INSTANCE_NAME: ukraine-sponsor-resettlement-prodharness
+
+      RAILS_ENV: production
+      RAILS_LOG_TO_STDOUT: yes
+      RAILS_MASTER_KEY: xxxxxxxx
+      RAILS_SERVE_STATIC_FILES: yes
+
+      AWS_ACCESS_KEY_ID: xxxxxxxx
+      AWS_SECRET_ACCESS_KEY: xxxxxxxx
+      AWS_BUCKET_NAME: xxxxxxxx
+      AWS_REGION: eu-west-2
+
+      DB_DATABASE: ukraine
+      DB_HOST: pg
+      DB_PASSWORD: password
+      DB_USERNAME: ukraine
+      REDIS_URL: redis://redis/
+
+      GOVUK_NOTIFY_API_KEY: xxxxxxxx
+      GOVUK_NOTIFY_SMS_API_KEY: xxxxxxxx
+
+      ADDITIONAL_INFO_CONFIRMATION_TEMPLATE_ID: xxxxxxxx
+      EXPRESSION_OF_INTEREST_CONFIRMATION_TEMPLATE_ID: xxxxxxxx
+      INDIVIDUAL_CONFIRMATION_TEMPLATE_ID: xxxxxxxx
+      ORGANISATION_CONFIRMATION_TEMPLATE_ID: xxxxxxxx
+      SAVE_AND_RETURN_TEMPLATE_ID: xxxxxxxx
+      SPONSOR_CONFIRMATION_TEMPLATE_ID: xxxxxxxx
+
+      SENTRY_DSN: xxxxxxxx
+
+      REMOTE_API_TOKEN_UAM: xxxxxxxx
+      REMOTE_API_TOKEN: xxxxxxxx
+      REMOTE_API_URL: xxxxxxxx
+
+      CONSENT_UPLOAD_USER: xxxxxxxx
+      CONSENT_UPLOAD_PASS: xxxxxxxx
+      UAM_FILE_UPLOAD_API_TOKEN: xxxxxxxx
+      UAM_FILE_UPLOAD_API_URL: xxxxxxxx
+      UAM_FOUNDRY_ATTACHMENT_ASSIGN_API_URL: xxxxxxxx
+
+      EOI_GA_TRACKING_CODE: xxxxxxxx
+      EOI_GA4_TRACKING_CODE: xxxxxxxx
+      UAM_GA_TRACKING_CODE: xxxxxxxx
+      UAM_GA4_TRACKING_CODE: xxxxxxxx
+    ports:
+      - 8080:8080
+
+  sidekiq:
+    build:
+      dockerfile: Dockerfile-prod
+      context: .
+    depends_on:
+      - pg
+      - redis
+      - mock-api
+    environment:
+      INSTANCE_NAME: ukraine-sponsor-resettlement-prodharness
+
+      RAILS_ENV: production
+      RAILS_LOG_TO_STDOUT: yes
+      RAILS_MASTER_KEY: xxxxxxxx
+      RAILS_SERVE_STATIC_FILES: yes
+
+      AWS_ACCESS_KEY_ID: xxxxxxxx
+      AWS_SECRET_ACCESS_KEY: xxxxxxxx
+      AWS_BUCKET_NAME: xxxxxxxx
+      AWS_REGION: eu-west-2
+
+      DB_DATABASE: ukraine
+      DB_HOST: pg
+      DB_PASSWORD: password
+      DB_USERNAME: ukraine
+      REDIS_URL: redis://redis/
+
+      GOVUK_NOTIFY_API_KEY: xxxxxxxx
+      GOVUK_NOTIFY_SMS_API_KEY: xxxxxxxx
+
+      ADDITIONAL_INFO_CONFIRMATION_TEMPLATE_ID: xxxxxxxx
+      EXPRESSION_OF_INTEREST_CONFIRMATION_TEMPLATE_ID: xxxxxxxx
+      INDIVIDUAL_CONFIRMATION_TEMPLATE_ID: xxxxxxxx
+      ORGANISATION_CONFIRMATION_TEMPLATE_ID: xxxxxxxx
+      SAVE_AND_RETURN_TEMPLATE_ID: xxxxxxxx
+      SPONSOR_CONFIRMATION_TEMPLATE_ID: xxxxxxxx
+
+      SENTRY_DSN: xxxxxxxx
+
+      REMOTE_API_TOKEN_UAM: xxxxxxxx
+      REMOTE_API_TOKEN: xxxxxxxx
+      REMOTE_API_URL: https://levellingup.palantirfoundry.co.uk/secure-upload/api/blobs/json
+
+      CONSENT_UPLOAD_USER: xxxxxxxx
+      CONSENT_UPLOAD_PASS: xxxxxxxx
+      UAM_FILE_UPLOAD_API_TOKEN: xxxxxxxx
+      UAM_FILE_UPLOAD_API_URL: xxxxxxxx
+      UAM_FOUNDRY_ATTACHMENT_ASSIGN_API_URL: xxxxxxxx
+
+      EOI_GA_TRACKING_CODE: xxxxxxxx
+      EOI_GA4_TRACKING_CODE: xxxxxxxx
+      UAM_GA_TRACKING_CODE: xxxxxxxx
+      UAM_GA4_TRACKING_CODE: xxxxxxxx
+    command: bundle exec sidekiq
+
+  redis:
+    image: redis
+
+  s3:
+    image: localstack/localstack:latest
+    container_name: localstack-s3
+    environment:
+      - SERVICES=s3:5002
+      - DEFAULT_REGION=eu-west-2
+      - DATA_DIR=/tmp/localstack/data
+    ports:
+      - 5002:5002
+      - 9999:8080
+    volumes:
+      - .:/tmp/localstack
+
+  mock-api:
+    build:
+      dockerfile: Dockerfile
+      context: http-mock-server
+    ports:
+      - 8081:8081
