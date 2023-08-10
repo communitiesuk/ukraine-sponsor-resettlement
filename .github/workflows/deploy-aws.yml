@@ -63,3 +63,7 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f Dockerfile-prod .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+      - name: Run DB migrations
+        id: db-migrate
+        run: aws ecs run-task --cluster paasmigration-staging-ecs-cluster --task-definition paasmigration-staging-dbmigrate:1
