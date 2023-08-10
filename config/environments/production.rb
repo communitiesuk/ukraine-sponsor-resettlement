@@ -1,6 +1,10 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  config.force_ssl = ENV["FORCE_SSL"] || true
+  config.force_ssl = if ENV["FORCE_SSL"].present? && ENV["FORCE_SSL"] == "false"
+                       false
+                     else
+                       true
+                     end
 
   # Code is not reloaded between requests.
   config.cache_classes = true
