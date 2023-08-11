@@ -7,4 +7,21 @@ class CookiesController < ApplicationController
     render "cookies/cookies"
   end
 
+  def post
+    @abstractcookies = AbstractCookiesAccept.new
+    @abstractcookies.assign_attributes(confirm_params)
+
+    session[:cookies_accepted] = @abstractcookies.cookies_accepted.casecmp("yes").zero?.to_s
+    @cookies_accepted = @abstractcookies.cookies_accepted.casecmp("yes").zero?
+    cookies[:cookies_preferences_set] = { value: "true", expires: 1.year.from_now }
+    @cookies_updated = true
+
+    display
+  end
+
+private
+
+  def confirm_params
+    params.require(:abstract_cookies_accept).permit(:cookies_accepted)
+  end
 end
