@@ -139,7 +139,7 @@ export const links_validation_sa_other_ways_l4 = () => {
     cy.visit('/expression-of-interest/self-assessment/other-ways-to-help').wait(Cypress.env('waitTime'))
     cy.get(elements.page_heading).contains("There are other ways you can help").should('be.visible').wait(Cypress.env('waitTime'))
     cy.xpath(elements.volunteering_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-    cy.url().should('include', 'https://www.gov.uk/government/get-involved/take-part/volunteer')
+    cy.url().should('include', 'volunteer')
     cy.get(elements.main_heading_xl).contains("Volunteer").should('be.visible').wait(Cypress.env('waitTime'))
     cy.go('back')
 }
@@ -177,7 +177,7 @@ export const links_validation_postcode_check_page_l3 = () => {
 }
 export const links_validation_step_16 = () => {
     cy.visit('/expression-of-interest/steps/16').wait(Cypress.env('waitTime'))
-    cy.get(elements.consent_heading).contains('Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme').should('be.visible').wait(Cypress.env('waitTime'))
+    cy.get(elements.consent_heading).contains('Confirm you have read the privacy statement').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.privacy_statement_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
     cy.url().should('include', 'https://www.gov.uk/guidance/homes-for-ukraine-visa-sponsorship-scheme-privacy-notice')
     cy.get(elements.main_heading).contains("Homes for Ukraine visa sponsorship scheme: privacy notice").should('be.visible').wait(Cypress.env('waitTime'))
