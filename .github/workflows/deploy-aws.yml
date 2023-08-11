@@ -15,6 +15,11 @@ on:
   #   branches:
   #     - master
   workflow_dispatch:
+    inputs:
+        refToDeploy:
+          description: 'Branch, tag or commit SHA1 to deploy'
+          required: true
+          type: string
 
 defaults:
   run:
@@ -39,7 +44,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
+        with:
+          ref: ${{ inputs.refToDeploy }}
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@0e613a0980cbf65ed5b322eb7a1e075d28913a83
         with:
