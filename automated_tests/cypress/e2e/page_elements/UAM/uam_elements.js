@@ -178,7 +178,7 @@ var page_elements = {
     step18_month_err_textbox: "#unaccompanied_minor_sponsor_date_of_birth_2i",
     step18_year_err_textbox: "#unaccompanied_minor_sponsor_date_of_birth_1i",
     //step19
-    nationality_label: "label[for='unaccompanied-minor-nationality-field']",
+    nationality_label: ".govuk-hint",
     nationality_dropdown: '#unaccompanied-minor-nationality-field',
     step19_nationality_err_msg: "#unaccompanied-minor-nationality-error",
     step19_nationality_dropdown_err: "#unaccompanied-minor-nationality-field-error",

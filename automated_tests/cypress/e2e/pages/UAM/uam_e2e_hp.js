@@ -293,7 +293,7 @@ export const verify_completed_tasks_4_of_5 = () => {
 export const confirmation_page_step_38 = () => {
     uam_eligibility_tasklist()
     cy.get(elements.confirm_data_link).click().wait(Cypress.env('waitTime'))
-    cy.get(elements.page_heading).contains('Confirm you have read the privacy statement and all people involved agree that the information you have provided can be used for the Homes for Ukraine scheme').should('be.visible')
+    cy.get(elements.page_heading).contains('Confirm you have read the privacy statement').should('be.visible')
     cy.get(elements.confirm_data_checkbox).click().wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
