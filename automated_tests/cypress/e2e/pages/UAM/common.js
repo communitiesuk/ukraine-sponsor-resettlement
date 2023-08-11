@@ -30,5 +30,5 @@ export const uam_step34_header = () => { cy.get(elements.page_heading).contains(
 export const uam_step35_header = () => { cy.get(elements.page_heading).contains('You must upload 2 completed parental consent forms').should('be.visible')}
 export const uam_step36_header = () => { cy.get(elements.page_heading_xl).contains('Upload the UK sponsorship arrangement consent form').should('be.visible')}
 export const uam_step37_header = () => { cy.get(elements.page_heading_xl).contains('Upload the Ukraine certified consent form').should('be.visible')}
-export const uam_step38_header = () => { cy.get(elements.page_heading).contains('Confirm you have read the privacy statement and all people involved agree that the information you have provided can be used for the Homes for Ukraine scheme').should('be.visible')}
+export const uam_step38_header = () => { cy.get(elements.page_heading).contains('Confirm you have read the privacy statement').should('be.visible')}
 export const uam_step39_header = () => { cy.get(elements.page_heading_xl).contains('Confirm your eligibility to sponsor a child from Ukraine').should('be.visible')}
