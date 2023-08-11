@@ -67,3 +67,8 @@ jobs:
       - name: Run DB migrations
         id: db-migrate
         run: aws ecs run-task --cluster paasmigration-staging-ecs-cluster --launch-type FARGATE --task-definition paasmigration-staging-dbmigrate:1 --network-configuration "awsvpcConfiguration={subnets=[subnet-0d51c122320a5109d,subnet-0ac8857c1a1fae109,subnet-023faa26a32d874f9],securityGroups=[sg-0a13aeb9a25f4aec1]}"
+
+      - name: Force deployment
+        id: force-deploy
+        run: aws ecs update-service --cluster paasmigration-staging-ecs-cluster --service paasmigration-staging-webapp-service --force-new-deployment"
+
