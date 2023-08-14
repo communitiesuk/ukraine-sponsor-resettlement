@@ -2,7 +2,7 @@
   "radiobtn_error_msg": "You must select an option to continue",
   "fullname_err_msg": "You must enter your full name",
   "email_err_msg": "You must enter a valid email address",
-  "phone_err_msg": "You must enter a valid phone number",
+  "phone_err_msg": "Enter a telephone number in the correct format",
   "addl1_err_msg": "You must enter an address",
   "townorcity_err_msg": "You must enter a town or city",
   "postcode_err_msg": "You must enter a valid UK postcode",

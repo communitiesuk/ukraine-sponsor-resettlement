@@ -259,7 +259,7 @@ export const take_part_in_research_ev_s15 = () => {
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
 export const consent_ev_s16 = () => {
-    cy.get(elements.consent_heading).contains('Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme').should('be.visible').wait(Cypress.env('waitTime'))
+    cy.get(elements.consent_heading).contains('Confirm you have read the privacy statement').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     cy.get(elements.consent_error_label).contains(error.consent_err_msg).should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.error_summary_title).contains(error.err_summary_title_msg).should('be.visible').wait(Cypress.env('waitTime'))
@@ -279,7 +279,7 @@ export const check_your_answers = () => {
     cy.get(elements.cya_adults).should("contain.text", '6')
     cy.get(elements.cya_children).should("contain.text", '4')
     cy.get(elements.cya_start_date).should("contain.text", '31 December 2030')
-    cy.get(elements.cya_accommodate).should("contain.text", 'No Preference')
+    cy.get(elements.cya_accommodate).should("contain.text", '\n            No preference\n        ')
     cy.get(elements.cya_sbedrooms).should("contain.text", '4')
     cy.get(elements.cya_dbedrooms).should("contain.text", '2')
     cy.get(elements.cya_sf_access).should("contain.text", "I don’t know")

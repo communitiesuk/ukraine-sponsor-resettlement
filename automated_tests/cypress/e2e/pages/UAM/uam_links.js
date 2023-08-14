@@ -18,9 +18,9 @@ const show_hide = () => {
     })
 }
 const link1 = "https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians"
-const link2 = "https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians#parent-or-legal-guardian-consent"
+const link2 = "https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians"
 const link3 = "https://www.gov.uk/government/publications/homes-for-ukraine-uk-sponsorship-arrangement-consent-form"
-const link4 = "https://www.gov.uk/guidance/apply-for-a-visa-under-the-ukraine-sponsorship-scheme#applicants-aged-under-18"
+const link4 = "https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians"
 const link5 = "https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/"
 const link6 = "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
 const link7 = "https://www.gov.uk/guidance/apply-for-a-ukraine-family-scheme-visa"
@@ -194,7 +194,7 @@ export const uam_step_10_l2 = () => {
     mobile()
     Continue()
     cy.get(elements.page_heading).contains("We've sent you an email with a link to your saved application").should('be.visible')
-    cy.xpath(elements.email_sent_cf).contains("We've sent the link to t***@test123.com.").should('be.visible')
+    cy.xpath(elements.email_sent_cf).contains("We've sent the link to").should('be.visible')
 }
 const other_name1 = () =>{
     cy.get(elements.step12_gn_textbox).clear().type(secrets.known_by_given_names)

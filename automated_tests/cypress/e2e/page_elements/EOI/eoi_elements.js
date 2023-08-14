@@ -64,7 +64,7 @@ var page_elements = {
     phonenumber_textbox: '#expression-of-interest-phone-number-field',
     phonenumber_error_label: "#expression-of-interest-phone-number-error",
     phonenumber_error_textbox: "#expression-of-interest-phone-number-field-error",
-    pnonenumber_error_sbox_msg: "//a[normalize-space()='You must enter a valid phone number']",
+    pnonenumber_error_sbox_msg: "//a[normalize-space()='Enter a telephone number in the correct format']",
 
     //step4   
     addressl1_textbox: "#expression-of-interest-residential-line-1-field",
@@ -165,7 +165,7 @@ var page_elements = {
     research_error_sbox_msg: "a[data-turbo='false']",
 
     //step16
-    consent_heading: ".govuk-fieldset__legend.govuk-fieldset__legend--m",
+    consent_heading: ".govuk-heading-l",
     consent_checkbox: "#expression-of-interest-agree-privacy-statement-true-field",
     consent_checkbox_error: "#expression-of-interest-agree-privacy-statement-field-error",
     consent_error_label: "#expression-of-interest-agree-privacy-statement-error",
@@ -185,8 +185,8 @@ var page_elements = {
     cya_children: "body > div:nth-child(6) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(7) > div:nth-child(2) > dd:nth-child(2)",
     cya_start_date: "body > div:nth-child(6) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(9) > div:nth-child(1) > dd:nth-child(2)",
     cya_accommodate: "body > div:nth-child(6) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(9) > div:nth-child(2) > dd:nth-child(2)",
-    cya_sbedrooms: "span[title='translation missing: en.4']",
-    cya_dbedrooms: "span[title='translation missing: en.2']",
+    cya_sbedrooms: "body > div:nth-child(6) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(9) > div:nth-child(3) > dd:nth-child(2)",
+    cya_dbedrooms: "body > div:nth-child(6) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(9) > div:nth-child(4) > dd:nth-child(2)",
     cya_sf_access: "body > div:nth-child(6) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(9) > div:nth-child(5) > dd:nth-child(2)",
     cya_pets: "body > div:nth-child(6) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(9) > div:nth-child(6) > dd:nth-child(2)",
     cya_research: "body > div:nth-child(6) > main:nth-child(4) > div:nth-child(1) > div:nth-child(1) > dl:nth-child(9) > div:nth-child(6) > dd:nth-child(2)",
