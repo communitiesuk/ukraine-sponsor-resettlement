@@ -90,7 +90,7 @@ export const take_part_in_research = () => {
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
 export const consent = () => {
-    cy.get(elements.consent_heading).contains('Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme').should('be.visible').wait(Cypress.env('waitTime'))
+    cy.get(elements.consent_heading).contains('Confirm you have read the privacy statement').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.consent_checkbox).click().wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
