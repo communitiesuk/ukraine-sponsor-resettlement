@@ -76,4 +76,6 @@ jobs:
 
       - name: Force deployment
         id: force-deploy
-        run: aws ecs update-service --cluster paasmigration-staging-ecs-cluster --service paasmigration-staging-webapp-service --force-new-deployment
+        run: |
+          aws ecs update-service --cluster paasmigration-staging-ecs-cluster --service paasmigration-staging-webapp-service --force-new-deployment
+          aws ecs update-service --cluster paasmigration-staging-ecs-cluster --service paasmigration-staging-sidekiq-service --force-new-deployment
