@@ -179,6 +179,7 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     environment: aws-staging
+    needs: [lint, test, audit, brakeman-scan]
 
     steps:
       - name: Checkout
