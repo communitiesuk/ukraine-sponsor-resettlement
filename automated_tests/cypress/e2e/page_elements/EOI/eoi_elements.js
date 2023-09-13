@@ -37,7 +37,7 @@ var page_elements = {
     scotland_link: "a[href='https://www.mygov.scot/homes-for-ukraine-scotland-super-sponsor-scheme']",
     wales_link: "a[href='https://gov.wales/offer-home-wales-refugees-ukraine']",
     guidance_for_sponsors_link: "#guidance-link",
-    gov_licence_link: "//a[normalize-space()='Open Government Licence v3.0']",
+    gov_licence_link: ".govuk-footer__licence-description > a",
     gov_licence_logo: "#open-licence-logo",
     crown_copyright_link: ".govuk-footer__link.govuk-footer__copyright-logo",
     crown_copyright_header: "div[class='entry-header'] h1",
