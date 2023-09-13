@@ -1,4 +1,4 @@
-<% provide(:title, (session[:has_error] || '') + t('phone_number.full', scope: "expression_of_interest.questions") + " - ") %>
+<% provide(:title, (session[:has_error] || '') + t('phone_number.short', scope: "expression_of_interest.questions") + " - ") %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -14,13 +14,14 @@
       <fieldset class="govuk-fieldset">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
           <h1 class="govuk-heading-l">
-            <%= t('phone_number.full', scope: "expression_of_interest.questions")  %>
+            <%= t('phone_number.short', scope: "expression_of_interest.questions")  %>
           </h1>
         </legend>
       </fieldset>
 
       <%= f.govuk_text_field :phone_number,
         label: { text: t('phone_number.full', scope: "expression_of_interest.questions"), hidden:true },
+        hint: { text: t('phone_number.full', scope: "expression_of_interest.questions")},
         type: "text",
         inputmode: "tel"
       %>

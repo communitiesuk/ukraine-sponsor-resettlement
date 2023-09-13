@@ -26,7 +26,7 @@ export const your_details_page = () => {
     cy.get(elements.email_label).contains('Enter your email address').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.email_textbox).clear().type(secrets.email).wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
-    cy.get(elements.phonenumber_label).contains('Enter a telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192').should('be.visible').wait(Cypress.env('waitTime'))
+    cy.get(elements.phonenumber_label).contains('Enter a telephone number, like 01632 960 001 or +44 808 157 0192').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.phonenumber_textbox).clear().type(secrets.phoneno).wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
