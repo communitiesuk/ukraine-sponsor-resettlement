@@ -4,11 +4,9 @@ const secrets = require('../../../fixtures/eoi_bodytext_secrets.json')
 const alfa = require('../../pages/EOI/eoi_links')
 
 export const eoi_eligibility_check = () => {
-    cy.visit('/')
+    cy.visit('/expression-of-interest/').wait(Cypress.env('waitTime'))
     cy.get(elements.cookies_accept).click().wait(Cypress.env('waitTime'))
     cy.get(elements.hide_cookie_msg).click().wait(Cypress.env('waitTime'))
-    cy.get(elements.main_heading).contains("Homes for Ukraine: Register to host people already living in the UK").should('be.visible').wait(Cypress.env('waitTime'))
-    cy.get(elements.start_button).click().wait(Cypress.env('waitTime'))
     cy.get(elements.page_heading).contains('Check if your property is suitable for hosting').should('be.visible')
     cy.get(elements.yes_radiobtn).click().wait(Cypress.env('waitTime'))
     cy.get(elements.sa_continue_button).click().wait(Cypress.env('waitTime'))

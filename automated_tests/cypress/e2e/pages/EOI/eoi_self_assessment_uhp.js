@@ -17,11 +17,9 @@ const other_ways_you_can_help_page = () => {
 }
 
 export const eoi_eligibility_check_start = () => {
-    cy.visit('/')
+    cy.visit('/expression-of-interest/').wait(Cypress.env('waitTime'))
     cy.get(elements.cookies_accept).click().wait(Cypress.env('waitTime'))
     cy.get(elements.hide_cookie_msg).click().wait(Cypress.env('waitTime'))
-    cy.get(elements.main_heading).contains("Homes for Ukraine: Register to host people already living in the UK").should('be.visible').wait(Cypress.env('waitTime'))
-    cy.get(elements.start_button).click().wait(Cypress.env('waitTime'))
 }
 export const eoi_eligibility_check_property_suitability = () => {
     property_suitability_page()
