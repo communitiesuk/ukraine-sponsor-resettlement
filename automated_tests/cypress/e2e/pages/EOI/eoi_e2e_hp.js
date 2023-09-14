@@ -4,11 +4,9 @@ const secrets = require('../../../fixtures/eoi_bodytext_secrets.json')
 const alfa = require('../../pages/EOI/eoi_links')
 
 export const eoi_eligibility_check = () => {
-    cy.visit('/')
+    cy.visit('/expression-of-interest/').wait(Cypress.env('waitTime'))
     cy.get(elements.cookies_accept).click().wait(Cypress.env('waitTime'))
     cy.get(elements.hide_cookie_msg).click().wait(Cypress.env('waitTime'))
-    cy.get(elements.main_heading).contains("Homes for Ukraine: Register to host people already living in the UK").should('be.visible').wait(Cypress.env('waitTime'))
-    cy.get(elements.start_button).click().wait(Cypress.env('waitTime'))
     cy.get(elements.page_heading).contains('Check if your property is suitable for hosting').should('be.visible')
     cy.get(elements.yes_radiobtn).click().wait(Cypress.env('waitTime'))
     cy.get(elements.sa_continue_button).click().wait(Cypress.env('waitTime'))
@@ -28,7 +26,7 @@ export const your_details_page = () => {
     cy.get(elements.email_label).contains('Enter your email address').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.email_textbox).clear().type(secrets.email).wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
-    cy.get(elements.phonenumber_label).contains('Enter a telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192').should('be.visible').wait(Cypress.env('waitTime'))
+    cy.get(elements.phonenumber_label).contains('Enter a telephone number, like 01632 960 001 or +44 808 157 0192').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.phonenumber_textbox).clear().type(secrets.phoneno).wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }

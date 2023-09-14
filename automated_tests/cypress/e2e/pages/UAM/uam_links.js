@@ -20,7 +20,7 @@ const show_hide = () => {
 const link1 = "https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians"
 const link2 = "https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians"
 const link3 = "https://www.gov.uk/government/publications/homes-for-ukraine-uk-sponsorship-arrangement-consent-form"
-const link4 = "https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians"
+const link4 = "https://www.gov.uk/guidance/apply-for-a-visa-under-the-ukraine-sponsorship-scheme#applicants-aged-under-18"
 const link5 = "https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/"
 const link6 = "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
 const link7 = "https://www.gov.uk/guidance/apply-for-a-ukraine-family-scheme-visa"
@@ -28,7 +28,7 @@ const link8 = "https://www.gov.uk/guidance/apply-for-a-visa-under-the-ukraine-sp
 const link9 = "https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-parents-or-legal-guardians-children-and-minors-applying-without-parents#parental-or-legal-guardian-consent-1"
 const link10 = "https://www.gov.uk/guidance/homes-for-ukraine-visa-sponsorship-scheme-privacy-notice"
 const link11 = "https://www.gov.uk/register-interest-homes-ukraine"
-const main_p_heading = () =>{cy.get(elements.page_heading).contains('Apply to provide a safe home for a child from Ukraine').should('be.visible')}
+
 const guidance_for_sponsoring_a_child_link = () =>{
     cy.xpath(elements.mainp_gui_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
     cy.url().should('include', link1).should('exist')
@@ -44,44 +44,37 @@ const uk_spon_arr_consent_form_link = () =>{
 //TEST STEPS START HERE
 export const uam_main_page_guidance = () => {
     cy.visit('/sponsor-a-child/')
-    main_p_heading()
     guidance_for_sponsoring_a_child_link()
 }
 export const uam_main_spon_consent = () => {
     show_hide() //click accordion to show all
-    main_p_heading()
     uk_spon_arr_consent_form_link()
 }
 export const uam_main_fo_comp_consent = () => {
-    main_p_heading()
     cy.xpath(elements.how_to_comp_consent_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
     cy.url().should('include', link2).should('exist')
     cy.get(elements.page_heading_cont).contains('Guidance').should('be.visible')
     cy.go('back')
 }
 export const uam_main_gui_apply_visa = () => {
-    main_p_heading()
     cy.xpath(elements.apply_visa).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
     cy.url().should('include', link4).should('exist')
     cy.get(elements.page_heading_cont).contains('Guidance').should('be.visible')
     cy.go('back')
 }
 export const uam_gov_lic = () => {
-    main_p_heading()
     cy.xpath(elements.gov_lic_link).click().wait(Cypress.env('waitTime'))
     cy.url().should('include', link6).should('exist')
     cy.get(elements.open_lic_logo).should('be.visible')
     cy.go('back')
 }
 export const uam_crown_copyright = () => {
-    main_p_heading()
     cy.get(elements.crown_cr).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
     cy.url().should('include', link5).should('exist')
     cy.get(elements.crown_cr_header).contains('Crown copyright').should('be.visible')
     cy.go('back')
 }
 export const uam_main_page_apply = () => {
-    main_p_heading()
     cy.get(elements.spchild_link).click().wait(Cypress.env('waitTime'))
     cy.get(elements.startnow_button).should('be.visible')
     cy.go('back')

@@ -5,11 +5,9 @@ const bodytext = require('../../../fixtures/eoi_bodytext.json')
 const secrets = require('../../../fixtures/eoi_bodytext_secrets.json')
 
 export const eoi_eligibility_check_ev_start = () => {
-    cy.visit('/').wait(Cypress.env('waitTime'))
+    cy.visit('/expression-of-interest/').wait(Cypress.env('waitTime'))
     cy.get(elements.cookies_accept).click().wait(Cypress.env('waitTime'))
     cy.get(elements.hide_cookie_msg).click().wait(Cypress.env('waitTime'))
-    cy.get(elements.main_heading).contains("Homes for Ukraine: Register to host people already living in the UK").should('be.visible')
-    cy.get(elements.start_button).click()
 }
 export const eoi_eligibility_check_ev_property_suitability = () => {
     cy.get(elements.page_heading).contains('Check if your property is suitable for hosting').should('be.visible')
@@ -57,7 +55,7 @@ export const your_details_page_ev_s1_3 = () => {
     cy.get(elements.email_error_sbox_msg).contains(error.email_err_msg).should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.email_error_textbox).clear().type(secrets.email)
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
-    cy.get(elements.phonenumber_label).contains('Enter a telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192').should('be.visible')
+    cy.get(elements.phonenumber_label).contains('Enter a telephone number, like 01632 960 001 or +44 808 157 0192').should('be.visible')
     cy.get(elements.phonenumber_textbox).clear()
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     cy.get(elements.phonenumber_error_label).contains(error.phone_err_msg).should('be.visible')

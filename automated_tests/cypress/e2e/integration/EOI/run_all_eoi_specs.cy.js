@@ -1,6 +1,5 @@
 import './eoi_address_spec.cy.js'
 import './eoi_adults_children_spec.cy.js'
-import './eoi_backlink_spec.cy.js'
 import './eoi_bedrooms_spec.cy.js'
 import './eoi_date_spec.cy.js'
 import './eoi_e2e_hp_spec.cy.js'
