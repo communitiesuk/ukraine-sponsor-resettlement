@@ -212,7 +212,7 @@ jobs:
 
       - name: Run DB migrations
         id: db-migrate
-        run: aws ecs run-task --cluster paasmigration-default-ecs-cluster --launch-type FARGATE --task-definition paasmigration-default-dbmigrate --network-configuration "awsvpcConfiguration={subnets=[subnet-0d74399d168a17942,subnet-064b266b78e029815,subnet-0fe907e9aa2ccaecb],securityGroups=[sg-06eee6333c6f003b9]}"
+        run: aws ecs run-task --cluster paasmigration-default-ecs-cluster --launch-type FARGATE --task-definition paasmigration-default-dbmigrate --network-configuration "awsvpcConfiguration={subnets=[subnet-091481d87daeaa67e,subnet-02591304001ccdcf4,subnet-037b1a22886c08933],securityGroups=[sg-03b9ae71f227ea847]}"
 
       - name: Force deployment
         id: force-deploy
