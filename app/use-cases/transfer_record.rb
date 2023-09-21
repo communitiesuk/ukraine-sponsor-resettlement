@@ -12,7 +12,10 @@ class TransferRecord
       uri = URI(ENV["REMOTE_API_URL"])
       token = ENV["REMOTE_API_TOKEN"]
       res = Net::HTTP.post(uri, JSON.generate(application.as_json), "Content-Type" => "application/json", "Authorization" => "Bearer #{token}")
-      unless res.code.to_i >= 200 && res.code.to_i < 300
+      if res.code.to_i >= 200 && res.code.to_i < 300
+        Rails.logger.debug("[TransferRecord] EOI to #{uri} [#{res.code}: #{res.message}]")
+      else
+        Rails.logger.error "Failed to post record: #{record_id} to: #{uri} res.code: #{res.code} | res.message: #{res.message}"
         raise ActiveRecord::Rollback
       end
     end
@@ -32,8 +35,10 @@ class TransferRecord
   def self.post(uri, json, bearer_token, record_id)
     res = Net::HTTP.post(uri, json, "Content-Type" => "application/json", "Authorization" => "Bearer #{bearer_token}")
 
-    unless res.code.to_i >= 200 && res.code.to_i < 300
-      Rails.logger.error "Failed to post record: #{record_id} to: #{uri} res.code: #{res.code}"
+    if res.code.to_i >= 200 && res.code.to_i < 300
+      Rails.logger.debug("[TransferRecord] UAM to #{uri} [#{res.code}: #{res.message}]")
+    else
+      Rails.logger.error "Failed to post record: #{record_id} to: #{uri} res.code: #{res.code} | res.message: #{res.message}"
       raise ActiveRecord::Rollback
     end
     res
