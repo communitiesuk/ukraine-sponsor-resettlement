@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  get "/", to: "index#index", as: :root
+  get "/", to: "redirect#redirect_homepage"
 
   get "sponsor-a-child", to: "unaccompanied#guidance"
 
   get "/health", to: proc { [200, {}, %w[OK]] }
-
+  get "/cookies", to: "cookies#display"
+  post "/cookies", to: "cookies#post"
   get "/individual", to: redirect("/expression-of-interest/self-assessment/property-suitable")
   get "/individual/steps/:stage", to: redirect("/expression-of-interest/self-assessment/property-suitable")
   post "/individual/steps/:stage", to: redirect("/expression-of-interest/self-assessment/property-suitable")

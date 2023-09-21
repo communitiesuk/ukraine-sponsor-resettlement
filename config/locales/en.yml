@@ -68,7 +68,7 @@ en:
         full: Enter your email address
       phone_number:
         short: Telephone number
-        full: Enter a telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192
+        full: Enter a telephone number, like 01632 960 001 or +44 808 157 0192
       address_line_1:
         short: Line 1
         full: Address line 1
@@ -181,7 +181,7 @@ en:
         full: Enter your email address
       phone_number:
         short: Telephone number
-        full: Enter a telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192
+        full: Enter a telephone number, like 01632 960 001 or +44 808 157 0192
       address_line_1:
         short: Line 1
         full: Address line 1
@@ -317,7 +317,7 @@ en:
         full: Enter your email address
       phone_number:
         short: Phone number (optional)
-        full: Enter a telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192 (optional)
+        full: Enter a telephone number, like 01632 960 001 or +44 808 157 0192 (optional)
       agree_privacy_statement:
         short: Privacy statement
         full: Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme

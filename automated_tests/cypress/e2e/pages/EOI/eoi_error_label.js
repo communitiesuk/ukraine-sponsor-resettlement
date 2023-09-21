@@ -5,11 +5,9 @@ const bodytext = require('../../../fixtures/eoi_bodytext.json')
 const secrets = require('../../../fixtures/eoi_bodytext_secrets.json')
 
 export const eoi_eligibility_check_ev_start = () => {
-    cy.visit('/').wait(Cypress.env('waitTime'))
+    cy.visit('/expression-of-interest/').wait(Cypress.env('waitTime'))
     cy.get(elements.cookies_accept).click().wait(Cypress.env('waitTime'))
     cy.get(elements.hide_cookie_msg).click().wait(Cypress.env('waitTime'))
-    cy.get(elements.main_heading).contains("Homes for Ukraine: Register to host people already living in the UK").should('be.visible')
-    cy.get(elements.start_button).click()
 }
 export const eoi_eligibility_check_ev_property_suitability = () => {
     cy.get(elements.page_heading).contains('Check if your property is suitable for hosting').should('be.visible')
@@ -57,7 +55,7 @@ export const your_details_page_ev_s1_3 = () => {
     cy.get(elements.email_error_sbox_msg).contains(error.email_err_msg).should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.email_error_textbox).clear().type(secrets.email)
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
-    cy.get(elements.phonenumber_label).contains('Enter a telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192').should('be.visible')
+    cy.get(elements.phonenumber_label).contains('Enter a telephone number, like 01632 960 001 or +44 808 157 0192').should('be.visible')
     cy.get(elements.phonenumber_textbox).clear()
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     cy.get(elements.phonenumber_error_label).contains(error.phone_err_msg).should('be.visible')
@@ -259,7 +257,7 @@ export const take_part_in_research_ev_s15 = () => {
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
 }
 export const consent_ev_s16 = () => {
-    cy.get(elements.consent_heading).contains('Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme').should('be.visible').wait(Cypress.env('waitTime'))
+    cy.get(elements.consent_heading).contains('Confirm you have read the privacy statement').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     cy.get(elements.consent_error_label).contains(error.consent_err_msg).should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.error_summary_title).contains(error.err_summary_title_msg).should('be.visible').wait(Cypress.env('waitTime'))
@@ -279,7 +277,7 @@ export const check_your_answers = () => {
     cy.get(elements.cya_adults).should("contain.text", '6')
     cy.get(elements.cya_children).should("contain.text", '4')
     cy.get(elements.cya_start_date).should("contain.text", '31 December 2030')
-    cy.get(elements.cya_accommodate).should("contain.text", 'No Preference')
+    cy.get(elements.cya_accommodate).should("contain.text", '\n            No preference\n        ')
     cy.get(elements.cya_sbedrooms).should("contain.text", '4')
     cy.get(elements.cya_dbedrooms).should("contain.text", '2')
     cy.get(elements.cya_sf_access).should("contain.text", "I don’t know")

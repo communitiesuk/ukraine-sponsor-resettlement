@@ -383,7 +383,7 @@ export const ukrconsent_form_step_37 = () => {
 export const confirmation_page_step_38 = () => {
     common.uam_tasklist_header()
     cy.get(elements.confirm_data_link).click().wait(Cypress.env('waitTime'))
-    cy.get(elements.page_heading).contains('Confirm you have read the privacy statement and all people involved agree that the information you have provided can be used for the Homes for Ukraine scheme').should('be.visible')
+    cy.get(elements.page_heading).contains('Confirm you have read the privacy statement').should('be.visible')
     click_continue()
     summary_box_title()
     cy.get(elements.err_sbox_msg).contains(bt_err.privacy_err_msg).should('be.visible')

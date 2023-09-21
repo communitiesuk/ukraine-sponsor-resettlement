@@ -45,7 +45,7 @@ RSpec.describe "Expression of interest", type: :system do
       click_on("Continue")
       click_on("Continue")
 
-      expect(page).to have_content("Enter a telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192")
+      expect(page).to have_content("Enter a telephone number, like 01632 960 001 or +44 808 157 0192")
       expect(page).to have_content("Error: Enter a telephone number in the correct format")
     end
 
@@ -54,10 +54,10 @@ RSpec.describe "Expression of interest", type: :system do
       eoi_enter_sponsor_name
       fill_in("Enter your email address", with: "test@test.com")
       click_on("Continue")
-      fill_in("Enter a telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192", with: "00123")
+      fill_in("Enter a telephone number, like 01632 960 001 or +44 808 157 0192", with: "00123")
       click_on("Continue")
 
-      expect(page).to have_content("Enter a telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192")
+      expect(page).to have_content("Enter a telephone number, like 01632 960 001 or +44 808 157 0192")
       expect(page).to have_content("Error: Enter a telephone number in the correct format")
     end
 
