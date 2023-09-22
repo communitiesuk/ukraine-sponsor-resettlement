@@ -1,0 +1,73 @@
+@startuml HFU Container Diagram - AWS
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/v2.4.0/C4_Container.puml
+'!include <c4/C4_Container.puml>  
+
+'ref http://plantuml.com/stdlib
+!include <office/Users/user.puml>
+
+!define ICONURL https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/v2.4.0
+!define AWSPuml https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v16.0/dist
+
+!includeurl ICONURL/common.puml
+!includeurl AWSPuml/AWSCommon.puml
+!includeurl ICONURL/devicons2/postgresql.puml
+!includeurl ICONURL/devicons2/redis.puml
+!includeurl ICONURL/devicons2/rails_wordmark.puml
+!includeurl ICONURL/devicons2/ruby_wordmark.puml
+!includeurl ICONURL/devicons2/amazonwebservices_wordmark.puml
+
+
+
+LAYOUT_WITH_LEGEND()
+
+title Container diagram for Homes for Ukraine application forms
+
+Person(applicant, Applicant, "Private & Commercial expressions of interest")
+Person_Ext(techs, Tech Team, "Development and support")
+Container_Ext(cloudflare, "Cloudflare", "DLUHC Managed", "DDoS Protection")
+
+System_Boundary(s1, "AWS Space") {
+    Container(elb, "Elastic Load Balancer", "AWS ELB", "Distributes requests")
+    Container(s3bucket, "S3 Bucket", "AWS S3", "Store uploaded documents", $sprite="amazonwebservices_wordmark")
+    Container(web_app, "Web Application Instances", "AWS Fargate", "Serves the application forms 'Front Door'", $sprite="rails_wordmark")
+    ContainerDb(postgres, "PostgreSQL", "AWS RDS", "Stores user entered application information", $sprite="postgresql")
+    ContainerDb(redis, "Redis", "AWS Elasticache", "RoR backing for deferred / background jobs via Sidekiq", $sprite="redis")
+    Container(sidekiq, "Sidekiq Instances", "AWS Fargate", "Asynch workers\nRetry on failure", $sprite="ruby_wordmark")
+    
+    Container_Boundary(s3, "Monitoring Space") {
+      System_Ext(prom_ex, "AWS CloudWatch")
+    }
+}
+
+System_Ext(notify, "Gov.UK Notify", "Email & SMS messages to applicants")
+System(foundry, "Palantir Foundry", "HTTPS API")
+
+System_Boundary(s2, "External Observabilty") {
+  System_Ext(sentry, "sentry.io", "Error capture\nEmails team")
+}
+
+BiRel(applicant, cloudflare, "Uses", "HTTPS")
+BiRel(cloudflare, elb, "Uses", "HTTPS")
+BiRel(elb, web_app, "Uses", "HTTPS")
+
+Rel_R(sidekiq, s3bucket, "Read consent forms to upload", "HTTPS")
+Rel_L(web_app, s3bucket, "Store consent forms", "HTTPS")
+
+Rel(web_app, postgres, "Stores", "HTTPS")
+Rel(web_app, redis, "Queues asynch jobs", "HTTPS")
+Rel(web_app, sentry, "Record errors", "HTTPS")
+
+BiRel(sidekiq, redis, "Processes asynch jobs", "HTTPS")
+Rel_L(sidekiq, notify, "Inform applicants", "HTTPS")
+Rel_U(notify, applicant , "Email or SMS")
+
+Lay_D(notify, foundry)
+Rel(sidekiq, foundry, "POST completed applications", "HTTPS API")
+
+Rel(prom_ex, web_app, "Pulls metrics")
+Rel(techs, prom_ex, "View errors")
+Rel(techs, sentry, "View errors")
+
+center footer  [[https://c4model.com/#CoreDiagrams C4 Container Diagram]]
+
+@enduml
