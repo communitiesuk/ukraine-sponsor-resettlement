@@ -1,0 +1,60 @@
+@startuml HFU Component Diagram - AWS
+
+!include <awslib/AWSCommon.puml>
+!include <awslib/AWSSimplified.puml>
+!include <awslib/Compute/EC2.puml>
+!include <awslib/Compute/EC2Instance.puml>
+!include <awslib/Groups/AWSCloud.puml>
+!include <awslib/Groups/VPC.puml>
+!include <awslib/Groups/AvailabilityZone.puml>
+!include <awslib/Groups/PublicSubnet.puml>
+!include <awslib/Groups/PrivateSubnet.puml>
+!include <awslib/NetworkingContentDelivery/VPCNATGateway.puml>
+!include <awslib/NetworkingContentDelivery/VPCInternetGateway.puml>
+
+hide stereotype
+skinparam linetype ortho
+
+AWSCloudGroup(cloud) {
+  VPCGroup(vpc) {
+    VPCInternetGateway(internet_gateway, "Internet gateway", "")
+
+    AvailabilityZoneGroup(az_1, "\tAvailability Zone 1\t") {
+      PublicSubnetGroup(az_1_public, "Public subnet") {
+        VPCNATGateway(az_1_nat_gateway, "NAT gateway", "") #Transparent
+      }
+      PrivateSubnetGroup(az_1_private, "Private subnet") {
+        EC2Instance(az_1_ec2_1, "Instance", "") #Transparent
+      }
+
+      az_1_ec2_1 .u.> az_1_nat_gateway
+    }
+
+    AvailabilityZoneGroup(az_2, "\tAvailability Zone 2\t") {
+      PublicSubnetGroup(az_2_public, "Public subnet") {
+        VPCNATGateway(az_2_nat_gateway, "NAT gateway", "") #Transparent
+      }
+      PrivateSubnetGroup(az_2_private, "Private subnet") {
+        EC2Instance(az_2_ec2_1, "Instance", "") #Transparent
+      }
+
+      az_2_ec2_1 .u.> az_2_nat_gateway
+    }
+
+    AvailabilityZoneGroup(az_3, "\tAvailability Zone 3\t") {
+      PublicSubnetGroup(az_3_public, "Public subnet") {
+        VPCNATGateway(az_3_nat_gateway, "NAT gateway", "") #Transparent
+      }
+      PrivateSubnetGroup(az_3_private, "Private subnet") {
+        EC2Instance(az_3_ec2_1, "Instance", "") #Transparent
+      }
+
+      az_3_ec2_1 .u.> az_3_nat_gateway
+    }
+
+    az_1_nat_gateway .[hidden]u.> internet_gateway
+    az_2_nat_gateway .[hidden]u.> internet_gateway
+    az_3_nat_gateway .[hidden]u.> internet_gateway
+  }
+}
+@enduml
