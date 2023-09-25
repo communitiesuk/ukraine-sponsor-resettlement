@@ -14,7 +14,13 @@ The, [C4 system context diagram](https://c4model.com/#SystemContextDiagram) is i
 
 The,  [C4 container diagram](https://https://c4model.com/#ContainerDiagram) is intended to zoom in from the system boundary, at the highest level, to provide further detail for the technical audience.
 
-![C4 Container diagram](./docs/img/container.svg)
+![C4 Container diagram](./docs/img/container_aws.svg)
+
+## Component Diagram
+
+The,  [C4 Component diagram](https://c4model.com/#ComponentDiagram) is intended to zoom in from the system boundary, at the highest level, to provide further detail for the technical audience.
+
+![C4 Component diagram](./docs/img/webapp_component_aws.svg)
 
 ## Monitoring
 
