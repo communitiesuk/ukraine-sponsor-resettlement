@@ -10,16 +10,11 @@
 name: Deploy to Amazon ECS STAGING
 
 on:
-  # pull_request:
-  # push:
-  #   branches:
-  #     - master
+  pull_request:
+  push:
+    branches:
+      - master
   workflow_dispatch:
-    inputs:
-      refToDeploy:
-        description: "Branch, tag or commit SHA1 to deploy"
-        required: true
-        type: string
 
 defaults:
   run:
