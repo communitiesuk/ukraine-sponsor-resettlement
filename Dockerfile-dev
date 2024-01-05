@@ -1,5 +1,5 @@
 # Build compilation image
-FROM ruby:3.1.2-alpine AS devbuild
+FROM ruby:3.1.4-alpine3.18 AS devbuild
 
 # The application runs from /app
 WORKDIR /app

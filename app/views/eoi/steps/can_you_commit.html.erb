@@ -1,3 +1,5 @@
+<% provide(:title, "Can you commit to hosting for at least 6 months? - ") %>
+
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
@@ -8,23 +10,14 @@
       <div class="govuk-error-summary__body">
         <ul class="govuk-list govuk-error-summary__list">
           <li>
-            <a href="#selectoption">You must select an option to continue</a>
+            <a href="#assessment-buttons-can-you-commit-yes-field">You must select an option to continue</a>
           </li>
 
         </ul>
       </div>
     </div>
 
-      <h1 class="govuk-heading-l">
-        Can you commit to hosting for at least 6 months?
-      </h1>
 
-      <p>You must be able to commit to hosting someone for at least 6 months to participate in the scheme. We'll ask you to tell us when you can start hosting.
-
-<br><br>
-If circumstances change at any time, you can contact your local council to let them know.</p>
-
-      <br/>
 
       <div class="govuk-form-group">
         <p style="display:none" class="govuk-error-message">
@@ -32,17 +25,27 @@ If circumstances change at any time, you can contact your local council to let t
         </p>
         <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-heading-l">
+                Can you commit to hosting for at least 6 months?
+              </h1>
+
+              <p>You must be able to commit to hosting someone for at least 6 months to participate in the scheme. We'll ask you to tell us when you can start hosting.
+
+              <br aria-hidden="true"><br aria-hidden="true">
+              <p>If circumstances change at any time, you can contact your local council to let them know.</p>
+
+              <br aria-hidden="true">
             </legend>
             <div class="govuk-radios" data-module="govuk-radios">
             <div class="govuk-radios__item">
-                <input class="govuk-radios__input"  name="assessment-buttons" type="radio" data-next="/expression-of-interest/self-assessment/your-info" value="yes">
-                <label class="govuk-label govuk-radios__label" for="assessment-buttons">
+                <input class="govuk-radios__input" id="assessment-buttons-can-you-commit-yes-field" name="assessment-buttons" type="radio" data-next="/expression-of-interest/self-assessment/your-info" value="yes">
+                <label class="govuk-label govuk-radios__label" for="assessment-buttons-can-you-commit-yes-field">
                 Yes
                 </label>
             </div>
             <div class="govuk-radios__item">
-                <input class="govuk-radios__input"  name="assessment-buttons" data-next="/expression-of-interest/self-assessment/other-ways-to-help" type="radio" value="no">
-                <label class="govuk-label govuk-radios__label" for="assessment-buttons">
+                <input class="govuk-radios__input" id="assessment-buttons-can-you-commit-no-field" name="assessment-buttons" data-next="/expression-of-interest/self-assessment/other-ways-to-help" type="radio" value="no">
+                <label class="govuk-label govuk-radios__label" for="assessment-buttons-can-you-commit-no-field">
                 No
                 </label>
             </div>

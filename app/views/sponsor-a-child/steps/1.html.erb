@@ -1,3 +1,6 @@
+<% provide(:title, (session[:has_error] || '') + t('sponsored_children_age.full', scope: "unaccompanied_minor.questions") + " - ") %>
+
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
@@ -5,15 +8,17 @@
 
     <%= f.govuk_error_summary link_base_errors_to: :is_under_18 %>
 
-     <h1 class="govuk-heading-l"><%= t('sponsored_children_age.full', scope: "unaccompanied_minor.questions")%></h1>
-
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-heading-l"><%= t('sponsored_children_age.full', scope: "unaccompanied_minor.questions")%></h1>
+        </legend>
       <%= f.govuk_collection_radio_buttons :is_under_18,
-                                           @application.eligibility_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
+                                           @application.eligibility_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.questions.sponsored_children_age")) },
                                            :id,
                                            :name,
-                                           legend: { text: "", hidden: true }
+                                           legend: { text: t('sponsored_children_age.full', scope: "unaccompanied_minor.questions"), hidden: true }
       %>
-
+      </fieldset>
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>

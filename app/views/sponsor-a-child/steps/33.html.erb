@@ -1,3 +1,5 @@
+<% provide(:title, (session[:has_error] || '') + "How can we contact the child? - ") %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
@@ -16,8 +18,8 @@
     <p class="govuk-body">
 
       We may contact them to check how they feel about coming to the UK.
-      <br/>
-      <br/>
+      <br aria-hidden="true">
+      <br aria-hidden="true">
       Select all that apply
 
     </p>
@@ -26,12 +28,12 @@
                                        legend: { text: "", hidden: true } do %>
 
         <%= f.govuk_check_box :minor_contact_type, 'email', label: { text: "Email" }, link_errors: true do %>
-            <%= f.govuk_text_field :minor_email, label: { text: "Email" }, type: "text" %>
-            <%= f.govuk_text_field :minor_email_confirm, label: { text: "Confirm email" }, type: "text" %>
+            <%= f.govuk_text_field :minor_email, label: { text: "Email" }, type: "text", inputmode:"text" %>
+            <%= f.govuk_text_field :minor_email_confirm, label: { text: "Confirm email" }, type: "text", inputmode:"text" %>
         <% end %>
         <%= f.govuk_check_box :minor_contact_type, 'telephone',  label: { text: "Phone" } do %>
-            <%= f.govuk_text_field :minor_phone_number, label: { text: "Phone number"  }, type: "text", hint: { text: "Include country code" } %>
-            <%= f.govuk_text_field :minor_phone_number_confirm, label: { text: "Confirm phone number"  }, type: "text" %>
+            <%= f.govuk_text_field :minor_phone_number, label: { text: "Phone number"  }, type: "text", inputmode:"text", hint: { text: "Include country code" } %>
+            <%= f.govuk_text_field :minor_phone_number_confirm, label: { text: "Confirm phone number"  }, type: "text", inputmode:"text" %>
         <% end %>
         <%= f.govuk_check_box_divider %>
         <%= f.govuk_check_box :minor_contact_type, 'none', exclusive: true, label: { text: "They cannot be contacted" } %>

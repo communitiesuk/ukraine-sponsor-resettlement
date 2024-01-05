@@ -1,24 +1,27 @@
 
 
 <div class="govuk-grid-row">
+  <% provide(:title, (session[:has_error] || '') + t('identity_documents.full', scope: "unaccompanied_minor.questions") + " - ") %>
+
   <div class="govuk-grid-column-two-thirds">
 
     <%= form_for @application, url: "/sponsor-a-child/steps/16", method: :post do |f| %>
 
     <%= f.govuk_error_summary link_base_errors_to: :passport_identification_number %>
 
-    <h1 class="govuk-heading-l"><%= t('identity_documents.full', scope: "unaccompanied_minor.questions")%></h1>
+
+      <h1 class="govuk-heading-l"><%= t('identity_documents.full', scope: "unaccompanied_minor.questions")%></h1>
 
       <%= f.govuk_radio_buttons_fieldset :identification_type, legend: { text: "", hidden: true } do %>
 
         <%= f.govuk_radio_button :identification_type, :passport, label: { text: "Passport" } do %>
-            <%= f.govuk_text_field :passport_identification_number, label: { text: "Passport number" }, type: "text" %>
+            <%= f.govuk_text_field :passport_identification_number, label: { text: "Passport number" }, type: "text", inputmode: "text" %>
         <% end %>
         <%= f.govuk_radio_button :identification_type, :national_identity_card, label: { text: "National identity card" } do %>
-            <%= f.govuk_text_field :id_identification_number, label: { text: "National identity card number"  }, type: "text"  %>
+            <%= f.govuk_text_field :id_identification_number, label: { text: "National identity card number"  }, type: "text" , inputmode: "numeric" %>
         <% end %>
         <%= f.govuk_radio_button :identification_type, :refugee_travel_document, label: { text: "Refugee travel document" } do %>
-            <%= f.govuk_text_field :refugee_identification_number, label: { text: "Refugee travel document number"  }, type: "text"  %>
+            <%= f.govuk_text_field :refugee_identification_number, label: { text: "Refugee travel document number"  }, type: "text" , inputmode: "numeric" %>
         <% end %>
         <%= f.govuk_check_box_divider %>
         <%= f.govuk_radio_button :identification_type, :none, label: { text: "I don't have any of these" } %>

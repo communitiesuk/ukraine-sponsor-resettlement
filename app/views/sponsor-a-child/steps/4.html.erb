@@ -1,3 +1,5 @@
+<% provide(:title, (session[:has_error] || '') + t('sponsored_children_legal_guardian_travelling.full', scope: "unaccompanied_minor.questions") + " - ") %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
@@ -7,16 +9,18 @@
     
     <%= f.govuk_error_summary link_base_errors_to: :is_unaccompanied %>
 
-    <h1 class="govuk-heading-l"><%= t('sponsored_children_legal_guardian_travelling.full', scope: "unaccompanied_minor.questions")%></h1>
-
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-heading-l"><%= t('sponsored_children_legal_guardian_travelling.full', scope: "unaccompanied_minor.questions")%></h1>
+        </legend>
       <%= f.govuk_collection_radio_buttons :is_unaccompanied,
-                                           @application.eligibility_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
+                                           @application.eligibility_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.questions.sponsored_children_legal_guardian_travelling")) },
                                            :id,
                                            :name,
                                            legend: { text: t('sponsored_children_legal_guardian_travelling.full', scope: "unaccompanied_minor.questions"), hidden: true },
                                            hint: { text: t('sponsored_children_legal_guardian_travelling.hint', scope: "unaccompanied_minor.questions")}
       %>
-
+      </fieldset>
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>

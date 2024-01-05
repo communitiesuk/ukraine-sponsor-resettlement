@@ -1,3 +1,5 @@
+<% provide(:title, (session[:has_error] || '') + t('step_free.full', scope: "expression_of_interest.questions") + " - ") %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
    
@@ -10,22 +12,24 @@
     <%= form_for @application, url: formurl, method: :post do |f| %>
       <%= f.govuk_error_summary link_base_errors_to: :step_free %>
 
+      <fieldset class="govuk-fieldset" aria-describedby="step-free-access-hint">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-heading-l">
+          <%= t('step_free.full', scope: "expression_of_interest.questions")  %>
+          </h1>
+        </legend>
+        <div class="govuk-hint" id="step-free-access-hint">
+          Step-free access means that the property entrance and all the rooms your guests will use must be without steps, or include a ramp or lift suitable for wheelchair users.
+        </div>
 
-      <h1 class="govuk-heading-l">
-       <%= t('step_free.full', scope: "expression_of_interest.questions")  %>
-      </h1>
-
-      <div class="govuk-hint">
-        Step-free access means that the property entrance and all the rooms your guests will use must be without steps, or include a ramp or lift suitable for wheelchair users.
-      </div>
-
-      <br>
+      <br aria-hidden="true">
       <%= f.govuk_collection_radio_buttons :step_free,
         @application.step_free_types.map{|type| OpenStruct.new(id: type, name: t(type, scope: "expression_of_interest.step_free")) },
         :id,
         :name,
         legend: { text: t('step_free.full', scope: "expression_of_interest.questions"), hidden:true }
       %>
+      </fieldset>
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>

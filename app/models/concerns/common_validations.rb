@@ -65,7 +65,11 @@ module CommonValidations
 
   def uk_mobile_number?(value)
     valid_uk_number = /(^\+447[0-9]{9}$)|(^07[0-9]{9}$)|(^447[0-9]{9}$)/
-    blanks_removed = value.gsub(/\s+/, "")
+    blanks_removed = if value.present?
+                       value.gsub(/\s+/, "")
+                     else
+                       ""
+                     end
     phone_number_valid?(value) && value.present? && blanks_removed.match?(valid_uk_number)
   end
 end

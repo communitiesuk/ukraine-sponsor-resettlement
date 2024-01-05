@@ -1,3 +1,5 @@
+<% provide(:title, (session[:has_error] || '') + t('other_adults_address.full', scope: "unaccompanied_minor.questions") + " - ") %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
@@ -5,8 +7,11 @@
 
      <%= f.govuk_error_summary link_base_errors_to: :other_adults_address %>
     
+
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
     <h1 class="govuk-heading-l"><%= t('other_adults_address.full', scope: "unaccompanied_minor.questions")%></h1>
-        
+          </legend>
       <div>
           <%=t('different_address.hint_html', :formatted_address => @application.formatted_address?, scope: "unaccompanied_minor.questions")%>
       </div>
@@ -18,22 +23,22 @@
                     </span>
                 </summary>
                 <div class="govuk-details__text">
-                  You must count everyone who will be living at this address while the child is living there, whether those people are living there now or not.<br/>
-                  <br/>
+                  You must count everyone who will be living at this address while the child is living there, whether those people are living there now or not.<br aria-hidden="true">
+                  <br aria-hidden="true">
                   You must include people who will live there temporarily or occasionally, for example, students or seasonal workers.
-                  <br/>
-                  <br/>
+                  <br aria-hidden="true">
+                  <br aria-hidden="true">
                   You should not include people who will stay for very short periods, for example, family members who may visit for a few days.
                 </div>
             </details>
 
       <%= f.govuk_collection_radio_buttons :other_adults_address,
-          @application.other_adults_address_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.different_address")) },
+          @application.other_adults_address_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "unaccompanied_minor.questions.different_address")) },
           :id,
           :name,
-          legend: { text: "", hidden: true }
+          legend: { text: t('other_adults_address.full', scope: "unaccompanied_minor.questions"), hidden: true }
       %>
-
+      </fieldset>
       <div class="govuk-button-group">
         <%= f.govuk_submit t('continue') %>
         <a class="govuk-link" href="/sponsor-a-child/save-and-return">Save and return later</a>

@@ -21,7 +21,7 @@ applications:
     <<: *defaults
     env:
       RAILS_ENV: production
-    instances: 4
+    instances: 2
     services:
       - ukraine-sponsor-resettlement-production-postgres
       - ukraine-sponsor-resettlement-production-redis

@@ -1,14 +1,12 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  get "/", to: "index#index", as: :root
+  get "/", to: "redirect#redirect_homepage"
 
   get "sponsor-a-child", to: "unaccompanied#guidance"
 
   get "/health", to: proc { [200, {}, %w[OK]] }
-
   get "/cookies", to: "cookies#display"
   post "/cookies", to: "cookies#post"
-
   get "/individual", to: redirect("/expression-of-interest/self-assessment/property-suitable")
   get "/individual/steps/:stage", to: redirect("/expression-of-interest/self-assessment/property-suitable")
   post "/individual/steps/:stage", to: redirect("/expression-of-interest/self-assessment/property-suitable")
@@ -23,6 +21,17 @@ Rails.application.routes.draw do
   post "/organisation/check_answers", to: redirect("/expression-of-interest/self-assessment/property-suitable")
   get "/organisation/confirm", to: redirect("/expression-of-interest/self-assessment/property-suitable")
 
+  get "/additional-info/", to: redirect("/expression-of-interest/self-assessment/property-suitable")
+  get "/additional-info/ref", to: redirect("/expression-of-interest/self-assessment/property-suitable")
+  get "/additional-info/ref/:reference", to: redirect("/expression-of-interest/self-assessment/property-suitable")
+  get "/additional-info/start/:reference", to: redirect("/expression-of-interest/self-assessment/property-suitable")
+  get "/additional-info/steps/:stage", to: redirect("/expression-of-interest/self-assessment/property-suitable")
+  post "/additional-info/steps/:stage", to: redirect("/expression-of-interest/self-assessment/property-suitable")
+  get "/additional-info/check-answers", to: redirect("/expression-of-interest/self-assessment/property-suitable")
+  get "/additional-info/check_answers", to: redirect("/expression-of-interest/self-assessment/property-suitable")
+  post "/additional-info/submit", to: redirect("/expression-of-interest/self-assessment/property-suitable")
+  get "/additional-info/confirm", to: redirect("/expression-of-interest/self-assessment/property-suitable")
+
   get "/expression-of-interest/self-assessment/property-suitable", to: "eoi#property_suitable"
   get "/expression-of-interest/self-assessment/challenges", to: "eoi#challenges"
   get "/expression-of-interest/self-assessment/can-you-commit", to: "eoi#can_you_commit"
@@ -34,17 +43,6 @@ Rails.application.routes.draw do
   get "/expression-of-interest/check-answers", to: "eoi#check_answers"
   post "/expression-of-interest/check-answers", to: "eoi#submit"
   get "/expression-of-interest/confirm", to: "eoi#confirm"
-
-  get "/additional-info/", to: "errors#reference_not_found"
-  get "/additional-info/ref", to: "errors#reference_not_found"
-  get "/additional-info/ref/:reference", to: "additional#home"
-  get "/additional-info/start/:reference", to: "additional#start"
-  get "/additional-info/steps/:stage", to: "additional#display"
-  post "/additional-info/steps/:stage", to: "additional#handle_step"
-  get "/additional-info/check-answers", to: "additional#check_answers"
-  get "/additional-info/check_answers", to: "additional#check_answers"
-  post "/additional-info/submit", to: "additional#submit"
-  get "/additional-info/confirm", to: "additional#confirm"
 
   get "/sponsor-a-child", to: "unaccompanied#guidance"
   get "/sponsor-a-child/start", to: "unaccompanied#start"

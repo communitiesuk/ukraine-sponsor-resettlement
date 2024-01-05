@@ -1,12 +1,19 @@
+<% provide(:title, (session[:has_error] || '') + "Enter their date of birth - ") %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
     <%= form_for @application, url: "/sponsor-a-child/steps/34", method: :post do |f| %>
         <%= f.govuk_error_summary link_base_errors_to: :minor_date_of_birth %>
 
+
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
         <h1 class="gem-c-title__text govuk-heading-l">
           Enter their date of birth
         </h1>
+        </legend>
+      </fieldset>
 
         <div class="govuk-inset-text">
           <%=@application.minor_full_name?%>
@@ -23,7 +30,9 @@
         
         <%= f.govuk_date_field :minor_date_of_birth,
             date_of_birth: true,
-            legend: { text: "", hidden: true } %>
+            legend: { text: "", hidden: true },             
+            type: "text",
+            inputmode: "numeric" %>
 
       <div class="govuk-button-group">
         <%= f.govuk_submit t('continue') %>

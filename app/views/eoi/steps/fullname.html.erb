@@ -1,3 +1,6 @@
+<% provide(:title, (session[:has_error] || '') + t('fullname.full', scope: "expression_of_interest.questions") + " - ") %>
+
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <% if request.query_string == 'check' %>
@@ -9,14 +12,18 @@
     <%= form_for @application, url: formurl, method: :post do |f| %>
 
     <%= f.govuk_error_summary link_base_errors_to: :fullname %>
-
-      <h1 class="govuk-heading-l">
-       <%= t('fullname.full', scope: "expression_of_interest.questions")  %>
-      </h1>
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-heading-l">
+          <%= t('fullname.full', scope: "expression_of_interest.questions")  %>
+          </h1>
+        </legend>
+      </fieldset>
 
       <%= f.govuk_text_field :fullname,
         label: { text: t('fullname.full', scope: "expression_of_interest.questions"), hidden:true},
-        type: "text"
+        type: "text",
+        inputmode: "text"
       %>
       <%= f.govuk_submit t('continue') %>
     <% end %>

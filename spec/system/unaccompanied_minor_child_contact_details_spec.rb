@@ -28,7 +28,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
 
-      uam_enter_minors_contact_details(email: minors_email, telephone: minors_phone, select_none: true)
+      uam_enter_minors_contact_details(email: minors_email, confirm_email: minors_email, telephone: minors_phone, confirm_telephone: minors_phone, select_none: true)
 
       expect(page).to have_content("Enter their date of birth")
 
@@ -109,7 +109,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
 
       uam_enter_minors_contact_details(telephone: "ABCDEFG")
 
-      expect(page).to have_content("Error: You must enter a valid phone number")
+      expect(page).to have_content("Error: Enter a telephone number in the correct format")
     end
 
     it "prompts the user to matching phone numbers" do
@@ -127,7 +127,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
 
       uam_enter_minors_contact_details(email: "not an email address", confirm_email: "not an email address", telephone: "ABCDEFG")
 
-      expect(page).to have_content("Error: You must enter a valid phone number")
+      expect(page).to have_content("Error: Enter a telephone number in the correct format")
       expect(page).to have_content("Error: You must enter a valid email address")
     end
 

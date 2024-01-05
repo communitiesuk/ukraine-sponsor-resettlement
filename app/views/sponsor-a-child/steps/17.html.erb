@@ -1,3 +1,5 @@
+<% provide(:title, (session[:has_error] || '') + t('no_identity_documents.full', scope: "unaccompanied_minor.questions") + " - ") %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
@@ -5,12 +7,17 @@
 
      <%= f.govuk_error_summary link_base_errors_to: :no_identification_reason %>
 
-    <h1 class="govuk-heading-l"><%= t('no_identity_documents.full', scope: "unaccompanied_minor.questions")%></h1>
 
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-heading-l"><%= t('no_identity_documents.full', scope: "unaccompanied_minor.questions")%></h1>
+        </legend>
+      </fieldset>
       <%= f.govuk_text_area :no_identification_reason,
         label: { text: "", hidden: true},
         hint: { text: t('no_identity_documents.hint', scope: "unaccompanied_minor.questions")},
         type: "text",
+        inputmode: "text",
         rows: 10
       %>
       <div class="govuk-button-group">

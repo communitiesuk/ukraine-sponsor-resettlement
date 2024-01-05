@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Individual expression of interest", type: :system do
+RSpec.describe "Expression of interest", type: :system do
   before do
     driven_by(:rack_test_user_agent)
   end
@@ -61,7 +61,7 @@ RSpec.describe "Individual expression of interest", type: :system do
       expect(page).to have_content("User research Yes")
       expect(page).to have_content("Privacy statement Agreed")
 
-      click_link("Change pet")
+      click_link("Change Allow pets")
 
       expect(page).to have_content("Would you consider allowing guests to bring their pets?")
 

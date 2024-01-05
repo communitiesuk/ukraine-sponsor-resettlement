@@ -1,3 +1,5 @@
+<% provide(:title, (session[:has_error] || '') + t('resident_nationality.full', scope: "unaccompanied_minor.questions") + " - ") %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
@@ -5,8 +7,11 @@
 
     <%= f.govuk_error_summary link_base_errors_to: :adult_nationality %>
 
-    <h1 class="govuk-heading-l"><%= t('resident_nationality.full', scope: "unaccompanied_minor.questions")%></h1>
 
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+    <h1 class="govuk-heading-l"><%= t('resident_nationality.full', scope: "unaccompanied_minor.questions")%></h1>
+        </legend>
 
     <div class="govuk-inset-text">
       <%= "#{@adult["given_name"]} #{@adult["family_name"]}" %>
@@ -15,7 +20,7 @@
       <%= f.govuk_collection_select :adult_nationality, @nationalities, :val, :name,
                                     label: { text: "Select their country of nationality" }
       %>
-
+    </fieldset>
       <div class="govuk-button-group">
         <%= f.govuk_submit t('continue') %>
         <a class="govuk-link" href="/sponsor-a-child/save-and-return">Save and return later</a>

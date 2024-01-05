@@ -1,3 +1,5 @@
+<% provide(:title, (session[:has_error] || '') + "Enter your full residential address - ") %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
   <% if request.query_string == 'check' %>
@@ -7,29 +9,39 @@
   <% end %>
    <%= form_for @application, url: formurl, method: :post do |f| %>
     <%= f.govuk_error_summary link_base_errors_to: :residential_postcode %>
-      <h1 class="govuk-heading-l">Enter your full residential address</h1>
+      <fieldset class="govuk-fieldset" aria-describedby="address-hint">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-heading-l">Enter your full residential address</h1>
+        </legend>
+        <p class="govuk-hint" id="address-hint">This is the address where you live</p>
+        <br aria-hidden="true">
+        <br>
 
-      <p class="govuk-hint">This is the address where you live</p>
-      <br>
 
       <%= f.govuk_text_field :residential_line_1,
                              label: { text: t('address_line_1.full', scope: "expression_of_interest.questions") },
-                             type: "text"
+                             type: "text",
+                             inputmode: "text"
       %>
       <%= f.govuk_text_field :residential_line_2,
                              label: { text: t('address_line_2.full', scope: "expression_of_interest.questions") },
-                             type: "text"
+                             type: "text",
+                             inputmode: "text"
       %>
       <%= f.govuk_text_field :residential_town,
                              label: { text: t('address_town.full', scope: "expression_of_interest.questions") },
                              type: "text",
+                             inputmode: "text",
                              width: 20
       %>
       <%= f.govuk_text_field :residential_postcode,
                              label: { text: t('address_postcode.full', scope: "expression_of_interest.questions") },
                              type: "text",
+                             inputmode: "text",
                              width: 10
       %>
+        
+      </fieldset>
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>

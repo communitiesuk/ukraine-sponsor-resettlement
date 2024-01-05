@@ -128,7 +128,7 @@
       "$ref": "#/$defs/yes_or_no"
     },
     "minor_contact_type": {
-      "minItems": 2,
+      "minItems": 1,
       "type": "array",
       "uniqueItems": true
     },

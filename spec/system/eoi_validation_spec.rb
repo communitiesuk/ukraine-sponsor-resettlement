@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Individual expression of interest", type: :system do
+RSpec.describe "Expression of interest", type: :system do
   before do
     driven_by(:rack_test_user_agent)
   end
@@ -45,8 +45,8 @@ RSpec.describe "Individual expression of interest", type: :system do
       click_on("Continue")
       click_on("Continue")
 
-      expect(page).to have_content("Enter your contact telephone number")
-      expect(page).to have_content("Error: You must enter a valid phone number")
+      expect(page).to have_content("Enter a telephone number, like 01632 960 001 or +44 808 157 0192")
+      expect(page).to have_content("Error: Enter a telephone number in the correct format")
     end
 
     it "won't allow you to continue on an invalid phone number" do
@@ -54,11 +54,11 @@ RSpec.describe "Individual expression of interest", type: :system do
       eoi_enter_sponsor_name
       fill_in("Enter your email address", with: "test@test.com")
       click_on("Continue")
-      fill_in("Enter your contact telephone number", with: "00123")
+      fill_in("Enter a telephone number, like 01632 960 001 or +44 808 157 0192", with: "00123")
       click_on("Continue")
 
-      expect(page).to have_content("Enter your contact telephone number")
-      expect(page).to have_content("Error: You must enter a valid phone number")
+      expect(page).to have_content("Enter a telephone number, like 01632 960 001 or +44 808 157 0192")
+      expect(page).to have_content("Error: Enter a telephone number in the correct format")
     end
 
     it "won't allow you to continue if the first line of the address isn't present" do

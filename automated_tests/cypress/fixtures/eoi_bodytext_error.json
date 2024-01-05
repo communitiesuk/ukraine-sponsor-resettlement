@@ -1,0 +1,13 @@
+{
+  "radiobtn_error_msg": "You must select an option to continue",
+  "fullname_err_msg": "You must enter your full name",
+  "email_err_msg": "You must enter a valid email address",
+  "phone_err_msg": "Enter a telephone number in the correct format",
+  "addl1_err_msg": "You must enter an address",
+  "townorcity_err_msg": "You must enter a town or city",
+  "postcode_err_msg": "You must enter a valid UK postcode",
+  "consent_err_msg": "You must tick the box to continue",
+  "err_summary_title_msg": "There is a problem",
+  "start_date_err_msg": "Enter a valid start date",
+  "number_of_brooms_err_msg": "You must enter a number from 1 to 9 in either field"
+}

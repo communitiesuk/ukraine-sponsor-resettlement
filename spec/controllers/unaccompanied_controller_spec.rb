@@ -23,7 +23,7 @@ RSpec.describe UnaccompaniedController, type: :controller do
     uam = UnaccompaniedMinor.new
     uam.ip_address = "127.0.0.1".freeze
     uam.user_agent = '"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'.freeze
-    uam.final_submission = true
+    uam.partial_validation = [:full_validation]
 
     uam.is_living_december = "yes"
     uam.is_under_18 = "yes"
@@ -35,11 +35,13 @@ RSpec.describe UnaccompaniedController, type: :controller do
 
     uam.given_name = "Firstname"
     uam.family_name = "Familyname"
-    uam.phone_number = "07777 123 456"
     uam.email = "test@test.com"
+    uam.email_confirm = "test@test.com"
     uam.has_other_names = "false"
     uam.phone_number = "07777 123 456"
-    uam.nationality = "nationality"
+    uam.phone_number_confirm = "07777 123 456"
+    uam.nationality = "GBR - United Kingdom"
+    uam.has_other_nationalities = "false"
     uam.sponsor_date_of_birth = {
       3 => 1,
       2 => 6,
@@ -90,7 +92,6 @@ RSpec.describe UnaccompaniedController, type: :controller do
 
     it "queues the json to be sent and sends the user to the confirmation page" do
       post :submit
-
       expect(uam.errors.empty?).to be(true)
       expect(SendUnaccompaniedMinorJob).to have_received(:perform_later).with(uam.id)
       expect(response).to redirect_to("/sponsor-a-child/confirm")

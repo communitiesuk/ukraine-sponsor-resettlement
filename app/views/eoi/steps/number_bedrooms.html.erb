@@ -1,3 +1,5 @@
+<% provide(:title, (session[:has_error] || '') + "How many bedrooms are available for guests in the property you’re registering now? - ") %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
@@ -9,30 +11,34 @@
 
     <%= form_for @application, url: formurl, method: :post do |f| %>
       <%= f.govuk_error_summary link_base_errors_to: :single_room_count %>
+      <fieldset class="govuk-fieldset" aria-describedby="number-of-bedrooms-hint">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-heading-l">
+            How many bedrooms are available for guests in the property you’re registering now?
+          </h1>
+        </legend>
 
-
-      <h1 class="govuk-heading-l">
-         How many bedrooms are available for guests in the property you’re registering now?
-      </h1>
-
-      <div class="govuk-hint">
+      <div class="govuk-hint" id="number-of-bedrooms-hint">
         You must enter at least 1 single or double bedroom. Single bedrooms can normally only contain a single bed. Double bedrooms should have enough space for at least 1 double bed or 2 single beds.      </div>
-      <br>
+      <br aria-hidden="true">
 
       <%= f.govuk_text_field :single_room_count,
         label: { text: 'Single bedrooms' },
-        type: "number",
+        type: "text",
+        inputmode: "numeric",
         width: 2,
         min: 0,
         max: 9
       %>
       <%= f.govuk_text_field :double_room_count,
         label: { text: 'Double bedrooms' },
-        type: "number",
+        type: "text",
+        inputmode: "numeric",
         width: 2,
         min: 0,
         max: 9
       %>
+      </fieldset>
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>

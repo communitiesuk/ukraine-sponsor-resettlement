@@ -100,7 +100,8 @@ class UnaccompaniedMinor < ApplicationRecord
                 :adult_identification_type,
                 :adult_passport_identification_number,
                 :adult_id_identification_number,
-                :adult_refugee_identification_number
+                :adult_refugee_identification_number,
+                :partial_validation
 
   after_initialize :after_initialize
   before_save :serialize
@@ -335,7 +336,7 @@ class UnaccompaniedMinor < ApplicationRecord
     required_vals = [given_name, family_name, date_of_birth, nationality, id]
     if required_vals.all? { |item| item.to_s.length.positive? }
       TASK_LABEL_COMPLETE
-    elsif required_vals.all? { |item| item.to_s.length.zero? }
+    elsif required_vals.all? { |item| item.to_s.empty? }
       TASK_LABEL_TO_DO
     else
       TASK_LABEL_IN_PROGRESS
@@ -375,11 +376,11 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
   def after_initialize
-    @final_submission = false
     @eligibility_types = %i[yes no]
     @have_parental_consent_options = %i[yes no]
     @different_address_types = %i[yes no]
     @other_adults_address_types = %i[yes no]
+    @partial_validation = []
     self.certificate_reference ||= get_formatted_certificate_number
   end
 
@@ -470,12 +471,12 @@ private
 
   def is_main_address_empty?
     # function that checks if the mandatory elements for the main address are filled in
-    [@residential_line_1, @residential_town, @residential_postcode].all? { |item| item.to_s.length.zero? }
+    [@residential_line_1, @residential_town, @residential_postcode].all? { |item| item.to_s.empty? }
   end
 
   def is_secondary_address_empty?
     # function that checks if the mandatory elements for the main address are filled in
-    [@sponsor_address_line_1, @sponsor_address_town, @sponsor_address_postcode].all? { |item| item.to_s.length.zero? }
+    [@sponsor_address_line_1, @sponsor_address_town, @sponsor_address_postcode].all? { |item| item.to_s.empty? }
   end
 
   def is_main_address_complete?

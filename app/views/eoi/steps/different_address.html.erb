@@ -1,3 +1,6 @@
+<% provide(:title, (session[:has_error] || '') + t('different_address.full', scope: "expression_of_interest.questions") + " - ") %>
+
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
@@ -10,16 +13,20 @@
     <%= form_for @application, url: formurl, method: :post do |f| %>
     <%= f.govuk_error_summary link_base_errors_to: :different_address %>
 
-      <h1 class="govuk-heading-l">
-       <%= t('different_address.full', scope: "expression_of_interest.questions")  %>
-      </h1>
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-heading-l">
+          <%= t('different_address.full', scope: "expression_of_interest.questions")  %>
+          </h1>
+        </legend>
 
       <%= f.govuk_collection_radio_buttons :different_address,
-          @application.different_address_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "expression_of_interest.different_address")) },
+          @application.different_address_types.map{ |type| OpenStruct.new(id: type, name: t(type, scope: "expression_of_interest.questions.different_address")) },
           :id,
           :name,
           legend: { text: t('different_address.full', scope: "expression_of_interest.questions"), hidden:true }
       %>
+      </fieldset>
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>

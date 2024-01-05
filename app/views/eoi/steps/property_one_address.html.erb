@@ -1,3 +1,6 @@
+<% provide(:title, (session[:has_error] || '') + "Enter the address of the property you're offering - ") %>
+
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <% if request.query_string == 'check' %>
@@ -8,28 +11,36 @@
 
     <%= form_for @application, url: formurl, method: :post do |f| %>
     <%= f.govuk_error_summary link_base_errors_to: :property_one_line_1 %>
-   <h1 class="govuk-heading-l">Enter the address of the property you're offering</h1>
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-heading-l">Enter the address of the property you're offering</h1>
+        </legend>
 
-    <br>
+    <br aria-hidden="true">
 
       <%= f.govuk_text_field :property_one_line_1,
                              label: { text: t('address_line_1.full', scope: "expression_of_interest.questions") },
-                             type: "text"
+                             type: "text",
+                             inputmode: "text"
       %>
       <%= f.govuk_text_field :property_one_line_2,
                              label: { text: t('address_line_2.full', scope: "expression_of_interest.questions") },
-                             type: "text"
+                             type: "text",
+                             inputmode: "text"
       %>
       <%= f.govuk_text_field :property_one_town,
                              label: { text: t('address_town.full', scope: "additional_info.questions") },
                              type: "text",
+                             inputmode: "text",
                              width: 20
       %>
       <%= f.govuk_text_field :property_one_postcode,
                              label: { text: t('address_postcode.full', scope: "additional_info.questions") },
                              type: "text",
+                             inputmode: "text",
                              width: 10
       %>
+      </fieldset>
       <%= f.govuk_submit t('continue') %>
     <% end %>
   </div>

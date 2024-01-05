@@ -1,3 +1,5 @@
+<% provide(:title, (session[:has_error] || '') + "Enter the address where the child will be living in the UK - ") %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
@@ -5,26 +7,34 @@
 
     <%= f.govuk_error_summary link_base_errors_to: :residential_line_1 %>
 
-    <h1 class="govuk-heading-l">Enter the address where the child will be living in the UK</h1>
 
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+    <h1 class="govuk-heading-l">Enter the address where the child will be living in the UK</h1>
+        </legend>
       <%= f.govuk_text_field :residential_line_1,
                              label: { text: t('address_line_1.full', scope: "unaccompanied_minor.questions") },
-                             type: "text"
+                             type: "text",
+                             inputmode:"text"
       %>
       <%= f.govuk_text_field :residential_line_2,
                              label: { text: t('address_line_2.full', scope: "unaccompanied_minor.questions") },
-                             type: "text"
+                             type: "text",
+                             inputmode:"text"
       %>
       <%= f.govuk_text_field :residential_town,
                              label: { text: t('address_town.full', scope: "unaccompanied_minor.questions") },
                              type: "text",
+                             inputmode:"text",
                              width: 20
       %>
       <%= f.govuk_text_field :residential_postcode,
                              label: { text: t('address_postcode.full', scope: "unaccompanied_minor.questions") },
                              type: "text",
+                             inputmode:"text",
                              width: 10
       %>
+      </fieldset>
       <div class="govuk-button-group">
         <%= f.govuk_submit t('continue') %>
         <a class="govuk-link" href="/sponsor-a-child/save-and-return">Save and return later</a>

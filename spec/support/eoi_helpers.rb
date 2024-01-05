@@ -38,9 +38,9 @@ module EoiHelpers
     fill_in("Enter your email address", with: email)
     click_on("Continue")
 
-    expect(page).to have_content("Enter your contact telephone number")
+    expect(page).to have_content("Enter a telephone number, like 01632 960 001 or +44 808 157 0192")
 
-    fill_in("Enter your contact telephone number", with: phone_number)
+    fill_in("Enter a telephone number, like 01632 960 001 or +44 808 157 0192", with: phone_number)
 
     click_on("Continue")
   end
@@ -149,7 +149,7 @@ module EoiHelpers
 
     eoi_choose_option(research)
 
-    expect(page).to have_content("Confirm you have read the privacy statement and agree that the information you have provided in this form can be used for the Homes for Ukraine scheme")
+    expect(page).to have_content("Confirm you have read the privacy statement")
 
     check("Yes, I have read the privacy statement and agree that the information I have provided in this form can be used for the Homes for Ukraine scheme")
     click_on("Continue")

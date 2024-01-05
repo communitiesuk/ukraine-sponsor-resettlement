@@ -1,6 +1,11 @@
+<% provide(:title, "Session resume - ") %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
+
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
     <% if flash[:error] %>
       <h1 class="govuk-heading-l">This code has expired</h1>
       <p class="govuk-error-message"><%= flash[:error] %></p>
@@ -10,12 +15,15 @@
       </h1>
       <p class="govuk-body">We've sent a secure one time time code to your phone. Enter the code to access your application.</p>
     <% end %>
+        </legend>
+      </fieldset>
 
     <%= form_for @abstractresumetoken, url: "/sponsor-a-child/resume-application?uuid=#{params["uuid"]}", method: :post do |f| %>
       <%= f.govuk_text_field :token, 
                              width: 10,
                              label: { text: t('6-digit code'), size: 'm'},
                              pattern: "[0-9]*",
+                             type: "text",
                              inputmode: "numeric",
                              required: true
       %>

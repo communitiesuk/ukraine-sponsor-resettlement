@@ -11,16 +11,18 @@ class ApplicationController < ActionController::Base
 private
 
   def set_no_back_link_pages
-    @no_back_link_pages = ["/", "/individual/check_answers", "/expression-of-interest/confirm", "/sponsor-a-child/task-list", "sponsor-a-child/cancel_confirm", "/sponsor-a-child/cancel-application", "/sponsor-a-child/check-answers", "/sponsor-a-child/confirm", "/sponsor-a-child/save-and-return/confirm", "/sponsor-a-child/save-and-return/resend-link", "/cookies"]
+    @no_back_link_pages = ["/", "/expression-of-interest/confirm", "/sponsor-a-child/task-list", "sponsor-a-child/cancel_confirm", "/sponsor-a-child/cancel-application", "/sponsor-a-child/check-answers", "/sponsor-a-child/confirm", "/sponsor-a-child/save-and-return/confirm", "/sponsor-a-child/save-and-return/resend-link", "/cookies"]
   end
 
   def set_tracking_code
     Rails.logger.debug request.fullpath
 
-    if request.fullpath.include?("child") && ENV["UAM_GA_TRACKING_CODE"].present? && session[:cookies_accepted].present? && session[:cookies_accepted].casecmp("true").zero?
-      GA.tracker = ENV.fetch("UAM_GA_TRACKING_CODE")
-    elsif request.fullpath.include?("expression") && ENV["EOI_GA_TRACKING_CODE"].present? && session[:cookies_accepted].present? && session[:cookies_accepted].casecmp("true").zero?
-      GA.tracker = ENV.fetch("EOI_GA_TRACKING_CODE")
+    if cookies[:cookies_preferences_set].present? && cookies[:cookies_preferences_set] == "true" && cookies[:cookies_policy].present?
+      if request.fullpath.include?("child") && ENV["UAM_GA4_TRACKING_CODE"].present?
+        session[:ga4_tracking_code] = ENV.fetch("UAM_GA4_TRACKING_CODE")
+      elsif request.fullpath.include?("expression") && ENV["EOI_GA4_TRACKING_CODE"].present?
+        session[:ga4_tracking_code] = ENV.fetch("EOI_GA4_TRACKING_CODE")
+      end
     end
   end
 
@@ -35,7 +37,7 @@ private
   end
 
   def cookie_banner
-    if cookies[:cookies_preferences_set].present? && cookies[:cookies_preferences_set] == "true"
+    if cookies[:cookies_preferences_set].present? && cookies[:cookies_preferences_set] == "true" && cookies[:cookies_policy].present?
       cookies_json = JSON.parse(cookies[:cookies_policy])
       @cookies_accepted = cookies_json["analytics"]
     end

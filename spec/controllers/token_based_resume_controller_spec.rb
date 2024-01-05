@@ -8,11 +8,15 @@ RSpec.describe TokenBasedResumeController, type: :controller do
     given_name = "First".freeze
     email = "test@example.com".freeze
     phone_number = "07983111111".freeze
+    email_confirm = "test@example.com".freeze
+    phone_number_confirm = "07983111111".freeze
 
     uam = UnaccompaniedMinor.new(
       given_name:,
       email:,
       phone_number:,
+      phone_number_confirm:,
+      email_confirm:,
     )
     uam.save!
 
@@ -41,6 +45,9 @@ RSpec.describe TokenBasedResumeController, type: :controller do
     given_name = "First".freeze
     email = "test@example.com".freeze
     phone_number = "07983111111".freeze
+    email_confirm = "test@example.com".freeze
+    phone_number_confirm = "07983111111".freeze
+
     sms_code = 123_456
     magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc".freeze
     expiry_time = (Time.zone.now.utc + 1.hour)
@@ -49,7 +56,9 @@ RSpec.describe TokenBasedResumeController, type: :controller do
     uam = UnaccompaniedMinor.new(
       given_name:,
       email:,
+      email_confirm:,
       phone_number:,
+      phone_number_confirm:,
     )
     uam.save!
 
@@ -73,7 +82,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
 
       params = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
 
-      post :submit, params: params
+      post(:submit, params:)
 
       expect(response.status).to eq(200)
       expect(response).to render_template("sponsor-a-child/task_list")
@@ -82,13 +91,17 @@ RSpec.describe TokenBasedResumeController, type: :controller do
     it "shows the selection page if user has more than one application" do
       email = "test@example.com".freeze
       phone_number = "07983111111".freeze
+      email_confirm = "test@example.com".freeze
+      phone_number_confirm = "07983111111".freeze
 
       uam = UnaccompaniedMinor.new(
         given_name: "SponsorOne",
         minor_given_name: "MinorOne",
         adult_given_name: "AdultGiven",
         email:,
+        email_confirm:,
         phone_number:,
+        phone_number_confirm:,
       )
       uam.save!
 
@@ -97,13 +110,15 @@ RSpec.describe TokenBasedResumeController, type: :controller do
         minor_given_name: "MinorTwo",
         adult_given_name: "AdultGiven",
         email:,
+        email_confirm:,
         phone_number:,
+        phone_number_confirm:,
       )
       uam2.save!
 
       params = { abstract_resume_token: { token: sms_code }, uuid: magic_id }
 
-      post :submit, params: params
+      post(:submit, params:)
 
       expect(response.status).to eq(200)
       expect(response).to render_template("token-based-resume/select_multiple_applications")
@@ -119,7 +134,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
 
     it "shows the task list after an application has been selected" do
       params = { reference: uam.reference }
-      post :select_multiple_applications, params: params
+      post(:select_multiple_applications, params:)
 
       expect(response.status).to eq(200)
       expect(response).to render_template("sponsor-a-child/task_list")
@@ -131,7 +146,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc".freeze
       params = { abstract_resume_token: { token: "" }, uuid: magic_id }
 
-      post :submit, params: params
+      post(:submit, params:)
 
       expect(response.status).to eq(200)
       expect(response).to render_template("token-based-resume/session_resume_form")
@@ -143,7 +158,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       non_numeric_code = "ABCDEF".freeze
       params = { abstract_resume_token: { token: non_numeric_code }, uuid: magic_id }
 
-      post :submit, params: params
+      post(:submit, params:)
 
       expect(response.status).to eq(200)
       expect(response).to render_template("token-based-resume/session_resume_form")
@@ -155,7 +170,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       non_numeric_code = "665312".freeze
       params = { abstract_resume_token: { token: non_numeric_code }, uuid: magic_id }
 
-      post :submit, params: params
+      post(:submit, params:)
 
       expect(response.status).to eq(302)
       expect(response).to redirect_to("/sponsor-a-child/resume-application?uuid=#{magic_id}")
@@ -165,6 +180,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
 
   describe "User takes too long to return" do
     phone_number = "07983111111".freeze
+    phone_number_confirm = "07983111111".freeze
     sms_code = 123_456
     magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc".freeze
     expiry_time = (Time.zone.now.utc - 1.hour)
@@ -172,6 +188,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
 
     uam = UnaccompaniedMinor.new
     uam.phone_number = phone_number
+    uam.phone_number_confirm = phone_number_confirm
 
     let(:texter) { instance_double("Notifications::Client") }
     let(:application_token) { instance_double("ApplicationToken") }
@@ -187,7 +204,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       numeric_code = 123_456
       params = { abstract_resume_token: { token: numeric_code }, uuid: magic_id }
 
-      post :submit, params: params
+      post(:submit, params:)
 
       expect(response.status).to eq(302)
       expect(response).to redirect_to("/sponsor-a-child/resume-application?uuid=#{magic_id}")
@@ -198,7 +215,7 @@ RSpec.describe TokenBasedResumeController, type: :controller do
       magic_id = "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc".freeze
       params = { uuid: magic_id }
 
-      get :request_new_token, params: params
+      get(:request_new_token, params:)
 
       expect(response.status).to eq(200)
       application_token = ApplicationToken.find_by(magic_link: magic_id)

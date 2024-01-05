@@ -33,7 +33,7 @@ applications:
     env:
       RAILS_ENV: production
       INSTANCE_NAME: ukraine-sponsor-resettlement-production
-    instances: 8
+    instances: 4
     memory: 512M
     services:
       - ukraine-sponsor-resettlement-production-postgres

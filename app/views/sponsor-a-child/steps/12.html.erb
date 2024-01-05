@@ -1,12 +1,12 @@
+<% provide(:title, (session[:has_error] || '') + t('other_fullname.full', scope: "unaccompanied_minor.questions") + " - ") %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
     <%= form_for @application, url: "/sponsor-a-child/steps/12", method: :post do |f| %>
 
      <%= f.govuk_error_summary link_base_errors_to: :other_given_name %>
-
-    <h1 class="govuk-heading-l"><%= t('other_fullname.full', scope: "unaccompanied_minor.questions")%></h1>
-
+      <h1 class="govuk-heading-l"><%= t('other_fullname.full', scope: "unaccompanied_minor.questions")%></h1>
       <%= f.govuk_fieldset legend: { text: "", hidden: true },
       hint: { text: "", hidden: true } do %>
             <details class="govuk-details" data-module="govuk-details">
@@ -16,8 +16,8 @@
                     </span>
                 </summary>
                 <div class="govuk-details__text">Enter your name as it is written on your identity documents. Use the English spelling if it is written in two languages.
-                <br/>
-                <br/>'Given names' - enter your first name and any of other names like these, for example:
+                <br aria-hidden="true">
+                <br aria-hidden="true">'Given names' - enter your first name and any of other names like these, for example:
                 <ul>
                 <li> middle names</li>
                 <li> a suffix (for example, Jr)</li>
@@ -27,8 +27,8 @@
                 'Family name' - enter your last name (surname).</div>
                 </div>
             </details>
-            <%= f.govuk_text_field :other_given_name, label: { text: 'Given names' }, type: "text", value: @previously_entered_other_given_name %>
-            <%= f.govuk_text_field :other_family_name, label: { text: 'Family name' }, type: "text", value: @previously_entered_other_family_name %>
+            <%= f.govuk_text_field :other_given_name, label: { text: 'Given names' }, type: "text", inputmode: "text", value: @previously_entered_other_given_name %>
+            <%= f.govuk_text_field :other_family_name, label: { text: 'Family name' }, type: "text", inputmode: "text", value: @previously_entered_other_family_name %>
       <% end %>
 
       <div class="govuk-button-group">
