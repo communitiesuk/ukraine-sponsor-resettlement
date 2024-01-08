@@ -77,9 +77,9 @@ module UamValidations
 
   def validate_sponsor_date_of_birth
     if @sponsor_date_of_birth.present?
-      dob_day = (@sponsor_date_of_birth["3"] || @sponsor_date_of_birth[3] || nil)
-      dob_month = (@sponsor_date_of_birth["2"] || @sponsor_date_of_birth[2] || nil)
-      dob_year = (@sponsor_date_of_birth["1"] || @sponsor_date_of_birth[1] || nil)
+      dob_day = @sponsor_date_of_birth["3"] || @sponsor_date_of_birth[3] || nil
+      dob_month = @sponsor_date_of_birth["2"] || @sponsor_date_of_birth[2] || nil
+      dob_year = @sponsor_date_of_birth["1"] || @sponsor_date_of_birth[1] || nil
       if !dob_year.to_i || !dob_month.to_i || !dob_day.to_i
         errors.add(:required_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
       end
@@ -102,9 +102,9 @@ module UamValidations
 
   def validate_minor_date_of_birth
     if @minor_date_of_birth.present?
-      dob_day = (@minor_date_of_birth["3"] || @minor_date_of_birth[3] || nil)
-      dob_month = (@minor_date_of_birth["2"] || @minor_date_of_birth[2] || nil)
-      dob_year = (@minor_date_of_birth["1"] || @minor_date_of_birth[1] || nil)
+      dob_day = @minor_date_of_birth["3"] || @minor_date_of_birth[3] || nil
+      dob_month = @minor_date_of_birth["2"] || @minor_date_of_birth[2] || nil
+      dob_year = @minor_date_of_birth["1"] || @minor_date_of_birth[1] || nil
       if !dob_year.to_i || !dob_month.to_i || !dob_day.to_i
         errors.add(:required_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
       end
@@ -129,9 +129,9 @@ module UamValidations
 
   def validate_adult_date_of_birth
     if @adult_date_of_birth.present?
-      dob_day = (@adult_date_of_birth["3"] || @adult_date_of_birth[3] || nil)
-      dob_month = (@adult_date_of_birth["2"] || @adult_date_of_birth[2] || nil)
-      dob_year = (@adult_date_of_birth["1"] || @adult_date_of_birth[1] || nil)
+      dob_day = @adult_date_of_birth["3"] || @adult_date_of_birth[3] || nil
+      dob_month = @adult_date_of_birth["2"] || @adult_date_of_birth[2] || nil
+      dob_year = @adult_date_of_birth["1"] || @adult_date_of_birth[1] || nil
       if !dob_year.to_i || !dob_month.to_i || !dob_day.to_i
         errors.add(:adult_date_of_birth, I18n.t(:invalid_date_of_birth, scope: :error))
       end

@@ -175,7 +175,7 @@ class UnaccompaniedMinor < ApplicationRecord
   def is_section_adults_at_address_complete?
     statuses = []
 
-    adults_at_address.each do |_key, val|
+    adults_at_address.each_value do |val|
       statuses << (sponsor_resident_details?(val["given_name"], val["family_name"], val["date_of_birth"], val["nationality"], val["id_type_and_number"]) == TASK_LABEL_COMPLETE)
     end
 

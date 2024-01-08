@@ -82,18 +82,18 @@ class EoiWorkflow
           pc = UKPostcode.parse(eoi_instance.residential_postcode)
           case pc.country
           when :england
-            return :skip_diff_addr
+            :skip_diff_addr
           when :northern_ireland
-            return :skip_diff_addr
+            :skip_diff_addr
           when :scotland
-            return :redirect_scotland
+            :redirect_scotland
           when :wales
-            return :redirect_wales
+            :redirect_wales
           else
-            return :skip_diff_addr
+            :skip_diff_addr
           end
         else
-          return :back_to_address
+          :back_to_address
         end
       end
     end,
@@ -102,18 +102,18 @@ class EoiWorkflow
         pc = UKPostcode.parse(params["property_one_postcode"])
         case pc.country
         when :england
-          return :go_next
+          :go_next
         when :northern_ireland
-          return :go_next
+          :go_next
         when :scotland
-          return :redirect_scotland
+          :redirect_scotland
         when :wales
-          return :redirect_wales
+          :redirect_wales
         else
-          return :go_next
+          :go_next
         end
       else
-        return :reload
+        :reload
       end
     end,
     "7" => lambda do |params, _eoi_instance|
