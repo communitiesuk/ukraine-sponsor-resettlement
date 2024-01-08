@@ -115,9 +115,9 @@ private
 
   def validate_hosting_start_date
     if @host_as_soon_as_possible == "false" && @hosting_start_date.present?
-      start_day = (@hosting_start_date["3"] || @hosting_start_date[3] || nil)
-      start_month = (@hosting_start_date["2"] || @hosting_start_date[2] || nil)
-      start_year = (@hosting_start_date["1"] || @hosting_start_date[1] || nil)
+      start_day = @hosting_start_date["3"] || @hosting_start_date[3] || nil
+      start_month = @hosting_start_date["2"] || @hosting_start_date[2] || nil
+      start_year = @hosting_start_date["1"] || @hosting_start_date[1] || nil
       if !start_year.to_i || !start_month.to_i || !start_day.to_i
         errors.add(:hosting_start_date, I18n.t(:invalid_hosting_start_date, scope: :error))
       end

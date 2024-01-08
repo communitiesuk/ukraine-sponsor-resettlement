@@ -329,7 +329,7 @@ class UamWorkflow
   end
 
   def self.find_by_tag(tag)
-    @states.each do |state_name, _state_def|
+    @states.each_key do |state_name|
       if state_has_tag(state_name, tag)
         return state_name
       end
