@@ -404,7 +404,7 @@ en:
         full: I confirm that I am eligible to sponsor a person under 18, who is not travelling with or joining a parent or legal guardian under the Homes for Ukraine Scheme.
       sponsored_children_age:
         short: Sponsored children age
-        full: Is the child you want to sponsor under 18?
+        full: Is the person you want to sponsor under 18?
         "yes": "Yes"
         "no": "No"
       sponsored_children_living_december:

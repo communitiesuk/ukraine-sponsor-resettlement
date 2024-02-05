@@ -13,7 +13,7 @@ module UnaccompaniedMinorHelpers
 
     click_on("Continue")
 
-    expect(page).to have_content("Is the child you want to sponsor under 18?")
+    expect(page).to have_content("Is the person you want to sponsor under 18?")
     uam_choose_option("Yes")
 
     expect(page).to have_content("Was the child living in Ukraine on or before 31 December 2021?")

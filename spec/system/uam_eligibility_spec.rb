@@ -39,7 +39,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       click_link("Continue")
 
-      expect(page).to have_content("Is the child you want to sponsor under 18?")
+      expect(page).to have_content("Is the person you want to sponsor under 18?")
       uam_choose_option("No")
 
       expect(page).to have_content("You cannot use this service")
@@ -55,7 +55,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       click_link("Continue")
 
-      expect(page).to have_content("Is the child you want to sponsor under 18?")
+      expect(page).to have_content("Is the person you want to sponsor under 18?")
       uam_choose_option("Yes")
 
       expect(page).to have_content("Was the child living in Ukraine on or before 31 December 2021?")
@@ -74,7 +74,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       click_link("Continue")
 
-      expect(page).to have_content("Is the child you want to sponsor under 18?")
+      expect(page).to have_content("Is the person you want to sponsor under 18?")
       uam_choose_option("Yes")
 
       expect(page).to have_content("Was the child living in Ukraine on or before 31 December 2021?")
