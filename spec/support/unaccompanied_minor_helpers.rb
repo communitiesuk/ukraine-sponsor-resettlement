@@ -28,7 +28,7 @@ module UnaccompaniedMinorHelpers
     expect(page).to have_content("Can you commit to hosting the child for the minimum period?")
     uam_choose_option("Yes")
 
-    expect(page).to have_content("Do you have permission to live in the UK for the minimum period?")
+    expect(page).to have_content("Do you have permission to live permanently in the UK?")
     uam_choose_option("Yes")
 
     expect(page).to have_content(START_PAGE_CONTENT)

@@ -8,7 +8,7 @@ export const uam_step3_header = () => { cy.get(elements.page_heading).contains('
 export const uam_step4_header = () => { cy.get(elements.page_heading).contains('Are they applying for a visa under the Homes for Ukraine Scheme with their parent or legal guardian, or to join them in the UK?').should('be.visible')}
 export const uam_step5_header = () => { cy.get(elements.page_heading).contains('Can you upload both consent forms?').should('be.visible')}
 export const uam_step6_header = () => { cy.get(elements.page_heading).contains('Can you commit to hosting the child for the minimum period?').should('be.visible')}
-export const uam_step7_header = () => { cy.get(elements.page_heading).contains('Do you have permission to live in the UK for the minimum period?').should('be.visible')}
+export const uam_step7_header = () => { cy.get(elements.page_heading).contains('Do you have permission to live permanently in the UK?').should('be.visible')}
 export const uam_step9_header = () => { cy.get(elements.page_heading).contains('You are eligible to use this service').should('be.visible')}
 export const uam_tasklist_header = () => { cy.get(elements.page_heading).contains('Apply for approval to provide a safe home for a child from Ukraine').should('be.visible')}
 export const uam_step10_header = () => { cy.get(elements.page_heading).contains('Enter your name').should('be.visible')}

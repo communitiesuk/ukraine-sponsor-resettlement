@@ -4,9 +4,9 @@
   <div class="govuk-grid-column-two-thirds">
 
     <%= form_for @application, url: "/sponsor-a-child/steps/7", method: :post do |f| %>
-    
+
     <%= f.govuk_error_summary link_base_errors_to: :is_consent %>
-    
+
       <fieldset class="govuk-fieldset">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
           <h1 class="govuk-heading-l"><%= t('sponsor_right_to_live_in_uk.full', scope: "unaccompanied_minor.questions")%></h1>
@@ -14,11 +14,11 @@
         <details class="govuk-details" data-module="govuk-details">
             <summary class="govuk-details__summary">
               <span class="govuk-details__summary-text">
-                What is the minimum period?
+                What do I need to live permanently in the UK?
               </span>
             </summary>
-            <div class="govuk-details__text">          
-              <%= t('sponsor_commitment.hint_html', scope: "unaccompanied_minor.questions") %>      
+            <div class="govuk-details__text">
+              <%= t('sponsor_right_to_live_in_uk.hint_html', scope: "unaccompanied_minor.questions") %>
             </div>
         </details>
 
