@@ -409,9 +409,9 @@ en:
         "no": "No"
       sponsored_children_living_december:
         short: Sponsored children living december
-        full: Was the child living in Ukraine on or before 31 December 2021?
+        full: Was the child living in Ukraine before 1 January 2022?
         hint: Select 'Yes' even if they were temporarily away at the time.
-          Select 'No' if they were born after 31 December 2021.
+          Select 'No' if they were born after 1 January 2022.
         "yes": "Yes"
         "no": "No"
       sponsored_children_december_birth:
@@ -421,7 +421,7 @@ en:
         "no": "No"
       sponsored_children_legal_guardian_travelling:
         short: Sponsored children legal guardian traveling
-        full: Are they travelling to the UK with a parent or legal guardian?
+        full: Are they applying for a visa under the Homes for Ukraine Scheme with their parent or legal guardian, or to join them in the UK?
         hint: This excludes travelling with another relative, such as a grandmother, aunt or uncle who is not their legal guardian.
         "yes": "Yes"
         "no": "No"
@@ -601,7 +601,7 @@ en:
       long_html: |
         <p class="govuk-body">You (the sponsor) will need to get permission from your local council to host the child, before they can submit their visa application to come to the UK.</p>
 
-        <p class="govuk-body">You can apply for this approval online. Your local council will then perform a series of security checks, which include contacting you and the child's parents or guardian.</p>
+        <p class="govuk-body">You can apply for this approval online. Your local council will then perform security checks, which include contacting you and the child's parents or legal guardian.</p>
 
         <p class="govuk-body">You will need to upload both parental consent forms described in step 1.</p>
 
