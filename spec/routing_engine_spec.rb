@@ -123,7 +123,7 @@ RSpec.describe RoutingEngine, type: :model do
       expect(described_class.get_next_unaccompanied_minor_step(application, 5)).to be(6)
     end
 
-    it "when sponsor is committed to 3 years" do
+    it "when sponsor is committed to 18 months" do
       application = UnaccompaniedMinor.new
       application.is_committed = "no"
       expect(described_class.get_next_unaccompanied_minor_step(application, 6)).to be(-1)
