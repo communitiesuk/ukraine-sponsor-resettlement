@@ -13,7 +13,7 @@ RSpec.describe "Expression of interest", type: :system do
       expect(page).to have_content("Error: You must enter your full name")
     end
 
-    it "won't let you enter just one name" do
+    it "does not let you enter just one name" do
       eoi_skip_to_questions
       fill_in("Enter your full name", with: "Tim")
       click_on("Continue")
@@ -21,7 +21,7 @@ RSpec.describe "Expression of interest", type: :system do
       expect(page).to have_content("Error: You must enter your full name")
     end
 
-    it "won't let you continue on an empty email field" do
+    it "does not let you continue on an empty email field" do
       eoi_skip_to_questions
       eoi_enter_sponsor_name
       click_on("Continue")
@@ -49,7 +49,7 @@ RSpec.describe "Expression of interest", type: :system do
       expect(page).to have_content("Error: Enter a telephone number in the correct format")
     end
 
-    it "won't allow you to continue on an invalid phone number" do
+    it "does not allow you to continue on an invalid phone number" do
       eoi_skip_to_questions
       eoi_enter_sponsor_name
       fill_in("Enter your email address", with: "test@test.com")
@@ -61,7 +61,7 @@ RSpec.describe "Expression of interest", type: :system do
       expect(page).to have_content("Error: Enter a telephone number in the correct format")
     end
 
-    it "won't allow you to continue if the first line of the address isn't present" do
+    it "does not allow you to continue if the first line of the address isn't present" do
       eoi_skip_to_questions
       eoi_enter_sponsor_name
       eoi_enter_sponsor_contact_details
@@ -70,7 +70,7 @@ RSpec.describe "Expression of interest", type: :system do
       expect(page).to have_content("Error: You must enter an address")
     end
 
-    it "won't allow you to continue if the address town or city isn't present" do
+    it "does not allow you to continue if the address town or city isn't present" do
       eoi_skip_to_questions
       eoi_enter_sponsor_name
       eoi_enter_sponsor_contact_details
@@ -79,7 +79,7 @@ RSpec.describe "Expression of interest", type: :system do
       expect(page).to have_content("Error: You must enter a town or city")
     end
 
-    it "won't allow you to continue if the address postcode isn't present" do
+    it "does not allow you to continue if the address postcode isn't present" do
       eoi_skip_to_questions
       eoi_enter_sponsor_name
       eoi_enter_sponsor_contact_details
@@ -88,7 +88,7 @@ RSpec.describe "Expression of interest", type: :system do
       expect(page).to have_content("Error: You must enter a valid UK postcode")
     end
 
-    it "won't allow no choice on different address question" do
+    it "does not allow no choice on different address question" do
       eoi_skip_to_questions
       eoi_enter_sponsor_name
       eoi_enter_sponsor_contact_details
@@ -98,7 +98,7 @@ RSpec.describe "Expression of interest", type: :system do
       expect(page).to have_content("Error: You must select an option to continue")
     end
 
-    it "won't allow no first line on different address question" do
+    it "does not allow no first line on different address question" do
       eoi_skip_to_questions
       eoi_enter_sponsor_name
       eoi_enter_sponsor_contact_details
@@ -109,7 +109,7 @@ RSpec.describe "Expression of interest", type: :system do
       expect(page).to have_content("Error: You must enter an address")
     end
 
-    it "won't allow no town on different address question" do
+    it "does not allow no town on different address question" do
       eoi_skip_to_questions
       eoi_enter_sponsor_name
       eoi_enter_sponsor_contact_details
@@ -120,7 +120,7 @@ RSpec.describe "Expression of interest", type: :system do
       expect(page).to have_content("Error: You must enter a town or city")
     end
 
-    it "won't allow no postcode on different address question" do
+    it "does not allow no postcode on different address question" do
       eoi_skip_to_questions
       eoi_enter_sponsor_name
       eoi_enter_sponsor_contact_details
@@ -131,7 +131,7 @@ RSpec.describe "Expression of interest", type: :system do
       expect(page).to have_content("Error: You must enter a valid UK postcode")
     end
 
-    it "won't allow no choice on more properties question" do
+    it "does not allow no choice on more properties question" do
       eoi_skip_to_questions
       eoi_enter_sponsor_name
       eoi_enter_sponsor_contact_details
@@ -143,7 +143,7 @@ RSpec.describe "Expression of interest", type: :system do
       expect(page).to have_content("Error: You must select an option to continue")
     end
 
-    it "won't allow no choice on how soon question" do
+    it "does not allow no choice on how soon question" do
       eoi_skip_to_questions
       eoi_enter_sponsor_name
       eoi_enter_sponsor_contact_details
