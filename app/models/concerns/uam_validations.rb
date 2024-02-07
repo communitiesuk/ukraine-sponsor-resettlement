@@ -26,7 +26,7 @@ module UamValidations
     validate :validate_sponsor_identification_type, if: -> { run_validation? :identification_type }
     validate :validate_sponsor_id_passport_number, if: -> { run_validation? :passport_identification_number }
     validate :validate_sponsor_id_identification_number, if: -> { run_validation? :id_identification_number }
-    validate :validate_sponsor_id_refugee_number, if: -> { run_validation? :refugee_identification_number }
+    validate :validate_sponsor_id_biometric_residence_number, if: -> { run_validation? :biometric_residence_identification_number }
     validate :validate_sponsor_no_identification_reason, if: -> { run_validation? :no_identification_reason }
     validate :validate_sponsor_nationality, if: -> { run_validation? :nationality }
     validate :validate_sponsor_has_other_nationalities, if: -> { run_validation? :has_other_nationalities }
@@ -387,9 +387,9 @@ module UamValidations
       if @identification_number.blank? || @identification_number.strip.empty?
         errors.add(:id_identification_number, I18n.t(:invalid_id_number, scope: :error))
       end
-    when "refugee_travel_document"
+    when "biometric_residence"
       if @identification_number.blank? || @identification_number.strip.empty?
-        errors.add(:refugee_identification_number, I18n.t(:invalid_id_number, scope: :error))
+        errors.add(:biometric_residence_identification_number, I18n.t(:invalid_id_number, scope: :error))
       end
     when "none"
       nil
@@ -410,9 +410,9 @@ module UamValidations
     end
   end
 
-  def validate_sponsor_id_refugee_number
-    if @identification_type == "refugee_travel_document" && (@refugee_identification_number.blank? || @refugee_identification_number.strip.empty?)
-      errors.add(:refugee_identification_number, I18n.t(:invalid_id_number, scope: :error))
+  def validate_sponsor_id_biometric_residence_number
+    if @identification_type == "biometric_residence" && (@biometric_residence_identification_number.blank? || @biometric_residence_identification_number.strip.empty?)
+      errors.add(:biometric_residence_identification_number, I18n.t(:invalid_id_number, scope: :error))
     end
   end
 
@@ -427,9 +427,9 @@ module UamValidations
       if @adult_id_identification_number.blank? || @adult_id_identification_number !~ min_six_letters_or_digits
         errors.add(:adult_id_identification_number, I18n.t(:invalid_id_number, scope: :error))
       end
-    when "refugee_travel_document"
-      if @adult_refugee_identification_number.blank? || @adult_refugee_identification_number !~ min_six_letters_or_digits
-        errors.add(:adult_refugee_identification_number, I18n.t(:invalid_id_number, scope: :error))
+    when "biometric_residence"
+      if @adult_biometric_residence_identification_number.blank? || @adult_biometric_residence_identification_number !~ min_six_letters_or_digits
+        errors.add(:adult_biometric_residence_identification_number, I18n.t(:invalid_id_number, scope: :error))
       end
     when "none"
       nil
@@ -466,7 +466,7 @@ module UamValidations
   end
 
   def run_validation?(attribute)
-    optional_fields_exclude_from_full_validation = %i[adult_given_name adult_family_name adult_date_of_birth adult_nationality adult_id_identification_number other_nationality passport_identification_number id_identification_number refugee_identification_number]
+    optional_fields_exclude_from_full_validation = %i[adult_given_name adult_family_name adult_date_of_birth adult_nationality adult_id_identification_number other_nationality passport_identification_number id_identification_number biometric_residence_identification_number]
     # an attribute from the above list will only get validated if the @partial_validation field is not :full_validation
     if optional_fields_exclude_from_full_validation.include?(attribute)
       @partial_validation.include?(attribute)

@@ -54,7 +54,7 @@ describe('[Frontend-UI]: UAM RESIDENTS DETAILS', function () {
     it('national identity card [validation errors]', function () {
       element.residents_details_step_31_v3()
     })
-    it('refugee travel document [validation errors]', function () {
+    it('biometric residence [validation errors]', function () {
       element.residents_details_step_31_v4()
     })
     it("I don't have any of these [validation errors]", function () {

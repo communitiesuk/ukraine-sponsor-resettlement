@@ -20,7 +20,7 @@
     "id_doc_err_msg": "You must enter a valid identity document number",
     "pp_err_lbl": "Passport number",
     "ni_err_lbl": "National identity card number",
-    "refu_err_lbl": "Refugee travel document number",
+    "biom_err_lbl": "Biometric Residence Permit number or Biometric Residence Card number",
     "address_err_msg": "You must enter an address",
     "city_err_msg": "You must enter a town or city",
     "pc_err_msg": "You must enter a valid UK postcode",

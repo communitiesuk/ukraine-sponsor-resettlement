@@ -486,8 +486,8 @@ const ni_error = () => {
 const refu_error = () => {
     cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible')
     cy.get(elements.err_sbox_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
-    cy.get(elements.step16_refu_label).contains(bt_err.refu_err_lbl).should('be.visible')
-    cy.get(elements.step16_refu_err_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
+    cy.get(elements.step16_biom_label).contains(bt_err.refu_err_lbl).should('be.visible')
+    cy.get(elements.step16_biom_err_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
 }
 const noid_error = () => {
     cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible')
@@ -513,9 +513,9 @@ export const your_details_ad_details_id_step_16_v3 = () => {
     click_continue()
     ni_error()
 }
-//refugee travel doc [min requirement 1 character]
+//biometric residence [min requirement 1 character]
 export const your_details_ad_details_id_step_16_v4 = () => {
-    cy.get(elements.step16_refu_radio_btn).click()
+    cy.get(elements.step16_biom_radio_btn).click()
     click_continue()
     refu_error()
 }

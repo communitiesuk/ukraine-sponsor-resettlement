@@ -67,8 +67,8 @@ class UnaccompaniedController < ApplicationController
         @application.passport_identification_number = @application.identification_number
       when "national_identity_card"
         @application.id_identification_number = @application.identification_number
-      when "refugee_travel_document"
-        @application.refugee_identification_number = @application.identification_number
+      when "biometric_residence"
+        @application.biometric_residence_identification_number = @application.identification_number
       end
     elsif UamWorkflow.state_has_tag(step, :adult_step)
       if @application.adults_at_address.present?
@@ -103,8 +103,8 @@ class UnaccompaniedController < ApplicationController
             @application.adult_passport_identification_number = id_type_and_number[1].to_s
           when "national_identity_card"
             @application.adult_id_identification_number = id_type_and_number[1].to_s
-          when "refugee_travel_document"
-            @application.adult_refugee_identification_number = id_type_and_number[1].to_s
+          when "biometric_residence"
+            @application.adult_biometric_residence_identification_number = id_type_and_number[1].to_s
           end
         end
       end
@@ -180,7 +180,7 @@ class UnaccompaniedController < ApplicationController
                                       elsif !application_params.keys.empty? && application_params.keys[0].start_with?("adult_date_of_birth")
                                         [:adult_date_of_birth]
                                       elsif application_params.key?("identification_type") || application_params.key?("id_identification_number")
-                                        %i[identification_type passport_identification_number id_identification_number refugee_identification_number]
+                                        %i[identification_type passport_identification_number id_identification_number biometric_residence_identification_number]
                                       else
                                         application_params.keys.map(&:to_sym)
                                       end
@@ -448,7 +448,7 @@ private
           :identification_number,
           :passport_identification_number,
           :id_identification_number,
-          :refugee_identification_number,
+          :biometric_residence_identification_number,
           :no_identification_reason,
           :nationality,
           :has_other_nationalities,
@@ -484,7 +484,7 @@ private
           :adult_identification_type,
           :adult_passport_identification_number,
           :adult_id_identification_number,
-          :adult_refugee_identification_number,
+          :adult_biometric_residence_identification_number,
           minor_contact_type: [],
         )
   end

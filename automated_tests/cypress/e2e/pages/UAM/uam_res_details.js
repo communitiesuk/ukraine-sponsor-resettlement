@@ -174,11 +174,11 @@ const ni_error = () => {
     cy.get(elements.step31_ni_label).contains(bt_err.ni_err_lbl).should('be.visible')
     cy.get(elements.step31_ni_err_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
 }
-const refu_error = () => {
+const biom_error = () => {
     cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible')
     cy.get(elements.err_sbox_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
-    cy.get(elements.step31_refu_label).contains(bt_err.refu_err_lbl).should('be.visible')
-    cy.get(elements.step31_refu_err_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
+    cy.get(elements.step31_biom_label).contains(bt_err.biom_err_lbl).should('be.visible')
+    cy.get(elements.step31_biom_err_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
 }
 //none selected
 export const residents_details_step_31_v1 = () => {
@@ -218,18 +218,18 @@ export const residents_details_step_31_v3 = () => {
     click_continue()
     ni_error()
 }
-//refugee travel doc 
+//biometric residence
 export const residents_details_step_31_v4 = () => {
-    cy.get(elements.step31_refu_err_radio_btn).click()
+    cy.get(elements.step31_biom_err_radio_btn).click()
     click_continue()
     refu_error()
-    cy.get(elements.step31_refu_err_textbox).should('be.visible').clear().type('REFU1').wait(Cypress.env('waitTime'))
+    cy.get(elements.step31_biom_err_textbox).should('be.visible').clear().type('BIOM1').wait(Cypress.env('waitTime'))
     click_continue()
     refu_error()
-    cy.get(elements.step31_refu_err_textbox).should('be.visible').clear().type('@@££$$&&**').wait(Cypress.env('waitTime'))
+    cy.get(elements.step31_biom_err_textbox).should('be.visible').clear().type('@@££$$&&**').wait(Cypress.env('waitTime'))
     click_continue()
     refu_error()
-    cy.get(elements.step31_refu_err_textbox).should('be.visible').clear().type('£REFU123').wait(Cypress.env('waitTime'))
+    cy.get(elements.step31_biom_err_textbox).should('be.visible').clear().type('£BIOM123').wait(Cypress.env('waitTime'))
     click_continue()
     refu_error()
 }

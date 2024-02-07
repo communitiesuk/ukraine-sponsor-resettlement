@@ -73,7 +73,7 @@ const additional_details_labels = () => {
     cy.get(elements.page_heading).contains('Do you have any of these identity documents?').should('be.visible')
     cy.get(elements.passport_label).contains('Passport').should('be.visible')
     cy.get(elements.ni_label).contains('National identity card').should('be.visible')
-    cy.get(elements.refugee_teavel_doc_label).contains('Refugee travel document').should('be.visible')
+    cy.get(elements.biometric_residence_label).contains('Biometric residence').should('be.visible')
     cy.get(elements.dont_have_any_label).contains("I don't have any of these").should('be.visible').wait(Cypress.env('waitTime'))
 }
 export const your_details_additional_details_step_16 = () => {
@@ -210,9 +210,9 @@ export const residents_details_step31 = () => {
     cy.get(elements.residents_pp_radio_button).should('exist').click().wait(Cypress.env('waitTime'))
     cy.get(elements.residents_pp_number_label).should('be.visible').click()
     cy.get(elements.step31_pp_textbox).should('be.visible').type('PASSPORT NUMBER').clear().wait(Cypress.env('waitTime'))
-    cy.get(elements.step31_refu_err_radio_btn).should('exist').click()
-    cy.get(elements.residents_rtdn_number_label).should('be.visible').click()
-    cy.get(elements.residents_rtdn_number_textbox).should('be.visible').type('Refugee travel document number').clear().wait(Cypress.env('waitTime'))
+    cy.get(elements.step31_biom_err_radio_btn).should('exist').click()
+    cy.get(elements.residents_br_number_label).should('be.visible').click()
+    cy.get(elements.residents_br_number_textbox).should('be.visible').type('Biometric Residence Permit number or Biometric Residence Card number').clear().wait(Cypress.env('waitTime'))
     cy.get(elements.step31_ni_err_radio_btn).should('exist').click()
     cy.get(elements.residents_ni_number_label).should('be.visible').click()
     cy.get(elements.residents_ni_number_textbox).should('be.visible').type(secrets.over16_passport_no).wait(Cypress.env('waitTime'))

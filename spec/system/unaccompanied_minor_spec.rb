@@ -629,7 +629,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(saved_application.identification_number).to eq("ABC123456789")
     end
 
-    it "when id is refugee travel document" do
+    it "when id is biometric residence" do
       application = UnaccompaniedMinor.new
       application.save!
 
@@ -641,18 +641,18 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_link("Additional details")
       expect(page).to have_content("Do you have any of these identity documents?")
 
-      choose("Refugee travel document")
+      choose("Biometric Residence Permit or Biometric Residence Card")
       click_button("Continue")
 
       expect(page).to have_content("You must enter a valid identity document number")
 
-      fill_in("Refugee travel document number", with: "ABC123456789")
+      fill_in("Biometric Residence Permit number or Biometric Residence Card number", with: "ABC123456789")
 
       click_button("Continue")
       expect(page).to have_content("Enter your date of birth")
 
       saved_application = UnaccompaniedMinor.find_by_reference(application.reference)
-      expect(saved_application.identification_type).to eq("refugee_travel_document")
+      expect(saved_application.identification_type).to eq("biometric_residence")
       expect(saved_application.identification_number).to eq("ABC123456789")
     end
 
@@ -750,7 +750,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_field("National identity card number", with: "ABC123987456")
     end
 
-    it "when Refugee travel document is displayed when going through id question" do
+    it "when Biometric residence is displayed when going through id question" do
       application = UnaccompaniedMinor.new
       application.save!
 
@@ -762,8 +762,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_link("Additional details")
       expect(page).to have_content("Do you have any of these identity documents?")
 
-      choose("Refugee travel document")
-      fill_in("Refugee travel document number", with: "XYZ123987456")
+      choose("Biometric Residence Permit or Biometric Residence Card")
+      fill_in("Biometric Residence Permit numberor Biometric Residence Card number", with: "XYZ123987456")
 
       click_button("Continue")
       expect(page).to have_content("Enter your date of birth")
@@ -774,8 +774,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_link("Additional details")
       expect(page).to have_content("Do you have any of these identity documents?")
 
-      choose("Refugee travel document")
-      expect(page).to have_field("Refugee travel document number", with: "XYZ123987456")
+      choose("Biometric Residence Permit or Biometric Residence Card")
+      expect(page).to have_field("Biometric Residence Permit number or Biometric Residence Card number", with: "XYZ123987456")
     end
   end
 end

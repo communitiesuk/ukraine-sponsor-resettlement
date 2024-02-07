@@ -233,8 +233,8 @@ class UamWorkflow
                                              params["unaccompanied_minor"]["passport_identification_number"]
                                            when "national_identity_card"
                                              params["unaccompanied_minor"]["id_identification_number"]
-                                           when "refugee_travel_document"
-                                             params["unaccompanied_minor"]["refugee_identification_number"]
+                                           when "biometric_residence"
+                                             params["unaccompanied_minor"]["biometric_residence_identification_number"]
                                            else
                                              ""
                                            end
@@ -264,8 +264,8 @@ class UamWorkflow
         document_id = params["unaccompanied_minor"]["adult_passport_identification_number"]
       when "national_identity_card"
         document_id = params["unaccompanied_minor"]["adult_id_identification_number"]
-      when "refugee_travel_document"
-        document_id = params["unaccompanied_minor"]["adult_refugee_identification_number"]
+      when "biometric_residence"
+        document_id = params["unaccompanied_minor"]["adult_biometric_residence_identification_number"]
       end
       @adult["id_type_and_number"] = "#{id_type} - #{document_id || '123456789'}"
     end,
