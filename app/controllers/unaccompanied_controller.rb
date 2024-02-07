@@ -69,6 +69,8 @@ class UnaccompaniedController < ApplicationController
         @application.id_identification_number = @application.identification_number
       when "biometric_residence"
         @application.biometric_residence_identification_number = @application.identification_number
+      when "photo_driving_licence"
+        @application.photo_driving_licence_number = @application.identification_number
       end
     elsif UamWorkflow.state_has_tag(step, :adult_step)
       if @application.adults_at_address.present?
@@ -105,6 +107,8 @@ class UnaccompaniedController < ApplicationController
             @application.adult_id_identification_number = id_type_and_number[1].to_s
           when "biometric_residence"
             @application.adult_biometric_residence_identification_number = id_type_and_number[1].to_s
+          when "photo_driving_license"
+            @application.adult_photo_driving_licence_identification_number = id_type_and_number[1].to_s
           end
         end
       end
@@ -449,6 +453,7 @@ private
           :passport_identification_number,
           :id_identification_number,
           :biometric_residence_identification_number,
+          :photo_driving_licence_identification_number,
           :no_identification_reason,
           :nationality,
           :has_other_nationalities,
@@ -485,6 +490,7 @@ private
           :adult_passport_identification_number,
           :adult_id_identification_number,
           :adult_biometric_residence_identification_number,
+          :adult_photo_driving_licence_identification_number,
           minor_contact_type: [],
         )
   end

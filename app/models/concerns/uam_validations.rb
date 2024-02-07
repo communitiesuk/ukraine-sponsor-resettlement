@@ -27,6 +27,7 @@ module UamValidations
     validate :validate_sponsor_id_passport_number, if: -> { run_validation? :passport_identification_number }
     validate :validate_sponsor_id_identification_number, if: -> { run_validation? :id_identification_number }
     validate :validate_sponsor_id_biometric_residence_number, if: -> { run_validation? :biometric_residence_identification_number }
+    validate :validate_sponsor_id_photo_driving_licence_number, if: -> { run_validation? :photo_driving_licence_identification_number }
     validate :validate_sponsor_no_identification_reason, if: -> { run_validation? :no_identification_reason }
     validate :validate_sponsor_nationality, if: -> { run_validation? :nationality }
     validate :validate_sponsor_has_other_nationalities, if: -> { run_validation? :has_other_nationalities }
@@ -391,6 +392,10 @@ module UamValidations
       if @identification_number.blank? || @identification_number.strip.empty?
         errors.add(:biometric_residence_identification_number, I18n.t(:invalid_id_number, scope: :error))
       end
+    when "photo_driving_licence"
+      if @identification_number.blank? || @identification_number.strip.empty?
+        errors.add(:photo_driving_licence_identification_number, I18n.t(:invalid_id_number, scope: :error))
+      end
     when "none"
       nil
     else
@@ -416,6 +421,12 @@ module UamValidations
     end
   end
 
+  def validate_sponsor_id_photo_driving_licence_number
+    if @identification_type == "photo_driving_licence" && (@photo_driving_licence_identification_number.blank? || @photo_driving_licence_identification_number.strip.empty?)
+      errors.add(:photo_driving_licence_identification_number, I18n.t(:invalid_id_number, scope: :error))
+    end
+  end
+
   def validate_adult_identification_number
     min_six_letters_or_digits = /^[0-9a-zA-Z]{6,}$/
     case @adult_identification_type
@@ -430,6 +441,10 @@ module UamValidations
     when "biometric_residence"
       if @adult_biometric_residence_identification_number.blank? || @adult_biometric_residence_identification_number !~ min_six_letters_or_digits
         errors.add(:adult_biometric_residence_identification_number, I18n.t(:invalid_id_number, scope: :error))
+      end
+    when "photo_driving_licence"
+      if @adult_photo_driving_licence_identification_number.blank? || @adult_photo_driving_licence_identification_number !~ min_six_letters_or_digits
+        errors.add(:adult_photo_driving_licence_identification_number, I18n.t(:invalid_id_number, scope: :error))
       end
     when "none"
       nil
@@ -466,7 +481,7 @@ module UamValidations
   end
 
   def run_validation?(attribute)
-    optional_fields_exclude_from_full_validation = %i[adult_given_name adult_family_name adult_date_of_birth adult_nationality adult_id_identification_number other_nationality passport_identification_number id_identification_number biometric_residence_identification_number]
+    optional_fields_exclude_from_full_validation = %i[adult_given_name adult_family_name adult_date_of_birth adult_nationality adult_id_identification_number other_nationality passport_identification_number id_identification_number biometric_residence_identification_number, photo_driving_licence_identification_number]
     # an attribute from the above list will only get validated if the @partial_validation field is not :full_validation
     if optional_fields_exclude_from_full_validation.include?(attribute)
       @partial_validation.include?(attribute)

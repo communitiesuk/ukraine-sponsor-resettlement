@@ -55,6 +55,7 @@ class UnaccompaniedMinor < ApplicationRecord
                 :passport_identification_number,
                 :id_identification_number,
                 :biometric_residence_identification_number,
+                :photo_driving_licence_identification_number,
                 :no_identification_reason,
                 :nationality,
                 :has_other_nationalities,

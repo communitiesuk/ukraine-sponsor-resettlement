@@ -476,6 +476,7 @@ en:
       identity_documents:
         short: Sponsor identity documents
         full: Do you have any of these identity documents?
+        hint_html: <ul class="govuk-list govuk-list--bullet"><li>See <a href=https://www.gov.uk/government/publications/homes-for-ukraine-sponsorship-scheme-caseworker-guidance target=_blank>the Homes for Ukraine Sponsorship Scheme caseworker guidance</a> for more information.</li><li>To sponsor someone under the Homes for Ukraine Scheme, you must be a British or Irish Citizen, or have settled status in the UK (which means having the right to live in the UK permanently).</li></ul>
       no_identity_documents:
         short: Sponsor no official identity documents
         full: Can you prove your identity?
