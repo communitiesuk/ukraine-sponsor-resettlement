@@ -614,12 +614,12 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_link("Additional details")
       expect(page).to have_content("Do you have any of these identity documents?")
 
-      choose("National identity card")
+      choose("National Identity Card")
       click_button("Continue")
 
       expect(page).to have_content("You must enter a valid identity document number")
 
-      fill_in("National identity card number", with: "ABC123456789")
+      fill_in("National Identity Card number", with: "ABC123456789")
 
       click_button("Continue")
       expect(page).to have_content("Enter your date of birth")
@@ -722,7 +722,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_field("Passport number", with: "123987456")
     end
 
-    it "when National Identity card is displayed when going through id question" do
+    it "when National Identity Card is displayed when going through id question" do
       application = UnaccompaniedMinor.new
       application.save!
 
@@ -734,8 +734,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_link("Additional details")
       expect(page).to have_content("Do you have any of these identity documents?")
 
-      choose("National identity card")
-      fill_in("National identity card number", with: "ABC123987456")
+      choose("National Identity Card")
+      fill_in("National Identity Card number", with: "ABC123987456")
 
       click_button("Continue")
       expect(page).to have_content("Enter your date of birth")
@@ -746,8 +746,8 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_link("Additional details")
       expect(page).to have_content("Do you have any of these identity documents?")
 
-      choose("National identity card")
-      expect(page).to have_field("National identity card number", with: "ABC123987456")
+      choose("National Identity Card")
+      expect(page).to have_field("National Identity Card number", with: "ABC123987456")
     end
 
     it "when Biometric residence is displayed when going through id question" do
@@ -763,7 +763,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Do you have any of these identity documents?")
 
       choose("Biometric Residence Permit or Biometric Residence Card")
-      fill_in("Biometric Residence Permit numberor Biometric Residence Card number", with: "XYZ123987456")
+      fill_in("Biometric Residence Permit number or Biometric Residence Card number", with: "XYZ123987456")
 
       click_button("Continue")
       expect(page).to have_content("Enter your date of birth")
