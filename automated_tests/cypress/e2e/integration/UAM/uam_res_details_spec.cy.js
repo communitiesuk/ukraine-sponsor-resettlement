@@ -57,8 +57,11 @@ describe('[Frontend-UI]: UAM RESIDENTS DETAILS', function () {
     it('biometric residence [validation errors]', function () {
       element.residents_details_step_31_v4()
     })
-    it("I don't have any of these [validation errors]", function () {
+    it('photo driving licence [validation errors]', function () {
       element.residents_details_step_31_v5()
+    })
+    it("I don't have any of these [validation errors]", function () {
+      element.residents_details_step_31_v6()
     })
   })
 })

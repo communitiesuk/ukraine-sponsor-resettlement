@@ -102,6 +102,7 @@ class UnaccompaniedMinor < ApplicationRecord
                 :adult_passport_identification_number,
                 :adult_id_identification_number,
                 :adult_biometric_residence_identification_number,
+                :adult_photo_driving_licence_identification_number,
                 :partial_validation
 
   after_initialize :after_initialize

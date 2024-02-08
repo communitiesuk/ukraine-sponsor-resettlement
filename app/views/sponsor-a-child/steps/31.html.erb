@@ -18,11 +18,14 @@
         <%= f.govuk_radio_button :adult_identification_type, :passport, label: { text: "Passport" }, link_errors: true do %>
           <%= f.govuk_text_field :adult_passport_identification_number, label: { text: "Passport number" }, type: "text" %>
         <% end %>
-        <%= f.govuk_radio_button :adult_identification_type, :national_identity_card, label: { text: "National identity card" } do %>
-          <%= f.govuk_text_field :adult_id_identification_number, label: { text: "National identity card number"  }, type: "text" ,inputmode:"text" %>
+        <%= f.govuk_radio_button :adult_identification_type, :national_identity_card, label: { text: "National Identity Card" } do %>
+          <%= f.govuk_text_field :adult_id_identification_number, label: { text: "National Identity Card number"  }, type: "text" ,inputmode:"text" %>
         <% end %>
         <%= f.govuk_radio_button :adult_identification_type, :biometric_residence, label: { text: "Biometric Residence Permit or Biometric Residence Card" } do %>
           <%= f.govuk_text_field :adult_biometric_residence_identification_number, label: { text: "Biometric Residence Permit number or Biometric Residence Card number"  }, type: "text" , inputmode:"text" %>
+        <% end %>
+        <%= f.govuk_radio_button :adult_identification_type, :photo_driving_licence, label: { text: "Photo driving licence" } do %>
+          <%= f.govuk_text_field :adult_photo_driving_licence_identification_number, label: { text: "Photo driving licence number"  }, type: "text" , inputmode:"text" %>
         <% end %>
         <%= f.govuk_check_box_divider %>
         <%= f.govuk_radio_button :adult_identification_type, :none, label: { text: "I don't have any of these" } %>

@@ -180,6 +180,13 @@ const biom_error = () => {
     cy.get(elements.step31_biom_label).contains(bt_err.biom_err_lbl).should('be.visible')
     cy.get(elements.step31_biom_err_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
 }
+
+const pdl_error = () => {
+    cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible')
+    cy.get(elements.err_sbox_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
+    cy.get(elements.step31_pdl_label).contains(bt_err.pdl_err_lbl).should('be.visible')
+    cy.get(elements.step31_pdl_err_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
+}
 //none selected
 export const residents_details_step_31_v1 = () => {
     cy.get(elements.step30_nat_dd).select('ZWE - Zimbabwe').should('have.value', 'ZWE - Zimbabwe').wait(Cypress.env('waitTime'))
@@ -233,8 +240,25 @@ export const residents_details_step_31_v4 = () => {
     click_continue()
     biom_error()
 }
-//I don't have any of these
+
+//photo driving licence
 export const residents_details_step_31_v5 = () => {
+    cy.get(elements.step31_pdl_err_radio_btn).click()
+    click_continue()
+    pdl_error()
+    cy.get(elements.step31_pdl_err_textbox).should('be.visible').clear().type('PDL1').wait(Cypress.env('waitTime'))
+    click_continue()
+    pdl_error()
+    cy.get(elements.step31_pdl_err_textbox).should('be.visible').clear().type('@@££$$&&**').wait(Cypress.env('waitTime'))
+    click_continue()
+    pdl_error()
+    cy.get(elements.step31_pdl_err_textbox).should('be.visible').clear().type('£PDL123').wait(Cypress.env('waitTime'))
+    click_continue()
+    pdl_error()
+}
+
+//I don't have any of these
+export const residents_details_step_31_v6 = () => {
     cy.get(elements.step31_idha_radio_btn).click()
     click_continue()
     common.uam_tasklist_header()

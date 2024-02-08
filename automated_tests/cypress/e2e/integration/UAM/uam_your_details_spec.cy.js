@@ -118,8 +118,11 @@ describe('[Frontend-UI]: UAM YOUR DETAILS [SPONSOR]', function () {
     it('sponsor ID [validation errors: Biometric residence]', function () {
       element.your_details_ad_details_id_step_16_v4()
     })
-    it('sponsor ID [validation errors: I dont have any of these]', function () {
+    it('sponsor ID [validation errors: Photo driving licence]', function () {
       element.your_details_ad_details_id_step_16_v5()
+    })
+    it('sponsor ID [validation errors: I dont have any of these]', function () {
+      element.your_details_ad_details_id_step_16_v6()
     })
   })
   context('[Your Details] Additional Details : DOB', function () {

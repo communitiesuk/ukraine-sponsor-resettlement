@@ -70,7 +70,7 @@ class UnaccompaniedController < ApplicationController
       when "biometric_residence"
         @application.biometric_residence_identification_number = @application.identification_number
       when "photo_driving_licence"
-        @application.photo_driving_licence_number = @application.identification_number
+        @application.photo_driving_licence_identification_number = @application.identification_number
       end
     elsif UamWorkflow.state_has_tag(step, :adult_step)
       if @application.adults_at_address.present?
@@ -184,7 +184,7 @@ class UnaccompaniedController < ApplicationController
                                       elsif !application_params.keys.empty? && application_params.keys[0].start_with?("adult_date_of_birth")
                                         [:adult_date_of_birth]
                                       elsif application_params.key?("identification_type") || application_params.key?("id_identification_number")
-                                        %i[identification_type passport_identification_number id_identification_number biometric_residence_identification_number]
+                                        %i[identification_type passport_identification_number id_identification_number biometric_residence_identification_number, photo_driving_licence_identification_number]
                                       else
                                         application_params.keys.map(&:to_sym)
                                       end

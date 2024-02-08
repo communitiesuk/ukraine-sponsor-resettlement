@@ -8,7 +8,7 @@ const uam_eligibility_tasklist = () => {
     common.uam_tasklist_header()
     cy.get(elements.tasklist_page_body).should('be.visible').contains(bodytext.app_incomplete).should('be.visible')
 }
-//APPLICATION STARTS HERE  
+//APPLICATION STARTS HERE
 export const uam_tasklist_page = () => {
     uam_eligibility_tasklist
     cy.get(elements.your_details_heading).contains('Your details').should('be.visible')
@@ -74,6 +74,7 @@ const additional_details_labels = () => {
     cy.get(elements.passport_label).contains('Passport').should('be.visible')
     cy.get(elements.ni_label).contains('National identity card').should('be.visible')
     cy.get(elements.biometric_residence_label).contains('Biometric residence').should('be.visible')
+    cy.get(elements.photo_driving_licence_label).contains('Photo driving licence').should('be.visible')
     cy.get(elements.dont_have_any_label).contains("I don't have any of these").should('be.visible').wait(Cypress.env('waitTime'))
 }
 export const your_details_additional_details_step_16 = () => {
@@ -211,8 +212,11 @@ export const residents_details_step31 = () => {
     cy.get(elements.residents_pp_number_label).should('be.visible').click()
     cy.get(elements.step31_pp_textbox).should('be.visible').type('PASSPORT NUMBER').clear().wait(Cypress.env('waitTime'))
     cy.get(elements.step31_biom_err_radio_btn).should('exist').click()
-    cy.get(elements.residents_br_number_label).should('be.visible').click()
-    cy.get(elements.residents_br_number_textbox).should('be.visible').type('Biometric Residence Permit number or Biometric Residence Card number').clear().wait(Cypress.env('waitTime'))
+    cy.get(elements.residents_biom_number_label).should('be.visible').click()
+    cy.get(elements.residents_biom_number_textbox).should('be.visible').type('Biometric Residence Permit number or Biometric Residence Card number').clear().wait(Cypress.env('waitTime'))
+    cy.get(elements.step31_pdl_err_radio_btn).should('exist').click()
+    cy.get(elements.residents_pdl_number_label).should('be.visible').click()
+    cy.get(elements.residents_pdl_number_textbox).should('be.visible').type('Photo driving licence number').clear().wait(Cypress.env('waitTime'))
     cy.get(elements.step31_ni_err_radio_btn).should('exist').click()
     cy.get(elements.residents_ni_number_label).should('be.visible').click()
     cy.get(elements.residents_ni_number_textbox).should('be.visible').type(secrets.over16_passport_no).wait(Cypress.env('waitTime'))

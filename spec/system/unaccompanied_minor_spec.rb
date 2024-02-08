@@ -656,6 +656,34 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(saved_application.identification_number).to eq("ABC123456789")
     end
 
+    it "when id is photo driving licence" do
+      application = UnaccompaniedMinor.new
+      application.save!
+
+      page.set_rack_session(app_reference: application.reference)
+
+      visit task_list_url
+      expect(page).to have_content(task_list_content)
+
+      click_link("Additional details")
+      expect(page).to have_content("Do you have any of these identity documents?")
+
+      choose("Photo driving licence")
+      click_button("Continue")
+
+      expect(page).to have_content("You must enter a valid identity document number")
+
+      fill_in("Photo driving licence number", with: "ABC123456789")
+
+      click_button("Continue")
+      expect(page).to have_content("Enter your date of birth")
+
+      saved_application = UnaccompaniedMinor.find_by_reference(application.reference)
+      expect(saved_application.identification_type).to eq("photo_driving_licence")
+      expect(saved_application.identification_number).to eq("ABC123456789")
+    end
+
+
     it "when id is none" do
       application = UnaccompaniedMinor.new
       application.save!
@@ -722,7 +750,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_field("Passport number", with: "123987456")
     end
 
-    it "when National Identity Card is displayed when going through id question" do
+    it "when national identity card is displayed when going through id question" do
       application = UnaccompaniedMinor.new
       application.save!
 
@@ -750,7 +778,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_field("National Identity Card number", with: "ABC123987456")
     end
 
-    it "when Biometric residence is displayed when going through id question" do
+    it "when biometric residence is displayed when going through id question" do
       application = UnaccompaniedMinor.new
       application.save!
 
@@ -776,6 +804,34 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       choose("Biometric Residence Permit or Biometric Residence Card")
       expect(page).to have_field("Biometric Residence Permit number or Biometric Residence Card number", with: "XYZ123987456")
+    end
+
+    it "when photo driving licence is displayed when going through id question" do
+      application = UnaccompaniedMinor.new
+      application.save!
+
+      page.set_rack_session(app_reference: application.reference)
+
+      visit task_list_url
+      expect(page).to have_content(task_list_content)
+
+      click_link("Additional details")
+      expect(page).to have_content("Do you have any of these identity documents?")
+
+      choose("Photo driving licence")
+      fill_in("Photo driving licence number", with: "XYZ123987456")
+
+      click_button("Continue")
+      expect(page).to have_content("Enter your date of birth")
+
+      visit task_list_url
+      expect(page).to have_content(task_list_content)
+
+      click_link("Additional details")
+      expect(page).to have_content("Do you have any of these identity documents?")
+
+      choose("Photo driving licence")
+      expect(page).to have_field("Photo driving licence number", with: "XYZ123987456")
     end
   end
 end

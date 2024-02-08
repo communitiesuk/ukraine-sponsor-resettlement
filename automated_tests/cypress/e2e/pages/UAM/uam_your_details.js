@@ -489,6 +489,12 @@ const biom_error = () => {
     cy.get(elements.step16_biom_label).contains(bt_err.biom_err_lbl).should('be.visible')
     cy.get(elements.step16_biom_err_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
 }
+const pdl_error = () => {
+    cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible')
+    cy.get(elements.err_sbox_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
+    cy.get(elements.step16_pdl_label).contains(bt_err.pdl_err_lbl).should('be.visible')
+    cy.get(elements.step16_pdl_err_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
+}
 const noid_error = () => {
     cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible')
     cy.get(elements.err_sbox_msg).contains(bt_err.id_err_msg).should('be.visible')
@@ -519,8 +525,14 @@ export const your_details_ad_details_id_step_16_v4 = () => {
     click_continue()
     biom_error()
 }
-//I don't have any of these [min requirement 1 character]
+//photo driving licence [min requirement 1 character]
 export const your_details_ad_details_id_step_16_v5 = () => {
+    cy.get(elements.step16_pdl_radio_btn).click()
+    click_continue()
+    pdl_error()
+}
+//I don't have any of these [min requirement 1 character]
+export const your_details_ad_details_id_step_16_v6 = () => {
     cy.get(elements.step16_idha_radio_btn).click()
     click_continue()
     click_continue()

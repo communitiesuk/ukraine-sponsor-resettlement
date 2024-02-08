@@ -17,13 +17,13 @@
         <%= f.govuk_radio_button :identification_type, :passport, label: { text: "Passport" } do %>
             <%= f.govuk_text_field :passport_identification_number, label: { text: "Passport number" }, type: "text", inputmode: "text" %>
         <% end %>
-        <%= f.govuk_radio_button :identification_type, :national_identity_card, label: { text: "National identity card" } do %>
-            <%= f.govuk_text_field :id_identification_number, label: { text: "National identity card number"  }, type: "text" , inputmode: "numeric" %>
+        <%= f.govuk_radio_button :identification_type, :national_identity_card, label: { text: "National Identity Card" } do %>
+            <%= f.govuk_text_field :id_identification_number, label: { text: "National Identity Card number"  }, type: "text" , inputmode: "numeric" %>
         <% end %>
         <%= f.govuk_radio_button :identification_type, :biometric_residence, label: { text: "Biometric Residence Permit or Biometric Residence Card" } do %>
             <%= f.govuk_text_field :biometric_residence_identification_number, label: { text: "Biometric Residence Permit number or Biometric Residence Card number"  }, type: "text" , inputmode: "numeric" %>
         <% end %>
-        <%= f.govuk_radio_button :identification_type, :photo_driving_licence, label: { text: "Photo driving licence" } do %>
+        <%= f.govuk_radio_button :identification_type, :photo_driving_licence, label: { text: "Photo driving licence" }, hint: { text: t('driving_licence.hint', scope: "unaccompanied_minor.questions") } do %>
           <%= f.govuk_text_field :photo_driving_licence_identification_number, label: { text: "Photo driving licence number"  }, type: "text" , inputmode: "numeric" %>
         <% end %>
         <%= f.govuk_check_box_divider %>
