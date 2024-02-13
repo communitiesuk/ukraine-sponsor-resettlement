@@ -72,8 +72,8 @@ export const your_details_mobile_step_15 = () => {
 const additional_details_labels = () => {
     cy.get(elements.page_heading).contains('Do you have any of these identity documents?').should('be.visible')
     cy.get(elements.passport_label).contains('Passport').should('be.visible')
-    cy.get(elements.ni_label).contains('National identity card').should('be.visible')
-    cy.get(elements.biometric_residence_label).contains('Biometric residence').should('be.visible')
+    cy.get(elements.ni_label).contains('National Identity Card').should('be.visible')
+    cy.get(elements.biometric_residence_label).contains('Biometric Residence Permit or Biometric Residence Card').should('be.visible')
     cy.get(elements.photo_driving_licence_label).contains('Photo driving licence').should('be.visible')
     cy.get(elements.dont_have_any_label).contains("I don't have any of these").should('be.visible').wait(Cypress.env('waitTime'))
 }

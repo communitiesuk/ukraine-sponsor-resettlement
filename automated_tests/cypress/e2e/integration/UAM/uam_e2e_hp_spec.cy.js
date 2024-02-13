@@ -11,7 +11,7 @@ describe('[Frontend-UI]: UAM E2E JOURNEY [HAPPY PATH]', function () {
   Cypress.Cookies.defaults({ preserve: '_ukraine_sponsor_resettlement_session' })
 
   context('Eligibility Check', function () {
-    it('verify eligibility for sponcer a child', function () {
+    it('verify eligibility for sponsor a child', function () {
       eligibility.uam_eligibility_steps()
     })
   })

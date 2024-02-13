@@ -8,7 +8,7 @@ var page_elements = {
     page_heading_xl: ".gem-c-title__text.govuk-heading-xl",
     startnow_button: 'a[role="button"]',
     page_body: '.govuk-body',
-    continue_button_ec: 'a[role="button"]',
+    continue_button_ec: 'a[class="govuk-button"]',
     continue_button: 'button[type="submit"]',
     continue_button_other: "a[class='govuk-button']",
     insettext: '.govuk-inset-text',
@@ -80,7 +80,7 @@ var page_elements = {
     step7_err_radio_btn_yes: '#unaccompanied-minor-is-permitted-field-error',
     //step9
     step9_body_text: '.govuk-body',
-    step9_start_application_btn: 'a[role="button"]',
+    step9_start_application_btn: 'a[class="govuk-button"]',
     //tasklist
     tasklist_page_body: 'div[class="govuk-grid-column-two-thirds"] p strong',
     application_incomplete: 'div[class="govuk-grid-column-two-thirds"] p strong',
@@ -268,7 +268,7 @@ var page_elements = {
     //step28
     residents_header: '.govuk-table__head',
     over16_persons_name: 'td:nth-child(1)',
-    add_another_person_button: 'a[role="button"]',
+    add_another_person_button: 'a[class="govuk-button"]',
     add_person_continue_button: 'a[class="govuk-button"]',
     //verify completed 2 of 5
     completed_2_of_5_label: ".govuk-grid-column-two-thirds > :nth-child(3)",
