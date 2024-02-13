@@ -1,7 +1,7 @@
 {
     " _COMMENT": "******** UAM ******* ******** UAM ******* ******** UAM *************** UAM *************** UAM *************** UAM *************** UAM *************** UAM *******",
     "check_eligibility_body" : "We need to ask you some questions before you start your application, to make sure you meet the basic eligibility requirements to use this service.",
-    "step2_bodytext": "Select 'Yes' even if they were temporarily away at the time. Select 'No' if they were born after 1 January 2022.",
+    "step2_bodytext": "Select 'Yes' even if they were temporarily away at the time. Select 'No' if they were born after 31 December 2021.",
     "step4_bodytext": "This excludes travelling with another relative, such as a grandmother, aunt or uncle who is not their legal guardian.",
     "step5_bodytext": "You must be able to upload both completed and signed consent forms from at least one of the child's parents or their legal guardian.",
     "step5_link" : "Read guidance about which consent forms are required",

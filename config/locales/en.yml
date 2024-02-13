@@ -411,7 +411,7 @@ en:
         short: Sponsored children living december
         full: Was the child living in Ukraine before 1 January 2022?
         hint: Select 'Yes' even if they were temporarily away at the time.
-          Select 'No' if they were born after 1 January 2022.
+          Select 'No' if they were born after 31 December 2021.
         "yes": "Yes"
         "no": "No"
       sponsored_children_december_birth:
