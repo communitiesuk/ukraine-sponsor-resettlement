@@ -476,7 +476,7 @@ en:
       identity_documents:
         short: Sponsor identity documents
         full: Do you have any of these identity documents?
-        hint_html: <ul class="govuk-list govuk-list--bullet"><li>See <a href=https://www.gov.uk/government/publications/homes-for-ukraine-sponsorship-scheme-caseworker-guidance target=_blank>the Homes for Ukraine Sponsorship Scheme caseworker guidance</a> for more information.</li><li>To sponsor someone under the Homes for Ukraine Scheme, you must be a British or Irish Citizen, or have settled status in the UK (which means having the right to live in the UK permanently).</li></ul>
+        hint_html: <p>See the <a href=https://www.gov.uk/government/publications/homes-for-ukraine-sponsorship-scheme-caseworker-guidance target=_blank>Homes for Ukraine caseworker guidance</a> for more information.</p><p>To sponsor someone under the Homes for Ukraine Scheme, you must be a British or Irish Citizen, or have settled status in the UK (which means having the right to live in the UK permanently).</p>
       driving_licence:
         short: Photo driving licence
         hint: Your photo driving licence must be issued by the UK, Ireland, or the Crown Dependencies and you must also provide your UK, Crown Dependency or Irish birth or adoption certificate (if you were born before 1 January 1983) with matching biographical details.
