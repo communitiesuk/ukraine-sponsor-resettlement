@@ -3401,9 +3401,9 @@ gopd@^1.0.1:
     get-intrinsic "^1.1.3"
 
 govuk-frontend@^4.0.1:
-  version "4.7.0"
-  resolved "https://registry.npmjs.org/govuk-frontend/-/govuk-frontend-4.7.0.tgz"
-  integrity sha512-0OsdCusF5qvLWwKziU8zqxiC0nq6WP0ZQuw51ymZ/1V0tO71oIKMlSLN2S9bm8RcEGSoidPt2A34gKxePrLjvg==
+  version "4.8.0"
+  resolved "https://registry.npmjs.org/govuk-frontend/-/govuk-frontend-4.8.0.tgz"
+  integrity sha512-NOmPJxL8IYq1HSNHYKx9XY2LLTxuwb+IFASiGQO4sgJ8K7AG66SlSeqARrcetevV8zOf+i1z+MbJJ2O7//OxAw==
 
 graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.2.6:
   version "4.2.11"

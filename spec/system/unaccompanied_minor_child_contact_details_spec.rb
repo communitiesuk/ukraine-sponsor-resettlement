@@ -143,7 +143,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
       expect(page).to have_content("Error: Enter a valid date of birth")
     end
 
-    it "won't save phone number if box is unchecked" do
+    it "does not save phone number if box is unchecked" do
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
 
@@ -184,7 +184,7 @@ RSpec.describe "Unaccompanied minor - minors details", type: :system do
       expect(page).to have_field("Phone number", with: "")
     end
 
-    it "won't save email if box is unchecked" do
+    it "does not save email if box is unchecked" do
       navigate_to_child_personal_details_name_entry
       enter_name_and_continue
 

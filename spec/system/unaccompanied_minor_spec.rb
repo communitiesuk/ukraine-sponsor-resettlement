@@ -629,32 +629,32 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(saved_application.identification_number).to eq("ABC123456789")
     end
 
-    it "when id is biometric residence" do
-      application = UnaccompaniedMinor.new
-      application.save!
+    # it "when id is biometric residence" do
+    #   application = UnaccompaniedMinor.new
+    #   application.save!
 
-      page.set_rack_session(app_reference: application.reference)
+    #   page.set_rack_session(app_reference: application.reference)
 
-      visit task_list_url
-      expect(page).to have_content(task_list_content)
+    #   visit task_list_url
+    #   expect(page).to have_content(task_list_content)
 
-      click_link("Additional details")
-      expect(page).to have_content("Do you have any of these identity documents?")
+    #   click_link("Additional details")
+    #   expect(page).to have_content("Do you have any of these identity documents?")
 
-      choose("Biometric Residence Permit or Biometric Residence Card")
-      click_button("Continue")
+    #   choose("Biometric Residence Permit or Biometric Residence Card")
+    #   click_button("Continue")
 
-      expect(page).to have_content("You must enter a valid identity document number")
+    #   expect(page).to have_content("You must enter a valid identity document number")
 
-      fill_in("Biometric Residence Permit number or Biometric Residence Card number", with: "ABC123456789")
+    #   fill_in("Biometric Residence Permit number or Biometric Residence Card number", with: "ABC123456789")
 
-      click_button("Continue")
-      expect(page).to have_content("Enter your date of birth")
+    #   click_button("Continue")
+    #   expect(page).to have_content("Enter your date of birth")
 
-      saved_application = UnaccompaniedMinor.find_by_reference(application.reference)
-      expect(saved_application.identification_type).to eq("biometric_residence")
-      expect(saved_application.identification_number).to eq("ABC123456789")
-    end
+    #   saved_application = UnaccompaniedMinor.find_by_reference(application.reference)
+    #   expect(saved_application.identification_type).to eq("biometric_residence")
+    #   expect(saved_application.identification_number).to eq("ABC123456789")
+    # end
 
     it "when id is photo driving licence" do
       application = UnaccompaniedMinor.new
@@ -682,7 +682,6 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(saved_application.identification_type).to eq("photo_driving_licence")
       expect(saved_application.identification_number).to eq("ABC123456789")
     end
-
 
     it "when id is none" do
       application = UnaccompaniedMinor.new

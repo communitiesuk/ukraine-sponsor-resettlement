@@ -481,7 +481,7 @@ module UamValidations
   end
 
   def run_validation?(attribute)
-    optional_fields_exclude_from_full_validation = %i[adult_given_name adult_family_name adult_date_of_birth adult_nationality adult_id_identification_number other_nationality passport_identification_number id_identification_number biometric_residence_identification_number, photo_driving_licence_identification_number]
+    optional_fields_exclude_from_full_validation = %i[adult_given_name adult_family_name adult_date_of_birth adult_nationality adult_id_identification_number other_nationality passport_identification_number id_identification_number biometric_residence_identification_number photo_driving_licence_identification_number]
     # an attribute from the above list will only get validated if the @partial_validation field is not :full_validation
     if optional_fields_exclude_from_full_validation.include?(attribute)
       @partial_validation.include?(attribute)
