@@ -22,7 +22,7 @@ export const date_null = () => {
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     startdate_err()
 }
-//one feild filled
+//one field filled
 export const date_v1 = () => {
     cy.get(elements.day_textbox_error).clear().type(day)//date
     cy.get(elements.month_textbox).clear()
@@ -40,7 +40,7 @@ export const date_v1 = () => {
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     startdate_err()
 }
-//two feilds filled
+//two fields filled
 export const date_v2 = () => {
     cy.get(elements.day_textbox_error).clear().type('25')//day & month
     cy.get(elements.month_textbox).clear().type('10')

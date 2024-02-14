@@ -5,13 +5,13 @@ const bt_err = require('../../../fixtures/uam_bodytext_err.json')
 
 //*******Child’s accommodation**************Child’s accommodation**************Child’s accommodation**************Child’s accommodation**************
 const click_continue = () => { cy.get(elements.continue_button).click().wait(Cypress.env('waitTime')) }
-const all_sbox_feilds_err = () => {
+const all_sbox_fields_err = () => {
     sbox_title()
     cy.xpath(elements.step23_addr_sbox_err_msg).contains(bt_err.address_err_msg).should('be.visible')
     cy.xpath(elements.step23_city_sbox_err_msg).contains(bt_err.city_err_msg).should('be.visible')
     cy.xpath(elements.step23_pc_sbox_err_msg).contains(bt_err.pc_err_msg).should('be.visible')
 }
-const all_feilds_err = () => {
+const all_fields_err = () => {
     cy.get(elements.step23_addr_err_msg).contains(bt_err.address_err_msg).should('be.visible')
     cy.get(elements.step23_city_err_msg).contains(bt_err.city_err_msg).should('be.visible')
     cy.get(elements.step23_pc_err_msg).contains(bt_err.pc_err_msg).should('be.visible')
@@ -49,15 +49,15 @@ const pc_err_nv = () => {
     cy.xpath(elements.step23_pc_sbox_err_msg).should('not.exist')
     cy.get(elements.step23_pc_err_msg).should('not.exist')
 }
-//all feilds empty [AL1: empty, AL2: empty, TC:empty: PC: empty]
+//all fields empty [AL1: empty, AL2: empty, TC:empty: PC: empty]
 export const childs_accommodation_step_23_v1 = () => {
     cy.visit('/sponsor-a-child/steps/23')
     page_heading()
     click_continue()
-    all_sbox_feilds_err()
-    all_feilds_err()
+    all_sbox_fields_err()
+    all_fields_err()
 }
-//one feild empty [AL1: empty, TC:valid, PC: valid]
+//one field empty [AL1: empty, TC:valid, PC: valid]
 export const childs_accommodation_step_23_v2 = () => {
     page_heading()
     cy.get(elements.step23_addr_line1_err_textbox).clear()
@@ -68,7 +68,7 @@ export const childs_accommodation_step_23_v2 = () => {
     city_err_nv()
     pc_err_nv()
 }
-//one feild empty [AL1: valid, TC:empty, PC: valid]
+//one field empty [AL1: valid, TC:empty, PC: valid]
 export const childs_accommodation_step_23_v3 = () => {
     page_heading()
     cy.get(elements.step23_addr_line1_err_textbox).clear().type(secrets.child_line1)
@@ -79,7 +79,7 @@ export const childs_accommodation_step_23_v3 = () => {
     city_err()
     pc_err_nv()
 }
-//one feild empty [AL1: valid, TC: valid, PC: empty]
+//one field empty [AL1: valid, TC: valid, PC: empty]
 export const childs_accommodation_step_23_v4 = () => {
     page_heading()
     cy.get(elements.step23_addr_line1_textbox).clear().type(secrets.child_line1)
@@ -90,7 +90,7 @@ export const childs_accommodation_step_23_v4 = () => {
     city_err()
     pc_err_nv()
 }
-//two feilds empty  [AL1: valid, TC:empty, PC: empty]
+//two fields empty  [AL1: valid, TC:empty, PC: empty]
 export const childs_accommodation_step_23_v5 = () => {
     page_heading()
     cy.get(elements.step23_addr_line1_textbox).clear().type(secrets.child_line1)
@@ -101,7 +101,7 @@ export const childs_accommodation_step_23_v5 = () => {
     city_err()
     pc_err()
 }
-//two feilds empty [AL1: empty, TC:valid, PC: empty]
+//two fields empty [AL1: empty, TC:valid, PC: empty]
 export const childs_accommodation_step_23_v6 = () => {
     page_heading()
     cy.get(elements.step23_addr_line1_textbox).clear()
@@ -112,7 +112,7 @@ export const childs_accommodation_step_23_v6 = () => {
     city_err_nv()
     pc_err()
 }
-//two feilds empty[AL1: empty, TC: empty, PC:valid]
+//two fields empty[AL1: empty, TC: empty, PC:valid]
 export const childs_accommodation_step_23_v7 = () => {
     page_heading()
     cy.get(elements.step23_addr_line1_err_textbox).clear()
@@ -123,7 +123,7 @@ export const childs_accommodation_step_23_v7 = () => {
     city_err()
     pc_err_nv()
 }
-//one feild valid [AL1: valid, TC: invalid, PC: invalid] {Requirement: Three characters minimum for addr.l1 & city}
+//one field valid [AL1: valid, TC: invalid, PC: invalid] {Requirement: Three characters minimum for addr.l1 & city}
 export const childs_accommodation_step_23_v8 = () => {
     page_heading()
     cy.get(elements.step23_addr_line1_err_textbox).clear().type(secrets.child_line1)
@@ -141,7 +141,7 @@ export const childs_accommodation_step_23_v8 = () => {
     city_err()
     pc_err()
 }
-//one feild valid [AL1: invalid, TC: valid, PC: invalid]
+//one field valid [AL1: invalid, TC: valid, PC: invalid]
 export const childs_accommodation_step_23_v9 = () => {
     page_heading()
     cy.get(elements.step23_addr_line1_textbox).clear().type('X')
@@ -159,7 +159,7 @@ export const childs_accommodation_step_23_v9 = () => {
     city_err_nv()
     pc_err()
 }
-//one feild valid [AL1: invalid, TC: invalid, PC: valid]
+//one field valid [AL1: invalid, TC: invalid, PC: valid]
 export const childs_accommodation_step_23_v10 = () => {
     page_heading()
     cy.get(elements.step23_addr_line1_err_textbox).clear().type('£')
@@ -184,7 +184,7 @@ export const childs_accommodation_step_23_v10 = () => {
     city_err()
     pc_err_nv()
 }
-//two feilds valid [AL1: valid, TC: valid, PC: invalid]
+//two fields valid [AL1: valid, TC: valid, PC: invalid]
 export const childs_accommodation_step_23_v11 = () => {
     page_heading()
     cy.get(elements.step23_addr_line1_err_textbox).clear().type(secrets.child_line1)
@@ -202,7 +202,7 @@ export const childs_accommodation_step_23_v11 = () => {
     city_err_nv()
     pc_err()
 }
-//two feilds valid [AL1: invalid, TC: valid, PC: valid]
+//two fields valid [AL1: invalid, TC: valid, PC: valid]
 export const childs_accommodation_step_23_v12 = () => {
     page_heading()
     cy.get(elements.step23_addr_line1_textbox).clear().type('22')
@@ -221,7 +221,7 @@ export const childs_accommodation_step_23_v12 = () => {
     city_err_nv()
     pc_err_nv()
 }
-//two feilds valid [AL1: valid, TC: invalid, PC: valid]
+//two fields valid [AL1: valid, TC: invalid, PC: valid]
 export const childs_accommodation_step_23_v13 = () => {
     page_heading()
     cy.get(elements.step23_addr_line1_err_textbox).clear().type(secrets.child_line1)
@@ -239,7 +239,7 @@ export const childs_accommodation_step_23_v13 = () => {
     city_err()
     pc_err_nv()
 }
-//all feilds valid 
+//all fields valid 
 export const childs_accommodation_step_23_v14 = () => {
     page_heading()
     cy.get(elements.step23_addr_line1_textbox).clear().type(secrets.child_line1)
@@ -251,13 +251,13 @@ export const childs_accommodation_step_23_v14 = () => {
 //*******SPONSOR ADDRESS**************SPONSOR ADDRESS**************SPONSOR ADDRESS**************SPONSOR ADDRESS****************************SPONSOR ADDRESS**************
 const s26_page_heading = () => { cy.get(elements.page_heading).contains('Enter the address where you will be living in the UK').should('be.visible') }
 const sbox_title = () => { cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible') }
-const s26_all_sbox_feilds_err = () => {
+const s26_all_sbox_fields_err = () => {
     sbox_title()
     cy.xpath(elements.step26_addr_sbox_err_msg).contains(bt_err.address_err_msg).should('be.visible')
     cy.xpath(elements.step26_city_sbox_err_msg).contains(bt_err.city_err_msg).should('be.visible')
     cy.xpath(elements.step26_pc_sbox_err_msg).contains(bt_err.pc_err_msg).should('be.visible')
 }
-const s26_all_feilds_err = () => {
+const s26_all_fields_err = () => {
     cy.get(elements.step26_addr_err_msg).contains(bt_err.address_err_msg).should('be.visible')
     cy.get(elements.step26_city_err_msg).contains(bt_err.city_err_msg).should('be.visible')
     cy.get(elements.step26_pc_err_msg).contains(bt_err.pc_err_msg).should('be.visible')
@@ -305,10 +305,10 @@ export const childs_accommodation_step_26_v1 = () => {
     cy.visit('/sponsor-a-child/steps/26')
     click_continue()
     s26_page_heading()
-    s26_all_sbox_feilds_err()
-    s26_all_feilds_err()
+    s26_all_sbox_fields_err()
+    s26_all_fields_err()
 }
-//one feild empty [AL1: empty, TC: valid, PC: valid]
+//one field empty [AL1: empty, TC: valid, PC: valid]
 export const childs_accommodation_step_26_v2 = () => {
     s26_page_heading()
     cy.get(elements.step26_addr_line1_err_textbox).clear()
@@ -320,7 +320,7 @@ export const childs_accommodation_step_26_v2 = () => {
     s26_city_err_nv()
     s26_pc_err_nv()
 }
-//one feild empty [AL1: valid, TC: empty, PC: valid]
+//one field empty [AL1: valid, TC: empty, PC: valid]
 export const childs_accommodation_step_26_v3 = () => {
     s26_page_heading()
     cy.get(elements.step26_addr_line1_err_textbox).clear().type(secrets.child_line1)
@@ -331,7 +331,7 @@ export const childs_accommodation_step_26_v3 = () => {
     s26_city_err()
     s26_pc_err_nv()
 }
-//one feild empty [AL1: valid, TC: valid, PC: empty]
+//one field empty [AL1: valid, TC: valid, PC: empty]
 export const childs_accommodation_step_26_v4 = () => {
     s26_page_heading()
     cy.get(elements.step26_addr_line1_textbox).clear().type(secrets.child_line1)
@@ -342,7 +342,7 @@ export const childs_accommodation_step_26_v4 = () => {
     s26_city_err_nv()
     s26_pc_err()
 }
-//two feilds empty [AL1: valid, TC: empty, PC: empty]
+//two fields empty [AL1: valid, TC: empty, PC: empty]
 export const childs_accommodation_step_26_v5 = () => {
     s26_page_heading()
     cy.get(elements.step26_addr_line1_textbox).clear().type(secrets.child_line1)
@@ -353,7 +353,7 @@ export const childs_accommodation_step_26_v5 = () => {
     s26_city_err()
     s26_pc_err()
 }
-//two feilds empty [AL1: empty, TC: valid, PC: empty]
+//two fields empty [AL1: empty, TC: valid, PC: empty]
 export const childs_accommodation_step_26_v6 = () => {
     s26_page_heading()
     cy.get(elements.step26_addr_line1_textbox).clear()
@@ -364,7 +364,7 @@ export const childs_accommodation_step_26_v6 = () => {
     s26_city_err_nv()
     s26_pc_err()
 }
-//two feilds empty [AL1: empty, TC: empty, PC: valid]
+//two fields empty [AL1: empty, TC: empty, PC: valid]
 export const childs_accommodation_step_26_v7 = () => {
     s26_page_heading()
     cy.get(elements.step26_addr_line1_err_textbox).clear()
@@ -375,7 +375,7 @@ export const childs_accommodation_step_26_v7 = () => {
     s26_city_err()
     s26_pc_err_nv()
 }
-//one feild valid [AL1: valid, TC: invalid, PC: invalid] {Requirement: Three characters minimum for addr.l1 & city}
+//one field valid [AL1: valid, TC: invalid, PC: invalid] {Requirement: Three characters minimum for addr.l1 & city}
 export const childs_accommodation_step_26_v8 = () => {
     s26_page_heading()
     cy.get(elements.step26_addr_line1_err_textbox).clear().type(secrets.child_line1)
@@ -393,7 +393,7 @@ export const childs_accommodation_step_26_v8 = () => {
     s26_city_err()
     s26_pc_err()
 }
-//one feild valid [AL1: invalid, TC: valid, PC: invalid]
+//one field valid [AL1: invalid, TC: valid, PC: invalid]
 export const childs_accommodation_step_26_v9 = () => {
     s26_page_heading()
     cy.get(elements.step26_addr_line1_textbox).clear().type('X')
@@ -411,7 +411,7 @@ export const childs_accommodation_step_26_v9 = () => {
     s26_city_err_nv()
     s26_pc_err()
 }
-//one feild valid [AL1: invalid, TC: invalid, PC: valid]
+//one field valid [AL1: invalid, TC: invalid, PC: valid]
 export const childs_accommodation_step_26_v10 = () => {
     s26_page_heading()
     cy.get(elements.step26_addr_line1_err_textbox).clear().type('£')
@@ -436,7 +436,7 @@ export const childs_accommodation_step_26_v10 = () => {
     s26_city_err()
     s26_pc_err_nv()
 }
-//two feilds valid [AL1: valid, TC: valid, PC: invalid]
+//two fields valid [AL1: valid, TC: valid, PC: invalid]
 export const childs_accommodation_step_26_v11 = () => {
     s26_page_heading()
     cy.get(elements.step26_addr_line1_err_textbox).clear().type(secrets.child_line1)
@@ -454,7 +454,7 @@ export const childs_accommodation_step_26_v11 = () => {
     s26_city_err_nv()
     s26_pc_err()
 }
-//two feilds valid [AL1: invalid, TC: valid, PC: valid]
+//two fields valid [AL1: invalid, TC: valid, PC: valid]
 export const childs_accommodation_step_26_v12 = () => {
     s26_page_heading()
     cy.get(elements.step26_addr_line1_textbox).clear().type('22')
@@ -472,7 +472,7 @@ export const childs_accommodation_step_26_v12 = () => {
     s26_city_err_nv()
     s26_pc_err_nv()
 }
-//two feilds valid [AL1: valid, TC: invalid, PC: valid]
+//two fields valid [AL1: valid, TC: invalid, PC: valid]
 export const childs_accommodation_step_26_v13 = () => {
     s26_page_heading()
     cy.get(elements.step26_addr_line1_err_textbox).clear().type(secrets.child_line1)
@@ -490,7 +490,7 @@ export const childs_accommodation_step_26_v13 = () => {
     s26_city_err()
     s26_pc_err_nv()
 }
-//all feilds valid 
+//all fields valid 
 export const childs_accommodation_step_26_v14 = () => {
     s26_page_heading()
     cy.get(elements.step26_addr_line1_textbox).clear().type(secrets.child_line1)

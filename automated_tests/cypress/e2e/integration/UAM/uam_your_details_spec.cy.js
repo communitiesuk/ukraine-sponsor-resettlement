@@ -126,13 +126,13 @@ describe('[Frontend-UI]: UAM YOUR DETAILS [SPONSOR]', function () {
     })
   })
   context('[Your Details] Additional Details : DOB', function () {
-    it('sponsor dob: validation errors [All feilds empty]', function () {
+    it('sponsor dob: validation errors [All fields empty]', function () {
       element.your_details_ad_details_dob_step_18_v1()
     })
-    it('sponsor dob: validation errors [two feilds empty]', function () {
+    it('sponsor dob: validation errors [two fields empty]', function () {
       element.your_details_ad_details_dob_step_18_v2()
     })
-    it('sponsor dob: validation errors [one feild empty]', function () {
+    it('sponsor dob: validation errors [one field empty]', function () {
       element.your_details_ad_details_dob_step_18_v3()
     })
     it('sponsor dob: validation errors [future date]', function () {

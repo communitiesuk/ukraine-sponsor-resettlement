@@ -15,7 +15,7 @@ describe('[Frontend-UI]: UAM RESIDENTS DETAILS', function () {
     })
   })
   context('[Residents Details] DOB Validation Errors', function () {
-    it('all feilds empty', function () {
+    it('all fields empty', function () {
       element.residents_details_step_29()
       element.residents_details_step_29_v1()
     })

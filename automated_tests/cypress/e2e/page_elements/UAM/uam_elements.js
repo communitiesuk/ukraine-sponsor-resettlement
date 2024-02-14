@@ -268,7 +268,7 @@ var page_elements = {
     //step28
     residents_header: '.govuk-table__head',
     over16_persons_name: 'td:nth-child(1)',
-    add_another_person_button: 'a[class="govuk-button"]',
+    add_another_person_button: 'a[class="govuk-button govuk-button--secondary"]',
     add_person_continue_button: 'a[class="govuk-button"]',
     //verify completed 2 of 5
     completed_2_of_5_label: ".govuk-grid-column-two-thirds > :nth-child(3)",

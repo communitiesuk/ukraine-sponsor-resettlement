@@ -281,7 +281,7 @@ const email_must_match_err = () => {
     cy.get(elements.err_sbox_msg).contains(bt_err.email_err_mm_msg).should('be.visible')
     cy.get(elements.step14_email_err_cf_msg).contains(bt_err.email_err_mm_msg).should('be.visible')
 }
-//both feilds empty[email: empty, cf-email: empty]
+//both fields empty[email: empty, cf-email: empty]
 export const your_details_contact_details_step_14_v1 = () => {
     cy.visit('/sponsor-a-child/task-list')
     cy.get(elements.contact_details_link).click()
