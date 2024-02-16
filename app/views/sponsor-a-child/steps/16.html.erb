@@ -36,7 +36,7 @@
         <% end %>
         <%= f.govuk_radio_button :identification_type, :photo_driving_licence, label: { text: "Photo driving licence" } do %>
           <%= f.govuk_text_field :photo_driving_licence_identification_number,  type: "text" ,
-           hint: { text: t('driving_licence.hint', scope: "unaccompanied_minor.questions") }, label: { text: "Photo driving licence number" }, inputmode: "numeric" %>
+           hint: { text: t('driving_licence.hint', scope: "unaccompanied_minor.questions") }, label: { text: "Photo driving licence number" }, inputmode: "text" %>
         <% end %>
         <%= f.govuk_check_box_divider %>
         <%= f.govuk_radio_button :identification_type, :none, label: { text: "I don't have any of these" } %>
