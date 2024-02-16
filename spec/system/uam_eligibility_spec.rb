@@ -39,7 +39,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       click_link("Continue")
 
-      expect(page).to have_content("Is the child you want to sponsor under 18?")
+      expect(page).to have_content("Is the person you want to sponsor under 18?")
       uam_choose_option("No")
 
       expect(page).to have_content("You cannot use this service")
@@ -55,10 +55,10 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       click_link("Continue")
 
-      expect(page).to have_content("Is the child you want to sponsor under 18?")
+      expect(page).to have_content("Is the person you want to sponsor under 18?")
       uam_choose_option("Yes")
 
-      expect(page).to have_content("Was the child living in Ukraine on or before 31 December 2021?")
+      expect(page).to have_content("Was the child living in Ukraine before 1 January 2022?")
       uam_choose_option("No")
 
       expect(page).to have_content("Was the child born after 31 December 2021?")
@@ -74,13 +74,13 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       click_link("Continue")
 
-      expect(page).to have_content("Is the child you want to sponsor under 18?")
+      expect(page).to have_content("Is the person you want to sponsor under 18?")
       uam_choose_option("Yes")
 
-      expect(page).to have_content("Was the child living in Ukraine on or before 31 December 2021?")
+      expect(page).to have_content("Was the child living in Ukraine before 1 January 2022?")
       uam_choose_option("Yes")
 
-      expect(page).to have_content("Are they travelling to the UK with a parent or legal guardian?")
+      expect(page).to have_content("Are they applying for a visa under the Homes for Ukraine Scheme with their parent or legal guardian, or to join them in the UK?")
       uam_choose_option("No")
 
       expect(page).to have_content("Can you upload both consent forms?")

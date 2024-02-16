@@ -67,8 +67,11 @@ describe('[Frontend-UI]: UAM LINKS', function () {
     it('read guidance about which consent forms are required link [step 5]', function () {
       element.uam_step_5()
     })
-    it('what is the minimum period? link [step 6, step 7]', function () {
+    it('what is the minimum period? link [step 6]', function () {
       element.uam_step_6()
+    })
+    it('why do I need this? link [step 7]', function () {
+      element.uam_step_7()
     })
     it("I'm not sure how to enter my name link [step 10 link 1]", function () {
       element.uam_step_10_l1()

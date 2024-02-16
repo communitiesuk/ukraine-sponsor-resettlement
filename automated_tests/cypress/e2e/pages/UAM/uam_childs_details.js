@@ -156,7 +156,7 @@ const ctc_err = () => {
     cy.get(elements.err_sbox_msg).contains(bt_err.sel_more_opt_err_msg).should('be.visible')
     cy.get(elements.step33_ctc_err_msg).contains(bt_err.sel_more_opt_err_msg).should('be.visible')
 }
-//both feilds empty[email: empty, cf-email: empty]
+//both fields empty[email: empty, cf-email: empty]
 export const childs_details_step_33_v1 = () => {
     cy.visit('/sponsor-a-child/steps/33')
     contact_type_heading()

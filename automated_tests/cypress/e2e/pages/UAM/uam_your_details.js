@@ -281,7 +281,7 @@ const email_must_match_err = () => {
     cy.get(elements.err_sbox_msg).contains(bt_err.email_err_mm_msg).should('be.visible')
     cy.get(elements.step14_email_err_cf_msg).contains(bt_err.email_err_mm_msg).should('be.visible')
 }
-//both feilds empty[email: empty, cf-email: empty]
+//both fields empty[email: empty, cf-email: empty]
 export const your_details_contact_details_step_14_v1 = () => {
     cy.visit('/sponsor-a-child/task-list')
     cy.get(elements.contact_details_link).click()
@@ -407,10 +407,10 @@ export const your_details_mobile_step_15_v3 = () => {
 export const your_details_mobile_step_15_v4 = () => {
     phone_heading()
     cy.get(elements.step15_mob_err_textbox).clear().type('075456789012')//12numbers
-    cy.get(elements.step15_mob_cf_textbox).clear().type('0724567890')//10numbers 
+    cy.get(elements.step15_mob_cf_textbox).clear().type('0724567890')//10numbers
     click_continue()
     mobile_not_valid_err()
-    cy.get(elements.step15_mob_err_textbox).clear().type('0754567890')//10numbers 
+    cy.get(elements.step15_mob_err_textbox).clear().type('0754567890')//10numbers
     cy.get(elements.step15_mob_cf_textbox).clear().type('072456789012')//12numbers
     click_continue()
     mobile_not_valid_err()
@@ -464,7 +464,7 @@ export const your_details_mobile_step_15_v7 = () => {
     cy.get(elements.page_heading).contains("Apply for approval to provide a safe home for a child from Ukraine").should('be.visible')
 }
 //*******ADDITIONAL DETAILS********
-//MINIMUM VALIDATIONS >>>> ******** Identity Documents ************** Identity Documents ************** Identity Documents ************** Identity Documents ************** 
+//MINIMUM VALIDATIONS >>>> ******** Identity Documents ************** Identity Documents ************** Identity Documents ************** Identity Documents **************
 const s16_page_heading = () => {cy.get(elements.page_heading).contains("Do you have any of these identity documents?").should('be.visible')}
 const all_error = () => {
     cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible')
@@ -483,11 +483,17 @@ const ni_error = () => {
     cy.get(elements.step16_ni_label).contains(bt_err.ni_err_lbl).should('be.visible')
     cy.get(elements.step16_ni_err_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
 }
-const refu_error = () => {
+const biom_error = () => {
     cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible')
     cy.get(elements.err_sbox_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
-    cy.get(elements.step16_refu_label).contains(bt_err.refu_err_lbl).should('be.visible')
-    cy.get(elements.step16_refu_err_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
+    cy.get(elements.step16_biom_label).contains(bt_err.biom_err_lbl).should('be.visible')
+    cy.get(elements.step16_biom_err_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
+}
+const pdl_error = () => {
+    cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible')
+    cy.get(elements.err_sbox_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
+    cy.get(elements.step16_pdl_label).contains(bt_err.pdl_err_lbl).should('be.visible')
+    cy.get(elements.step16_pdl_err_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
 }
 const noid_error = () => {
     cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible')
@@ -513,14 +519,20 @@ export const your_details_ad_details_id_step_16_v3 = () => {
     click_continue()
     ni_error()
 }
-//refugee travel doc [min requirement 1 character]
+//biometric residence [min requirement 1 character]
 export const your_details_ad_details_id_step_16_v4 = () => {
-    cy.get(elements.step16_refu_radio_btn).click()
+    cy.get(elements.step16_biom_radio_btn).click()
     click_continue()
-    refu_error()
+    biom_error()
+}
+//photo driving licence [min requirement 1 character]
+export const your_details_ad_details_id_step_16_v5 = () => {
+    cy.get(elements.step16_pdl_radio_btn).click()
+    click_continue()
+    pdl_error()
 }
 //I don't have any of these [min requirement 1 character]
-export const your_details_ad_details_id_step_16_v5 = () => {
+export const your_details_ad_details_id_step_16_v6 = () => {
     cy.get(elements.step16_idha_radio_btn).click()
     click_continue()
     click_continue()
@@ -551,7 +563,7 @@ export const your_details_ad_details_dob_step_18_v1 = () => {
     click_continue()
     dob_err_yes()
 }
-//two fields empty: 
+//two fields empty:
 export const your_details_ad_details_dob_step_18_v2 = () => {
     cy.get(elements.step18_day_err_textbox).type(secrets.day)
     cy.get(elements.step18_month_err_textbox).clear()
@@ -569,7 +581,7 @@ export const your_details_ad_details_dob_step_18_v2 = () => {
     click_continue()
     dob_err_yes()
 }
-//one field empty: 
+//one field empty:
 export const  your_details_ad_details_dob_step_18_v3 = () => {
     cy.get(elements.step18_day_err_textbox).clear()
     cy.get(elements.step18_month_err_textbox).type(secrets.month)
@@ -604,7 +616,7 @@ export const  your_details_ad_details_dob_step_18_v4 = () => {
     click_continue()
     dob_future_date_err_yes()
 }
-//all valid: past date [1 year ago]  
+//all valid: past date [1 year ago]
 export const  your_details_ad_details_dob_step_18_v5 = () => {
     cy.get(elements.step18_day_err_textbox).type(day)
     cy.get(elements.step18_month_err_textbox).type(month)
@@ -612,7 +624,7 @@ export const  your_details_ad_details_dob_step_18_v5 = () => {
     click_continue()
     dob_future_date_err_yes()
 }
-//all valid: past date [17 year ago]  
+//all valid: past date [17 year ago]
 export const  your_details_ad_details_dob_step_18_v6 = () => {
     cy.get(elements.step18_day_err_textbox).type(day)
     cy.get(elements.step18_month_err_textbox).type(month)
@@ -620,7 +632,7 @@ export const  your_details_ad_details_dob_step_18_v6 = () => {
     click_continue()
     dob_future_date_err_yes()
 }
-//all valid: past date [18+ year ago]  
+//all valid: past date [18+ year ago]
 export const  your_details_ad_details_dob_step_18_v7 = () => {
     cy.get(elements.step18_day_err_textbox).type(day_m_1)
     cy.get(elements.step18_month_err_textbox).type(month)

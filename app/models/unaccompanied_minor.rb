@@ -54,7 +54,8 @@ class UnaccompaniedMinor < ApplicationRecord
                 :identification_number,
                 :passport_identification_number,
                 :id_identification_number,
-                :refugee_identification_number,
+                :biometric_residence_identification_number,
+                :photo_driving_licence_identification_number,
                 :no_identification_reason,
                 :nationality,
                 :has_other_nationalities,
@@ -100,7 +101,8 @@ class UnaccompaniedMinor < ApplicationRecord
                 :adult_identification_type,
                 :adult_passport_identification_number,
                 :adult_id_identification_number,
-                :adult_refugee_identification_number,
+                :adult_biometric_residence_identification_number,
+                :adult_photo_driving_licence_identification_number,
                 :partial_validation
 
   after_initialize :after_initialize

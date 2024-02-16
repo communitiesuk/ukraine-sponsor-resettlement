@@ -15,7 +15,7 @@ describe('[Frontend-UI]: UAM RESIDENTS DETAILS', function () {
     })
   })
   context('[Residents Details] DOB Validation Errors', function () {
-    it('all feilds empty', function () {
+    it('all fields empty', function () {
       element.residents_details_step_29()
       element.residents_details_step_29_v1()
     })
@@ -54,11 +54,14 @@ describe('[Frontend-UI]: UAM RESIDENTS DETAILS', function () {
     it('national identity card [validation errors]', function () {
       element.residents_details_step_31_v3()
     })
-    it('refugee travel document [validation errors]', function () {
+    it('biometric residence [validation errors]', function () {
       element.residents_details_step_31_v4()
     })
-    it("I don't have any of these [validation errors]", function () {
+    it('photo driving licence [validation errors]', function () {
       element.residents_details_step_31_v5()
+    })
+    it("I don't have any of these [validation errors]", function () {
+      element.residents_details_step_31_v6()
     })
   })
 })

@@ -15,90 +15,90 @@ describe('[Frontend-UI]: UAM CHILDS ACCOMMODATION', function () {
     })
   })
   context('[Child’s Accommodation] Childs Address Validation Errors', function () {
-    it('all feilds [empty]', function () {
+    it('all fields [empty]', function () {
       element.childs_accommodation_step_23_v1()
     })
-    it('one feild empty [AL1: empty, TC: valid, PC: valid]', function () {
+    it('one field empty [AL1: empty, TC: valid, PC: valid]', function () {
       element.childs_accommodation_step_23_v2()
     })
-    it('one feild empty [AL1: valid, TC: empty, PC: valid]', function () {
+    it('one field empty [AL1: valid, TC: empty, PC: valid]', function () {
       element.childs_accommodation_step_23_v3()
     })
-    it('one feild empty [AL1: valid, TC: valid, PC: empty]', function () {
+    it('one field empty [AL1: valid, TC: valid, PC: empty]', function () {
       element.childs_accommodation_step_23_v4()
     })
-    it('two feilds empty [AL1: valid, TC: empty, PC: empty]', function () {
+    it('two fields empty [AL1: valid, TC: empty, PC: empty]', function () {
       element.childs_accommodation_step_23_v5()
     })
-    it('two feilds empty [AL1: empty, TC: valid, PC: empty]', function () {
+    it('two fields empty [AL1: empty, TC: valid, PC: empty]', function () {
       element.childs_accommodation_step_23_v6()
     })
-    it('two feilds empty [AL1: empty, TC: empty, PC: valid]', function () {
+    it('two fields empty [AL1: empty, TC: empty, PC: valid]', function () {
       element.childs_accommodation_step_23_v7()
     })
-    it('one feild valid [AL1: valid, TC: invalid, PC: invalid]', function () {
+    it('one field valid [AL1: valid, TC: invalid, PC: invalid]', function () {
       element.childs_accommodation_step_23_v8()
     })
-    it('one feild valid [AL1: invalid, TC: valid, PC: invalid]', function () {
+    it('one field valid [AL1: invalid, TC: valid, PC: invalid]', function () {
       element.childs_accommodation_step_23_v9()
     })
-    it('one feild valid [AL1: invalid, TC: invalid, PC: valid]', function () {
+    it('one field valid [AL1: invalid, TC: invalid, PC: valid]', function () {
       element.childs_accommodation_step_23_v10()
     })
-    it('two feilds valid [AL1: valid, TC: valid, PC: invalid]', function () {
+    it('two fields valid [AL1: valid, TC: valid, PC: invalid]', function () {
       element.childs_accommodation_step_23_v11()
     })
-    it('two feilds valid [AL1: invalid, TC: valid, PC: valid]', function () {
+    it('two fields valid [AL1: invalid, TC: valid, PC: valid]', function () {
       element.childs_accommodation_step_23_v12()
     })
-    it('two feilds valid [AL1: valid, TC: invalid, PC: valid]', function () {
+    it('two fields valid [AL1: valid, TC: invalid, PC: valid]', function () {
       element.childs_accommodation_step_23_v13()
     })
-    it('all feilds [valid]', function () {
+    it('all fields [valid]', function () {
       element.childs_accommodation_step_23_v14()
     })
   })
   context('[Child’s Accommodation] Sponsor Address Validation Errors', function () {
-    it('all feilds [empty]', function () {
+    it('all fields [empty]', function () {
       element.childs_accommodation_step_26_v1()
     })
-    it('one feild empty [AL1: empty, TC: valid, PC: valid]', function () {
+    it('one field empty [AL1: empty, TC: valid, PC: valid]', function () {
       element.childs_accommodation_step_26_v2()
     })
-    it('one feild empty [AL1: valid, TC: empty, PC: valid]', function () {
+    it('one field empty [AL1: valid, TC: empty, PC: valid]', function () {
       element.childs_accommodation_step_26_v3()
     })
-    it('one feild empty [AL1: valid, TC: valid, PC: empty]', function () {
+    it('one field empty [AL1: valid, TC: valid, PC: empty]', function () {
       element.childs_accommodation_step_26_v4()
     })
-    it('two feilds empty [AL1: valid, TC: empty, PC: empty]', function () {
+    it('two fields empty [AL1: valid, TC: empty, PC: empty]', function () {
       element.childs_accommodation_step_26_v5()
     })
-    it('two feilds empty [AL1: empty, TC: valid, PC: empty]', function () {
+    it('two fields empty [AL1: empty, TC: valid, PC: empty]', function () {
       element.childs_accommodation_step_26_v6()
     })
-    it('two feilds empty [AL1: empty, TC: empty, PC: valid]', function () {
+    it('two fields empty [AL1: empty, TC: empty, PC: valid]', function () {
       element.childs_accommodation_step_26_v7()
     })
-    it('one feild valid [AL1: valid, TC: invalid, PC: invalid]', function () {
+    it('one field valid [AL1: valid, TC: invalid, PC: invalid]', function () {
       element.childs_accommodation_step_26_v8()
     })
-    it('one feild valid [AL1: invalid, TC: valid, PC: invalid]', function () {
+    it('one field valid [AL1: invalid, TC: valid, PC: invalid]', function () {
       element.childs_accommodation_step_26_v9()
     })
-    it('one feild valid [AL1: invalid, TC: invalid, PC: valid]', function () {
+    it('one field valid [AL1: invalid, TC: invalid, PC: valid]', function () {
       element.childs_accommodation_step_26_v10()
     })
-    it('two feilds valid [AL1: valid, TC: valid, PC: invalid]', function () {
+    it('two fields valid [AL1: valid, TC: valid, PC: invalid]', function () {
       element.childs_accommodation_step_26_v11()
     })
-    it('two feilds valid [AL1: invalid, TC: valid, PC: valid]', function () {
+    it('two fields valid [AL1: invalid, TC: valid, PC: valid]', function () {
       element.childs_accommodation_step_26_v12()
     })
-    it('two feilds valid [AL1: valid, TC: invalid, PC: valid]', function () {
+    it('two fields valid [AL1: valid, TC: invalid, PC: valid]', function () {
       element.childs_accommodation_step_26_v13()
     })
-    it('all feilds [valid]', function () {
+    it('all fields [valid]', function () {
       element.childs_accommodation_step_26_v14()
     })
   })

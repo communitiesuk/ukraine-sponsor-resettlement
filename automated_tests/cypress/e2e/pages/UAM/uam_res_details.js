@@ -36,7 +36,7 @@ export const residents_details_step_29_v1 = () => {
     dob_err_yes()
     click_continue()
 }
-//two fields empty: 
+//two fields empty:
 export const residents_details_step_29_v2 = () => {
     cy.get(elements.step29_day_err_textbox).type(secrets.day)
     cy.get(elements.step29_month_err_textbox).clear()
@@ -55,7 +55,7 @@ export const residents_details_step_29_v2 = () => {
     click_continue()
     dob_err_yes()
 }
-//one field empty: 
+//one field empty:
 export const residents_details_step_29_v3 = () => {
     cy.get(elements.step29_day_err_textbox).clear()
     cy.get(elements.step29_month_err_textbox).clear().type(secrets.month)
@@ -74,7 +74,7 @@ export const residents_details_step_29_v3 = () => {
     click_continue()
     dob_err_yes()
 }
-//one field valid: 
+//one field valid:
 export const residents_details_step_29_v4 = () => {
     cy.get(elements.step29_day_err_textbox).clear().type(secrets.day)
     cy.get(elements.step29_month_err_textbox).clear().type('x')
@@ -93,7 +93,7 @@ export const residents_details_step_29_v4 = () => {
     click_continue()
     dob_err_yes()
 }
-//two fields valid: 
+//two fields valid:
 export const residents_details_step_29_v5 = () => {
     cy.get(elements.step29_day_err_textbox).clear().type(secrets.day)
     cy.get(elements.step29_month_err_textbox).clear().type(secrets.month)
@@ -129,7 +129,7 @@ export const residents_details_step_29_v6 = (x) => {
     s29_page_heading()
     dob_over16_err_yes()
 }
- //all valid: past date [1 year ago]  
+ //all valid: past date [1 year ago]
 export const residents_details_step_29_v7 = () => {
     cy.get(elements.step29_day_err_textbox).clear().type(day)
     cy.get(elements.step29_month_err_textbox).clear().type(month)
@@ -138,7 +138,7 @@ export const residents_details_step_29_v7 = () => {
     s29_page_heading()
     dob_over16_err_yes()
 }
-//all valid: past date [15 year ago]  
+//all valid: past date [15 year ago]
 export const residents_details_step_29_v8 = () => {
     cy.get(elements.step29_day_err_textbox).clear().type(day)
     cy.get(elements.step29_month_err_textbox).clear().type(month)
@@ -147,7 +147,7 @@ export const residents_details_step_29_v8 = () => {
     s29_page_heading()
     dob_over16_err_yes()
 }
-//all valid: past date [18 year ago]  
+//all valid: past date [18 year ago]
 export const residents_details_step_29_v9 = () => {
     cy.get(elements.step29_day_err_textbox).clear().type(day)
     cy.get(elements.step29_month_err_textbox).clear().type(month)
@@ -155,7 +155,7 @@ export const residents_details_step_29_v9 = () => {
     click_continue()
     cy.get(elements.page_heading).contains('Enter their nationality').should('be.visible')
 }
-//******** Identity Documents ************** Identity Documents ************** Identity Documents ************** Identity Documents ************** 
+//******** Identity Documents ************** Identity Documents ************** Identity Documents ************** Identity Documents **************
 const s31_page_heading = () => {cy.get(elements.page_heading).contains("Do they have any of these identity documents?").should('be.visible')}
 const all_error = () => {
     cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible')
@@ -174,11 +174,18 @@ const ni_error = () => {
     cy.get(elements.step31_ni_label).contains(bt_err.ni_err_lbl).should('be.visible')
     cy.get(elements.step31_ni_err_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
 }
-const refu_error = () => {
+const biom_error = () => {
     cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible')
     cy.get(elements.err_sbox_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
-    cy.get(elements.step31_refu_label).contains(bt_err.refu_err_lbl).should('be.visible')
-    cy.get(elements.step31_refu_err_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
+    cy.get(elements.step31_biom_label).contains(bt_err.biom_err_lbl).should('be.visible')
+    cy.get(elements.step31_biom_err_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
+}
+
+const pdl_error = () => {
+    cy.get(elements.err_summary_title).contains(bt_err.sbox_title_msg).should('be.visible')
+    cy.get(elements.err_sbox_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
+    cy.get(elements.step31_pdl_label).contains(bt_err.pdl_err_lbl).should('be.visible')
+    cy.get(elements.step31_pdl_err_msg).contains(bt_err.id_doc_err_msg).should('be.visible')
 }
 //none selected
 export const residents_details_step_31_v1 = () => {
@@ -218,23 +225,40 @@ export const residents_details_step_31_v3 = () => {
     click_continue()
     ni_error()
 }
-//refugee travel doc 
+//biometric residence
 export const residents_details_step_31_v4 = () => {
-    cy.get(elements.step31_refu_err_radio_btn).click()
+    cy.get(elements.step31_biom_err_radio_btn).click()
     click_continue()
-    refu_error()
-    cy.get(elements.step31_refu_err_textbox).should('be.visible').clear().type('REFU1').wait(Cypress.env('waitTime'))
+    biom_error()
+    cy.get(elements.step31_biom_err_textbox).should('be.visible').clear().type('BIOM1').wait(Cypress.env('waitTime'))
     click_continue()
-    refu_error()
-    cy.get(elements.step31_refu_err_textbox).should('be.visible').clear().type('@@££$$&&**').wait(Cypress.env('waitTime'))
+    biom_error()
+    cy.get(elements.step31_biom_err_textbox).should('be.visible').clear().type('@@££$$&&**').wait(Cypress.env('waitTime'))
     click_continue()
-    refu_error()
-    cy.get(elements.step31_refu_err_textbox).should('be.visible').clear().type('£REFU123').wait(Cypress.env('waitTime'))
+    biom_error()
+    cy.get(elements.step31_biom_err_textbox).should('be.visible').clear().type('£BIOM123').wait(Cypress.env('waitTime'))
     click_continue()
-    refu_error()
+    biom_error()
 }
-//I don't have any of these
+
+//photo driving licence
 export const residents_details_step_31_v5 = () => {
+    cy.get(elements.step31_pdl_err_radio_btn).click()
+    click_continue()
+    pdl_error()
+    cy.get(elements.step31_pdl_err_textbox).should('be.visible').clear().type('PDL1').wait(Cypress.env('waitTime'))
+    click_continue()
+    pdl_error()
+    cy.get(elements.step31_pdl_err_textbox).should('be.visible').clear().type('@@££$$&&**').wait(Cypress.env('waitTime'))
+    click_continue()
+    pdl_error()
+    cy.get(elements.step31_pdl_err_textbox).should('be.visible').clear().type('£PDL123').wait(Cypress.env('waitTime'))
+    click_continue()
+    pdl_error()
+}
+
+//I don't have any of these
+export const residents_details_step_31_v6 = () => {
     cy.get(elements.step31_idha_radio_btn).click()
     click_continue()
     common.uam_tasklist_header()

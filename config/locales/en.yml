@@ -401,15 +401,15 @@ en:
         full_html: Yes, I have read the <a href="https://www.gov.uk/government/publications/homes-for-ukraine-scheme-expressions-of-interest-eois-privacy-notices/homes-for-ukraine-scheme-expressions-of-interest-individuals" target="_blank"> privacy statement </a> and agree that the information I have provided in this form can be used for the Homes for Ukraine scheme
       sponsor_declaration:
         short: sponsor declaration
-        full: I confirm that I am eligible to sponsor a person under 18, who is not travelling with or joining a parent or legal guardian under the Homes for Ukraine Scheme.
+        full: I confirm that I am eligible to sponsor a person under 18, who is not applying for a visa with their parent or legal guardian, or joining them in the UK.
       sponsored_children_age:
         short: Sponsored children age
-        full: Is the child you want to sponsor under 18?
+        full: Is the person you want to sponsor under 18?
         "yes": "Yes"
         "no": "No"
       sponsored_children_living_december:
         short: Sponsored children living december
-        full: Was the child living in Ukraine on or before 31 December 2021?
+        full: Was the child living in Ukraine before 1 January 2022?
         hint: Select 'Yes' even if they were temporarily away at the time.
           Select 'No' if they were born after 31 December 2021.
         "yes": "Yes"
@@ -421,7 +421,7 @@ en:
         "no": "No"
       sponsored_children_legal_guardian_travelling:
         short: Sponsored children legal guardian traveling
-        full: Are they travelling to the UK with a parent or legal guardian?
+        full: Are they applying for a visa under the Homes for Ukraine Scheme with their parent or legal guardian, or to join them in the UK?
         hint: This excludes travelling with another relative, such as a grandmother, aunt or uncle who is not their legal guardian.
         "yes": "Yes"
         "no": "No"
@@ -438,14 +438,14 @@ en:
         "no": "No"
       sponsor_right_to_live_in_uk:
         short: Sponsor right to live in the UK
-        full: Do you have permission to live in the UK for the minimum period?
-        hint_html: You will need permission to live in the UK for at least <ul><li>3 years</li></ul> OR <ul><li>Until the child turns 18 and you have hosted them for at least 6 months</li></ul>
+        full: Do you have permission to live permanently in the UK?
+        hint_html: To sponsor someone under the Homes for Ukraine Scheme, you must be a British or Irish Citizen or have settled status in the UK (which means having the right to live in the UK permanently).
         "yes": "Yes"
         "no": "No"
       sponsor_commitment:
         short: Sponsor commitment
         full: Can you commit to hosting the child for the minimum period?
-        hint_html: You must commit to hosting the child in the UK for at least<ul><li>3 years</li></ul> OR <ul><li>Until the child turns 18 and you have hosted them for at least 6 months</li>
+        hint_html: You must commit to hosting the child in the UK for at least<ul><li>18 months</li></ul> OR <ul><li>Until the child turns 18 and you have hosted them for at least 6 months</li>
         "yes": "Yes"
         "no": "No"
       eligibility_completed:
@@ -476,6 +476,10 @@ en:
       identity_documents:
         short: Sponsor identity documents
         full: Do you have any of these identity documents?
+        hint_html: <p>See the <a href=https://www.gov.uk/government/publications/homes-for-ukraine-sponsorship-scheme-caseworker-guidance target=_blank>Homes for Ukraine caseworker guidance</a> for more information.</p><p>To sponsor someone under the Homes for Ukraine Scheme, you must be a British or Irish Citizen, or have settled status in the UK (which means having the right to live in the UK permanently).</p>
+      driving_licence:
+        short: Photo driving licence
+        hint: Your photo driving licence must be issued by the UK, Ireland, or the Crown Dependencies and you must also provide your UK, Crown Dependency or Irish birth or adoption certificate (if you were born before 1 January 1983) with matching biographical details.
       no_identity_documents:
         short: Sponsor no official identity documents
         full: Can you prove your identity?
@@ -601,7 +605,7 @@ en:
       long_html: |
         <p class="govuk-body">You (the sponsor) will need to get permission from your local council to host the child, before they can submit their visa application to come to the UK.</p>
 
-        <p class="govuk-body">You can apply for this approval online. Your local council will then perform a series of security checks, which include contacting you and the child's parents or guardian.</p>
+        <p class="govuk-body">You can apply for this approval online. Your local council will then perform security checks, which include contacting you and the child's parents or legal guardian.</p>
 
         <p class="govuk-body">You will need to upload both parental consent forms described in step 1.</p>
 

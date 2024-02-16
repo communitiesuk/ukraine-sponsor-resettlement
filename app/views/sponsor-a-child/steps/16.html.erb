@@ -12,16 +12,31 @@
 
       <h1 class="govuk-heading-l"><%= t('identity_documents.full', scope: "unaccompanied_minor.questions")%></h1>
 
+        <details class="govuk-details" data-module="govuk-details">
+          <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text">
+                Read more about identity documents
+              </span>
+          </summary>
+          <div class="govuk-details__text">
+            <%= t('identity_documents.hint_html', scope: "unaccompanied_minor.questions") %>
+          </div>
+        </details>
+
       <%= f.govuk_radio_buttons_fieldset :identification_type, legend: { text: "", hidden: true } do %>
 
-        <%= f.govuk_radio_button :identification_type, :passport, label: { text: "Passport" } do %>
+        <%= f.govuk_radio_button :identification_type, :passport, label: { text: "Passport" }, link_errors: true do %>
             <%= f.govuk_text_field :passport_identification_number, label: { text: "Passport number" }, type: "text", inputmode: "text" %>
         <% end %>
-        <%= f.govuk_radio_button :identification_type, :national_identity_card, label: { text: "National identity card" } do %>
-            <%= f.govuk_text_field :id_identification_number, label: { text: "National identity card number"  }, type: "text" , inputmode: "numeric" %>
+        <%= f.govuk_radio_button :identification_type, :national_identity_card, label: { text: "National Identity Card" } do %>
+            <%= f.govuk_text_field :id_identification_number, label: { text: "National Identity Card number"  }, type: "text" , inputmode: "numeric" %>
         <% end %>
-        <%= f.govuk_radio_button :identification_type, :refugee_travel_document, label: { text: "Refugee travel document" } do %>
-            <%= f.govuk_text_field :refugee_identification_number, label: { text: "Refugee travel document number"  }, type: "text" , inputmode: "numeric" %>
+        <%= f.govuk_radio_button :identification_type, :biometric_residence, label: { text: "Biometric Residence Permit or Biometric Residence Card" } do %>
+            <%= f.govuk_text_field :biometric_residence_identification_number, label: { text: "Biometric Residence Permit number or Biometric Residence Card number"  }, type: "text" , inputmode: "numeric" %>
+        <% end %>
+        <%= f.govuk_radio_button :identification_type, :photo_driving_licence, label: { text: "Photo driving licence" } do %>
+          <%= f.govuk_text_field :photo_driving_licence_identification_number,  type: "text" ,
+           hint: { text: t('driving_licence.hint', scope: "unaccompanied_minor.questions") }, label: { text: "Photo driving licence number" }, inputmode: "text" %>
         <% end %>
         <%= f.govuk_check_box_divider %>
         <%= f.govuk_radio_button :identification_type, :none, label: { text: "I don't have any of these" } %>
@@ -31,7 +46,7 @@
         <%= f.govuk_submit t('continue') %>
         <a class="govuk-link" href="/sponsor-a-child/save-and-return">Save and return later</a>
       </div>
-    
+
     <% end %>
   </div>
 </div>

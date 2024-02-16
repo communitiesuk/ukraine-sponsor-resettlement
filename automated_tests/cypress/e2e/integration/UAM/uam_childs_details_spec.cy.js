@@ -15,7 +15,7 @@ describe('[Frontend-UI]: UAM CHILDS DETAILS', function () {
     })
   })
   context('[Child’s Details] Childs Name Validation Errors', function () {
-    it('both feilds empty [GN: empty, FN: empty]', function () {
+    it('both fields empty [GN: empty, FN: empty]', function () {
       element.childs_details_step_32_v1()
     })
     it('one field empty [GN: valid, FN: empty]', function () {
@@ -38,7 +38,7 @@ describe('[Frontend-UI]: UAM CHILDS DETAILS', function () {
     })
   })
   context('[Child’s Details] Childs Email Validation Errors', function () {
-    it('both feilds empty [GN: empty, FN: empty]', function () {
+    it('both fields empty [GN: empty, FN: empty]', function () {
       element.childs_details_step_33_v1()
     })
     it('one field valid:[email: valid, cf-email: empty]', function () {

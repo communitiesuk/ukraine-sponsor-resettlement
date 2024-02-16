@@ -54,8 +54,8 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
       navigate_to_id_document_entry
 
       invalid_id_entries.each do |line|
-        choose("National identity card")
-        fill_in("National identity card", with: line)
+        choose("National Identity Card")
+        fill_in("National Identity Card number", with: line)
         click_button("Continue")
 
         expect(page).to have_content(invalid_id_number), "Failed value:#{line.inspect}"
@@ -65,30 +65,52 @@ RSpec.describe "Unaccompanied minor sponsor other adults", type: :system do
     it "goes to task list when the national id card entry is valid" do
       navigate_to_id_document_entry
 
-      choose("National identity card")
-      fill_in("National identity card", with: valid_document_id)
+      choose("National Identity Card")
+      fill_in("National Identity Card number", with: valid_document_id)
       click_button("Continue")
 
       expect(page).to have_content(task_list_content)
     end
 
-    it "shows an error when the Refugee travel document entry is not valid" do
+    it "shows an error when the biometric residence permit or biometric residence card entry is not valid" do
       navigate_to_id_document_entry
 
       invalid_id_entries.each do |line|
-        choose("Refugee travel document")
-        fill_in("National identity card", with: line)
+        choose("Biometric Residence Permit or Biometric Residence Card")
+        fill_in("Biometric Residence Permit number or Biometric Residence Card number", with: line)
         click_button("Continue")
 
         expect(page).to have_content(invalid_id_number), "Failed value:#{line.inspect}"
       end
     end
 
-    it "goes to task list when the Refugee travel document entry is valid" do
+    it "goes to task list when the biometric residence entry is valid" do
       navigate_to_id_document_entry
 
-      choose("Refugee travel document")
-      fill_in("Refugee travel document", with: valid_document_id)
+      choose("Biometric Residence Permit or Biometric Residence Card")
+      fill_in("Biometric Residence Permit number or Biometric Residence Card number", with: valid_document_id)
+      click_button("Continue")
+
+      expect(page).to have_content(task_list_content)
+    end
+
+    it "shows an error when the photo driving licence entry is not valid" do
+      navigate_to_id_document_entry
+
+      invalid_id_entries.each do |line|
+        choose("Photo driving licence")
+        fill_in("Photo driving licence number", with: line)
+        click_button("Continue")
+
+        expect(page).to have_content(invalid_id_number), "Failed value:#{line.inspect}"
+      end
+    end
+
+    it "goes to task list when the photo driving licence entry is valid" do
+      navigate_to_id_document_entry
+
+      choose("Photo driving licence")
+      fill_in("Photo driving licence number", with: valid_document_id)
       click_button("Continue")
 
       expect(page).to have_content(task_list_content)
