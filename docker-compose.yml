@@ -5,29 +5,11 @@ services:
     image: postgres:13.5-alpine
     restart: always
     environment:
-      - POSTGRES_DB=${DB_DATABASE}
-      - POSTGRES_USER=${DB_USERNAME}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=ukraine_test
+      - POSTGRES_USER=ukraine
+      - POSTGRES_PASSWORD=password
     ports:
-      - "127.0.0.1:5432:5432"
-
-  app:
-    image: ukraine-sponsor-resettlement
-    pull_policy: never
-    depends_on:
-      - pg
-      - redis
-      - sidekiq
-      - s3
-    environment:
-      # Rails will use existing .env.development file
-      RAILS_ENV: development
-    ports:
-      - "127.0.0.1:8080:8080"
-    command: >
-      sh -c "RAILS_ENV=${RAILS_ENV} rm -f /app/tmp/pids/server.pid &&
-             bundle exec rake db:migrate &&
-             bundle exec rails s -e ${RAILS_ENV} -p 8080 --binding=0.0.0.0"
+      - "5432:5432"
 
   test:
     image: ukraine-sponsor-resettlement
@@ -65,11 +47,11 @@ services:
     environment:
       - PERSISTENCE=1
     ports:
-      - "127.0.0.1:4566:4566"
+      - "4566:4566"
     volumes:
       - "./bin/init-s3-localstack.py:/etc/localstack/init/ready.d/init-s3.py"
 
   mock-api:
     build: http-mock-server
     ports:
-      - "127.0.0.1:8081:8081"
+      - "8081:8081"
