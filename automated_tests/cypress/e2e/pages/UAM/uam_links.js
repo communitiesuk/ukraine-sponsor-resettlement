@@ -128,7 +128,7 @@ export const uam_cannot_uts_spon_alknow = () => {
   cy.visit('/sponsor-a-child/non-eligible')
   cannot_uts_heading()
   cy.xpath(elements.spon_alknow_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-  cy.get(elements.main_heading).contains('Apply for a visa under the Ukraine Sponsorship Scheme (Homes for Ukraine)').should('be.visible')
+  cy.get(elements.main_heading).contains('Apply for a visa under the Homes for Ukraine Sponsorship Scheme').should('be.visible')
   cy.url().should('include', link8).should('exist')
   cy.go('back')
 }
