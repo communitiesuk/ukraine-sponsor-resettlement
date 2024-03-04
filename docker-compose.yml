@@ -49,9 +49,10 @@ services:
     environment:
       - PERSISTENCE=1
     ports:
-      - "4566:4566"
+      - "127.0.0.1:4566:4566"
     volumes:
       - "./bin/init-s3-localstack.py:/etc/localstack/init/ready.d/init-s3.py"
+      - "/var/run/docker.sock:/var/run/docker.sock"
 
   mock-api:
     build: http-mock-server

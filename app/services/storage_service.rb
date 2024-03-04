@@ -49,9 +49,10 @@ private
   end
 
   def create_client
-    if Rails.env.test?
+    if Rails.env.development? || Rails.env.test?
       Aws::S3::Client.new(
-        endpoint: "http://localhost:4566",
+        endpoint: "http://127.0.0.1:4566",
+        region: @configuration.region,
         credentials: Aws::Credentials.new(
           @configuration.access_key_id,
           @configuration.secret_access_key,

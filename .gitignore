@@ -85,3 +85,6 @@ yarn-debug.log*
 
 # Ignore Vscode Settings
 data/startup_info.json
+
+# Key File
+/volume/cache/*
