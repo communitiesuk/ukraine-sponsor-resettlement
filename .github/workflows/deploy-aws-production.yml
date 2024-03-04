@@ -10,10 +10,6 @@
 name: Deploy to Amazon ECS PRODUCTION
 
 on:
-  # pull_request:
-  # push:
-  #   branches:
-  #     - master
   workflow_dispatch:
     inputs:
       refToDeploy:
@@ -37,149 +33,10 @@ env:
     # containerDefinitions section of your task definition
 
 jobs:
-  # test:
-  #   name: Test
-  #   runs-on: ubuntu-latest
-
-  #   services:
-  #     postgres:
-  #       image: postgres:13.5
-  #       env:
-  #         POSTGRES_PASSWORD: password
-  #         POSTGRES_USER: ukraine
-  #         POSTGRES_DB: ukraine
-  #       ports:
-  #         - 5432:5432
-  #       # needed because the postgres container does not provide a healthcheck
-  #       # tmpfs makes DB faster by using RAM
-  #       options: >-
-  #         --mount type=tmpfs,destination=/var/lib/postgresql/data
-  #         --health-cmd pg_isready
-  #         --health-interval 10s
-  #         --health-timeout 5s
-  #         --health-retries 5
-  #     redis:
-  #       # Docker Hub image
-  #       image: redis
-  #       # Set health checks to wait until redis has started
-  #       options: >-
-  #         --health-cmd "redis-cli ping"
-  #         --health-interval 10s
-  #         --health-timeout 5s
-  #         --health-retries 5
-
-  #   env:
-  #     RAILS_ENV: test
-  #     INSTANCE_NAME: ukraine-sponsor-resettlement-test
-  #     VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-test-redis","credentials":{"uri":"redis://redis"}}],"aws-s3-bucket":[{"instance_name":"ukraine-sponsor-resettlement-test-s3","credentials":{"aws_access_key_id":"access-key-id","aws_secret_access_key":"secret-access-key","aws_region":"eu-west-2","bucket_name":"test-bucket"}}]}'
-  #     GEMFILE_RUBY_VERSION: 3.1.2
-  #     DB_HOST: localhost
-  #     DB_DATABASE: ukraine
-  #     DB_USERNAME: ukraine
-  #     DB_PASSWORD: password
-  #     GOVUK_NOTIFY_API_KEY: ${{ secrets.GOVUK_NOTIFY_API_KEY }}
-
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
-  #       with:
-  #         ref: ${{ inputs.refToDeploy }}
-
-  #     - name: Set up Ruby
-  #       uses: ruby/setup-ruby@v1
-  #       with:
-  #         # runs 'bundle install' and caches installed gems automatically
-  #         bundler-cache: true
-  #     - name: Set up node
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: "20"
-
-  #     - name: Create DB
-  #       run: |
-  #         bundle exec rake db:prepare
-  #     - name: Migrate DB
-  #       run: |
-  #         bundle exec rake db:migrate
-  #     - name: Compile Assets
-  #       run: |
-  #         bundle exec rake assets:precompile
-  #     - name: Run tests
-  #       run: |
-  #         bundle exec rake
-  #   #- name: Test coverage
-  #   #    uses: joshmfrankel/simplecov-check-action@main
-  #   #    with:
-  #   #      github_token: ${{ secrets.GITHUB_TOKEN }}
-  #   #      minimum_suite_coverage: 70
-  #   #      minimum_file_coverage: 0
-
-  # lint:
-  #   name: Lint
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
-  #       with:
-  #         ref: ${{ inputs.refToDeploy }}
-
-  #     - name: Set up Ruby
-  #       uses: ruby/setup-ruby@v1
-  #       with:
-  #         # runs 'bundle install' and caches installed gems automatically
-  #         bundler-cache: true
-
-  #     - name: Rubocop
-  #       run: |
-  #         bundle exec rubocop
-
-  # audit:
-  #   name: Audit dependencies
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
-  #       with:
-  #         ref: ${{ inputs.refToDeploy }}
-
-  #     - name: Set up Ruby
-  #       uses: ruby/setup-ruby@v1
-  #       with:
-  #         # runs 'bundle install' and caches installed gems automatically
-  #         bundler-cache: true
-
-  #     - name: Audit
-  #       run: |
-  #         bundle exec bundler-audit
-
-  # brakeman-scan:
-  #   name: Brakeman Scan
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     # Checkout the repository to the GitHub Actions runner
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
-  #       with:
-  #         ref: ${{ inputs.refToDeploy }}
-
-  #     # Customize the ruby version depending on your needs
-  #     - name: Setup Ruby
-  #       uses: ruby/setup-ruby@v1
-
-  #     - name: Setup Brakeman
-  #       run: |
-  #         gem install brakeman
-
-  #     # Execute Brakeman CLI and generate a SARIF output with the security issues identified during the analysis
-  #     - name: Scan
-  #       run: |
-  #         brakeman --color -o /dev/stdout
-
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
     environment: aws-production
-    # needs: [lint, test, audit, brakeman-scan]
 
     steps:
       - name: Checkout
@@ -206,7 +63,7 @@ jobs:
           # Build a docker container and
           # push it to ECR so that it can
           # be deployed to ECS.
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f Dockerfile-prod .
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f Dockerfile .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 

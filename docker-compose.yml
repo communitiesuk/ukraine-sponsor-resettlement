@@ -1,111 +1,59 @@
-version: "3.3"
+version: "3.7"
 
 services:
   pg:
     image: postgres:13.5-alpine
     restart: always
     environment:
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: ukraine
-      POSTGRES_USER: ukraine
+      - POSTGRES_DB=ukraine_test
+      - POSTGRES_USER=ukraine
+      - POSTGRES_PASSWORD=password
     ports:
-      - 5432:5432
+      - "5432:5432"
 
-  app:
-    build:
-      dockerfile: Dockerfile-dev
-      context: .
-      target: devbuild
+  test:
+    image: ukraine-sponsor-resettlement
+    pull_policy: never
     depends_on:
       - pg
       - redis
       - sidekiq
       - s3
-    volumes:
-      - .:/app:cached # For development, the app dir is a bind mount to the dir on the host
+    profiles: ["test"]
     environment:
-      RAILS_ENV: development
-      INSTANCE_NAME: ukraine-sponsor-resettlement-development
-      DB_HOST: pg
-      DB_DATABASE: ukraine
-      DB_USERNAME: ukraine
-      DB_PASSWORD: password
-      VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-development-redis","credentials":{"uri":"redis://redis"}}],"aws-s3-bucket":[{"instance_name":"ukraine-sponsor-resettlement-development-s3","credentials":{"aws_access_key_id":"access-key-id","aws_secret_access_key":"secret-access-key","aws_region":"eu-west-2","bucket_name":"upload-bucket"}}]}'
-      BASIC_AUTH_PASS: password
-      UAM_GA4_TRACKING_CODE: "G-ZT5Q8BV3ZK"
-      EOI_GA4_TRACKING_CODE: "G-W9KQ85GQM4"
-
-    ports:
-      - 8080:8080
-
-  test:
-    build:
-      dockerfile: Dockerfile-dev
-      context: .
-      target: testingbuild # For running the tests the app files are copied into the container because running them from a bind mount is too slow
-    depends_on:
-      - pg
-      - redis
-      - s3
-    environment:
+      # Rails will use existing .env.test file
       RAILS_ENV: test
-      INSTANCE_NAME: ukraine-sponsor-resettlement-test
-      DB_HOST: pg
-      DB_USERNAME: ukraine
-      DB_DATABASE: ukraine_test
-      DB_PASSWORD: password
-      VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-test-redis","credentials":{"uri":"redis://redis"}}],"aws-s3-bucket":[{"instance_name":"ukraine-sponsor-resettlement-test-s3","credentials":{"aws_access_key_id":"access-key-id","aws_secret_access_key":"secret-access-key","aws_region":"eu-west-2","bucket_name":"test-bucket"}}]}'
-      REMOTE_API_URL: http://mock-api:8081/data
-      GOVUK_NOTIFY_API_KEY: ${GOVUK_NOTIFY_API_KEY}
-
     command: bin/test.sh
 
   sidekiq:
-    build:
-      dockerfile: Dockerfile-dev
-      context: .
-      target: devbuild
+    build: .
+    image: ukraine-sponsor-resettlement
+    pull_policy: never
     depends_on:
       - pg
       - redis
       - mock-api
-    volumes:
-      - .:/app
     environment:
-      RAILS_ENV: test
-      DB_HOST: pg
-      DB_DATABASE: ukraine
-      DB_USERNAME: ukraine
-      DB_PASSWORD: password
-      VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-test-redis","credentials":{"uri":"redis://redis"}}],"aws-s3-bucket":[{"instance_name":"ukraine-sponsor-resettlement-test-s3","credentials":{"aws_access_key_id":"access-key-id","aws_secret_access_key":"secret-access-key","aws_region":"eu-west-2","bucket_name":"test-bucket"}}]}'
-      REMOTE_API_URL: http://mock-api:8081/data
-      INDIVIDUAL_CONFIRMATION_TEMPLATE_ID: "6c80930d-e25a-4dc6-8383-bb83a2c18d19"
-      ORGANISATION_CONFIRMATION_TEMPLATE_ID: "3ae2501f-e2be-4ad6-886b-fcf5aa71d448"
-      ADDITIONAL_INFO_CONFIRMATION_TEMPLATE_ID: "5b79f75e-fff3-4585-a438-d59966b86dd9"
-      SPONSOR_CONFIRMATION_TEMPLATE_ID: "f2a29524-be50-4fc5-9088-35daf4c66c43"
-      SAVE_AND_RETURN_TEMPLATE_ID: "856b0664-1f96-463c-8acd-c4ef782cdcad"
-      GOVUK_NOTIFY_API_KEY: ${GOVUK_NOTIFY_API_KEY}
+      # Rails will use existing .env.development file
+      RAILS_ENV: development
     command: bundle exec sidekiq
 
   redis:
     image: redis
+    ports:
+      - "6379:6379"
 
   s3:
-    image: localstack/localstack:latest
+    image: localstack/localstack:s3-latest
     container_name: localstack-s3
     environment:
-      - SERVICES=s3:5002
-      - DEFAULT_REGION=eu-west-2
-      - DATA_DIR=/tmp/localstack/data
+      - PERSISTENCE=1
     ports:
-      - 5002:5002
-      - 9999:8080
+      - "4566:4566"
     volumes:
-      - .:/tmp/localstack
+      - "./bin/init-s3-localstack.py:/etc/localstack/init/ready.d/init-s3.py"
 
   mock-api:
-    build:
-      dockerfile: Dockerfile
-      context: http-mock-server
+    build: http-mock-server
     ports:
-      - 8081:8081
+      - "8081:8081"

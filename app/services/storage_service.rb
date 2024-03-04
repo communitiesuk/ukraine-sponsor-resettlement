@@ -1,29 +1,21 @@
 class StorageService
   attr_reader :configuration
 
-  def initialize(paas_config_service, paas_instance_name)
-    @paas_config_service = paas_config_service
-    @paas_instance_name = ("#{paas_instance_name}-s3" || "").to_sym
+  def initialize(config_service, instance_name)
+    @config_service = config_service
+    @instance_name = "#{instance_name}-s3".to_sym
     @configuration = create_configuration
     @client = create_client
   end
 
   def write_file(file_name, data)
-    # rubocop:disable Style/RedundantBegin
-    # rubocop:disable Style/RescueStandardError
-    begin
-      @client.put_object(
-        body: data,
-        bucket: @configuration.bucket_name,
-        key: file_name,
-      )
-    rescue
-      # Do nothing for now!
-      # TODO remove try...catch
-      Rails.logger.debug "Could NOT upload file!"
-    end
-    # rubocop:enable Style/RedundantBegin
-    # rubocop:enable Style/RescueStandardError
+    @client.put_object(
+      body: data,
+      bucket: @configuration.bucket_name,
+      key: file_name,
+    )
+  rescue StandardError => e
+    Rails.logger.error "Could not upload file #{file_name}, #{e.message}"
   end
 
   def download(object_key)
@@ -45,25 +37,36 @@ class StorageService
 private
 
   def create_configuration
-    unless @paas_config_service.config_present?
+    unless @config_service.config_present?
       raise "No PaaS configuration present"
     end
-    unless @paas_config_service.s3_buckets.key?(@paas_instance_name)
-      raise "#{@paas_instance_name} instance name could not be found"
+    unless @config_service.s3_buckets.key?(@instance_name)
+      raise "#{@instance_name} instance name could not be found"
     end
 
-    bucket_config = @paas_config_service.s3_buckets[@paas_instance_name]
+    bucket_config = @config_service.s3_buckets[@instance_name]
     StorageConfiguration.new(bucket_config[:credentials])
   end
 
   def create_client
-    Aws::S3::Client.new(
-      region: @configuration.region,
-      credentials: Aws::Credentials.new(
-        @configuration.access_key_id,
-        @configuration.secret_access_key,
-      ),
-    )
+    if Rails.env.test?
+      Aws::S3::Client.new(
+        endpoint: "http://localhost:4566",
+        credentials: Aws::Credentials.new(
+          @configuration.access_key_id,
+          @configuration.secret_access_key,
+        ),
+        force_path_style: true,
+      )
+    else
+      Aws::S3::Client.new(
+        region: @configuration.region,
+        credentials: Aws::Credentials.new(
+          @configuration.access_key_id,
+          @configuration.secret_access_key,
+        ),
+      )
+    end
   end
 end
 
