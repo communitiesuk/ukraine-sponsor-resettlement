@@ -99,6 +99,15 @@ jobs:
       - name: Compile Assets
         run: |
           bundle exec rake assets:precompile
+      - name: Run localstack
+        run: |
+          docker run -d\
+            --rm \
+            -p 4566:4566 \
+            -v "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack" \
+            -v "/var/run/docker.sock:/var/run/docker.sock" \
+            -v "./bin/init-s3-localstack.py:/etc/localstack/init/ready.d/init-s3.py" \
+            localstack/localstack:s3-latest
       - name: Run tests
         run: |
           bundle exec rake
