@@ -37,6 +37,7 @@ services:
       # Rails will use existing .env.development file
       RAILS_ENV: development
       REDIS_URL: redis://redis
+      DB_HOST: pg
     command: bundle exec sidekiq
 
   redis:
