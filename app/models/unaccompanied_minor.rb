@@ -233,7 +233,7 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
   def is_submitted?
-    transferred_at.present?
+    self.transferred_at.present?
   end
 
   def sponsor_full_name?
@@ -387,7 +387,7 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
   def prepare_transfer
-    @transferred_at = Time.zone.now
+    self.transferred_at = Time.zone.now
     save!(validate: false)
 
     UnaccompaniedMinorTransferAdapter.to_json(as_json)

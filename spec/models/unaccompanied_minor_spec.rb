@@ -675,4 +675,21 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.as_json[:reference]).to start_with("SPON-")
     end
   end
+
+  describe "transferred_at value" do
+    it "is equal to null before calling prepare_transfer" do
+      app = described_class.new
+      expect(app.transferred_at).to eq(nil)
+      expect(app.is_submitted?).to eq(false)
+    end
+
+    it "is not equal to null after calling prepare_transfer" do
+      app = described_class.new
+      app.prepare_transfer
+      expect(app.transferred_at).not_to be(nil)
+      expect(app.is_submitted?).to eq(true)
+    end
+
+
+  end
 end
