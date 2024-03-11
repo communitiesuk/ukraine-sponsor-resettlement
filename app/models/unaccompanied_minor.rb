@@ -387,6 +387,7 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
   def prepare_transfer
+    self.fullname = "#{given_name} #{family_name}"
     self.transferred_at = Time.zone.now
     save!(validate: false)
 
