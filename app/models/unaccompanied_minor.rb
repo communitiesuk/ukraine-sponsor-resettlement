@@ -233,7 +233,7 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
   def is_submitted?
-    self.transferred_at.present?
+    transferred_at.present?
   end
 
   def sponsor_full_name?
