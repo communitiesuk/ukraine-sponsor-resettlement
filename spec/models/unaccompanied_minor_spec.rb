@@ -677,19 +677,41 @@ RSpec.describe UnaccompaniedMinor, type: :model do
   end
 
   describe "transferred_at value" do
-    it "is equal to null before calling prepare_transfer" do
-      app = described_class.new
-      expect(app.transferred_at).to eq(nil)
-      expect(app.is_submitted?).to eq(false)
+    app = described_class.new(given_name: "John", "family_name": "Doe")
+
+    context "when prepare_transfer hasn't been called" do
+      it "has transferred_at equal to nil" do
+        expect(app.transferred_at).to be_nil
+      end
+
+      it "has full_name equal to be nil" do
+        expect(app.full_name).to be_nil
+      end
+
+      it "is not submitted" do
+        expect(app.is_submitted?).to eq(false)
+      end
     end
 
-    it "is not equal to null after calling prepare_transfer" do
-      app = described_class.new
-      app.prepare_transfer
-      expect(app.transferred_at).not_to be(nil)
-      expect(app.is_submitted?).to eq(true)
+    context "when calling prepare_transfer" do
+      before { app.prepare_transfer }
+
+      it "sets transferred_at to current time" do
+        expect(app.transferred_at).not_to be_nil
+        expect(app.transferred_at).to be_within(1.second).of(Time.zone.now)
+      end
+
+      it "sets full_name" do
+        expect(app.full_name).to eq("John Doe")
+      end
+
+      it "is submittted" do
+        expect(app.is_submitted?).to eq(true)
+      end
+
+      it "returns JSON of the application" do
+        expect(JSON.parse(app.prepare_transfer)).to include("fullname" => "John Doe")
+      end
     end
-
-
   end
 end
