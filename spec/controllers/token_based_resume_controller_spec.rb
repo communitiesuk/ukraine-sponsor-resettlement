@@ -41,6 +41,45 @@ RSpec.describe TokenBasedResumeController, type: :controller do
     end
   end
 
+  describe "User session times out before creating an account" do
+
+    given_name = "".freeze
+    email = nil
+
+    uam = UnaccompaniedMinor.new
+    uam.save!
+
+    uuid = "test-uuid".freeze
+    magic_link = "http://test.host/sponsor-a-child/resume-application?uuid=#{uuid}".freeze
+
+    let(:unaccompanied_minor) { instance_double("UnaccompaniedMinor") }
+    let(:message_delivery) { instance_double("ActionMailer::MessageDelivery") }
+
+    before do
+      allow(SecureRandom).to receive(:uuid).and_return(uuid)
+      allow(GovNotifyMailer).to receive(:send_save_and_return_email).and_return(message_delivery)
+      allow(message_delivery).to receive(:deliver_later)
+      allow(UnaccompaniedMinor).to receive(:find_by_reference).and_return(uam)
+    end
+
+    it "dosn't call the emailer" do
+      get :session_expired
+
+      expect(GovNotifyMailer).not_to have_received(:send_save_and_return_email).with(given_name, magic_link, email)
+      expect(response).to render_template("token-based-resume/session_expired")
+    end
+
+    it "Rails logger receives a message" do
+      allow(Rails.logger).to receive(:info)
+
+      get :session_expired
+
+      expect(Rails.logger).to have_received(:info).with("User hasn't created any account yet and the session has timed out due to inactivity.")
+    end
+  
+
+  end
+
   describe "User tries to resume their application after email sent" do
     given_name = "First".freeze
     email = "test@example.com".freeze

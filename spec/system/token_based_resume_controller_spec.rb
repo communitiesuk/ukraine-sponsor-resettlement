@@ -1,6 +1,23 @@
 require "rails_helper"
 
 RSpec.describe TokenBasedResumeController, type: :system do
+
+  describe "User hasn't created an account and has been timed out" do
+    let(:email) { nil }
+
+    it "shows time out page if user refresh time out page" do
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
+
+      page.set_rack_session(app_reference: new_application.reference)
+
+      visit "/sponsor-a-child/session-expired"
+      visit current_path
+
+      expect(page).to have_content("Your session has timed out due to inactivity")
+    end
+  end
+
   let(:texter) { instance_double("Notifications::Client") }
   let(:application_token) { instance_double("ApplicationToken") }
   let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine" }
