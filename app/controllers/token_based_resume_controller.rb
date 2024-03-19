@@ -5,7 +5,14 @@ class TokenBasedResumeController < ApplicationController
   add_flash_types :error
 
   def session_expired
-    send_email
+    @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
+
+    if @application && @application.email.present?
+      send_email
+    else
+      Rails.logger.info "User hasn't created any account yet and the session has timed out due to inactivity."
+    end
+
     reset_session
     render "token-based-resume/session_expired"
   end

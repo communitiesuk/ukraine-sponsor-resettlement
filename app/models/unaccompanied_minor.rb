@@ -387,7 +387,8 @@ class UnaccompaniedMinor < ApplicationRecord
   end
 
   def prepare_transfer
-    @transferred_at = Time.zone.now
+    self.fullname = "#{given_name} #{family_name}"
+    self.transferred_at = Time.zone.now
     save!(validate: false)
 
     UnaccompaniedMinorTransferAdapter.to_json(as_json)
