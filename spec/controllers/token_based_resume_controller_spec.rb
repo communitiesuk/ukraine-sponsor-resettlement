@@ -42,7 +42,6 @@ RSpec.describe TokenBasedResumeController, type: :controller do
   end
 
   describe "User session times out before creating an account" do
-
     given_name = "".freeze
     email = nil
 
@@ -76,8 +75,6 @@ RSpec.describe TokenBasedResumeController, type: :controller do
 
       expect(Rails.logger).to have_received(:info).with("User hasn't created any account yet and the session has timed out due to inactivity.")
     end
-  
-
   end
 
   describe "User tries to resume their application after email sent" do

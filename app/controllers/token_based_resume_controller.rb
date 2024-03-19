@@ -6,8 +6,8 @@ class TokenBasedResumeController < ApplicationController
 
   def session_expired
     @application = UnaccompaniedMinor.find_by_reference(session[:app_reference])
-    
-    if @application && !@application.email.blank?
+
+    if @application && @application.email.present?
       send_email
     else
       Rails.logger.info "User hasn't created any account yet and the session has timed out due to inactivity."

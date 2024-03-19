@@ -1,6 +1,24 @@
 require "rails_helper"
 
 RSpec.describe TokenBasedResumeController, type: :system do
+  let(:spencer_scrambled) { "s**************@example.com" }
+  let(:email_scrambled) { "t***@example.com" }
+  let(:email) { "test@example.com" }
+  let(:uam) { UnaccompaniedMinor.new }
+  let(:expiry_time) { Time.zone.now.utc + 1.hour }
+  let(:magic_id) { "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc" }
+  let(:created_at) { Time.zone.now.utc }
+  let(:already_expired) { Time.zone.now.utc - 1.hour }
+  let(:sms_code) { 123_456 }
+  let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine" }
+  let(:application_token) { instance_double("ApplicationToken") }
+  let(:texter) { instance_double("Notifications::Client") }
+
+  before do
+    driven_by(:rack_test_user_agent)
+    allow(Notifications::Client).to receive(:new).and_return(texter)
+    allow(texter).to receive(:send_sms)
+  end
 
   describe "User hasn't created an account and has been timed out" do
     let(:email) { nil }
@@ -16,25 +34,6 @@ RSpec.describe TokenBasedResumeController, type: :system do
 
       expect(page).to have_content("Your session has timed out due to inactivity")
     end
-  end
-
-  let(:texter) { instance_double("Notifications::Client") }
-  let(:application_token) { instance_double("ApplicationToken") }
-  let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine" }
-  let(:sms_code) { 123_456 }
-  let(:already_expired) { Time.zone.now.utc - 1.hour }
-  let(:created_at) { Time.zone.now.utc }
-  let(:magic_id) { "e5c4fe58-a8ca-4e6f-aaa6-7e0a381eb3dc" }
-  let(:expiry_time) { Time.zone.now.utc + 1.hour }
-  let(:uam) { UnaccompaniedMinor.new }
-  let(:email) { "test@example.com" }
-  let(:email_scrambled) { "t***@example.com" }
-  let(:spencer_scrambled) { "s**************@example.com" }
-
-  before do
-    driven_by(:rack_test_user_agent)
-    allow(Notifications::Client).to receive(:new).and_return(texter)
-    allow(texter).to receive(:send_sms)
   end
 
   describe "User has been timed out" do
