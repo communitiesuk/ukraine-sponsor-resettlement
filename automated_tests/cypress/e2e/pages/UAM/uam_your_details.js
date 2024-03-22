@@ -509,7 +509,7 @@ export const your_details_ad_details_id_step_16_v1 = () => {
 }
 //passport [min requirement 1 character]
 export const your_details_ad_details_id_step_16_v2 = () => {
-    cy.get(elements.step16_pp_radio_btn).click()
+    cy.get(elements.step16_pp_err_radio_btn).click()
     click_continue()
     pp_error()
 }

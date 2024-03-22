@@ -40,9 +40,9 @@ jobs:
       postgres:
         image: postgres:13.5
         env:
-          POSTGRES_PASSWORD: password
+          POSTGRES_DB: ukraine_test
           POSTGRES_USER: ukraine
-          POSTGRES_DB: ukraine
+          POSTGRES_PASSWORD: password
         ports:
           - 5432:5432
         # needed because the postgres container does not provide a healthcheck
@@ -69,7 +69,7 @@ jobs:
       VCAP_SERVICES: '{"redis":[{"instance_name":"ukraine-sponsor-resettlement-test-redis","credentials":{"uri":"redis://redis"}}],"aws-s3-bucket":[{"instance_name":"ukraine-sponsor-resettlement-test-s3","credentials":{"aws_access_key_id":"access-key-id","aws_secret_access_key":"secret-access-key","aws_region":"eu-west-2","bucket_name":"test-bucket"}}]}'
       GEMFILE_RUBY_VERSION: 3.1.4
       DB_HOST: localhost
-      DB_DATABASE: ukraine
+      DB_DATABASE: ukraine_test
       DB_USERNAME: ukraine
       DB_PASSWORD: password
       GOVUK_NOTIFY_API_KEY: ${{ secrets.GOVUK_NOTIFY_API_KEY }}
@@ -99,15 +99,18 @@ jobs:
       - name: Compile Assets
         run: |
           bundle exec rake assets:precompile
+      - name: Run localstack
+        run: |
+          docker run -d\
+            --rm \
+            -p 4566:4566 \
+            -v "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack" \
+            -v "/var/run/docker.sock:/var/run/docker.sock" \
+            -v "./bin/init-s3-localstack.py:/etc/localstack/init/ready.d/init-s3.py" \
+            localstack/localstack:s3-latest
       - name: Run tests
         run: |
           bundle exec rake
-    #- name: Test coverage
-    #    uses: joshmfrankel/simplecov-check-action@main
-    #    with:
-    #      github_token: ${{ secrets.GITHUB_TOKEN }}
-    #      minimum_suite_coverage: 70
-    #      minimum_file_coverage: 0
 
   lint:
     name: Lint
@@ -201,7 +204,7 @@ jobs:
           # Build a docker container and
           # push it to ECR so that it can
           # be deployed to ECS.
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f Dockerfile-prod .
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f Dockerfile .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 

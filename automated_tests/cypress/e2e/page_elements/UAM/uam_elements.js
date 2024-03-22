@@ -155,6 +155,7 @@ var page_elements = {
     step16_id_err_msg: "#unaccompanied-minor-identification-type-error",
     step16_idh_btn: "#unaccompanied-minor-identification-type-none-field",
     step16_pp_radio_btn: "#unaccompanied-minor-identification-type-passport-field",
+    step16_pp_err_radio_btn: "#unaccompanied-minor-identification-type-field-error",
     step16_ni_radio_btn: "#unaccompanied-minor-identification-type-national-identity-card-field",
     step16_biom_radio_btn: "#unaccompanied-minor-identification-type-biometric-residence-field",
     step16_pdl_radio_btn: "#unaccompanied-minor-identification-type-photo-driving-licence-field",

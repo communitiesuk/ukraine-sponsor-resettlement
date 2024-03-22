@@ -31,21 +31,22 @@ private
       end
 
       begin
+        @logger.warn("The use of VCAP_SERVICES is deprecated post GOV.UK PaaS migration")
         JSON.parse(ENV["VCAP_SERVICES"], { symbolize_names: true })
       rescue StandardError
         @logger.warn("Could not parse VCAP_SERVICES")
         {}
       end
     else
-      c = {}
-      c[:redis] = [{
+      configuration = {}
+      configuration[:redis] = [{
         instance_name: "#{ENV['INSTANCE_NAME']}-redis",
         credentials: {
           uri: ENV["REDIS_URL"],
         },
       }]
 
-      c[:'aws-s3-bucket'] = [{
+      configuration[:'aws-s3-bucket'] = [{
         instance_name: "#{ENV['INSTANCE_NAME']}-s3",
         credentials: {
           aws_access_key_id: ENV["AWS_ACCESS_KEY_ID"],
@@ -54,7 +55,7 @@ private
           aws_region: ENV["AWS_REGION"],
         },
       }]
-      c
+      configuration
     end
   end
 
