@@ -1,8 +1,28 @@
-![Deployment Pipeline](https://github.com/communitiesuk/ukraine-sponsor-resettlement/actions/workflows/deploy-pipeline.yml/badge.svg?branch=master)
-
 # Ukraine Sponsor Resettlement
 
 This is the codebase for the [Ruby on Rails app](https://apply-to-offer-homes-for-ukraine.service.gov.uk/) that will handles the submission of sponsorship requests.
+
+## Table of Contents
+
+- [Deployment Pipeline](#deployment-pipeline)
+- [System Context Diagram](#system-context-diagram)
+- [Container Diagram](#container-diagram)
+- [Component Diagram](#component-diagram)
+- [Monitoring](#monitoring)
+  - [Alerting](#alerting)
+- [Related Repositories](#related-repositories)
+- [Development](#development)
+  - [Pre-requisites](#pre-requisites)
+  - [Getting Started](#getting-started)
+  - [Running Tests](#running-tests)
+    - [Unit Tests](#unit-tests)
+    - [Automated Tests (End to End)](#running-automated-tests-end-to-end-tests)
+- [Database Migrations](#database-migrations)
+- [Infrastructure](#infrastructure)
+
+## Deployment Pipeline
+
+![Deployment Pipeline](https://github.com/communitiesuk/ukraine-sponsor-resettlement/actions/workflows/deploy-pipeline.yml/badge.svg?branch=master)
 
 ## System Context Diagram
 
@@ -52,16 +72,21 @@ Alerts are configured in [Grafana](https://ukraine-sponsor-resettlement-monitori
 Run:
 `make run`
 
-Alternatively, to run the rails app in the foreground so that you can see its output, run:
-`make run-fg`
+In case of any error, run these two commands before `make run`:
+`bundle exec rake webpacker:install`
+`bundle exec rails assets:precompile`
 
 The Rails server should start on <http://localhost:8080>
 
+Either visit http://localhost:8080/sponsor-a-child/ or http://localhost:8080/expression-of-interest/
+
 ### Running tests
+
+#### Unit tests
 
 Run: `make test`
 
-NB: The container will be destroyed when the tests complete, which means that the coverage report will be lost.
+NB: This builds a Docker image and sets up an environment for running tests depending on PostgresQL, Redis and S3. The container will be destroyed when the tests complete, which means that the coverage report will be lost.
 
 If you want the coverage report, you can keep the container alive by editing
 /bin/test.sh to do
@@ -82,6 +107,11 @@ For example, to copy to the coverage report to the current working directory on 
 
 You can then terminate the testing container with ctrl-c.
 
+#### Running Automated tests (End to End tests)
+
+This repository features automated tests run through [Cypress](https://www.cypress.io/).
+Setup and instructions can be found [here](automated_tests/README.md)
+
 ## Database migrations
 
 Database migrations are required to make changes to the database
@@ -94,7 +124,5 @@ This will create a file in the db/migrate folder and this file can be amended to
 
 This application is running on Amazon Web Services (https://aws.amazon.com/console/).
 
-#### Automated tests
 
-This repository features automated tests run through [Cypress](https://www.cypress.io/).
-Setup and instructions can be found [here](automated_tests/README.md)
+
