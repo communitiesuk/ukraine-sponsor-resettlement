@@ -88,3 +88,7 @@ data/startup_info.json
 
 # Key File
 /volume/cache/*
+
+# Ignore Rails asset folder
+/app/assets/builds/*
+!/app/assets/builds/.keep
