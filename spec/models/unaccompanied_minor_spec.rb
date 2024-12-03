@@ -689,7 +689,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       end
 
       it "is not submitted" do
-        expect(app.is_submitted?).to eq(false)
+        expect(app.is_submitted?).to be(false)
       end
     end
 
@@ -706,7 +706,7 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       end
 
       it "is submittted" do
-        expect(app.is_submitted?).to eq(true)
+        expect(app.is_submitted?).to be(true)
       end
 
       it "returns JSON of the application" do

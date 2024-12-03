@@ -67,7 +67,7 @@ RSpec.describe "Unaccompanied minor sponsor other nationalities", type: :system 
     end
 
     describe "UAM other nationailties select other nationality form" do
-      it "does not allow for empty other nationality to be selected " do
+      it "does not allow for empty other nationality to be selected" do
         task_list_to_other_nationalities_question
 
         choose("Yes")

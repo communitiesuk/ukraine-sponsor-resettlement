@@ -20,7 +20,7 @@ gem "govuk-components"
 # GOV UK component form builder DSL
 gem "govuk_design_system_formbuilder"
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '~> 1.18', '>= 1.18.4', require: false
+gem "bootsnap", "~> 1.18", ">= 1.18.4", require: false
 # GovUK Notify notifications and client
 gem "govuk_notify_rails"
 # SecureRandom to generate UUIDs
@@ -28,7 +28,7 @@ gem "securerandom"
 
 gem "rack-attack"
 gem "redis"
-gem 'sidekiq', '~> 7.3', '>= 7.3.6'
+gem "sidekiq", "~> 7.3", ">= 7.3.6"
 
 # Sentry - Application Monitoring
 gem "sentry-rails"

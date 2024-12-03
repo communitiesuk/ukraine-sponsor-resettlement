@@ -3,7 +3,7 @@ RSpec.describe "Expression of interest end to end", type: :system do
     driven_by(:rack_test_user_agent)
   end
 
-  describe "user successfully completes the eoi journey", js: true do
+  describe "user successfully completes the eoi journey", :js do
     it "entering minimum valid details" do
       eoi_skip_to_questions
 

@@ -53,7 +53,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content("Your application has been cancelled")
 
       cancelled_application = UnaccompaniedMinor.find_by_reference(new_application.reference)
-      expect(cancelled_application.is_cancelled).to eq(true)
+      expect(cancelled_application.is_cancelled).to be(true)
     end
 
     it "render cancellation confirmation on task list if already cancelled" do
@@ -100,7 +100,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       expect(page).to have_content(task_list_content)
 
       continued_application = UnaccompaniedMinor.find_by_reference(new_application.reference)
-      expect(continued_application.is_cancelled).to eq(false)
+      expect(continued_application.is_cancelled).to be(false)
     end
   end
 

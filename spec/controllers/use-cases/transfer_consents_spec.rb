@@ -2,9 +2,9 @@ require "spec_helper"
 
 RSpec.describe TransferConsents, type: :feature do
   describe "transferring consent forms" do
-    let(:foundry_service) { instance_double("FoundryService") }
-    let(:storage_service) { instance_double("StorageService") }
-    let(:file_upload_service) { instance_double("FileUploadService") }
+    let(:foundry_service) { instance_double(FoundryService) }
+    let(:storage_service) { instance_double(StorageService) }
+    let(:file_upload_service) { instance_double(FileUploadService) }
     let(:uk_rid) { "ri.attachments.main.attachment-xyz" }
     let(:ukraine_rid) { "ri.attachments.main.attachment-ua" }
     let(:downloaded_file_path) { "/tmp/somefile.pdf" }

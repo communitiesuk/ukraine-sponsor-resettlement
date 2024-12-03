@@ -23,8 +23,8 @@ RSpec.describe TokenBasedResumeController, type: :controller do
     uuid = "test-uuid".freeze
     magic_link = "http://test.host/sponsor-a-child/resume-application?uuid=#{uuid}".freeze
 
-    let(:unaccompanied_minor) { instance_double("UnaccompaniedMinor") }
-    let(:message_delivery) { instance_double("ActionMailer::MessageDelivery") }
+    let(:unaccompanied_minor) { instance_double(UnaccompaniedMinor) }
+    let(:message_delivery) { instance_double(ActionMailer::MessageDelivery) }
 
     before do
       allow(SecureRandom).to receive(:uuid).and_return(uuid)
@@ -51,8 +51,8 @@ RSpec.describe TokenBasedResumeController, type: :controller do
     uuid = "test-uuid".freeze
     magic_link = "http://test.host/sponsor-a-child/resume-application?uuid=#{uuid}".freeze
 
-    let(:unaccompanied_minor) { instance_double("UnaccompaniedMinor") }
-    let(:message_delivery) { instance_double("ActionMailer::MessageDelivery") }
+    let(:unaccompanied_minor) { instance_double(UnaccompaniedMinor) }
+    let(:message_delivery) { instance_double(ActionMailer::MessageDelivery) }
 
     before do
       allow(SecureRandom).to receive(:uuid).and_return(uuid)
@@ -98,8 +98,8 @@ RSpec.describe TokenBasedResumeController, type: :controller do
     )
     uam.save!
 
-    let(:texter) { instance_double("Notifications::Client") }
-    let(:application_token) { instance_double("ApplicationToken") }
+    let(:texter) { instance_double(Notifications::Client) }
+    let(:application_token) { instance_double(ApplicationToken) }
 
     before do
       allow(Notifications::Client).to receive(:new).and_return(texter)
@@ -226,8 +226,8 @@ RSpec.describe TokenBasedResumeController, type: :controller do
     uam.phone_number = phone_number
     uam.phone_number_confirm = phone_number_confirm
 
-    let(:texter) { instance_double("Notifications::Client") }
-    let(:application_token) { instance_double("ApplicationToken") }
+    let(:texter) { instance_double(Notifications::Client) }
+    let(:application_token) { instance_double(ApplicationToken) }
 
     before do
       allow(Notifications::Client).to receive(:new).and_return(texter)
