@@ -1,11 +1,9 @@
 # docker compose file provided for build/test on local machine
 # also provides definitive list of required environment variables.
 
-version: "3.3"
-
 services:
   pg:
-    image: postgres:13.5-alpine
+    image: postgres:latest
     restart: always
     environment:
       POSTGRES_PASSWORD: password

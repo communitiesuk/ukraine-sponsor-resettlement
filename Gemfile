@@ -1,22 +1,26 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.1.4"
+ruby "3.3.6"
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 7.0", ">= 7.0.5.1"
+# Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem "rails", "~> 7.2.2"
+# The modern asset pipeline for Rails [https://github.com/rails/propshaft]
+gem "propshaft"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
-# Use Puma as the app server
-gem "puma", "~> 6.0"
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem "webpacker", "~> 5.0"
+# Use the Puma web server [https://github.com/puma/puma]
+gem "puma", ">= 5.0"
+# Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
+gem "jsbundling-rails"
+# Bundle and process CSS [https://github.com/rails/cssbundling-rails]
+gem "cssbundling-rails"
 # GOV UK frontend components
 gem "govuk-components"
 # GOV UK component form builder DSL
 gem "govuk_design_system_formbuilder"
 # Reduces boot times through caching; required in config/boot.rb
-gem "bootsnap", ">= 1.4.4", require: false
+gem 'bootsnap', '~> 1.18', '>= 1.18.4', require: false
 # GovUK Notify notifications and client
 gem "govuk_notify_rails"
 # SecureRandom to generate UUIDs
@@ -24,7 +28,7 @@ gem "securerandom"
 
 gem "rack-attack"
 gem "redis"
-gem "sidekiq", ">= 7.1.3"
+gem 'sidekiq', '~> 7.3', '>= 7.3.6'
 
 # Sentry - Application Monitoring
 gem "sentry-rails"
@@ -71,3 +75,5 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
+
+gem "csv", "~> 3.3"
