@@ -11,8 +11,8 @@ RSpec.describe TokenBasedResumeController, type: :system do
   let(:already_expired) { Time.zone.now.utc - 1.hour }
   let(:sms_code) { 123_456 }
   let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine" }
-  let(:application_token) { instance_double("ApplicationToken") }
-  let(:texter) { instance_double("Notifications::Client") }
+  let(:application_token) { instance_double(ApplicationToken) }
+  let(:texter) { instance_double(Notifications::Client) }
 
   before do
     driven_by(:rack_test_user_agent)
