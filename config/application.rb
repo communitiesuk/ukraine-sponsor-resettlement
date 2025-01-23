@@ -11,6 +11,7 @@ require "action_mailer/railtie"
 require "action_mailbox/engine"
 require "action_view/railtie"
 require_relative "../lib/session_check"
+require "ostruct"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
