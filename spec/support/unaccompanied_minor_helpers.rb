@@ -1,3 +1,5 @@
+require 'tempfile'
+
 module UnaccompaniedMinorHelpers
   START_PAGE_CONTENT = "You are eligible to use this service".freeze
   TASK_LIST_CONTENT = "Apply for approval to provide a safe home for a child from Ukraine".freeze
@@ -235,6 +237,25 @@ module UnaccompaniedMinorHelpers
     expect(page).to have_content(TASK_LIST_CONTENT)
   end
 
+  def uam_upload_malicious_consent_forms
+    uk_malicious_file = make_malicious_file
+    ukraine_malicious_file = make_malicious_file
+
+    expect(page).to have_content("You must upload 2 completed parental consent forms")
+    click_on("Continue")
+
+    expect(page).to have_content("Upload the UK sponsorship arrangement consent form")
+    attach_file("unaccompanied-minor-uk-parental-consent-field", uk_malicious_file.path)
+    click_on("Continue")
+
+    click_on("Upload Ukrainian consent form")
+    expect(page).to have_content("Upload the Ukraine certified consent form")
+    attach_file("unaccompanied-minor-ukraine-parental-consent-field", ukraine_malicious_file.path)
+    click_on("Continue")
+
+    expect(page).to have_content(TASK_LIST_CONTENT)
+  end
+
   def uam_confirm_privacy_statement
     expect(page).to have_content("Confirm you have read the privacy statement")
 
@@ -322,4 +343,18 @@ module UnaccompaniedMinorHelpers
       click_on("Continue")
     end
   end
+
+  def make_malicious_file
+    file = Tempfile.new('malicious-test-file')
+    # We need to construct the EICAR test string from multiple parts because if it appears in it's entirely in the
+    # source file our dev machine's AV will be unhappy
+    file.write("X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-" + "STANDARD-ANTIVIRUS-TEST-FILE!$H+H*")
+    file.close
+
+    # Delete the file now, the filehandle will remain active and the file will be deleted when this process exits
+    file.unlink
+
+    return file
+  end
+  
 end
