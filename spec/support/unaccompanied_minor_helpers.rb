@@ -345,7 +345,7 @@ module UnaccompaniedMinorHelpers
   end
 
   def make_malicious_file
-    file = Tempfile.new('malicious-test-file')
+    file = Tempfile.new(['malicious-test-file', '.pdf'])
     # We need to construct the EICAR test string from multiple parts because if it appears in it's entirely in the
     # source file our dev machine's AV will be unhappy
     file.write('X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-' + 'STANDARD-ANTIVIRUS-TEST-FILE!$H+H*')
