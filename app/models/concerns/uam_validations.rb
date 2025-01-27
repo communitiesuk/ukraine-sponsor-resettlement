@@ -201,7 +201,7 @@ module UamValidations
 
   def validate_uk_parental_consent_tempfile_path
     if @uk_parental_consent_tempfile_path.present? && !file_not_malicious?(@uk_parental_consent_tempfile_path)
-        errors.add(:uk_parental_consent, I18n.t(:file_malicious, scope: :error))
+      errors.add(:uk_parental_consent, I18n.t(:file_malicious, scope: :error))
     end
   end
 
@@ -225,7 +225,7 @@ module UamValidations
 
   def validate_ukraine_parental_consent_tempfile_path
     if @ukraine_parental_consent_tempfile_path.present? && !file_not_malicious?(@ukraine_parental_consent_tempfile_path)
-        errors.add(:ukraine_parental_consent, I18n.t(:file_malicious, scope: :error))
+      errors.add(:ukraine_parental_consent, I18n.t(:file_malicious, scope: :error))
     end
   end
 

@@ -88,7 +88,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       end
     end
 
-    it "gets rejected trying to upload a malicious UK consent form" do
+    it "gets rejected trying to upload a malicious Ukraine consent form" do
       expect(page).to have_content(task_list_content)
       click_link("Upload Ukrainian consent form")
 
