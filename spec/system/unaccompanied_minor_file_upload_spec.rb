@@ -76,11 +76,16 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       expect(page).to have_content("Upload the UK sponsorship arrangement consent form")
 
-      malicious_file = make_malicious_file
-      attach_file("unaccompanied-minor-uk-parental-consent-field", malicious_file.path)
-      click_button("Continue")
+      begin
+        malicious_file = make_malicious_file
+        attach_file("unaccompanied-minor-uk-parental-consent-field", malicious_file.path)
+        click_button("Continue")
 
-      expect(page).to have_content(malicious_file_message)
+        expect(page).to have_content(malicious_file_message)
+      ensure
+        malicious_file.close
+        malicious_file.unlink
+      end
     end
 
     it "gets rejected trying to upload a malicious UK consent form" do
@@ -89,11 +94,16 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
 
       expect(page).to have_content("Upload the Ukraine certified consent form")
 
-      malicious_file = make_malicious_file
-      attach_file("unaccompanied-minor-ukraine-parental-consent-field", malicious_file.path)
-      click_button("Continue")
+      begin
+        malicious_file = make_malicious_file
+        attach_file("unaccompanied-minor-ukraine-parental-consent-field", malicious_file.path)
+        click_button("Continue")
 
-      expect(page).to have_content(malicious_file_message)
+        expect(page).to have_content(malicious_file_message)
+      ensure
+        malicious_file.close
+        malicious_file.unlink
+      end
     end
   end
 end
