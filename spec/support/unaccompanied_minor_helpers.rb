@@ -348,11 +348,8 @@ module UnaccompaniedMinorHelpers
     file = Tempfile.new('malicious-test-file')
     # We need to construct the EICAR test string from multiple parts because if it appears in it's entirely in the
     # source file our dev machine's AV will be unhappy
-    file.write("X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-" + "STANDARD-ANTIVIRUS-TEST-FILE!$H+H*")
+    file.write('X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-' + 'STANDARD-ANTIVIRUS-TEST-FILE!$H+H*')
     file.close
-
-    # Delete the file now, the filehandle will remain active and the file will be deleted when this process exits
-    file.unlink
 
     return file
   end

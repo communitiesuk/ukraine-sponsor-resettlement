@@ -1,6 +1,6 @@
 RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine".freeze }
-  let(:malicious_file_message) { "Your file has been rejected as it is malicious".freeze }
+  let(:malicious_file_message) { "The uploaded file has been detected as malicious. Please upload a different file".freeze }
 
   before do
     driven_by(:rack_test_user_agent)
