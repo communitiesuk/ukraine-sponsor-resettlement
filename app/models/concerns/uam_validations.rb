@@ -59,11 +59,13 @@ module UamValidations
     validate :validate_sponsor_date_of_birth, if: -> { run_validation? :sponsor_date_of_birth }
     validate :validate_sponsor_declaration, if: -> { run_validation? :sponsor_declaration }
     validate :validate_uk_parent_consent_filename, if: -> { run_validation? :uk_parental_consent_filename }
+    validate :validate_uk_parental_consent_tempfile_path, if: -> { run_validation? :uk_parental_consent_tempfile_path }
     validate :validate_uk_parent_consent_file_size, if: -> { run_validation? :uk_parental_consent_file_size }
     validate :validate_uk_parent_consent_file_type, if: -> { run_validation? :uk_parental_consent_file_type }
     validate :validate_ukraine_parent_consent_filename, if: -> { run_validation? :ukraine_parental_consent_filename }
     validate :validate_ukraine_parent_consent_file_size, if: -> { run_validation? :ukraine_parental_consent_file_size }
     validate :validate_ukraine_parent_consent_file_type, if: -> { run_validation? :ukraine_parental_consent_file_type }
+    validate :validate_ukraine_parental_consent_tempfile_path, if: -> { run_validation? :ukraine_parental_consent_tempfile_path }
   end
 
   def nationality_permitted_value(nationality)
@@ -197,6 +199,12 @@ module UamValidations
     end
   end
 
+  def validate_uk_parental_consent_tempfile_path
+    if @uk_parental_consent_tempfile_path.present? && !file_not_malicious?(@uk_parental_consent_tempfile_path)
+        errors.add(:uk_parental_consent, I18n.t(:file_malicious, scope: :error))
+    end
+  end
+
   def validate_uk_parent_consent_file_size
     if !@uk_parental_consent_file_size.nil? && @uk_parental_consent_file_size > 1024 * 1024 * 20
       errors.add(:uk_parental_consent, I18n.t(:file_too_large, scope: :error))
@@ -212,6 +220,12 @@ module UamValidations
   def validate_ukraine_parent_consent_filename
     if @ukraine_parental_consent_filename.nil? || @ukraine_parental_consent_filename.strip.empty?
       errors.add(:ukraine_parental_consent, I18n.t(:no_file_chosen, scope: :error))
+    end
+  end
+
+  def validate_ukraine_parental_consent_tempfile_path
+    if @ukraine_parental_consent_tempfile_path.present? && !file_not_malicious?(@ukraine_parental_consent_tempfile_path)
+        errors.add(:ukraine_parental_consent, I18n.t(:file_malicious, scope: :error))
     end
   end
 

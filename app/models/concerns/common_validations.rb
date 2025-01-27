@@ -72,4 +72,8 @@ module CommonValidations
                      end
     phone_number_valid?(value) && value.present? && blanks_removed.match?(valid_uk_number)
   end
+
+  def file_not_malicious?(filepath)
+    !Ratonvirus.scanner.virus?(filepath)
+  end
 end

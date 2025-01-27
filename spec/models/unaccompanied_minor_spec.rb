@@ -1,4 +1,5 @@
 require "rails_helper"
+require "tempfile"
 
 RSpec.describe UnaccompaniedMinor, type: :model do
   let(:given_name_error) { "You must enter a valid given name" }
@@ -270,6 +271,68 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.errors[:have_parental_consent]).to include(no_choice_error)
       app.have_parental_consent = "yes"
       expect(app.valid?).to be(true)
+    end
+
+    it "allows non-malicious UK consent files" do
+      app = described_class.new
+      app.partial_validation = [:uk_parental_consent_tempfile_path]
+
+      file = Tempfile.new
+      begin
+        file.write("This is an example of non-malicious file contents")
+        app.uk_parental_consent_tempfile_path = file.path
+        expect(app.valid?).to be(true)
+      ensure
+        file.close
+        file.unlink
+      end
+    end
+
+    it "rejects malicious UK consent files" do
+      app = described_class.new
+      app.partial_validation = [:uk_parental_consent_tempfile_path]
+
+      begin
+        file = make_malicious_file
+        app.uk_parental_consent_tempfile_path = file.path
+
+        expect(app.valid?).to be(false)
+        expect(app.errors[:uk_parental_consent]).to include("The uploaded file has been detected as malicious. Please upload a different file")
+      ensure
+        file.close
+        file.unlink
+      end
+    end
+
+    it "allows non-malicious Ukraine consent files" do
+      app = described_class.new
+      app.partial_validation = [:ukraine_parental_consent_tempfile_path]
+
+      file = Tempfile.new
+      begin
+        file.write("This is an example of non-malicious file contents")
+        app.ukraine_parental_consent_tempfile_path = file.path
+        expect(app.valid?).to be(true)
+      ensure
+        file.close
+        file.unlink
+      end
+    end
+
+    it "rejects malicious Ukraine consent files" do
+      app = described_class.new
+      app.partial_validation = [:ukraine_parental_consent_tempfile_path]
+
+      begin
+        file = make_malicious_file
+        app.ukraine_parental_consent_tempfile_path = file.path
+
+        expect(app.valid?).to be(false)
+        expect(app.errors[:ukraine_parental_consent]).to include("The uploaded file has been detected as malicious. Please upload a different file")
+      ensure
+        file.close
+        file.unlink
+      end
     end
   end
 
