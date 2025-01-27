@@ -1,5 +1,6 @@
 RSpec.describe "Unaccompanied minor expression of interest", type: :system do
   let(:task_list_content) { "Apply for approval to provide a safe home for a child from Ukraine".freeze }
+  let(:malicious_file_message) { "The uploaded file has been detected as malicious. Please upload a different file".freeze }
 
   before do
     driven_by(:rack_test_user_agent)
@@ -65,6 +66,44 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       click_button("Continue")
 
       expect(page).to have_content("Your file must be smaller than 20MB")
+    end
+
+    it "gets rejected trying to upload a malicious UK consent form" do
+      expect(page).to have_content(task_list_content)
+      click_link("Upload UK consent form")
+      expect(page).to have_content("You must upload 2 completed parental consent forms")
+      click_button("Continue")
+
+      expect(page).to have_content("Upload the UK sponsorship arrangement consent form")
+
+      begin
+        malicious_file = make_malicious_file
+        attach_file("unaccompanied-minor-uk-parental-consent-field", malicious_file.path)
+        click_button("Continue")
+
+        expect(page).to have_content(malicious_file_message)
+      ensure
+        malicious_file.close
+        malicious_file.unlink
+      end
+    end
+
+    it "gets rejected trying to upload a malicious Ukraine consent form" do
+      expect(page).to have_content(task_list_content)
+      click_link("Upload Ukrainian consent form")
+
+      expect(page).to have_content("Upload the Ukraine certified consent form")
+
+      begin
+        malicious_file = make_malicious_file
+        attach_file("unaccompanied-minor-ukraine-parental-consent-field", malicious_file.path)
+        click_button("Continue")
+
+        expect(page).to have_content(malicious_file_message)
+      ensure
+        malicious_file.close
+        malicious_file.unlink
+      end
     end
   end
 end
