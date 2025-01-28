@@ -237,25 +237,6 @@ module UnaccompaniedMinorHelpers
     expect(page).to have_content(TASK_LIST_CONTENT)
   end
 
-  def uam_upload_malicious_consent_forms
-    uk_malicious_file = make_malicious_file
-    ukraine_malicious_file = make_malicious_file
-
-    expect(page).to have_content("You must upload 2 completed parental consent forms")
-    click_on("Continue")
-
-    expect(page).to have_content("Upload the UK sponsorship arrangement consent form")
-    attach_file("unaccompanied-minor-uk-parental-consent-field", uk_malicious_file.path)
-    click_on("Continue")
-
-    click_on("Upload Ukrainian consent form")
-    expect(page).to have_content("Upload the Ukraine certified consent form")
-    attach_file("unaccompanied-minor-ukraine-parental-consent-field", ukraine_malicious_file.path)
-    click_on("Continue")
-
-    expect(page).to have_content(TASK_LIST_CONTENT)
-  end
-
   def uam_confirm_privacy_statement
     expect(page).to have_content("Confirm you have read the privacy statement")
 
