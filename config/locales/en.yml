@@ -655,6 +655,7 @@ en:
     invalid_file_type_chosen: You can only upload pdf, jpeg or png files
     no_file_chosen: You must choose a file
     file_too_large: Your file must be smaller than 20MB
+    file_malicious: The uploaded file has been detected as malicious. Please upload a different file
     invalid_date_of_birth: Enter a valid date of birth
     date_of_birth_future: This date cannot be in the future. Enter a valid date of birth.
     too_old_date_of_birth: They must be under 18 to be considered a child in the UK

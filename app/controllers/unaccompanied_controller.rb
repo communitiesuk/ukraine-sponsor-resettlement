@@ -130,11 +130,12 @@ class UnaccompaniedController < ApplicationController
       @application.uk_parental_consent_filename = upload_params.original_filename
       @application.uk_parental_consent_saved_filename = "#{SecureRandom.uuid.upcase}-#{upload_params.original_filename}"
       @application.uk_parental_consent_file_size = upload_params.size
+      @application.uk_parental_consent_tempfile_path = upload_params.path
     rescue ActionController::ParameterMissing
       # Do nothing!
       Rails.logger.debug "No upload file found!"
     end
-    @application.partial_validation = %i[uk_parental_consent_file_type uk_parental_consent_filename uk_parental_consent_saved_filename uk_parental_consent_file_size]
+    @application.partial_validation = %i[uk_parental_consent_file_type uk_parental_consent_filename uk_parental_consent_saved_filename uk_parental_consent_file_size uk_parental_consent_tempfile_path]
     if @application.valid?
       save_and_redirect(@application.uk_parental_consent_saved_filename, upload_params.tempfile)
     else
@@ -155,11 +156,12 @@ class UnaccompaniedController < ApplicationController
       @application.ukraine_parental_consent_filename = upload_params.original_filename
       @application.ukraine_parental_consent_saved_filename = "#{SecureRandom.uuid.upcase}-#{upload_params.original_filename}"
       @application.ukraine_parental_consent_file_size = upload_params.size
+      @application.ukraine_parental_consent_tempfile_path = upload_params.path
     rescue ActionController::ParameterMissing
       # Do nothing!
       Rails.logger.debug "No upload file found!"
     end
-    @application.partial_validation = %i[ukraine_parental_consent_file_type ukraine_parental_consent_filename ukraine_parental_consent_saved_filename ukraine_parental_consent_file_size]
+    @application.partial_validation = %i[ukraine_parental_consent_file_type ukraine_parental_consent_filename ukraine_parental_consent_saved_filename ukraine_parental_consent_file_size ukraine_parental_consent_tempfile_path]
     if @application.valid?
       save_and_redirect(@application.ukraine_parental_consent_saved_filename, upload_params.tempfile)
     else

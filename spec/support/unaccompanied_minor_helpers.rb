@@ -1,3 +1,5 @@
+require "tempfile"
+
 module UnaccompaniedMinorHelpers
   START_PAGE_CONTENT = "You are eligible to use this service".freeze
   TASK_LIST_CONTENT = "Apply for approval to provide a safe home for a child from Ukraine".freeze
@@ -321,5 +323,19 @@ module UnaccompaniedMinorHelpers
     if click_continue
       click_on("Continue")
     end
+  end
+
+  def make_malicious_file
+    file = Tempfile.new(["malicious-test-file", ".pdf"])
+    # We need to construct the EICAR test string from multiple parts because if it appears in it's entirely in the
+    # source file our dev machine's AV will be unhappy
+
+    # rubocop:disable Style/StringConcatenation
+    file.write("X5O!P%@AP[4\\PZX54(P^)7CC)7}$EICAR" + "-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*")
+    # rubocop:enable Style/StringConcatenation
+
+    file.close
+
+    file
   end
 end

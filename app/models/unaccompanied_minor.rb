@@ -25,17 +25,18 @@ class UnaccompaniedMinor < ApplicationRecord
                 :is_permitted,
                 :have_parental_consent,
                 :have_parental_consent_options,
-                :parental_consent,
                 :uk_parental_consent_file_type,
                 :uk_parental_consent_filename,
                 :uk_parental_consent_saved_filename,
                 :uk_parental_consent_file_size,
+                :uk_parental_consent_tempfile_path,
                 :uk_parental_consent_file_upload_rid,
                 :uk_parental_consent_file_uploaded_timestamp,
                 :ukraine_parental_consent_file_type,
                 :ukraine_parental_consent_filename,
                 :ukraine_parental_consent_saved_filename,
                 :ukraine_parental_consent_file_size,
+                :ukraine_parental_consent_tempfile_path,
                 :ukraine_parental_consent_file_upload_rid,
                 :ukraine_parental_consent_file_uploaded_timestamp,
                 :minor_date_of_birth,
@@ -112,10 +113,6 @@ class UnaccompaniedMinor < ApplicationRecord
   after_find do
     assign_attributes(answers)
   end
-
-  has_one_attached :parental_consent
-
-  validates :parental_consent, antivirus: true # Add this for antivirus validation
 
   def formatted_address?
     [@residential_line_1, @residential_line_2, @residential_town, @residential_postcode].reject(&:blank?).join(", ")
