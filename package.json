@@ -2,7 +2,7 @@
   "name": "ukraine-sponsor-resettlement",
   "private": true,
   "dependencies": {
-    "esbuild": "^0.24.0",
+    "esbuild": "^0.25.0",
     "govuk-frontend": "^5.7.0",
     "jquery": "^3.7.0",
     "sass": "^1.81.0"
