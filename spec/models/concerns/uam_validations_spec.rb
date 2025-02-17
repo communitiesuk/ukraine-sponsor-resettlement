@@ -70,6 +70,15 @@ RSpec.describe UamValidations, type: :model do
       expect(uam.errors).not_to include(:sponsor_address_postcode)
     end
 
+    it "allows odt files to be uploaded" do
+      uam = new_uam
+      uam.sponsor_address_line_1 = "1 Some Street"
+      uam.sponsor_address_town = "Town"
+      uam.sponsor_address_postcode = "ST1 1LX"
+
+      expect(ALLOWED_FILE_TYPES).to include("application/vnd.oasis.opendocument.text")
+    end
+
     def new_uam
       uam = UnaccompaniedMinor.new
       # DANGER: uam.different_address actually means the user answered "yes" or "no" when asked
