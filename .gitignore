@@ -92,3 +92,6 @@ data/startup_info.json
 # Ignore Rails asset folder
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# Ignore generated clamd config files for testing
+config/clamd.conf

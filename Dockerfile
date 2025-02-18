@@ -17,8 +17,6 @@ RUN gem install bundler --no-document && \
 
 RUN apk add --no-cache clamav-clamdscan
 RUN mkdir /etc/clamav
-RUN echo "TCPSocket 3310" > /etc/clamav/clamd.conf
-RUN echo "TCPAddr localhost" >> /etc/clamav/clamd.conf
 
 COPY . /app
 
