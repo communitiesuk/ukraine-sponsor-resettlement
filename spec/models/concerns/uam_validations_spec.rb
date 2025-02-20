@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe UamValidations, type: :model do
   describe "sponsor residential address validations" do
     let(:empty_lines) { [nil, "", " "].freeze }
+    let(:task_list_url) { "/sponsor-a-child/task-list" }
 
     it "raises an error message when address line 1 is nil or empty" do
       empty_lines.each do |line|
@@ -71,12 +72,22 @@ RSpec.describe UamValidations, type: :model do
     end
 
     it "allows odt files to be uploaded" do
-      uam = new_uam
-      uam.sponsor_address_line_1 = "1 Some Street"
-      uam.sponsor_address_town = "Town"
-      uam.sponsor_address_postcode = "ST1 1LX"
+      new_application = UnaccompaniedMinor.new
+      new_application.save!
 
-      expect(ALLOWED_FILE_TYPES).to include("application/vnd.oasis.opendocument.text")
+      page.set_rack_session(app_reference: new_application.reference)
+
+      visit task_list_url
+
+      click_link("Upload Ukrainian consent form")
+
+      test_file_path = File.join(File.dirname(__FILE__), "..", "ukraine-test-document.odt")
+
+      attach_file("unaccompanied-minor-ukraine-parental-consent-field", test_file_path)
+      click_button("Continue")
+
+      saved_application = UnaccompaniedMinor.find_by_reference(new_application.reference)
+      expect(saved_application.ukraine_parental_consent_file_type).to eq(application/vnd.oasis.opendocument.text)
     end
 
     def new_uam
