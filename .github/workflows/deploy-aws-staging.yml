@@ -101,12 +101,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install clamdscan
-      - name: Create clamav config file
-        run: |
-          sudo touch /etc/clamav/clamd.conf
-          sudo chown "$(whoami):$(whoami)" /etc/clamav/clamd.conf
-          echo "TCPAddr $CLAMD_HOST" > /etc/clamav/clamd.conf
-          echo "TCPSocket $CLAMD_PORT" >> /etc/clamav/clamd.conf
 
       - name: Create DB
         run: |
