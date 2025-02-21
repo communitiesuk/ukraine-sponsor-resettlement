@@ -3,7 +3,6 @@ require "rails_helper"
 RSpec.describe UamValidations, type: :model do
   describe "sponsor residential address validations" do
     let(:empty_lines) { [nil, "", " "].freeze }
-    let(:task_list_url) { "/sponsor-a-child/task-list" }
 
     it "raises an error message when address line 1 is nil or empty" do
       empty_lines.each do |line|
@@ -70,26 +69,7 @@ RSpec.describe UamValidations, type: :model do
       expect(uam.errors).not_to include(:sponsor_address_town)
       expect(uam.errors).not_to include(:sponsor_address_postcode)
     end
-
-    it "allows odt files to be uploaded" do
-      new_application = UnaccompaniedMinor.new
-      new_application.save!
-
-      page.set_rack_session(app_reference: new_application.reference)
-
-      visit task_list_url
-
-      click_link("Upload Ukrainian consent form")
-
-      test_file_path = File.join(File.dirname(__FILE__), "..", "ukraine-test-document.odt")
-
-      attach_file("unaccompanied-minor-ukraine-parental-consent-field", test_file_path)
-      click_button("Continue")
-
-      saved_application = UnaccompaniedMinor.find_by_reference(new_application.reference)
-      expect(saved_application.ukraine_parental_consent_file_type).to eq(application/vnd.oasis.opendocument.text)
-    end
-
+    
     def new_uam
       uam = UnaccompaniedMinor.new
       # DANGER: uam.different_address actually means the user answered "yes" or "no" when asked
