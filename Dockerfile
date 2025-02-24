@@ -15,6 +15,9 @@ RUN gem install bundler --no-document && \
   bundle install && \
   yarn install
 
+RUN apk add --no-cache clamav-clamdscan
+RUN mkdir /etc/clamav
+
 COPY . /app
 
 RUN RAILS_ENV=${RAILS_ENV} INSTANCE_NAME=${INSTANCE_NAME} bundle exec rails assets:precompile

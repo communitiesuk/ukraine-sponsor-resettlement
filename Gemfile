@@ -36,7 +36,9 @@ gem "sentry-ruby"
 
 # S3 & Anti-virus
 gem "aws-sdk-s3"
+gem "clamby"
 gem "ratonvirus"
+gem "ratonvirus-clamby"
 
 # Postcode parsing
 gem "uk_postcode"

@@ -62,6 +62,11 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+      clamav:
+        # Docker Hub image
+        image: clamav/clamav:stable
+        ports:
+          - 3310:3310
 
     env:
       RAILS_ENV: test
@@ -73,6 +78,8 @@ jobs:
       DB_USERNAME: ukraine
       DB_PASSWORD: password
       GOVUK_NOTIFY_API_KEY: ${{ secrets.GOVUK_NOTIFY_API_KEY }}
+      CLAMD_HOST: localhost
+      CLAMD_PORT: 3310
 
     steps:
       - name: Checkout
@@ -89,6 +96,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+
+      - name: Install clamav
+        run: |
+          sudo apt-get update
+          sudo apt-get install clamdscan
 
       - name: Create DB
         run: |

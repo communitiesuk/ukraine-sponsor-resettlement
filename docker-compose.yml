@@ -58,3 +58,9 @@ services:
     build: http-mock-server
     ports:
       - "8081:8081"
+
+  clamav:
+    image: clamav/clamav-debian:stable
+    restart: always
+    ports:
+      - "3310:3310"
