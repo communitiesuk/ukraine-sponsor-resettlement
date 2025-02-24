@@ -64,7 +64,7 @@ jobs:
           --health-retries 5
       clamav:
         # Docker Hub image
-        image: clamav/clamav
+        image: clamav/clamav:stable
         ports:
           - 3310:3310
 
