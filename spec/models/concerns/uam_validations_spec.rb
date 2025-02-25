@@ -69,7 +69,7 @@ RSpec.describe UamValidations, type: :model do
       expect(uam.errors).not_to include(:sponsor_address_town)
       expect(uam.errors).not_to include(:sponsor_address_postcode)
     end
-    
+
     def new_uam
       uam = UnaccompaniedMinor.new
       # DANGER: uam.different_address actually means the user answered "yes" or "no" when asked
