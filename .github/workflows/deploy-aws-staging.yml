@@ -22,11 +22,10 @@ defaults:
 
 env:
   AWS_REGION: eu-west-2
+  ECS_TASK_ARN_PREFIX: arn:aws:ecs:eu-west-2:546423753676:task-definition/paasmigration-staging
   ECR_REPOSITORY: paasmigration-staging-webapp-repository # set this to your Amazon ECR repository name
   ECS_SERVICE: paasmigration-staging-webapp-service # set this to your Amazon ECS service name
   ECS_CLUSTER: paasmigration-staging-ecs-cluster # set this to your Amazon ECS cluster name
-  # ECS_TASK_DEFINITION: MY_ECS_TASK_DEFINITION # set this to the path to your Amazon ECS task definition
-  # file, e.g. .aws/task-definition.json
   CONTAINER_NAME:
     HfUApp # set this to the name of the container in the
     # containerDefinitions section of your task definition
@@ -213,18 +212,43 @@ jobs:
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: latest
         run: |
           # Build a docker container and
           # push it to ECR so that it can
           # be deployed to ECS.
+          IMAGE_TAG=$(date +"%Y-%m-%d-%H-%M-%S")
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f Dockerfile .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+          echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+      - name: Update DB migration ECS image
+        id: update-migrate-ecs-image
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition-arn: ${{ env.ECS_TASK_ARN_PREFIX }}-dbmigrate
+          container-name: dbmigrate
+          image: ${{ steps.build-image.outputs.image }}
 
       - name: Run DB migrations
         id: db-migrate
         run: aws ecs run-task --cluster paasmigration-staging-ecs-cluster --launch-type FARGATE --task-definition paasmigration-staging-dbmigrate --network-configuration "awsvpcConfiguration={subnets=[subnet-0d51c122320a5109d,subnet-0ac8857c1a1fae109,subnet-023faa26a32d874f9],securityGroups=[sg-0febc019ff5d677b5]}"
+
+      - name: Update webapp ECS image
+        id: update-webapp-ecs-image
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition-arn: ${{ env.ECS_TASK_ARN_PREFIX }}-webapp
+          container-name: webapp
+          image: ${{ steps.build-image.outputs.image }}
+
+      - name: Update sidekiq ECS image
+        id: update-sidekiq-ecs-image
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition-arn: ${{ env.ECS_TASK_ARN_PREFIX }}-sidekiq
+          container-name: sidekiq
+          image: ${{ steps.build-image.outputs.image }}
 
       - name: Force deployment
         id: force-deploy
