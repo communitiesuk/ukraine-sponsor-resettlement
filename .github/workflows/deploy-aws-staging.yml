@@ -239,7 +239,9 @@ jobs:
 
       - name: Register DB migrations ECS task def
         id: register-migrations-ecs-task-def
-        run: aws ecs register-task-definition --family ${{ env.ECS_TASK_PREFIX }}-dbmigrate --container-definitions ${{ steps.generate-migrations-ecs-task-def.outputs.task-definition }}
+        run: |
+          cat ${{ steps.generate-migrations-ecs-task-def.outputs.task-definition }}
+          aws ecs register-task-definition --family ${{ env.ECS_TASK_PREFIX }}-dbmigrate --cli-input-json 'file://${{ steps.generate-migrations-ecs-task-def.outputs.task-definition }}'
 
       - name: Run DB migrations
         id: db-migrate
