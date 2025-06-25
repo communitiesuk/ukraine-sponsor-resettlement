@@ -22,6 +22,7 @@ defaults:
 
 env:
   AWS_REGION: eu-west-2
+  ECS_TASK_PREFIX: paasmigration-staging
   ECS_TASK_ARN_PREFIX: arn:aws:ecs:eu-west-2:546423753676:task-definition/paasmigration-staging
   ECR_REPOSITORY: paasmigration-staging-webapp-repository # set this to your Amazon ECR repository name
   ECS_SERVICE: paasmigration-staging-webapp-service # set this to your Amazon ECS service name
@@ -236,12 +237,18 @@ jobs:
           container-name: dbmigrate
           image: ${{ steps.build-image.outputs.image }}
 
+      - name: Register DB migrations ECS task def
+        id: register-migrations-ecs-task-def
+        run: aws ecs register-task-definition \
+          --family ${{ env.ECS_TASK_PREFIX }}-dbmigrate \
+          --container-definitions ${{ steps.generate-migrations-ecs-task-def.outputs.task-definition }}
+
       - name: Run DB migrations
         id: db-migrate
         run: aws ecs run-task \
           --cluster paasmigration-staging-ecs-cluster \
           --launch-type FARGATE \
-          --task-definition ${{ steps.generate-migrations-ecs-task-def.outputs.task-definition }} \
+          --task-definition ${{ env.ECS_TASK_PREFIX }}-dbmigrate \
           --network-configuration "awsvpcConfiguration={subnets=[subnet-0d51c122320a5109d,subnet-0ac8857c1a1fae109,subnet-023faa26a32d874f9],securityGroups=[sg-0febc019ff5d677b5]}"
 
       - name: Generate webapp ECS task definition
