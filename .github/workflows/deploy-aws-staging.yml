@@ -250,6 +250,14 @@ jobs:
           container-name: sidekiq
           image: ${{ steps.build-image.outputs.image }}
 
+      - name: Generate db migration ECS task definition
+        id: generate-dbmigrate-ecs-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition-arn: ${{ env.ECS_TASK_ARN_PREFIX }}-dbmigrate
+          container-name: dbmigrate
+          image: ${{ steps.build-image.outputs.image }}
+
       - name: Deploy webapp ECS task
         uses: aws-actions/amazon-ecs-deploy-task-definition@v2
         id: deploy-webapp-ecs-task
@@ -260,8 +268,16 @@ jobs:
 
       - name: Deploy sidekiq ECS task
         uses: aws-actions/amazon-ecs-deploy-task-definition@v2
-        id: deploy-ssidekiq-ecs-task
+        id: deploy-sidekiq-ecs-task
         with:
           task-definition: ${{ steps.generate-sidekiq-ecs-def.outputs.task-definition }}
+          service: paasmigration-staging-webapp-service
+          cluster: paasmigration-staging-ecs-cluster
+
+      - name: Deploy DB migrations ECS task
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+        id: deploy-dbmigrate-ecs-task
+        with:
+          task-definition: ${{ steps.generate-dbmigrate-ecs-def.outputs.task-definition }}
           service: paasmigration-staging-webapp-service
           cluster: paasmigration-staging-ecs-cluster
