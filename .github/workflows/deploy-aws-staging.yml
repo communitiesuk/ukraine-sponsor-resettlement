@@ -238,7 +238,11 @@ jobs:
 
       - name: Run DB migrations
         id: db-migrate
-        run: aws ecs run-task --cluster paasmigration-staging-ecs-cluster --launch-type FARGATE --task-definition file://${{ steps.generate-migrations-ecs-task-def.outputs.task-definition }} --network-configuration "awsvpcConfiguration={subnets=[subnet-0d51c122320a5109d,subnet-0ac8857c1a1fae109,subnet-023faa26a32d874f9],securityGroups=[sg-0febc019ff5d677b5]}"
+        run: aws ecs run-task \
+          --cluster paasmigration-staging-ecs-cluster \
+          --launch-type FARGATE \
+          --task-definition ${{ steps.generate-migrations-ecs-task-def.outputs.task-definition }} \
+          --network-configuration "awsvpcConfiguration={subnets=[subnet-0d51c122320a5109d,subnet-0ac8857c1a1fae109,subnet-023faa26a32d874f9],securityGroups=[sg-0febc019ff5d677b5]}"
 
       - name: Generate webapp ECS task definition
         id: generate-webapp-ecs-def
