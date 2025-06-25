@@ -234,24 +234,34 @@ jobs:
         id: db-migrate
         run: aws ecs run-task --cluster paasmigration-staging-ecs-cluster --launch-type FARGATE --task-definition paasmigration-staging-dbmigrate --network-configuration "awsvpcConfiguration={subnets=[subnet-0d51c122320a5109d,subnet-0ac8857c1a1fae109,subnet-023faa26a32d874f9],securityGroups=[sg-0febc019ff5d677b5]}"
 
-      - name: Update webapp ECS image
-        id: update-webapp-ecs-image
+      - name: Generate webapp ECS task definition
+        id: generate-webapp-ecs-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition-arn: ${{ env.ECS_TASK_ARN_PREFIX }}-webapp
           container-name: webapp
           image: ${{ steps.build-image.outputs.image }}
 
-      - name: Update sidekiq ECS image
-        id: update-sidekiq-ecs-image
+      - name: Generate sidekiq ECS task definition
+        id: generate-sidekiq-ecs-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition-arn: ${{ env.ECS_TASK_ARN_PREFIX }}-sidekiq
           container-name: sidekiq
           image: ${{ steps.build-image.outputs.image }}
 
-      - name: Force deployment
-        id: force-deploy
-        run: |
-          aws ecs update-service --cluster paasmigration-staging-ecs-cluster --service paasmigration-staging-webapp-service --force-new-deployment
-          aws ecs update-service --cluster paasmigration-staging-ecs-cluster --service paasmigration-staging-sidekiq-service --force-new-deployment
+      - name: Deploy webapp ECS task
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+        id: deploy-webapp-ecs-task
+        with:
+          task-definition: ${{ steps.generate-webapp-ecs-def.outputs.task-definition }}
+          service: paasmigration-staging-webapp-service
+          cluster: paasmigration-staging-ecs-cluster
+
+      - name: Deploy sidekiq ECS task
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+        id: deploy-ssidekiq-ecs-task
+        with:
+          task-definition: ${{ steps.generate-sidekiq-ecs-def.outputs.task-definition }}
+          service: paasmigration-staging-webapp-service
+          cluster: paasmigration-staging-ecs-cluster
