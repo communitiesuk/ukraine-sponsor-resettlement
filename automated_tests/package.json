@@ -14,13 +14,13 @@
   "author": "Troy",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^10.9.0",
     "cypress-file-upload": "^5.0.8",
     "cypress-high-resolution": "^1.0.0",
     "cypress-if": "^1.10.2",
     "cypress-mochawesome-reporter": "^3.2.2",
     "cypress-plugin-tab": "^1.0.5",
-    "cypress-xpath": "^2.0.1"
+    "cypress-xpath": "^2.0.1",
+    "dotenv": "^17.2.1"
   },
   "dependencies": {
     "ci": "^2.2.0",
