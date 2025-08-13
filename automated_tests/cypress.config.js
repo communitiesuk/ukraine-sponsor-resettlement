@@ -23,7 +23,6 @@ module.exports = defineConfig({
       require('cypress-mochawesome-reporter/plugin')(on);
       require('cypress-high-resolution')(on, config)
     },
-
   baseUrl: process.env.BASE_URL || 'http://localhost:8080',
   userAgent: 'CYPRESS-E2E',
   excludeSpecPattern: process.env.all ? ['cypress/e2e/integration/EOI/run_all_eoi_specs.cy.js','cypress/e2e/integration/UAM/run_all_uam_specs.cy.js'] : [],
