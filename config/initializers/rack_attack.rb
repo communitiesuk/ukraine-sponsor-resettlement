@@ -9,8 +9,8 @@ else
 end
 
 if Rails.env.staging?
-  Rack::Attack.safelist('allow cypress e2e via UA') do |req|
-    req.user_agent.to_s.include?(ENV.fetch('CYPRESS_UA_TAG', 'CYPRESS-E2E'))
+  Rack::Attack.safelist("allow cypress e2e via UA") do |req|
+    req.user_agent.to_s.include?(ENV.fetch("CYPRESS_UA_TAG", "CYPRESS-E2E"))
   end
 end
 

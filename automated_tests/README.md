@@ -10,6 +10,8 @@ Install npm & cypress dependencies
 - run `npm run cy_verify` to verify cypress installation (ver. should be: "^10.9.0")
 
 ## Before beginning the test:
+If testing staging or a non-local env, create a .env in this directory and add BASE_URL="" of the desired url. 
+Note: for staging
 Add email & phone/mobile number here : 
 - EOI : `../../automated_tests/cypress/fixtures/eoi_bodytext_secrets.json` 
 - UAM : `../../automated_tests/cypress/fixtures/uam_appdata.json`
