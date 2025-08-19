@@ -338,19 +338,19 @@ const send_application = () => {
     cy.get(elements.app_complete_title).contains('Application complete')
     cy.get(elements.ref_number).contains('SPON').should('be.visible').wait(Cypress.env('waitTime'))
 }
-const validation_error = () => {
-    cy.writeFile('cypress/fixtures/envlinks.txt', '') //clear the text file
-    cy.writeFile('cypress/fixtures/envlinks.txt', { alfa: 'url changed' })
-    cy.log('[************* FAILED TEST *************]()')
-    cy.log('************* **FAILED TEST** *************')
-    cy.log('[************* FAILED TEST *************]()')
-    cy.log('************* **FAILED TEST** *************')
-    cy.log('[************* FAILED TEST *************]()')
-    cy.log('************* **FAILED TEST** *************')
-    cy.log('[*** FAILED TEST *** DUE TO ENVIRONMENT (local/staging/prod) URL CHANGED, ENTER THE CORRECT URL AND RE-RUN THE TEST > >> >>> >>>> >>>>>** ***]()')
-    cy.readFile('cypress/fixtures/envlinks.txt').should('not.contains', 'url changed')
-    cy.writeFile('cypress/fixtures/envlinks.txt', '') //clear the text file
+
+export const validation_error = () => {
+    const baseUrl = Cypress.config('baseUrl')
+
+    // Allow localhost and staging
+    if (
+        !baseUrl.includes('localhost') &&
+        !baseUrl.includes('staging')
+    ) {
+        throw new Error(`FAILED TEST: baseUrl is "${baseUrl}". Tests must only run against localhost or staging, never against production.`)
+    }
 }
+
 export const accept_send = () => {
     let local = ('http://localhost:8080/sponsor-a-child/check-answers');
     let staging = ('https://ukraine-sponsor-resettlement-staging.london.cloudapps.digital/sponsor-a-child/check-answers')
