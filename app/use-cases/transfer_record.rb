@@ -9,7 +9,7 @@ class TransferRecord
       application.transferred_at = Time.zone.now
       application.save!
 
-      uri = URI(ENV["REMOTE_API_URL"])
+      uri = URI(ENV["REMOTE_API_URL_EOI"])
       token = ENV["REMOTE_API_TOKEN"]
       res = Net::HTTP.post(uri, JSON.generate(application.as_json), "Content-Type" => "application/json", "Authorization" => "Bearer #{token}")
       if res.code.to_i >= 200 && res.code.to_i < 300
@@ -25,7 +25,7 @@ class TransferRecord
     UnaccompaniedMinor.transaction do
       application = UnaccompaniedMinor.find(record_id)
       json = application.prepare_transfer
-      uri = URI(ENV["REMOTE_API_URL"])
+      uri = URI(ENV["REMOTE_API_URL_UAM"])
       token = ENV["REMOTE_API_TOKEN_UAM"]
 
       post(uri, json, token, record_id)
