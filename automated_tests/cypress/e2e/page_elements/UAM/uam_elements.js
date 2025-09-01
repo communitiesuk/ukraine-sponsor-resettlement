@@ -25,7 +25,7 @@ var page_elements = {
     spon_consent_link: "//a[normalize-space()='UK sponsorship arrangement consent form (opens in a new tab)']",
     how_to_comp_consent_link: "//a[normalize-space()='Find out how to complete the consent forms (opens in a new tab).']",
     apply_visa: "//a[contains(text(),'Read the guidance for children applying for a visa')]",
-    page_heading_cont: ".govuk-caption-xl.gem-c-title__context",
+    page_heading_cont: ".govuk-caption-xl",
     gov_lic_link:"//a[normalize-space()='Open Government Licence v3.0']",
     open_lic_logo: "#open-licence-logo",
     crown_cr: ".govuk-footer__link.govuk-footer__copyright-logo",
