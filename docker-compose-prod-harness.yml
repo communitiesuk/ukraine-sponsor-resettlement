@@ -54,7 +54,8 @@ services:
 
       REMOTE_API_TOKEN_UAM: xxxxxxxx
       REMOTE_API_TOKEN: xxxxxxxx
-      REMOTE_API_URL: xxxxxxxx
+      REMOTE_API_URL_EOI: xxxxxxxx
+      REMOTE_API_URL_UAM: xxxxxxxx
 
       CONSENT_UPLOAD_USER: xxxxxxxx
       CONSENT_UPLOAD_PASS: xxxxxxxx
@@ -110,7 +111,8 @@ services:
 
       REMOTE_API_TOKEN_UAM: xxxxxxxx
       REMOTE_API_TOKEN: xxxxxxxx
-      REMOTE_API_URL: https://levellingup.palantirfoundry.co.uk/secure-upload/api/blobs/json
+      REMOTE_API_URL_EOI: https://levellingup.palantirfoundry.co.uk/secure-upload/api/blobs/json
+      REMOTE_API_URL_UAM: https://levellingup.palantirfoundry.co.uk/secure-upload/api/blobs/json
 
       CONSENT_UPLOAD_USER: xxxxxxxx
       CONSENT_UPLOAD_PASS: xxxxxxxx

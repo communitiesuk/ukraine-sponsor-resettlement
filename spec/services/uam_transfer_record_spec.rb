@@ -2,13 +2,13 @@ require "rails_helper"
 
 RSpec.describe "TransferRecord executing minors" do
   before do
-    ENV["REMOTE_API_URL"] = ENV["REMOTE_API_URL"] || "https://example.com/api"
+    ENV["REMOTE_API_URL_UAM"] = ENV["REMOTE_API_URL_UAM"] || "https://example.com/api"
     ENV["REMOTE_API_TOKEN_UAM"] = ENV["REMOTE_API_TOKEN_UAM"] || "some_api_token"
   end
 
   describe "execute_unaccompanied_minor !" do
     let(:remote_api_token_api) { ENV["REMOTE_API_TOKEN_UAM"] }
-    let(:remote_api_url) { ENV["REMOTE_API_URL"] }
+    let(:remote_api_url) { ENV["REMOTE_API_URL_UAM"] }
     let(:uam) { instance_double(UnaccompaniedMinor) }
     let(:json_payload) { "{\"reference\":\"SPON-EDE1-4065-B\"}" }
     let(:response) { Net::HTTPResponse.new(1.0, 200, "OK") }

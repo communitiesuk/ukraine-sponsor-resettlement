@@ -66,15 +66,22 @@ Alerts are configured in [Grafana](https://ukraine-sponsor-resettlement-monitori
 ### Pre-requisites
 
 - Docker
+- [asdf](https://asdf-vm.com/guide/getting-started.html)
 
 ### Getting started
 
-Run:
-`make run`
+#### First time
 
-In case of any error, run these two commands before `make run`:
+Make sure you are using the correct tool versions:
+`asdf install`
+
+Build assets and install build tools:
 `bundle exec rake webpacker:install`
 `bundle exec rails assets:precompile`
+
+#### Every time
+Run:
+`make run`
 
 The Rails server should start on <http://localhost:8080>
 

@@ -232,24 +232,24 @@ RSpec.describe UnaccompaniedMinor, type: :model do
       expect(app.valid?).to be(true)
     end
 
-    it "ensure the file is 20MB or smaller" do
+    it "ensure the file is 4.5MB or smaller" do
       app = described_class.new
       app.partial_validation = %i[uk_parental_consent_file_size]
 
-      app.uk_parental_consent_file_size = 1024 * 1024 * 21
+      app.uk_parental_consent_file_size = 1024 * 1024 * 5
       expect(app.valid?).to be(false)
-      expect(app.errors[:uk_parental_consent]).to include("Your file must be smaller than 20MB")
+      expect(app.errors[:uk_parental_consent]).to include("Your file must be smaller than 4.5MB")
 
-      app.uk_parental_consent_file_size = 1024 * 1024 * 20
+      app.uk_parental_consent_file_size = 1024 * 1024 * 4.5
       expect(app.valid?).to be(true)
 
       app.partial_validation = %i[ukraine_parental_consent_file_size]
 
-      app.ukraine_parental_consent_file_size = 1024 * 1024 * 21
+      app.ukraine_parental_consent_file_size = 1024 * 1024 * 5
       expect(app.valid?).to be(false)
-      expect(app.errors[:ukraine_parental_consent]).to include("Your file must be smaller than 20MB")
+      expect(app.errors[:ukraine_parental_consent]).to include("Your file must be smaller than 4.5MB")
 
-      app.ukraine_parental_consent_file_size = 1024 * 1024 * 20
+      app.ukraine_parental_consent_file_size = 1024 * 1024 * 4.5
       expect(app.valid?).to be(true)
     end
 
