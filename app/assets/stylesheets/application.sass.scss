@@ -1,7 +1,7 @@
+@use "homes_for_ukraine.scss";
+@use "gds-step_by_step_navigation.scss";
+@use "govuk-frontend/dist/govuk/all";
+
 $govuk-global-styles: true;
 $govuk-new-link-styles: true;
 $govuk-assets-path: "/";
-
-@import "govuk-frontend/dist/govuk/all";
-@use "homes_for_ukraine.scss";
-@use "gds-step_by_step_navigation.scss";
