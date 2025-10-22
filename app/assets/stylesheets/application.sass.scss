@@ -3,5 +3,5 @@ $govuk-new-link-styles: true;
 $govuk-assets-path: "/";
 
 @import "govuk-frontend/dist/govuk/all";
-@import "homes_for_ukraine.scss";
-@import "gds-step_by_step_navigation.scss";
+@use "homes_for_ukraine.scss";
+@use "gds-step_by_step_navigation.scss";
