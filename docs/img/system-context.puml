@@ -14,14 +14,14 @@ Person_Ext(las, Local Authority)
 
 System_Boundary(system, "Ukraine Sponsor Resettlement") {
   System(resettlement_fe, "Resettlement Web Application", "Front door for applications.")
-  System_Ext(foundry, "Foundry", "(Palantir) Foundry")
+  System_Ext(share, "Share Service", "Homes for Ukraine application processing service")
   System_Ext(gov_notify, "Gov.UK Notify", "Email & SMS")
 }
 
-Rel(applicant, resettlement_fe, "Register expression of interest")
+Rel(applicant, resettlement_fe, "Register expression of interest or sponsor a child")
 Rel(resettlement_fe, gov_notify, "User notification")
-Rel(resettlement_fe, foundry, "Transfer on user 'submit'")
-Rel(las, foundry, "View applications")
+Rel(resettlement_fe, share, "Transfer on user 'submit'")
+Rel(las, share, "View applications")
 Rel(gov_notify, applicant, "Confirmation & sms for save and return")
 
 SHOW_DYNAMIC_LEGEND()
