@@ -35,12 +35,14 @@ System_Boundary(s1, "AWS Space") {
     Container(clamav, "ClamAV Instances", "AWS Fargate", "Virus scanning for uploaded consent form files", $sprite="virus_slash")
     
     Container_Boundary(s3, "Monitoring Space") {
-      System_Ext(prom_ex, "AWS CloudWatch")
+      System_Ext(cloudwatch, "AWS CloudWatch")
     }
 }
 
 System_Ext(notify, "Gov.UK Notify", "Email & SMS messages to applicants")
-System(foundry, "Palantir Foundry", "HTTPS API")
+System(share, "Share service", "HTTPS API")
+
+System(pagerduty, "PagerDuty", "HTTPS API")
 
 System_Boundary(s2, "External Observabilty") {
   System_Ext(sentry, "sentry.io", "Error capture\nEmails team")
@@ -63,12 +65,15 @@ BiRel(sidekiq, redis, "Processes asynch jobs", "HTTPS")
 Rel_L(sidekiq, notify, "Inform applicants", "HTTPS")
 Rel_U(notify, applicant , "Email or SMS")
 
-Lay_D(notify, foundry)
-Rel(sidekiq, foundry, "POST completed applications", "HTTPS API")
+Lay_D(notify, share)
+Rel(sidekiq, share, "POST completed applications", "HTTPS API")
 
-Rel(prom_ex, web_app, "Pulls metrics")
-Rel(techs, prom_ex, "View errors")
+Rel(techs, cloudwatch, "View metrics")
 Rel(techs, sentry, "View errors")
+
+Rel(cloudwatch, pagerduty, "Raises incidents on alarms")
+Rel(sentry, pagerduty, "Raises incidents on errors")
+Rel(pagerduty, techs, "Notifies of incidents")
 
 center footer  [[https://c4model.com/#CoreDiagrams C4 Container Diagram]]
 
