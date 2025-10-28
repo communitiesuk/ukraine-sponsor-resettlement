@@ -22,7 +22,8 @@ This is the codebase for the [Ruby on Rails app](https://apply-to-offer-homes-fo
 
 ## Deployment Pipeline
 
-![Deployment Pipeline](https://github.com/communitiesuk/ukraine-sponsor-resettlement/actions/workflows/deploy-pipeline.yml/badge.svg?branch=master)
+![Prod Deployment Pipeline](https://github.com/communitiesuk/ukraine-sponsor-resettlement/actions/workflows/deploy-aws-production.yml/badge.svg?branch=master)
+![Staging Deployment Pipeline](https://github.com/communitiesuk/ukraine-sponsor-resettlement/actions/workflows/deploy-aws-staging.yml/badge.svg?branch=master)
 
 ## System Context Diagram
 
