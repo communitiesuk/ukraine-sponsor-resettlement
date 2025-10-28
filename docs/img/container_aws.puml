@@ -15,8 +15,7 @@
 !includeurl ICONURL/devicons2/rails_wordmark.puml
 !includeurl ICONURL/devicons2/ruby_wordmark.puml
 !includeurl ICONURL/devicons2/amazonwebservices_wordmark.puml
-
-
+!includeurl ICONURL/font-awesome-5/virus_slash.puml
 
 LAYOUT_WITH_LEGEND()
 
@@ -31,8 +30,9 @@ System_Boundary(s1, "AWS Space") {
     Container(s3bucket, "S3 Bucket", "AWS S3", "Store uploaded documents", $sprite="amazonwebservices_wordmark")
     Container(web_app, "Web Application Instances", "AWS Fargate", "Serves the application forms 'Front Door'", $sprite="rails_wordmark")
     ContainerDb(postgres, "PostgreSQL", "AWS RDS", "Stores user entered application information", $sprite="postgresql")
-    ContainerDb(redis, "Redis", "AWS Elasticache", "RoR backing for deferred / background jobs via Sidekiq", $sprite="redis")
+    ContainerDb(redis, "Redis", "AWS Elasticache", "RoR backing for deferred / background jobs via Sidekiq\nIP request counts for rate limiting", $sprite="redis")
     Container(sidekiq, "Sidekiq Instances", "AWS Fargate", "Asynch workers\nRetry on failure", $sprite="ruby_wordmark")
+    Container(clamav, "ClamAV Instances", "AWS Fargate", "Virus scanning for uploaded consent form files", $sprite="virus_slash")
     
     Container_Boundary(s3, "Monitoring Space") {
       System_Ext(prom_ex, "AWS CloudWatch")
@@ -52,6 +52,8 @@ BiRel(elb, web_app, "Uses", "HTTPS")
 
 Rel_R(sidekiq, s3bucket, "Read consent forms to upload", "HTTPS")
 Rel_L(web_app, s3bucket, "Store consent forms", "HTTPS")
+
+BiRel(web_app, clamav, "Scans consent forms", "TCP")
 
 Rel(web_app, postgres, "Stores", "HTTPS")
 Rel(web_app, redis, "Queues asynch jobs", "HTTPS")
