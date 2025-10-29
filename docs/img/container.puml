@@ -16,6 +16,7 @@
 !includeurl ICONURL/devicons2/ruby_wordmark.puml
 !includeurl ICONURL/devicons2/amazonwebservices_wordmark.puml
 !includeurl ICONURL/font-awesome-5/virus_slash.puml
+!includeurl ICONURL/font-awesome-5/fire.puml
 
 LAYOUT_WITH_LEGEND()
 
@@ -23,7 +24,6 @@ title Container diagram for Homes for Ukraine application forms
 
 Person(applicant, Applicant, "Private & Commercial expressions of interest")
 Person_Ext(techs, Tech Team, "Development and support")
-Container_Ext(cloudflare, "Cloudflare", "DLUHC Managed", "DDoS Protection")
 
 System_Boundary(s1, "AWS Space") {
     Container(elb, "Elastic Load Balancer", "AWS ELB", "Distributes requests")
@@ -33,6 +33,7 @@ System_Boundary(s1, "AWS Space") {
     ContainerDb(redis, "Redis", "AWS Elasticache", "RoR backing for deferred / background jobs via Sidekiq\nIP request counts for rate limiting", $sprite="redis")
     Container(sidekiq, "Sidekiq Instances", "AWS Fargate", "Asynch workers\nRetry on failure", $sprite="ruby_wordmark")
     Container(clamav, "ClamAV Instances", "AWS Fargate", "Virus scanning for uploaded consent form files", $sprite="virus_slash")
+    Container(waf, "LB WAF", "AWS WAF", "Web Application Firewall for filtering malicious requests", $sprite="fire")
     
     Container_Boundary(s3, "Monitoring Space") {
       System_Ext(cloudwatch, "AWS CloudWatch")
@@ -48,8 +49,8 @@ System_Boundary(s2, "External Observabilty") {
   System_Ext(sentry, "sentry.io", "Error capture\nEmails team")
 }
 
-BiRel(applicant, cloudflare, "Uses", "HTTPS")
-BiRel(cloudflare, elb, "Uses", "HTTPS")
+BiRel(applicant, waf, "Uses", "HTTPS")
+BiRel(waf, elb, "Uses", "HTTPS")
 BiRel(elb, web_app, "Uses", "HTTPS")
 
 Rel_R(sidekiq, s3bucket, "Read consent forms to upload", "HTTPS")
@@ -57,16 +58,16 @@ Rel_L(web_app, s3bucket, "Store consent forms", "HTTPS")
 
 BiRel(web_app, clamav, "Scans consent forms", "TCP")
 
-Rel(web_app, postgres, "Stores", "HTTPS")
-Rel(web_app, redis, "Queues asynch jobs", "HTTPS")
+Rel(web_app, postgres, "Stores", "TCP")
+Rel(web_app, redis, "Queues asynch jobs", "TCP")
 Rel(web_app, sentry, "Record errors", "HTTPS")
 
 BiRel(sidekiq, redis, "Processes asynch jobs", "HTTPS")
 Rel_L(sidekiq, notify, "Inform applicants", "HTTPS")
 Rel_U(notify, applicant , "Email or SMS")
 
-Lay_D(notify, share)
-Rel(sidekiq, share, "POST completed applications", "HTTPS API")
+Rel(sidekiq, share, "POST completed applications", "HTTPS")
+Rel(sidekiq, postgres, "Read application details", "TCP")
 
 Rel(techs, cloudwatch, "View metrics")
 Rel(techs, sentry, "View errors")
