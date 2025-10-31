@@ -1,6 +1,6 @@
 # Ukraine Sponsor Resettlement
 
-This is the codebase for the [Ruby on Rails app](https://apply-to-offer-homes-for-ukraine.service.gov.uk/) that will handles the submission of sponsorship requests.
+This is the codebase for the [Ruby on Rails app](https://apply-to-offer-homes-for-ukraine.service.gov.uk/) that will handle the submission of sponsorship requests.
 
 ## Table of Contents
 
