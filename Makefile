@@ -18,7 +18,7 @@ test:
 	# Start a test container running against existing dependencies
 	docker compose up --detach
 	make db-migrate
-	bundle exec rake spec
+	RAILS_ENV=test bundle exec rake spec
 
 .PHONY: docker-test
 docker-test:
