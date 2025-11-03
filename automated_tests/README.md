@@ -24,6 +24,9 @@ By default, these cypress tests will be run against a local version of the appli
 
 If you want to run these tests against a different environment, e.g an AWS hosted dev environment or staging, you can pass the `BASE_URL` environment variable to the cypress commands, e.g. `BASE_URL="https://foo.example.com/" npm run cy_open`
 
+## Authentication
+If cypress needs to authenticate requests with HTTP basic auth, for example to run against the staging AWS environment, you can pass the `CYPRESS_USERNAME` and `CYPRESS_PASSWORD` environment variables to the cypress commands
+
 ## Command line
 - run `all=specs npm run e2e` to run all tests using default Electron broswer and open the report
 - run `npm run view_report` to view report on browser
