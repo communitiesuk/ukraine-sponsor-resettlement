@@ -1,9 +1,8 @@
-const { newSession } = require('../../../support/session');
 const alfa = require('../../pages/EOI/eoi_address')
 
 describe('[Frontend-UI]: EOI ADDRESS', function () {
   this.beforeEach(() => {
-    newSession()
+    cy.newSession()
   })
 
   context('Residential Address', function () {

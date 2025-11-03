@@ -1,11 +1,16 @@
 const element = require('../../pages/EOI/eoi_date')
 
 describe('[Frontend-UI]: EOI DATE', function () {
-  this.beforeAll(() => {
+  this.beforeEach(() => {
     cy.newSession()
   })
 
   context('Specific Date Validations', function () {
+    this.beforeEach(() => {
+      cy.visit('/expression-of-interest/steps/9')
+      element.selectFromSpecificDate()
+    })
+  
     it("date error validations [all fields blank]", function () {
       element.date_null()
     })

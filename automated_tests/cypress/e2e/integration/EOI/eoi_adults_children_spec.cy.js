@@ -1,11 +1,15 @@
-const alfa = require('../../pages/EOI/eoi_adults_&_children')
+const alfa = require('../../pages/EOI/eoi_adults_and_children')
 
 describe('[Frontend-UI]: EOI ADULTS AND CHILDREN', function () {
-  this.beforeAll(() => {
+  this.beforeEach(() => {
     cy.newSession()
-  });
+  })
 
   context('Adults and Children', function () {
+    this.beforeEach(() => {
+      cy.visit('/expression-of-interest/steps/10')
+    })
+  
     it('adults and children [null values]', function () {
       alfa.adults_and_children_nv()
     })
