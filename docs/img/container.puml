@@ -1,4 +1,4 @@
-@startuml HFU Container Diagram
+@startuml HFU Container Diagram - AWS
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/v2.4.0/C4_Container.puml
 '!include <c4/C4_Container.puml>  
 
@@ -6,14 +6,17 @@
 !include <office/Users/user.puml>
 
 !define ICONURL https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/v2.4.0
+!define AWSPuml https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v16.0/dist
+
 !includeurl ICONURL/common.puml
+!includeurl AWSPuml/AWSCommon.puml
 !includeurl ICONURL/devicons2/postgresql.puml
 !includeurl ICONURL/devicons2/redis.puml
 !includeurl ICONURL/devicons2/rails_wordmark.puml
 !includeurl ICONURL/devicons2/ruby_wordmark.puml
 !includeurl ICONURL/devicons2/amazonwebservices_wordmark.puml
-
-
+!includeurl ICONURL/font-awesome-5/virus_slash.puml
+!includeurl ICONURL/font-awesome-5/fire.puml
 
 LAYOUT_WITH_LEGEND()
 
@@ -21,61 +24,57 @@ title Container diagram for Homes for Ukraine application forms
 
 Person(applicant, Applicant, "Private & Commercial expressions of interest")
 Person_Ext(techs, Tech Team, "Development and support")
-Container_Ext(cloudflare, "Cloudflare", "DLUCH Managed", "DDoS Protection")
 
-System_Boundary(s1, "Gov.UK PaaS Space") {
-    Container(elb, "Elastic Load Balancer", "Gov Paas", "Distributes requests")
-    Container(s3bucket, "S3 Bucket", "via gov.paas", "Store uploaded documents", $sprite="amazonwebservices_wordmark")
-    Container(web_app, "Web Application Instances", "Rails, Docker container", "Serves the application forms 'Front Door'", $sprite="rails_wordmark")
-    ContainerDb(postgres, "PostgreSQL", "PostgreSQL", "Stores user entered application information", $sprite="postgresql")
-    ContainerDb(redis, "Redis", "Redis", "RoR backing for deferred / background jobs via Sidekiq", $sprite="redis")
-    Container(sidekiq, "Sidekiq Instances", "Ruby, Docker container", "Asynch workers\nRetry on failure", $sprite="ruby_wordmark")
+System_Boundary(s1, "AWS Space") {
+    Container(elb, "Elastic Load Balancer", "AWS ELB", "Distributes requests")
+    Container(s3bucket, "S3 Bucket", "AWS S3", "Store uploaded documents", $sprite="amazonwebservices_wordmark")
+    Container(web_app, "Web Application Instances", "AWS Fargate", "Serves the application forms 'Front Door'", $sprite="rails_wordmark")
+    ContainerDb(postgres, "PostgreSQL", "AWS RDS", "Stores user entered application information", $sprite="postgresql")
+    ContainerDb(redis, "Redis", "AWS Elasticache", "RoR backing for deferred / background jobs via Sidekiq\nIP request counts for rate limiting", $sprite="redis")
+    Container(sidekiq, "Sidekiq Instances", "AWS Fargate", "Asynch workers\nRetry on failure", $sprite="ruby_wordmark")
+    Container(clamav, "ClamAV Instances", "AWS Fargate", "Virus scanning for uploaded consent form files", $sprite="virus_slash")
+    Container(waf, "LB WAF", "AWS WAF", "Web Application Firewall for filtering malicious requests", $sprite="fire")
     
     Container_Boundary(s3, "Monitoring Space") {
-      System_Ext(prom_ex, "Prometheus Exporter", "(GDS codebase)")
-      System_Ext(prom, "Prometheus")
-      SystemDb_Ext(pg, "PostgreSQL")
-      SystemDb_Ext(influx, "InfluxDB")
-      System_Ext(grafana, "Grafana")
+      System_Ext(cloudwatch, "AWS CloudWatch")
     }
 }
 
 System_Ext(notify, "Gov.UK Notify", "Email & SMS messages to applicants")
-System(foundry, "Palantir Foundry", "HTTPS API")
+System(share, "Share service", "HTTPS API")
+
+System(pagerduty, "PagerDuty", "HTTPS API")
 
 System_Boundary(s2, "External Observabilty") {
-  System_Ext(logit, "logit.io", "Application logging drain")
   System_Ext(sentry, "sentry.io", "Error capture\nEmails team")
 }
 
-BiRel(applicant, cloudflare, "Uses", "HTTPS")
-BiRel(cloudflare, elb, "Uses", "HTTPS")
+BiRel(applicant, waf, "Uses", "HTTPS")
+BiRel(waf, elb, "Uses", "HTTPS")
 BiRel(elb, web_app, "Uses", "HTTPS")
 
 Rel_R(sidekiq, s3bucket, "Read consent forms to upload", "HTTPS")
 Rel_L(web_app, s3bucket, "Store consent forms", "HTTPS")
 
-Rel(web_app, postgres, "Stores", "HTTPS")
-Rel(web_app, redis, "Queues asynch jobs", "HTTPS")
+BiRel(web_app, clamav, "Scans consent forms", "TCP")
+
+Rel(web_app, postgres, "Stores", "TCP")
+Rel(web_app, redis, "Queues asynch jobs", "TCP")
 Rel(web_app, sentry, "Record errors", "HTTPS")
-Rel(web_app, logit, "Captures app logs", "HTTPS")
 
 BiRel(sidekiq, redis, "Processes asynch jobs", "HTTPS")
 Rel_L(sidekiq, notify, "Inform applicants", "HTTPS")
 Rel_U(notify, applicant , "Email or SMS")
 
-Lay_D(notify, foundry)
-Rel(sidekiq, foundry, "POST completed applications", "HTTPS API")
+Rel(sidekiq, share, "POST completed applications", "HTTPS")
+Rel(sidekiq, postgres, "Read application details", "TCP")
 
-Rel(prom_ex, web_app, "Pulls metrics")
-Rel(prom, prom_ex, "Pulls metrics")
-Rel(prom, influx, "Metrics stored in")
-Rel(grafana, prom, "Consumes for display")
-Rel(grafana, pg, "Configuration Store")
-
-BiRel_U(techs, grafana, "View metrics and alerts")
+Rel(techs, cloudwatch, "View metrics")
 Rel(techs, sentry, "View errors")
-Rel(techs, logit, "View logs")
+
+Rel(cloudwatch, pagerduty, "Raises incidents on alarms")
+Rel(sentry, pagerduty, "Raises incidents on errors")
+Rel(pagerduty, techs, "Notifies of incidents")
 
 center footer  [[https://c4model.com/#CoreDiagrams C4 Container Diagram]]
 

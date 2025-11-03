@@ -22,7 +22,8 @@ This is the codebase for the [Ruby on Rails app](https://apply-to-offer-homes-fo
 
 ## Deployment Pipeline
 
-![Deployment Pipeline](https://github.com/communitiesuk/ukraine-sponsor-resettlement/actions/workflows/deploy-pipeline.yml/badge.svg?branch=master)
+![Prod Deployment Pipeline](https://github.com/communitiesuk/ukraine-sponsor-resettlement/actions/workflows/deploy-aws-production.yml/badge.svg?branch=master)
+![Staging Deployment Pipeline](https://github.com/communitiesuk/ukraine-sponsor-resettlement/actions/workflows/deploy-aws-staging.yml/badge.svg?branch=master)
 
 ## System Context Diagram
 
@@ -34,47 +35,47 @@ The, [C4 system context diagram](https://c4model.com/#SystemContextDiagram) is i
 
 The,  [C4 container diagram](https://https://c4model.com/#ContainerDiagram) is intended to zoom in from the system boundary, at the highest level, to provide further detail for the technical audience.
 
-![C4 Container diagram](./docs/img/container_aws.svg)
+![C4 Container diagram](./docs/img/container.svg)
 
 ## Component Diagram
 
-The,  [C4 Component diagram](https://c4model.com/#ComponentDiagram) is intended to zoom in from the system boundary, at the highest level, to provide further detail for the technical audience.
+The, [C4 Component diagram](https://c4model.com/#ComponentDiagram) is intended to zoom in from the system boundary, at the highest level, to provide further detail for the technical audience.
 
-![C4 Component diagram](./docs/img/webapp_component_aws.svg)
+![C4 Component diagram](./docs/img/webapp_component.svg)
 
 ## Monitoring
 
 - [sentry.io](https://sentry.io/organizations/dluhc-ulss/projects/dluhc-ulss/?project=6260319)
-- [logit.io Dashboard](https://dashboard.logit.io/a/6b6785a5-cb7f-4d9b-a456-456949f5aa07)
-- [Grafana Production Dashboard](https://ukraine-sponsor-resettlement-monitoring-grafana.london.cloudapps.digital/d/0it5-vEnk/production)
+- [CloudWatch](https://eu-west-2.console.aws.amazon.com/cloudwatch/home?region=eu-west-2#home:)
+- [PagerDuty](https://madetech.eu.pagerduty.com/service-directory/PHFCTQM)
 
 ### Alerting
 
-Alerts are configured in [Grafana](https://ukraine-sponsor-resettlement-monitoring-grafana.london.cloudapps.digital/d/0it5-vEnk/production) and push to the following destinations:
+Alerts are configured in CloudWatch, and push to PagerDuty via a SNS topic. Sentry also creates incidents in PagerDuty on new errors.
 
-- **#homes-for-ukraine-alerts**, [DLUHC](https://www.gov.uk/government/organisations/department-for-levelling-up-housing-and-communities) managed Slack channel
-- [PagerDuty](https://madetech.eu.pagerduty.com/), MadeTech managed instance.
-- Email to the team. (Find the email address defined in the grafana alerts)
-
-### Related Repositories
-
-- [Prometheus Exporter](https://github.com/communitiesuk/ukraine-sponsor-resettlement-monitoring) repository
-- [Gov PAAS Prometheus Exporter](https://github.com/alphagov/paas-prometheus-exporter), documents the [metrics](https://github.com/alphagov/paas-prometheus-exporter#available-application-metrics) available in Grafana.
+PagerDuty incidents go to the #msp-live-service-alerts channel in Made Tech's Slack instance
 
 ## Development
 
 ### Pre-requisites
 
 - Docker
+- [asdf](https://asdf-vm.com/guide/getting-started.html)
 
 ### Getting started
 
-Run:
-`make run`
+#### First time
 
-In case of any error, run these two commands before `make run`:
+Make sure you are using the correct tool versions:
+`asdf install`
+
+Build assets and install build tools:
 `bundle exec rake webpacker:install`
 `bundle exec rails assets:precompile`
+
+#### Every time
+Run:
+`make run`
 
 The Rails server should start on <http://localhost:8080>
 
@@ -122,7 +123,4 @@ This will create a file in the db/migrate folder and this file can be amended to
 
 ## Infrastructure
 
-This application is running on Amazon Web Services (https://aws.amazon.com/console/).
-
-
-
+This application is running on Amazon Web Services (https://aws.amazon.com/console/) via ECS on Fargate.

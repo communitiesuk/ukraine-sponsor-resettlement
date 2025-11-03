@@ -206,7 +206,7 @@ module UamValidations
   end
 
   def validate_uk_parent_consent_file_size
-    if !@uk_parental_consent_file_size.nil? && @uk_parental_consent_file_size > 1024 * 1024 * 20
+    if !@uk_parental_consent_file_size.nil? && @uk_parental_consent_file_size > 1024 * 1024 * 4.5
       errors.add(:uk_parental_consent, I18n.t(:file_too_large, scope: :error))
     end
   end
@@ -230,7 +230,7 @@ module UamValidations
   end
 
   def validate_ukraine_parent_consent_file_size
-    if !@ukraine_parental_consent_file_size.nil? && @ukraine_parental_consent_file_size > 1024 * 1024 * 20
+    if !@ukraine_parental_consent_file_size.nil? && @ukraine_parental_consent_file_size > 1024 * 1024 * 4.5
       errors.add(:ukraine_parental_consent, I18n.t(:file_too_large, scope: :error))
     end
   end

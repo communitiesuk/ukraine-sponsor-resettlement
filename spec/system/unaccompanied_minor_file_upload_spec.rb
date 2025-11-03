@@ -51,7 +51,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       attach_file("unaccompanied-minor-uk-parental-consent-field", test_file_path)
       click_button("Continue")
 
-      expect(page).to have_content("Your file must be smaller than 20MB")
+      expect(page).to have_content("Your file must be smaller than 4.5MB")
     end
 
     it "gets rejected trying to upload a file that's too large Ukraine" do
@@ -65,7 +65,7 @@ RSpec.describe "Unaccompanied minor expression of interest", type: :system do
       attach_file("unaccompanied-minor-ukraine-parental-consent-field", test_file_path)
       click_button("Continue")
 
-      expect(page).to have_content("Your file must be smaller than 20MB")
+      expect(page).to have_content("Your file must be smaller than 4.5MB")
     end
 
     it "gets rejected trying to upload a malicious UK consent form" do

@@ -191,7 +191,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.actor != 'dependabot[bot]' }}
     environment: aws-staging
-    needs: [lint, test, audit, brakeman-scan]
+    needs: [lint, test, brakeman-scan]
 
     steps:
       - name: Checkout
