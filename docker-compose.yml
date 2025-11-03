@@ -1,6 +1,6 @@
 services:
   pg:
-    image: postgres:alpine
+    image: postgres:16.10
     restart: always
     environment:
       - POSTGRES_DB=ukraine_test
