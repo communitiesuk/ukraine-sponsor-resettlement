@@ -2,9 +2,8 @@ const element = require('../../pages/EOI/eoi_date')
 
 describe('[Frontend-UI]: EOI DATE', function () {
   this.beforeAll(() => {
-    cy.clearCookie('_ukraine_sponsor_resettlement_session')
-  });
-  Cypress.Cookies.defaults({ preserve: '_ukraine_sponsor_resettlement_session' })
+    cy.newSession()
+  })
 
   context('Specific Date Validations', function () {
     it("date error validations [all fields blank]", function () {

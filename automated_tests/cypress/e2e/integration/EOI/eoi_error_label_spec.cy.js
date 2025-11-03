@@ -2,9 +2,8 @@ const element = require('../../pages/EOI/eoi_error_label')
 
 describe('[Frontend-UI]: EOI ERROR LABEL', function () {
   this.beforeAll(() => {
-    cy.clearCookie('_ukraine_sponsor_resettlement_session')
-  });
-  Cypress.Cookies.defaults({ preserve: '_ukraine_sponsor_resettlement_session' })
+    cy.newSession()
+  })
 
   context('Self Assessment', function () {
     it('verify property suitability [start page]', function () {
@@ -63,8 +62,5 @@ describe('[Frontend-UI]: EOI ERROR LABEL', function () {
     it('verify answers', function () {
       element.check_your_answers()
     })
-    this.afterAll(() => {
-      cy.clearCookie('_ukraine_sponsor_resettlement_session')
-    });
   })
 })

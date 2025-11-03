@@ -3,12 +3,11 @@ const eligibility = require('../../pages/UAM/uam_eli_uhp')
 
 describe('[Frontend-UI]: UAM ELIGIBILITY [UNHAPPY PATH]', function () {
   this.beforeAll(() => {
-    cy.clearCookie('_ukraine_sponsor_resettlement_session')
+    cy.newSession()
     cy.fixture('uam_appdata').then(function(uam_secrets){
       this.data = uam_secrets
     })
-  });
-  Cypress.Cookies.defaults({ preserve: '_ukraine_sponsor_resettlement_session' })
+  })
 
   context('Eligibility Check Unhappy Path', function () {
     it('eligibility steps start', function () {
@@ -37,5 +36,3 @@ describe('[Frontend-UI]: UAM ELIGIBILITY [UNHAPPY PATH]', function () {
     })
   })
 })
-
-

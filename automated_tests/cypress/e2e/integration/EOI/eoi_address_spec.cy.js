@@ -1,12 +1,16 @@
+const { newSession } = require('../../../support/session');
 const alfa = require('../../pages/EOI/eoi_address')
 
 describe('[Frontend-UI]: EOI ADDRESS', function () {
   this.beforeAll(() => {
-    cy.clearCookie('_ukraine_sponsor_resettlement_session')
-  });
- Cypress.Cookies.defaults({ preserve: '_ukraine_sponsor_resettlement_session' })
+    newSession()
+  })
 
   context('Residential Address', function () {
+    this.beforeEach(() => {
+      cy.visit('/expression-of-interest/steps/4').wait(Cypress.env('waitTime'))
+    })
+    
     it('residential address error validation [null values]', function () {
       alfa.residential_address_nv()
     })
@@ -26,6 +30,7 @@ describe('[Frontend-UI]: EOI ADDRESS', function () {
       alfa.residential_address_av()
     })
   })
+
   context('Offering Property Address', function () {
     it('address of the property offering error validation [null values]', function () {
       alfa.offering_property_address_nv()
@@ -46,7 +51,4 @@ describe('[Frontend-UI]: EOI ADDRESS', function () {
       alfa.offering_property_address_av()
     })
   })
-  this.afterAll(() => {
-    cy.clearCookie('_ukraine_sponsor_resettlement_session')
-  });
 })

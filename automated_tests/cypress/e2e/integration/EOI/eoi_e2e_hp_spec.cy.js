@@ -2,9 +2,8 @@ const element = require('../../pages/EOI/eoi_e2e_hp')
 
 describe('[Frontend-UI]: EOI HAPPY PATH', function () {
   this.beforeAll(() => {
-    cy.clearCookie('_ukraine_sponsor_resettlement_session')
-  });
-  Cypress.Cookies.defaults({ preserve: '_ukraine_sponsor_resettlement_session' })
+    cy.newSession()
+  })
   
   context('Self Assessment', function () {
     it('verify property suitability', function () {
@@ -47,8 +46,5 @@ describe('[Frontend-UI]: EOI HAPPY PATH', function () {
     it('verify accept and send', function () {
       element.accept_send()
     })
-    this.afterAll(() => {
-      cy.clearCookie('_ukraine_sponsor_resettlement_session')
-    });
   })
 })

@@ -3,11 +3,10 @@ const eligibility = require('../../pages/UAM/eligibility')
 
 describe('[Frontend-UI]: UAM RESIDENTS DETAILS', function () {
   this.beforeAll(() => {
-    cy.clearCookie('_ukraine_sponsor_resettlement_session')
+    cy.newSession()
     cy.fixture('uam_appdata').then(function(uam_secrets){this.data = uam_secrets})
     cy.fixture('uam_bodytext_err').then(function(uam_bt_err){this.data = uam_bt_err})
-  });
-  Cypress.Cookies.defaults({ preserve: '_ukraine_sponsor_resettlement_session' })
+  })
 
   context('Eligibility Check', function () {
     it('verify eligibility', function () {

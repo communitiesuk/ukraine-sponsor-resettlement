@@ -1,10 +1,6 @@
 const element = require('../../pages/EOI/eoi_bedrooms')
 
 describe('[Frontend-UI]: EOI BEDROOM', function () {
-  this.beforeAll(() => {
-    cy.clearCookie('_ukraine_sponsor_resettlement_session')
-  });
-  Cypress.Cookies.defaults({ preserve: '_ukraine_sponsor_resettlement_session' })
 
   context('Bedroom Validation Errors', function () {
     it("bedroom error validation [Null Values]", function () {
