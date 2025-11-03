@@ -6,7 +6,7 @@ describe('[Frontend-UI]: EOI ERROR LABEL', function () {
     cy.visit('/expression-of-interest/').wait(Cypress.env('waitTime'))
   })
 
-  it.only('verify property suitability', function () {
+  it('verify property suitability', function () {
     // Eligibility checks
     element.eoi_eligibility_check_ev_start()
     element.eoi_eligibility_check_ev_property_suitability()
