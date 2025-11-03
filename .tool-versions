@@ -1,4 +1,3 @@
 ruby 3.3.6
 yarn 1.22.22
 nodejs 24.10.0
-postgres 18.0
