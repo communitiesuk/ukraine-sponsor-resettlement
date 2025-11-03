@@ -26,6 +26,7 @@ module.exports = defineConfig({
     username: process.env.CYPRESS_USERNAME,
     password: process.env.CYPRESS_PASSWORD,
   },
+  userAgent: 'CYPRESS-E2E',
   excludeSpecPattern: process.env.all ? ['cypress/e2e/integration/EOI/run_all_eoi_specs.cy.js','cypress/e2e/integration/UAM/run_all_uam_specs.cy.js'] : [],
   },
   env: {
