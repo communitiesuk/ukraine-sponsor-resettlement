@@ -32,4 +32,4 @@ module.exports = defineConfig({
   env: {
     waitTime: 150, // if you change this on your machine, do not commit!!!
   }
-});
+})
