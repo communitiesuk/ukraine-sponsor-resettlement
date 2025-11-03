@@ -1,3 +1,11 @@
+.PHONY: prepare
+prepare:
+	# Install required runtimes, dependencies etc.
+	asdf install
+	yarn install
+	bundle install
+	bundle exec rails assets:precompile
+
 .PHONY: run
 run:
 	# Start all dependencies using development configuration

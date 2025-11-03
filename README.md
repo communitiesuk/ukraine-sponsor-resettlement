@@ -72,23 +72,10 @@ You may need to install some supporting packages (note the instructions from bre
 brew install icu4c libpq
 ```
 
-Make sure you are using the correct tool versions:
+Install required runtimes, dependencies etc:
 
 ```shell
-asdf install
-```
-
-Install dependencies:
-
-```shell
-yarn install
-bundle install
-```
-
-Precompile assets:
-
-```shell
-bundle exec rails assets:precompile
+make prepare
 ```
 
 #### Every time
