@@ -85,10 +85,9 @@ yarn install
 bundle install
 ```
 
-Build assets and install build tools:
+Precompile assets:
 
 ```shell
-# bundle exec rake webpacker:install
 bundle exec rails assets:precompile
 ```
 
