@@ -81,19 +81,23 @@ asdf install
 Install dependencies:
 
 ```shell
+yarn install
 bundle install
 ```
 
 Build assets and install build tools:
 
 ```shell
-bundle exec rake webpacker:install
+# bundle exec rake webpacker:install
 bundle exec rails assets:precompile
 ```
 
 #### Every time
 Run:
-`make run`
+
+```shell
+make run
+```
 
 The Rails server should start on <http://localhost:8080>
 

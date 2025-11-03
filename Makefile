@@ -2,13 +2,15 @@
 run:
 	# Start all dependencies using development configuration
 	docker compose up --detach
+	RAILS_ENV=test bundle exec rake db:migrate
 	PORT=8080 ./bin/dev
 
 .PHONY: test
 test:
 	# Start a test container running against existing dependencies
 	docker compose up --detach
-	RAILS_ENV=test bundle exec rake db:migrate && bundle exec rake spec
+	RAILS_ENV=test bundle exec rake db:migrate
+	bundle exec rake spec
 
 .PHONY: docker-test
 docker-test:
