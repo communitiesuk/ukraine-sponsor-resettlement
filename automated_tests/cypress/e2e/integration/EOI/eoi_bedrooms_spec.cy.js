@@ -1,8 +1,15 @@
 const element = require('../../pages/EOI/eoi_bedrooms')
 
 describe('[Frontend-UI]: EOI BEDROOM', function () {
+  this.beforeEach(() => {
+    cy.newSession()
+  })
 
   context('Bedroom Validation Errors', function () {
+    this.beforeEach(() => {
+      cy.visit('/expression-of-interest/steps/12')
+    })
+
     it("bedroom error validation [Null Values]", function () {
       element.bedrooms_null()
     })
@@ -36,8 +43,5 @@ describe('[Frontend-UI]: EOI BEDROOM', function () {
     it("bedroom error validation [Value: Single: 0 / Double: 9]", function () {
       element.bedrooms_v10()
     })
-    this.afterAll(() => {
-      cy.clearCookie('_ukraine_sponsor_resettlement_session')
-    });
   })
 })

@@ -4,7 +4,6 @@ const secrets = require('../../../fixtures/eoi_bodytext_secrets.json')
 const alfa = require('../../pages/EOI/eoi_links')
 
 export const eoi_eligibility_check = () => {
-    cy.visit('/expression-of-interest/').wait(Cypress.env('waitTime'))
     cy.get(elements.cookies_accept).click().wait(Cypress.env('waitTime'))
     cy.get(elements.hide_cookie_msg).click().wait(Cypress.env('waitTime'))
     cy.get(elements.page_heading).contains('Check if your property is suitable for hosting').should('be.visible')

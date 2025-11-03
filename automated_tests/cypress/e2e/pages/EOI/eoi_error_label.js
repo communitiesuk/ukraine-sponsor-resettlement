@@ -79,7 +79,7 @@ export const residential_address_validation_ev_s4 = () => {
     cy.xpath(elements.townorcity_error_sbox_msg).contains(error.townorcity_err_msg).should('be.visible')
     cy.xpath(elements.postcode_error_sbox_msg).contains(error.postcode_err_msg).should('be.visible')
     //res address line one 
-    cy.get(elements.addressl1_error_textbox).clear().type(secrets.building_no)
+    cy.get(elements.addressl1_textbox).clear().type(secrets.building_no)
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     cy.get(elements.addressl1_error_label).should('not.exist')
     cy.get(elements.townorcity_error_label).contains(error.townorcity_err_msg).should('be.visible')
@@ -99,7 +99,7 @@ export const residential_address_validation_ev_s4 = () => {
     cy.xpath(elements.townorcity_error_sbox_msg).should('not.exist')
     cy.xpath(elements.postcode_error_sbox_msg).contains(error.postcode_err_msg).should('be.visible').wait(Cypress.env('waitTime'))
     //res address line one, city and postcode
-    cy.get(elements.postcode_error_textbox).clear().type("NW10 3WE")
+    cy.get(elements.postcode_textbox).clear().type("NW10 3WE")
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     cy.get(elements.addressl1_error_label).should('not.exist')
     cy.get(elements.townorcity_error_label).should('not.exist')
@@ -134,7 +134,7 @@ export const offering_property_address_validation_ev_s6 = () => {
     cy.xpath(elements.offering_townorcity_error_sbox_msg).contains(error.townorcity_err_msg).should('be.visible')
     cy.xpath(elements.offering_postcode_error_sbox_msg).contains(error.postcode_err_msg).should('be.visible').wait(250)
     //off address line one 
-    cy.get(elements.offering_addressl1_error_textbox).clear().type('Property One Address')
+    cy.get(elements.offering_addressl1_textbox).clear().type('Property One Address')
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     cy.get(elements.offering_addressl1_error_label).should('not.exist')
     cy.get(elements.offering_townorcity_error_label).contains(error.townorcity_err_msg).should('be.visible')
