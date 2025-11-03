@@ -1,6 +1,5 @@
 services:
   pg:
-    # Todo: Do we care which version?
     image: postgres:alpine
     restart: always
     environment:
