@@ -8,7 +8,6 @@ describe('[Frontend-UI]: EOI DATE', function () {
   context('Specific Date Validations', function () {
     this.beforeEach(() => {
       cy.visit('/expression-of-interest/steps/9')
-      element.selectFromSpecificDate()
     })
   
     it("date error validations [all fields blank]", function () {
