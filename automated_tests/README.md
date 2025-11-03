@@ -7,7 +7,7 @@ You need to have npm installed to be able to run the tests on your local machine
 ## Usage
 
 Install npm & cypress dependencies
-- cd `automated tests` directory
+- cd `automated_tests` directory
 - run `npm install` (install specific ver. `npm install cypress@10.9.0`)
 - run `npm run cy_verify` to verify cypress installation (ver. should be: "^10.9.0")
 
