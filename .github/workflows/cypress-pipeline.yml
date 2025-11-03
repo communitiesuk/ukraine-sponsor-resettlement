@@ -10,7 +10,7 @@ jobs:
     if: github.ref == 'refs/heads/master'
     services:
       postgres:
-        image: postgres:16
+        image: postgres:16.10
         env:
           POSTGRES_PASSWORD: password
           POSTGRES_USER: ukraine
