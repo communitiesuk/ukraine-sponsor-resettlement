@@ -2,7 +2,7 @@ const { newSession } = require('../../../support/session');
 const alfa = require('../../pages/EOI/eoi_address')
 
 describe('[Frontend-UI]: EOI ADDRESS', function () {
-  this.beforeAll(() => {
+  this.beforeEach(() => {
     newSession()
   })
 
@@ -32,6 +32,10 @@ describe('[Frontend-UI]: EOI ADDRESS', function () {
   })
 
   context('Offering Property Address', function () {
+    this.beforeEach(() => {
+      cy.visit('/expression-of-interest/steps/6').wait(Cypress.env('waitTime'))
+    })
+
     it('address of the property offering error validation [null values]', function () {
       alfa.offering_property_address_nv()
     })
