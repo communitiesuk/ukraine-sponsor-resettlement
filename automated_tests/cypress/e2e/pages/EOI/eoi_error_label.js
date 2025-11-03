@@ -5,7 +5,6 @@ const bodytext = require('../../../fixtures/eoi_bodytext.json')
 const secrets = require('../../../fixtures/eoi_bodytext_secrets.json')
 
 export const eoi_eligibility_check_ev_start = () => {
-    cy.visit('/expression-of-interest/').wait(Cypress.env('waitTime'))
     cy.get(elements.cookies_accept).click().wait(Cypress.env('waitTime'))
     cy.get(elements.hide_cookie_msg).click().wait(Cypress.env('waitTime'))
 }
@@ -154,7 +153,7 @@ export const offering_property_address_validation_ev_s6 = () => {
     cy.xpath(elements.offering_townorcity_error_sbox_msg).should('not.exist')
     cy.xpath(elements.offering_postcode_error_sbox_msg).contains(error.postcode_err_msg).should('be.visible').wait(Cypress.env('waitTime'))
     //off address line one, city and postcode
-    cy.get(elements.offering_postcode_error_textbox).clear().type("KE10 3BB")
+    cy.get(elements.offering_postcode_textbox).clear().type("KE10 3BB")
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     cy.get(elements.offering_addressl1_error_label).should('not.exist')
     cy.get(elements.offering_townorcity_error_label).should('not.exist')
