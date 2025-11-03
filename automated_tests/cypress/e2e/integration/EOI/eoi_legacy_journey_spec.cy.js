@@ -3,9 +3,8 @@ const element = require('../../pages/EOI/eoi_legacy_journey')
 //Any URL within the individual or organisation routes should redirect the user to "/expression-of-interest/self-assessment/property-suitable" (old routes still existing on the DOM)
 describe('[Frontend-UI]: EOI LEGACY JOURNEY REDIRECT', function () {
   this.beforeAll(() => {
-    cy.clearCookie('_ukraine_sponsor_resettlement_session')
-  });
-  Cypress.Cookies.defaults({ preserve: '_ukraine_sponsor_resettlement_session' })
+    cy.newSession()
+  })
 
   context('Individual Journey', function () {
     it('verify individual journey redirects to self assesment /property-suitable page [step 1-3]', function () {

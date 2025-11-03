@@ -2,12 +2,11 @@ const element = require('../../pages/UAM/uam_links')
 
 describe('[Frontend-UI]: UAM LINKS', function () {
   this.beforeAll(() => {
-    cy.clearCookie('_ukraine_sponsor_resettlement_session')
+    cy.newSession()
     cy.fixture('uam_appdata').then(function (uam_secrets) {
       this.data = uam_secrets
     })
-  });
-  Cypress.Cookies.defaults({ preserve: '_ukraine_sponsor_resettlement_session' })
+  })
 
   context('[main page links]', function () {
     it('guidance for sponsoring a child fleeing Ukraine link', function () {

@@ -2,9 +2,8 @@ const alfa = require('../../pages/EOI/eoi_adults_&_children')
 
 describe('[Frontend-UI]: EOI ADULTS AND CHILDREN', function () {
   this.beforeAll(() => {
-    cy.clearCookie('_ukraine_sponsor_resettlement_session')
+    cy.newSession()
   });
-  Cypress.Cookies.defaults({ preserve: '_ukraine_sponsor_resettlement_session' })
 
   context('Adults and Children', function () {
     it('adults and children [null values]', function () {
@@ -35,7 +34,4 @@ describe('[Frontend-UI]: EOI ADULTS AND CHILDREN', function () {
       alfa.adults_and_children_v8()
     })
   })
-  this.afterAll(() => {
-    cy.clearCookie('_ukraine_sponsor_resettlement_session')
-  });
 })
