@@ -66,12 +66,30 @@ PagerDuty incidents go to the #msp-live-service-alerts channel in Made Tech's Sl
 
 #### First time
 
+You may need to install some supporting packages (note the instructions from brew re adding them to your PATH):
+
+```shell
+brew install icu4c libpq
+```
+
 Make sure you are using the correct tool versions:
-`asdf install`
+
+```shell
+asdf install
+```
+
+Install dependencies:
+
+```shell
+bundle install
+```
 
 Build assets and install build tools:
-`bundle exec rake webpacker:install`
-`bundle exec rails assets:precompile`
+
+```shell
+bundle exec rake webpacker:install
+bundle exec rails assets:precompile
+```
 
 #### Every time
 Run:

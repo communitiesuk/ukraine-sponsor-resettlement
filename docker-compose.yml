@@ -1,5 +1,6 @@
 services:
   pg:
+    # Todo: Do we care which version?
     image: postgres:alpine
     restart: always
     environment:
@@ -19,7 +20,7 @@ services:
       - s3
     profiles: ["test"]
     environment:
-      # Rails will use existing .env.test file
+      # Rails will use the existing .env.test file
       RAILS_ENV: test
     command: bin/test.sh
 
@@ -32,7 +33,7 @@ services:
       - redis
       - mock-api
     environment:
-      # Rails will use existing .env.development file
+      # Rails will use the existing .env.development file
       RAILS_ENV: development
       REDIS_URL: redis://redis
       DB_HOST: pg
