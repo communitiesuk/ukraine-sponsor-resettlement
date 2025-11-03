@@ -19,6 +19,11 @@ Add email & phone/mobile number here :
 - select & run test(s)
 - select `run_all_specs` to run all tests
 
+## Target environment to test
+By default, these cypress tests will be run against a local version of the application on your dev machine hosted at `http://127.0.0.1:8080/`.
+
+If you want to run these tests against a different environment, e.g an AWS hosted dev environment or staging, you can pass the `BASE_URL` environment variable to the cypress commands, e.g. `BASE_URL="https://foo.example.com/" npm run cy_open`
+
 ## Command line
 - run `all=specs npm run e2e` to run all tests using default Electron broswer and open the report
 - run `npm run view_report` to view report on browser
