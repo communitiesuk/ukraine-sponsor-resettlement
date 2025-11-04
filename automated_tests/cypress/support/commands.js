@@ -1,4 +1,5 @@
 import 'cypress-file-upload';
+import { clearSession, newSession } from './session';
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -28,3 +29,6 @@ import 'cypress-file-upload';
 /// <reference types="cypress"/>
 /// <reference types="cypress-xpath"/>
 
+// Session commands
+Cypress.Commands.add("newSession", newSession)
+Cypress.Commands.add("clearSession", clearSession)

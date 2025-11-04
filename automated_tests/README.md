@@ -7,7 +7,7 @@ You need to have npm installed to be able to run the tests on your local machine
 ## Usage
 
 Install npm & cypress dependencies
-- cd `automated tests` directory
+- cd `automated_tests` directory
 - run `npm install` (install specific ver. `npm install cypress@10.9.0`)
 - run `npm run cy_verify` to verify cypress installation (ver. should be: "^10.9.0")
 
@@ -22,6 +22,14 @@ Add email and phone/mobile number here :
 - run `npm run cy_open` to open cypress test runnner
 - select and run test(s)
 - select `run_all_specs` to run all tests
+
+## Target environment to test
+By default, these cypress tests will be run against a local version of the application on your dev machine hosted at `http://127.0.0.1:8080/`.
+
+If you want to run these tests against a different environment, e.g an AWS hosted dev environment or staging, you can pass the `BASE_URL` environment variable to the cypress commands, e.g. `BASE_URL="https://foo.example.com/" npm run cy_open`
+
+## Authentication
+If cypress needs to authenticate requests with HTTP basic auth, for example to run against the staging AWS environment, you can pass the `CYPRESS_USERNAME` and `CYPRESS_PASSWORD` environment variables to the cypress commands
 
 ## Command line
 

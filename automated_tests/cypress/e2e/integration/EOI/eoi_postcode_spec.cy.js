@@ -1,10 +1,9 @@
 const alfa = require('../../pages/EOI/eoi_postcode')
 
 describe('[Frontend-UI]: EOI POSTCODE', function () {
-  this.beforeAll(() => {
-    cy.clearCookie('_ukraine_sponsor_resettlement_session')
-  });
-  Cypress.Cookies.defaults({ preserve: '_ukraine_sponsor_resettlement_session' })
+  this.beforeEach(() => {
+    cy.newSession()
+  })
 
   context('Postcode Validation: Residential Address Scotland', function () {
     it('postcode validation [Residential Add: Scot/Glasgow, Offering Add: Same Address]', function () {
@@ -60,7 +59,4 @@ describe('[Frontend-UI]: EOI POSTCODE', function () {
       alfa.postcode_validation_eng_wales_pemb()
     })
   })
-  this.afterAll(() => {
-    cy.clearCookie('_ukraine_sponsor_resettlement_session')
-  });
 })

@@ -9,7 +9,8 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-methods": "^7.18.6",
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "uuid": "^13.0.0"
   },
   "scripts": {
     "build": "esbuild app/assets/javascript/*.* --bundle --outdir=app/assets/builds '--define:process.env.NODE_ENV=\"production\"' --minify",

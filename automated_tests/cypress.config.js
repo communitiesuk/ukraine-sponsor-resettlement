@@ -21,10 +21,15 @@ module.exports = defineConfig({
       require('cypress-high-resolution')(on, config)
     },
 
-  baseUrl: 'http://localhost:8080', // if you change this on your machine, do not commit!!!
+  baseUrl: process.env.BASE_URL || 'http://localhost:8080', // if you change this on your machine, do not commit!!!
+  auth: {
+    username: process.env.CYPRESS_USERNAME,
+    password: process.env.CYPRESS_PASSWORD,
+  },
+  userAgent: 'CYPRESS-E2E',
   excludeSpecPattern: process.env.all ? ['cypress/e2e/integration/EOI/run_all_eoi_specs.cy.js','cypress/e2e/integration/UAM/run_all_uam_specs.cy.js'] : [],
   },
   env: {
     waitTime: 150, // if you change this on your machine, do not commit!!!
   }
-});
+})

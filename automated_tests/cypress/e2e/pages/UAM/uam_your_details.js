@@ -604,9 +604,8 @@ const day = dayjs().add(0, 'day').format('DD')
 const month = dayjs().add(0, 'month').format('MM')
 const year = dayjs().add(0, 'year').format('YYYY')
 const day_p_1 = dayjs().add(+1, 'day').format('DD')
-const day_m_1 = dayjs().add(-1, 'day').format('DD')
-const year_m_18 = dayjs().add(-18, 'year').format('YYYY')
-const year_m_17 = dayjs().add(-17, 'year').format('YYYY')
+const eighteen_years_ago = dayjs().add(-18, 'year')
+const seventeen_years_ago = dayjs().add(-17, 'year')
 const year_m_1 = dayjs().add(-1, 'year').format('YYYY')
 //all valid: future date
 export const  your_details_ad_details_dob_step_18_v4 = () => {
@@ -626,17 +625,17 @@ export const  your_details_ad_details_dob_step_18_v5 = () => {
 }
 //all valid: past date [17 year ago]
 export const  your_details_ad_details_dob_step_18_v6 = () => {
-    cy.get(elements.step18_day_err_textbox).type(day)
-    cy.get(elements.step18_month_err_textbox).type(month)
-    cy.get(elements.step18_year_err_textbox).type(year_m_17)
+    cy.get(elements.step18_day_err_textbox).type(seventeen_years_ago.format("DD"))
+    cy.get(elements.step18_month_err_textbox).type(seventeen_years_ago.format("MM"))
+    cy.get(elements.step18_year_err_textbox).type(seventeen_years_ago.format("YYYY"))
     click_continue()
     dob_future_date_err_yes()
 }
 //all valid: past date [18+ year ago]
 export const  your_details_ad_details_dob_step_18_v7 = () => {
-    cy.get(elements.step18_day_err_textbox).type(day_m_1)
-    cy.get(elements.step18_month_err_textbox).type(month)
-    cy.get(elements.step18_year_err_textbox).type(year_m_18)
+    cy.get(elements.step18_day_err_textbox).type(eighteen_years_ago.format("DD"))
+    cy.get(elements.step18_month_err_textbox).type(eighteen_years_ago.format("MM"))
+    cy.get(elements.step18_year_err_textbox).type(eighteen_years_ago.format("YYYY"))
     click_continue()
     cy.get(elements.page_heading).contains('Enter your nationality').should('be.visible')
 }
