@@ -48,6 +48,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          # runs 'bundle install' and caches installed gems automatically
+          bundler-cache: true
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:

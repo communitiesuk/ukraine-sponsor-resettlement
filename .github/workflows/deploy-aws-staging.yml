@@ -199,6 +199,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ inputs.refToDeploy }}
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          # runs 'bundle install' and caches installed gems automatically
+          bundler-cache: true
       - name: Set up node
         uses: actions/setup-node@v4
         with:
