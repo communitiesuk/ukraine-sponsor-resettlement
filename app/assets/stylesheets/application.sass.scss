@@ -1,7 +1,11 @@
 @use "homes_for_ukraine.scss";
 @use "gds-step_by_step_navigation.scss";
-@use "govuk-frontend/dist/govuk";
 
 $govuk-global-styles: true;
 $govuk-new-link-styles: true;
 $govuk-assets-path: "/";
+
+// We cannot migrate this to the @use syntax of the Sass module system until govuk-frontend supports it
+// This produces warnings when compiling the CSS currently
+// See https://github.com/alphagov/govuk-frontend/issues/1791
+@import "govuk-frontend/dist/govuk";
