@@ -1,6 +1,6 @@
 # Ukraine Sponsor Resettlement
 
-This is the codebase for the [Ruby on Rails app](https://apply-to-offer-homes-for-ukraine.service.gov.uk/) that will handles the submission of sponsorship requests.
+This is the codebase for the [Ruby on Rails app](https://apply-to-offer-homes-for-ukraine.service.gov.uk/) that will handle the submission of sponsorship requests.
 
 ## Table of Contents
 
@@ -66,16 +66,24 @@ PagerDuty incidents go to the #msp-live-service-alerts channel in Made Tech's Sl
 
 #### First time
 
-Make sure you are using the correct tool versions:
-`asdf install`
+You may need to install some supporting packages (note the instructions from brew re adding them to your PATH):
 
-Build assets and install build tools:
-`bundle exec rake webpacker:install`
-`bundle exec rails assets:precompile`
+```shell
+brew install icu4c libpq
+```
+
+Install required runtimes, dependencies etc:
+
+```shell
+make prepare
+```
 
 #### Every time
 Run:
-`make run`
+
+```shell
+make run
+```
 
 The Rails server should start on <http://localhost:8080>
 
@@ -85,41 +93,31 @@ Either visit http://localhost:8080/sponsor-a-child/ or http://localhost:8080/exp
 
 #### Unit tests
 
-Run: `make test`
+Run:
 
-NB: This builds a Docker image and sets up an environment for running tests depending on PostgresQL, Redis and S3. The container will be destroyed when the tests complete, which means that the coverage report will be lost.
+```shell
+make test
+```
 
-If you want the coverage report, you can keep the container alive by editing
-/bin/test.sh to do
+NB: This builds a Docker image and sets up an environment for running tests depending on PostgresQL, Redis and S3.
 
-`RAILS_ENV=test rake db:prepare && rake db:migrate && rake && tail -f /dev/null`
+The coverage report will be copied to `./coverage`.
 
-instead of terminating when the rake task which runs the tests has finished. (`tail -f /dev/null` is a benign way of keeping the container active).
+#### Running Automated tests (End-to-End tests)
 
-When the tests have completed you can copy the coverage report to your
-docker host's local filesystem by doing
+This repository features automated tests run using [Cypress](https://www.cypress.io/).
 
-`docker cp <container ID or name>:/app/coverage <destination path on host>`
-
-on the host.
-For example, to copy to the coverage report to the current working directory on the host:
-
-`docker cp ukraine-sponsor-resettlement-test-1:/app/coverage .`
-
-You can then terminate the testing container with ctrl-c.
-
-#### Running Automated tests (End to End tests)
-
-This repository features automated tests run through [Cypress](https://www.cypress.io/).
-Setup and instructions can be found [here](automated_tests/README.md)
+[End-to-end tests setup and instructions](automated_tests/README.md).
 
 ## Database migrations
 
 Database migrations are required to make changes to the database
 
-`rails generate migration <name of migration>`
+```shell
+rails generate migration <name_of_migration>
+```
 
-This will create a file in the db/migrate folder and this file can be amended to reflect the change required.
+This will create a file in the `./db/migrate` folder, and this file can be amended to reflect the change required.
 
 ## Infrastructure
 
