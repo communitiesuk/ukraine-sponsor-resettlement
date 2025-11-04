@@ -1,7 +1,7 @@
 const alfa = require('../../pages/EOI/eoi_postcode')
 
 describe('[Frontend-UI]: EOI POSTCODE', function () {
-  this.beforeAll(() => {
+  this.beforeEach(() => {
     cy.newSession()
   })
 
