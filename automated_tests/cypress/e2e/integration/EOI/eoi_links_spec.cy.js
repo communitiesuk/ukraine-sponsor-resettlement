@@ -1,7 +1,7 @@
 const element = require('../../pages/EOI/eoi_links')
 
 describe('[Frontend-UI]: EOI PAGE LINKS', function () {
-  this.beforeAll(() => {
+  this.beforeEach(() => {
     cy.newSession()
   })
 

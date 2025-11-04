@@ -9,7 +9,7 @@ const assertOnLandingPage = () => {
 
 //Any URL within the individual or organisation routes should redirect the user to "/expression-of-interest/self-assessment/property-suitable" (old routes still existing on the DOM)
 describe('[Frontend-UI]: EOI LEGACY JOURNEY REDIRECT', function () {
-  this.beforeAll(() => {
+  this.beforeEach(() => {
     cy.newSession()
   })
 

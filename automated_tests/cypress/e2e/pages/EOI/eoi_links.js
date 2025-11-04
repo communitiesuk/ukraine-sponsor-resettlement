@@ -66,14 +66,18 @@ export const links_validation_hfu = () => {
 export const links_validation_govlicence = () => {
     cy.visit('/expression-of-interest/').wait(Cypress.env('waitTime'))
     cy.get(elements.gov_licence_link).click().wait(Cypress.env('waitTime'))
-    cy.url().should('include', 'https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/').should('exist')
-    cy.get(elements.gov_licence_logo).should('be.visible').wait(Cypress.env('waitTime'))
+    cy.origin('https://www.nationalarchives.gov.uk', () => {
+        cy.url().should('include', 'https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/').should('exist')
+        cy.get("#open-licence-logo").should('be.visible').wait(Cypress.env('waitTime'))
+    })
 }
 export const links_validation_crown_copyright = () => {
     cy.visit('/expression-of-interest/').wait(Cypress.env('waitTime'))
     cy.get(elements.crown_copyright_link).click().wait(Cypress.env('waitTime'))
-    cy.url().should('include', 'https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/')
-    cy.get(elements.crown_copyright_header).contains("Crown copyright").wait(Cypress.env('waitTime'))
+    cy.origin('https://www.nationalarchives.gov.uk', () => {
+        cy.url().should('include', 'https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/')
+        cy.get("div[class='entry-header'] h1").should("contain.text", "Crown copyright").wait(Cypress.env('waitTime'))
+    })
 }
 
 //self assesment
@@ -81,71 +85,80 @@ export const links_validation_sa_other_ways_l1 = () => {
     cy.visit('/expression-of-interest/self-assessment/other-ways-to-help').wait(Cypress.env('waitTime'))
     cy.get(elements.page_heading).contains("There are other ways you can help").should('be.visible').wait(Cypress.env('waitTime'))
     cy.xpath(elements.local_council_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-    cy.url().should('include', 'https://www.gov.uk/find-local-council')
-    cy.get(elements.main_heading_xl).contains("Find your local council").should('be.visible').wait(Cypress.env('waitTime'))
-    cy.go('back')
+    cy.origin('https://www.gov.uk/', () => {
+        cy.url().should('include', 'https://www.gov.uk/find-local-council')
+        cy.get('h1').contains("Find your local council").should('be.visible').wait(Cypress.env('waitTime'))
+    })
 }
 export const links_validation_sa_other_ways_l2 = () => {
     cy.visit('/expression-of-interest/self-assessment/other-ways-to-help').wait(Cypress.env('waitTime'))
     cy.get(elements.page_heading).contains("There are other ways you can help").should('be.visible').wait(Cypress.env('waitTime'))
     cy.xpath(elements.stand_with_ukraine_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-    cy.url().should('include', 'https://www.gov.uk/government/news/ukraine-what-you-can-do-to-help')
-    cy.get(elements.main_heading).contains("Ukraine: what you can do to help").should('be.visible').wait(Cypress.env('waitTime'))
-    cy.go('back')
+    cy.origin('https://www.gov.uk/', () => {
+        cy.url().should('include', 'https://www.gov.uk/government/news/ukraine-what-you-can-do-to-help')
+        cy.get('h1').contains("Ukraine: what you can do to help").should('be.visible').wait(Cypress.env('waitTime'))
+    })
 }
 export const links_validation_sa_other_ways_l3 = () => {
     cy.visit('/expression-of-interest/self-assessment/other-ways-to-help').wait(Cypress.env('waitTime'))
     cy.get(elements.page_heading).contains("There are other ways you can help").should('be.visible').wait(Cypress.env('waitTime'))
     cy.xpath(elements.community_sponsorship_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-    cy.url().should('include', 'https://www.gov.uk/government/publications/apply-for-full-community-sponsorship')
-    cy.get(elements.main_heading).contains("Apply for community sponsorship").should('be.visible').wait(Cypress.env('waitTime'))
-    cy.go('back')
+    cy.origin('https://www.gov.uk/', () => {
+        cy.url().should('include', 'https://www.gov.uk/government/publications/apply-for-full-community-sponsorship')
+        cy.get("h1").contains("Apply for community sponsorship").should('be.visible').wait(Cypress.env('waitTime'))
+    })
 }
 export const links_validation_sa_other_ways_l4 = () => {
     cy.visit('/expression-of-interest/self-assessment/other-ways-to-help').wait(Cypress.env('waitTime'))
     cy.get(elements.page_heading).contains("There are other ways you can help").should('be.visible').wait(Cypress.env('waitTime'))
     cy.xpath(elements.volunteering_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-    cy.url().should('include', 'volunteer')
-    cy.get(elements.main_heading_xl).contains("Volunteer").should('be.visible').wait(Cypress.env('waitTime'))
-    cy.go('back')
+    cy.origin('https://www.gov.uk/', () => {
+        cy.url().should('include', 'volunteer')
+        cy.get("h1").contains("Volunteer").should('be.visible').wait(Cypress.env('waitTime'))
+    })
 }
 export const links_validation_sa_other_ways_l5 = () => {
     cy.visit('/expression-of-interest/self-assessment/other-ways-to-help').wait(Cypress.env('waitTime'))
     cy.get(elements.page_heading).contains("There are other ways you can help").should('be.visible').wait(Cypress.env('waitTime'))
     cy.xpath(elements.support_organisations_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-    cy.url().should('include', 'https://www.gov.uk/guidance/find-a-sponsor-using-recognised-providers-homes-for-ukraine')
-    cy.get(elements.main_heading).contains("Find a sponsor using recognised providers: Homes for Ukraine").should('be.visible').wait(Cypress.env('waitTime'))
-    cy.go('back')
+    cy.origin('https://www.gov.uk/', () => {
+        cy.url().should('include', 'https://www.gov.uk/guidance/find-a-sponsor-using-recognised-providers-homes-for-ukraine')
+        cy.get("h1").contains("Find a sponsor/guest using recognised providers: Homes for Ukraine").should('be.visible').wait(Cypress.env('waitTime'))
+    })
 }
 export const links_validation_postcode_check_page_l1 = () => {
     cy.visit('/expression-of-interest/steps/end').wait(Cypress.env('waitTime'))
     cy.get(elements.page_heading).contains('You have entered an address that is not in England or Northern Ireland').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.scotland_link).click().wait(Cypress.env('waitTime'))
-    cy.url().should('include', 'https://www.mygov.scot/homes-for-ukraine-scotland-super-sponsor-scheme')
-    cy.get(elements.page_heading_scotland).contains("How the Homes for Ukraine Super Sponsor Scheme works").should('be.visible').wait(Cypress.env('waitTime'))
-    cy.go('back')
+    cy.origin('https://www.mygov.scot/', () => {
+        cy.url().should('include', 'https://www.mygov.scot/homes-for-ukraine-scotland-super-sponsor-scheme')
+        cy.get("h1").contains("How the Homes for Ukraine Super Sponsor Scheme works").should('be.visible').wait(Cypress.env('waitTime'))
+    })
 }
 export const links_validation_postcode_check_page_l2 = () => {
     cy.visit('/expression-of-interest/steps/end').wait(Cypress.env('waitTime'))
     cy.get(elements.page_heading).contains('You have entered an address that is not in England or Northern Ireland').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.wales_link).click().wait(Cypress.env('waitTime'))
-    cy.url().should('include', 'https://www.gov.wales/offer-home-wales-refugees-ukraine')
-    cy.get(elements.page_heading_wales).contains("Offer a home in Wales to refugees from Ukraine").should('be.visible').wait(Cypress.env('waitTime'))
-    cy.go('back')
+    cy.origin('https://www.gov.wales/', () => {
+        cy.url().should('include', 'https://www.gov.wales/offer-home-wales-refugees-ukraine')
+        cy.get("h1").contains("Offer a home in Wales to refugees from Ukraine").should('be.visible').wait(Cypress.env('waitTime'))
+    })
 }
 export const links_validation_postcode_check_page_l3 = () => {
     cy.visit('/expression-of-interest/steps/end').wait(Cypress.env('waitTime'))
     cy.get(elements.page_heading).contains('You have entered an address that is not in England or Northern Ireland').should('be.visible').wait(Cypress.env('waitTime'))
     cy.xpath(elements.local_council_link_samepage).click().wait(Cypress.env('waitTime'))
-    cy.url().should('include', 'https://www.gov.uk/find-local-council')
-    cy.get(elements.main_heading_xl).contains("Find your local council").should('be.visible').wait(Cypress.env('waitTime'))
-    cy.go('back')
+    cy.origin('https://www.gov.uk/', () => {
+        cy.url().should('include', 'https://www.gov.uk/find-local-council')
+        cy.get("h1").contains("Find your local council").should('be.visible').wait(Cypress.env('waitTime'))
+    })
 }
 export const links_validation_step_16 = () => {
     cy.visit('/expression-of-interest/steps/16').wait(Cypress.env('waitTime'))
     cy.get(elements.consent_heading).contains('Confirm you have read the privacy statement').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.privacy_statement_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-    cy.url().should('include', 'https://www.gov.uk/guidance/homes-for-ukraine-visa-sponsorship-scheme-privacy-notice')
-    cy.get(elements.main_heading).contains("Homes for Ukraine visa sponsorship scheme: privacy notice").should('be.visible').wait(Cypress.env('waitTime'))
-    cy.go('back')
+    cy.origin('https://www.gov.uk/', () => {
+        cy.url().should('include', 'https://www.gov.uk/guidance/homes-for-ukraine-visa-sponsorship-scheme-privacy-notice')
+        cy.get("h1").contains("Homes for Ukraine visa sponsorship scheme: privacy notice").should('be.visible').wait(Cypress.env('waitTime'))
+    })
 }
