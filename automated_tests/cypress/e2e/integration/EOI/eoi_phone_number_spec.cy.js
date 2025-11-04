@@ -1,7 +1,7 @@
 const element = require('../../pages/EOI/eoi_phone_number')
 
 describe('[Frontend-UI]: EOI CONTACT TELEPHONE NUMBER', function () {
-    this.beforeAll(() => {
+    this.beforeEach(() => {
       cy.newSession()
     })
 
