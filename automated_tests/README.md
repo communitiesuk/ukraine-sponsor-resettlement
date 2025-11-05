@@ -19,9 +19,14 @@ Add email and phone/mobile number here :
 
 ## Test Runner
 
+### Manually
+To manually run selected tests:
+
 - run `npm run cy_open` to open cypress test runnner
 - select and run test(s)
-- select `run_all_specs` to run all tests
+
+To run all tests from the console:
+- run `npm run headless`
 
 ## Target environment to test
 By default, these cypress tests will be run against a local version of the application on your dev machine hosted at `http://127.0.0.1:8080/`.
@@ -56,10 +61,6 @@ If cypress needs to authenticate requests with HTTP basic auth, for example to r
 - `npx cypress run --spec cypress/e2e/integration/EOI/eoi_self_assessment_uhp_spec.cy.js`
 - `npx cypress run --spec cypress/e2e/integration/Service/service_cookies_spec.cy.js`
 
-#### run all EOI specs
-
-- `npx cypress run --spec cypress/e2e/integration/EOI/run_all_eoi_specs.cy.js`
-
 ### UAM: 
 
 - `npx cypress run --spec cypress/e2e/integration/UAM/uam_e2e_hp_spec.cy.js`
@@ -70,10 +71,6 @@ If cypress needs to authenticate requests with HTTP basic auth, for example to r
 - `npx cypress run --spec cypress/e2e/integration/UAM/uam_labels_spec.cy.js`
 - `npx cypress run --spec cypress/e2e/integration/UAM/uam_res_details_spec.cy.js`
 - `npx cypress run --spec cypress/e2e/integration/UAM/uam_your_details_spec.cy.js`
-
-#### Run all UAM specs
-
-- `npx cypress run --spec cypress/e2e/integration/UAM/run_all_uam_specs.cy.js`   
 
 ## Run with a specific browser
 
