@@ -51,7 +51,6 @@ const pc_err_nv = () => {
 }
 //all fields empty [AL1: empty, AL2: empty, TC:empty: PC: empty]
 export const childs_accommodation_step_23_v1 = () => {
-    cy.visit('/sponsor-a-child/steps/23')
     page_heading()
     click_continue()
     all_sbox_fields_err()
@@ -244,7 +243,7 @@ export const childs_accommodation_step_23_v14 = () => {
     page_heading()
     cy.get(elements.step23_addr_line1_textbox).clear().type(secrets.child_line1)
     cy.get(elements.step23_addr_line2_textbox).type(secrets.child_line2)
-    cy.get(elements.step23_city_err_textbox).clear().type(secrets.child_town_or_city)
+    cy.get(elements.step23_city_textbox).clear().type(secrets.child_town_or_city)
     cy.get(elements.step23_pc_textbox).clear().type(secrets.child_postcode)
     click_continue()
 }
@@ -292,8 +291,7 @@ const s26_pc_err_nv = () => {
     cy.xpath(elements.step26_pc_sbox_err_msg).should('not.exist')
     cy.get(elements.step26_pc_err_msg).should('not.exist')
 }
-export const childs_accommodation_step_26_v1 = () => {
-    cy.visit('/sponsor-a-child/steps/23')
+export const enter_valid_childs_accomodation_address = () => {
     cy.get(elements.step23_addr_line1_textbox).clear().type(secrets.child_line1)
     cy.get(elements.step23_addr_line2_textbox).type(secrets.child_line2)
     cy.get(elements.step23_city_textbox).clear().type(secrets.child_town_or_city)
@@ -301,8 +299,12 @@ export const childs_accommodation_step_26_v1 = () => {
     click_continue()
     cy.get(elements.step24_no_btn).click()
     click_continue()
-    //delete above after the bug fix
-    cy.visit('/sponsor-a-child/steps/26')
+}
+export const declare_sponsor_not_living_at_child_address = () => {
+    cy.get(elements.step24_no_btn).click()
+    click_continue()
+}
+export const childs_accommodation_step_26_v1 = () => {
     click_continue()
     s26_page_heading()
     s26_all_sbox_fields_err()
@@ -495,7 +497,7 @@ export const childs_accommodation_step_26_v14 = () => {
     s26_page_heading()
     cy.get(elements.step26_addr_line1_textbox).clear().type(secrets.child_line1)
     cy.get(elements.step26_addr_line2_textbox).type(secrets.child_line2)
-    cy.get(elements.step26_city_err_textbox).clear().type(secrets.child_town_or_city)
+    cy.get(elements.step26_city_textbox).clear().type(secrets.child_town_or_city)
     cy.get(elements.step26_pc_textbox).clear().type(secrets.child_postcode)
     click_continue()
     cy.get(elements.page_heading).contains('Enter the name of a person over 16 who will live with the child').should('be.visible')
@@ -524,7 +526,6 @@ const gn_err_yes = () => {
 }
 //empty fields: [GN: empty, FN: empty]
 export const your_details_name_step_27_v1 = () => {
-    cy.visit('/sponsor-a-child/steps/27')
     s27_page_heading()
     cy.get(elements.step27_gn_textbox).clear()
     cy.get(elements.step27_fn_textbox).clear()
@@ -620,7 +621,7 @@ export const your_details_name_step_27_v6 = () => {
 //both fields valid: [GN: valid, FN: valid]
 export const your_details_name_step_27_v7 = () => {
     cy.get(elements.step27_gn_textbox).clear().type(secrets.given_names)
-    cy.get(elements.step27_fn_err_textbox).clear().type(secrets.family_name)
+    cy.get(elements.step27_fn_textbox).clear().type(secrets.family_name)
     click_continue()
     fn_err_no()
     gn_err_no()
