@@ -33,7 +33,6 @@ const gn_err_yes = () => {
 }
 //empty fields: [GN: empty, FN: empty]
 export const childs_details_step_32_v1 = () => {
-    cy.visit('/sponsor-a-child/steps/32')
     s32_page_heading()
     cy.get(elements.step32_gn_textbox).clear()
     cy.get(elements.step32_fn_textbox).clear()
@@ -130,7 +129,7 @@ export const childs_details_step_32_v6 = () => {
 //both fields valid: [GN: valid, FN: valid]
 export const childs_details_step_32_v7 = () => {
     cy.get(elements.step32_gn_textbox).clear().type(secrets.given_names)
-    cy.get(elements.step32_fn_err_textbox).clear().type(secrets.family_name)
+    cy.get(elements.step32_fn_textbox).clear().type(secrets.family_name)
     click_continue()
     fn_err_no()
     gn_err_no()
@@ -158,7 +157,6 @@ const ctc_err = () => {
 }
 //both fields empty[email: empty, cf-email: empty]
 export const childs_details_step_33_v1 = () => {
-    cy.visit('/sponsor-a-child/steps/33')
     contact_type_heading()
     click_continue()
     ctc_err()
@@ -235,8 +233,9 @@ export const childs_details_step_33_v6 = () => {
 //both fields valid: [email: valid, cf-email: valid]
 export const childs_details_step_33_v7 = () => {
     contact_type_heading()
+    cy.get(elements.step33_email_checkbox).click()
     cy.get(elements.step33_email_textbox).clear().type(secrets.email)
-    cy.get(elements.step33_email_err_cf_textbox).clear().type(secrets.email)
+    cy.get(elements.step33_email_cf_textbox).clear().type(secrets.email)
     click_continue()
     cy.get(elements.page_heading).contains('Enter their date of birth').should('be.visible').wait(Cypress.env('waitTime'))
 }
@@ -253,7 +252,6 @@ const phone_must_match_err = () => {
 }
 //both fields empty: [phone: empty, cf-phone: empty]
 export const childs_details_step_33_v8 = () => {
-    cy.visit('/sponsor-a-child/steps/33')
     contact_type_heading()
     cy.get(elements.step33_phone_checkbox).uncheck().click()
     cy.get(elements.step33_phone_textbox).clear()
@@ -356,7 +354,6 @@ const dob_future_err_yes = () => {
 
 //all fields empty: [D: empty, M: empty, Year: empty]
 export const childs_details_step_34_v1 = () => {
-    cy.visit('/sponsor-a-child/steps/34')
     cy.get(elements.main_heading).contains("Enter their date of birth").should('be.visible')
     s34_page_heading()
     click_continue()
@@ -449,9 +446,9 @@ const year_m_19 = dayjs().add(-19, 'year').format('YYYY')
 const year_m_17 = dayjs().add(-17, 'year').format('YYYY')
 //all valid: future date [next year]
 export const childs_details_step_34_v6 = (x) => {
-    cy.get(elements.step34_day_err_textbox).clear().type(day)
-    cy.get(elements.step34_month_err_textbox).clear().type(month)
-    cy.get(elements.step34_year_err_textbox).clear().type(year_p_1)
+    cy.get(elements.cpd_day_textbox).clear().type(day)
+    cy.get(elements.cpd_month_textbox).clear().type(month)
+    cy.get(elements.cpd_year_textbox).clear().type(year_p_1)
     click_continue()
     s34_page_heading
     dob_future_err_yes()
