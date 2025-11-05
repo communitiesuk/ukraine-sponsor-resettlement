@@ -18,31 +18,20 @@ const show_hide = () => {
     }
   })
 }
-const link1 = 'https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians'
-const link2 = 'https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians'
-const link3 = 'https://www.gov.uk/government/publications/homes-for-ukraine-uk-sponsorship-arrangement-consent-form'
-const link4 = 'https://www.gov.uk/guidance/apply-for-a-visa-under-the-ukraine-sponsorship-scheme#applicants-aged-under-18'
-const link5 =
-  'https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/'
-const link6 = 'https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/'
-const link7 = 'https://www.gov.uk/guidance/apply-for-a-ukraine-family-scheme-visa'
-const link8 = 'https://www.gov.uk/guidance/apply-for-a-visa-under-the-ukraine-sponsorship-scheme'
-const link9 =
-  'https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-parents-or-legal-guardians-children-and-minors-applying-without-parents#parental-or-legal-guardian-consent-1'
-const link10 = 'https://www.gov.uk/guidance/homes-for-ukraine-visa-sponsorship-scheme-privacy-notice'
-const link11 = 'https://www.gov.uk/register-interest-homes-ukraine'
 
 const guidance_for_sponsoring_a_child_link = () => {
   cy.xpath(elements.mainp_gui_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-  cy.url().should('include', link1).should('exist')
-  cy.get(elements.page_heading_cont).contains('Guidance').should('be.visible')
-  cy.go('back')
+  cy.origin("https://www.gov.uk/", () => {
+    cy.url().should('include', 'https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians').should('exist')
+    cy.get("h1").contains('Guidance').should('be.visible')
+  })
 }
 const uk_spon_arr_consent_form_link = () => {
   cy.xpath(elements.spon_consent_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-  cy.url().should('include', link3).should('exist')
-  cy.get(elements.page_heading_cont).contains('Form').should('be.visible')
-  cy.go('back')
+  cy.origin("https://www.gov.uk/", () => {
+    cy.url().should('include', 'https://www.gov.uk/government/publications/homes-for-ukraine-uk-sponsorship-arrangement-consent-form').should('exist')
+    cy.get(".govuk-caption-xl").contains('Form').should('be.visible')
+  })
 }
 //TEST STEPS START HERE
 export const uam_main_page_guidance = () => {
@@ -54,31 +43,41 @@ export const uam_main_spon_consent = () => {
   uk_spon_arr_consent_form_link()
 }
 export const uam_main_fo_comp_consent = () => {
+  cy.get('button').contains('Get parental consent').click()
   cy.xpath(elements.how_to_comp_consent_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-  cy.url().should('include', link2).should('exist')
-  cy.get(elements.page_heading_cont).contains('Guidance').should('be.visible')
-  cy.go('back')
+  cy.origin("https://www.gov.uk/", () => {
+    cy.url().should('include', 'https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians').should('exist')
+    cy.get("h1").contains('Guidance').should('be.visible')
+  })
 }
 export const uam_main_gui_apply_visa = () => {
+  cy.get('button').contains('The child applies for a visa').click()
   cy.xpath(elements.apply_visa).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-  cy.url().should('include', link4).should('exist')
-  cy.get(elements.page_heading_cont).contains('Guidance').should('be.visible')
-  cy.go('back')
+  cy.origin("https://www.gov.uk/", () => {
+    cy.url().should('include', 'https://www.gov.uk/guidance/apply-for-a-visa-under-the-ukraine-sponsorship-scheme#applicants-aged-under-18').should('exist')
+    cy.get(".govuk-caption-xl").contains('Guidance').should('be.visible')
+  })
+
 }
 export const uam_gov_lic = () => {
   cy.xpath(elements.gov_lic_link).click().wait(Cypress.env('waitTime'))
-  cy.url().should('include', link6).should('exist')
-  cy.get(elements.open_lic_logo).should('be.visible')
-  cy.go('back')
+  cy.origin("https://www.nationalarchives.gov.uk", () => {
+    cy.url().should('include', 'https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/').should('exist')
+    cy.get('#open-licence-logo').should('be.visible')
+  })
+  
 }
 export const uam_crown_copyright = () => {
   cy.get(elements.crown_cr).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-  cy.url().should('include', link5).should('exist')
-  cy.get(elements.crown_cr_header).contains('Crown copyright').should('be.visible')
-  cy.go('back')
+  cy.origin("https://www.nationalarchives.gov.uk/", () => {
+    cy.url().should('include', 'https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/').should('exist')
+    cy.get("div[class='entry-header'] h1").contains('Crown copyright').should('be.visible')
+  })
+  
 }
 export const uam_main_page_apply = () => {
-  cy.get(elements.spchild_link).click().wait(Cypress.env('waitTime'))
+  cy.get("button").contains("Apply for approval from your local council").click()
+  cy.get("a").contains("Apply to provide a safe home for a child from Ukraine").should("exist").click().wait(Cypress.env('waitTime'))
   cy.get(elements.startnow_button).should('be.visible')
   cy.go('back')
 }
@@ -91,6 +90,7 @@ export const uam_start_page_cont = () => {
   cy.url().should('include', '/sponsor-a-child/save-and-return/resend-link').should('exist')
 }
 export const uam_start_page_newapp = () => {
+  cy.visit("/sponsor-a-child/save-and-return/resend-link")
   cy.xpath(elements.start_new_app).click().wait(Cypress.env('waitTime'))
   common.uam_start_header()
 }
@@ -120,34 +120,37 @@ export const uam_cannot_uts_spon_fam = () => {
   cy.visit('/sponsor-a-child/non-eligible')
   cannot_uts_heading()
   cy.xpath(elements.spon_fam_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-  cy.get(elements.main_heading).contains('Apply for a Ukraine Family Scheme visa').should('be.visible')
-  cy.url().should('include', link7).should('exist')
-  cy.go('back')
+  cy.origin("https://www.gov.uk/", () => {
+    cy.get(".govuk-heading-l").contains('Apply for a Ukraine Family Scheme visa').should('be.visible')
+    cy.url().should('include', 'https://www.gov.uk/guidance/apply-for-a-ukraine-family-scheme-visa').should('exist')
+  })
 }
 export const uam_cannot_uts_spon_alknow = () => {
   cy.visit('/sponsor-a-child/non-eligible')
   cannot_uts_heading()
   cy.xpath(elements.spon_alknow_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-  cy.get(elements.main_heading).contains('Apply for a visa under the Homes for Ukraine Sponsorship Scheme').should('be.visible')
-  cy.url().should('include', link8).should('exist')
-  cy.go('back')
+  cy.origin("https://www.gov.uk/", () => {
+    cy.get(".govuk-heading-l").contains('Apply for a visa under the Homes for Ukraine Sponsorship Scheme').should('be.visible')
+    cy.url().should('include', 'https://www.gov.uk/guidance/apply-for-a-visa-under-the-ukraine-sponsorship-scheme').should('exist')
+  })
 }
 export const uam_cannot_uts_register = () => {
   cy.visit('/sponsor-a-child/non-eligible')
   cannot_uts_heading()
   cy.xpath(elements.register_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-  cy.get(elements.page_heading_xl).contains('Homes for Ukraine: record your interest').should('be.visible')
-  cy.url().should('include', link11).should('exist')
-  cy.go('back')
+  cy.origin("https://www.gov.uk/", () => {
+    cy.get(".govuk-heading-xl").contains('Homes for Ukraine: record your interest').should('be.visible')
+    cy.url().should('include', 'https://www.gov.uk/register-interest-homes-ukraine').should('exist')
+  })
 }
 export const uam_step_5 = () => {
-  eligibility.uam_eligibility_start()
   cy.visit('/sponsor-a-child/steps/5')
   common.uam_step5_header()
   cy.xpath(elements.step5_guidance_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-  cy.url().should('include', link2).should('exist')
-  cy.get(elements.page_heading_cont).contains('Guidance').should('be.visible')
-  cy.go('back')
+  cy.origin("https://www.gov.uk/", () => {
+    cy.url().should('include', 'https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians').should('exist')
+    cy.get(".govuk-caption-xl").contains('Guidance').should('be.visible')
+  })
 }
 const min_period = () => {
   cy.get(elements.summary_text).click().contains('What is the minimum period?').should('be.visible')
@@ -268,17 +271,19 @@ export const uam_step_35_l1 = () => {
   cy.visit('/sponsor-a-child/steps/35').wait(Cypress.env('waitTime'))
   common.uam_step35_header()
   cy.xpath(elements.spon_consent_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-  cy.url().should('include', link3).should('exist')
-  cy.get(elements.page_heading_cont).contains('Form').should('be.visible')
-  cy.go('back')
+  cy.origin("https://www.gov.uk/", () => {
+    cy.url().should('include', 'https://www.gov.uk/government/publications/homes-for-ukraine-uk-sponsorship-arrangement-consent-form').should('exist')
+    cy.get(".govuk-caption-xl").contains('Form').should('be.visible')
+  })
 }
 export const uam_step_35_l2 = () => {
   cy.visit('/sponsor-a-child/steps/35').wait(Cypress.env('waitTime'))
   common.uam_step35_header()
   cy.xpath(elements.step35_pcf_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-  cy.url().should('include', link2).should('exist')
-  cy.get(elements.page_heading_cont).contains('Guidance').should('be.visible')
-  cy.go('back')
+  cy.origin("https://www.gov.uk/", () => {
+    cy.url().should('include', 'https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians').should('exist')
+    cy.get(".govuk-caption-xl").contains('Guidance').should('be.visible')
+  })
 }
 export const uam_step_36_l1 = () => {
   cy.visit('/sponsor-a-child/steps/36').wait(Cypress.env('waitTime'))
@@ -291,8 +296,9 @@ export const uam_step_36_l2 = () => {
   common.uam_step36_header()
   cy.get(elements.summary_text).contains('I need help').click().wait(Cypress.env('waitTime'))
   cy.xpath(elements.step36_gui_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-  cy.url().should('include', link9).should('exist')
-  cy.go('back')
+  cy.origin("https://www.gov.uk/", () => {
+    cy.url().should('include', 'https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-parents-or-legal-guardians-children-and-minors-applying-without-parents#parental-or-legal-guardian-consent-1').should('exist')
+  })
 }
 export const uam_step_37_l1 = () => {
   cy.visit('/sponsor-a-child/steps/37').wait(Cypress.env('waitTime'))
@@ -305,29 +311,33 @@ export const uam_step_37_l2 = () => {
   common.uam_step37_header()
   cy.get(elements.summary_text).contains('I need help').click().wait(Cypress.env('waitTime'))
   cy.xpath(elements.step36_gui_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-  cy.url().should('include', link9).should('exist')
-  cy.go('back')
+  cy.origin("https://www.gov.uk/", () => {
+    cy.url().should('include', 'https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-parents-or-legal-guardians-children-and-minors-applying-without-parents#parental-or-legal-guardian-consent-1').should('exist')
+  })
 }
 export const uam_step_38 = () => {
   cy.visit('/sponsor-a-child/steps/38')
   common.uam_step38_header()
   cy.get(elements.step38_privacy_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-  cy.url().should('include', link10).should('exist')
-  cy.go('back')
+  cy.origin("https://www.gov.uk/", () => {
+    cy.url().should('include', 'https://www.gov.uk/guidance/homes-for-ukraine-visa-sponsorship-scheme-privacy-notice').should('exist')
+  })
 }
 export const uam_step_39 = () => {
   cy.visit('/sponsor-a-child/steps/39').wait(Cypress.env('waitTime'))
   common.uam_step39_header()
   cy.xpath(elements.step39_gui_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-  cy.url().should('include', link1).should('exist')
-  cy.go('back')
+  cy.origin("https://www.gov.uk/", () => {
+    cy.url().should('include', 'https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians').should('exist')
+  })
 }
 export const uam_step_confirm_l1 = () => {
   cy.visit('/sponsor-a-child/confirm').wait(Cypress.env('waitTime'))
   cy.get(elements.app_complete_title).contains('Application complete').click().wait(Cypress.env('waitTime'))
   cy.xpath(elements.gui_link).invoke('removeAttr', 'target').click().wait(Cypress.env('waitTime'))
-  cy.url().should('include', link1).should('exist')
-  cy.go('back')
+  cy.origin("https://www.gov.uk/", () => {
+    cy.url().should('include', 'https://www.gov.uk/guidance/homes-for-ukraine-guidance-for-sponsors-children-and-minors-applying-without-parents-or-legal-guardians').should('exist')
+  })
 }
 export const uam_step_confirm_l2 = () => {
   cy.visit('/sponsor-a-child/confirm').wait(Cypress.env('waitTime'))

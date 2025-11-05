@@ -4,7 +4,6 @@ const bodytext = require('../../../fixtures/uam_bodytext.json')
 const common = require('./common')
 
 export const uam_eligibility_start = () => {
-    cy.visit('/sponsor-a-child/start')
     common.uam_start_header()
     cy.get(elements.startnow_button).click().wait(Cypress.env('waitTime'))
 }

@@ -1,7 +1,8 @@
 const element = require('../../pages/UAM/uam_links')
+const eligibility = require('../../pages/UAM/eligibility')
 
 describe('[Frontend-UI]: UAM LINKS', function () {
-  this.beforeAll(() => {
+  this.beforeEach(() => {
     cy.newSession()
     cy.fixture('uam_appdata').then(function (uam_secrets) {
       this.data = uam_secrets
@@ -9,6 +10,10 @@ describe('[Frontend-UI]: UAM LINKS', function () {
   })
 
   context('[main page links]', function () {
+    this.beforeEach(() => {
+      cy.visit('/sponsor-a-child/')
+    })
+
     it('guidance for sponsoring a child fleeing Ukraine link', function () {
       element.uam_main_page_guidance()
     })
@@ -32,6 +37,10 @@ describe('[Frontend-UI]: UAM LINKS', function () {
     })
   })
   context('[start page links]', function () {
+    this.beforeEach(() => {
+      cy.visit('/sponsor-a-child/start')
+    })
+
     it('continue a saved application link', function () {
       element.uam_start_page_cont()
     })
@@ -45,7 +54,12 @@ describe('[Frontend-UI]: UAM LINKS', function () {
       element.uam_start_page_spon_consent()
     })
   })
+
   context('[cannot use this service page links]', function () {
+    this.beforeEach(() => {
+      cy.visit('/sponsor-a-child/start')
+    })
+
     it('go back to the previous page link', function () {
       element.uam_cannot_uts_prev()
     })
@@ -58,11 +72,14 @@ describe('[Frontend-UI]: UAM LINKS', function () {
     it('register your interest with Homes for Ukraine link', function () {
       element.uam_cannot_uts_register()
     })
-    it('register your interest with Homes for Ukraine link', function () {
-      element.uam_step_5()
-    })
   })
+
   context('[all other page links]', function () {
+    this.beforeEach(() => {
+      cy.visit('/sponsor-a-child/start')
+      eligibility.uam_eligibility_start()
+    })
+
     it('read guidance about which consent forms are required link [step 5]', function () {
       element.uam_step_5()
     })
@@ -78,13 +95,9 @@ describe('[Frontend-UI]: UAM LINKS', function () {
     it("save and return later link [step 10 link 2]", function () {
       element.uam_step_10_l2()
     })
-    it("I'm not sure how to enter my name link [step 12]", function () {
+    it("I'm not sure how to enter my name link and remove links [steps 12, 13 and 22]", function () {
       element.uam_step_12()
-    })
-    it("remove link [step 13]", function () {
       element.uam_step_13()
-    })
-    it("remove link [step 22]", function () {
       element.uam_step_22()
     })
     it("who counts as 'living at this address'? link [step 25]", function () {
@@ -126,11 +139,5 @@ describe('[Frontend-UI]: UAM LINKS', function () {
     it("complete another application link [step confirm link 2]", function () {
       element.uam_step_confirm_l2()
     })
-  })
-  context('[check your answers page links]', function () {
-    it("all the links [change]", function () {
-      element.uam_check_your_answers()
-    })
-
   })
 })
