@@ -9,7 +9,7 @@
     "e2e": "cypress run --headless || npm run view_report",
     "view_report": "open cypress/reports/html/index.html",
     "headless": "cypress run --headless",
-    "delete_report": "rm /Users/tperera@zaizi.com/Desktop/HFU/cypress/reports/html/index.html"
+    "delete_report": "rm cypress/reports/html/index.html"
   },
   "author": "Troy",
   "license": "ISC",
