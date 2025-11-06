@@ -11,8 +11,6 @@
     "headless": "cypress run --headless",
     "delete_report": "rm cypress/reports/html/index.html"
   },
-  "author": "Troy",
-  "license": "ISC",
   "dependencies": {
     "ci": "^2.3.0",
     "cypress": "^15.6.0",
