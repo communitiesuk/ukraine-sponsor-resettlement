@@ -19,11 +19,13 @@ Add email and phone/mobile number here :
 
 ## Test Runner
 
-### Manually
+### Interactive
 To manually run selected tests:
 
 - run `npm run cy_open` to open cypress test runnner
 - select and run test(s)
+
+### Automatically
 
 To run all tests from the console:
 - run `npm run headless`
