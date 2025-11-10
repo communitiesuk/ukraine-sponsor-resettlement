@@ -31,7 +31,6 @@ env:
   CONTAINER_NAME:
     HfUApp # set this to the name of the container in the
     # containerDefinitions section of your task definition
-  NODE_VERSION: 24.10.x
 
 jobs:
   deploy:
@@ -44,15 +43,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ inputs.refToDeploy }}
-      - name: Set up node
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          # runs 'bundle install' and caches installed gems automatically
-          bundler-cache: true
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
