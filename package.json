@@ -18,6 +18,7 @@
     "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules --quiet-deps"
   },
   "engines": {
-    "node": "24.10.x"
+    "node": "24.10.x",
+    "yarn": "1.22.x"
   }
 }
