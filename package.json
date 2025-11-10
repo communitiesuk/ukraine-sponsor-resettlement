@@ -16,5 +16,9 @@
     "build": "esbuild app/assets/javascript/*.* --bundle --outdir=app/assets/builds '--define:process.env.NODE_ENV=\"production\"' --minify",
     "build-dev": "esbuild app/assets/javascript/*.* --bundle --outdir=app/assets/builds",
     "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules --quiet-deps"
+  },
+  "engines": {
+    "node": "24.10.x",
+    "yarn": "1.22.x"
   }
 }

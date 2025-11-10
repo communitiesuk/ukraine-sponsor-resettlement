@@ -30,6 +30,7 @@ env:
   CONTAINER_NAME:
     HfUApp # set this to the name of the container in the
     # containerDefinitions section of your task definition
+  NODE_VERSION: 24.10.x
 
 jobs:
   test:
@@ -95,7 +96,7 @@ jobs:
       - name: Set up node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install clamav
         run: |
