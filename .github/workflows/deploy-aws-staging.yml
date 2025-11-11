@@ -208,7 +208,7 @@ jobs:
       - name: Build docker image
         id: build-docker-image
         env:
-          IMAGE: "${{ steps.login-ecr.outputs.registry }}:${{ env.AWS_NAMESPACE }}-webapp-repository:latest"
+          IMAGE: "${{ steps.login-ecr.outputs.registry }}/${{ env.AWS_NAMESPACE }}-webapp-repository:latest"
         run: |
           docker build -t "$IMAGE" -f Dockerfile .
           echo "IMAGE=$IMAGE" >> $GITHUB_ENV
