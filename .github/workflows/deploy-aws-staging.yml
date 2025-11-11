@@ -27,7 +27,7 @@ env:
 
 jobs:
   test:
-    name: Test
+    name: Run Ruby tests
     runs-on: ubuntu-latest
 
     services:
