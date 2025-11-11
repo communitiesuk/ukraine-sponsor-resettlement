@@ -180,51 +180,21 @@ jobs:
         run: |
           brakeman --color -o /dev/stdout
 
-  build-image:
-    name: Build webapp image
+  build-and-push-image:
+    name: Build webapp image and push to AWS ECR
     runs-on: ubuntu-latest
     permissions:
       contents: read
     env:
       IMAGE_NAME: ukrainian-sponsor-resettlement-webapp
+    environment: aws-staging
     outputs:
-      IMAGE_FILENAME: ${{ steps.save-docker-image.outputs.IMAGE_FILENAME }}
+      ECR_USERNAME: ${{ steps.login-ecr.outputs.docker_username_546423753676_dkr_ecr_eu_west_2_amazonaws_com }}
+      ECR_PASSWORD: ${{ steps.login-ecr.outputs.docker_password_546423753676_dkr_ecr_eu_west_2_amazonaws_com }}
+      IMAGE: ${{ steps.build-docker-image.outputs.IMAGE }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Build docker image
-        id: build-docker-image
-        run: |
-          docker build -t "$IMAGE_NAME" -f Dockerfile .
-      - name: Save docker image to file
-        id: save-docker-image
-        env:
-          IMAGE_FILENAME: "${{ env.IMAGE_NAME }}.tar"
-        run: |
-          docker image save -o "$IMAGE_FILENAME" "$IMAGE_NAME"
-          echo "IMAGE_FILENAME=$IMAGE_FILENAME" >> $GITHUB_OUTPUT
-
-      - name: Upload docker image artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ steps.save-docker-image.outputs.IMAGE_FILENAME }}
-          path: ${{ steps.save-docker-image.outputs.IMAGE_FILENAME }}
-          if-no-files-found: error
-
-  push-image:
-    name: Push image to ECR
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    environment: aws-staging
-    if: ${{ github.actor != 'dependabot[bot]' }}
-    needs: [lint, test, brakeman-scan, build-image]
-    outputs:
-      IMAGE: ${{ steps.import-docker-image.outputs.IMAGE }}
-      ECR_USERNAME: ${{ steps.login-ecr.outputs.docker_username_546423753676_dkr_ecr_eu_west_2_amazonaws_com }}
-      ECR_PASSWORD: ${{ steps.login-ecr.outputs.docker_password_546423753676_dkr_ecr_eu_west_2_amazonaws_com }}
-    steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -234,33 +204,25 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
-        with:
-          mask-password: 'false'
 
-      - name: Download docker image
-        uses: actions/download-artifact@v5
-        with:
-          name: ${{ needs.build-image.outputs.IMAGE_FILENAME }}
-      - name: Import docker image
-        id: import-docker-image
+      - name: Build docker image
+        id: build-docker-image
         env:
-          IMAGE_FILENAME: ${{ needs.build-image.outputs.IMAGE_FILENAME }}
-          IMAGE_NAME: "${{ steps.login-ecr.outputs.registry }}/${{ env.AWS_NAMESPACE }}-webapp-repository:latest"
+          IMAGE: "${{ steps.login-ecr.outputs.registry }}:${{ env.AWS_NAMESPACE }}-webapp-repository:latest"
         run: |
-          docker image import $IMAGE_FILENAME "$IMAGE_NAME"
-          echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV
-          echo "IMAGE=$IMAGE_NAME" >> $GITHUB_OUTPUT
+          docker build -t "$IMAGE" -f Dockerfile .
+          echo "IMAGE=$IMAGE" >> $GITHUB_ENV
+          echo "IMAGE=$IMAGE" >> $GITHUB_OUTPUT
 
-      - name: Push image to Amazon ECR
-        id: push-image
-        run: docker push $IMAGE_NAME
+      - name: Push docker image to AWS ECR
+        run: docker push "$IMAGE"
 
   cypress-e2e:
     name: Run Cypress End-to-End Tests
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    needs: push-image
+    needs: build-and-push-image
     services:
       webapp:
         image: ${{ needs.push-image.outputs.IMAGE }}
@@ -272,25 +234,6 @@ jobs:
         env:
           RAILS_ENV: test
           PORT: 8080
-          INSTANCE_NAME: ukraine-sponsor-resettlement-development
-          DB_HOST: localhost
-          DB_USERNAME: ukraine
-          DB_DATABASE: ukraine_test
-          DB_PASSWORD: password
-          REDIS_URL: redis://0.0.0.0:6379
-          AWS_BUCKET_NAME: test-bucket
-          AWS_REGION: eu-west-2
-          REMOTE_API_URL_EOI: http://mock-api:8081/data
-          REMOTE_API_URL_UAM: http://mock-api:8081/data
-          BASIC_AUTH_PASS: password
-          UAM_GA4_TRACKING_CODE: G-ZT5Q8BV3ZK
-          EOI_GA4_TRACKING_CODE: G-W9KQ85GQM4
-          INDIVIDUAL_CONFIRMATION_TEMPLATE_ID: 6c80930d-e25a-4dc6-8383-bb83a2c18d19
-          ORGANISATION_CONFIRMATION_TEMPLATE_ID: 3ae2501f-e2be-4ad6-886b-fcf5aa71d448
-          ADDITIONAL_INFO_CONFIRMATION_TEMPLATE_ID: 5b79f75e-fff3-4585-a438-d59966b86dd9
-          SPONSOR_CONFIRMATION_TEMPLATE_ID: f2a29524-be50-4fc5-9088-35daf4c66c43
-          SAVE_AND_RETURN_TEMPLATE_ID: 856b0664-1f96-463c-8acd-c4ef782cdcad
-          GOVUK_NOTIFY_API_KEY: test
       postgres:
         image: postgres:16.10
         env:
