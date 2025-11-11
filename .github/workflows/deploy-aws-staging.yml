@@ -255,6 +255,58 @@ jobs:
           password: ${{ needs.push-image.outputs.ECR_PASSWORD }}
         ports:
           - 8080:8080
+        env:
+          RAILS_ENV: test
+          PORT: 8080
+          INSTANCE_NAME: ukraine-sponsor-resettlement-development
+          DB_HOST: localhost
+          DB_USERNAME: ukraine
+          DB_DATABASE: ukraine_test
+          DB_PASSWORD: password
+          REDIS_URL: redis://0.0.0.0:6379
+          AWS_BUCKET_NAME: test-bucket
+          AWS_REGION: eu-west-2
+          REMOTE_API_URL_EOI: http://mock-api:8081/data
+          REMOTE_API_URL_UAM: http://mock-api:8081/data
+          BASIC_AUTH_PASS: password
+          UAM_GA4_TRACKING_CODE: G-ZT5Q8BV3ZK
+          EOI_GA4_TRACKING_CODE: G-W9KQ85GQM4
+          INDIVIDUAL_CONFIRMATION_TEMPLATE_ID: 6c80930d-e25a-4dc6-8383-bb83a2c18d19
+          ORGANISATION_CONFIRMATION_TEMPLATE_ID: 3ae2501f-e2be-4ad6-886b-fcf5aa71d448
+          ADDITIONAL_INFO_CONFIRMATION_TEMPLATE_ID: 5b79f75e-fff3-4585-a438-d59966b86dd9
+          SPONSOR_CONFIRMATION_TEMPLATE_ID: f2a29524-be50-4fc5-9088-35daf4c66c43
+          SAVE_AND_RETURN_TEMPLATE_ID: 856b0664-1f96-463c-8acd-c4ef782cdcad
+          GOVUK_NOTIFY_API_KEY: test
+      postgres:
+        image: postgres:16.10
+        env:
+          POSTGRES_DB: ukraine_test
+          POSTGRES_USER: ukraine
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        # tmpfs makes DB faster by using RAM
+        options: >-
+          --mount type=tmpfs,destination=/var/lib/postgresql/data
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      redis:
+        # Docker Hub image
+        image: redis
+        # Set health checks to wait until redis has started
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      clamav:
+        # Docker Hub image
+        image: clamav/clamav:stable
+        ports:
+          - 3310:3310
     env:
       REPORT_ARTIFACT_NAME: cypress_report.html
     steps:
