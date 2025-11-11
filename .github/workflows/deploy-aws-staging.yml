@@ -29,6 +29,8 @@ jobs:
   test:
     name: Run Ruby tests
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     services:
       postgres:
@@ -119,6 +121,8 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -137,6 +141,8 @@ jobs:
     name: Audit dependencies
     runs-on: ubuntu-latest
     if: ${{ github.actor != 'dependabot[bot]' }}
+    permissions:
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -154,6 +160,8 @@ jobs:
   brakeman-scan:
     name: Brakeman Scan
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       # Checkout the repository to the GitHub Actions runner
       - name: Checkout
@@ -175,6 +183,8 @@ jobs:
   build-image:
     name: Build webapp image
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     env:
       IMAGE_NAME: ukrainian-sponsor-resettlement-webapp
     outputs:
@@ -205,6 +215,8 @@ jobs:
   push-image:
     name: Push image to ECR
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     environment: aws-staging
     if: ${{ github.actor != 'dependabot[bot]' }}
     needs: [lint, test, brakeman-scan, build-image]
@@ -246,6 +258,8 @@ jobs:
   cypress-e2e:
     name: Run Cypress End-to-End Tests
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     needs: push-image
     services:
       webapp:
@@ -336,6 +350,8 @@ jobs:
   deploy:
     name: Deploy to ECS
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     if: ${{ github.actor != 'dependabot[bot]' }}
     environment: aws-staging
     needs: cypress-e2e
