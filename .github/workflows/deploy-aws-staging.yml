@@ -193,6 +193,8 @@ jobs:
     env:
       IMAGE_TAG: latest
       IMAGE_NAME: ukrainian-sponsor-resettlement-webapp
+    outputs:
+      IMAGE_FILENAME: ${{ steps.save-docker-image.outputs.IMAGE_FILENAME }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -223,14 +225,15 @@ jobs:
           name: ${{ steps.save-docker-image.outputs.IMAGE_FILENAME }}
           path: ${{ steps.save-docker-image.outputs.IMAGE_FILENAME }}
           if-no-files-found: error
-          
-
+  
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
     if: ${{ github.actor != 'dependabot[bot]' }}
     environment: aws-staging
-    needs: [lint, test, brakeman-scan]
+    needs: [lint, test, brakeman-scan, build-image]
+    outputs:
+      IMAGE: ${{ steps.import-docker-image.outputs.IMAGE }}
 
     steps:
       - name: Checkout
@@ -243,23 +246,27 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
-
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build, tag, and push image to Amazon ECR
-        id: build-image
+      - name: Download docker image
+        uses: actions/download-artifact@v5
+        with:
+          name: ${{ needs.build-image.outputs.IMAGE_FILENAME }}
+      - name: Import docker image
+        id: import-docker-image
         env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: latest
+          IMAGE_FILENAME: ${{ needs.build-image.outputs.IMAGE_FILENAME }}
+          IMAGE_NAME: "${{steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:latest"
         run: |
-          # Build a docker container and
-          # push it to ECR so that it can
-          # be deployed to ECS.
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f Dockerfile .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+          docker image import "$IMAGE_FILENAME" "$IMAGE_NAME"
+          echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV
+          echo "IMAGE=$IMAGE_NAME" >> $GITHUB_OUTPUT
+
+      - name: Push image to Amazon ECR
+        id: push-image
+        run: docker push $IMAGE_NAME
 
       - name: Run DB migrations
         id: db-migrate
