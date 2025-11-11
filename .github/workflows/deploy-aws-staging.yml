@@ -176,30 +176,23 @@ jobs:
     name: Build webapp image
     runs-on: ubuntu-latest
     env:
-      IMAGE_TAG: latest
       IMAGE_NAME: ukrainian-sponsor-resettlement-webapp
     outputs:
       IMAGE_FILENAME: ${{ steps.save-docker-image.outputs.IMAGE_FILENAME }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Get timestamp
-        id: get-timestamp
-        run: echo "TIMESTAMP=$(date '+%s')" >> $GITHUB_OUTPUT
 
       - name: Build docker image
         id: build-docker-image
-        env:
-          IMAGE: "${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}"
         run: |
-          docker build -t "$IMAGE" -f Dockerfile .
-          echo "IMAGE=$IMAGE" >> $GITHUB_ENV
+          docker build -t "$IMAGE_NAME" -f Dockerfile .
       - name: Save docker image to file
         id: save-docker-image
         env:
-          IMAGE_FILENAME: "${{ env.IMAGE_NAME }}-${{ env.IMAGE_TAG }}-${{ steps.get-timestamp.outputs.TIMESTAMP }}.tar"
+          IMAGE_FILENAME: "${{ env.IMAGE_NAME }}.tar"
         run: |
-          docker image save -o "$IMAGE_FILENAME" "$IMAGE"
+          docker image save -o "$IMAGE_FILENAME" "$IMAGE_NAME"
           echo "IMAGE_FILENAME=$IMAGE_FILENAME" >> $GITHUB_OUTPUT
 
       - name: Upload docker image artifact
@@ -260,6 +253,8 @@ jobs:
           password: ${{ needs.push-image.outputs.ECR_PASSWORD }}
         ports:
           - 8080:8080
+    env:
+      REPORT_ARTIFACT_NAME: cypress_report.html
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -268,13 +263,21 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
-          cache-dependency-path: 'automated_tests/package-lock.json'
+          cache-dependency-path: "automated_tests/package-lock.json"
       - name: Install node deps
         working-directory: automated_tests
-        run: npm ci 
-      - name: Run cypress tests
+        run: npm ci
+
+      - name: Run Cypress tests
         working-directory: automated_tests
         run: npm run headless
+
+      - name: Upload Cypress report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.REPORT_ARTIFACT_NAME }}
+          path: "automated_reports/reports/html/index.html"
+          if-no-files-found: warn
 
   deploy:
     name: Deploy to ECS
