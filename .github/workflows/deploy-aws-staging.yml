@@ -22,14 +22,7 @@ defaults:
 
 env:
   AWS_REGION: eu-west-2
-  ECR_REPOSITORY: paasmigration-staging-webapp-repository # set this to your Amazon ECR repository name
-  ECS_SERVICE: paasmigration-staging-webapp-service # set this to your Amazon ECS service name
-  ECS_CLUSTER: paasmigration-staging-ecs-cluster # set this to your Amazon ECS cluster name
-  # ECS_TASK_DEFINITION: MY_ECS_TASK_DEFINITION # set this to the path to your Amazon ECS task definition
-  # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME:
-    HfUApp # set this to the name of the container in the
-    # containerDefinitions section of your task definition
+  AWS_NAMESPACE: paasmigration-staging
   NODE_VERSION: 24.10.x
 
 jobs:
@@ -225,7 +218,7 @@ jobs:
           name: ${{ steps.save-docker-image.outputs.IMAGE_FILENAME }}
           path: ${{ steps.save-docker-image.outputs.IMAGE_FILENAME }}
           if-no-files-found: error
-  
+
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
@@ -258,9 +251,9 @@ jobs:
         id: import-docker-image
         env:
           IMAGE_FILENAME: ${{ needs.build-image.outputs.IMAGE_FILENAME }}
-          IMAGE_NAME: "${{steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:latest"
+          IMAGE_NAME: "${{ steps.login-ecr.outputs.registry }}/${{ env.AWS_NAMESPACE }}-webapp-repository:latest"
         run: |
-          docker image import "$IMAGE_FILENAME" "$IMAGE_NAME"
+          docker image import $IMAGE_FILENAME "$IMAGE_NAME"
           echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV
           echo "IMAGE=$IMAGE_NAME" >> $GITHUB_OUTPUT
 
@@ -270,10 +263,17 @@ jobs:
 
       - name: Run DB migrations
         id: db-migrate
-        run: aws ecs run-task --cluster paasmigration-staging-ecs-cluster --launch-type FARGATE --task-definition paasmigration-staging-dbmigrate --network-configuration "awsvpcConfiguration={subnets=[subnet-0d51c122320a5109d,subnet-0ac8857c1a1fae109,subnet-023faa26a32d874f9],securityGroups=[sg-0febc019ff5d677b5]}"
+        env:
+          TASK_DEFINITION: ${{ env.AWS_NAMESPACE }}-dbmigrate
+          ECS_CLUSTER: ${{ env.AWS_NAMESPACE }}-ecs-cluster
+        run: aws ecs run-task --cluster "$ECS_CLUSTER" --launch-type FARGATE --task-definition "$TASK_DEFINITION" --network-configuration "awsvpcConfiguration={subnets=[subnet-0d51c122320a5109d,subnet-0ac8857c1a1fae109,subnet-023faa26a32d874f9],securityGroups=[sg-0febc019ff5d677b5]}"
 
       - name: Force deployment
         id: force-deploy
+        env:
+          WEBAPP_SERVICE: ${{ env.AWS_NAMESPACE }}-webapp-service
+          SIDEKIQ_SERVICE: ${{ env.AWS_NAMESPACE }}-sidekiq-service
+          ECS_CLUSTER: ${{ env.AWS_NAMESPACE }}-ecs-cluster
         run: |
-          aws ecs update-service --cluster paasmigration-staging-ecs-cluster --service paasmigration-staging-webapp-service --force-new-deployment
-          aws ecs update-service --cluster paasmigration-staging-ecs-cluster --service paasmigration-staging-sidekiq-service --force-new-deployment
+          aws ecs update-service --cluster "$ECS_CLUSTER" --service "$WEBAPP_SERVICE" --force-new-deployment
+          aws ecs update-service --cluster "$ECS_CLUSTER" --service "$SIDEKIQ_SERVICE" --force-new-deployment

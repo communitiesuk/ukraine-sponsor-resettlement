@@ -23,14 +23,7 @@ defaults:
 
 env:
   AWS_REGION: eu-west-2
-  ECR_REPOSITORY: paasmigration-default-webapp-repository # set this to your Amazon ECR repository name
-  ECS_SERVICE: paasmigration-default-webapp-service # set this to your Amazon ECS service name
-  ECS_CLUSTER: paasmigration-default-ecs-cluster # set this to your Amazon ECS cluster name
-  # ECS_TASK_DEFINITION: MY_ECS_TASK_DEFINITION # set this to the path to your Amazon ECS task definition
-  # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME:
-    HfUApp # set this to the name of the container in the
-    # containerDefinitions section of your task definition
+  AWS_NAMESPACE: paasmigration-default
 
 jobs:
   deploy:
@@ -58,6 +51,7 @@ jobs:
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ env.AWS_NAMESPACE }}-webapp-repository
           IMAGE_TAG: latest
         run: |
           # Build a docker container and
@@ -69,10 +63,15 @@ jobs:
 
       - name: Run DB migrations
         id: db-migrate
-        run: aws ecs run-task --cluster paasmigration-default-ecs-cluster --launch-type FARGATE --task-definition paasmigration-default-dbmigrate --network-configuration "awsvpcConfiguration={subnets=[subnet-091481d87daeaa67e,subnet-02591304001ccdcf4,subnet-037b1a22886c08933],securityGroups=[sg-03b9ae71f227ea847]}"
+        env:
+          TASK_DEFINITION: ${{ env.AWS_NAMESPACE }}-dbmigrate
+        run: aws ecs run-task --cluster "$ECS_CLUSTER" --launch-type FARGATE --task-definition "$TASK_DEFINITION" --network-configuration "awsvpcConfiguration={subnets=[subnet-091481d87daeaa67e,subnet-02591304001ccdcf4,subnet-037b1a22886c08933],securityGroups=[sg-03b9ae71f227ea847]}"
 
       - name: Force deployment
         id: force-deploy
+        env:
+          WEBAPP_SERVICE: ${{ env.AWS_NAMESPACE }}-webapp-service
+          SIDEKIQ_SERVICE: ${{ env.AWS_NAMESPACE }}-sidekiq-service
         run: |
-          aws ecs update-service --cluster paasmigration-default-ecs-cluster --service paasmigration-default-webapp-service --force-new-deployment
-          aws ecs update-service --cluster paasmigration-default-ecs-cluster --service paasmigration-default-sidekiq-service --force-new-deployment
+          aws ecs update-service --cluster "$ECS_CLUSTER" --service "$WEBAPP_SERVICE" --force-new-deployment
+          aws ecs update-service --cluster "$ECS_CLUSTER" --service "$SIDEKIQ_SERVICE" --force-new-deployment
