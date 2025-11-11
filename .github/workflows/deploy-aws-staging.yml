@@ -187,6 +187,44 @@ jobs:
         run: |
           brakeman --color -o /dev/stdout
 
+  build-image:
+    name: Build webapp image
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_TAG: latest
+      IMAGE_NAME: ukrainian-sponsor-resettlement-webapp
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.refToDeploy }}
+      - name: Get timestamp
+        id: get-timestamp
+        run: echo "TIMESTAMP=$(date '+%s')" >> $GITHUB_OUTPUT
+
+      - name: Build docker image
+        id: build-docker-image
+        env:
+          IMAGE: "${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}"
+        run: |
+          docker build -t "$IMAGE" -f Dockerfile .
+          echo "IMAGE=$IMAGE" >> $GITHUB_ENV
+      - name: Save docker image to file
+        id: save-docker-image
+        env:
+          IMAGE_FILENAME: "${{ env.IMAGE_NAME }}-${{ env.IMAGE_TAG }}-${{ steps.get-timestamp.outputs.TIMESTAMP }}.tar"
+        run: |
+          docker image save -o "$IMAGE_FILENAME" "$IMAGE"
+          echo "IMAGE_FILENAME=$IMAGE_FILENAME" >> $GITHUB_OUTPUT
+
+      - name: Upload docker image artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.save-docker-image.outputs.IMAGE_FILENAME }}
+          path: ${{ steps.save-docker-image.outputs.IMAGE_FILENAME }}
+          if-no-files-found: error
+          
+
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
