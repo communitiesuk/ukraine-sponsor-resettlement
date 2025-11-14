@@ -79,15 +79,39 @@ make prepare
 ```
 
 #### Every time
-Run:
+
+#### Running locally
+
+To run the web application natively outside of a docker container on your machine:
 
 ```shell
 make run
 ```
 
+This will automatically pick up any changes you make to the code, and is an easier development workflow for frequent changes.
+
 The Rails server should start on <http://localhost:8080>
 
 Either visit http://localhost:8080/sponsor-a-child/ or http://localhost:8080/expression-of-interest/
+
+#### Running via Docker
+
+To build and tag the web application image:
+
+```shell
+docker build . -t ukraine-sponsor-resettlement
+```
+
+To run the web application and all it's dependencies:
+
+```shell
+make run-webapp-docker
+```
+
+This is a more consistent running process with what the github actions pipelines run and what gets deployed to production,
+but does not pick up code changes until you re-build the image and restart the webapp container.
+
+You can also run the image from a remote ECR repo in AWS by first [authenticating docker against the remote repo](https://docs.aws.amazon.com/AmazonECR/latest/userguide/registry_auth.html#registry-auth-token) and then passing the image URI from ECR via the `WEBAPP_IMAGE` environment variable.
 
 ### Running tests
 
@@ -105,16 +129,28 @@ The coverage report will be copied to `./coverage`.
 
 #### Running Automated tests (End-to-End tests)
 
-This repository features automated tests run using [Cypress](https://www.cypress.io/).
+This repository features automated tests run using [Cypress](https://www.cypress.io/)
 
-[End-to-end tests setup and instructions](automated_tests/README.md).
+To run the cypress tests against a running instance of the web application:
+
+```shell
+make cypress-e2e-test
+```
+
+[Detailed end-to-end tests setup and instructions](automated_tests/README.md)
 
 ## Database migrations
 
 Database migrations are required to make changes to the database
 
 ```shell
-rails generate migration <name_of_migration>
+make db-migrate
+```
+
+Or to run the migrations against the web app running in docker:
+
+```shell
+make db-migrate-docker
 ```
 
 This will create a file in the `./db/migrate` folder, and this file can be amended to reflect the change required.

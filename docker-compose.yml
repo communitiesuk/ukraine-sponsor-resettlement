@@ -22,15 +22,29 @@ services:
       # Rails will use the existing .env.test file
       RAILS_ENV: test
     command: bin/test.sh
+  
+  webapp:
+    image: ${WEBAPP_IMAGE:-ukraine-sponsor-resettlement}
+    depends_on:
+      - pg
+      - redis
+      - s3
+      - clamav
+    profiles: ["run", "full"]
+    environment:
+      DB_HOST: pg
+      RAILS_ENV: test
+      CLAMD_HOST: clamav
+    ports:
+      - 8080:8080
 
   sidekiq:
-    build: .
-    image: ukraine-sponsor-resettlement
-    pull_policy: never
+    image: ${WEBAPP_IMAGE:-ukraine-sponsor-resettlement}
     depends_on:
       - pg
       - redis
       - mock-api
+    profiles: ["full"]
     environment:
       # Rails will use the existing .env.development file
       RAILS_ENV: development
