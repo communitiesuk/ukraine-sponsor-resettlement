@@ -247,11 +247,11 @@ jobs:
 
       - name: Run webapp
         env:
-          COMPOSE_FILE: docker-compose-github-actions.yml
+          WEBAPP_IMAGE: docker-compose-github-actions.yml
         run: make run-webapp-docker
       - name: Run db migrations
         env:
-          COMPOSE_FILE: docker-compose-github-actions.yml
+          WEBAPP_IMAGE: docker-compose-github-actions.yml
         run: make db-migrate-docker
 
       - name: Run Cypress tests

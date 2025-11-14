@@ -24,14 +24,14 @@ services:
     command: bin/test.sh
   
   webapp:
-    image: ukraine-sponsor-resettlement
+    image: ${WEBAPP_IMAGE:-ukraine-sponsor-resettlement}
     pull_policy: never
     depends_on:
       - pg
       - redis
       - sidekiq
       - s3
-    profiles: ["run"]
+    profiles: ["run", "full"]
     environment:
       DB_HOST: pg
       RAILS_ENV: test
@@ -40,12 +40,13 @@ services:
 
   sidekiq:
     build: .
-    image: ukraine-sponsor-resettlement
+    image: ${WEBAPP_IMAGE:-ukraine-sponsor-resettlement}
     pull_policy: never
     depends_on:
       - pg
       - redis
       - mock-api
+    profiles: ["full"]
     environment:
       # Rails will use the existing .env.development file
       RAILS_ENV: development
