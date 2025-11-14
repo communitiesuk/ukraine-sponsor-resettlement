@@ -247,11 +247,11 @@ jobs:
 
       - name: Run webapp
         env:
-          WEBAPP_IMAGE: docker-compose-github-actions.yml
+          WEBAPP_IMAGE: 546423753676.dkr.ecr.eu-west-2.amazonaws.com/paasmigration-staging-webapp-repository:latest
         run: make run-webapp-docker
       - name: Run db migrations
         env:
-          WEBAPP_IMAGE: docker-compose-github-actions.yml
+          WEBAPP_IMAGE: 546423753676.dkr.ecr.eu-west-2.amazonaws.com/paasmigration-staging-webapp-repository:latest
         run: make db-migrate-docker
 
       - name: Run Cypress tests
