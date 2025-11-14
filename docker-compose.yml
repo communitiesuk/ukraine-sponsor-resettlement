@@ -29,6 +29,7 @@ services:
       - pg
       - redis
       - s3
+      - clamav
     profiles: ["run", "full"]
     environment:
       DB_HOST: pg
