@@ -29,7 +29,6 @@ services:
     depends_on:
       - pg
       - redis
-      - sidekiq
       - s3
     profiles: ["run", "full"]
     environment:
