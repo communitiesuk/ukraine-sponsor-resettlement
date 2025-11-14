@@ -263,7 +263,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.REPORT_ARTIFACT_NAME }}
-          path: "automated_reports/reports/html/index.html"
+          path: "automated_reports/cypress/reports/html/index.html"
           if-no-files-found: warn
 
   deploy:
