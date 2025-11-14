@@ -33,6 +33,7 @@ services:
     environment:
       DB_HOST: pg
       RAILS_ENV: test
+      CLAMD_HOST: clamav
     ports:
       - 8080:8080
 
