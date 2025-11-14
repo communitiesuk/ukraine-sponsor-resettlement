@@ -24,8 +24,8 @@ services:
     command: bin/test.sh
   
   webapp:
-    image: ukraine-sponsor-resettlement
-    pull_policy: never
+    # Pull the webapp image from staging ECR
+    image: 546423753676.dkr.ecr.eu-west-2.amazonaws.com/paasmigration-staging-webapp-repository:latest
     depends_on:
       - pg
       - redis

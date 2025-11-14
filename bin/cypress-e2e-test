@@ -1,0 +1,5 @@
+#!/bin/bash
+bin_dir=$(dirname -- $BASH_SOURCE)
+cypress_dir="$bin_dir"/../automated_tests
+cd -- $cypress_dir
+npm run headless
