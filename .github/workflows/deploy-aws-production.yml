@@ -75,6 +75,7 @@ jobs:
         env:
           WEBAPP_SERVICE: ${{ env.AWS_NAMESPACE }}-webapp-service
           SIDEKIQ_SERVICE: ${{ env.AWS_NAMESPACE }}-sidekiq-service
+          ECS_CLUSTER: ${{ env.AWS_NAMESPACE }}-ecs-cluster
         run: |
           aws ecs update-service --cluster "$ECS_CLUSTER" --service "$WEBAPP_SERVICE" --force-new-deployment
           aws ecs update-service --cluster "$ECS_CLUSTER" --service "$SIDEKIQ_SERVICE" --force-new-deployment
