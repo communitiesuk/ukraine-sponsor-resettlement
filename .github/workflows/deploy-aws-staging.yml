@@ -22,20 +22,16 @@ defaults:
 
 env:
   AWS_REGION: eu-west-2
-  ECR_REPOSITORY: paasmigration-staging-webapp-repository # set this to your Amazon ECR repository name
-  ECS_SERVICE: paasmigration-staging-webapp-service # set this to your Amazon ECS service name
-  ECS_CLUSTER: paasmigration-staging-ecs-cluster # set this to your Amazon ECS cluster name
-  # ECS_TASK_DEFINITION: MY_ECS_TASK_DEFINITION # set this to the path to your Amazon ECS task definition
-  # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME:
-    HfUApp # set this to the name of the container in the
-    # containerDefinitions section of your task definition
+  AWS_NAMESPACE: paasmigration-staging
   NODE_VERSION: 24.10.x
+  REPORT_ARTIFACT_NAME: cypress_report.html
 
 jobs:
   test:
-    name: Test
+    name: Run Ruby tests
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     services:
       postgres:
@@ -85,8 +81,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.refToDeploy }}
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -128,11 +122,11 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.refToDeploy }}
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -148,11 +142,11 @@ jobs:
     name: Audit dependencies
     runs-on: ubuntu-latest
     if: ${{ github.actor != 'dependabot[bot]' }}
+    permissions:
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.refToDeploy }}
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -167,12 +161,12 @@ jobs:
   brakeman-scan:
     name: Brakeman Scan
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       # Checkout the repository to the GitHub Actions runner
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.refToDeploy }}
 
       # Customize the ruby version depending on your needs
       - name: Setup Ruby
@@ -187,48 +181,119 @@ jobs:
         run: |
           brakeman --color -o /dev/stdout
 
-  deploy:
-    name: Deploy
+  build-and-push-image:
+    name: Build webapp image and push to AWS ECR
     runs-on: ubuntu-latest
-    if: ${{ github.actor != 'dependabot[bot]' }}
+    permissions:
+      contents: read
+    env:
+      IMAGE_NAME: ukrainian-sponsor-resettlement-webapp
     environment: aws-staging
-    needs: [lint, test, brakeman-scan]
-
+    outputs:
+      IMAGE: ${{ steps.build-docker-image.outputs.IMAGE }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.refToDeploy }}
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
-
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build, tag, and push image to Amazon ECR
-        id: build-image
+      - name: Build docker image
+        id: build-docker-image
         env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: latest
+          IMAGE: "${{ steps.login-ecr.outputs.registry }}/${{ env.AWS_NAMESPACE }}-webapp-repository:latest"
         run: |
-          # Build a docker container and
-          # push it to ECR so that it can
-          # be deployed to ECS.
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f Dockerfile .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+          docker build -t "$IMAGE" -f Dockerfile .
+          echo "IMAGE=$IMAGE" >> $GITHUB_ENV
+          echo "IMAGE=$IMAGE" >> $GITHUB_OUTPUT
 
+      - name: Push docker image to AWS ECR
+        run: docker push "$IMAGE"
+
+  cypress-e2e:
+    name: Run Cypress End-to-End Tests
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    needs: build-and-push-image
+    environment: aws-staging
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+      - name: Set up node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: "automated_tests/package-lock.json"
+      - name: Install node deps
+        working-directory: automated_tests
+        run: npm ci
+
+      - name: Run webapp
+        env:
+          WEBAPP_IMAGE: 546423753676.dkr.ecr.eu-west-2.amazonaws.com/paasmigration-staging-webapp-repository:latest
+        run: make run-webapp-docker
+      - name: Run db migrations
+        env:
+          WEBAPP_IMAGE: 546423753676.dkr.ecr.eu-west-2.amazonaws.com/paasmigration-staging-webapp-repository:latest
+        run: make db-migrate-docker
+
+      - name: Run Cypress tests
+        working-directory: automated_tests
+        run: npm run headless
+
+      - name: Upload Cypress report
+        if: ${{ ! cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.REPORT_ARTIFACT_NAME }}
+          path: "automated_tests/cypress/reports/html/index.html"
+          if-no-files-found: warn
+
+  deploy:
+    name: Deploy to ECS
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    environment: aws-staging
+    needs: cypress-e2e
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
       - name: Run DB migrations
         id: db-migrate
-        run: aws ecs run-task --cluster paasmigration-staging-ecs-cluster --launch-type FARGATE --task-definition paasmigration-staging-dbmigrate --network-configuration "awsvpcConfiguration={subnets=[subnet-0d51c122320a5109d,subnet-0ac8857c1a1fae109,subnet-023faa26a32d874f9],securityGroups=[sg-0febc019ff5d677b5]}"
+        env:
+          TASK_DEFINITION: ${{ env.AWS_NAMESPACE }}-dbmigrate
+          ECS_CLUSTER: ${{ env.AWS_NAMESPACE }}-ecs-cluster
+        run: aws ecs run-task --cluster "$ECS_CLUSTER" --launch-type FARGATE --task-definition "$TASK_DEFINITION" --network-configuration "awsvpcConfiguration={subnets=[subnet-0d51c122320a5109d,subnet-0ac8857c1a1fae109,subnet-023faa26a32d874f9],securityGroups=[sg-0febc019ff5d677b5]}"
 
       - name: Force deployment
         id: force-deploy
+        env:
+          WEBAPP_SERVICE: ${{ env.AWS_NAMESPACE }}-webapp-service
+          SIDEKIQ_SERVICE: ${{ env.AWS_NAMESPACE }}-sidekiq-service
+          ECS_CLUSTER: ${{ env.AWS_NAMESPACE }}-ecs-cluster
         run: |
-          aws ecs update-service --cluster paasmigration-staging-ecs-cluster --service paasmigration-staging-webapp-service --force-new-deployment
-          aws ecs update-service --cluster paasmigration-staging-ecs-cluster --service paasmigration-staging-sidekiq-service --force-new-deployment
+          aws ecs update-service --cluster "$ECS_CLUSTER" --service "$WEBAPP_SERVICE" --force-new-deployment
+          aws ecs update-service --cluster "$ECS_CLUSTER" --service "$SIDEKIQ_SERVICE" --force-new-deployment
