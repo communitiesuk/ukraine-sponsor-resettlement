@@ -189,7 +189,6 @@ jobs:
     env:
       IMAGE_NAME: ukrainian-sponsor-resettlement-webapp
     environment: aws-staging
-    needs: [lint, test, brakeman-scan]
     outputs:
       IMAGE: ${{ steps.build-docker-image.outputs.IMAGE }}
     steps:
