@@ -110,7 +110,7 @@ export const postcode_validation_scot_same = () => {
     cy.get(elements.difaddress_heading).contains('Is the property you’re offering at a different address to your home?').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.difadd_no_radiobtn).click().wait(Cypress.env('waitTime'))
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
-    cy.get(elements.page_heading).contains(bodytext.scot_wales_validation_hint).should('be.visible').wait(Cypress.env('waitTime'))
+    cy.get(elements.page_heading).contains('How soon can you start hosting someone?').should('be.visible').wait(Cypress.env('waitTime'))
 }
 //Scotland/Glas:Scotland/Glas
 export const postcode_validation_scot_scot = () => {
@@ -123,7 +123,7 @@ export const postcode_validation_scot_scot = () => {
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     scot_address_glas_2()
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
-    cy.get(elements.page_heading).contains(bodytext.scot_wales_validation_hint).should('be.visible').wait(Cypress.env('waitTime'))
+    cy.get(elements.page_heading).contains('Are you offering any more properties?').should('be.visible').wait(Cypress.env('waitTime'))
 }
 //Scotland/Glas:Wales/Cwm
 export const postcode_validation_scot_wales = () => {
@@ -186,7 +186,7 @@ export const postcode_validation_wales_scot = () => {
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     scot_address_edinburgh()
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
-    cy.get(elements.page_heading).contains(bodytext.scot_wales_validation_hint).should('be.visible').wait(Cypress.env('waitTime'))
+    cy.get(elements.page_heading).contains('Are you offering any more properties?').should('be.visible').wait(Cypress.env('waitTime'))
 }
 //Wales/Broughton:Eng/Sheffield
 export const postcode_validation_wales_eng = () => {
@@ -236,7 +236,7 @@ export const postcode_validation_eng_scot = () => {
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     scot_address_aberdeen()
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
-    cy.get(elements.page_heading).contains(bodytext.scot_wales_validation_hint).should('be.visible').wait(Cypress.env('waitTime'))
+    cy.get(elements.page_heading).contains('Are you offering any more properties?').should('be.visible').wait(Cypress.env('waitTime'))
 }
 //England/London:Wales/Newport
 export const postcode_validation_eng_wales = () => {
@@ -262,7 +262,7 @@ export const postcode_validation_eng_scot_eyem = () => {
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     scot_address_eyemouth()
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
-    cy.get(elements.page_heading).contains(bodytext.scot_wales_validation_hint).should('be.visible').wait(Cypress.env('waitTime'))
+    cy.get(elements.page_heading).contains('Are you offering any more properties?').should('be.visible').wait(Cypress.env('waitTime'))
 }
 //England/London:Scotland/Newcastleton
 export const postcode_validation_eng_scot_newc = () => {
@@ -275,7 +275,7 @@ export const postcode_validation_eng_scot_newc = () => {
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
     scot_address_newcastleton()
     cy.get(elements.continue_button).click().wait(Cypress.env('waitTime'))
-    cy.get(elements.page_heading).contains(bodytext.scot_wales_validation_hint).should('be.visible').wait(Cypress.env('waitTime'))
+    cy.get(elements.page_heading).contains('Are you offering any more properties?').should('be.visible').wait(Cypress.env('waitTime'))
 }
 //England/London:Wales/Holyhead
 export const postcode_validation_eng_wales_holyh = () => {

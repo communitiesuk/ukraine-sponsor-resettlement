@@ -128,7 +128,7 @@ export const links_validation_sa_other_ways_l5 = () => {
 }
 export const links_validation_postcode_check_page_l1 = () => {
     cy.visit('/expression-of-interest/steps/end').wait(Cypress.env('waitTime'))
-    cy.get(elements.page_heading).contains('You have entered an address that is not in England or Northern Ireland').should('be.visible').wait(Cypress.env('waitTime'))
+    cy.get(elements.page_heading).contains('You have entered an address that is not in England, Scotland or Northern Ireland').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.scotland_link).click().wait(Cypress.env('waitTime'))
     cy.origin('https://www.mygov.scot/', () => {
         cy.url().should('include', 'https://www.mygov.scot/homes-for-ukraine-scotland-super-sponsor-scheme')
@@ -137,7 +137,7 @@ export const links_validation_postcode_check_page_l1 = () => {
 }
 export const links_validation_postcode_check_page_l2 = () => {
     cy.visit('/expression-of-interest/steps/end').wait(Cypress.env('waitTime'))
-    cy.get(elements.page_heading).contains('You have entered an address that is not in England or Northern Ireland').should('be.visible').wait(Cypress.env('waitTime'))
+    cy.get(elements.page_heading).contains('You have entered an address that is not in England, Scotland or Northern Ireland').should('be.visible').wait(Cypress.env('waitTime'))
     cy.get(elements.wales_link).click().wait(Cypress.env('waitTime'))
     cy.origin('https://www.gov.wales/', () => {
         cy.url().should('include', 'https://www.gov.wales/offer-home-wales-refugees-ukraine')
@@ -146,7 +146,7 @@ export const links_validation_postcode_check_page_l2 = () => {
 }
 export const links_validation_postcode_check_page_l3 = () => {
     cy.visit('/expression-of-interest/steps/end').wait(Cypress.env('waitTime'))
-    cy.get(elements.page_heading).contains('You have entered an address that is not in England or Northern Ireland').should('be.visible').wait(Cypress.env('waitTime'))
+    cy.get(elements.page_heading).contains('You have entered an address that is not in England, Scotland or Northern Ireland').should('be.visible').wait(Cypress.env('waitTime'))
     cy.xpath(elements.local_council_link_samepage).click().wait(Cypress.env('waitTime'))
     cy.origin('https://www.gov.uk/', () => {
         cy.url().should('include', 'https://www.gov.uk/find-local-council')

@@ -18,7 +18,6 @@ class EoiWorkflow
                { action: :go_diff_addr, destination: "6" },
                { action: :skip_diff_addr, destination: "9" },
                { action: :back_to_address, destination: "4" },
-               { action: :redirect_scotland, destination: "end" },
                { action: :redirect_wales, destination: "end" },
              ],
              view_name: "eoi/steps/different_address",
@@ -26,7 +25,6 @@ class EoiWorkflow
     "6" => { actions: [
                { action: :go_next, destination: "7" },
                { action: :reload, destination: "6" },
-               { action: :redirect_scotland, destination: "end" },
                { action: :redirect_wales, destination: "end" },
              ],
              view_name: "eoi/steps/property_one_address",
@@ -86,7 +84,7 @@ class EoiWorkflow
           when :northern_ireland
             :skip_diff_addr
           when :scotland
-            :redirect_scotland
+            :skip_diff_addr
           when :wales
             :redirect_wales
           else
@@ -106,7 +104,7 @@ class EoiWorkflow
         when :northern_ireland
           :go_next
         when :scotland
-          :redirect_scotland
+          :go_next
         when :wales
           :redirect_wales
         else
