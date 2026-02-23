@@ -66,7 +66,7 @@ export const wales_address_cwm = () => {
     cy.get(elements.offering_addressl1_textbox).clear().type('NO 2')
     cy.get(elements.offering_addressl2_textbox).clear().type('Wales Lane')
     cy.get(elements.offering_townorcity_textbox).clear().type('Cwmbran')
-    cy.get(elements.offering_postcode_textbox).clear().type('G1 1BL').wait(Cypress.env('waitTime'))
+    cy.get(elements.offering_postcode_textbox).clear().type('NP44 3JY').wait(Cypress.env('waitTime'))
 }
 export const wales_address_broughton = () => {
     cy.get(elements.addressl1_textbox).clear().type('No 1')
