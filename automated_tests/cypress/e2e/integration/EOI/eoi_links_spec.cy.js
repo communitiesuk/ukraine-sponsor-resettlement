@@ -39,9 +39,6 @@ describe('[Frontend-UI]: EOI PAGE LINKS', function () {
     })
   })
   context('Registration', function () {
-    it('Page links validation [Postcode verification page: Register your interest in Scotland]', function () {
-      element.links_validation_postcode_check_page_l1()
-    })
     it('Page links validation [Postcode verification page: Register your interest in Wales]', function () {
       element.links_validation_postcode_check_page_l2()
     })

@@ -61,6 +61,7 @@ PagerDuty incidents go to the #msp-live-service-alerts channel in Made Tech's Sl
 
 - Docker
 - [asdf](https://asdf-vm.com/guide/getting-started.html)
+- Ruby (recommend installing `rbenv` to install/manage the Ruby version)
 
 ### Getting started
 
@@ -158,3 +159,28 @@ This will create a file in the `./db/migrate` folder, and this file can be amend
 ## Infrastructure
 
 This application is running on Amazon Web Services (https://aws.amazon.com/console/) via ECS on Fargate.
+
+## Troubleshooting
+
+### postgres errors during bundle install
+
+If you have postgres installed separately (e.g. with `brew` on MacOS), when running 
+`bundle install` you may see an error installing the `pg` gem:
+
+```shell
+ERROR:  Error installing pg:
+ERROR: Failed to build gem native extension.
+
+An error occurred while installing pg (1.5.9), and Bundler cannot continue.
+```
+
+Try installing the `pg` gem separately, pointing to the location of the `pg-config`:
+
+```shell
+gem install pg -v '1.5.9' -- --with-pg-config=$(brew --prefix libpq)/bin/pg_config
+```
+
+### ClamAV tests failing
+
+There is a known issue where some laptops will block the EICAR file used to test the
+ClamAV antivirus tooling.

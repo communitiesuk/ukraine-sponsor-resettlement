@@ -3,6 +3,6 @@
   "more_properties_to_offer" : "You will be able to share information about any more properties you have to offer when your local authority contacts you",
   "Stepfree_access_hint" : "Step-free access means that the property entrance and all the rooms your guests will use must be without steps, or include a ramp or lift suitable for wheelchair users.",
   "bedrooms_hint" : "You must enter at least 1 single or double bedroom. Single bedrooms can normally only contain a single bed. Double bedrooms should have enough space for at least 1 double bed or 2 single beds.",
-  "scot_wales_validation_hint": "You have entered an address that is not in England or Northern Ireland",
+  "scot_wales_validation_hint": "You have entered an address that is not in England, Scotland or Northern Ireland",
   "home_is_suitable": "Do you think your home is suitable?"
 }
