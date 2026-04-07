@@ -32,3 +32,9 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
+
+# Local dev URL on boot
+on_booted do
+  port = ENV.fetch("PORT") { 3000 }
+  puts "\n=> Local dev: http://localhost:#{port}/expression-of-interest/self-assessment/property-suitable\n\n"
+end
