@@ -39,12 +39,6 @@ describe('[Frontend-UI]: EOI PAGE LINKS', function () {
     })
   })
   context('Registration', function () {
-    it('Page links validation [Postcode verification page: Register your interest in Wales]', function () {
-      element.links_validation_postcode_check_page_l2()
-    })
-    it('Page links validation [Postcode verification page: Find the local council]', function () {
-      element.links_validation_postcode_check_page_l3()
-    })
     it('Page links validation [steps 16: privacy statement]', function () {
       element.links_validation_step_16()
     })

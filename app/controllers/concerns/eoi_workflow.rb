@@ -60,9 +60,6 @@ class EoiWorkflow
     "16" => { actions: [{ action: :go_next, destination: "check-answers" }],
               view_name: "eoi/steps/privacy_statement",
               validations: [:agree_privacy_statement] },
-    "end" => { actions: [],
-               view_name: "eoi/steps/invalid_postcode",
-               validations: [] },
   }
 
   @actions_map = {
