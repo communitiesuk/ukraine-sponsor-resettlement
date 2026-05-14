@@ -126,33 +126,6 @@ export const links_validation_sa_other_ways_l5 = () => {
         cy.get("h1").contains("Find a sponsor/guest using recognised providers: Homes for Ukraine").should('be.visible').wait(Cypress.env('waitTime'))
     })
 }
-export const links_validation_postcode_check_page_l1 = () => {
-    cy.visit('/expression-of-interest/steps/end').wait(Cypress.env('waitTime'))
-    cy.get(elements.page_heading).contains('You have entered an address that is not in England, Scotland or Northern Ireland').should('be.visible').wait(Cypress.env('waitTime'))
-    cy.get(elements.scotland_link).click().wait(Cypress.env('waitTime'))
-    cy.origin('https://www.mygov.scot/', () => {
-        cy.url().should('include', 'https://www.mygov.scot/homes-for-ukraine-scotland-super-sponsor-scheme')
-        cy.get("h1").contains("How the Homes for Ukraine Super Sponsor Scheme works").should('be.visible').wait(Cypress.env('waitTime'))
-    })
-}
-export const links_validation_postcode_check_page_l2 = () => {
-    cy.visit('/expression-of-interest/steps/end').wait(Cypress.env('waitTime'))
-    cy.get(elements.page_heading).contains('You have entered an address that is not in England, Scotland or Northern Ireland').should('be.visible').wait(Cypress.env('waitTime'))
-    cy.get(elements.wales_link).click().wait(Cypress.env('waitTime'))
-    cy.origin('https://www.gov.wales/', () => {
-        cy.url().should('include', 'https://www.gov.wales/offer-home-wales-refugees-ukraine')
-        cy.get("h1").contains("Offer a home in Wales to refugees from Ukraine").should('be.visible').wait(Cypress.env('waitTime'))
-    })
-}
-export const links_validation_postcode_check_page_l3 = () => {
-    cy.visit('/expression-of-interest/steps/end').wait(Cypress.env('waitTime'))
-    cy.get(elements.page_heading).contains('You have entered an address that is not in England, Scotland or Northern Ireland').should('be.visible').wait(Cypress.env('waitTime'))
-    cy.xpath(elements.local_council_link_samepage).click().wait(Cypress.env('waitTime'))
-    cy.origin('https://www.gov.uk/', () => {
-        cy.url().should('include', 'https://www.gov.uk/find-local-council')
-        cy.get("h1").contains("Find your local council").should('be.visible').wait(Cypress.env('waitTime'))
-    })
-}
 export const links_validation_step_16 = () => {
     cy.visit('/expression-of-interest/steps/16').wait(Cypress.env('waitTime'))
     cy.get(elements.consent_heading).contains('Confirm you have read the privacy statement').should('be.visible').wait(Cypress.env('waitTime'))

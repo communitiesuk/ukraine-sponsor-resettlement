@@ -18,14 +18,12 @@ class EoiWorkflow
                { action: :go_diff_addr, destination: "6" },
                { action: :skip_diff_addr, destination: "9" },
                { action: :back_to_address, destination: "4" },
-               { action: :redirect_wales, destination: "end" },
              ],
              view_name: "eoi/steps/different_address",
              validations: [:different_address] },
     "6" => { actions: [
                { action: :go_next, destination: "7" },
                { action: :reload, destination: "6" },
-               { action: :redirect_wales, destination: "end" },
              ],
              view_name: "eoi/steps/property_one_address",
              validations: %i[property_one_line_1 property_one_line_2 property_one_town property_one_postcode] },
@@ -62,9 +60,6 @@ class EoiWorkflow
     "16" => { actions: [{ action: :go_next, destination: "check-answers" }],
               view_name: "eoi/steps/privacy_statement",
               validations: [:agree_privacy_statement] },
-    "end" => { actions: [],
-               view_name: "eoi/steps/invalid_postcode",
-               validations: [] },
   }
 
   @actions_map = {
@@ -77,19 +72,7 @@ class EoiWorkflow
         :go_diff_addr
       elsif params.key?("different_address") && params["different_address"].casecmp("no").zero?
         if eoi_instance.residential_postcode
-          pc = UKPostcode.parse(eoi_instance.residential_postcode)
-          case pc.country
-          when :england
-            :skip_diff_addr
-          when :northern_ireland
-            :skip_diff_addr
-          when :scotland
-            :skip_diff_addr
-          when :wales
-            :redirect_wales
-          else
-            :skip_diff_addr
-          end
+          :skip_diff_addr
         else
           :back_to_address
         end
@@ -97,19 +80,7 @@ class EoiWorkflow
     end,
     "6" => lambda do |params, _eoi_instance|
       if params["property_one_postcode"]
-        pc = UKPostcode.parse(params["property_one_postcode"])
-        case pc.country
-        when :england
-          :go_next
-        when :northern_ireland
-          :go_next
-        when :scotland
-          :go_next
-        when :wales
-          :redirect_wales
-        else
-          :go_next
-        end
+        :go_next
       else
         :reload
       end
