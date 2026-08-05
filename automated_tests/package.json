@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "ci": "^2.3.0",
-    "cypress": "^15.6.0",
+    "cypress": "^15.17.0",
     "cypress-file-upload": "^5.0.8",
     "cypress-high-resolution": "^1.0.0",
     "cypress-if": "^1.13.2",
